@@ -53,7 +53,7 @@ extension BaseVC {
     }
     
     func setMumentBackGroundColor() {
-        view.backgroundColor = .Bgwhite
+        view.backgroundColor = .mBgwhite
     }
 }
 
