@@ -15,6 +15,13 @@
 		C74EC42F28758EC30068EB46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C74EC41F28758D220068EB46 /* Main.storyboard */; };
 		C74EC435287592750068EB46 /* Colorsets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74EC434287592750068EB46 /* Colorsets.xcassets */; };
 		C74EC438287593110068EB46 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC437287593110068EB46 /* UIColor+.swift */; };
+		C74EC43B287593910068EB46 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC43A287593910068EB46 /* SnapKit */; };
+		C74EC43E2875939F0068EB46 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC43D2875939F0068EB46 /* Then */; };
+		C74EC441287593BF0068EB46 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC440287593BF0068EB46 /* RxBlocking */; };
+		C74EC443287593BF0068EB46 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC442287593BF0068EB46 /* RxCocoa */; };
+		C74EC445287593BF0068EB46 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC444287593BF0068EB46 /* RxRelay */; };
+		C74EC447287593BF0068EB46 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC446287593BF0068EB46 /* RxSwift */; };
+		C74EC44C287594270068EB46 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC44B287594270068EB46 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +42,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C74EC447287593BF0068EB46 /* RxSwift in Frameworks */,
+				C74EC44C287594270068EB46 /* Alamofire in Frameworks */,
+				C74EC445287593BF0068EB46 /* RxRelay in Frameworks */,
+				C74EC43B287593910068EB46 /* SnapKit in Frameworks */,
+				C74EC441287593BF0068EB46 /* RxBlocking in Frameworks */,
+				C74EC443287593BF0068EB46 /* RxCocoa in Frameworks */,
+				C74EC43E2875939F0068EB46 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +111,15 @@
 			dependencies = (
 			);
 			name = MUMENT;
+			packageProductDependencies = (
+				C74EC43A287593910068EB46 /* SnapKit */,
+				C74EC43D2875939F0068EB46 /* Then */,
+				C74EC440287593BF0068EB46 /* RxBlocking */,
+				C74EC442287593BF0068EB46 /* RxCocoa */,
+				C74EC444287593BF0068EB46 /* RxRelay */,
+				C74EC446287593BF0068EB46 /* RxSwift */,
+				C74EC44B287594270068EB46 /* Alamofire */,
+			);
 			productName = MUMENT;
 			productReference = C74EC41628758D220068EB46 /* MUMENT.app */;
 			productType = "com.apple.product-type.application";
@@ -126,6 +149,12 @@
 				Base,
 			);
 			mainGroup = C74EC40D28758D220068EB46;
+			packageReferences = (
+				C74EC439287593910068EB46 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				C74EC43C2875939F0068EB46 /* XCRemoteSwiftPackageReference "Then" */,
+				C74EC43F287593BF0068EB46 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				C74EC44A287594270068EB46 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = C74EC41728758D220068EB46 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -381,6 +410,79 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C74EC439287593910068EB46 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+		C74EC43C2875939F0068EB46 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		C74EC43F287593BF0068EB46 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		C74EC44A287594270068EB46 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C74EC43A287593910068EB46 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C74EC439287593910068EB46 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		C74EC43D2875939F0068EB46 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C74EC43C2875939F0068EB46 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		C74EC440287593BF0068EB46 /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C74EC43F287593BF0068EB46 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		C74EC442287593BF0068EB46 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C74EC43F287593BF0068EB46 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		C74EC444287593BF0068EB46 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C74EC43F287593BF0068EB46 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		C74EC446287593BF0068EB46 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C74EC43F287593BF0068EB46 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		C74EC44B287594270068EB46 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C74EC44A287594270068EB46 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C74EC40E28758D220068EB46 /* Project object */;
 }
