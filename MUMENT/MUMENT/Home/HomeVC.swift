@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeVC.swift
 //  MUMENT
 //
 //  Created by madilyn on 2022/07/06.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeVC: BaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
