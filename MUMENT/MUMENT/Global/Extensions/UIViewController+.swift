@@ -9,10 +9,6 @@ import UIKit
 
 extension UIViewController {
     
-    static var className: String {
-        NSStringFromClass(self.classForCoder()).components(separatedBy: ".").last!
-    }
-    
     var className: String {
         NSStringFromClass(self.classForCoder).components(separatedBy: ".").last!
     }
