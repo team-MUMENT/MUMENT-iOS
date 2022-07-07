@@ -33,6 +33,11 @@
 		C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB531928759DE500E0E889 /* HomeVC.swift */; };
 		C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB531B28759E0200E0E889 /* WriteVC.swift */; };
 		C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB531D28759E6500E0E889 /* StorageVC.swift */; };
+		C7BC6B512876AD8C008C75CE /* d.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B502876AD8C008C75CE /* d.swift */; };
+		C7BC6B562876ADCD008C75CE /* m.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B552876ADCD008C75CE /* m.swift */; };
+		C7BC6B582876ADD6008C75CE /* m.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B572876ADD6008C75CE /* m.swift */; };
+		C7BC6B5A2876ADDD008C75CE /* m.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B592876ADDD008C75CE /* m.swift */; };
+		C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B5B287708D1008C75CE /* BaseNVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +62,11 @@
 		C7BB531928759DE500E0E889 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		C7BB531B28759E0200E0E889 /* WriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteVC.swift; sourceTree = "<group>"; };
 		C7BB531D28759E6500E0E889 /* StorageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageVC.swift; sourceTree = "<group>"; };
+		C7BC6B502876AD8C008C75CE /* d.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = d.swift; sourceTree = "<group>"; };
+		C7BC6B552876ADCD008C75CE /* m.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = m.swift; sourceTree = "<group>"; };
+		C7BC6B572876ADD6008C75CE /* m.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = m.swift; sourceTree = "<group>"; };
+		C7BC6B592876ADDD008C75CE /* m.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = m.swift; sourceTree = "<group>"; };
+		C7BC6B5B287708D1008C75CE /* BaseNVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				C74EC41828758D220068EB46 /* MUMENT */,
+				C74EC42728758D230068EB46 /* Info.plist */,
 				C74EC41728758D220068EB46 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,19 +107,10 @@
 		C74EC41828758D220068EB46 /* MUMENT */ = {
 			isa = PBXGroup;
 			children = (
-				C74EC436287593030068EB46 /* Extensions */,
-				C7BB530E287598FF00E0E889 /* Base */,
-				C7BB53032875972700E0E889 /* Fonts */,
-				C74EC41928758D220068EB46 /* AppDelegate.swift */,
-				C74EC41B28758D220068EB46 /* SceneDelegate.swift */,
-				C7BB531528759BBD00E0E889 /* MumentTabBarController.swift */,
-				C7BB531F2875A06800E0E889 /* Home */,
-				C7BB53202875A06F00E0E889 /* Write */,
-				C7BB53222875A07A00E0E889 /* Storage */,
-				C74EC42228758D230068EB46 /* Assets.xcassets */,
-				C74EC434287592750068EB46 /* Colorsets.xcassets */,
-				C74EC42428758D230068EB46 /* LaunchScreen.storyboard */,
-				C74EC42728758D230068EB46 /* Info.plist */,
+				C7BC6B4C2876ACD9008C75CE /* Global */,
+				C7BC6B4A2876ACC5008C75CE /* Resources */,
+				C7BC6B4B2876ACD1008C75CE /* Sources */,
+				C7BC6B4D2876ACE0008C75CE /* Application */,
 			);
 			path = MUMENT;
 			sourceTree = "<group>";
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				C7BB530F2875990700E0E889 /* BaseVC.swift */,
+				C7BC6B5B287708D1008C75CE /* BaseNVC.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 		C7BB531F2875A06800E0E889 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C7BC6B522876ADC0008C75CE /* Model */,
 				C7BB531928759DE500E0E889 /* HomeVC.swift */,
 			);
 			path = Home;
@@ -155,6 +159,7 @@
 		C7BB53202875A06F00E0E889 /* Write */ = {
 			isa = PBXGroup;
 			children = (
+				C7BC6B532876ADC4008C75CE /* Model */,
 				C7BB531B28759E0200E0E889 /* WriteVC.swift */,
 			);
 			path = Write;
@@ -163,9 +168,91 @@
 		C7BB53222875A07A00E0E889 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				C7BC6B542876ADC8008C75CE /* Model */,
 				C7BB531D28759E6500E0E889 /* StorageVC.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		C7BC6B4A2876ACC5008C75CE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7BB53032875972700E0E889 /* Fonts */,
+				C74EC42228758D230068EB46 /* Assets.xcassets */,
+				C74EC434287592750068EB46 /* Colorsets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C7BC6B4B2876ACD1008C75CE /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C7BB531528759BBD00E0E889 /* MumentTabBarController.swift */,
+				C7BC6B4E2876AD22008C75CE /* Components */,
+				C7BC6B4F2876AD26008C75CE /* Scenes */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		C7BC6B4C2876ACD9008C75CE /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				C7BB530E287598FF00E0E889 /* Base */,
+				C74EC436287593030068EB46 /* Extensions */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		C7BC6B4D2876ACE0008C75CE /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C74EC41928758D220068EB46 /* AppDelegate.swift */,
+				C74EC41B28758D220068EB46 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		C7BC6B4E2876AD22008C75CE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C7BC6B502876AD8C008C75CE /* d.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C7BC6B4F2876AD26008C75CE /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				C74EC42428758D230068EB46 /* LaunchScreen.storyboard */,
+				C7BB531F2875A06800E0E889 /* Home */,
+				C7BB53202875A06F00E0E889 /* Write */,
+				C7BB53222875A07A00E0E889 /* Storage */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		C7BC6B522876ADC0008C75CE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C7BC6B552876ADCD008C75CE /* m.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C7BC6B532876ADC4008C75CE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C7BC6B572876ADD6008C75CE /* m.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C7BC6B542876ADC8008C75CE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C7BC6B592876ADDD008C75CE /* m.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,18 +346,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7BC6B582876ADD6008C75CE /* m.swift in Sources */,
 				C7BB53122875994500E0E889 /* UIViewController+.swift in Sources */,
 				C7BB531428759AB200E0E889 /* Adjusted+.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				C7BB53102875990700E0E889 /* BaseVC.swift in Sources */,
 				C74EC438287593110068EB46 /* UIColor+.swift in Sources */,
+				C7BC6B562876ADCD008C75CE /* m.swift in Sources */,
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
+				C7BC6B512876AD8C008C75CE /* d.swift in Sources */,
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
 				C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */,
 				C7BB531628759BBD00E0E889 /* MumentTabBarController.swift in Sources */,
 				C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */,
 				C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */,
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
+				C7BC6B5A2876ADDD008C75CE /* m.swift in Sources */,
+				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
