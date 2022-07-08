@@ -13,6 +13,7 @@ class MumentTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTabBarItemStyle()
+        setShadow()
         setTabBar()
     }
 }
@@ -32,6 +33,11 @@ extension MumentTabBarController {
     func setTabBarItemStyle() {
         tabBar.tintColor = .mPurple1
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.mumentB5M12], for: .normal)
+    }
+    
+    func setShadow() {
+        UITabBar.clearShadow()
+        tabBar.layer.applyShadow(color: .mShadow, alpha: 1, x: 0, y: -3, blur: 10)
     }
     
     func setTabBar() {
