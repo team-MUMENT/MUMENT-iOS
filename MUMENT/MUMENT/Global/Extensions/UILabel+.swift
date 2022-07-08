@@ -19,7 +19,7 @@ extension UILabel {
         }
     }
     
-    func applyColor(to targetString: String, with color: UIColor) {
+    func setColor(to targetString: String, with color: UIColor) {
         if let labelText = self.text, labelText.count > 0 {
             let attributedString = NSMutableAttributedString(string: labelText)
             attributedString.addAttribute(.foregroundColor,
@@ -29,7 +29,7 @@ extension UILabel {
         }
     }
     
-    func applyFont(to targetString: String, with font: UIFont) {
+    func setFont(to targetString: String, with font: UIFont) {
         if let labelText = self.text, labelText.count > 0 {
             let attributedString = NSMutableAttributedString(string: labelText)
             attributedString.addAttribute(.font,
@@ -45,4 +45,11 @@ extension UILabel {
         attributedStr.addAttribute(NSAttributedString.Key.kern, value: spacing, range: NSMakeRange(0, attributedStr.length))
         self.attributedText = attributedStr
     }
+    
+    /// 글씨의 오토레이아웃이 기본으로 되어있는 메서드
+    func setLabel(text: String, color: UIColor = .mBlack1, font: UIFont) {
+            self.font = font
+            self.textColor = color
+            self.text = text
+        }
 }
