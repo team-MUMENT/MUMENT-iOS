@@ -13,7 +13,7 @@ class DefaultNavigationView: UIView {
     
     // MARK: - Properties
     private let titleLabel = UILabel().then {
-        $0.setLabel(text: "제목", color: .mBlack1, font: .mumentH1Sb25)
+        $0.setLabel(text: "제목", color: .mBlack1, font: .mumentH1B25)
         $0.sizeToFit()
     }
     
