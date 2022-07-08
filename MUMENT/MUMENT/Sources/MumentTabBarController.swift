@@ -37,7 +37,7 @@ extension MumentTabBarController {
     
     func setShadow() {
         UITabBar.clearShadow()
-        tabBar.layer.applyShadow(color: .mShadow, alpha: 1, x: 0, y: -3, blur: 10)
+        tabBar.layer.setShadow(color: .mShadow, alpha: 1, x: 0, y: -3, blur: 10)
     }
     
     func setTabBar() {
