@@ -9,8 +9,8 @@ import UIKit
 
 extension UIFont {
 
-  class var mumentH1Sb23: UIFont {
-    return UIFont(name: "NotoSans-SemiBold", size: 23.0)!
+  class var mumentH1Sb25: UIFont {
+    return UIFont(name: "NotoSans-SemiBold", size: 25.0)!
   }
 
   class var mumentH2B18: UIFont {
