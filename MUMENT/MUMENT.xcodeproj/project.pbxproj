@@ -33,7 +33,7 @@
 		C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB531928759DE500E0E889 /* HomeVC.swift */; };
 		C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB531B28759E0200E0E889 /* WriteVC.swift */; };
 		C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB531D28759E6500E0E889 /* StorageVC.swift */; };
-		C7BC6B512876AD8C008C75CE /* d.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B502876AD8C008C75CE /* d.swift */; };
+		C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */; };
 		C7BC6B562876ADCD008C75CE /* ma.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B552876ADCD008C75CE /* ma.swift */; };
 		C7BC6B582876ADD6008C75CE /* ww.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B572876ADD6008C75CE /* ww.swift */; };
 		C7BC6B5A2876ADDD008C75CE /* ss.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B592876ADDD008C75CE /* ss.swift */; };
@@ -73,7 +73,7 @@
 		C7BB531928759DE500E0E889 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		C7BB531B28759E0200E0E889 /* WriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteVC.swift; sourceTree = "<group>"; };
 		C7BB531D28759E6500E0E889 /* StorageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageVC.swift; sourceTree = "<group>"; };
-		C7BC6B502876AD8C008C75CE /* d.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = d.swift; sourceTree = "<group>"; };
+		C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationView.swift; sourceTree = "<group>"; };
 		C7BC6B552876ADCD008C75CE /* ma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ma.swift; sourceTree = "<group>"; };
 		C7BC6B572876ADD6008C75CE /* ww.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ww.swift; sourceTree = "<group>"; };
 		C7BC6B592876ADDD008C75CE /* ss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ss.swift; sourceTree = "<group>"; };
@@ -248,7 +248,7 @@
 		C7BC6B4E2876AD22008C75CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				C7BC6B502876AD8C008C75CE /* d.swift */,
+				C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -393,7 +393,7 @@
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,
 				C7BC6B6C287710F9008C75CE /* String+.swift in Sources */,
-				C7BC6B512876AD8C008C75CE /* d.swift in Sources */,
+				C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */,
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
 				C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */,
 				C7BB531628759BBD00E0E889 /* MumentTabBarController.swift in Sources */,
