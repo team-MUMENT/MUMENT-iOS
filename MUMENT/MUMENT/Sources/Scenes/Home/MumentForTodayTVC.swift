@@ -35,11 +35,9 @@ extension MumentForTodayTVC {
         self.addSubviews([titleLabel])
         backgroundColor =  .systemMint
         selectionStyle = .none
-       titleLabel.snp.makeConstraints{
-        $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(42)
-//            $0.top.equalTo(headerLable.snp.bottom).offset(70)
-//            $0.width.height.equalTo(90)
-    }
+        titleLabel.snp.makeConstraints{
+            $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(42)
+        }
         
     }
 }
