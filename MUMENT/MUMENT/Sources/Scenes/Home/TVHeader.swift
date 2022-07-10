@@ -21,21 +21,15 @@ class TVHeader: UIView {
     }
     
     lazy var searchButton = UIButton().then{
-//        $0.setImage(UIImage(named: "mumentSearch"), for: .normal)
-//        $0.setBackgroundImage(UIImage(named: "mumentSearchbar"), for: .normal)
-//        $0.setImage(UIImage(named: "mumentSearchbar"), for: .normal)
         $0.setTitle("뮤멘트를 둘러보세요.", for: .normal)
         $0.setTitleColor(.mGray1, for: .normal)
-        $0.titleLabel?.font = UIFont(name: "Noto Sans-Medium", size: 14)
+        $0.titleLabel?.font = .mumentB4B14
         $0.backgroundColor = .mGray5
         $0.layer.cornerRadius = 10
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "mumentSearch")
-//        $0.configuration?.contentInsets = .init(top:0,leading: self.frame.width-140,bottom:0,trailing:0)
         $0.configuration?.imagePadding = 10
-//        $0.titleLabel?.textAlignment = .left
         $0.contentHorizontalAlignment = .left
-//        $0.configuration?.cornerStyle = 10
     }
     
     // MARK: - Initialization
