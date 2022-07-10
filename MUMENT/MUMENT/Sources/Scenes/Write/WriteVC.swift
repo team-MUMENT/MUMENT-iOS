@@ -19,6 +19,9 @@ class WriteVC: BaseVC {
     private let naviView = DefaultNavigationView().then {
         $0.setTitleLabel(title: "기록하기")
     }
+    private let resetButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "mumentReset"), for: .normal)
+    }
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -32,7 +35,7 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView])
+        writeContentView.addSubviews([naviView, resetButton])
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -46,6 +49,12 @@ extension WriteVC {
         naviView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
             $0.height.equalTo(52.adjustedH)
+        }
+        
+        resetButton.snp.makeConstraints {
+            $0.centerY.equalTo(naviView)
+            $0.width.height.equalTo(25.adjustedW)
+            $0.rightMargin.equalToSuperview().inset(20)
         }
     }
 }
