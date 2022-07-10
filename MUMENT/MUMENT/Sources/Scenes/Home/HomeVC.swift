@@ -25,11 +25,11 @@ class HomeVC: BaseVC {
         TV.delegate = self
         TV.dataSource = self
         
-        TV.register(cell: SearchBoxTVC.self, forCellReuseIdentifier: SearchBoxTVC.reuseIdentifier)
-        TV.register(cell: CarouselTVC.self, forCellReuseIdentifier: CarouselTVC.reuseIdentifier)
-        TV.register(cell: RecentMumentsTVC.self, forCellReuseIdentifier: RecentMumentsTVC.reuseIdentifier)
-        TV.register(cell: MumentForTodayTVC.self, forCellReuseIdentifier: MumentForTodayTVC.reuseIdentifier)
-        TV.register(cell: MumentsByTagTVC.self, forCellReuseIdentifier: MumentsByTagTVC.reuseIdentifier)
+        TV.register(cell: SearchBoxTVC.self, forCellReuseIdentifier: SearchBoxTVC.className)
+        TV.register(cell: CarouselTVC.self, forCellReuseIdentifier: CarouselTVC.className)
+        TV.register(cell: RecentMumentsTVC.self, forCellReuseIdentifier: RecentMumentsTVC.className)
+        TV.register(cell: MumentForTodayTVC.self, forCellReuseIdentifier: MumentForTodayTVC.className)
+        TV.register(cell: MumentsByTagTVC.self, forCellReuseIdentifier: MumentsByTagTVC.className)
         
         TV.estimatedRowHeight = 44
         TV.rowHeight = 48
@@ -83,29 +83,29 @@ extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchBoxTVC.reuseIdentifier, for: indexPath) as? SearchBoxTVC else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchBoxTVC.className, for: indexPath) as? SearchBoxTVC else {
                 return UITableViewCell()
             }
             return cell
             
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CarouselTVC.reuseIdentifier, for: indexPath) as? CarouselTVC else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CarouselTVC.className, for: indexPath) as? CarouselTVC else {
                 return UITableViewCell()
             }
             return cell
             
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentMumentsTVC.reuseIdentifier, for: indexPath) as? RecentMumentsTVC else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentMumentsTVC.className, for: indexPath) as? RecentMumentsTVC else {
                 return UITableViewCell()
             }
             return cell
         case 3:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentForTodayTVC.reuseIdentifier, for: indexPath) as? MumentForTodayTVC else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentForTodayTVC.className, for: indexPath) as? MumentForTodayTVC else {
                 return UITableViewCell()
             }
             return cell
         case 4:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentsByTagTVC.reuseIdentifier, for: indexPath) as? MumentsByTagTVC else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentsByTagTVC.className, for: indexPath) as? MumentsByTagTVC else {
                 return UITableViewCell()
             }
             return cell
