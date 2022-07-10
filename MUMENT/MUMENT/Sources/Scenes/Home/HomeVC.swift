@@ -25,7 +25,6 @@ class HomeVC: BaseVC {
         TV.delegate = self
         TV.dataSource = self
         
-        TV.register(cell: SearchBoxTVC.self, forCellReuseIdentifier: SearchBoxTVC.className)
         TV.register(cell: CarouselTVC.self, forCellReuseIdentifier: CarouselTVC.className)
         TV.register(cell: RecentMumentsTVC.self, forCellReuseIdentifier: RecentMumentsTVC.className)
         TV.register(cell: MumentForTodayTVC.self, forCellReuseIdentifier: MumentForTodayTVC.className)
@@ -46,7 +45,7 @@ extension HomeVC {
         
         headerView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(52.adjustedH)
+            $0.height.equalTo(107.adjustedH)
         }
         
         TV.snp.makeConstraints {
@@ -60,7 +59,7 @@ extension HomeVC {
 extension HomeVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,8 +72,6 @@ extension HomeVC: UITableViewDataSource {
             return 1
         case 3:
             return 1
-        case 4:
-            return 1
         default:
             return 0
         }
@@ -83,28 +80,22 @@ extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchBoxTVC.className, for: indexPath) as? SearchBoxTVC else {
-                return UITableViewCell()
-            }
-            return cell
-            
-        case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CarouselTVC.className, for: indexPath) as? CarouselTVC else {
                 return UITableViewCell()
             }
             return cell
             
-        case 2:
+        case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentMumentsTVC.className, for: indexPath) as? RecentMumentsTVC else {
                 return UITableViewCell()
             }
             return cell
-        case 3:
+        case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentForTodayTVC.className, for: indexPath) as? MumentForTodayTVC else {
                 return UITableViewCell()
             }
             return cell
-        case 4:
+        case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentsByTagTVC.className, for: indexPath) as? MumentsByTagTVC else {
                 return UITableViewCell()
             }
@@ -122,14 +113,12 @@ extension HomeVC: UITableViewDelegate {
         var cellHeight: CGFloat
         switch indexPath.section {
         case 0:
-            cellHeight = 100.adjustedH
-        case 1:
+            cellHeight = 300.adjustedH
+        case 1 :
             cellHeight = 300.adjustedH
         case 2 :
             cellHeight = 300.adjustedH
         case 3 :
-            cellHeight = 300.adjustedH
-        case 4 :
             cellHeight = 300.adjustedH
         default:
             cellHeight = 0
