@@ -41,14 +41,14 @@ extension TVHeader {
         logoButton.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
-            $0.width.equalTo(132)
-            $0.height.equalTo(30)
+            $0.width.equalTo(132.adjustedW)
+            $0.height.equalTo(30.adjustedH)
         }
         
         notificationButton.snp.makeConstraints{
             $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
-            $0.width.height.equalTo(23)
+            $0.width.height.equalTo(23.adjustedH)
         }
     }
 }
