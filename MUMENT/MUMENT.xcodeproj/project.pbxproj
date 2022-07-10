@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D696CE9287975740060CE41 /* TVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CE8287975740060CE41 /* TVHeader.swift */; };
+		4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CE8287975740060CE41 /* HomeTVHeader.swift */; };
 		4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEA287975800060CE41 /* CarouselTVC.swift */; };
 		4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */; };
 		4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */; };
@@ -57,7 +57,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4D696CE8287975740060CE41 /* TVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVHeader.swift; sourceTree = "<group>"; };
+		4D696CE8287975740060CE41 /* HomeTVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVHeader.swift; sourceTree = "<group>"; };
 		4D696CEA287975800060CE41 /* CarouselTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTVC.swift; sourceTree = "<group>"; };
 		4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMumentsTVC.swift; sourceTree = "<group>"; };
 		4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTVC.swift; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 			children = (
 				C7BC6B522876ADC0008C75CE /* Model */,
 				C7BB531928759DE500E0E889 /* HomeVC.swift */,
-				4D696CE8287975740060CE41 /* TVHeader.swift */,
+				4D696CE8287975740060CE41 /* HomeTVHeader.swift */,
 				4D696CEA287975800060CE41 /* CarouselTVC.swift */,
 				4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */,
 				4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */,
@@ -406,7 +406,7 @@
 				4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */,
 				C7BC6B6A287710D6008C75CE /* UIButton+.swift in Sources */,
 				C7BC6B6028770FB6008C75CE /* UILabel+.swift in Sources */,
-				4D696CE9287975740060CE41 /* TVHeader.swift in Sources */,
+				4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */,
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,

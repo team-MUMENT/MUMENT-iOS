@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class TVHeader: UIView {
+class HomeTVHeader: UIView {
     
     // MARK: - Properties
     lazy var logoButton = UIButton().then{
@@ -45,7 +45,7 @@ class TVHeader: UIView {
 }
 
 // MARK: - UI
-extension TVHeader {
+extension HomeTVHeader {
     
     private func setLayout() {
         self.addSubviews([logoButton,notificationButton,searchButton])

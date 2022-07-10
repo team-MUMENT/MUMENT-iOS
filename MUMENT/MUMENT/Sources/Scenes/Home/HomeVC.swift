@@ -10,8 +10,8 @@ import UIKit
 class HomeVC: BaseVC {
    
     // MARK: - Properties
-    private let headerView = TVHeader()
-    private let TV = UITableView()
+    private let headerView = HomeTVHeader()
+    private let homeTV = UITableView()
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -22,18 +22,18 @@ class HomeVC: BaseVC {
     
     // MARK: - Functions
     private func setTV() {
-        TV.delegate = self
-        TV.dataSource = self
+        homeTV.delegate = self
+        homeTV.dataSource = self
         
-        TV.register(cell: CarouselTVC.self, forCellReuseIdentifier: CarouselTVC.className)
-        TV.register(cell: RecentMumentsTVC.self, forCellReuseIdentifier: RecentMumentsTVC.className)
-        TV.register(cell: MumentForTodayTVC.self, forCellReuseIdentifier: MumentForTodayTVC.className)
-        TV.register(cell: MumentsByTagTVC.self, forCellReuseIdentifier: MumentsByTagTVC.className)
+        homeTV.register(cell: CarouselTVC.self, forCellReuseIdentifier: CarouselTVC.className)
+        homeTV.register(cell: RecentMumentsTVC.self, forCellReuseIdentifier: RecentMumentsTVC.className)
+        homeTV.register(cell: MumentForTodayTVC.self, forCellReuseIdentifier: MumentForTodayTVC.className)
+        homeTV.register(cell: MumentsByTagTVC.self, forCellReuseIdentifier: MumentsByTagTVC.className)
         
-        TV.estimatedRowHeight = 44
-        TV.rowHeight = 48
-        TV.separatorStyle = .none
-        TV.showsVerticalScrollIndicator = false
+        homeTV.estimatedRowHeight = 44
+        homeTV.rowHeight = 48
+        homeTV.separatorStyle = .none
+        homeTV.showsVerticalScrollIndicator = false
     }
 }
 
@@ -41,14 +41,14 @@ class HomeVC: BaseVC {
 extension HomeVC {
     
     private func setLayout() {
-        view.addSubviews([headerView,TV])
+        view.addSubviews([headerView,homeTV])
         
         headerView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(107.adjustedH)
         }
         
-        TV.snp.makeConstraints {
+        homeTV.snp.makeConstraints {
             $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.top.equalTo(headerView.snp.bottom)
         }
@@ -64,13 +64,7 @@ extension HomeVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0:
-            return 1
-        case 1:
-            return 1
-        case 2:
-            return 1
-        case 3:
+        case 0...3:
             return 1
         default:
             return 0
@@ -112,13 +106,7 @@ extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var cellHeight: CGFloat
         switch indexPath.section {
-        case 0:
-            cellHeight = 300.adjustedH
-        case 1 :
-            cellHeight = 300.adjustedH
-        case 2 :
-            cellHeight = 300.adjustedH
-        case 3 :
+        case 0...3:
             cellHeight = 300.adjustedH
         default:
             cellHeight = 0
