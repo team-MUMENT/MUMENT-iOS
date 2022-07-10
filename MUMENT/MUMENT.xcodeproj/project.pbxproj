@@ -13,8 +13,6 @@
 		4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */; };
 		4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */; };
 		4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */; };
-		4D696CF528797DB20060CE41 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF428797DB20060CE41 /* UITableViewCell+.swift */; };
-		4D696CF828797DE60060CE41 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF728797DE60060CE41 /* Reusable.swift */; };
 		C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC41928758D220068EB46 /* AppDelegate.swift */; };
 		C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC41B28758D220068EB46 /* SceneDelegate.swift */; };
 		C74EC42328758D230068EB46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74EC42228758D230068EB46 /* Assets.xcassets */; };
@@ -66,8 +64,6 @@
 		4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMumentsTVC.swift; sourceTree = "<group>"; };
 		4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTVC.swift; sourceTree = "<group>"; };
 		4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayTVC.swift; sourceTree = "<group>"; };
-		4D696CF428797DB20060CE41 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
-		4D696CF728797DE60060CE41 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		C74EC41628758D220068EB46 /* MUMENT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MUMENT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C74EC41928758D220068EB46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C74EC41B28758D220068EB46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,14 +121,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4D696CF628797DCE0060CE41 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				4D696CF728797DE60060CE41 /* Reusable.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		C74EC40D28758D220068EB46 = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +159,6 @@
 				C7BB531728759CF000E0E889 /* UITabBar+.swift */,
 				C7BC6B5D28770902008C75CE /* NSObject+.swift */,
 				C7BC6B5F28770FB6008C75CE /* UILabel+.swift */,
-				4D696CF428797DB20060CE41 /* UITableViewCell+.swift */,
 				C7BC6B6128771020008C75CE /* UICollectionView+.swift */,
 				C7BC6B6328771042008C75CE /* UITableVIew+.swift */,
 				C7BC6B6528771056008C75CE /* UITextField+.swift */,
@@ -261,7 +248,6 @@
 		C7BC6B4C2876ACD9008C75CE /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				4D696CF628797DCE0060CE41 /* Protocols */,
 				C7BB530E287598FF00E0E889 /* Base */,
 				C74EC436287593030068EB46 /* Extensions */,
 			);
@@ -423,7 +409,6 @@
 				4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */,
 				C7BC6B6A287710D6008C75CE /* UIButton+.swift in Sources */,
 				C7BC6B6028770FB6008C75CE /* UILabel+.swift in Sources */,
-				4D696CF828797DE60060CE41 /* Reusable.swift in Sources */,
 				4D696CE9287975740060CE41 /* TVHeader.swift in Sources */,
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
@@ -435,7 +420,6 @@
 				C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */,
 				C7BB531628759BBD00E0E889 /* MumentTabBarController.swift in Sources */,
 				C7BC6B6228771020008C75CE /* UICollectionView+.swift in Sources */,
-				4D696CF528797DB20060CE41 /* UITableViewCell+.swift in Sources */,
 				C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */,
 				C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */,
 				C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */,
