@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4D696CE9287975740060CE41 /* TVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CE8287975740060CE41 /* TVHeader.swift */; };
 		4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEA287975800060CE41 /* CarouselTVC.swift */; };
-		4D696CED287976130060CE41 /* SearchBoxTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEC287976130060CE41 /* SearchBoxTVC.swift */; };
 		4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */; };
 		4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */; };
 		4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */; };
@@ -60,7 +59,6 @@
 /* Begin PBXFileReference section */
 		4D696CE8287975740060CE41 /* TVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVHeader.swift; sourceTree = "<group>"; };
 		4D696CEA287975800060CE41 /* CarouselTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTVC.swift; sourceTree = "<group>"; };
-		4D696CEC287976130060CE41 /* SearchBoxTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBoxTVC.swift; sourceTree = "<group>"; };
 		4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMumentsTVC.swift; sourceTree = "<group>"; };
 		4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTVC.swift; sourceTree = "<group>"; };
 		4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayTVC.swift; sourceTree = "<group>"; };
@@ -198,7 +196,6 @@
 				C7BC6B522876ADC0008C75CE /* Model */,
 				C7BB531928759DE500E0E889 /* HomeVC.swift */,
 				4D696CE8287975740060CE41 /* TVHeader.swift */,
-				4D696CEC287976130060CE41 /* SearchBoxTVC.swift */,
 				4D696CEA287975800060CE41 /* CarouselTVC.swift */,
 				4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */,
 				4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */,
@@ -415,7 +412,6 @@
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,
 				C7BC6B6C287710F9008C75CE /* String+.swift in Sources */,
 				C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */,
-				4D696CED287976130060CE41 /* SearchBoxTVC.swift in Sources */,
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
 				C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */,
 				C7BB531628759BBD00E0E889 /* MumentTabBarController.swift in Sources */,
