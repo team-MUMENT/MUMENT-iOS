@@ -30,10 +30,21 @@ class WriteVC: BaseVC {
 // MARK: - UI
 extension WriteVC {
     private func setLayout() {
-        view.addSubviews([naviView])
+        view.addSubviews([writeScrollView])
+        writeScrollView.addSubviews([writeContentView])
+        writeContentView.addSubviews([naviView])
+        
+        writeScrollView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        writeContentView.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.centerX.top.bottom.equalToSuperview()
+        }
         
         naviView.snp.makeConstraints {
-            $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.top.left.right.equalToSuperview()
             $0.height.equalTo(52.adjustedH)
         }
     }
