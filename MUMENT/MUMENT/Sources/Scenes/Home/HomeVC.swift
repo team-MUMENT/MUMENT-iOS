@@ -46,7 +46,7 @@ extension HomeVC{
         }
         
         TV.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.top.equalTo(headerView.snp.bottom)
         }
     }
@@ -116,7 +116,7 @@ extension HomeVC: UITableViewDelegate {
         var cellHeight: CGFloat
         switch indexPath.section {
         case 0:
-            cellHeight = 300.adjustedH
+            cellHeight = 100.adjustedH
         case 1:
             cellHeight = 300.adjustedH
         case 2 :

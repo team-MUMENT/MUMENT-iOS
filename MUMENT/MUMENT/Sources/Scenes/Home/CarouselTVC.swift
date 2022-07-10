@@ -36,11 +36,9 @@ extension CarouselTVC {
         self.addSubviews([titleLabel])
         backgroundColor = .systemBlue
         selectionStyle = .none
-       titleLabel.snp.makeConstraints{
-        $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(42)
-//            $0.top.equalTo(headerLable.snp.bottom).offset(70)
-//            $0.width.height.equalTo(90)
-    }
+        titleLabel.snp.makeConstraints{
+            $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(42)
+        }
         
     }
 }
