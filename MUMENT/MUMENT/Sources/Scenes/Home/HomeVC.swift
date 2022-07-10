@@ -8,16 +8,19 @@
 import UIKit
 
 class HomeVC: BaseVC {
-    
+   
+    // MARK: - Properties
     private let headerView = TVHeader()
+    private let TV = UITableView()
     
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setTV()
         setLayout()
     }
     
-    lazy var TV = UITableView()
+    // MARK: - Functions
     private func setTV() {
         TV.delegate = self
         TV.dataSource = self
@@ -35,7 +38,8 @@ class HomeVC: BaseVC {
     }
 }
 
-extension HomeVC{
+// MARK: - UI
+extension HomeVC {
     
     private func setLayout() {
         view.addSubviews([headerView,TV])
@@ -52,6 +56,7 @@ extension HomeVC{
     }
 }
 
+// MARK: - UITableViewDataSource
 extension HomeVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -111,6 +116,7 @@ extension HomeVC: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var cellHeight: CGFloat

@@ -11,6 +11,7 @@ import Then
 
 class TVHeader: UIView {
     
+    // MARK: - Properties
     lazy var logoButton = UIButton().then{
         $0.setImage(UIImage(named: "mumentLogo"), for: .normal)
     }
@@ -19,6 +20,7 @@ class TVHeader: UIView {
         $0.setImage(UIImage(named: "mumentNoti"), for: .normal)
     }
     
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setLayout()
@@ -35,6 +37,7 @@ extension TVHeader {
     
     private func setLayout() {
         self.addSubviews([logoButton,notificationButton])
+        
         logoButton.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
