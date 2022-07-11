@@ -40,6 +40,8 @@ class CarouselCVC: UICollectionViewCell {
         $0.font = UIFont.systemFont(ofSize: 12, weight: .light)
     }
     
+    private let backgroundImage = UIImageView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
@@ -52,7 +54,7 @@ class CarouselCVC: UICollectionViewCell {
 
     //MARK: - Functions
     func setData(_ cellData: CarouselModel,index: Int){
-        self.backgroundColor = cellData.color
+        backgroundImage.image = cellData.bannerImage
         headerLable.text = cellData.headerTitle
         albumImage.image = cellData.albumImage
         songTitleLabel.text = cellData.songTitle
@@ -65,6 +67,7 @@ class CarouselCVC: UICollectionViewCell {
 extension CarouselCVC {
     
     private func setLayout() {
+        self.backgroundView = backgroundImage
         self.addSubviews([headerLable,albumImage,songTitleLabel,artistLabel,pageButton])
         
         headerLable.snp.makeConstraints{
@@ -73,9 +76,9 @@ extension CarouselCVC {
         }
         
         albumImage.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(42)
+            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(32)
             $0.top.equalTo(headerLable.snp.bottom).offset(70)
-            $0.width.height.equalTo(90)
+            $0.width.height.equalTo(40)
         }
         
         songTitleLabel.snp.makeConstraints{
