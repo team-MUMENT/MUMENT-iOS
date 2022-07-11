@@ -131,6 +131,6 @@ extension CarouselTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
         return .zero
-        //zero로 안 하면 첫 번째 셀에서 마지막 셀로 넘어가는 스크롤이 동작하지 않음.
+        // ???: zero로 안 하면 첫 번째 셀에서 마지막 셀로 넘어가는 스크롤이 동작하지 않음.
     }
 }
