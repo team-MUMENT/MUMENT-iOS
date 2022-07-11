@@ -32,9 +32,6 @@ class CarouselTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCV()
         setLayout()
-        carouselCV.scrollToItem(at: IndexPath(item: increasedDataSource.count / 3,section: 0),
-                                at: .centeredHorizontally,
-                                animated: false)
     }
     
     @available(*, unavailable)
@@ -48,13 +45,8 @@ class CarouselTVC: UITableViewCell {
         carouselCV.dataSource = self
         carouselCV.register(CarouselCVC.self, forCellWithReuseIdentifier: CarouselCVC.className)
         
-        //ScrollIndicator 안 보이게
         carouselCV.showsHorizontalScrollIndicator = false
-        
-        // 그냥 슬라이딩이 아니라 페이지별로 나뉘어 넘어가지도록
         carouselCV.isPagingEnabled = true
-        
-        // 수평 스크롤
         CVFlowLayout.scrollDirection = .horizontal
     }
 }
@@ -64,18 +56,17 @@ extension CarouselTVC {
     
     private func setLayout() {
         self.addSubviews([carouselCV])
-        
-        backgroundColor = .systemBlue
+    
         selectionStyle = .none
         carouselCV.snp.makeConstraints{
-            $0.center.leading.trailing.equalTo(self.safeAreaLayoutGuide)
+            $0.center.leading.trailing.equalToSuperview()
             $0.height.equalTo(400)
         }
     }
 }
 
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension CarouselTVC: UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: - UICollectionViewDelegate
+extension CarouselTVC: UICollectionViewDelegate{
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
@@ -107,6 +98,11 @@ extension CarouselTVC: UICollectionViewDelegate, UICollectionViewDataSource {
         }
     }
     
+}
+
+// MARK: - UICollectionViewDataSource
+extension CarouselTVC: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return increasedDataSource.count
     }
@@ -124,12 +120,16 @@ extension CarouselTVC: UICollectionViewDelegate, UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension CarouselTVC: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         return CGSize(width: UIScreen.main.bounds.width, height: collectionView.frame.height)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
         return .zero
     }
 }
