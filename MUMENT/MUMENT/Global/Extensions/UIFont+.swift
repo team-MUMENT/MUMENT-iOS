@@ -37,6 +37,10 @@ extension UIFont {
         return UIFont(name: "NotoSans-Bold", size: 14.0)!
     }
     
+    class var mumentB3B14: UIFont {
+      return UIFont(name: "NotoSans-Bold", size: 14.0)!
+    }
+    
     class var mumentB4B14: UIFont {
         return UIFont(name: "NotoSans-Medium", size: 14.0)!
     }
