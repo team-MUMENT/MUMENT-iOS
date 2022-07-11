@@ -13,20 +13,22 @@ class CarouselCVC: UICollectionViewCell {
 
     // MARK: - Properties
     lazy var pageButton = UIButton().then{
-        $0.layer.cornerRadius = 12
+        $0.configuration = .plain()
+        $0.makeRounded(cornerRadius: 12)
         $0.backgroundColor = .white
         $0.setTitleColor(.systemGray2, for: .normal)
-        $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        $0.titleLabel?.font = .mumentC1R12
     }
+    
     private let headerLable = UILabel().then{
         $0.textColor = .white
-        $0.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        $0.font = .mumentH1B25
         $0.lineBreakMode = .byWordWrapping
         $0.numberOfLines = 2
     }
     
     private let albumImage = UIImageView().then{
-        $0.layer.cornerRadius = 9
+        $0.makeRounded(cornerRadius: 9)
         $0.clipsToBounds = true
     }
     
@@ -42,6 +44,7 @@ class CarouselCVC: UICollectionViewCell {
     
     private let backgroundImage = UIImageView()
     
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
@@ -59,7 +62,7 @@ class CarouselCVC: UICollectionViewCell {
         albumImage.image = cellData.albumImage
         songTitleLabel.text = cellData.songTitle
         artistLabel.text = cellData.artistName
-        pageButton.setTitle("    \(index) / 3 >  ", for: .normal)
+        pageButton.setTitle("\(index) / 3 >", for: .normal)
     }
 }
 
@@ -77,12 +80,12 @@ extension CarouselCVC {
         
         albumImage.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(32)
-            $0.top.equalTo(headerLable.snp.bottom).offset(70)
-            $0.width.height.equalTo(40)
+            $0.top.equalTo(headerLable.snp.bottom).offset(50)
+            $0.width.height.equalTo(50)
         }
         
         songTitleLabel.snp.makeConstraints{
-            $0.top.equalTo(headerLable.snp.bottom).offset(70)
+            $0.top.equalTo(headerLable.snp.bottom).offset(50)
             $0.leading.equalTo(albumImage.snp.trailing).offset(20)
         }
         
