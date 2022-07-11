@@ -39,7 +39,10 @@
   `identifier -> id`<br/>
   </p>
 - 주석 :<p> `\\`-> MARK, TODO 주석<br/>
-`\\\`-> 문서화 주석
+  `\\\`-> 문서화 주석
+
+[Coding Convention 전체 보기](https://www.notion.so/Code-Convention-f5b103a299114616b99d3c071f041d34)
+
 </p>
 
 <br>
@@ -60,6 +63,8 @@
 7. 두 명(권장), 한 명(최소) Approve 받았을 경우 셀프 merge
 8. Delete Branch
 ```
+
+<img src="https://user-images.githubusercontent.com/25932970/178236698-e033bb5b-266b-4360-983f-0c6b7818d91b.png" width="400">
 
 <br>
 </div>
@@ -84,7 +89,8 @@
   Chore: 그 외
 ```
 
-  <br>
+[Git Convention 전체 보기](https://www.notion.so/Git-Convention-6117195b56d5464eb4ecd25fec0f3ac1)
+<br>
 
 </div>
 </details>
