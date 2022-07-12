@@ -29,10 +29,10 @@ class StorageVC: BaseVC {
     
     private lazy var segmentControl = UISegmentedControl().then {
         $0.selectedSegmentTintColor = .clear
-        // 배경 색 제거
+        /// 배경 색 제거
         $0.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
         
-        // Segment 구분 라인 제거
+        /// Segment 구분 라인 제거
         $0.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
         $0.insertSegment(withTitle: "나의 뮤멘트", at: 0, animated: true)
@@ -41,21 +41,19 @@ class StorageVC: BaseVC {
         
         let headerTabFont = UIFont(name: "NotoSans-Bold", size: 16)!
         
-        // 선택 되어 있지 않을때 폰트 및 폰트컬러
+        /// 선택 되어 있지 않을때 폰트 및 폰트컬러
         $0.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.mGray1,
             NSAttributedString.Key.font: headerTabFont
         ], for: .normal)
         
-        // 선택 되었을때 폰트 및 폰트컬러
+        /// 선택 되었을때 폰트 및 폰트컬러
         $0.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.mPurple1,
             NSAttributedString.Key.font: headerTabFont,
         ], for: .selected)
         
         $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
-        
-        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
 
@@ -64,8 +62,7 @@ class StorageVC: BaseVC {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    // 움직일 underLineView의 leadingAnchor 따로 작성
-    // 어떻게 snp, then 을 적용시키지..?
+    /// 움직일 underLineView의 leadingAnchor 따로 작성
     private lazy var leadingDistance: NSLayoutConstraint = {
         return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
     }()
