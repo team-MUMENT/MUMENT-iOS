@@ -12,17 +12,22 @@ import Then
 class WriteTagCVC: UICollectionViewCell {
     
     // MARK: - Properties
-    private let contentLabel = UILabel().then {
-        $0.font = UIFont.boldSystemFont(ofSize: 10)
+    let contentLabel = UILabel().then {
         $0.textAlignment = .center
+        $0.font = .mumentB4M14
+        $0.textColor = .mGray1
     }
     
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                contentView.backgroundColor = .mBlue2
+                contentView.backgroundColor = .mBlue3
+                contentLabel.font = .mumentB3B14
+                contentLabel.textColor = .mBlue1
             } else {
-                contentView.backgroundColor = .white
+                contentView.backgroundColor = .mGray5
+                contentLabel.font = .mumentB4M14
+                contentLabel.textColor = .mGray1
             }
         }
     }
@@ -50,9 +55,8 @@ class WriteTagCVC: UICollectionViewCell {
     }
     
     private func setUI() {
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .mGray5
         contentView.makeRounded(cornerRadius: contentView.frame.height / 2)
-        contentView.addShadow(location: .nadoBotttom)
     }
     
     // MARK: - Functions
