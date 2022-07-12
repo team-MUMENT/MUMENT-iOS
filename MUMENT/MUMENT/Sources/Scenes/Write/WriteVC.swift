@@ -61,6 +61,15 @@ class WriteVC: BaseVC {
         $0.setTitleColor(.mGray1, for: .normal)
         $0.makeRounded(cornerRadius: 11.adjustedH)
     }
+    private let impressiveLabel = UILabel().then {
+        $0.text = "무엇이 인상적이었나요?"
+        $0.font = .mumentB1B15
+        $0.textColor = .mBlack2
+    }
+    private let impressiveTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+        $0.backgroundColor = .mBgwhite
+        $0.showsHorizontalScrollIndicator = false
+    }
     private let completeButton = MumentCompleteButton(isEnabled: true).then {
         $0.setTitle("완료", for: .normal)
     }
@@ -97,7 +106,7 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, completeButton])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressiveLabel, impressiveTagCV, feelLabel, feelTagCV])
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -147,10 +156,19 @@ extension WriteVC {
             $0.width.height.equalTo(firstTimeButton)
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
-        completeButton.snp.makeConstraints {
-            $0.top.equalTo(firstTimeButton.snp.bottomMargin).offset(20)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(60)
+        
+        impressiveLabel.snp.makeConstraints {
+            $0.top.equalTo(alreadyKnowButton.snp.bottomMargin).offset(50)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        impressiveTagCV.snp.makeConstraints {
+            $0.top.equalTo(impressiveLabel.snp.bottom).offset(16)
+            $0.left.equalTo(impressiveLabel.snp.left)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(tagCellHeight * 2 + Double(cellVerticalSpacing))
+        }
+        
         }
     }
 }
