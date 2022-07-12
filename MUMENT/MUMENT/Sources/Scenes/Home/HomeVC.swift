@@ -106,7 +106,9 @@ extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var cellHeight: CGFloat
         switch indexPath.section {
-        case 0...3:
+        case 0:
+            cellHeight = 300.adjustedH
+        case 1...3:
             cellHeight = 300.adjustedH
         default:
             cellHeight = 0
@@ -115,3 +117,13 @@ extension HomeVC: UITableViewDelegate {
     }
 }
 
+// MARK: - SwiftUI Preview
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct ViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        HomeVC().showPreview(.iPhone13mini)
+    }
+}
+#endif
