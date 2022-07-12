@@ -11,14 +11,23 @@ import Then
 class DefaultMumentView: UIView {
     
     // MARK: - Properties
-    private let profileImage = UIImageView()
-    private let writerNameLabel = UILabel()
     lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then{
         $0.axis = .horizontal
         $0.distribution = .fillProportionally
         $0.spacing = 7
     }
-    private let separatorView = UIView()
+    
+    private let profileImage = UIImageView().then{
+        $0.makeRounded(cornerRadius: 12.5)
+    }
+    
+    private let writerNameLabel = UILabel().then{
+        $0.font = .mumentC1R12
+    }
+    
+    private let separatorView = UIView().then{
+        $0.tintColor = .mGray4
+    }
     
     //    lazy var songInfroView = UIView().then{
     //        $0.addSubviews([albumImage,songTitle,artistLabel,tagStackView])
@@ -28,19 +37,29 @@ class DefaultMumentView: UIView {
     //        }
     //    }
     
-    private let albumImage = UIImageView()
+    private let albumImage = UIImageView().then{
+        $0.makeRounded(cornerRadius: 4)
+    }
     
     lazy var songInfoStackView = UIStackView(arrangedSubviews: [songTitle, artistLabel]).then{
         $0.axis = .vertical
         $0.distribution = .fillProportionally
     }
-    private let songTitle = UILabel()
-    private let artistLabel = UILabel()
+    private let songTitle = UILabel().then{
+        $0.font = .mumentB3B14
+    }
+    private let artistLabel = UILabel().then{
+        $0.font = .mumentB3M13
+    }
     
     //data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
     private let tagStackView = UIStackView()
-    private let contentsLabel = UILabel()
-    private let createdAtLabel = UILabel()
+    private let contentsLabel = UILabel().then{
+        $0.font = .mumentB6M13
+    }
+    private let createdAtLabel = UILabel().then{
+        $0.font = .mumentC1R12
+    }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -50,7 +69,7 @@ class DefaultMumentView: UIView {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        //        setLayout()
+                setLayout()
     }
 }
 
@@ -66,7 +85,9 @@ extension DefaultMumentView {
         
         separatorView.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.top.equalTo(writerInfoStackView.snp.bottom).offset(11)
+            $0.height.equalTo(1)
         }
         
         albumImage.snp.makeConstraints{
@@ -94,6 +115,10 @@ extension DefaultMumentView {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
+        }
+        
+        profileImage.snp.makeConstraints{
+            $0.height.width.equalTo(25)
         }
     }
 }
