@@ -45,19 +45,19 @@ class WriteVC: BaseVC {
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
-    private let firstTimeButton = UIButton(type: .system).then {
+    private let firstTimeButton = UIButton(type: .custom).then {
         $0.setTitle("처음 들어요", for: .normal)
-        $0.setBackgroundColor(.mBlue3, for: .selected)
+        $0.setBackgroundColor(.mPurple2, for: .selected)
         $0.setBackgroundColor(.mGray5, for: .normal)
-        $0.setTitleColor(.mBlue1, for: .selected)
+        $0.setTitleColor(.mPurple1, for: .selected)
         $0.setTitleColor(.mGray1, for: .normal)
         $0.makeRounded(cornerRadius: 11.adjustedH)
     }
-    private let alreadyKnowButton = UIButton(type: .system).then {
+    private let alreadyKnowButton = UIButton(type: .custom).then {
         $0.setTitle("다시 들었어요", for: .normal)
-        $0.setBackgroundColor(.mBlue3, for: .selected)
+        $0.setBackgroundColor(.mPurple2, for: .selected)
         $0.setBackgroundColor(.mGray5, for: .normal)
-        $0.setTitleColor(.mBlue1, for: .selected)
+        $0.setTitleColor(.mPurple1, for: .selected)
         $0.setTitleColor(.mGray1, for: .normal)
         $0.makeRounded(cornerRadius: 11.adjustedH)
     }
