@@ -32,7 +32,7 @@ extension MumentTabBarController {
     
     func setTabBarItemStyle() {
         tabBar.tintColor = .mPurple1
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.mumentB5M12], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.mumentB8M12], for: .normal)
     }
     
     func setShadow() {
