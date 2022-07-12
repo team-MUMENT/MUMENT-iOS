@@ -70,6 +70,15 @@ class WriteVC: BaseVC {
         $0.backgroundColor = .mBgwhite
         $0.showsHorizontalScrollIndicator = false
     }
+    private let feelLabel = UILabel().then {
+        $0.text = "감정을 선택해보세요."
+        $0.font = .mumentB1B15
+        $0.textColor = .mBlack2
+    }
+    private let feelTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+        $0.backgroundColor = .mBgwhite
+        $0.showsHorizontalScrollIndicator = false
+    }
     private let completeButton = MumentCompleteButton(isEnabled: true).then {
         $0.setTitle("완료", for: .normal)
     }
@@ -169,6 +178,18 @@ extension WriteVC {
             $0.height.equalTo(tagCellHeight * 2 + Double(cellVerticalSpacing))
         }
         
+        feelLabel.snp.makeConstraints {
+            $0.top.equalTo(impressiveTagCV.snp.bottomMargin).offset(50)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        feelTagCV.snp.makeConstraints {
+            $0.top.equalTo(feelLabel.snp.bottom).offset(16)
+            $0.left.equalTo(feelLabel.snp.left)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(tagCellHeight * 2 + Double(cellVerticalSpacing))
+            $0.bottom.equalToSuperview()
+        }
         }
     }
 }
