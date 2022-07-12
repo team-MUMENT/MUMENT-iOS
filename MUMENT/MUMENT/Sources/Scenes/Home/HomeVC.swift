@@ -80,12 +80,12 @@ extension HomeVC: UITableViewDataSource {
             return cell
             
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentMumentsTVC.className, for: indexPath) as? RecentMumentsTVC else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentForTodayTVC.className, for: indexPath) as? MumentForTodayTVC else {
                 return UITableViewCell()
             }
             return cell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentForTodayTVC.className, for: indexPath) as? MumentForTodayTVC else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentMumentsTVC.className, for: indexPath) as? RecentMumentsTVC else {
                 return UITableViewCell()
             }
             return cell

@@ -21,11 +21,14 @@ struct MumentForTodayModel {
     let artistName:String
     let contentsLabel: String
     let createdAtLabel: String
+    let isFilledHeart: Bool
+    let heartCount: Int
+    
 }
 
 // MARK: - Extensions
 extension MumentForTodayModel {
     static var sampleData: [MumentForTodayModel] = [
-        MumentForTodayModel(profileImageTitle:"image1",writerName:"이수지",albumImageTitle: "image4",songTitle:"Antifreeze",artistName: "백예린",contentsLabel:"음악은 저에게 영감을 줘요, 이 곡 추천해준 이부장에게 심심한 감사의 인사를 음악은 저에게 영감을 줘요.",createdAtLabel:"1 Sep, 2020")
+        MumentForTodayModel(profileImageTitle:"image1",writerName:"이수지",albumImageTitle: "image4",songTitle:"Antifreeze",artistName: "백예린",contentsLabel:"음악은 저에게 영감을 줘요, 이 곡 추천해준 이부장에게 심심한 감사의 인사를 음악은 저에게 영감을 줘요.",createdAtLabel:"1 Sep, 2020",isFilledHeart:false,heartCount:15)
     ]
 }
