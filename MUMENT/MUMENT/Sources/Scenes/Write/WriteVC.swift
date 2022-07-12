@@ -89,6 +89,16 @@ class WriteVC: BaseVC {
         $0.makeRounded(cornerRadius: 11.adjustedH)
         $0.backgroundColor = .mGray5
     }
+    private let isPrivateToggleButton = UIButton(type: .custom).then {
+        $0.setImage(UIImage(named: "mumentToggleOff"), for: .normal)
+        $0.setImage(UIImage(named: "mumentToggleOn"), for: .selected)
+    }
+    private let privateLabel = UILabel().then {
+        $0.text = "공개글"
+        $0.font = .mumentB4M14
+        $0.textColor = .mGray1
+        $0.sizeToFit()
+    }
     private let completeButton = MumentCompleteButton(isEnabled: true).then {
         $0.setTitle("완료", for: .normal)
     }
@@ -115,6 +125,7 @@ class WriteVC: BaseVC {
         setRadioButtonSelectStatus(button: firstTimeButton, isSelected: false)
         setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: true)
         setRadioButton()
+        setIsPrivateToggleButton()
         registerCell()
     }
     
@@ -144,6 +155,13 @@ class WriteVC: BaseVC {
         feelTagCV.allowsMultipleSelection = true
         feelTagCV.clipsToBounds = true
         feelTagCV.collectionViewLayout = CVLayout
+    }
+    
+    private func setIsPrivateToggleButton() {
+        isPrivateToggleButton.press {
+            self.isPrivateToggleButton.isSelected.toggle()
+            self.privateLabel.text = self.isPrivateToggleButton.isSelected ? "비밀글" : "공개글"
+        }
     }
 }
 
@@ -249,6 +267,27 @@ extension WriteVC {
             $0.height.equalTo(252.adjustedH)
         }
         
+        isPrivateToggleButton.snp.makeConstraints {
+            $0.top.equalTo(afterTasteTextView.snp.bottomMargin).offset(15)
+            $0.right.equalToSuperview().inset(20)
+            $0.width.equalTo(49.adjustedW)
+            $0.height.equalTo(28.adjustedH)
+        }
+        
+        privateLabel.snp.makeConstraints {
+            $0.centerY.equalTo(isPrivateToggleButton)
+            $0.right.equalToSuperview().inset(78.adjustedW)
+        }
+        
+        completeButton.snp.makeConstraints {
+            $0.top.equalTo(isPrivateToggleButton.snp.bottomMargin).offset(60)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(60)
+            $0.bottom.equalToSuperview().inset(45)
+        }
+    }
+}
+
 // TODO: 컬렉션뷰 진짜 개모르겠다. 말렸다. ㅋ  종일 햇는데 컬렉션뷰에 잡아먹힌 기분이다. 나중에 할 거다. 며칠만 뒤에... 뇌를 좀 상쾌하게 바꾸고 다시 도전한다 .....................
 // MARK: - UICollectionViewDataSource
 extension WriteVC: UICollectionViewDataSource {
