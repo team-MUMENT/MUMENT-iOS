@@ -79,6 +79,16 @@ class WriteVC: BaseVC {
         $0.backgroundColor = .mBgwhite
         $0.showsHorizontalScrollIndicator = false
     }
+    private let afterTasteLabel = UILabel().then {
+        $0.text = "이 순간의 여운을 남겨보세요."
+        $0.font = .mumentB1B15
+        $0.textColor = .mBlack2
+    }
+    private let afterTasteTextView = UITextView().then {
+        $0.clipsToBounds = true
+        $0.makeRounded(cornerRadius: 11.adjustedH)
+        $0.backgroundColor = .mGray5
+    }
     private let completeButton = MumentCompleteButton(isEnabled: true).then {
         $0.setTitle("완료", for: .normal)
     }
@@ -123,14 +133,14 @@ class WriteVC: BaseVC {
     private func setTagCV() {
         impressiveTagCV.dataSource = self
         impressiveTagCV.delegate = self
-        impressiveTagCV.layoutMargins =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        impressiveTagCV.layoutMargins = .zero
         impressiveTagCV.allowsMultipleSelection = true
         impressiveTagCV.clipsToBounds = true
         impressiveTagCV.collectionViewLayout = CVLayout
         
         feelTagCV.dataSource = self
         feelTagCV.delegate = self
-        feelTagCV.layoutMargins =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        feelTagCV.layoutMargins =  .zero
         feelTagCV.allowsMultipleSelection = true
         feelTagCV.clipsToBounds = true
         feelTagCV.collectionViewLayout = CVLayout
@@ -142,7 +152,7 @@ extension WriteVC {
     
     private func setRadioButtonSelectStatus(button: UIButton, isSelected: Bool) {
         button.isSelected = isSelected
-        button.titleLabel?.font = isSelected ? .mumentB3B14 : .mumentB4M14
+        button.titleLabel?.font = isSelected ? .mumentB2B14 : .mumentB4M14
     }
     
     private func registerCell() {
@@ -153,7 +163,7 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressiveLabel, impressiveTagCV, feelLabel, feelTagCV])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressiveLabel, impressiveTagCV, feelLabel, feelTagCV, afterTasteLabel, afterTasteTextView, isPrivateToggleButton, privateLabel, completeButton])
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -226,8 +236,19 @@ extension WriteVC {
             $0.left.equalTo(feelLabel.snp.left)
             $0.right.equalToSuperview()
             $0.height.equalTo(tagCellHeight * 2 + Double(cellVerticalSpacing))
-            $0.bottom.equalToSuperview()
         }
+        
+        afterTasteLabel.snp.makeConstraints {
+            $0.top.equalTo(feelTagCV.snp.bottomMargin).offset(50)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        afterTasteTextView.snp.makeConstraints {
+            $0.top.equalTo(afterTasteLabel.snp.bottomMargin).offset(16)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(252.adjustedH)
+        }
+        
 // TODO: 컬렉션뷰 진짜 개모르겠다. 말렸다. ㅋ  종일 햇는데 컬렉션뷰에 잡아먹힌 기분이다. 나중에 할 거다. 며칠만 뒤에... 뇌를 좀 상쾌하게 바꾸고 다시 도전한다 .....................
 // MARK: - UICollectionViewDataSource
 extension WriteVC: UICollectionViewDataSource {
