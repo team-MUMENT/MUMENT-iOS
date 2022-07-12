@@ -82,6 +82,11 @@ class WriteVC: BaseVC {
     private let completeButton = MumentCompleteButton(isEnabled: true).then {
         $0.setTitle("완료", for: .normal)
     }
+    
+    var clickedImpressiveTag: [Int] = []
+    var clickedFeelTag: [Int] = []
+    var impressiveTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브"]
+    var feelTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브", "🎡 벅참", "😄 신남", " 💐 설렘", "🗯 스트레스"]
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
