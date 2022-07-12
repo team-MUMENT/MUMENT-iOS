@@ -15,11 +15,9 @@ class DefaultMumentView: UIView {
         $0.axis = .horizontal
         $0.spacing = 7
     }
-    
     let profileImage = UIImageView().then{
         $0.makeRounded(cornerRadius: 12.5)
     }
-    
     let writerNameLabel = UILabel().then{
         $0.textColor = .mBlack2
         $0.font = .mumentC1R12
@@ -29,15 +27,6 @@ class DefaultMumentView: UIView {
     let separatorView = UIView().then{
         $0.backgroundColor = .mGray4
     }
-    
-    //    lazy var songInfroView = UIView().then{
-    //        $0.addSubviews([albumImage,songTitle,artistLabel,tagStackView])
-    //        albumImage.snp.makeConstraints{
-    //            $0.height.width.equalTo(70)
-    //            $0.left.top.bottom
-    //        }
-    //    }
-    
     let albumImage = UIImageView().then{
         $0.makeRounded(cornerRadius: 4)
     }
@@ -89,8 +78,6 @@ class DefaultMumentView: UIView {
         contentsLabel.text = cellData.contentsLabel
         createdAtLabel.text = cellData.createdAtLabel
     }
-    
-    
 }
 
 // MARK: - UI
@@ -98,15 +85,8 @@ extension DefaultMumentView {
     func setDefaultLayout() {
         
         self.backgroundColor = .mWhite
-//        self.addShadow(location:.top)
-//        self.addShadow(location:.left)
-//        self.addShadow(location:.bottom)
-//        self.addShadow(location:.right)
         self.makeRounded(cornerRadius: 11)
-//        self.addShadow(offset: CGSize(width: 0, height: 2),opacity: 0.3,radius: 7.0)
         self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 8.0)
-//        self.addShadow(offset: CGSize(width: 2, height: 0),opacity: 0.3,radius: 7.0)
-//        self.addShadow(offset: CGSize(width: -2, height: 0),opacity: 0.3,radius: 7.0)
        
         self.addSubviews([writerInfoStackView,separatorView,albumImage,songInfoStackView,tagStackView,contentsLabel,createdAtLabel])
         
@@ -120,7 +100,6 @@ extension DefaultMumentView {
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.top.equalTo(writerInfoStackView.snp.bottom).offset(11)
             $0.height.equalTo(1)
-//            $0.width.equalTo(50)
         }
         
         albumImage.snp.makeConstraints{
