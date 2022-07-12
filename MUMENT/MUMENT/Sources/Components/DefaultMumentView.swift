@@ -55,7 +55,7 @@ class DefaultMumentView: UIView {
         $0.font = .mumentB3M13
     }
     
-    //data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
+    ///data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
     private let tagStackView = UIStackView()
     private let contentsLabel = UILabel().then{
         $0.textColor = .mBlack2
@@ -80,7 +80,7 @@ class DefaultMumentView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentForTodayModel){
+    func setData(_ cellData: DefaultMumentModel){
         profileImage.image = cellData.profileImage
         writerNameLabel.text = cellData.writerName
         albumImage.image = cellData.albumImage
@@ -95,7 +95,7 @@ class DefaultMumentView: UIView {
 
 // MARK: - UI
 extension DefaultMumentView {
-    func setLayout() {
+    @objc func setLayout() {
         
         self.backgroundColor = .mWhite
 //        self.addShadow(location:.top)
