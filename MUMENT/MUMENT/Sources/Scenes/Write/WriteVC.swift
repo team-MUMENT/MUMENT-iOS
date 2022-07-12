@@ -16,7 +16,7 @@ class WriteVC: BaseVC {
         $0.bounces = false
     }
     private let writeContentView = UIView().then {
-        $0.backgroundColor = .lightGray
+        $0.backgroundColor = .mBgwhite
     }
     private let naviView = DefaultNavigationView().then {
         $0.setTitleLabel(title: "기록하기")
@@ -32,7 +32,7 @@ class WriteVC: BaseVC {
     private let searchButton = UIButton(type: .system).then {
         $0.setTitle("곡, 아티스트 검색", for: .normal)
         $0.setTitleColor(.mGray1, for: .normal)
-        $0.titleLabel?.font = .mumentB4B14
+        $0.titleLabel?.font = .mumentB4M14
         $0.backgroundColor = .mGray5
         $0.layer.cornerRadius = 10
         $0.configuration = .plain()

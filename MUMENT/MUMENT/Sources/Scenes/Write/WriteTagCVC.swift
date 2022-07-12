@@ -22,7 +22,7 @@ class WriteTagCVC: UICollectionViewCell {
         didSet {
             if isSelected {
                 contentView.backgroundColor = .mBlue3
-                contentLabel.font = .mumentB3B14
+                contentLabel.font = .mumentB2B14
                 contentLabel.textColor = .mBlue1
             } else {
                 contentView.backgroundColor = .mGray5
