@@ -88,6 +88,11 @@ class WriteVC: BaseVC {
         $0.clipsToBounds = true
         $0.makeRounded(cornerRadius: 11.adjustedH)
         $0.backgroundColor = .mGray5
+        $0.textContainerInset = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
+        $0.font = .mumentB6M13
+        $0.autocorrectionType = .no
+        $0.autocapitalizationType = .none
+        $0.textColor = .mBlack2
     }
     private let isPrivateToggleButton = UIButton(type: .custom).then {
         $0.setImage(UIImage(named: "mumentToggleOff"), for: .normal)
