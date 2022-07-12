@@ -22,6 +22,7 @@ class DefaultMumentView: UIView {
     }
     
     private let writerNameLabel = UILabel().then{
+        $0.textColor = .mBlack2
         $0.font = .mumentC1R12
     }
     
@@ -46,18 +47,24 @@ class DefaultMumentView: UIView {
         $0.distribution = .fillProportionally
     }
     private let songTitleLabel = UILabel().then{
+        $0.textColor = .mBlack1
         $0.font = .mumentB3B14
     }
     private let artistLabel = UILabel().then{
+        $0.textColor = .mGray1
         $0.font = .mumentB3M13
     }
     
     //data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
     private let tagStackView = UIStackView()
     private let contentsLabel = UILabel().then{
-        $0.font = .mumentB6M13
+        $0.textColor = .mBlack2
+        $0.lineBreakMode = .byCharWrapping
+        $0.numberOfLines = 2
+        $0.font = UIFont(name: "NotoSans-Medium", size: 13.0)
     }
     private let createdAtLabel = UILabel().then{
+        $0.textColor = .mGray2
         $0.font = .mumentC1R12
     }
     
@@ -89,6 +96,9 @@ class DefaultMumentView: UIView {
 // MARK: - UI
 extension DefaultMumentView {
     func setLayout() {
+        
+        self.backgroundColor = .mWhite
+        
         self.addSubviews([writerInfoStackView,separatorView,albumImage,songInfoStackView,tagStackView,contentsLabel,createdAtLabel])
         
         writerInfoStackView.snp.makeConstraints {
