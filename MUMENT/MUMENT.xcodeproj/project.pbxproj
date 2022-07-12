@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
 		4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CE8287975740060CE41 /* HomeTVHeader.swift */; };
 		4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEA287975800060CE41 /* CarouselTVC.swift */; };
 		4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */; };
 		4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */; };
 		4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */; };
+		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
 		C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C1287C19B00017F2DA /* NetworkResult.swift */; };
@@ -49,7 +51,7 @@
 		C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB531B28759E0200E0E889 /* WriteVC.swift */; };
 		C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB531D28759E6500E0E889 /* StorageVC.swift */; };
 		C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */; };
-		C7BC6B562876ADCD008C75CE /* ma.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B552876ADCD008C75CE /* ma.swift */; };
+		C7BC6B562876ADCD008C75CE /* CarouselModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B552876ADCD008C75CE /* CarouselModel.swift */; };
 		C7BC6B582876ADD6008C75CE /* ww.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B572876ADD6008C75CE /* ww.swift */; };
 		C7BC6B5A2876ADDD008C75CE /* ss.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B592876ADDD008C75CE /* ss.swift */; };
 		C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B5B287708D1008C75CE /* BaseNVC.swift */; };
@@ -67,11 +69,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
 		4D696CE8287975740060CE41 /* HomeTVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVHeader.swift; sourceTree = "<group>"; };
 		4D696CEA287975800060CE41 /* CarouselTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTVC.swift; sourceTree = "<group>"; };
 		4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMumentsTVC.swift; sourceTree = "<group>"; };
 		4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTVC.swift; sourceTree = "<group>"; };
 		4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayTVC.swift; sourceTree = "<group>"; };
+		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		C73FC9C1287C19B00017F2DA /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
@@ -104,7 +108,7 @@
 		C7BB531B28759E0200E0E889 /* WriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteVC.swift; sourceTree = "<group>"; };
 		C7BB531D28759E6500E0E889 /* StorageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageVC.swift; sourceTree = "<group>"; };
 		C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationView.swift; sourceTree = "<group>"; };
-		C7BC6B552876ADCD008C75CE /* ma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ma.swift; sourceTree = "<group>"; };
+		C7BC6B552876ADCD008C75CE /* CarouselModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselModel.swift; sourceTree = "<group>"; };
 		C7BC6B572876ADD6008C75CE /* ww.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ww.swift; sourceTree = "<group>"; };
 		C7BC6B592876ADDD008C75CE /* ss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ss.swift; sourceTree = "<group>"; };
 		C7BC6B5B287708D1008C75CE /* BaseNVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNVC.swift; sourceTree = "<group>"; };
@@ -226,6 +230,7 @@
 				C7BC6B5D28770902008C75CE /* NSObject+.swift */,
 				C7BC6B5F28770FB6008C75CE /* UILabel+.swift */,
 				C7BC6B6128771020008C75CE /* UICollectionView+.swift */,
+				4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */,
 				C7BC6B6328771042008C75CE /* UITableVIew+.swift */,
 				C7BC6B6528771056008C75CE /* UITextField+.swift */,
 				C7BC6B67287710BA008C75CE /* UIView+.swift */,
@@ -265,6 +270,7 @@
 				C7BB531928759DE500E0E889 /* HomeVC.swift */,
 				4D696CE8287975740060CE41 /* HomeTVHeader.swift */,
 				4D696CEA287975800060CE41 /* CarouselTVC.swift */,
+				4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */,
 				4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */,
 				4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */,
 				4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */,
@@ -352,7 +358,7 @@
 		C7BC6B522876ADC0008C75CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C7BC6B552876ADCD008C75CE /* ma.swift */,
+				C7BC6B552876ADCD008C75CE /* CarouselModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -474,7 +480,8 @@
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
 				C7BB53102875990700E0E889 /* BaseVC.swift in Sources */,
 				C74EC438287593110068EB46 /* UIColor+.swift in Sources */,
-				C7BC6B562876ADCD008C75CE /* ma.swift in Sources */,
+				C7BC6B562876ADCD008C75CE /* CarouselModel.swift in Sources */,
+				4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */,
 				4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */,
 				C7BC6B6A287710D6008C75CE /* UIButton+.swift in Sources */,
 				C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */,
@@ -502,6 +509,7 @@
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
 				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
+				4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */,
 				4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */,
 				C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */,
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
@@ -647,7 +655,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N4RT4KGQK9;
+				DEVELOPMENT_TEAM = T24N5ZR2DS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -662,7 +670,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = madilyn.MUMENT;
+				PRODUCT_BUNDLE_IDENTIFIER = "madilyn.MUMENT-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -677,7 +685,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N4RT4KGQK9;
+				DEVELOPMENT_TEAM = T24N5ZR2DS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -692,7 +700,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = madilyn.MUMENT;
+				PRODUCT_BUNDLE_IDENTIFIER = "madilyn.MUMENT-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
