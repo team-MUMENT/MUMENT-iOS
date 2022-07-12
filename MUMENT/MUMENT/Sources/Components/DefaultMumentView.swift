@@ -13,7 +13,6 @@ class DefaultMumentView: UIView {
     // MARK: - Properties
     lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then{
         $0.axis = .horizontal
-        $0.distribution = .fillProportionally
         $0.spacing = 7
     }
     
@@ -24,10 +23,11 @@ class DefaultMumentView: UIView {
     private let writerNameLabel = UILabel().then{
         $0.textColor = .mBlack2
         $0.font = .mumentC1R12
+        $0.sizeToFit()
     }
     
     private let separatorView = UIView().then{
-        $0.tintColor = .mGray4
+        $0.backgroundColor = .mGray4
     }
     
     //    lazy var songInfroView = UIView().then{
@@ -44,7 +44,7 @@ class DefaultMumentView: UIView {
     
     lazy var songInfoStackView = UIStackView(arrangedSubviews: [songTitleLabel, artistLabel]).then{
         $0.axis = .vertical
-        $0.distribution = .fillProportionally
+        $0.spacing = 3
     }
     private let songTitleLabel = UILabel().then{
         $0.textColor = .mBlack1
@@ -76,7 +76,7 @@ class DefaultMumentView: UIView {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-                setLayout()
+        setLayout()
     }
     
     //MARK: - Functions
@@ -90,7 +90,7 @@ class DefaultMumentView: UIView {
         createdAtLabel.text = cellData.createdAtLabel
     }
     
-
+    
 }
 
 // MARK: - UI
@@ -111,6 +111,7 @@ extension DefaultMumentView {
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.top.equalTo(writerInfoStackView.snp.bottom).offset(11)
             $0.height.equalTo(1)
+//            $0.width.equalTo(50)
         }
         
         albumImage.snp.makeConstraints{
@@ -120,11 +121,12 @@ extension DefaultMumentView {
         }
         
         songInfoStackView.snp.makeConstraints{
-            $0.left.equalTo(albumImage.snp.left).offset(10)
+            $0.left.equalTo(albumImage.snp.right).offset(10)
+            $0.top.equalTo(separatorView.snp.bottom).offset(15)
         }
         
         tagStackView.snp.makeConstraints{
-            $0.left.equalTo(albumImage.snp.left).offset(10)
+            $0.left.equalTo(albumImage.snp.right).offset(10)
             $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
         }
         
