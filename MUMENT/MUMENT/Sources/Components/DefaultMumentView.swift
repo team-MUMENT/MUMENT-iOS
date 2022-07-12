@@ -41,11 +41,11 @@ class DefaultMumentView: UIView {
         $0.makeRounded(cornerRadius: 4)
     }
     
-    lazy var songInfoStackView = UIStackView(arrangedSubviews: [songTitle, artistLabel]).then{
+    lazy var songInfoStackView = UIStackView(arrangedSubviews: [songTitleLabel, artistLabel]).then{
         $0.axis = .vertical
         $0.distribution = .fillProportionally
     }
-    private let songTitle = UILabel().then{
+    private let songTitleLabel = UILabel().then{
         $0.font = .mumentB3B14
     }
     private let artistLabel = UILabel().then{
@@ -71,6 +71,19 @@ class DefaultMumentView: UIView {
         super.init(coder: aDecoder)!
                 setLayout()
     }
+    
+    //MARK: - Functions
+    func setData(_ cellData: MumentForTodayModel){
+        profileImage.image = cellData.profileImage
+        writerNameLabel.text = cellData.writerName
+        albumImage.image = cellData.albumImage
+        songTitleLabel.text = cellData.songTitle
+        artistLabel.text = cellData.artistName
+        contentsLabel.text = cellData.contentsLabel
+        createdAtLabel.text = cellData.createdAtLabel
+    }
+    
+
 }
 
 // MARK: - UI

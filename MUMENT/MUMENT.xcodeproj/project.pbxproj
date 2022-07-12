@@ -10,6 +10,7 @@
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
 		4D64A9E8287D810000450FCA /* DefaultMumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* DefaultMumentView.swift */; };
 		4D64A9EA287D885A00450FCA /* DefaultTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* DefaultTagView.swift */; };
+		4D64A9ED287DD95A00450FCA /* MumentForTodayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* MumentForTodayModel.swift */; };
 		4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CE8287975740060CE41 /* HomeTVHeader.swift */; };
 		4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEA287975800060CE41 /* CarouselTVC.swift */; };
 		4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */; };
@@ -73,6 +74,7 @@
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* DefaultMumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* DefaultTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTagView.swift; sourceTree = "<group>"; };
+		4D64A9EC287DD95A00450FCA /* MumentForTodayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayModel.swift; sourceTree = "<group>"; };
 		4D696CE8287975740060CE41 /* HomeTVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVHeader.swift; sourceTree = "<group>"; };
 		4D696CEA287975800060CE41 /* CarouselTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTVC.swift; sourceTree = "<group>"; };
 		4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMumentsTVC.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				C7BC6B552876ADCD008C75CE /* CarouselModel.swift */,
+				4D64A9EC287DD95A00450FCA /* MumentForTodayModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,
 				C7BC6B6C287710F9008C75CE /* String+.swift in Sources */,
+				4D64A9ED287DD95A00450FCA /* MumentForTodayModel.swift in Sources */,
 				C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */,
 				C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */,
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
