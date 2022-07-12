@@ -105,12 +105,12 @@ class WriteVC: BaseVC {
         setRadioButtonSelectStatus(button: firstTimeButton, isSelected: false)
         setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: true)
         setRadioButton()
+        registerCell()
     }
     
     // MARK: - Functions
     private func setRadioButton() {
         firstTimeButton.press {
-            print("asdf")
             self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: true)
             self.setRadioButtonSelectStatus(button: self.alreadyKnowButton, isSelected: false)
         }
@@ -144,6 +144,12 @@ extension WriteVC {
         button.isSelected = isSelected
         button.titleLabel?.font = isSelected ? .mumentB3B14 : .mumentB4M14
     }
+    
+    private func registerCell() {
+        impressiveTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
+        feelTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
+    }
+    
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
