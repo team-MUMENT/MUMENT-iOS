@@ -16,17 +16,17 @@ class DefaultMumentView: UIView {
         $0.spacing = 7
     }
     
-    private let profileImage = UIImageView().then{
+    let profileImage = UIImageView().then{
         $0.makeRounded(cornerRadius: 12.5)
     }
     
-    private let writerNameLabel = UILabel().then{
+    let writerNameLabel = UILabel().then{
         $0.textColor = .mBlack2
         $0.font = .mumentC1R12
         $0.sizeToFit()
     }
     
-    private let separatorView = UIView().then{
+    let separatorView = UIView().then{
         $0.backgroundColor = .mGray4
     }
     
@@ -38,7 +38,7 @@ class DefaultMumentView: UIView {
     //        }
     //    }
     
-    private let albumImage = UIImageView().then{
+    let albumImage = UIImageView().then{
         $0.makeRounded(cornerRadius: 4)
     }
     
@@ -46,24 +46,24 @@ class DefaultMumentView: UIView {
         $0.axis = .vertical
         $0.spacing = 3
     }
-    private let songTitleLabel = UILabel().then{
+    let songTitleLabel = UILabel().then{
         $0.textColor = .mBlack1
         $0.font = .mumentB3B14
     }
-    private let artistLabel = UILabel().then{
+    let artistLabel = UILabel().then{
         $0.textColor = .mGray1
         $0.font = .mumentB3M13
     }
     
     ///data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
-    private let tagStackView = UIStackView()
-    private let contentsLabel = UILabel().then{
+    let tagStackView = UIStackView()
+    let contentsLabel = UILabel().then{
         $0.textColor = .mBlack2
         $0.lineBreakMode = .byCharWrapping
         $0.numberOfLines = 2
         $0.font = UIFont(name: "NotoSans-Medium", size: 13.0)
     }
-    private let createdAtLabel = UILabel().then{
+    let createdAtLabel = UILabel().then{
         $0.textColor = .mGray2
         $0.font = .mumentC1R12
     }
@@ -71,12 +71,12 @@ class DefaultMumentView: UIView {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setLayout()
+        setDefaultLayout()
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        setLayout()
+        setDefaultLayout()
     }
     
     //MARK: - Functions
@@ -95,7 +95,7 @@ class DefaultMumentView: UIView {
 
 // MARK: - UI
 extension DefaultMumentView {
-    @objc func setLayout() {
+    func setDefaultLayout() {
         
         self.backgroundColor = .mWhite
 //        self.addShadow(location:.top)

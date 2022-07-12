@@ -12,14 +12,14 @@ import Then
 class MumentForTodayTVC: UITableViewCell {
     
     // MARK: - Properties
-    var dataSource: [DefaultMumentModel] = DefaultMumentModel.sampleData
+    var dataSource: [MumentWithHeartModel] = MumentWithHeartModel.sampleData
     lazy var titleLabel = UILabel().then{
         $0.text = "오늘의 뮤멘트"
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
     
-    private let mumentCardView = DefaultMumentView()
+    private let mumentCardView = MumentWithHeartView()
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
