@@ -87,9 +87,20 @@ class WriteVC: BaseVC {
     var clickedFeelTag: [Int] = []
     var impressiveTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브"]
     var feelTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브", "🎡 벅참", "😄 신남", " 💐 설렘", "🗯 스트레스"]
+    
+    private let tagCellHeight = 35.adjustedH
+    private let cellVerticalSpacing = 10.adjustedW
+    private let CVLayout = UICollectionViewFlowLayout().then {
+        $0.scrollDirection = .horizontal
+        $0.minimumLineSpacing = 10
+        $0.minimumInteritemSpacing = 20
+        $0.sectionInset = .zero
+    }
+
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTagCV()
         setLayout()
         setRadioButtonSelectStatus(button: firstTimeButton, isSelected: false)
         setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: true)
@@ -107,6 +118,22 @@ class WriteVC: BaseVC {
             self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: false)
             self.setRadioButtonSelectStatus(button: self.alreadyKnowButton, isSelected: true)
         }
+    }
+    
+    private func setTagCV() {
+        impressiveTagCV.dataSource = self
+        impressiveTagCV.delegate = self
+        impressiveTagCV.layoutMargins =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        impressiveTagCV.allowsMultipleSelection = true
+        impressiveTagCV.clipsToBounds = true
+        impressiveTagCV.collectionViewLayout = CVLayout
+        
+        feelTagCV.dataSource = self
+        feelTagCV.delegate = self
+        feelTagCV.layoutMargins =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        feelTagCV.allowsMultipleSelection = true
+        feelTagCV.clipsToBounds = true
+        feelTagCV.collectionViewLayout = CVLayout
     }
 }
 
@@ -195,6 +222,64 @@ extension WriteVC {
             $0.height.equalTo(tagCellHeight * 2 + Double(cellVerticalSpacing))
             $0.bottom.equalToSuperview()
         }
+// TODO: 컬렉션뷰 진짜 개모르겠다. 말렸다. ㅋ  종일 햇는데 컬렉션뷰에 잡아먹힌 기분이다. 나중에 할 거다. 며칠만 뒤에... 뇌를 좀 상쾌하게 바꾸고 다시 도전한다 .....................
+// MARK: - UICollectionViewDataSource
+extension WriteVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch collectionView {
+        case impressiveTagCV:
+            return impressiveTagDummyData.count
+        case feelTagCV:
+            return feelTagDummyData.count
+        default: return 0
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WriteTagCVC.className, for: indexPath) as! WriteTagCVC
+        switch collectionView {
+        case impressiveTagCV:
+            cell.setData(data: impressiveTagDummyData[indexPath.row])
+            return cell
+        case feelTagCV:
+            cell.setData(data: feelTagDummyData[indexPath.row])
+            return cell
+        default: return cell
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension WriteVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let sizingCell = WriteTagCVC()
+        switch collectionView {
+        case impressiveTagCV:
+            sizingCell.setData(data: impressiveTagDummyData[indexPath.row])
+        case feelTagCV:
+            sizingCell.setData(data: feelTagDummyData[indexPath.row])
+        default: break
+        }
+        
+        sizingCell.contentLabel.sizeToFit()
+        
+        let cellWidth = sizingCell.contentLabel.frame.width + 26
+        let cellHeight = tagCellHeight
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
+            cell.isSelected = true
+        }
+        debugPrint("cell clicked", "\(indexPath)")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
+            cell.isSelected = false
+        }
+        debugPrint("cell Unclicked", "\(indexPath)")
     }
 }
