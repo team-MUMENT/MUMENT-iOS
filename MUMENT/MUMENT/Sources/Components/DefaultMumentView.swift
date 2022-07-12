@@ -110,11 +110,11 @@ extension DefaultMumentView {
         }
         
         songInfoStackView.snp.makeConstraints{
-            $0.left.equalTo(albumImage.snp.leading).offset(10)
+            $0.left.equalTo(albumImage.snp.left).offset(10)
         }
         
         tagStackView.snp.makeConstraints{
-            $0.left.equalTo(albumImage.snp.leading).offset(10)
+            $0.left.equalTo(albumImage.snp.left).offset(10)
             $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
         }
         
