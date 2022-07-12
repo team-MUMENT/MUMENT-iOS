@@ -98,7 +98,16 @@ extension DefaultMumentView {
     func setLayout() {
         
         self.backgroundColor = .mWhite
-        
+//        self.addShadow(location:.top)
+//        self.addShadow(location:.left)
+//        self.addShadow(location:.bottom)
+//        self.addShadow(location:.right)
+        self.makeRounded(cornerRadius: 11)
+//        self.addShadow(offset: CGSize(width: 0, height: 2),opacity: 0.3,radius: 7.0)
+        self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 8.0)
+//        self.addShadow(offset: CGSize(width: 2, height: 0),opacity: 0.3,radius: 7.0)
+//        self.addShadow(offset: CGSize(width: -2, height: 0),opacity: 0.3,radius: 7.0)
+       
         self.addSubviews([writerInfoStackView,separatorView,albumImage,songInfoStackView,tagStackView,contentsLabel,createdAtLabel])
         
         writerInfoStackView.snp.makeConstraints {
