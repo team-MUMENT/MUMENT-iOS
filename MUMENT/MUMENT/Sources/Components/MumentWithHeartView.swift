@@ -15,8 +15,6 @@ class MumentWithHeartView: DefaultMumentView {
     private let heartButton = UIButton().then{
         $0.setTitleColor(.mGray1, for: .normal)
         $0.titleLabel?.font = .mumentC1R12
-//        $0.configuration = .plain()
-//        $0.configuration?.imagePadding = 5
     }
     
     // MARK: - Initialization

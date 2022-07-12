@@ -18,7 +18,6 @@ class MumentForTodayTVC: UITableViewCell {
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
-    
     private let mumentCardView = MumentWithHeartView()
     
     // MARK: - Initialization
@@ -53,7 +52,6 @@ extension MumentForTodayTVC {
 }
 
 extension MumentForTodayTVC {
-    
     private func fetchData() {
         mumentCardView.setData(dataSource[0])
     }
