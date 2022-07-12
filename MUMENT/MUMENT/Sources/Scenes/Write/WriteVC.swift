@@ -94,6 +94,11 @@ class WriteVC: BaseVC {
         $0.autocapitalizationType = .none
         $0.textColor = .mBlack2
     }
+    private let countTextViewLabel = UILabel().then {
+        $0.font = .mumentB6M13
+        $0.textColor = .mGray2
+        $0.text = "0/1000"
+    }
     private let isPrivateToggleButton = UIButton(type: .custom).then {
         $0.setImage(UIImage(named: "mumentToggleOff"), for: .normal)
         $0.setImage(UIImage(named: "mumentToggleOn"), for: .selected)
@@ -186,7 +191,7 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressiveLabel, impressiveTagCV, feelLabel, feelTagCV, afterTasteLabel, afterTasteTextView, isPrivateToggleButton, privateLabel, completeButton])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressiveLabel, impressiveTagCV, feelLabel, feelTagCV, afterTasteLabel, afterTasteTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -270,6 +275,11 @@ extension WriteVC {
             $0.top.equalTo(afterTasteLabel.snp.bottomMargin).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(252.adjustedH)
+        }
+        
+        countTextViewLabel.snp.makeConstraints {
+            $0.right.equalTo(afterTasteTextView.snp.right).inset(13)
+            $0.bottom.equalTo(afterTasteTextView.snp.bottom).inset(15)
         }
         
         isPrivateToggleButton.snp.makeConstraints {
