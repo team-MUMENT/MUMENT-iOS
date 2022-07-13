@@ -10,9 +10,11 @@
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
 		4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CE8287975740060CE41 /* HomeTVHeader.swift */; };
 		4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEA287975800060CE41 /* CarouselTVC.swift */; };
-		4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */; };
+		4D696CEF287978360060CE41 /* MumentsOfRevisitedTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* MumentsOfRevisitedTVC.swift */; };
 		4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */; };
 		4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */; };
+		4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */; };
+		4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */; };
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
@@ -71,9 +73,11 @@
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
 		4D696CE8287975740060CE41 /* HomeTVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVHeader.swift; sourceTree = "<group>"; };
 		4D696CEA287975800060CE41 /* CarouselTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTVC.swift; sourceTree = "<group>"; };
-		4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMumentsTVC.swift; sourceTree = "<group>"; };
+		4D696CEE287978360060CE41 /* MumentsOfRevisitedTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedTVC.swift; sourceTree = "<group>"; };
 		4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTVC.swift; sourceTree = "<group>"; };
 		4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayTVC.swift; sourceTree = "<group>"; };
+		4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedCVC.swift; sourceTree = "<group>"; };
+		4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedModel.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
@@ -269,7 +273,8 @@
 				4D696CE8287975740060CE41 /* HomeTVHeader.swift */,
 				4D696CEA287975800060CE41 /* CarouselTVC.swift */,
 				4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */,
-				4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */,
+				4D696CEE287978360060CE41 /* MumentsOfRevisitedTVC.swift */,
+				4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */,
 				4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */,
 				4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */,
 			);
@@ -356,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				C7BC6B552876ADCD008C75CE /* CarouselModel.swift */,
+				4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -469,6 +475,7 @@
 			files = (
 				C73FC9C8287C19DA0017F2DA /* NetworkConstants.swift in Sources */,
 				C7BC6B582876ADD6008C75CE /* ww.swift in Sources */,
+				4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */,
 				C7BB53122875994500E0E889 /* UIViewController+.swift in Sources */,
 				C7BC6B6E28771152008C75CE /* UserDefaults+.swift in Sources */,
 				C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */,
@@ -479,7 +486,7 @@
 				C74EC438287593110068EB46 /* UIColor+.swift in Sources */,
 				C7BC6B562876ADCD008C75CE /* CarouselModel.swift in Sources */,
 				4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */,
-				4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */,
+				4D696CEF287978360060CE41 /* MumentsOfRevisitedTVC.swift in Sources */,
 				C7BC6B6A287710D6008C75CE /* UIButton+.swift in Sources */,
 				C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */,
 				C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */,
@@ -498,6 +505,7 @@
 				C7BC6B6228771020008C75CE /* UICollectionView+.swift in Sources */,
 				C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */,
 				C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */,
+				4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */,
 				C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */,
 				C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */,
 				C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */,
