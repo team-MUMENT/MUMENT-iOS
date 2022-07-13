@@ -12,7 +12,12 @@ import Then
 class MumentsOfRevisitedCVC: UICollectionViewCell {
     
     // MARK: - Properties
-    private let albumImage = UIImageView()
+    private let albumImage = UIImageView().then{
+//        $0.roundCorners(UIRectCorner.topRight, radius: 12)
+        $0.makeRounded(cornerRadius: 12)
+        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        $0.clipsToBounds = true
+    }
     
     lazy var contentsStackView = UIStackView(arrangedSubviews: [mumentInfoStackView, writerInfoStackView]).then{
         $0.axis = .vertical
