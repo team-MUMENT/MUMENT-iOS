@@ -45,7 +45,7 @@ extension HomeVC {
         
         headerView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(107.adjustedH)
+            $0.height.equalTo(107)
         }
         
         homeTV.snp.makeConstraints {
@@ -109,11 +109,11 @@ extension HomeVC: UITableViewDelegate {
         var cellHeight: CGFloat
         switch indexPath.section {
         case 0:
-            cellHeight = 300.adjustedH
+            cellHeight = 300
         case 1:
-            cellHeight = 300.adjustedH
+            cellHeight = 300
         case 2...3:
-            cellHeight = 350.adjustedH
+            cellHeight = 350
         default:
             cellHeight = 0
         }
