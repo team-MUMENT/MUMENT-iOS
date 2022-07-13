@@ -11,10 +11,35 @@ import Then
 
 class MumentWithHeartView: DefaultMumentView {
     
+    let attributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.mumentC1R12,
+        .foregroundColor: UIColor.mGray1
+    ]
+    
+    var heartButtonText: String = "" {
+        didSet{
+            heartButton.setAttributedTitle(NSAttributedString(string: heartButtonText,attributes: attributes), for: .normal)
+        }
+    }
+//    var attString = AttributedString(){
+//    attString.font = .mumentC1R12
+//    attString.foregroundColor = .mGray1
+//    }
     // MARK: - Properties
     private let heartButton = UIButton().then{
-        $0.setTitleColor(.mGray1, for: .normal)
-        $0.titleLabel?.font = .mumentC1R12
+//        $0.setTitleColor(.mGray1, for: .normal)
+//        $0.titleLabel?.font = .mumentC1R12
+        
+        
+//        attString.settingAttributes(NSAttributedString)
+            
+            // 2)
+        var configuration = UIButton.Configuration.plain()
+//            configuration.attributedTitle = attString
+//            configuration.image = UIImage(named: "btn_arrowdown_black_10pt")
+            configuration.imagePadding = 5
+//            configuration.imagePlacement = .trailing
+        $0.configuration = configuration
     }
     
     // MARK: - Initialization
@@ -36,8 +61,14 @@ class MumentWithHeartView: DefaultMumentView {
         artistLabel.text = cellData.artistName
         contentsLabel.text = cellData.contentsLabel
         createdAtLabel.text = cellData.createdAtLabel
+//        heartButton.setImage(cellData.heartImage, for: .normal)
+//        heartButton.setTitle(" \(cellData.heartCount)", for: .normal)
         heartButton.setImage(cellData.heartImage, for: .normal)
-        heartButton.setTitle(" \(cellData.heartCount)", for: .normal)
+//        heartButton.setAttributedTitle(NSAttributedString(string: "\(cellData.heartCount)",attributes: attributes), for: .normal)
+        heartButtonText = "\(cellData.heartCount)"
+//        heartButton.configuration?.title = "\(cellData.heartCount)"
+//        setAttributedTitle(" \(cellData.heartCount)", for: .normal)
+//        setTitle(" \(cellData.heartCount)", for: .normal)
     }
 }
 
