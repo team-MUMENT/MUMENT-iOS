@@ -65,6 +65,7 @@ class DefaultMumentView: UIView {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
+        setDefaultUI()
         setDefaultLayout()
     }
     
@@ -82,12 +83,14 @@ class DefaultMumentView: UIView {
 
 // MARK: - UI
 extension DefaultMumentView {
-    func setDefaultLayout() {
-        
+    
+    func setDefaultUI(){
         self.backgroundColor = .mWhite
         self.makeRounded(cornerRadius: 11)
         self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 8.0)
-       
+    }
+    
+    func setDefaultLayout() {
         self.addSubviews([writerInfoStackView,separatorView,albumImage,songInfoStackView,tagStackView,contentsLabel,createdAtLabel])
         
         writerInfoStackView.snp.makeConstraints {
@@ -130,6 +133,7 @@ extension DefaultMumentView {
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
         
+
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(25)
         }
