@@ -60,6 +60,7 @@ class DefaultMumentView: UIView {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        setDefaultUI()
         setDefaultLayout()
     }
     
