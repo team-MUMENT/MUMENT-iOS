@@ -139,3 +139,4 @@ xcuserdata
 # End of https://www.toptal.com/developers/gitignore/api/macos,swift,swiftpackagemanager,xcode
 *.xcuserstate
 *.xcuserstate
+MUMENT/MUMENT/.DS_Store

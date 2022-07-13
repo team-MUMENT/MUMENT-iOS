@@ -23,6 +23,7 @@
 		C73FC9CA287C19E60017F2DA /* zzService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C9287C19E60017F2DA /* zzService.swift */; };
 		C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */; };
 		C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CD287C19F40017F2DA /* EventLogger.swift */; };
+		C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */; };
 		C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC41928758D220068EB46 /* AppDelegate.swift */; };
 		C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC41B28758D220068EB46 /* SceneDelegate.swift */; };
 		C74EC42328758D230068EB46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74EC42228758D230068EB46 /* Assets.xcassets */; };
@@ -84,6 +85,7 @@
 		C73FC9C9287C19E60017F2DA /* zzService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zzService.swift; sourceTree = "<group>"; };
 		C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
 		C73FC9CD287C19F40017F2DA /* EventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogger.swift; sourceTree = "<group>"; };
+		C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTagCVC.swift; sourceTree = "<group>"; };
 		C74EC41628758D220068EB46 /* MUMENT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MUMENT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C74EC41928758D220068EB46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C74EC41B28758D220068EB46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,9 +209,9 @@
 		C74EC41828758D220068EB46 /* MUMENT */ = {
 			isa = PBXGroup;
 			children = (
-				C73FC9BA287C193A0017F2DA /* Network */,
 				C74EC42728758D230068EB46 /* Info.plist */,
 				C7BC6B4C2876ACD9008C75CE /* Global */,
+				C73FC9BA287C193A0017F2DA /* Network */,
 				C7BC6B4A2876ACC5008C75CE /* Resources */,
 				C7BC6B4B2876ACD1008C75CE /* Sources */,
 				C7BC6B4D2876ACE0008C75CE /* Application */,
@@ -281,6 +283,7 @@
 			children = (
 				C7BC6B532876ADC4008C75CE /* Model */,
 				C7BB531B28759E0200E0E889 /* WriteVC.swift */,
+				C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */,
 			);
 			path = Write;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */,
 				C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */,
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
+				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* zzService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -651,7 +655,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T24N5ZR2DS;
+				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -681,7 +685,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T24N5ZR2DS;
+				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
