@@ -69,6 +69,7 @@ class WriteVC: BaseVC {
     private let impressiveTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .mBgwhite
         $0.showsHorizontalScrollIndicator = false
+        $0.isScrollEnabled = false
     }
     private let feelLabel = UILabel().then {
         $0.text = "감정을 선택해보세요."
@@ -117,7 +118,7 @@ class WriteVC: BaseVC {
     var clickedImpressiveTag: [Int] = []
     var clickedFeelTag: [Int] = []
     var impressiveTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브"]
-    var feelTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브", "🎡 벅참", "😄 신남", " 💐 설렘", "🗯 스트레스"]
+    var feelTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브", "🎡 벅참", "😄 신남", " 💐 설렘", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스"]
     
     private let tagCellHeight = 35.adjustedH
     private let cellVerticalSpacing = 10.adjustedH
