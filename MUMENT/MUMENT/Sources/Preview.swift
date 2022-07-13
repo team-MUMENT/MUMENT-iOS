@@ -13,6 +13,8 @@ import SwiftUI
 struct ViewController_Preview: PreviewProvider {
     static var previews: some View {
         HomeVC().showPreview(.iPhone13mini)
+        WriteVC().showPreview(.iPhone13mini)
+        StorageVC().showPreview(.iPhoneSE2)
         HomeVC().showPreview(.iPhoneSE2)
         HomeVC().showPreview(.iPhone8)
         HomeVC().showPreview(.iPhone13Pro)
