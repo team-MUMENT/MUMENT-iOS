@@ -265,7 +265,7 @@ extension WriteVC {
             $0.top.equalTo(feelLabel.snp.bottom).offset(16)
             $0.left.equalTo(feelLabel.snp.left)
             $0.right.equalToSuperview()
-            $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
+            $0.height.equalTo(tagCellHeight * 3 + cellVerticalSpacing * 2)
         }
         
         contentLabel.snp.makeConstraints {
