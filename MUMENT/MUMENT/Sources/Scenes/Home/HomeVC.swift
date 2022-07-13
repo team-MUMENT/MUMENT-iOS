@@ -110,8 +110,10 @@ extension HomeVC: UITableViewDelegate {
         switch indexPath.section {
         case 0:
             cellHeight = 300.adjustedH
-        case 1...3:
-            cellHeight = 400.adjustedH
+        case 1:
+            cellHeight = 300.adjustedH
+        case 2...3:
+            cellHeight = 350.adjustedH
         default:
             cellHeight = 0
         }

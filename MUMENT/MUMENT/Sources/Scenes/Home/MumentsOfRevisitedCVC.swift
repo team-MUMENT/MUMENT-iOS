@@ -12,9 +12,7 @@ import Then
 class MumentsOfRevisitedCVC: UICollectionViewCell {
     
     // MARK: - Properties
-    private let albumImage = UIImageView().then{
-        $0.clipsToBounds = true
-    }
+    private let albumImage = UIImageView()
     
     lazy var contentsStackView = UIStackView(arrangedSubviews: [mumentInfoStackView, writerInfoStackView]).then{
         $0.axis = .vertical
@@ -40,10 +38,8 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
         $0.axis = .horizontal
         $0.spacing = 6
     }
-    private var profileImage = UIImageView(){
-        didSet{
-            self.makeRounded(cornerRadius: self.frame.width/2)
-        }
+    private var profileImage = UIImageView().then{
+        $0.makeRounded(cornerRadius: 9.5)
     }
     private let writerNameLabel = UILabel().then{
         $0.textColor = .mGray1
@@ -54,8 +50,7 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
-        self.makeRounded(cornerRadius: 12)
-        self.backgroundColor = .mGray4
+        setUI()
     }
     
     @available(*, unavailable)
@@ -75,6 +70,12 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
 
 // MARK: - UI
 extension MumentsOfRevisitedCVC {
+    
+    private func setUI(){
+        self.makeRounded(cornerRadius: 12)
+        self.backgroundColor = .mGray4
+        self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 4.0)
+    }
     
     private func setLayout() {
         

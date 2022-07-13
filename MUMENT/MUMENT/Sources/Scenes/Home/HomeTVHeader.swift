@@ -23,7 +23,7 @@ class HomeTVHeader: UIView {
     lazy var searchButton = UIButton().then{
         $0.setTitle("뮤멘트를 둘러보세요.", for: .normal)
         $0.setTitleColor(.mGray1, for: .normal)
-        $0.titleLabel?.font = .mumentB4B14
+        $0.titleLabel?.font = .mumentB2B14
         $0.backgroundColor = .mGray5
         $0.layer.cornerRadius = 10
         $0.configuration = .plain()
