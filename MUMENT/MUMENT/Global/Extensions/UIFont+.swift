@@ -29,39 +29,31 @@ extension UIFont {
         return UIFont(name: "NotoSans-Bold", size: 15.0)!
     }
     
-    class var mumentB2B13: UIFont {
-        return UIFont(name: "NotoSans-Bold", size: 13.0)!
+    class var mumentB2B14: UIFont {
+        return UIFont(name: "NotoSans-Bold", size: 14.0)!
     }
     
     class var mumentB3M14: UIFont {
-        return UIFont(name: "NotoSans-Bold", size: 14.0)!
-    }
-    
-    class var mumentB3B14: UIFont {
-        return UIFont(name: "NotoSans-Bold", size: 14.0)!
+        return UIFont(name: "NotoSans-Medium", size: 14.0)!
     }
     
     class var mumentB4M14: UIFont {
         return UIFont(name: "NotoSans-Medium", size: 14.0)!
     }
     
-    class var mumentB4B14: UIFont {
-        return UIFont(name: "NotoSans-Medium", size: 14.0)!
+    class var mumentB5B13: UIFont {
+        return UIFont(name: "NotoSans-Bold", size: 13.0)!
     }
     
-    class var mumentB5M12: UIFont {
-        return UIFont(name: "NotoSans-Medium", size: 12.0)!
-    }
-    
-    class var mumentB5M13: UIFont {
+    class var mumentB6M13: UIFont {
         return UIFont(name: "NotoSans-Medium", size: 13.0)!
     }
     
-    class var mumentB6M12: UIFont {
+    class var mumentB7B12: UIFont {
         return UIFont(name: "NotoSans-Bold", size: 12.0)!
     }
     
-    class var mumentB7M12: UIFont {
+    class var mumentB8M12: UIFont {
         return UIFont(name: "NotoSans-Medium", size: 12.0)!
     }
     
