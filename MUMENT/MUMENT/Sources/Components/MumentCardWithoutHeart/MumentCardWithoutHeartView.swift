@@ -8,7 +8,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MumentWithoutHeartView: UIView {
+class MumentCardWithoutHeartView: UIView {
     
     // MARK: - Properties
     lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then{
@@ -71,7 +71,7 @@ class MumentWithoutHeartView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentWithoutHeartModel){
+    func setData(_ cellData: MumentCardWithoutHeartModel){
         profileImage.image = cellData.profileImage
         writerNameLabel.text = cellData.writerName
         albumImage.image = cellData.albumImage
@@ -83,7 +83,7 @@ class MumentWithoutHeartView: UIView {
 }
 
 // MARK: - UI
-extension MumentWithoutHeartView {
+extension MumentCardWithoutHeartView {
     
     func setDefaultUI(){
         self.backgroundColor = .mWhite

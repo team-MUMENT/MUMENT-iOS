@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
-		4D64A9E8287D810000450FCA /* MumentWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentWithoutHeartView.swift */; };
+		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
 		4D64A9EA287D885A00450FCA /* DefaultTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* DefaultTagView.swift */; };
-		4D64A9ED287DD95A00450FCA /* DefaultMumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* DefaultMumentModel.swift */; };
-		4D64A9EF287DEC1800450FCA /* DefaultMumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EE287DEC1800450FCA /* DefaultMumentView.swift */; };
-		4D64A9F1287DEEC900450FCA /* MumentWithoutHeartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9F0287DEEC900450FCA /* MumentWithoutHeartModel.swift */; };
+		4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */; };
+		4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EE287DEC1800450FCA /* DefaultMumentCardView.swift */; };
+		4D64A9F1287DEEC900450FCA /* MumentCardWithoutHeartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9F0287DEEC900450FCA /* MumentCardWithoutHeartModel.swift */; };
 		4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CE8287975740060CE41 /* HomeTVHeader.swift */; };
 		4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEA287975800060CE41 /* CarouselTVC.swift */; };
 		4D696CEF287978360060CE41 /* RecentMumentsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */; };
@@ -74,11 +74,11 @@
 
 /* Begin PBXFileReference section */
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
-		4D64A9E7287D810000450FCA /* MumentWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentWithoutHeartView.swift; sourceTree = "<group>"; };
+		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* DefaultTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTagView.swift; sourceTree = "<group>"; };
-		4D64A9EC287DD95A00450FCA /* DefaultMumentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentModel.swift; sourceTree = "<group>"; };
-		4D64A9EE287DEC1800450FCA /* DefaultMumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentView.swift; sourceTree = "<group>"; };
-		4D64A9F0287DEEC900450FCA /* MumentWithoutHeartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentWithoutHeartModel.swift; sourceTree = "<group>"; };
+		4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardModel.swift; sourceTree = "<group>"; };
+		4D64A9EE287DEC1800450FCA /* DefaultMumentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardView.swift; sourceTree = "<group>"; };
+		4D64A9F0287DEEC900450FCA /* MumentCardWithoutHeartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartModel.swift; sourceTree = "<group>"; };
 		4D696CE8287975740060CE41 /* HomeTVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVHeader.swift; sourceTree = "<group>"; };
 		4D696CEA287975800060CE41 /* CarouselTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTVC.swift; sourceTree = "<group>"; };
 		4D696CEE287978360060CE41 /* RecentMumentsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMumentsTVC.swift; sourceTree = "<group>"; };
@@ -151,6 +151,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D9734F0287ECE1B003EF546 /* DefaultMumentCard */ = {
+			isa = PBXGroup;
+			children = (
+				4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */,
+				4D64A9EE287DEC1800450FCA /* DefaultMumentCardView.swift */,
+			);
+			path = DefaultMumentCard;
+			sourceTree = "<group>";
+		};
+		4D9734F1287ECE29003EF546 /* MumentCardWithoutHeart */ = {
+			isa = PBXGroup;
+			children = (
+				4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */,
+				4D64A9F0287DEEC900450FCA /* MumentCardWithoutHeartModel.swift */,
+			);
+			path = MumentCardWithoutHeart;
+			sourceTree = "<group>";
+		};
 		C73FC9BA287C193A0017F2DA /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,10 +365,8 @@
 			children = (
 				C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */,
 				C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */,
-				4D64A9E7287D810000450FCA /* MumentWithoutHeartView.swift */,
-				4D64A9F0287DEEC900450FCA /* MumentWithoutHeartModel.swift */,
-				4D64A9EE287DEC1800450FCA /* DefaultMumentView.swift */,
-				4D64A9EC287DD95A00450FCA /* DefaultMumentModel.swift */,
+				4D9734F1287ECE29003EF546 /* MumentCardWithoutHeart */,
+				4D9734F0287ECE1B003EF546 /* DefaultMumentCard */,
 				4D64A9E9287D885A00450FCA /* DefaultTagView.swift */,
 			);
 			path = Components;
@@ -482,7 +498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D64A9F1287DEEC900450FCA /* MumentWithoutHeartModel.swift in Sources */,
+				4D64A9F1287DEEC900450FCA /* MumentCardWithoutHeartModel.swift in Sources */,
 				C73FC9C8287C19DA0017F2DA /* NetworkConstants.swift in Sources */,
 				C7BC6B582876ADD6008C75CE /* ww.swift in Sources */,
 				C7BB53122875994500E0E889 /* UIViewController+.swift in Sources */,
@@ -505,7 +521,7 @@
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,
 				C7BC6B6C287710F9008C75CE /* String+.swift in Sources */,
-				4D64A9ED287DD95A00450FCA /* DefaultMumentModel.swift in Sources */,
+				4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */,
 				C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */,
 				C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */,
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
@@ -521,14 +537,14 @@
 				C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */,
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
 				C7BC6B5A2876ADDD008C75CE /* ss.swift in Sources */,
-				4D64A9EF287DEC1800450FCA /* DefaultMumentView.swift in Sources */,
+				4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */,
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
 				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
 				4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */,
 				4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */,
 				C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */,
-				4D64A9E8287D810000450FCA /* MumentWithoutHeartView.swift in Sources */,
+				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* zzService.swift in Sources */,
 			);
