@@ -20,6 +20,7 @@
 		4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */; };
 		4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */; };
 		4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */; };
+		4D9734F3287F3A41003EF546 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734F2287F3A41003EF546 /* Preview.swift */; };
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
@@ -89,6 +90,7 @@
 		4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayTVC.swift; sourceTree = "<group>"; };
 		4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedCVC.swift; sourceTree = "<group>"; };
 		4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedModel.swift; sourceTree = "<group>"; };
+		4D9734F2287F3A41003EF546 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				C7BB531528759BBD00E0E889 /* MumentTabBarController.swift */,
+				4D9734F2287F3A41003EF546 /* Preview.swift */,
 				C7BC6B4E2876AD22008C75CE /* Components */,
 				C7BC6B4F2876AD26008C75CE /* Scenes */,
 			);
@@ -556,6 +559,7 @@
 				4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */,
 				C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */,
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
+				4D9734F3287F3A41003EF546 /* Preview.swift in Sources */,
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* zzService.swift in Sources */,
