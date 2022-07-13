@@ -61,12 +61,12 @@ class WriteVC: BaseVC {
         $0.setTitleColor(.mGray1, for: .normal)
         $0.makeRounded(cornerRadius: 11.adjustedH)
     }
-    private let impressiveLabel = UILabel().then {
+    private let impressionLabel = UILabel().then {
         $0.text = "무엇이 인상적이었나요?"
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
-    private let impressiveTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    private let impressionTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .mBgwhite
         $0.showsHorizontalScrollIndicator = false
         $0.isScrollEnabled = false
@@ -115,9 +115,9 @@ class WriteVC: BaseVC {
         $0.setTitle("완료", for: .normal)
     }
     
-    var clickedImpressiveTag: [Int] = []
+    var clickedimpressionTag: [Int] = []
     var clickedFeelTag: [Int] = []
-    var impressiveTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브"]
+    var impressionTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브"]
     var feelTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브", "🎡 벅참", "😄 신남", " 💐 설렘", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스"]
     
     private let tagCellHeight = 35.adjustedH
@@ -154,12 +154,12 @@ class WriteVC: BaseVC {
     }
     
     private func setTagCV() {
-        impressiveTagCV.dataSource = self
-        impressiveTagCV.delegate = self
-        impressiveTagCV.layoutMargins = .zero
-        impressiveTagCV.allowsMultipleSelection = true
-        impressiveTagCV.clipsToBounds = true
-        impressiveTagCV.collectionViewLayout = CVLayout
+        impressionTagCV.dataSource = self
+        impressionTagCV.delegate = self
+        impressionTagCV.layoutMargins = .zero
+        impressionTagCV.allowsMultipleSelection = true
+        impressionTagCV.clipsToBounds = true
+        impressionTagCV.collectionViewLayout = CVLayout
         
         feelTagCV.dataSource = self
         feelTagCV.delegate = self
@@ -186,14 +186,14 @@ extension WriteVC {
     }
     
     private func registerCell() {
-        impressiveTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
+        impressionTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
         feelTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
     }
     
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressiveLabel, impressiveTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -244,20 +244,20 @@ extension WriteVC {
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
-        impressiveLabel.snp.makeConstraints {
+        impressionLabel.snp.makeConstraints {
             $0.top.equalTo(alreadyKnowButton.snp.bottomMargin).offset(50)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        impressiveTagCV.snp.makeConstraints {
-            $0.top.equalTo(impressiveLabel.snp.bottom).offset(16)
-            $0.left.equalTo(impressiveLabel.snp.left)
+        impressionTagCV.snp.makeConstraints {
+            $0.top.equalTo(impressionLabel.snp.bottom).offset(16)
+            $0.left.equalTo(impressionLabel.snp.left)
             $0.right.equalToSuperview()
             $0.height.equalTo(tagCellHeight * 2 + Double(cellVerticalSpacing))
         }
         
         feelLabel.snp.makeConstraints {
-            $0.top.equalTo(impressiveTagCV.snp.bottomMargin).offset(50)
+            $0.top.equalTo(impressionTagCV.snp.bottomMargin).offset(50)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
@@ -310,8 +310,8 @@ extension WriteVC {
 extension WriteVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
-        case impressiveTagCV:
-            return impressiveTagDummyData.count
+        case impressionTagCV:
+            return impressionTagDummyData.count
         case feelTagCV:
             return feelTagDummyData.count
         default: return 0
@@ -321,8 +321,8 @@ extension WriteVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WriteTagCVC.className, for: indexPath) as! WriteTagCVC
         switch collectionView {
-        case impressiveTagCV:
-            cell.setData(data: impressiveTagDummyData[indexPath.row])
+        case impressionTagCV:
+            cell.setData(data: impressionTagDummyData[indexPath.row])
             return cell
         case feelTagCV:
             cell.setData(data: feelTagDummyData[indexPath.row])
@@ -337,8 +337,8 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let sizingCell = WriteTagCVC()
         switch collectionView {
-        case impressiveTagCV:
-            sizingCell.setData(data: impressiveTagDummyData[indexPath.row])
+        case impressionTagCV:
+            sizingCell.setData(data: impressionTagDummyData[indexPath.row])
         case feelTagCV:
             sizingCell.setData(data: feelTagDummyData[indexPath.row])
         default: break
