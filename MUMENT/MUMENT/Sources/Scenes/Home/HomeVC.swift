@@ -26,7 +26,7 @@ class HomeVC: BaseVC {
         homeTV.dataSource = self
         
         homeTV.register(cell: CarouselTVC.self, forCellReuseIdentifier: CarouselTVC.className)
-        homeTV.register(cell: RecentMumentsTVC.self, forCellReuseIdentifier: RecentMumentsTVC.className)
+        homeTV.register(cell: MumentsOfRevisitedTVC.self, forCellReuseIdentifier: MumentsOfRevisitedTVC.className)
         homeTV.register(cell: MumentForTodayTVC.self, forCellReuseIdentifier: MumentForTodayTVC.className)
         homeTV.register(cell: MumentsByTagTVC.self, forCellReuseIdentifier: MumentsByTagTVC.className)
         
@@ -80,15 +80,17 @@ extension HomeVC: UITableViewDataSource {
             return cell
             
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentMumentsTVC.className, for: indexPath) as? RecentMumentsTVC else {
-                return UITableViewCell()
-            }
-            return cell
-        case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentForTodayTVC.className, for: indexPath) as? MumentForTodayTVC else {
                 return UITableViewCell()
             }
             return cell
+            
+        case 2:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentsOfRevisitedTVC.className, for: indexPath) as? MumentsOfRevisitedTVC else {
+                return UITableViewCell()
+            }
+            return cell
+            
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentsByTagTVC.className, for: indexPath) as? MumentsByTagTVC else {
                 return UITableViewCell()
