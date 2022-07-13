@@ -111,7 +111,7 @@ extension HomeVC: UITableViewDelegate {
         case 0:
             cellHeight = 300.adjustedH
         case 1...3:
-            cellHeight = 300.adjustedH
+            cellHeight = 400.adjustedH
         default:
             cellHeight = 0
         }

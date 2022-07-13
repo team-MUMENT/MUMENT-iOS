@@ -14,10 +14,10 @@ class MumentsOfRevisitedTVC: UITableViewCell {
     // MARK: - Properties
     var dataSource: [MumentsOfRevisitedModel] = MumentsOfRevisitedModel.sampleData
     lazy var titleLabel = UILabel().then{
-            $0.text = "다시 들은 곡의 뮤멘트"
-            $0.textColor = .mBlack1
-            $0.font = .mumentH2B18
-        }
+        $0.text = "다시 들은 곡의 뮤멘트"
+        $0.textColor = .mBlack1
+        $0.font = .mumentH2B18
+    }
     private lazy var mumentCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
     
@@ -49,7 +49,7 @@ class MumentsOfRevisitedTVC: UITableViewCell {
 extension MumentsOfRevisitedTVC {
     
     private func setLayout() {
-        self.addSubviews([titleLabel])
+        self.addSubviews([titleLabel,mumentCV])
         
         selectionStyle = .none
         
@@ -57,35 +57,44 @@ extension MumentsOfRevisitedTVC {
             $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(20)
         }
         
+        mumentCV.snp.makeConstraints{
+            $0.top.equalTo(titleLabel.snp.bottom).offset(18)
+            $0.leading.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
+            
+        }
+        
     }
 }
 
-// MARK: - UICollectionViewDelegate
-extension MumentsOfRevisitedTVC: UICollectionViewDelegate{
-    
-
-
-    
-}
 
 // MARK: - UICollectionViewDataSource
 extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
     
+    /// CV 구성할 셀 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
+    /// CV 구성할 각 셀이 어떤 셀인지
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MumentsOfRevisitedCVC.className, for: indexPath)
-        if let cell = cell as? MumentsOfRevisitedCVC {
-            cell.setData(dataSource[indexPath.row])
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MumentsOfRevisitedCVC.className, for: indexPath) as?  MumentsOfRevisitedCVC else {
+            return UICollectionViewCell()
         }
-
+        
+        cell.setData(dataSource[indexPath.row])
         return cell
     }
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension MumentsOfRevisitedTVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellWidth = 160.adjustedW
+        let cellHeight = 275.adjustedH
+        
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
 }
