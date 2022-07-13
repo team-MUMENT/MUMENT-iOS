@@ -120,7 +120,7 @@ class WriteVC: BaseVC {
     var feelTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브", "🎡 벅참", "😄 신남", " 💐 설렘", "🗯 스트레스"]
     
     private let tagCellHeight = 35.adjustedH
-    private let cellVerticalSpacing = 10.adjustedW
+    private let cellVerticalSpacing = 10.adjustedH
     private let CVLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
