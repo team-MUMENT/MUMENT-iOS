@@ -13,7 +13,6 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
     
     // MARK: - Properties
     private let albumImage = UIImageView().then{
-//        $0.roundCorners(UIRectCorner.topRight, radius: 12)
         $0.makeRounded(cornerRadius: 12)
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.clipsToBounds = true
@@ -86,7 +85,6 @@ extension MumentsOfRevisitedCVC {
         
         self.addSubviews([albumImage,contentsStackView])
         
-        
         albumImage.snp.makeConstraints{
             $0.leading.top.trailing.equalTo(self.safeAreaLayoutGuide)
             $0.width.height.equalTo(160)
@@ -99,26 +97,9 @@ extension MumentsOfRevisitedCVC {
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(11)
         }
         
-        //
-        //        titleLabel.snp.makeConstraints{
-        //            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(13)
-        //            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.leading).inset(13)
-        //            $0.top.equalTo(albumImage.snp.bottom).offset(10)
-        //        }
-        //
-        //        contentsLabel.snp.makeConstraints{
-        //            $0.top.equalTo(headerLable.snp.bottom).offset(50)
-        //            $0.leading.equalTo(albumImage.snp.trailing).offset(20)
-        //        }
-        //
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(19)
         }
-        //
-        //        writerName.snp.makeConstraints {
-        //            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(38)
-        //            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(26)
-        //        }
     }
 }
 

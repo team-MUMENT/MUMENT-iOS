@@ -53,21 +53,21 @@ extension HomeTVHeader {
         logoButton.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
-            $0.width.equalTo(132.adjustedW)
-            $0.height.equalTo(30.adjustedH)
+            $0.width.equalTo(132)
+            $0.height.equalTo(30)
         }
         
         notificationButton.snp.makeConstraints{
             $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
-            $0.width.height.equalTo(23.adjustedH)
+            $0.width.height.equalTo(23)
         }
         
         searchButton.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
             $0.top.equalTo(logoButton.snp.bottom).offset(15)
-            $0.height.equalTo(40.adjustedH)
+            $0.height.equalTo(40)
         }
     }
 }

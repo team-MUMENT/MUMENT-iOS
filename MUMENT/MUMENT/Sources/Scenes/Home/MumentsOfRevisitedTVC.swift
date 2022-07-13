@@ -27,6 +27,7 @@ class MumentsOfRevisitedTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCV()
         setLayout()
+        selectionStyle = .none
     }
     
     @available(*, unavailable)
@@ -49,9 +50,8 @@ class MumentsOfRevisitedTVC: UITableViewCell {
 extension MumentsOfRevisitedTVC {
     
     private func setLayout() {
-        self.addSubviews([titleLabel,mumentCV])
         
-        selectionStyle = .none
+        self.addSubviews([titleLabel,mumentCV])
         
         titleLabel.snp.makeConstraints{
             $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(20)
@@ -59,22 +59,20 @@ extension MumentsOfRevisitedTVC {
         
         mumentCV.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(18)
-            $0.leading.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
-            
+//            $0.leading.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
         }
         
     }
 }
 
-
 // MARK: - UICollectionViewDataSource
 extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
     
-    /// CV 구성할 셀 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
-    /// CV 구성할 각 셀이 어떤 셀인지
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MumentsOfRevisitedCVC.className, for: indexPath) as?  MumentsOfRevisitedCVC else {
@@ -84,17 +82,15 @@ extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
         cell.setData(dataSource[indexPath.row])
         return cell
     }
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension MumentsOfRevisitedTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellWidth = 160.adjustedW
-        let cellHeight = 275.adjustedH
+        let cellWidth = 160
+        let cellHeight = 275
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
-    
 }
