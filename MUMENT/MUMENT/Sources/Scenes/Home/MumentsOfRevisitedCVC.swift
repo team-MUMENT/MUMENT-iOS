@@ -29,11 +29,11 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
     }
     private let titleLabel = UILabel().then{
         $0.textColor = .mBlack2
-        $0.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        $0.font = .mumentB5B13
     }
     private let contentsLabel = UILabel().then{
         $0.textColor = .mGray1
-        $0.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        $0.font = .mumentB6M13
         $0.lineBreakMode = .byTruncatingTail
         $0.numberOfLines = 2
     }
@@ -47,7 +47,7 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
     }
     private let writerNameLabel = UILabel().then{
         $0.textColor = .mGray1
-        $0.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        $0.font = .mumentC1R12
     }
     
     // MARK: - Initialization

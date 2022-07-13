@@ -35,12 +35,13 @@ class CarouselCVC: UICollectionViewCell {
     
     private let songTitleLabel = UILabel().then{
         $0.textColor = .white
-        $0.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        $0.font = .mumentB4M14
+            
     }
     
     private let artistLabel = UILabel().then{
         $0.textColor = .white
-        $0.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        $0.font = .mumentB8M12
     }
     
     private let backgroundImage = UIImageView()
