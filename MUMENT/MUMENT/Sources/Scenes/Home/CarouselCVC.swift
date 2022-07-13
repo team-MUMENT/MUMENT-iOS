@@ -13,10 +13,11 @@ class CarouselCVC: UICollectionViewCell {
 
     // MARK: - Properties
     lazy var pageButton = UIButton().then{
-        $0.configuration = .plain()
-        $0.makeRounded(cornerRadius: 12)
-        $0.backgroundColor = .white
-        $0.setTitleColor(.systemGray2, for: .normal)
+//        $0.configuration = .plain()
+        $0.makeRounded(cornerRadius: 15)
+        $0.backgroundColor = .mGray1
+        $0.layer.opacity = 0.7
+        $0.setTitleColor(.mWhite, for: .normal)
         $0.titleLabel?.font = .mumentC1R12
     }
     
@@ -62,7 +63,7 @@ class CarouselCVC: UICollectionViewCell {
         albumImage.image = cellData.albumImage
         songTitleLabel.text = cellData.songTitle
         artistLabel.text = cellData.artistName
-        pageButton.setTitle("\(index) / 3 >", for: .normal)
+        pageButton.setTitle("   \(index) / 3 >  ", for: .normal)
     }
 }
 
