@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class DefaultMumentView: MumentWithoutHeartView {
+class DefaultMumentCardView: MumentCardWithoutHeartView {
 
     // MARK: - Properties
     private let heartButton = UIButton().then{
@@ -41,7 +41,7 @@ class DefaultMumentView: MumentWithoutHeartView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: DefaultMumentModel){
+    func setData(_ cellData: DefaultMumentCardModel){
         profileImage.image = cellData.profileImage
         writerNameLabel.text = cellData.writerName
         albumImage.image = cellData.albumImage
@@ -55,7 +55,7 @@ class DefaultMumentView: MumentWithoutHeartView {
 }
 
 // MARK: - UI
-extension DefaultMumentView {
+extension DefaultMumentCardView {
     func setLayout() {
         self.addSubview(heartButton)
 
