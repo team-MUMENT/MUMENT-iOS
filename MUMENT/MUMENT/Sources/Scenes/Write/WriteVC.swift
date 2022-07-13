@@ -80,12 +80,12 @@ class WriteVC: BaseVC {
         $0.backgroundColor = .mBgwhite
         $0.showsHorizontalScrollIndicator = false
     }
-    private let afterTasteLabel = UILabel().then {
+    private let contentLabel = UILabel().then {
         $0.text = "이 순간의 여운을 남겨보세요."
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
-    private let afterTasteTextView = UITextView().then {
+    private let contentTextView = UITextView().then {
         $0.clipsToBounds = true
         $0.makeRounded(cornerRadius: 11.adjustedH)
         $0.backgroundColor = .mGray5
@@ -193,7 +193,7 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressiveLabel, impressiveTagCV, feelLabel, feelTagCV, afterTasteLabel, afterTasteTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressiveLabel, impressiveTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -268,24 +268,24 @@ extension WriteVC {
             $0.height.equalTo(tagCellHeight * 2 + Double(cellVerticalSpacing))
         }
         
-        afterTasteLabel.snp.makeConstraints {
+        contentLabel.snp.makeConstraints {
             $0.top.equalTo(feelTagCV.snp.bottomMargin).offset(50)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        afterTasteTextView.snp.makeConstraints {
-            $0.top.equalTo(afterTasteLabel.snp.bottomMargin).offset(16)
+        contentTextView.snp.makeConstraints {
+            $0.top.equalTo(contentLabel.snp.bottomMargin).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(252.adjustedH)
         }
         
         countTextViewLabel.snp.makeConstraints {
-            $0.right.equalTo(afterTasteTextView.snp.right).inset(13)
-            $0.bottom.equalTo(afterTasteTextView.snp.bottom).inset(15)
+            $0.right.equalTo(contentTextView.snp.right).inset(13)
+            $0.bottom.equalTo(contentTextView.snp.bottom).inset(15)
         }
         
         isPrivateToggleButton.snp.makeConstraints {
-            $0.top.equalTo(afterTasteTextView.snp.bottomMargin).offset(15)
+            $0.top.equalTo(contentTextView.snp.bottomMargin).offset(15)
             $0.right.equalToSuperview().inset(20)
             $0.width.equalTo(49.adjustedW)
             $0.height.equalTo(28.adjustedH)
