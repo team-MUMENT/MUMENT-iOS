@@ -37,11 +37,11 @@ class MumentCardWithoutHeartView: UIView {
     }
     let songTitleLabel = UILabel().then{
         $0.textColor = .mBlack1
-        $0.font = .mumentB3B14
+        $0.font = .mumentB2B14
     }
     let artistLabel = UILabel().then{
         $0.textColor = .mGray1
-        $0.font = .mumentB3M13
+        $0.font = .mumentB6M13
     }
     
     ///data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
