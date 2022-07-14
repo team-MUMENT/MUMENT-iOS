@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class WriteVC: BaseVC {
     
@@ -127,6 +129,7 @@ class WriteVC: BaseVC {
         $0.minimumInteritemSpacing = 20
         $0.sectionInset = .zero
     }
+    let disposeBag = DisposeBag()
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -140,6 +143,7 @@ class WriteVC: BaseVC {
         setContentTextView()
         registerCell()
         hideKeyboardWhenTappedAround()
+        setContentTextCounting()
     }
     
     // MARK: - Functions
@@ -181,7 +185,20 @@ class WriteVC: BaseVC {
         contentTextView.delegate = self
         contentTextView.text = "텍스트로 기록을 남기지 않아도 괜찮아요."
         contentTextView.textColor = .mGray1
-
+    }
+    
+    private func setContentTextCounting() {
+        contentTextView.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .subscribe(onNext: { changedText in
+                if self.contentTextView.textColor == .mBlack2 {
+                    DispatchQueue.main.async {
+                        self.countTextViewLabel.text = "\(changedText.count)/1000"
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
