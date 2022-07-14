@@ -174,6 +174,10 @@ class WriteVC: BaseVC {
             self.privateLabel.text = self.isPrivateToggleButton.isSelected ? "비밀글" : "공개글"
         }
     }
+    
+    private func setContentTextView() {
+        contentTextView.delegate = self
+    }
 }
 
 // MARK: - UI
@@ -363,5 +367,18 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
             cell.isSelected = false
         }
         debugPrint("cell Unclicked", "\(indexPath)")
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension WriteVC: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        // TODO: 다른 디바이스 화면에도 대응하기 위한 분기처리 예정
+        writeScrollView.setContentOffset(CGPoint(x: 0, y: contentLabel.frame.midY - 20.adjustedH), animated: true)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        writeScrollView.setContentOffset(CGPoint(x: 0, y: writeScrollView.contentSize.height - writeScrollView.bounds.height), animated: true)
     }
 }
