@@ -40,7 +40,7 @@ class DetailMumentCardView: UIView {
     private let contentsLabel = UILabel().then{
         $0.textColor = .mGray1
         //TODO:
-//        $0.lineBreakMode = .byCharWrapping
+        $0.lineBreakMode = .byCharWrapping
         $0.numberOfLines = 100
         $0.font = .mumentB4M14
     }
@@ -51,11 +51,12 @@ class DetailMumentCardView: UIView {
     
     lazy var heartStackView = UIStackView(arrangedSubviews: [heartButton, heartLabel]).then{
         $0.axis = .horizontal
-        $0.spacing = 7
+//        $0.spacing = 
     }
     private let heartButton = UIButton().then{
 //            $0.setImage(UIImage(named: "leftArrow"), for: .normal)
             $0.configuration = .plain()
+        $0.configuration?.buttonSize = .small
         }
     private let heartLabel = UILabel().then{
         $0.font = .mumentC1R12
@@ -70,14 +71,14 @@ class DetailMumentCardView: UIView {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
-//        setDefaultUI()
-//        setDefaultLayout()
+        setUI()
+        setLayout()
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-//        setDefaultUI()
-//        setDefaultLayout()
+        setUI()
+        setLayout()
     }
     
     //MARK: - Functions
@@ -87,6 +88,7 @@ class DetailMumentCardView: UIView {
         songInfoView.setData(cellData)
         contentsLabel.text = cellData.contents
         createdAtLabel.text = cellData.createdAt
+        heartButton.setImage(cellData.heartImage, for: .normal)
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
     }
 }
@@ -94,13 +96,13 @@ class DetailMumentCardView: UIView {
 // MARK: - UI
 extension DetailMumentCardView {
     
-//    func setDefaultUI(){
-//        self.backgroundColor = .mWhite
-//        self.makeRounded(cornerRadius: 11)
-//        self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 8.0)
-//    }
+    func setUI(){
+        self.backgroundColor = .mWhite
+        self.makeRounded(cornerRadius: 11)
+        self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 2.0)
+    }
 //
-    func setDefaultLayout() {
+    func setLayout() {
         self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,contentsLabel,createdAtLabel,heartStackView,shareButton])
 
         writerInfoStackView.snp.makeConstraints {
@@ -144,12 +146,14 @@ extension DetailMumentCardView {
         }
         heartStackView.snp.makeConstraints{
             $0.top.equalTo(createdAtLabel.snp.bottom)
-            $0.left.equalTo(self.safeAreaLayoutGuide)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(5)
+            
         }
 
         shareButton.snp.makeConstraints{
             $0.top.equalTo(createdAtLabel.snp.bottom)
             $0.right.equalTo(self.safeAreaLayoutGuide)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
 //
 //        historyButton.snp.makeConstraints{
@@ -159,6 +163,10 @@ extension DetailMumentCardView {
 //
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(25)
+        }
+        
+        heartButton.snp.makeConstraints{
+            $0.height.width.equalTo(38)
         }
     }
 }
