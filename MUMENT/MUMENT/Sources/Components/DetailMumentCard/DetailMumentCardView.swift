@@ -23,23 +23,21 @@ class DetailMumentCardView: UIView {
         $0.textColor = .mBlack2
         $0.font = .mumentB6M13
     }
-//
+    
     private let menuIconButton = UIButton().then{
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "kebab")
     }
-//
+    
     private let separatorView = UIView().then{
         $0.backgroundColor = .mGray4
     }
     
     private let songInfoView = DetailSongInfoView()
     
-    ///data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
     private let tagStackView = UIStackView()
     private let contentsLabel = UILabel().then{
         $0.textColor = .mGray1
-        //TODO:
         $0.lineBreakMode = .byCharWrapping
         $0.numberOfLines = 100
         $0.font = .mumentB4M14
@@ -51,13 +49,11 @@ class DetailMumentCardView: UIView {
     
     lazy var heartStackView = UIStackView(arrangedSubviews: [heartButton, heartLabel]).then{
         $0.axis = .horizontal
-//        $0.spacing = 
     }
     private let heartButton = UIButton().then{
-//            $0.setImage(UIImage(named: "leftArrow"), for: .normal)
-            $0.configuration = .plain()
+        $0.configuration = .plain()
         $0.configuration?.buttonSize = .small
-        }
+    }
     private let heartLabel = UILabel().then{
         $0.font = .mumentC1R12
         $0.textColor = .mGray1
@@ -101,31 +97,31 @@ extension DetailMumentCardView {
         self.makeRounded(cornerRadius: 11)
         self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 2.0)
     }
-//
+    
     func setLayout() {
         self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,contentsLabel,createdAtLabel,heartStackView,shareButton])
-
+        
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
         }
         
         menuIconButton.snp.makeConstraints{
-            $0.top.right.equalTo(self.safeAreaLayoutGuide)
+            $0.right.equalTo(self.safeAreaLayoutGuide)
             $0.width.height.equalTo(38)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
         }
-
+        
         separatorView.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.top.equalTo(writerInfoStackView.snp.bottom).offset(11)
             $0.height.equalTo(1)
         }
-
+        
         songInfoView.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(7)
             $0.top.equalTo(separatorView.snp.bottom).offset(7)
-//            $0.height.width.equalTo(70)
         }
         
         tagStackView.snp.makeConstraints{
@@ -142,25 +138,19 @@ extension DetailMumentCardView {
         createdAtLabel.snp.makeConstraints{
             $0.top.equalTo(contentsLabel.snp.bottom).offset(30)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-//            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
         heartStackView.snp.makeConstraints{
             $0.top.equalTo(createdAtLabel.snp.bottom)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(5)
             
         }
-
+        
         shareButton.snp.makeConstraints{
             $0.top.equalTo(createdAtLabel.snp.bottom)
-            $0.right.equalTo(self.safeAreaLayoutGuide)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
-//
-//        historyButton.snp.makeConstraints{
-//            $0.left.equalTo(albumImage.snp.right).offset(10)
-//            $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
-//        }
-//
+        
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(25)
         }
