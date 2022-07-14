@@ -19,36 +19,11 @@ class MumentsByTagCVC: UICollectionViewCell {
     private let titleIconImage = UIImageView().then{
         $0.image = UIImage(named: "mumentMusicnote")
     }
-//        .then{
-//        $0.makeRounded(cornerRadius: 12)
-//        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        $0.clipsToBounds = true
-//    }
-//
-//    lazy var contentsStackView = UIStackView(arrangedSubviews: [mumentInfoStackView, writerInfoStackView]).then{
-//        $0.axis = .vertical
-//        $0.spacing = 12
-//    }
-    
-//    lazy var mumentInfoStackView = UIStackView(arrangedSubviews: [titleLabel, contentsLabel]).then{
-//        $0.axis = .vertical
-//        $0.spacing = 5
-//    }
     
     private let titleAndArtistLabel = UILabel().then{
         $0.textColor = .mBlack2
         $0.font = .mumentB5B13
     }
-    
-//    private let titleLabel = UILabel().then{
-//        $0.textColor = .mBlack2
-//        $0.font = .mumentB5B13
-//    }
-//
-//    private let artistLabel = UILabel().then{
-//        $0.textColor = .mBlack2
-//        $0.font = .mumentB5B13
-//    }
     
     private let contentsLabel = UILabel().then{
         $0.textColor = .mGray1
@@ -87,10 +62,7 @@ class MumentsByTagCVC: UICollectionViewCell {
     
     //MARK: - Functions
     func setData(_ cellData: MumentsByTagModel){
-//        titleIconImage.image = cellData.albumImage
         titleAndArtistLabel.text = "\(cellData.title) - \(cellData.artist)"
-//        titleLabel.text = cellData.title
-//        artistLabel.text = cellData.artist
         contentsLabel.text = cellData.contents
         profileImage.image = cellData.profileImage
         writerNameLabel.text = cellData.writerName
@@ -114,15 +86,12 @@ extension MumentsByTagCVC {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(19)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-//            $0.leading.top.trailing.equalTo(self.safeAreaLayoutGuide)
-//            $0.width.height.equalTo(160)
         }
         
         contentsLabel.snp.makeConstraints{
             $0.top.equalTo(titleSectionStackView.snp.bottom).offset(10)
             $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(13)
             $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(13)
-//            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(11)
         }
         
         separatorView.snp.makeConstraints{
