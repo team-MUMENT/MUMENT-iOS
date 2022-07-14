@@ -27,8 +27,8 @@
 		4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */; };
 		4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */; };
 		4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */; };
-		4D760454288093280044F2A6 /* DefaultSongDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D760453288093280044F2A6 /* DefaultSongDetailHeader.swift */; };
-		4D760456288094BA0044F2A6 /* ScrolledSongDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D760455288094BA0044F2A6 /* ScrolledSongDetailHeader.swift */; };
+		4D760454288093280044F2A6 /* DefaultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D760453288093280044F2A6 /* DefaultNavigationBar.swift */; };
+		4D7604582880A3500044F2A6 /* DefaultNavigationBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7604572880A3500044F2A6 /* DefaultNavigationBarModel.swift */; };
 		4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */; };
 		4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */; };
 		4D9734F3287F3A41003EF546 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734F2287F3A41003EF546 /* Preview.swift */; };
@@ -108,8 +108,8 @@
 		4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTVC.swift; sourceTree = "<group>"; };
 		4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayTVC.swift; sourceTree = "<group>"; };
 		4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailInfoModel.swift; sourceTree = "<group>"; };
-		4D760453288093280044F2A6 /* DefaultSongDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSongDetailHeader.swift; sourceTree = "<group>"; };
-		4D760455288094BA0044F2A6 /* ScrolledSongDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrolledSongDetailHeader.swift; sourceTree = "<group>"; };
+		4D760453288093280044F2A6 /* DefaultNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationBar.swift; sourceTree = "<group>"; };
+		4D7604572880A3500044F2A6 /* DefaultNavigationBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationBarModel.swift; sourceTree = "<group>"; };
 		4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedCVC.swift; sourceTree = "<group>"; };
 		4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedModel.swift; sourceTree = "<group>"; };
 		4D9734F2287F3A41003EF546 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
@@ -334,8 +334,7 @@
 				4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */,
 				4D2BADD228806C08004A7E00 /* MumentCardBySongTVC.swift */,
 				4D2BADCF28806A75004A7E00 /* SongDetailVC.swift */,
-				4D760453288093280044F2A6 /* DefaultSongDetailHeader.swift */,
-				4D760455288094BA0044F2A6 /* ScrolledSongDetailHeader.swift */,
+				4D760453288093280044F2A6 /* DefaultNavigationBar.swift */,
 				4D2BADD628806E15004A7E00 /* SongDetailTVC.swift */,
 				4D2BADD828807281004A7E00 /* SongInfoView.swift */,
 			);
@@ -432,6 +431,7 @@
 				4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */,
 				4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */,
 				4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */,
+				4D7604572880A3500044F2A6 /* DefaultNavigationBarModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -554,7 +554,6 @@
 				C7BB531428759AB200E0E889 /* Adjusted+.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
-				4D760456288094BA0044F2A6 /* ScrolledSongDetailHeader.swift in Sources */,
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
 				4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */,
 				4D2BADCA2880334C004A7E00 /* MumentsByTagCVC.swift in Sources */,
@@ -594,9 +593,10 @@
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
 				C7BC6B5A2876ADDD008C75CE /* ss.swift in Sources */,
 				4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */,
+				4D7604582880A3500044F2A6 /* DefaultNavigationBarModel.swift in Sources */,
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
 				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
-				4D760454288093280044F2A6 /* DefaultSongDetailHeader.swift in Sources */,
+				4D760454288093280044F2A6 /* DefaultNavigationBar.swift in Sources */,
 				4D2BADD928807281004A7E00 /* SongInfoView.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
 				4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */,
