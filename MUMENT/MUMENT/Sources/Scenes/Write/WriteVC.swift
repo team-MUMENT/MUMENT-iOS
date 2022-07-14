@@ -119,8 +119,8 @@ class WriteVC: BaseVC {
     var impressionTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브"]
     var feelTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브", "🎡 벅참", "😄 신남", " 💐 설렘", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스"]
     
-    private let tagCellHeight = 35.adjustedH
-    private let cellVerticalSpacing = 10.adjustedH
+    private let tagCellHeight = 35
+    private let cellVerticalSpacing = 10
     private let CVLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
@@ -137,7 +137,9 @@ class WriteVC: BaseVC {
         setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: true)
         setRadioButton()
         setIsPrivateToggleButton()
+        setContentTextView()
         registerCell()
+        hideKeyboardWhenTappedAround()
     }
     
     // MARK: - Functions
@@ -290,8 +292,8 @@ extension WriteVC {
         isPrivateToggleButton.snp.makeConstraints {
             $0.top.equalTo(contentTextView.snp.bottomMargin).offset(15)
             $0.right.equalToSuperview().inset(20)
-            $0.width.equalTo(49.adjustedW)
-            $0.height.equalTo(28.adjustedH)
+            $0.width.equalTo(49)
+            $0.height.equalTo(28)
         }
         
         privateLabel.snp.makeConstraints {
@@ -351,7 +353,7 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
         
         let cellWidth = sizingCell.contentLabel.frame.width + 26
         let cellHeight = tagCellHeight
-        return CGSize(width: cellWidth, height: cellHeight)
+        return CGSize(width: cellWidth, height: CGFloat(cellHeight))
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
