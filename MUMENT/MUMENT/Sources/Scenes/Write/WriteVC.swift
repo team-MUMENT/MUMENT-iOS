@@ -179,6 +179,9 @@ class WriteVC: BaseVC {
     
     private func setContentTextView() {
         contentTextView.delegate = self
+        contentTextView.text = "텍스트로 기록을 남기지 않아도 괜찮아요."
+        contentTextView.textColor = .mGray1
+
     }
 }
 
@@ -375,12 +378,20 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
 // MARK: - UITextViewDelegate
 extension WriteVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
+        if contentTextView.textColor == UIColor.mGray1 {
+            contentTextView.text = nil
+            contentTextView.textColor = .mBlack2
+        }
         
-        // TODO: 다른 디바이스 화면에도 대응하기 위한 분기처리 예정
         writeScrollView.setContentOffset(CGPoint(x: 0, y: contentLabel.frame.midY - 20.adjustedH), animated: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        if contentTextView.text.isEmpty {
+            contentTextView.text =  "텍스트로 기록을 남기지 않아도 괜찮아요."
+            contentTextView.textColor = .mGray1
+        }
+        
         writeScrollView.setContentOffset(CGPoint(x: 0, y: writeScrollView.contentSize.height - writeScrollView.bounds.height), animated: true)
     }
 }
