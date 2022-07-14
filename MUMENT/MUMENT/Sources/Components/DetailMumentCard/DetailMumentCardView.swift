@@ -66,38 +66,7 @@ class DetailMumentCardView: UIView {
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "share")
     }
-    private let historyButton = UIButton().then{
-        $0.makeRounded(cornerRadius: 11)
-        $0.backgroundColor = .mGray4
-        $0.configuration = .plain()
-        $0.configuration?.image = UIImage(named: "rightArrow")
-//        $0.configuration?.imagePadding = 5
-//        $0.setTitle("", for: .normal)
-        $0.layer.cornerRadius = 10
-//        $0.setAttributedTitle(NSAttributedString(string: "뮤멘트 기록하기",attributes: [
-//            .font: UIFont.mumentC1R12,
-//            .foregroundColor: UIColor.mGray1
-//        ]), for: .normal)
-        //        $0.contentHorizontalAlignment = .left
-    }
     
-//    private let heartButton = UIButton().then{
-//        var configuration = UIButton.Configuration.plain()
-//            configuration.imagePadding = 5
-//            configuration.buttonSize = .small
-//        $0.configuration = configuration
-//    }
-    
-    let attributes: [NSAttributedString.Key: Any] = [
-        .font: UIFont.mumentC1R12,
-        .foregroundColor: UIColor.mGray1
-    ]
-    
-    var historyButtonText: String = "" {
-        didSet{
-            historyButton.setAttributedTitle(NSAttributedString(string: historyButtonText,attributes: attributes), for: .normal)
-        }
-    }
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
