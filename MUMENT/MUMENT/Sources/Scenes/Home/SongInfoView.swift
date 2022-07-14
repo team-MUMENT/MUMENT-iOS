@@ -36,8 +36,28 @@ class SongInfoView: UIView {
         $0.textColor = .mGray1
         $0.font = .mumentB4M14
     }
+//    private let heartButton = UIButton().then{
+//        var configuration = UIButton.Configuration.plain()
+//            configuration.imagePadding = 5
+//            configuration.buttonSize = .small
+//        $0.configuration = configuration
+//    }
     
-    private let writeMumentButton = UIButton()
+    
+    private let writeMumentButton = UIButton().then{
+        $0.makeRounded(cornerRadius: 11)
+        $0.backgroundColor = .mPurple1
+        $0.configuration = .plain()
+        $0.configuration?.image = UIImage(named: "logo")
+        $0.configuration?.imagePadding = 5
+//        $0.setTitle("", for: .normal)
+        $0.layer.cornerRadius = 10
+        $0.setAttributedTitle(NSAttributedString(string: "뮤멘트 기록하기",attributes: [
+            .font: UIFont.mumentB7B12,
+            .foregroundColor: UIColor.mWhite
+        ]), for: .normal)
+        //        $0.contentHorizontalAlignment = .left
+    }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -64,6 +84,10 @@ extension SongInfoView {
         
         albumImage.snp.makeConstraints{
             $0.height.width.equalTo(114)
+        }
+        
+        writeMumentButton.snp.makeConstraints{
+            $0.height.equalTo(40)
         }
     }
 }
