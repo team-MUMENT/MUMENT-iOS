@@ -21,8 +21,7 @@ class StorageVC: BaseVC {
         $0.contentMode = .scaleAspectFit
     }
     
-    // SegmentedControl 담을 뷰
-    private lazy var containerView = UIView().then {
+    private lazy var segmentContainerView = UIView().then {
         $0.backgroundColor = .clear
     }
     
@@ -35,27 +34,22 @@ class StorageVC: BaseVC {
         $0.insertSegment(withTitle: "좋아요한 뮤멘트", at: 1, animated: true)
         $0.selectedSegmentIndex = 0
                 
-        /// 선택 되어 있지 않을때 폰트 및 폰트컬러
         $0.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.mGray1,
             NSAttributedString.Key.font: UIFont.mumentH3B16
         ], for: .normal)
         
-        /// 선택 되었을때 폰트 및 폰트컬러
         $0.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.mPurple1,
             NSAttributedString.Key.font: UIFont.mumentH3B16,
         ], for: .selected)
         
         $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
-        $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
-        
-        $0.selectedSegmentIndex = 0
+        $0.addTarget(self, action: #selector(segementClicked), for: .valueChanged)
     }
     
     private let underLineView = UIView().then {
         $0.backgroundColor = .mPurple1
-        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     /// 움직일 underLineView의 leadingAnchor 따로 작성
@@ -63,32 +57,46 @@ class StorageVC: BaseVC {
         return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
     }()
     
-    private let myMumentListCV = UICollectionView(
-        frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()
-    ).then {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        
-        $0.backgroundColor = .green
-        $0.contentInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-        $0.showsVerticalScrollIndicator = false
-        $0.collectionViewLayout = layout
+    private lazy var filterSectionView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    
+    private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+
+    private let contents: [UIViewController] = [
+        FirstVC(),
+        SecondVC()
+    ]
+    
+    private var currentIndex: Int = 0
+    
+    private lazy var pagerContainerView = UIView().then {
+        $0.backgroundColor = .blue
     }
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setPageViewController()
         setHeaderLayout()
         setSegmentLaysout()
-        
-        setCollectionView()
+        setFilterSectionLayout()
+        setPagerLayout()
     }
     
     // MARK: - Function
-    func setCollectionView() {
-        self.myMumentListCV.register(StorageCVC.self, forCellWithReuseIdentifier: StorageCVC.className)
-        myMumentListCV.delegate = self
-        myMumentListCV.dataSource = self
+    private func setPageViewController() {
+        self.addChild(pagerVC)
+        pagerContainerView.frame = pagerVC.view.frame
+        self.pagerContainerView.addSubview(pagerVC.view)
+        
+        pagerVC.didMove(toParent: self)
+        pagerVC.delegate = self
+        pagerVC.dataSource = self
+        
+        if let firstVC = contents.first {
+            pagerVC.setViewControllers([firstVC], direction: .forward, animated: true)
+        }
     }
 
     @objc private func changeUnderLinePosition() {
@@ -101,25 +109,59 @@ class StorageVC: BaseVC {
         })
     }
     
-    
     @objc private func segementClicked() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
-        
+            
         if segmentIndex == 0 {
-                
-            
+            pagerVC.setViewControllers([contents[0]], direction: .reverse, animated: true)
         }else {
-          
-            
+            pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
     }
 
 }
 
-// MARK: - UI
+// MARK: - UIPageVC
+extension StorageVC: UIPageViewControllerDataSource  {
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = contents.firstIndex(of: viewController) else { return nil }
+        let previousIndex = index - 1
+        if previousIndex < 0 {
+            return nil
+        }
+        return contents[previousIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = contents.firstIndex(of: viewController) else { return nil }
+        let nextIndex = index + 1
+        if nextIndex == contents.count {
+            return nil
+        }
+        return contents[nextIndex]
+    }
+}
+
+extension StorageVC: UIPageViewControllerDelegate {
+    
+    /// Paging 애니메이션이 끝났을 때 처리
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let viewController = pageViewController.viewControllers?.first,
+              let index = contents.firstIndex(where: { $0 == viewController }) else {
+                  return
+              }
+        currentIndex = index
+        segmentControl.selectedSegmentIndex = currentIndex
+        changeUnderLinePosition()
+    }
+}
+
+// MARK: - Set Layout
 extension StorageVC {
+    
     private func setHeaderLayout() {
-        view.addSubviews([naviView, profileButton,containerView,myMumentListCV])
+        view.addSubviews([naviView, profileButton])
         
         naviView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
@@ -131,24 +173,21 @@ extension StorageVC {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(13)
             $0.width.height.equalTo(30.adjustedH)
         }
+    }
+    
+    private func setSegmentLaysout() {
+        view.addSubviews([segmentContainerView])
         
-        containerView.snp.makeConstraints{
+        segmentContainerView.snp.makeConstraints{
             $0.top.equalTo(naviView.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(50.adjustedH)
         }
         
-        myMumentListCV.snp.makeConstraints{
-            $0.top.equalTo(containerView.snp.bottom)
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
-    
-    private func setSegmentLaysout() {
-        containerView.addSubViews([segmentControl,underLineView])
+        segmentContainerView.addSubViews([segmentControl,underLineView])
         
         segmentControl.snp.makeConstraints{
-            $0.top.leading.centerX.centerY.equalTo(containerView)
+            $0.top.leading.centerX.centerY.equalTo(segmentContainerView)
         }
         
         underLineView.snp.makeConstraints{
@@ -161,33 +200,25 @@ extension StorageVC {
         NSLayoutConstraint.activate([leadingDistance])
     }
     
-}
-
-// MARK: - CollectionView UI
-extension StorageVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    private func setFilterSectionLayout() {
+        view.addSubviews([filterSectionView])
         
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: StorageCVC.className ,for: indexPath) as? StorageCVC
-        else {
-            return UICollectionViewCell()
+        filterSectionView.snp.makeConstraints{
+            $0.top.equalTo(segmentContainerView.snp.bottom)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(44)
         }
-        cell.setData()
-        return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        return CGSize(width: 100, height: 100)
+    private func setPagerLayout() {
+        view.addSubviews([pagerContainerView])
+        pagerContainerView.snp.makeConstraints{
+            $0.top.equalTo(filterSectionView.snp.bottom)
+            $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)  
+        }
     }
+    
 }
-
 
 // MARK: - SwiftUI Preview
 #if canImport(SwiftUI) && DEBUG
