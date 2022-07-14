@@ -16,14 +16,16 @@ class SongDetailVC: BaseVC {
     private let songInfoView = SongInfoView()
     private let mumentTV = UITableView()
     
+    var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
-
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setTV()
         setLayout()
+        setSongIntfoData()
     }
     
     // MARK: - Functions
@@ -37,6 +39,10 @@ class SongDetailVC: BaseVC {
 //        mumentTV.rowHeight = 48
         mumentTV.separatorStyle = .none
         mumentTV.showsVerticalScrollIndicator = false
+    }
+    
+    func setSongIntfoData(){
+        songInfoView.setData(songInfoDataSource[0])
     }
 }
 
@@ -54,7 +60,7 @@ extension SongDetailVC {
         songInfoView.snp.makeConstraints {
             $0.top.equalTo(navigationBarView.snp.bottom)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(300)
+            $0.height.equalTo(200)
         }
         
         mumentTV.snp.makeConstraints{

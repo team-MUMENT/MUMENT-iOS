@@ -69,6 +69,13 @@ class SongInfoView: UIView {
         super.init(coder: aDecoder)!
         setLayout()
     }
+    
+    //MARK: - Functions
+    func setData(_ cellData: SongDetailInfoModel){
+        albumImage.image = cellData.albumImage
+        titleLabel.text = cellData.songtitle
+        artistLabel.text = cellData.artist
+    }
 }
 
 // MARK: - UI
@@ -89,5 +96,9 @@ extension SongInfoView {
         writeMumentButton.snp.makeConstraints{
             $0.height.equalTo(40)
         }
+        
+//        songInfoStackView.snp.makeConstraints{
+//            $0.leading.trailing.equalTo(self.safeAreaLayoutGuide)
+//        }
     }
 }
