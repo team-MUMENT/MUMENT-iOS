@@ -33,20 +33,25 @@ class MumentDetailVC: BaseVC {
         }
     }
     
-    var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
+    var dataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
+    
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
-//        setSongIntfoData()
+        setData()
+        
     }
     
     // MARK: - Functions
     
-//    func setSongIntfoData(){
+    func setData(){
 //        songInfoView.setData(songInfoDataSource[0])
-//    }
+        mumentCardView.setData(dataSource[0])
+//        heartButton.setImage(cellData.heartImage, for: .normal)
+        historyButtonText = "\(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
+    }
 }
 
 // MARK: - UI
