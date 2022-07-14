@@ -16,10 +16,11 @@ class DetailSongInfoView: UIView {
         $0.makeRounded(cornerRadius: 7)
         $0.clipsToBounds = true
     }
-
+    
     lazy var titleStackView = UIStackView(arrangedSubviews: [titleLabel, rightArrowImage]).then{
         $0.axis = .horizontal
         $0.spacing = 6
+        $0.alignment = .center
         
     }
     private let titleLabel = UILabel().then{
@@ -72,7 +73,8 @@ extension DetailSongInfoView {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(19)
         }
         
-        artistLabel.snp.makeConstraints{            $0.top.equalTo(titleStackView.snp.bottom).offset(3)
+        artistLabel.snp.makeConstraints{
+            $0.top.equalTo(titleStackView.snp.bottom).offset(3)
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
         }
     }
