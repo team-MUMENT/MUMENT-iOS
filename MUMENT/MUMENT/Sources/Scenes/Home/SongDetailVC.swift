@@ -60,7 +60,7 @@ extension SongDetailVC {
         songInfoView.snp.makeConstraints {
             $0.top.equalTo(navigationBarView.snp.bottom)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(200)
+            $0.height.equalTo(250)
         }
         
         mumentTV.snp.makeConstraints{
