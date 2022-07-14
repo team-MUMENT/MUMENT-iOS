@@ -92,7 +92,6 @@ class WriteVC: BaseVC {
         $0.textContainerInset = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
         $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         $0.font = .mumentB6M13
-        $0.autocorrectionType = .no
         $0.autocapitalizationType = .none
         $0.textColor = .mBlack2
     }
