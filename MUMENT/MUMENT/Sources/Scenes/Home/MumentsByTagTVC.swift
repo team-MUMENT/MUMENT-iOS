@@ -12,21 +12,42 @@ import Then
 class MumentsByTagTVC: UITableViewCell {
     
     // MARK: - Properties
+    var dataSource: [MumentsByTagModel] = MumentsByTagModel.sampleData
+    var titleDataSource: MumentsByTagTitleModel = MumentsByTagTitleModel.sampleData
     lazy var titleLabel = UILabel().then{
-        $0.text = "MumentsByTag"
-        $0.font = .systemFont(ofSize: 16)
-        $0.textColor = .black
+        $0.textColor = .mBlack1
+        $0.font = .mumentH2B18
     }
+    private lazy var mumentCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
+    private let CVFlowLayout = UICollectionViewFlowLayout()
+    
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setCV()
         setLayout()
+        setData(titleDataSource)
+        selectionStyle = .none
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Functions
+    private func setCV() {
+        mumentCV.delegate = self
+        mumentCV.dataSource = self
+        mumentCV.register(MumentsByTagCVC.self, forCellWithReuseIdentifier: MumentsByTagCVC.className)
+        
+        mumentCV.showsHorizontalScrollIndicator = false
+        CVFlowLayout.scrollDirection = .horizontal
+    }
+    
+    func setData(_ cellData: MumentsByTagTitleModel){
+        titleLabel.text = "\(cellData.title)을 느낀 순간"
     }
 }
 
@@ -34,14 +55,46 @@ class MumentsByTagTVC: UITableViewCell {
 extension MumentsByTagTVC {
     
     private func setLayout() {
-        self.addSubviews([titleLabel])
         
-        backgroundColor = .systemGreen
-        selectionStyle = .none
+        self.addSubviews([titleLabel,mumentCV])
         
         titleLabel.snp.makeConstraints{
-            $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(42)
+            $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(20)
         }
         
+        mumentCV.snp.makeConstraints{
+            $0.top.equalTo(titleLabel.snp.bottom).offset(18)
+            $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
+        }
+        
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension MumentsByTagTVC: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MumentsByTagCVC.className, for: indexPath) as?  MumentsByTagCVC else {
+            return UICollectionViewCell()
+        }
+        
+        cell.setData(dataSource[indexPath.row])
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension MumentsByTagTVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellWidth = 200
+        let cellHeight = 200
+        
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 }
