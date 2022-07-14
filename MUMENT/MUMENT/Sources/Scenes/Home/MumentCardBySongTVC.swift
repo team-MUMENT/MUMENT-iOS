@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MumentCardBySongView: UIView {
+class MumentCardBySongTVC: UITableViewCell {
     
     // MARK: - Properties
     lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then{
@@ -51,8 +51,8 @@ class MumentCardBySongView: UIView {
     let tagStackView = UIStackView()
     let contentsLabel = UILabel().then{
         $0.textColor = .mBlack2
-        $0.lineBreakMode = .byCharWrapping
-        $0.numberOfLines = 2
+        $0.lineBreakMode = .byTruncatingTail
+        $0.numberOfLines = 3
         $0.font = UIFont(name: "NotoSans-Medium", size: 13.0)
     }
     let createdAtLabel = UILabel().then{
@@ -61,39 +61,37 @@ class MumentCardBySongView: UIView {
     }
     
     // MARK: - Initialization
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        setDefaultUI()
-        setDefaultLayout()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUI()
+        setLayout()
     }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-        setDefaultUI()
-        setDefaultLayout()
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    
     //MARK: - Functions
     func setData(_ cellData: MumentCardBySongModel){
         profileImage.image = cellData.profileImage
         writerNameLabel.text = cellData.writerName
-        contentsLabel.text = cellData.contentsLabel
-        createdAtLabel.text = cellData.createdAtLabel
+        contentsLabel.text = cellData.contents
+        createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartButtonText = "\(cellData.heartCount)"
     }
 }
 
 // MARK: - UI
-extension MumentCardBySongView {
+extension MumentCardBySongTVC {
     
-    func setDefaultUI(){
+    func setUI(){
         self.backgroundColor = .mWhite
         self.makeRounded(cornerRadius: 11)
         self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 8.0)
     }
     
-    func setDefaultLayout() {
+    func setLayout() {
         self.addSubviews([writerInfoStackView,heartButton,separatorView,tagStackView,contentsLabel,createdAtLabel])
 
         writerInfoStackView.snp.makeConstraints {

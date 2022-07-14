@@ -12,7 +12,7 @@ import Then
 class SongDetailTVC: UITableViewCell {
     
     // MARK: - Properties
-    private let mumentCardView = MumentCardBySongView()
+    private let mumentCardView = MumentCardBySongTVC()
     
     
     // MARK: - Initialization
@@ -28,8 +28,7 @@ class SongDetailTVC: UITableViewCell {
     }
     
     // MARK: - Functions
-
-
+    
 }
 
 // MARK: - UI
