@@ -26,7 +26,7 @@ class HomeVC: BaseVC {
         homeTV.dataSource = self
         
         homeTV.register(cell: CarouselTVC.self, forCellReuseIdentifier: CarouselTVC.className)
-        homeTV.register(cell: RecentMumentsTVC.self, forCellReuseIdentifier: RecentMumentsTVC.className)
+        homeTV.register(cell: MumentsOfRevisitedTVC.self, forCellReuseIdentifier: MumentsOfRevisitedTVC.className)
         homeTV.register(cell: MumentForTodayTVC.self, forCellReuseIdentifier: MumentForTodayTVC.className)
         homeTV.register(cell: MumentsByTagTVC.self, forCellReuseIdentifier: MumentsByTagTVC.className)
         
@@ -45,7 +45,7 @@ extension HomeVC {
         
         headerView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(107.adjustedH)
+            $0.height.equalTo(107)
         }
         
         homeTV.snp.makeConstraints {
@@ -84,11 +84,13 @@ extension HomeVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             return cell
+            
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentMumentsTVC.className, for: indexPath) as? RecentMumentsTVC else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentsOfRevisitedTVC.className, for: indexPath) as? MumentsOfRevisitedTVC else {
                 return UITableViewCell()
             }
             return cell
+            
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentsByTagTVC.className, for: indexPath) as? MumentsByTagTVC else {
                 return UITableViewCell()
@@ -107,23 +109,16 @@ extension HomeVC: UITableViewDelegate {
         var cellHeight: CGFloat
         switch indexPath.section {
         case 0:
-            cellHeight = 300.adjustedH
-        case 1...3:
-            cellHeight = 300.adjustedH
+            cellHeight = 300
+        case 1:
+            cellHeight = 300
+        case 2:
+            cellHeight = 350
+        case 3:
+            cellHeight = 280
         default:
             cellHeight = 0
         }
         return cellHeight
     }
 }
-
-// MARK: - SwiftUI Preview
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct ViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        HomeVC().showPreview(.iPhone13mini)
-    }
-}
-#endif
