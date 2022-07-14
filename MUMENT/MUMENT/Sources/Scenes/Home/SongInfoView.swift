@@ -11,16 +11,6 @@ import Then
 class SongInfoView: UIView {
     
     // MARK: - Properties
-    lazy var contentsStackView = UIStackView(arrangedSubviews: [songStackView, writeMumentButton]).then{
-        $0.axis = .vertical
-        $0.spacing = 20
-    }
-    
-    lazy var songStackView = UIStackView(arrangedSubviews: [albumImage, songInfoStackView]).then{
-        $0.axis = .horizontal
-        $0.alignment = .top
-        $0.spacing = 15
-    }
     private let albumImage = UIImageView().then{
         $0.makeRounded(cornerRadius: 7)
         $0.clipsToBounds = true
@@ -84,27 +74,34 @@ class SongInfoView: UIView {
 extension SongInfoView {
     
     private func setLayout() {
-        self.addSubviews([contentsStackView])
-        
-        contentsStackView.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
-        }
+        self.addSubviews([albumImage,songInfoStackView,writeMumentButton])
         
         albumImage.snp.makeConstraints{
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(28)
             $0.height.width.equalTo(114)
+            
+        }
+        
+        songInfoStackView.snp.makeConstraints{
+            $0.leading.equalTo(albumImage.snp.trailing).offset(15)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(28)
         }
         
         writeMumentButton.snp.makeConstraints{
             $0.height.equalTo(40)
+            $0.top.equalTo(albumImage.snp.bottom).offset(20)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
+            
         }
         
 //        songInfoStackView.snp.makeConstraints{
 //            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(68)
 //        }
-        songInfoStackView.snp.makeConstraints{
-            $0.height.equalTo(46)
-            
-        }
+//        songInfoStackView.snp.makeConstraints{
+//            $0.height.equalTo(46)
+//            
+//        }
     }
 }
