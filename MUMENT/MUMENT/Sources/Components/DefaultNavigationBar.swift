@@ -13,7 +13,7 @@ class DefaultNavigationBar: UIView {
     
     // MARK: - Properties
     private let backbutton = UIButton().then{
-        $0.setImage(UIImage(named: "backIcon"), for: .normal)
+        $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.configuration = .plain()
     }
     
