@@ -65,6 +65,7 @@ class MumentCardBySongTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUI()
         setLayout()
+        selectionStyle = .none
     }
 
     @available(*, unavailable)
