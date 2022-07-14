@@ -13,8 +13,9 @@ class MumentsByTagTVC: UITableViewCell {
     
     // MARK: - Properties
     var dataSource: [MumentsByTagModel] = MumentsByTagModel.sampleData
+    var titleDataSource: MumentsByTagTitleModel = MumentsByTagTitleModel.sampleData
     lazy var titleLabel = UILabel().then{
-//        $0.text = "\()을 느낀 순간"
+//        $0.text  = "111111"
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
@@ -27,6 +28,7 @@ class MumentsByTagTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCV()
         setLayout()
+        setData(titleDataSource)
         selectionStyle = .none
     }
     
@@ -43,6 +45,10 @@ class MumentsByTagTVC: UITableViewCell {
         
         mumentCV.showsHorizontalScrollIndicator = false
         CVFlowLayout.scrollDirection = .horizontal
+    }
+    
+    func setData(_ cellData: MumentsByTagTitleModel){
+        titleLabel.text = "\(cellData.title)을 느낀 순간"
     }
 }
 

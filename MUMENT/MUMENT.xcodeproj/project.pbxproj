@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4D2BADCA2880334C004A7E00 /* MumentsByTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */; };
 		4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */; };
+		4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */; };
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
 		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
 		4D64A9EA287D885A00450FCA /* DefaultTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* DefaultTagView.swift */; };
@@ -81,6 +82,7 @@
 /* Begin PBXFileReference section */
 		4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCVC.swift; sourceTree = "<group>"; };
 		4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagModel.swift; sourceTree = "<group>"; };
+		4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTitleModel.swift; sourceTree = "<group>"; };
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* DefaultTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTagView.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				C7BC6B552876ADCD008C75CE /* CarouselModel.swift */,
 				4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */,
 				4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */,
+				4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				C7BB531428759AB200E0E889 /* Adjusted+.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
+				4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */,
 				4D2BADCA2880334C004A7E00 /* MumentsByTagCVC.swift in Sources */,
 				C7BB53102875990700E0E889 /* BaseVC.swift in Sources */,
 				C74EC438287593110068EB46 /* UIColor+.swift in Sources */,
