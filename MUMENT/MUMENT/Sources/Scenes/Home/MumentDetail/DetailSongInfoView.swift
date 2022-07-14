@@ -47,7 +47,7 @@ class DetailSongInfoView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: SongDetailInfoModel){
+    func setData(_ cellData: MumentDetailVCModel){
         albumImage.image = cellData.albumImage
         titleLabel.text = cellData.songtitle
         artistLabel.text = cellData.artist

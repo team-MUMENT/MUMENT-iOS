@@ -81,15 +81,14 @@ class DetailMumentCardView: UIView {
     }
     
     //MARK: - Functions
-//    func setData(_ cellData: MumentCardWithoutHeartModel){
-//        profileImage.image = cellData.profileImage
-//        writerNameLabel.text = cellData.writerName
-//        albumImage.image = cellData.albumImage
-//        songTitleLabel.text = cellData.songTitle
-//        artistLabel.text = cellData.artistName
-//        contentsLabel.text = cellData.contentsLabel
-//        createdAtLabel.text = cellData.createdAtLabel
-//    }
+    func setData(_ cellData: MumentDetailVCModel){
+        profileImage.image = cellData.profileImage
+        writerNameLabel.text = cellData.writerName
+        songInfoView.setData(cellData)
+        contentsLabel.text = cellData.contents
+        createdAtLabel.text = cellData.createdAt
+        heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
+    }
 }
 
 // MARK: - UI
@@ -102,7 +101,7 @@ extension DetailMumentCardView {
 //    }
 //
     func setDefaultLayout() {
-        self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,contentsLabel,createdAtLabel,heartStackView,shareButton,historyButton])
+        self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,contentsLabel,createdAtLabel,heartStackView,shareButton])
 
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
