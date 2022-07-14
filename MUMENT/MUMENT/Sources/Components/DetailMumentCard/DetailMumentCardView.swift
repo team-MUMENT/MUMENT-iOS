@@ -21,11 +21,13 @@ class DetailMumentCardView: UIView {
     }
     private let writerNameLabel = UILabel().then{
         $0.textColor = .mBlack2
-        $0.font = .mumentC1R12
-        $0.sizeToFit()
+        $0.font = .mumentB6M13
     }
 //
-    private let menuIconButton = UIButton()
+    private let menuIconButton = UIButton().then{
+        $0.configuration = .plain()
+        $0.configuration?.image = UIImage(named: "kebab")
+    }
 //
     private let separatorView = UIView().then{
         $0.backgroundColor = .mGray4
@@ -34,12 +36,13 @@ class DetailMumentCardView: UIView {
     private let songInfoView = DetailSongInfoView()
     
     ///data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
-//    private let tagStackView = UIStackView()
+    private let tagStackView = UIStackView()
     private let contentsLabel = UILabel().then{
-        $0.textColor = .mBlack2
-        $0.lineBreakMode = .byCharWrapping
-        $0.numberOfLines = 2
-        $0.font = UIFont(name: "NotoSans-Medium", size: 13.0)
+        $0.textColor = .mGray1
+        //TODO:
+//        $0.lineBreakMode = .byCharWrapping
+        $0.numberOfLines = 100
+        $0.font = .mumentB4M14
     }
     private let createdAtLabel = UILabel().then{
         $0.textColor = .mGray2
@@ -51,27 +54,50 @@ class DetailMumentCardView: UIView {
         $0.spacing = 7
     }
     private let heartButton = UIButton().then{
-    //        $0.setImage(UIImage(named: "leftArrow"), for: .normal)
+//            $0.setImage(UIImage(named: "leftArrow"), for: .normal)
             $0.configuration = .plain()
         }
-    private let heartLabel = UILabel()
+    private let heartLabel = UILabel().then{
+        $0.font = .mumentC1R12
+        $0.textColor = .mGray1
+    }
     
-    private let shareButton = UIButton()
-    private let mumentHistoryButton = UIButton().then{
+    private let shareButton = UIButton().then{
+        $0.configuration = .plain()
+        $0.configuration?.image = UIImage(named: "share")
+    }
+    private let historyButton = UIButton().then{
         $0.makeRounded(cornerRadius: 11)
         $0.backgroundColor = .mGray4
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "rightArrow")
-        $0.configuration?.imagePadding = 5
+//        $0.configuration?.imagePadding = 5
 //        $0.setTitle("", for: .normal)
         $0.layer.cornerRadius = 10
-        $0.setAttributedTitle(NSAttributedString(string: "뮤멘트 기록하기",attributes: [
-            .font: UIFont.mumentC1R12,
-            .foregroundColor: UIColor.mGray1
-        ]), for: .normal)
+//        $0.setAttributedTitle(NSAttributedString(string: "뮤멘트 기록하기",attributes: [
+//            .font: UIFont.mumentC1R12,
+//            .foregroundColor: UIColor.mGray1
+//        ]), for: .normal)
         //        $0.contentHorizontalAlignment = .left
     }
     
+//    private let heartButton = UIButton().then{
+//        var configuration = UIButton.Configuration.plain()
+//            configuration.imagePadding = 5
+//            configuration.buttonSize = .small
+//        $0.configuration = configuration
+//    }
+    
+    let attributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.mumentC1R12,
+        .foregroundColor: UIColor.mGray1
+    ]
+    
+    var historyButtonText: String = "" {
+        didSet{
+            historyButton.setAttributedTitle(NSAttributedString(string: historyButtonText,attributes: attributes), for: .normal)
+        }
+    }
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -107,7 +133,7 @@ extension DetailMumentCardView {
 //    }
 //
     func setDefaultLayout() {
-        self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,contentsLabel,createdAtLabel,heartStackView,shareButton,mumentHistoryButton])
+        self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,contentsLabel,createdAtLabel,heartStackView,shareButton,historyButton])
 
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -115,7 +141,8 @@ extension DetailMumentCardView {
         }
         
         menuIconButton.snp.makeConstraints{
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.top.right.equalTo(self.safeAreaLayoutGuide)
+            $0.width.height.equalTo(38)
         }
 
         separatorView.snp.makeConstraints{
@@ -126,21 +153,42 @@ extension DetailMumentCardView {
         }
 
         songInfoView.snp.makeConstraints{
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(7)
+            $0.top.equalTo(separatorView.snp.bottom).offset(7)
+//            $0.height.width.equalTo(70)
+        }
+        
+        tagStackView.snp.makeConstraints{
+            $0.top.equalTo(songInfoView.snp.bottom).offset(13)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.top.equalTo(separatorView.snp.bottom).offset(15)
-            $0.height.width.equalTo(70)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+        }
+        contentsLabel.snp.makeConstraints{
+            $0.top.equalTo(tagStackView.snp.bottom).offset(22)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+        }
+        
+        createdAtLabel.snp.makeConstraints{
+            $0.top.equalTo(contentsLabel.snp.bottom).offset(30)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+//            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+        }
+        heartStackView.snp.makeConstraints{
+            $0.top.equalTo(createdAtLabel.snp.bottom)
+            $0.left.equalTo(self.safeAreaLayoutGuide)
         }
 
         shareButton.snp.makeConstraints{
-            $0.left.equalTo(albumImage.snp.right).offset(10)
-            $0.top.equalTo(separatorView.snp.bottom).offset(15)
+            $0.top.equalTo(createdAtLabel.snp.bottom)
+            $0.right.equalTo(self.safeAreaLayoutGuide)
         }
-
-        mumentHistoryButton.snp.makeConstraints{
-            $0.left.equalTo(albumImage.snp.right).offset(10)
-            $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
-        }
-        
+//
+//        historyButton.snp.makeConstraints{
+//            $0.left.equalTo(albumImage.snp.right).offset(10)
+//            $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
+//        }
+//
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(25)
         }
