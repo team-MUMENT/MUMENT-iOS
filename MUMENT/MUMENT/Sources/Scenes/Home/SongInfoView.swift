@@ -18,6 +18,7 @@ class SongInfoView: UIView {
     
     lazy var songStackView = UIStackView(arrangedSubviews: [albumImage, songInfoStackView]).then{
         $0.axis = .horizontal
+        $0.alignment = .top
         $0.spacing = 15
     }
     private let albumImage = UIImageView().then{
@@ -27,6 +28,7 @@ class SongInfoView: UIView {
     lazy var songInfoStackView = UIStackView(arrangedSubviews: [titleLabel, artistLabel]).then{
         $0.axis = .vertical
         $0.spacing = 10
+        
     }
     private let titleLabel = UILabel().then{
         $0.textColor = .mBlack1
@@ -98,7 +100,11 @@ extension SongInfoView {
         }
         
 //        songInfoStackView.snp.makeConstraints{
-//            $0.leading.trailing.equalTo(self.safeAreaLayoutGuide)
+//            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(68)
 //        }
+        songInfoStackView.snp.makeConstraints{
+            $0.height.equalTo(46)
+            
+        }
     }
 }
