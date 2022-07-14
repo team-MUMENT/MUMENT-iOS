@@ -217,6 +217,7 @@
 		4D7604632880BA0C0044F2A6 /* SongDetail */ = {
 			isa = PBXGroup;
 			children = (
+				4D2BADCF28806A75004A7E00 /* SongDetailVC.swift */,
 				4D2BADD628806E15004A7E00 /* SongDetailTVC.swift */,
 			);
 			path = SongDetail;
@@ -374,7 +375,6 @@
 			children = (
 				C7BC6B522876ADC0008C75CE /* Model */,
 				4D7604622880B94B0044F2A6 /* Main */,
-				4D2BADCF28806A75004A7E00 /* SongDetailVC.swift */,
 				4D7604632880BA0C0044F2A6 /* SongDetail */,
 				4D7604642880BA120044F2A6 /* MumentDetail */,
 				4D2BADD828807281004A7E00 /* SongInfoView.swift */,
