@@ -15,7 +15,6 @@ class MumentsByTagTVC: UITableViewCell {
     var dataSource: [MumentsByTagModel] = MumentsByTagModel.sampleData
     var titleDataSource: MumentsByTagTitleModel = MumentsByTagTitleModel.sampleData
     lazy var titleLabel = UILabel().then{
-//        $0.text  = "111111"
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
@@ -65,7 +64,6 @@ extension MumentsByTagTVC {
         
         mumentCV.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(18)
-//            $0.leading.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
         }
