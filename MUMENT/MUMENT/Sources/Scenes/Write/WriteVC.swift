@@ -81,7 +81,7 @@ class WriteVC: BaseVC {
         $0.showsHorizontalScrollIndicator = false
     }
     private let contentLabel = UILabel().then {
-        $0.text = "이 순간의 여운을 남겨보세요."
+        $0.text = "이 순간의 여운을 글로 남겨보세요."
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
@@ -388,7 +388,7 @@ extension WriteVC: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if contentTextView.text.isEmpty {
-            contentTextView.text =  "텍스트로 기록을 남기지 않아도 괜찮아요."
+            contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
             contentTextView.textColor = .mGray1
         }
         
