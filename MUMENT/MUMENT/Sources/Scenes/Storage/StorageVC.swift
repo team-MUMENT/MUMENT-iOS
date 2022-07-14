@@ -24,39 +24,35 @@ class StorageVC: BaseVC {
     // SegmentedControl 담을 뷰
     private lazy var containerView = UIView().then {
         $0.backgroundColor = .clear
-        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private lazy var segmentControl = UISegmentedControl().then {
         $0.selectedSegmentTintColor = .clear
-        /// 배경 색 제거
         $0.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
-        
-        /// Segment 구분 라인 제거
         $0.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
         $0.insertSegment(withTitle: "나의 뮤멘트", at: 0, animated: true)
         $0.insertSegment(withTitle: "좋아요한 뮤멘트", at: 1, animated: true)
         $0.selectedSegmentIndex = 0
-        
-        let headerTabFont = UIFont(name: "NotoSans-Bold", size: 16)!
-        
+                
         /// 선택 되어 있지 않을때 폰트 및 폰트컬러
         $0.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.mGray1,
-            NSAttributedString.Key.font: headerTabFont
+            NSAttributedString.Key.font: UIFont.mumentH3B16
         ], for: .normal)
         
         /// 선택 되었을때 폰트 및 폰트컬러
         $0.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.mPurple1,
-            NSAttributedString.Key.font: headerTabFont,
+            NSAttributedString.Key.font: UIFont.mumentH3B16,
         ], for: .selected)
         
         $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
+        $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
+        
+        $0.selectedSegmentIndex = 0
     }
     
-
     private let underLineView = UIView().then {
         $0.backgroundColor = .mPurple1
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -67,14 +63,34 @@ class StorageVC: BaseVC {
         return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
     }()
     
+    private let myMumentListCV = UICollectionView(
+        frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()
+    ).then {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        $0.backgroundColor = .green
+        $0.contentInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+        $0.showsVerticalScrollIndicator = false
+        $0.collectionViewLayout = layout
+    }
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setHeaderLayout()
         setSegmentLaysout()
+        
+        setCollectionView()
     }
     
+    // MARK: - Function
+    func setCollectionView() {
+        self.myMumentListCV.register(StorageCVC.self, forCellWithReuseIdentifier: StorageCVC.className)
+        myMumentListCV.delegate = self
+        myMumentListCV.dataSource = self
+    }
+
     @objc private func changeUnderLinePosition() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
         let segmentWidth = segmentControl.frame.width / CGFloat(segmentControl.numberOfSegments)
@@ -84,12 +100,26 @@ class StorageVC: BaseVC {
             self?.view.layoutIfNeeded()
         })
     }
+    
+    
+    @objc private func segementClicked() {
+        let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
+        
+        if segmentIndex == 0 {
+                
+            
+        }else {
+          
+            
+        }
+    }
+
 }
 
 // MARK: - UI
 extension StorageVC {
     private func setHeaderLayout() {
-        view.addSubviews([naviView, profileButton,containerView])
+        view.addSubviews([naviView, profileButton,containerView,myMumentListCV])
         
         naviView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
@@ -108,6 +138,10 @@ extension StorageVC {
             $0.height.equalTo(50.adjustedH)
         }
         
+        myMumentListCV.snp.makeConstraints{
+            $0.top.equalTo(containerView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
     private func setSegmentLaysout() {
@@ -126,5 +160,42 @@ extension StorageVC {
         
         NSLayoutConstraint.activate([leadingDistance])
     }
+    
 }
 
+// MARK: - CollectionView UI
+extension StorageVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 30
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: StorageCVC.className ,for: indexPath) as? StorageCVC
+        else {
+            return UICollectionViewCell()
+        }
+        cell.setData()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return CGSize(width: 100, height: 100)
+    }
+}
+
+
+// MARK: - SwiftUI Preview
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct ViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        StorageVC().showPreview(.iPhone13mini)
+    }
+}
+#endif
