@@ -40,6 +40,10 @@
 		4D9734F3287F3A41003EF546 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734F2287F3A41003EF546 /* Preview.swift */; };
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
 		C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47E628807B64001A7CD6 /* SearchVC.swift */; };
+		C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */; };
+		C71B47ED28818B21001A7CD6 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EC28818B21001A7CD6 /* SearchTVC.swift */; };
+		C71B47EF2881A11E001A7CD6 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EE2881A11E001A7CD6 /* UIImageView+.swift */; };
+		C71B47F12881A14F001A7CD6 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47F02881A14F001A7CD6 /* ImageCacheManager.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
 		C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C1287C19B00017F2DA /* NetworkResult.swift */; };
@@ -133,6 +137,10 @@
 		4D9734F2287F3A41003EF546 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		C71B47E628807B64001A7CD6 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicForSearchModel.swift; sourceTree = "<group>"; };
+		C71B47EC28818B21001A7CD6 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
+		C71B47EE2881A11E001A7CD6 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		C71B47F02881A14F001A7CD6 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		C73FC9C1287C19B00017F2DA /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
@@ -271,9 +279,19 @@
 		C71B47E528807B56001A7CD6 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				C71B47E9288164A6001A7CD6 /* Models */,
 				C71B47E628807B64001A7CD6 /* SearchVC.swift */,
+				C71B47EC28818B21001A7CD6 /* SearchTVC.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		C71B47E9288164A6001A7CD6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C73FC9BA287C193A0017F2DA /* Network */ = {
@@ -284,6 +302,7 @@
 				C73FC9BD287C19560017F2DA /* Services */,
 				C73FC9BC287C19510017F2DA /* APIManagers */,
 				C73FC9CD287C19F40017F2DA /* EventLogger.swift */,
+				C71B47F02881A14F001A7CD6 /* ImageCacheManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -372,6 +391,7 @@
 				C7BC6B6D28771152008C75CE /* UserDefaults+.swift */,
 				C7BC6B6F28771184008C75CE /* UIStackView+.swift */,
 				C7BC6B712877ECA0008C75CE /* CALayer+.swift */,
+				C71B47EE2881A11E001A7CD6 /* UIImageView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -630,6 +650,7 @@
 				C7BB531428759AB200E0E889 /* Adjusted+.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
+				C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */,
 				C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */,
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
 				4D76046A28814A9A0044F2A6 /* AllMumentsSectionHeader.swift in Sources */,
@@ -649,6 +670,7 @@
 				C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */,
 				C7BC6B6028770FB6008C75CE /* UILabel+.swift in Sources */,
 				4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */,
+				C71B47EF2881A11E001A7CD6 /* UIImageView+.swift in Sources */,
 				4D2BADD528806C10004A7E00 /* MumentCardBySongModel.swift in Sources */,
 				4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */,
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
@@ -674,6 +696,7 @@
 				4D76045C2880ACB40044F2A6 /* DetailMumentCardView.swift in Sources */,
 				C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */,
 				4D64A9EA287D885A00450FCA /* DefaultTagView.swift in Sources */,
+				C71B47F12881A14F001A7CD6 /* ImageCacheManager.swift in Sources */,
 				C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */,
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
 				C7BC6B5A2876ADDD008C75CE /* ss.swift in Sources */,
@@ -686,6 +709,7 @@
 				4D2BADD928807281004A7E00 /* SongInfoView.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
 				4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */,
+				C71B47ED28818B21001A7CD6 /* SearchTVC.swift in Sources */,
 				4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */,
 				C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */,
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
