@@ -38,10 +38,6 @@ class SongDetailVC: BaseVC {
         mumentTV.register(AllMumentsSectionHeader.self, forHeaderFooterViewReuseIdentifier: AllMumentsSectionHeader.className)
         mumentTV.separatorStyle = .none
         mumentTV.showsVerticalScrollIndicator = false
-//        mumentTV.estimatedRowHeight = 300
-//                       mumentTV.rowHeight = 300
-//        mumentTV.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-//        mumentTV.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 15, right: 15);
     }
     
     func setSongIntfoData(){
@@ -69,8 +65,6 @@ extension SongDetailVC {
         mumentTV.snp.makeConstraints{
             $0.top.equalTo(songInfoView.snp.bottom)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
-//            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-//            $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.left.equalTo(view.safeAreaLayoutGuide)
             $0.right.equalTo(view.safeAreaLayoutGuide)
         }

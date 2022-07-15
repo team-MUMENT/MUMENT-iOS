@@ -19,41 +19,63 @@ class AllMumentsSectionHeader: UITableViewHeaderFooterView {
     }
     
     private let mostLikedOrderingButton = UIButton().then{
-        $0.configuration = .plain()
-        $0.configuration?.imagePlacement = .trailing
+        var configuration = UIButton.Configuration.plain()
+            configuration.imagePadding = 5
+            configuration.imagePlacement = .trailing
+            configuration.buttonSize = .small
+            configuration.baseBackgroundColor = UIColor.mBgwhite
+        $0.configuration = configuration
         $0.setAttributedTitle(NSAttributedString(string: "좋아요순", attributes: [
             .font: UIFont.mumentC1R12,
             .foregroundColor: UIColor.mPurple1
+        ]), for: .selected)
+        $0.setAttributedTitle(NSAttributedString(string: "좋아요순", attributes: [
+            .font: UIFont.mumentC1R12,
+            .foregroundColor: UIColor.mGray1
         ]), for: .normal)
-        $0.configuration?.buttonSize = .small
-        
     }
     
     private let latestOrderingButton = UIButton().then{
-        $0.isEnabled = false
-        $0.configuration = .plain()
-        $0.configuration?.imagePlacement = .trailing
-        $0.setTitle("최신 순", for: .normal)
+        var configuration = UIButton.Configuration.plain()
+            configuration.imagePlacement = .trailing
+            configuration.buttonSize = .small
+            configuration.baseBackgroundColor = UIColor.mBgwhite
+        $0.configuration = configuration
         $0.setAttributedTitle(NSAttributedString(string: "최신순", attributes: [
             .font: UIFont.mumentC1R12,
             .foregroundColor: UIColor.mPurple1
-        ]), for: .normal)
+        ]), for: .selected)
         $0.setAttributedTitle(NSAttributedString(string: "최신순", attributes: [
             .font: UIFont.mumentC1R12,
             .foregroundColor: UIColor.mGray1
-        ]), for: .disabled)
-        $0.configuration?.buttonSize = .small
+        ]), for: .normal)
     }
     
     // MARK: - Initialization
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setLayout()
+        setSelectedButton()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setLayout()
+    }
+    
+    // MARK: - Functions
+    private func setSelectedButton() {
+        mostLikedOrderingButton.isSelected = true
+        latestOrderingButton.isSelected = false
+        
+        mostLikedOrderingButton.press {
+            self.mostLikedOrderingButton.isSelected = true
+            self.latestOrderingButton.isSelected = false
+        }
+        latestOrderingButton.press {
+            self.latestOrderingButton.isSelected = true
+            self.mostLikedOrderingButton.isSelected = false
+        }
     }
 }
 
