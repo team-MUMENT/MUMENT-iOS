@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SecondVC: UIViewController {
+class likedMumentListVC: UIViewController {
     
     private let likedMumentListCV = UICollectionView(
         frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()
@@ -37,7 +37,7 @@ class SecondVC: UIViewController {
 }
 
 // MARK: - CollectionView UI
-extension SecondVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+extension likedMumentListVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 30
@@ -61,7 +61,7 @@ extension SecondVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     }
 }
 
-extension SecondVC {
+extension likedMumentListVC {
     private func setCVLayout() {
         view.addSubViews([likedMumentListCV])
         
