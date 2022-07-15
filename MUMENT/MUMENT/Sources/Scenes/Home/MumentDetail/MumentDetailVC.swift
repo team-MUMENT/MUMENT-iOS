@@ -13,6 +13,12 @@ class MumentDetailVC: BaseVC {
     
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
+    
+    private let detailScrollView = UIScrollView()
+    private let detailContentView = UIView().then {
+        $0.backgroundColor = .mBgwhite
+    }
+    
     private let mumentCardView = DetailMumentCardView()
     private let historyButton = UIButton().then{
         $0.makeRounded(cornerRadius: 11)
@@ -47,7 +53,6 @@ class MumentDetailVC: BaseVC {
     }
     
     // MARK: - Functions
-    
     func setData(){
         navigationBarView.setTitle("뮤멘트")
         mumentCardView.setData(dataSource[0])
@@ -59,16 +64,28 @@ class MumentDetailVC: BaseVC {
 extension MumentDetailVC {
     
     private func setLayout() {
-        
-        view.addSubviews([navigationBarView,mumentCardView,historyButton])
+        view.addSubviews([navigationBarView,detailScrollView])
+        detailScrollView.addSubviews([detailContentView])
+        detailContentView.addSubviews([mumentCardView,historyButton])
         
         navigationBarView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(48)
         }
+        detailScrollView.snp.makeConstraints {
+            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(navigationBarView.snp.bottom)
+        }
+        
+        detailContentView.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+        }
         
         mumentCardView.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom).offset(27)
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(27)
+//            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().offset(27)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
@@ -78,6 +95,7 @@ extension MumentDetailVC {
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(40)
+            $0.bottom.equalToSuperview().inset(20)
         }
     }
 }
