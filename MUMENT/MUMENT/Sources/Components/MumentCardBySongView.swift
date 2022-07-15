@@ -27,8 +27,8 @@ class MumentCardBySongView: UIView {
     
     private let heartButton = UIButton().then{
         var configuration = UIButton.Configuration.plain()
-            configuration.imagePadding = 5
-            configuration.buttonSize = .small
+        configuration.imagePadding = 5
+        configuration.buttonSize = .small
         $0.configuration = configuration
     }
     
@@ -53,7 +53,7 @@ class MumentCardBySongView: UIView {
         $0.textColor = .mBlack2
         $0.lineBreakMode = .byTruncatingTail
         $0.numberOfLines = 3
-        $0.font = UIFont(name: "NotoSans-Medium", size: 13.0)
+        $0.font = .mumentB6M13
     }
     let createdAtLabel = UILabel().then{
         $0.textColor = .mGray2
@@ -94,7 +94,7 @@ extension MumentCardBySongView {
     
     func setLayout() {
         self.addSubviews([writerInfoStackView,heartButton,separatorView,tagStackView,contentsLabel,createdAtLabel])
-
+        
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
@@ -130,7 +130,7 @@ extension MumentCardBySongView {
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
         
-
+        
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(25)
         }

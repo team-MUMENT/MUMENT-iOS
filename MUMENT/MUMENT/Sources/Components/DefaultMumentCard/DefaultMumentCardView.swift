@@ -10,12 +10,12 @@ import SnapKit
 import Then
 
 class DefaultMumentCardView: MumentCardWithoutHeartView {
-
+    
     // MARK: - Properties
     private let heartButton = UIButton().then{
         var configuration = UIButton.Configuration.plain()
-            configuration.imagePadding = 5
-            configuration.buttonSize = .small
+        configuration.imagePadding = 5
+        configuration.buttonSize = .small
         $0.configuration = configuration
     }
     
@@ -58,12 +58,12 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
 extension DefaultMumentCardView {
     func setLayout() {
         self.addSubview(heartButton)
-
+        
         heartButton.snp.makeConstraints {
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
         }
-
+        
     }
 }
 

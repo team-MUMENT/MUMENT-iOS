@@ -39,7 +39,7 @@ extension SongDetailTVC {
             $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide).inset(20)
             $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
-
+            
         }
     }
 }

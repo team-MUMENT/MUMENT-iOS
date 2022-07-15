@@ -50,7 +50,7 @@ class MumentCardWithoutHeartView: UIView {
         $0.textColor = .mBlack2
         $0.lineBreakMode = .byCharWrapping
         $0.numberOfLines = 2
-        $0.font = UIFont(name: "NotoSans-Medium", size: 13.0)
+        $0.font = .mumentB6M13
     }
     let createdAtLabel = UILabel().then{
         $0.textColor = .mGray2
@@ -134,7 +134,7 @@ extension MumentCardWithoutHeartView {
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
         
-
+        
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(25)
         }
