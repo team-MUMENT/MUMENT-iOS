@@ -83,8 +83,6 @@ extension MumentDetailVC {
         }
         
         mumentCardView.snp.makeConstraints {
-//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(27)
-//            $0.top.equalToSuperview()
             $0.top.equalToSuperview().offset(27)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)

@@ -21,13 +21,12 @@ class AllMumentsSectionHeader: UITableViewHeaderFooterView {
     private let mostLikedOrderingButton = UIButton().then{
         $0.configuration = .plain()
         $0.configuration?.imagePlacement = .trailing
-//        $0.setTitle("좋아요순", for: .normal)
         $0.setAttributedTitle(NSAttributedString(string: "좋아요순", attributes: [
             .font: UIFont.mumentC1R12,
             .foregroundColor: UIColor.mPurple1
         ]), for: .normal)
         $0.configuration?.buttonSize = .small
-
+        
     }
     
     private let latestOrderingButton = UIButton().then{
@@ -45,22 +44,16 @@ class AllMumentsSectionHeader: UITableViewHeaderFooterView {
         ]), for: .disabled)
         $0.configuration?.buttonSize = .small
     }
-
+    
     // MARK: - Initialization
     override init(reuseIdentifier: String?) {
-            super.init(reuseIdentifier: reuseIdentifier)
-            setLayout()
-//            configureLayout()
-        }
-        
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            setLayout()
-        }
+        super.init(reuseIdentifier: reuseIdentifier)
+        setLayout()
+    }
     
-    //MARK: - Functions
-    func setTitle(_ title:String){
-        titleLabel.text = title
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setLayout()
     }
 }
 
@@ -71,9 +64,8 @@ extension AllMumentsSectionHeader {
         self.addSubviews([titleLabel,mostLikedOrderingButton,latestOrderingButton])
         
         titleLabel.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
-//            $0.height.width.equalTo(48)
         }
         
         mostLikedOrderingButton.snp.makeConstraints{
@@ -83,7 +75,7 @@ extension AllMumentsSectionHeader {
         }
         
         latestOrderingButton.snp.makeConstraints{
-            $0.trailing.equalTo(self.safeAreaLayoutGuide)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
         }
     }
