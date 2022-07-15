@@ -10,11 +10,11 @@ import SnapKit
 import Then
 
 class SongDetailVC: BaseVC {
-   
+    
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
     private let songInfoView = SongInfoView()
-    private let mumentTV = UITableView()
+    private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
     var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
@@ -37,8 +37,8 @@ class SongDetailVC: BaseVC {
         mumentTV.register(MyMumentSectionHeader.self, forHeaderFooterViewReuseIdentifier: MyMumentSectionHeader.className)
         mumentTV.register(AllMumentsSectionHeader.self, forHeaderFooterViewReuseIdentifier: AllMumentsSectionHeader.className)
         
-//        mumentTV.estimatedRowHeight = 44
-//        mumentTV.rowHeight = 48
+        //        mumentTV.estimatedRowHeight = 44
+        //        mumentTV.rowHeight = 48
         mumentTV.separatorStyle = .none
         mumentTV.showsVerticalScrollIndicator = false
     }
@@ -114,33 +114,20 @@ extension SongDetailVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        guard let view = tableView.dequeueReusableHeaderFooterView(
-//                                    withIdentifier: SectionHeaderView.reuseIdentifier)
-//                                    as? SectionHeaderView
-//                else {
-//                    return nil
-//                }
-
         if section==0 {
-                guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyMumentSectionHeader.className) as? MyMumentSectionHeader else { return nil }
+            guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyMumentSectionHeader.className) as? MyMumentSectionHeader else { return nil }
             return headerCell
         }else{
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
             return headerCell
         }
-//        guard section == 0,
-//        guard section == 1,
-//
-
-//            return headerCell
-        }
-
-        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            // Header 영역 크기 = 140(separator 상단) + 12(separator 하단)
-
-            return 20
-        }
-
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 20
+    }
+    
 }
 
 // MARK: - UITableViewDelegate
