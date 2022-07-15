@@ -21,13 +21,29 @@ class AllMumentsSectionHeader: UITableViewHeaderFooterView {
     private let mostLikedOrderingButton = UIButton().then{
         $0.configuration = .plain()
         $0.configuration?.imagePlacement = .trailing
-        $0.setTitle("좋아요순", for: .normal)
+//        $0.setTitle("좋아요순", for: .normal)
+        $0.setAttributedTitle(NSAttributedString(string: "좋아요순", attributes: [
+            .font: UIFont.mumentC1R12,
+            .foregroundColor: UIColor.mPurple1
+        ]), for: .normal)
+        $0.configuration?.buttonSize = .small
+
     }
     
     private let latestOrderingButton = UIButton().then{
+        $0.isEnabled = false
         $0.configuration = .plain()
         $0.configuration?.imagePlacement = .trailing
         $0.setTitle("최신 순", for: .normal)
+        $0.setAttributedTitle(NSAttributedString(string: "최신순", attributes: [
+            .font: UIFont.mumentC1R12,
+            .foregroundColor: UIColor.mPurple1
+        ]), for: .normal)
+        $0.setAttributedTitle(NSAttributedString(string: "최신순", attributes: [
+            .font: UIFont.mumentC1R12,
+            .foregroundColor: UIColor.mGray1
+        ]), for: .disabled)
+        $0.configuration?.buttonSize = .small
     }
 
     // MARK: - Initialization
@@ -55,20 +71,20 @@ extension AllMumentsSectionHeader {
         self.addSubviews([titleLabel,mostLikedOrderingButton,latestOrderingButton])
         
         titleLabel.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
-            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.equalTo(self.safeAreaLayoutGuide)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
 //            $0.height.width.equalTo(48)
         }
         
         mostLikedOrderingButton.snp.makeConstraints{
-            $0.trailing.equalTo(latestOrderingButton.snp.leading).offset(20)
-            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.trailing.equalTo(latestOrderingButton.snp.leading)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
             
         }
         
         latestOrderingButton.snp.makeConstraints{
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
-            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
         }
     }
 }
