@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StorageCVC: UICollectionViewCell {
+class ListCVC: UICollectionViewCell {
     
     // MARK: - Properties
     private let imageView = UIImageView().then {
