@@ -68,7 +68,7 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        return cellCategory.cellSize
     }
 }
 
