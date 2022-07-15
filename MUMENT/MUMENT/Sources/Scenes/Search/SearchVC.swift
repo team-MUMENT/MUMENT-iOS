@@ -25,6 +25,7 @@ class SearchVC: BaseVC {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.mBgwhite.cgColor
     }
+    private let recentSearchTitleView = UIView()
     private let recentSearchLabel = UILabel().then {
         $0.text = "최근 검색한 곡"
         $0.font = .mumentH2B18
@@ -35,17 +36,31 @@ class SearchVC: BaseVC {
         $0.titleLabel?.font = .mumentB8M12
         $0.setTitleColor(.mGray2, for: .normal)
     }
+    private let resultTV = UITableView().then {
+        $0.separatorStyle = .none
+    }
+    
+    var recentSearchDummyData = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")]
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         setAllClearButton()
+        setResultTV()
     }
     
     // MARK: - Functions
     private func setAllClearButton() {
         
+    }
+    
+    private func setResultTV() {
+        resultTV.delegate = self
+        resultTV.dataSource = self
+        resultTV.register(cell: SearchTVC.self, forCellReuseIdentifier: SearchTVC.className)
+        resultTV.rowHeight = 65
+        resultTV.backgroundColor = .clear
     }
 }
 
@@ -53,7 +68,8 @@ class SearchVC: BaseVC {
 extension SearchVC {
     private func setLayout() {
         setNaviViewLayout()
-        view.addSubviews([naviView, recentSearchLabel, allClearButton])
+        setRecentSearchTitleView()
+        view.addSubviews([naviView, recentSearchTitleView, resultTV])
         
         naviView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(11)
@@ -61,15 +77,15 @@ extension SearchVC {
             $0.height.equalTo(40)
         }
         
-        recentSearchLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(20)
+        recentSearchTitleView.snp.makeConstraints {
             $0.top.equalTo(naviView.snp.bottom).offset(40.adjustedH)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(23)
         }
         
-        allClearButton.snp.makeConstraints {
-            $0.centerY.equalTo(recentSearchLabel)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(48.adjustedW)
+        resultTV.snp.makeConstraints {
+            $0.top.equalTo(recentSearchTitleView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     
@@ -88,5 +104,40 @@ extension SearchVC {
             $0.trailing.equalToSuperview().inset(20)
             $0.top.bottom.equalToSuperview()
         }
+    }
+    
+    private func setRecentSearchTitleView() {
+        recentSearchTitleView.addSubviews([recentSearchLabel, allClearButton])
+        
+        recentSearchLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(20)
+            $0.top.equalToSuperview()
+        }
+        
+        allClearButton.snp.makeConstraints {
+            $0.centerY.equalTo(recentSearchLabel)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(48.adjustedW)
+        }
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension SearchVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recentSearchDummyData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTVC.className) as? SearchTVC else { return UITableViewCell()}
+        cell.setData(data: recentSearchDummyData[indexPath.row])
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension SearchVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.row) cell select")
     }
 }
