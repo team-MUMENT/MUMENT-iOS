@@ -32,7 +32,7 @@ class SongDetailVC: BaseVC {
     private func setTV() {
         mumentTV.delegate = self
         mumentTV.dataSource = self
-        
+        mumentTV.backgroundColor = .mBgwhite
         mumentTV.register(cell: MumentCardBySongTVC.self, forCellReuseIdentifier: MumentCardBySongTVC.className)
         mumentTV.register(MyMumentSectionHeader.self, forHeaderFooterViewReuseIdentifier: MyMumentSectionHeader.className)
         mumentTV.register(AllMumentsSectionHeader.self, forHeaderFooterViewReuseIdentifier: AllMumentsSectionHeader.className)
@@ -125,7 +125,7 @@ extension SongDetailVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 20
+        return 50
     }
     
 }
