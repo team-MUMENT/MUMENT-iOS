@@ -21,6 +21,7 @@ class SearchVC: BaseVC {
         $0.barTintColor = .mGray5
         $0.makeRounded(cornerRadius: 11.adjustedH)
         $0.placeholder = "곡, 아티스트"
+        $0.searchTextField.font = .mumentB4M14
         $0.searchTextField.backgroundColor = .clear
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.mBgwhite.cgColor
@@ -58,7 +59,7 @@ class SearchVC: BaseVC {
     private func setResultTV() {
         resultTV.delegate = self
         resultTV.dataSource = self
-        resultTV.register(cell: SearchTVC.self, forCellReuseIdentifier: SearchTVC.className)
+        resultTV.register(cell: RecentSearchTVC.self, forCellReuseIdentifier: RecentSearchTVC.className)
         resultTV.rowHeight = 65
         resultTV.backgroundColor = .clear
     }
@@ -129,7 +130,7 @@ extension SearchVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTVC.className) as? SearchTVC else { return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTVC.className) as? RecentSearchTVC else { return UITableViewCell()}
         cell.setData(data: recentSearchDummyData[indexPath.row])
         return cell
     }
