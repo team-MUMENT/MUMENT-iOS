@@ -77,7 +77,6 @@ class StorageVC: BaseVC {
         $0.setImage(UIImage(named: "mumentAlbumOff"), for: .normal)
         $0.setImage(UIImage(named: "mumentAlbumOn"), for: .selected)
         $0.contentMode = .scaleAspectFit
-        $0.addTarget(StorageVC.self, action: #selector(didTapAlbumButton), for: .touchUpInside)
     }
     
     private let listButton = UIButton().then {
@@ -85,14 +84,16 @@ class StorageVC: BaseVC {
         $0.setImage(UIImage(named: "mumentListOn"), for: .selected)
         $0.isSelected = true
         $0.contentMode = .scaleAspectFit
-        $0.addTarget(StorageVC.self, action: #selector(didTapListButton), for: .touchUpInside)
     }
     
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
-    private let contents: [UIViewController] = [
-        myMumentListVC(),
-        likedMumentListVC()
+    private let myMumentVC = MyMumentVC()
+    private let likedMumentVC = LikedMumentVC()
+    
+    private lazy var contents: [UIViewController] = [
+        self.myMumentVC,
+        self.likedMumentVC
     ]
     
     private var currentIndex: Int = 0
@@ -109,6 +110,7 @@ class StorageVC: BaseVC {
         setSegmentLaysout()
         setFilterSectionLayout()
         setPagerLayout()
+        setPressAction()
     }
     
     // MARK: - Function
@@ -136,6 +138,31 @@ class StorageVC: BaseVC {
         })
     }
     
+    private func setPressAction() {
+        listButton.press {
+            self.listButton.isSelected = true
+            self.albumButton.isSelected = false
+            
+            if self.segmentControl.selectedSegmentIndex == 0 {
+                self.myMumentVC.cellCategory = .listCell
+            }else {
+                self.likedMumentVC.cellCategory = .listCell
+            }
+            
+        }
+        
+        albumButton.press {
+            self.albumButton.isSelected = true
+            self.listButton.isSelected = false
+            
+            if self.segmentControl.selectedSegmentIndex == 0 {
+                self.myMumentVC.cellCategory = .albumCell
+            }else {
+                self.likedMumentVC.cellCategory = .albumCell
+            }
+        }
+    }
+    
     @objc private func didTapSegmentControl() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             
@@ -145,15 +172,6 @@ class StorageVC: BaseVC {
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
     }
-    
-    @objc private func didTapAlbumButton() {
-        
-    }
-    
-    @objc private func didTapListButton() {
-       
-    }
-
 }
 
 // MARK: - UIPageVC
