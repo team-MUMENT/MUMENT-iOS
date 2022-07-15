@@ -9,6 +9,43 @@ import UIKit
 import SnapKit
 import Then
 
+class OrderingButton: UIButton {
+    private var buttonText = ""
+    private func setConfiguration(){
+        var configuration = UIButton.Configuration.plain()
+        configuration.imagePlacement = .trailing
+        configuration.buttonSize = .small
+        configuration.baseBackgroundColor = UIColor.mBgwhite
+        self.configuration = configuration
+    }
+    
+    private func setTextStyle(){
+        self.setAttributedTitle(NSAttributedString(string: buttonText, attributes: [
+            .font: UIFont.mumentC1R12,
+            .foregroundColor: UIColor.mPurple1
+        ]), for: .selected)
+        self.setAttributedTitle(NSAttributedString(string: buttonText, attributes: [
+            .font: UIFont.mumentC1R12,
+            .foregroundColor: UIColor.mGray1
+        ]), for: .normal)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+    }
+    
+    override init(frame: CGRect){
+        super.init(frame: frame)
+    }
+    
+    init(_ text:String) {
+        super.init(frame:CGRect.zero)
+        buttonText = text
+        setConfiguration()
+        setTextStyle()
+    }
+}
+
 class AllMumentsSectionHeader: UITableViewHeaderFooterView {
     
     // MARK: - Properties
@@ -18,38 +55,8 @@ class AllMumentsSectionHeader: UITableViewHeaderFooterView {
         $0.font = .mumentB1B15
     }
     
-    private let mostLikedOrderingButton = UIButton().then{
-        var configuration = UIButton.Configuration.plain()
-            configuration.imagePadding = 5
-            configuration.imagePlacement = .trailing
-            configuration.buttonSize = .small
-            configuration.baseBackgroundColor = UIColor.mBgwhite
-        $0.configuration = configuration
-        $0.setAttributedTitle(NSAttributedString(string: "좋아요순", attributes: [
-            .font: UIFont.mumentC1R12,
-            .foregroundColor: UIColor.mPurple1
-        ]), for: .selected)
-        $0.setAttributedTitle(NSAttributedString(string: "좋아요순", attributes: [
-            .font: UIFont.mumentC1R12,
-            .foregroundColor: UIColor.mGray1
-        ]), for: .normal)
-    }
-    
-    private let latestOrderingButton = UIButton().then{
-        var configuration = UIButton.Configuration.plain()
-            configuration.imagePlacement = .trailing
-            configuration.buttonSize = .small
-            configuration.baseBackgroundColor = UIColor.mBgwhite
-        $0.configuration = configuration
-        $0.setAttributedTitle(NSAttributedString(string: "최신순", attributes: [
-            .font: UIFont.mumentC1R12,
-            .foregroundColor: UIColor.mPurple1
-        ]), for: .selected)
-        $0.setAttributedTitle(NSAttributedString(string: "최신순", attributes: [
-            .font: UIFont.mumentC1R12,
-            .foregroundColor: UIColor.mGray1
-        ]), for: .normal)
-    }
+    private let mostLikedOrderingButton = OrderingButton("좋아요순")
+    private let latestOrderingButton = OrderingButton("최신순")
     
     // MARK: - Initialization
     override init(reuseIdentifier: String?) {
