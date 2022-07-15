@@ -12,7 +12,7 @@ import Then
 class SongDetailVC: BaseVC {
    
     // MARK: - Properties
-    private let navigationBarView = DefaultSongDetailHeader()
+    private let navigationBarView = DefaultNavigationBar()
     private let songInfoView = SongInfoView()
     private let mumentTV = UITableView()
     
