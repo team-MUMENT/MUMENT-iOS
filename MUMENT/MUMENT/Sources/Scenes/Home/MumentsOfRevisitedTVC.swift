@@ -1,5 +1,5 @@
 //
-//  MumentsByTagTVC.swift
+//  RecentMumentsTVC.swift
 //  MUMENT
 //
 //  Created by 김지민 on 2022/07/09.
@@ -9,12 +9,12 @@ import UIKit
 import SnapKit
 import Then
 
-class MumentsByTagTVC: UITableViewCell {
+class MumentsOfRevisitedTVC: UITableViewCell {
     
     // MARK: - Properties
-    var dataSource: [MumentsByTagModel] = MumentsByTagModel.sampleData
-    var titleDataSource: MumentsByTagTitleModel = MumentsByTagTitleModel.sampleData
+    var dataSource: [MumentsOfRevisitedModel] = MumentsOfRevisitedModel.sampleData
     lazy var titleLabel = UILabel().then{
+        $0.text = "다시 들은 곡의 뮤멘트"
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
@@ -27,7 +27,6 @@ class MumentsByTagTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCV()
         setLayout()
-        setData(titleDataSource)
         selectionStyle = .none
     }
     
@@ -40,19 +39,15 @@ class MumentsByTagTVC: UITableViewCell {
     private func setCV() {
         mumentCV.delegate = self
         mumentCV.dataSource = self
-        mumentCV.register(MumentsByTagCVC.self, forCellWithReuseIdentifier: MumentsByTagCVC.className)
+        mumentCV.register(MumentsOfRevisitedCVC.self, forCellWithReuseIdentifier: MumentsOfRevisitedCVC.className)
         
         mumentCV.showsHorizontalScrollIndicator = false
         CVFlowLayout.scrollDirection = .horizontal
     }
-    
-    func setData(_ cellData: MumentsByTagTitleModel){
-        titleLabel.text = "\(cellData.title)을 느낀 순간"
-    }
 }
 
 // MARK: - UI
-extension MumentsByTagTVC {
+extension MumentsOfRevisitedTVC {
     
     private func setLayout() {
         
@@ -64,6 +59,7 @@ extension MumentsByTagTVC {
         
         mumentCV.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(18)
+//            $0.leading.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
         }
@@ -72,14 +68,14 @@ extension MumentsByTagTVC {
 }
 
 // MARK: - UICollectionViewDataSource
-extension MumentsByTagTVC: UICollectionViewDataSource {
+extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MumentsByTagCVC.className, for: indexPath) as?  MumentsByTagCVC else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MumentsOfRevisitedCVC.className, for: indexPath) as?  MumentsOfRevisitedCVC else {
             return UICollectionViewCell()
         }
         
@@ -89,11 +85,11 @@ extension MumentsByTagTVC: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension MumentsByTagTVC: UICollectionViewDelegateFlowLayout {
+extension MumentsOfRevisitedTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellWidth = 200
-        let cellHeight = 200
+        let cellWidth = 160
+        let cellHeight = 275
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
