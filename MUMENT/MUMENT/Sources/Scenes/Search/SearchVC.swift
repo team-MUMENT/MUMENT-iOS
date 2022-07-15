@@ -13,8 +13,11 @@ class SearchVC: BaseVC {
     
     // MARK: - Properties
     private let naviView = UIView()
-    private let backButton = UIButton().then {
+    lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "mumentIconBack"), for: .normal)
+        $0.press {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     private let searchBar = UISearchBar().then {
         $0.setImage(UIImage(named: "mumentSearch"), for: .search, state: .normal)
@@ -44,7 +47,7 @@ class SearchVC: BaseVC {
         $0.isHidden = true
     }
     
-    var recentSearchDummyData = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")]
+    var recentSearchDummyData = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")]
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -60,6 +63,7 @@ class SearchVC: BaseVC {
         allClearButton.press { [weak self] in
             self?.recentSearchDummyData = []
             self?.resultTV.reloadData()
+            self?.setRecentSearchEmptyView()
         }
     }
     
@@ -148,6 +152,12 @@ extension SearchVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTVC.className) as? RecentSearchTVC else { return UITableViewCell()}
         cell.setData(data: recentSearchDummyData[indexPath.row])
+        cell.removeButton.removeTarget(nil, action: nil, for: .allEvents)
+        cell.removeButton.press {
+            self.recentSearchDummyData.remove(at: indexPath.row)
+            tableView.reloadData()
+            self.setRecentSearchEmptyView()
+        }
         return cell
     }
 }
