@@ -45,7 +45,7 @@ class StorageVC: BaseVC {
         ], for: .selected)
         
         $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
-        $0.addTarget(self, action: #selector(segementClicked), for: .valueChanged)
+        $0.addTarget(self, action: #selector(didTapSegmentControl), for: .valueChanged)
     }
     
     private let underLineView = UIView().then {
@@ -77,6 +77,7 @@ class StorageVC: BaseVC {
         $0.setImage(UIImage(named: "mumentAlbumOff"), for: .normal)
         $0.setImage(UIImage(named: "mumentAlbumOn"), for: .selected)
         $0.contentMode = .scaleAspectFit
+        $0.addTarget(StorageVC.self, action: #selector(didTapAlbumButton), for: .touchUpInside)
     }
     
     private let listButton = UIButton().then {
@@ -84,13 +85,14 @@ class StorageVC: BaseVC {
         $0.setImage(UIImage(named: "mumentListOn"), for: .selected)
         $0.isSelected = true
         $0.contentMode = .scaleAspectFit
+        $0.addTarget(StorageVC.self, action: #selector(didTapListButton), for: .touchUpInside)
     }
     
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
     private let contents: [UIViewController] = [
-        FirstVC(),
-        SecondVC()
+        myMumentListVC(),
+        likedMumentListVC()
     ]
     
     private var currentIndex: Int = 0
@@ -134,7 +136,7 @@ class StorageVC: BaseVC {
         })
     }
     
-    @objc private func segementClicked() {
+    @objc private func didTapSegmentControl() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             
         if segmentIndex == 0 {
@@ -142,6 +144,14 @@ class StorageVC: BaseVC {
         }else {
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
+    }
+    
+    @objc private func didTapAlbumButton() {
+        
+    }
+    
+    @objc private func didTapListButton() {
+       
     }
 
 }
@@ -263,14 +273,3 @@ extension StorageVC {
     }
     
 }
-
-// MARK: - SwiftUI Preview
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct ViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        StorageVC().showPreview(.iPhone13mini)
-    }
-}
-#endif

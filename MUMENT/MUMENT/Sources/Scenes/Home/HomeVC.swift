@@ -122,14 +122,3 @@ extension HomeVC: UITableViewDelegate {
         return cellHeight
     }
 }
-
-// MARK: - SwiftUI Preview
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct ViewController_Preview: PreviewProvider {
-   static var previews: some View {
-       HomeVC().showPreview(.iPhone13mini)
-   }
-}
-#endif
