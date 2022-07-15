@@ -57,8 +57,32 @@ class StorageVC: BaseVC {
         return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
     }()
     
-    private lazy var filterSectionView = UIView().then {
+    private lazy var filterSectionContainerView = UIView().then {
         $0.backgroundColor = .clear
+    }
+    
+    private let filterButton = UIButton().then {
+        $0.setImage(UIImage(named: "mumentFilterOff"), for: .normal)
+        $0.setImage(UIImage(named: "mumentFilterOn"), for: .selected)
+        $0.contentMode = .scaleAspectFit
+    }
+    
+    private let buttonStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .fill
+        $0.spacing = 15
+    }
+    
+    private let albumButton = UIButton().then {
+        $0.setImage(UIImage(named: "mumentAlbumOff"), for: .normal)
+        $0.setImage(UIImage(named: "mumentAlbumOff"), for: .selected)
+        $0.contentMode = .scaleAspectFit
+    }
+    
+    private let listButton = UIButton().then {
+        $0.setImage(UIImage(named: "mumentListOff"), for: .normal)
+        $0.setImage(UIImage(named: "mumentListOn"), for: .selected)
+        $0.contentMode = .scaleAspectFit
     }
     
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
@@ -71,7 +95,7 @@ class StorageVC: BaseVC {
     private var currentIndex: Int = 0
     
     private lazy var pagerContainerView = UIView().then {
-        $0.backgroundColor = .blue
+        $0.backgroundColor = .clear
     }
     
     // MARK: - View Life Cycle
@@ -201,19 +225,38 @@ extension StorageVC {
     }
     
     private func setFilterSectionLayout() {
-        view.addSubviews([filterSectionView])
+        view.addSubviews([filterSectionContainerView])
         
-        filterSectionView.snp.makeConstraints{
+        filterSectionContainerView.snp.makeConstraints{
             $0.top.equalTo(segmentContainerView.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(44)
         }
+        
+        filterSectionContainerView.addSubViews([filterButton, buttonStackView])
+        
+        filterButton.snp.makeConstraints{
+            $0.top.equalTo(filterSectionContainerView).inset(12)
+            $0.leading.equalTo(filterSectionContainerView).inset(20)
+            $0.bottom.equalTo(filterSectionContainerView).inset(12)
+        }
+        
+        [albumButton, listButton].forEach {
+            self.buttonStackView.addArrangedSubview($0)
+        }
+        
+        buttonStackView.snp.makeConstraints{
+            $0.top.bottom.equalTo(filterSectionContainerView).inset(12)
+            $0.trailing.equalTo(filterSectionContainerView).inset(20)
+            $0.width.equalTo(55)
+        }
+        
     }
     
     private func setPagerLayout() {
         view.addSubviews([pagerContainerView])
         pagerContainerView.snp.makeConstraints{
-            $0.top.equalTo(filterSectionView.snp.bottom)
+            $0.top.equalTo(filterSectionContainerView.snp.bottom)
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)  
         }
     }
