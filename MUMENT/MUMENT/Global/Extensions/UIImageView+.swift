@@ -8,6 +8,14 @@
 import UIKit
 
 extension UIImageView {
+    
+    /// 그냥 컬러만 있는 Image를 ImageView에 넣어 주는 메서드
+    func setImageColor(color: UIColor) {
+        let templateImage = self.image?.withRenderingMode(.alwaysTemplate)
+        self.image = templateImage
+        self.tintColor = color
+    }
+    
     /// URL을 통해 이미지를 불러오는 메서드
     func setImageUrl(_ url: String) {
         let cacheKey = NSString(string: url)
