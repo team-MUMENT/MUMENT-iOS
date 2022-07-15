@@ -67,7 +67,7 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        return cellCategory.cellSize
     }
 }
 
