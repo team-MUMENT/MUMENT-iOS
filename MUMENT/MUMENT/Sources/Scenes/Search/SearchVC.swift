@@ -40,6 +40,9 @@ class SearchVC: BaseVC {
     private let resultTV = UITableView().then {
         $0.separatorStyle = .none
     }
+    private let recentSearchEmptyView = RecentSearchEmptyView().then {
+        $0.isHidden = true
+    }
     
     var recentSearchDummyData = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")]
     
@@ -49,11 +52,15 @@ class SearchVC: BaseVC {
         setLayout()
         setAllClearButton()
         setResultTV()
+        setRecentSearchEmptyView()
     }
     
     // MARK: - Functions
     private func setAllClearButton() {
-        
+        allClearButton.press { [weak self] in
+            self?.recentSearchDummyData = []
+            self?.resultTV.reloadData()
+        }
     }
     
     private func setResultTV() {
@@ -70,7 +77,7 @@ extension SearchVC {
     private func setLayout() {
         setNaviViewLayout()
         setRecentSearchTitleView()
-        view.addSubviews([naviView, recentSearchTitleView, resultTV])
+        view.addSubviews([naviView, recentSearchTitleView, resultTV, recentSearchEmptyView])
         
         naviView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(11)
@@ -87,6 +94,10 @@ extension SearchVC {
         resultTV.snp.makeConstraints {
             $0.top.equalTo(recentSearchTitleView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        recentSearchEmptyView.snp.makeConstraints {
+            $0.edges.equalTo(resultTV)
         }
     }
     
@@ -120,6 +131,11 @@ extension SearchVC {
             $0.trailing.equalToSuperview().inset(20)
             $0.width.equalTo(48.adjustedW)
         }
+    }
+    
+    private func setRecentSearchEmptyView() {
+        recentSearchEmptyView.isHidden = !(recentSearchDummyData.isEmpty)
+        recentSearchTitleView.isHidden = recentSearchDummyData.isEmpty
     }
 }
 
