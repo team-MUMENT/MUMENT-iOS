@@ -21,7 +21,7 @@ class DefaultNavigationBar: UIView {
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
-
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)

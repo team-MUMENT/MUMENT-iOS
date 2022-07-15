@@ -28,7 +28,6 @@
 		4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */; };
 		4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */; };
 		4D760454288093280044F2A6 /* DefaultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D760453288093280044F2A6 /* DefaultNavigationBar.swift */; };
-		4D7604582880A3500044F2A6 /* DefaultNavigationBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7604572880A3500044F2A6 /* DefaultNavigationBarModel.swift */; };
 		4D76045A2880AC840044F2A6 /* MumentDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7604592880AC840044F2A6 /* MumentDetailVC.swift */; };
 		4D76045C2880ACB40044F2A6 /* DetailMumentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D76045B2880ACB40044F2A6 /* DetailMumentCardView.swift */; };
 		4D7604612880ADB60044F2A6 /* DetailSongInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7604602880ADB60044F2A6 /* DetailSongInfoView.swift */; };
@@ -116,7 +115,6 @@
 		4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayTVC.swift; sourceTree = "<group>"; };
 		4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailInfoModel.swift; sourceTree = "<group>"; };
 		4D760453288093280044F2A6 /* DefaultNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationBar.swift; sourceTree = "<group>"; };
-		4D7604572880A3500044F2A6 /* DefaultNavigationBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationBarModel.swift; sourceTree = "<group>"; };
 		4D7604592880AC840044F2A6 /* MumentDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentDetailVC.swift; sourceTree = "<group>"; };
 		4D76045B2880ACB40044F2A6 /* DetailMumentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMumentCardView.swift; sourceTree = "<group>"; };
 		4D7604602880ADB60044F2A6 /* DetailSongInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSongInfoView.swift; sourceTree = "<group>"; };
@@ -484,7 +482,6 @@
 				4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */,
 				4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */,
 				4D7604652880C8ED0044F2A6 /* MumentDetailVCModel.swift */,
-				4D7604572880A3500044F2A6 /* DefaultNavigationBarModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -650,7 +647,6 @@
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
 				C7BC6B5A2876ADDD008C75CE /* ss.swift in Sources */,
 				4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */,
-				4D7604582880A3500044F2A6 /* DefaultNavigationBarModel.swift in Sources */,
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
 				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
