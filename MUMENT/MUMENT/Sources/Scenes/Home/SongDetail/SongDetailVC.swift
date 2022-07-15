@@ -36,11 +36,12 @@ class SongDetailVC: BaseVC {
         mumentTV.register(cell: MumentCardBySongTVC.self, forCellReuseIdentifier: MumentCardBySongTVC.className)
         mumentTV.register(MyMumentSectionHeader.self, forHeaderFooterViewReuseIdentifier: MyMumentSectionHeader.className)
         mumentTV.register(AllMumentsSectionHeader.self, forHeaderFooterViewReuseIdentifier: AllMumentsSectionHeader.className)
-        
-        //        mumentTV.estimatedRowHeight = 44
-        //        mumentTV.rowHeight = 48
         mumentTV.separatorStyle = .none
         mumentTV.showsVerticalScrollIndicator = false
+//        mumentTV.estimatedRowHeight = 300
+//                       mumentTV.rowHeight = 300
+//        mumentTV.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+//        mumentTV.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 15, right: 15);
     }
     
     func setSongIntfoData(){
@@ -62,14 +63,16 @@ extension SongDetailVC {
         songInfoView.snp.makeConstraints {
             $0.top.equalTo(navigationBarView.snp.bottom)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(200)
+            $0.height.equalTo(230)
         }
         
         mumentTV.snp.makeConstraints{
             $0.top.equalTo(songInfoView.snp.bottom)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
+//            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
+//            $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.left.equalTo(view.safeAreaLayoutGuide)
+            $0.right.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
