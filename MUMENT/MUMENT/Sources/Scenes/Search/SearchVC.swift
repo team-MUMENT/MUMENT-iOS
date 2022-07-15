@@ -25,6 +25,16 @@ class SearchVC: BaseVC {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.mBgwhite.cgColor
     }
+    private let recentSearchLabel = UILabel().then {
+        $0.text = "최근 검색한 곡"
+        $0.font = .mumentH2B18
+        $0.textColor = .mBlack1
+    }
+    private let allClearButton = UIButton(type: .system).then {
+        $0.setTitle("모두 삭제", for: .normal)
+        $0.titleLabel?.font = .mumentB8M12
+        $0.setTitleColor(.mGray2, for: .normal)
+    }
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -41,6 +51,28 @@ class SearchVC: BaseVC {
 
 // MARK: - UI
 extension SearchVC {
+    private func setLayout() {
+        setNaviViewLayout()
+        view.addSubviews([naviView, recentSearchLabel, allClearButton])
+        
+        naviView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(11)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(40)
+        }
+        
+        recentSearchLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(20)
+            $0.top.equalTo(naviView.snp.bottom).offset(40.adjustedH)
+        }
+        
+        allClearButton.snp.makeConstraints {
+            $0.centerY.equalTo(recentSearchLabel)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(48.adjustedW)
+        }
+    }
+    
     private func setNaviViewLayout() {
         naviView.addSubviews([backButton, searchBar])
         
