@@ -75,13 +75,14 @@ class StorageVC: BaseVC {
     
     private let albumButton = UIButton().then {
         $0.setImage(UIImage(named: "mumentAlbumOff"), for: .normal)
-        $0.setImage(UIImage(named: "mumentAlbumOff"), for: .selected)
+        $0.setImage(UIImage(named: "mumentAlbumOn"), for: .selected)
         $0.contentMode = .scaleAspectFit
     }
     
     private let listButton = UIButton().then {
         $0.setImage(UIImage(named: "mumentListOff"), for: .normal)
         $0.setImage(UIImage(named: "mumentListOn"), for: .selected)
+        $0.isSelected = true
         $0.contentMode = .scaleAspectFit
     }
     
