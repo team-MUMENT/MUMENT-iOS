@@ -14,9 +14,9 @@ enum CellCategory: Int {
     var cellSize: CGSize {
         switch self {
         case .listCell:
-            return CGSize(width: 300, height: 150)
+            return CGSize(width: 300, height: 200)
         case .albumCell:
-            return CGSize(width: 80, height: 150)
+            return CGSize(width: 100, height: 100)
         }
     }
 }
