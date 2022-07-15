@@ -77,6 +77,9 @@
 		C7BC6B6E28771152008C75CE /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6D28771152008C75CE /* UserDefaults+.swift */; };
 		C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6F28771184008C75CE /* UIStackView+.swift */; };
 		C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B712877ECA0008C75CE /* CALayer+.swift */; };
+		E781F219288052DF00484C28 /* FirstVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F218288052DF00484C28 /* FirstVC.swift */; };
+		E781F21B288052ED00484C28 /* SecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F21A288052ED00484C28 /* SecondVC.swift */; };
+		E7D60FFF287EC821000720D4 /* StorageCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D60FFE287EC821000720D4 /* StorageCVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,6 +148,9 @@
 		C7BC6B6D28771152008C75CE /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		C7BC6B6F28771184008C75CE /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		C7BC6B712877ECA0008C75CE /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		E781F218288052DF00484C28 /* FirstVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstVC.swift; sourceTree = "<group>"; };
+		E781F21A288052ED00484C28 /* SecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondVC.swift; sourceTree = "<group>"; };
+		E7D60FFE287EC821000720D4 /* StorageCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,6 +341,9 @@
 			children = (
 				C7BC6B542876ADC8008C75CE /* Model */,
 				C7BB531D28759E6500E0E889 /* StorageVC.swift */,
+				E7D60FFE287EC821000720D4 /* StorageCVC.swift */,
+				E781F218288052DF00484C28 /* FirstVC.swift */,
+				E781F21A288052ED00484C28 /* SecondVC.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -538,6 +547,7 @@
 				4D696CEF287978360060CE41 /* MumentsOfRevisitedTVC.swift in Sources */,
 				C7BC6B6A287710D6008C75CE /* UIButton+.swift in Sources */,
 				C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */,
+				E781F219288052DF00484C28 /* FirstVC.swift in Sources */,
 				C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */,
 				C7BC6B6028770FB6008C75CE /* UILabel+.swift in Sources */,
 				4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */,
@@ -556,6 +566,7 @@
 				C7BC6B6228771020008C75CE /* UICollectionView+.swift in Sources */,
 				C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */,
 				C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */,
+				E781F21B288052ED00484C28 /* SecondVC.swift in Sources */,
 				4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */,
 				C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */,
 				C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */,
@@ -573,6 +584,7 @@
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
 				4D9734F3287F3A41003EF546 /* Preview.swift in Sources */,
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
+				E7D60FFF287EC821000720D4 /* StorageCVC.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* zzService.swift in Sources */,
 			);
