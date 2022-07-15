@@ -51,16 +51,6 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         return 30
     }
     
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(
-//            withReuseIdentifier: ListCVC.className ,for: indexPath) as? ListCVC
-//        else {
-//            return UICollectionViewCell()
-//        }
-//        cell.setData()
-//        return cell
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let listCell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCVC.className, for: indexPath) as? ListCVC,
               let albumCell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCVC.className, for: indexPath) as? AlbumCVC
