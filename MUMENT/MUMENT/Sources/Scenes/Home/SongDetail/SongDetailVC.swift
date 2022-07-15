@@ -34,6 +34,8 @@ class SongDetailVC: BaseVC {
         mumentTV.dataSource = self
         
         mumentTV.register(cell: MumentCardBySongTVC.self, forCellReuseIdentifier: MumentCardBySongTVC.className)
+        mumentTV.register(MyMumentSectionHeader.self, forHeaderFooterViewReuseIdentifier: MyMumentSectionHeader.className)
+        mumentTV.register(AllMumentsSectionHeader.self, forHeaderFooterViewReuseIdentifier: AllMumentsSectionHeader.className)
         
 //        mumentTV.estimatedRowHeight = 44
 //        mumentTV.rowHeight = 48
@@ -60,7 +62,7 @@ extension SongDetailVC {
         songInfoView.snp.makeConstraints {
             $0.top.equalTo(navigationBarView.snp.bottom)
             $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(250)
+            $0.height.equalTo(200)
         }
         
         mumentTV.snp.makeConstraints{
@@ -110,6 +112,35 @@ extension SongDetailVC: UITableViewDataSource {
             return UITableViewCell()
         }
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        guard let view = tableView.dequeueReusableHeaderFooterView(
+//                                    withIdentifier: SectionHeaderView.reuseIdentifier)
+//                                    as? SectionHeaderView
+//                else {
+//                    return nil
+//                }
+
+        if section==0 {
+                guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyMumentSectionHeader.className) as? MyMumentSectionHeader else { return nil }
+            return headerCell
+        }else{
+            guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
+            return headerCell
+        }
+//        guard section == 0,
+//        guard section == 1,
+//
+
+//            return headerCell
+        }
+
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            // Header 영역 크기 = 140(separator 상단) + 12(separator 하단)
+
+            return 20
+        }
+
 }
 
 // MARK: - UITableViewDelegate
