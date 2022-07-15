@@ -61,24 +61,10 @@ class MumentCardBySongView: UIView {
     }
     
     // MARK: - Initialization
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        setUI()
-//        setLayout()
-//        selectionStyle = .none
-//    }
-//
-//    @available(*, unavailable)
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
     override init(frame: CGRect) {
         super.init(frame: .zero)
-//        setDefaultLayout()
         setUI()
         setLayout()
-//        sleselectionStyle = .none
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -104,8 +90,6 @@ extension MumentCardBySongView {
         self.backgroundColor = .mWhite
         self.makeRounded(cornerRadius: 11)
         self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 5.0)
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0))
-
     }
     
     func setLayout() {
