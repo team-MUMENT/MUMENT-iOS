@@ -86,7 +86,9 @@ class StorageVC: BaseVC {
         $0.contentMode = .scaleAspectFit
     }
     
-    private let selectedTags = UIView()
+    private let selectedTags = UIView().then {
+        $0.backgroundColor = .brown
+    }
     
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
@@ -169,8 +171,10 @@ class StorageVC: BaseVC {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             
         if segmentIndex == 0 {
+            listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[0]], direction: .reverse, animated: true)
         }else {
+            listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
     }
@@ -293,7 +297,7 @@ extension StorageVC {
     private func setPagerLayout() {
         view.addSubviews([pagerContainerView])
         pagerContainerView.snp.makeConstraints{
-            $0.top.equalTo(filterSectionContainerView.snp.bottom)
+            $0.top.equalTo(selectedTags.snp.bottom)
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)  
         }
     }
