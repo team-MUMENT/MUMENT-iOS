@@ -22,7 +22,7 @@ class LikedMumentVC: UIViewController {
         layout.scrollDirection = .vertical
         
         $0.backgroundColor = .red
-        $0.contentInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+        $0.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         $0.showsVerticalScrollIndicator = false
         $0.collectionViewLayout = layout
     }
@@ -68,7 +68,15 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return cellCategory.cellSize
+        
+        switch cellCategory{
+        case .listCell:
+            return CGSize(width: 335, height: 216)
+        case .albumCell:
+            let CVWidth = collectionView.frame.width
+            let cellWidth = ((CVWidth) - (5 * 3)) / 4
+            return CGSize(width: cellWidth, height: cellWidth)
+        }
     }
 }
 
@@ -77,7 +85,8 @@ extension LikedMumentVC {
         view.addSubViews([likedMumentCV])
         
         likedMumentCV.snp.makeConstraints{
-            $0.edges.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.top.bottom.equalToSuperview()
         }
     }
 }

@@ -22,7 +22,7 @@ class MyMumentVC: UIViewController {
         layout.scrollDirection = .vertical
         
         $0.backgroundColor = .green
-        $0.contentInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+        $0.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         $0.showsVerticalScrollIndicator = false
         $0.collectionViewLayout = layout
     }
@@ -67,7 +67,23 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return cellCategory.cellSize
+        
+        switch cellCategory{
+        case .listCell:
+            return CGSize(width: 335, height: 216)
+        case .albumCell:
+            let CVWidth = collectionView.frame.width
+            let cellWidth = ((CVWidth) - (5 * 3)) / 4
+            return CGSize(width: cellWidth, height: cellWidth)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
 
