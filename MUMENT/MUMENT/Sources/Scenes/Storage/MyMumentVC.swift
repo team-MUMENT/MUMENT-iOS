@@ -76,7 +76,8 @@ extension MyMumentVC {
         view.addSubViews([myMumentCV])
         
         myMumentCV.snp.makeConstraints{
-            $0.edges.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.top.bottom.equalToSuperview()
         }
     }
 }
