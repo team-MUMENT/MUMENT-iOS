@@ -41,8 +41,6 @@ class MumentHistoryVC: BaseVC {
     
     func setData(){
         navigationBarView.setTitle("뮤멘트 히스토리")
-        //        mumentCardView.setData(dataSource[0])
-        //        historyButtonText = "\(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
     }
 }
 
@@ -51,9 +49,6 @@ extension MumentHistoryVC {
     
     private func setLayout() {
         view.addSubviews([navigationBarView,mumentTV])
-        //        detailScrollView.addSubviews([detailContentView])
-        //        detailContentView.addSubviews([mumentCardView,historyButton])
-        
         navigationBarView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(48)
@@ -103,7 +98,7 @@ extension MumentHistoryVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 100
+        return 130
     }
     
 }
