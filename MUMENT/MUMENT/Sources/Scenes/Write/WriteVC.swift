@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class WriteVC: BaseVC {
     
@@ -81,7 +83,7 @@ class WriteVC: BaseVC {
         $0.showsHorizontalScrollIndicator = false
     }
     private let contentLabel = UILabel().then {
-        $0.text = "이 순간의 여운을 남겨보세요."
+        $0.text = "이 순간의 여운을 글로 남겨보세요."
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
@@ -92,7 +94,6 @@ class WriteVC: BaseVC {
         $0.textContainerInset = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
         $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         $0.font = .mumentB6M13
-        $0.autocorrectionType = .no
         $0.autocapitalizationType = .none
         $0.textColor = .mBlack2
     }
@@ -120,14 +121,15 @@ class WriteVC: BaseVC {
     var impressionTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브"]
     var feelTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브", "🎡 벅참", "😄 신남", " 💐 설렘", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스"]
     
-    private let tagCellHeight = 35.adjustedH
-    private let cellVerticalSpacing = 10.adjustedH
+    private let tagCellHeight = 35
+    private let cellVerticalSpacing = 10
     private let CVLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
         $0.minimumInteritemSpacing = 20
         $0.sectionInset = .zero
     }
+    let disposeBag = DisposeBag()
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -138,7 +140,10 @@ class WriteVC: BaseVC {
         setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: true)
         setRadioButton()
         setIsPrivateToggleButton()
+        setContentTextView()
         registerCell()
+        hideKeyboardWhenTappedAround()
+        setContentTextCounting()
     }
     
     // MARK: - Functions
@@ -174,6 +179,26 @@ class WriteVC: BaseVC {
             self.isPrivateToggleButton.isSelected.toggle()
             self.privateLabel.text = self.isPrivateToggleButton.isSelected ? "비밀글" : "공개글"
         }
+    }
+    
+    private func setContentTextView() {
+        contentTextView.delegate = self
+        contentTextView.text = "텍스트로 기록을 남기지 않아도 괜찮아요."
+        contentTextView.textColor = .mGray1
+    }
+    
+    private func setContentTextCounting() {
+        contentTextView.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .subscribe(onNext: { changedText in
+                if self.contentTextView.textColor == .mBlack2 {
+                    DispatchQueue.main.async {
+                        self.countTextViewLabel.text = "\(changedText.count)/1000"
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -287,8 +312,8 @@ extension WriteVC {
         isPrivateToggleButton.snp.makeConstraints {
             $0.top.equalTo(contentTextView.snp.bottomMargin).offset(15)
             $0.right.equalToSuperview().inset(20)
-            $0.width.equalTo(49.adjustedW)
-            $0.height.equalTo(28.adjustedH)
+            $0.width.equalTo(49)
+            $0.height.equalTo(28)
         }
         
         privateLabel.snp.makeConstraints {
@@ -348,7 +373,7 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
         
         let cellWidth = sizingCell.contentLabel.frame.width + 26
         let cellHeight = tagCellHeight
-        return CGSize(width: cellWidth, height: cellHeight)
+        return CGSize(width: cellWidth, height: CGFloat(cellHeight))
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -364,5 +389,33 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
             cell.isSelected = false
         }
         debugPrint("cell Unclicked", "\(indexPath)")
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension WriteVC: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if contentTextView.textColor == UIColor.mGray1 {
+            contentTextView.text = nil
+            contentTextView.textColor = .mBlack2
+        }
+        
+        writeScrollView.setContentOffset(CGPoint(x: 0, y: contentLabel.frame.midY - 20.adjustedH), animated: true)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if contentTextView.text.isEmpty {
+            contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
+            contentTextView.textColor = .mGray1
+        }
+        
+        writeScrollView.setContentOffset(CGPoint(x: 0, y: writeScrollView.contentSize.height - writeScrollView.bounds.height), animated: true)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = contentTextView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
+        return changedText.count <= 1000
     }
 }

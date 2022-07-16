@@ -21,45 +21,35 @@ class StorageVC: BaseVC {
         $0.contentMode = .scaleAspectFit
     }
     
-    // SegmentedControl 담을 뷰
-    private lazy var containerView = UIView().then {
+    private lazy var segmentContainerView = UIView().then {
         $0.backgroundColor = .clear
-        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private lazy var segmentControl = UISegmentedControl().then {
         $0.selectedSegmentTintColor = .clear
-        /// 배경 색 제거
         $0.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
-        
-        /// Segment 구분 라인 제거
         $0.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
         $0.insertSegment(withTitle: "나의 뮤멘트", at: 0, animated: true)
         $0.insertSegment(withTitle: "좋아요한 뮤멘트", at: 1, animated: true)
         $0.selectedSegmentIndex = 0
-        
-        let headerTabFont = UIFont(name: "NotoSans-Bold", size: 16)!
-        
-        /// 선택 되어 있지 않을때 폰트 및 폰트컬러
+                
         $0.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.mGray1,
-            NSAttributedString.Key.font: headerTabFont
+            NSAttributedString.Key.font: UIFont.mumentH3B16
         ], for: .normal)
         
-        /// 선택 되었을때 폰트 및 폰트컬러
         $0.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.mPurple1,
-            NSAttributedString.Key.font: headerTabFont,
+            NSAttributedString.Key.font: UIFont.mumentH3B16,
         ], for: .selected)
         
         $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
+        $0.addTarget(self, action: #selector(segementClicked), for: .valueChanged)
     }
     
-
     private let underLineView = UIView().then {
         $0.backgroundColor = .mPurple1
-        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     /// 움직일 underLineView의 leadingAnchor 따로 작성
@@ -67,14 +57,73 @@ class StorageVC: BaseVC {
         return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
     }()
     
+    private lazy var filterSectionContainerView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    
+    private let filterButton = UIButton().then {
+        $0.setImage(UIImage(named: "mumentFilterOff"), for: .normal)
+        $0.setImage(UIImage(named: "mumentFilterOn"), for: .selected)
+        $0.contentMode = .scaleAspectFit
+    }
+    
+    private let buttonStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .fill
+        $0.spacing = 15
+    }
+    
+    private let albumButton = UIButton().then {
+        $0.setImage(UIImage(named: "mumentAlbumOff"), for: .normal)
+        $0.setImage(UIImage(named: "mumentAlbumOn"), for: .selected)
+        $0.contentMode = .scaleAspectFit
+    }
+    
+    private let listButton = UIButton().then {
+        $0.setImage(UIImage(named: "mumentListOff"), for: .normal)
+        $0.setImage(UIImage(named: "mumentListOn"), for: .selected)
+        $0.isSelected = true
+        $0.contentMode = .scaleAspectFit
+    }
+    
+    private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+
+    private let contents: [UIViewController] = [
+        FirstVC(),
+        SecondVC()
+    ]
+    
+    private var currentIndex: Int = 0
+    
+    private lazy var pagerContainerView = UIView().then {
+        $0.backgroundColor = .clear
+    }
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setPageViewController()
         setHeaderLayout()
         setSegmentLaysout()
+        setFilterSectionLayout()
+        setPagerLayout()
     }
     
+    // MARK: - Function
+    private func setPageViewController() {
+        self.addChild(pagerVC)
+        pagerContainerView.frame = pagerVC.view.frame
+        self.pagerContainerView.addSubview(pagerVC.view)
+        
+        pagerVC.didMove(toParent: self)
+        pagerVC.delegate = self
+        pagerVC.dataSource = self
+        
+        if let firstVC = contents.first {
+            pagerVC.setViewControllers([firstVC], direction: .forward, animated: true)
+        }
+    }
+
     @objc private func changeUnderLinePosition() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
         let segmentWidth = segmentControl.frame.width / CGFloat(segmentControl.numberOfSegments)
@@ -84,12 +133,60 @@ class StorageVC: BaseVC {
             self?.view.layoutIfNeeded()
         })
     }
+    
+    @objc private func segementClicked() {
+        let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
+            
+        if segmentIndex == 0 {
+            pagerVC.setViewControllers([contents[0]], direction: .reverse, animated: true)
+        }else {
+            pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
+        }
+    }
+
 }
 
-// MARK: - UI
+// MARK: - UIPageVC
+extension StorageVC: UIPageViewControllerDataSource  {
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = contents.firstIndex(of: viewController) else { return nil }
+        let previousIndex = index - 1
+        if previousIndex < 0 {
+            return nil
+        }
+        return contents[previousIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = contents.firstIndex(of: viewController) else { return nil }
+        let nextIndex = index + 1
+        if nextIndex == contents.count {
+            return nil
+        }
+        return contents[nextIndex]
+    }
+}
+
+extension StorageVC: UIPageViewControllerDelegate {
+    
+    /// Paging 애니메이션이 끝났을 때 처리
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let viewController = pageViewController.viewControllers?.first,
+              let index = contents.firstIndex(where: { $0 == viewController }) else {
+                  return
+              }
+        currentIndex = index
+        segmentControl.selectedSegmentIndex = currentIndex
+        changeUnderLinePosition()
+    }
+}
+
+// MARK: - Set Layout
 extension StorageVC {
+    
     private func setHeaderLayout() {
-        view.addSubviews([naviView, profileButton,containerView])
+        view.addSubviews([naviView, profileButton])
         
         naviView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
@@ -101,20 +198,21 @@ extension StorageVC {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(13)
             $0.width.height.equalTo(30.adjustedH)
         }
+    }
+    
+    private func setSegmentLaysout() {
+        view.addSubviews([segmentContainerView])
         
-        containerView.snp.makeConstraints{
+        segmentContainerView.snp.makeConstraints{
             $0.top.equalTo(naviView.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(50.adjustedH)
         }
         
-    }
-    
-    private func setSegmentLaysout() {
-        containerView.addSubViews([segmentControl,underLineView])
+        segmentContainerView.addSubViews([segmentControl,underLineView])
         
         segmentControl.snp.makeConstraints{
-            $0.top.leading.centerX.centerY.equalTo(containerView)
+            $0.top.leading.centerX.centerY.equalTo(segmentContainerView)
         }
         
         underLineView.snp.makeConstraints{
@@ -126,5 +224,53 @@ extension StorageVC {
         
         NSLayoutConstraint.activate([leadingDistance])
     }
+    
+    private func setFilterSectionLayout() {
+        view.addSubviews([filterSectionContainerView])
+        
+        filterSectionContainerView.snp.makeConstraints{
+            $0.top.equalTo(segmentContainerView.snp.bottom)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(44)
+        }
+        
+        filterSectionContainerView.addSubViews([filterButton, buttonStackView])
+        
+        filterButton.snp.makeConstraints{
+            $0.top.equalTo(filterSectionContainerView).inset(12)
+            $0.leading.equalTo(filterSectionContainerView).inset(20)
+            $0.bottom.equalTo(filterSectionContainerView).inset(12)
+        }
+        
+        [albumButton, listButton].forEach {
+            self.buttonStackView.addArrangedSubview($0)
+        }
+        
+        buttonStackView.snp.makeConstraints{
+            $0.top.bottom.equalTo(filterSectionContainerView).inset(12)
+            $0.trailing.equalTo(filterSectionContainerView).inset(20)
+            $0.width.equalTo(55)
+        }
+        
+    }
+    
+    private func setPagerLayout() {
+        view.addSubviews([pagerContainerView])
+        pagerContainerView.snp.makeConstraints{
+            $0.top.equalTo(filterSectionContainerView.snp.bottom)
+            $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)  
+        }
+    }
+    
 }
 
+// MARK: - SwiftUI Preview
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct ViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        StorageVC().showPreview(.iPhone13mini)
+    }
+}
+#endif
