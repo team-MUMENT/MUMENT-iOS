@@ -13,37 +13,9 @@ class MumentHistoryVC: BaseVC {
     
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
-//    private let detailScrollView = UIScrollView()
-//    private let detailContentView = UIView().then {
-//        $0.backgroundColor = .mBgwhite
-//    }
-//    private let songInfoView = SongInfoView()
-//    private let mumentCardView = DetailMumentCardView()
-    
-//    private let historyButton = UIButton().then{
-//        $0.makeRounded(cornerRadius: 11)
-//        $0.backgroundColor = .mGray4
-//        $0.configuration = .plain()
-//        $0.configuration?.image = UIImage(named: "rightArrow")
-//        $0.layer.cornerRadius = 10
-//        $0.configuration?.imagePadding = 120
-//        $0.configuration?.imagePlacement = .trailing
-//    }
-//
-//    let attributes: [NSAttributedString.Key: Any] = [
-//        .font: UIFont.mumentC1R12,
-//        .foregroundColor: UIColor.mGray1
-//    ]
-//
-//    var historyButtonText: String = "" {
-//        didSet{
-//            historyButton.setAttributedTitle(NSAttributedString(string: historyButtonText,attributes: attributes), for: .normal)
-//        }
-//    }
-    
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
-    var musicInfodataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
+    var musicInfodataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
     var mumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
     // MARK: - View Life Cycle
@@ -51,10 +23,10 @@ class MumentHistoryVC: BaseVC {
         super.viewDidLoad()
         setLayout()
         setData()
-        
+        setTV()
     }
     
-
+    
     // MARK: - Functions
     private func setTV() {
         mumentTV.delegate = self
@@ -69,8 +41,8 @@ class MumentHistoryVC: BaseVC {
     
     func setData(){
         navigationBarView.setTitle("뮤멘트 히스토리")
-//        mumentCardView.setData(dataSource[0])
-//        historyButtonText = "\(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
+        //        mumentCardView.setData(dataSource[0])
+        //        historyButtonText = "\(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
     }
 }
 
@@ -79,8 +51,8 @@ extension MumentHistoryVC {
     
     private func setLayout() {
         view.addSubviews([navigationBarView,mumentTV])
-//        detailScrollView.addSubviews([detailContentView])
-//        detailContentView.addSubviews([mumentCardView,historyButton])
+        //        detailScrollView.addSubviews([detailContentView])
+        //        detailContentView.addSubviews([mumentCardView,historyButton])
         
         navigationBarView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
@@ -88,11 +60,8 @@ extension MumentHistoryVC {
         }
         
         mumentTV.snp.makeConstraints{
-            $0.top.equalTo(navigationBarView.snp.bottom).offset(30)
-            $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(40)
-            $0.bottom.equalToSuperview().inset(20)
+            $0.top.equalTo(navigationBarView.snp.bottom)
+            $0.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -121,15 +90,16 @@ extension MumentHistoryVC: UITableViewDataSource {
             }
             cell.setData(mumentDataSource[indexPath.row])
             return cell
-        
+            
         default:
             return UITableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MumentHistoryTVHeader.className) as? MyMumentSectionHeader else { return nil }
-            return headerCell
+        guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MumentHistoryTVHeader.className) as? MumentHistoryTVHeader else { return nil }
+        headerCell.setData(musicInfodataSource[0])
+        return headerCell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
