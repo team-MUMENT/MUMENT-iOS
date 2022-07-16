@@ -86,6 +86,8 @@ class StorageVC: BaseVC {
         $0.contentMode = .scaleAspectFit
     }
     
+    private let selectedTags = UIView()
+    
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
     private let myMumentVC = MyMumentVC()
@@ -254,7 +256,7 @@ extension StorageVC {
     }
     
     private func setFilterSectionLayout() {
-        view.addSubviews([filterSectionContainerView])
+        view.addSubviews([filterSectionContainerView, selectedTags])
         
         filterSectionContainerView.snp.makeConstraints{
             $0.top.equalTo(segmentContainerView.snp.bottom)
@@ -280,6 +282,12 @@ extension StorageVC {
             $0.width.equalTo(55)
         }
         
+        ///필터 구현시까지 높이 0으로 처리
+        selectedTags.snp.makeConstraints{
+            $0.top.equalTo(filterSectionContainerView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(0)
+        }
     }
     
     private func setPagerLayout() {
