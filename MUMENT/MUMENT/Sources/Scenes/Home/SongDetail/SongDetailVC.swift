@@ -64,9 +64,7 @@ extension SongDetailVC {
         
         mumentTV.snp.makeConstraints{
             $0.top.equalTo(songInfoView.snp.bottom)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.left.equalTo(view.safeAreaLayoutGuide)
-            $0.right.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
