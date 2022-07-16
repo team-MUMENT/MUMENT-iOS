@@ -1,14 +1,15 @@
 //
-//  DefaultMumentView.swift
+//  MumentCardBySongView.swift
 //  MUMENT
 //
-//  Created by 김지민 on 2022/07/12.
+//  Created by 김지민 on 2022/07/15.
 //
+
 import UIKit
 import SnapKit
 import Then
 
-class MumentCardWithoutHeartView: UIView {
+class MumentCardBySongView: UIView {
     
     // MARK: - Properties
     lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then{
@@ -24,32 +25,34 @@ class MumentCardWithoutHeartView: UIView {
         $0.sizeToFit()
     }
     
-    let separatorView = UIView().then{
-        $0.backgroundColor = .mGray4
-    }
-    let albumImage = UIImageView().then{
-        $0.makeRounded(cornerRadius: 4)
+    private let heartButton = UIButton().then{
+        var configuration = UIButton.Configuration.plain()
+        configuration.imagePadding = 5
+        configuration.buttonSize = .small
+        $0.configuration = configuration
     }
     
-    lazy var songInfoStackView = UIStackView(arrangedSubviews: [songTitleLabel, artistLabel]).then{
-        $0.axis = .vertical
-        $0.spacing = 3
+    let attributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.mumentC1R12,
+        .foregroundColor: UIColor.mGray1
+    ]
+    
+    var heartButtonText: String = "" {
+        didSet{
+            heartButton.setAttributedTitle(NSAttributedString(string: heartButtonText,attributes: attributes), for: .normal)
+        }
     }
-    let songTitleLabel = UILabel().then{
-        $0.textColor = .mBlack1
-        $0.font = .mumentB2B14
-    }
-    let artistLabel = UILabel().then{
-        $0.textColor = .mGray1
-        $0.font = .mumentB6M13
+    
+    let separatorView = UIView().then{
+        $0.backgroundColor = .mGray4
     }
     
     ///data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
     let tagStackView = UIStackView()
     let contentsLabel = UILabel().then{
         $0.textColor = .mBlack2
-        $0.lineBreakMode = .byCharWrapping
-        $0.numberOfLines = 2
+        $0.lineBreakMode = .byTruncatingTail
+        $0.numberOfLines = 3
         $0.font = .mumentB6M13
     }
     let createdAtLabel = UILabel().then{
@@ -60,43 +63,46 @@ class MumentCardWithoutHeartView: UIView {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setDefaultUI()
-        setDefaultLayout()
+        setUI()
+        setLayout()
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        setDefaultUI()
-        setDefaultLayout()
+        setLayout()
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentCardWithoutHeartModel){
+    func setData(_ cellData: MumentCardBySongModel){
         profileImage.image = cellData.profileImage
         writerNameLabel.text = cellData.writerName
-        albumImage.image = cellData.albumImage
-        songTitleLabel.text = cellData.songTitle
-        artistLabel.text = cellData.artistName
-        contentsLabel.text = cellData.contentsLabel
-        createdAtLabel.text = cellData.createdAtLabel
+        contentsLabel.text = cellData.contents
+        createdAtLabel.text = cellData.createdAt
+        heartButton.setImage(cellData.heartImage, for: .normal)
+        heartButtonText = "\(cellData.heartCount)"
     }
 }
 
 // MARK: - UI
-extension MumentCardWithoutHeartView {
+extension MumentCardBySongView {
     
-    func setDefaultUI(){
+    func setUI(){
         self.backgroundColor = .mWhite
         self.makeRounded(cornerRadius: 11)
-        self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 8.0)
+        self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 5.0)
     }
     
-    func setDefaultLayout() {
-        self.addSubviews([writerInfoStackView,separatorView,albumImage,songInfoStackView,tagStackView,contentsLabel,createdAtLabel])
+    func setLayout() {
+        self.addSubviews([writerInfoStackView,heartButton,separatorView,tagStackView,contentsLabel,createdAtLabel])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
+        }
+        
+        heartButton.snp.makeConstraints {
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
         }
         
         separatorView.snp.makeConstraints{
@@ -106,26 +112,16 @@ extension MumentCardWithoutHeartView {
             $0.height.equalTo(1)
         }
         
-        albumImage.snp.makeConstraints{
-            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.top.equalTo(separatorView.snp.bottom).offset(15)
-            $0.height.width.equalTo(70)
-        }
-        
-        songInfoStackView.snp.makeConstraints{
-            $0.left.equalTo(albumImage.snp.right).offset(10)
-            $0.top.equalTo(separatorView.snp.bottom).offset(15)
-        }
-        
         tagStackView.snp.makeConstraints{
-            $0.left.equalTo(albumImage.snp.right).offset(10)
-            $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.top.equalTo(separatorView.snp.bottom).offset(11)
         }
         
         contentsLabel.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.top.equalTo(albumImage.snp.bottom).offset(10)
+            $0.top.equalTo(tagStackView.snp.bottom).offset(10)
         }
         
         createdAtLabel.snp.makeConstraints{
