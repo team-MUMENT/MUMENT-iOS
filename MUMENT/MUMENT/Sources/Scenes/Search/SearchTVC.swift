@@ -18,8 +18,8 @@ class SearchTVC: UITableViewCell {
         $0.textColor = .mBlack1
     }
     private let artistLabel = UILabel().then {
-        $0.font = .mumentB4M14
-        $0.textColor = .mBlack1
+        $0.font = .mumentB8M12
+        $0.textColor = .mGray1
     }
     
     // MARK: - Initialization
