@@ -47,6 +47,19 @@ class SearchVC: BaseVC {
         $0.isHidden = true
     }
     
+    var searchTVType: SearchTVType = .recentSearch {
+        didSet {
+            recentSearchTitleView.snp.updateConstraints {
+                switch searchTVType {
+                case .recentSearch:
+                    $0.height.equalTo(23)
+                case .searchResult:
+                    $0.height.equalTo(0)
+                }
+            }
+        }
+    }
+    var resultSearch: [MusicForSearchModel] = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")]
     var recentSearchDummyData = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")]
     
     // MARK: - View Life Cycle
@@ -56,6 +69,7 @@ class SearchVC: BaseVC {
         setAllClearButton()
         setResultTV()
         setRecentSearchEmptyView()
+        setSearchBar()
     }
     
     // MARK: - Functions
@@ -70,9 +84,67 @@ class SearchVC: BaseVC {
     private func setResultTV() {
         resultTV.delegate = self
         resultTV.dataSource = self
-        resultTV.register(cell: RecentSearchTVC.self, forCellReuseIdentifier: RecentSearchTVC.className)
         resultTV.rowHeight = 65
         resultTV.backgroundColor = .clear
+        resultTV.register(cell: RecentSearchTVC.self, forCellReuseIdentifier: RecentSearchTVC.className)
+        resultTV.register(cell: SearchTVC.self, forCellReuseIdentifier: SearchTVC.className)
+    }
+    
+    private func setSearchBar() {
+        searchBar.delegate = self
+    }
+    
+    private func setRecentSearchEmptyView() {
+        recentSearchEmptyView.isHidden = !(recentSearchDummyData.isEmpty)
+        recentSearchTitleView.isHidden = recentSearchDummyData.isEmpty
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension SearchVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch searchTVType {
+        case .recentSearch:
+            return recentSearchDummyData.count
+        case .searchResult:
+            return resultSearch.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch searchTVType {
+        case .recentSearch:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTVC.className) as? RecentSearchTVC else { return UITableViewCell()}
+            cell.setData(data: recentSearchDummyData[indexPath.row])
+            cell.removeButton.removeTarget(nil, action: nil, for: .allEvents)
+            cell.removeButton.press {
+                self.recentSearchDummyData.remove(at: indexPath.row)
+                tableView.reloadData()
+                self.setRecentSearchEmptyView()
+            }
+            return cell
+        case .searchResult:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTVC.className) as? SearchTVC else { return UITableViewCell()}
+            cell.setData(data: resultSearch[indexPath.row])
+            return cell
+        }
+        
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension SearchVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.row) cell select")
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension SearchVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.searchTextField.endEditing(true)
+        searchTVType = .searchResult
+        self.resultTV.reloadData()
     }
 }
 
@@ -90,7 +162,7 @@ extension SearchVC {
         }
         
         recentSearchTitleView.snp.makeConstraints {
-            $0.top.equalTo(naviView.snp.bottom).offset(40.adjustedH)
+            $0.top.equalTo(naviView.snp.bottom).offset(30.adjustedH)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(23)
         }
@@ -135,36 +207,5 @@ extension SearchVC {
             $0.trailing.equalToSuperview().inset(20)
             $0.width.equalTo(48.adjustedW)
         }
-    }
-    
-    private func setRecentSearchEmptyView() {
-        recentSearchEmptyView.isHidden = !(recentSearchDummyData.isEmpty)
-        recentSearchTitleView.isHidden = recentSearchDummyData.isEmpty
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension SearchVC: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recentSearchDummyData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTVC.className) as? RecentSearchTVC else { return UITableViewCell()}
-        cell.setData(data: recentSearchDummyData[indexPath.row])
-        cell.removeButton.removeTarget(nil, action: nil, for: .allEvents)
-        cell.removeButton.press {
-            self.recentSearchDummyData.remove(at: indexPath.row)
-            tableView.reloadData()
-            self.setRecentSearchEmptyView()
-        }
-        return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension SearchVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.row) cell select")
     }
 }
