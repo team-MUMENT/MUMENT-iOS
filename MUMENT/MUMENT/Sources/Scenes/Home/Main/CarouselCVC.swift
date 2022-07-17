@@ -37,7 +37,7 @@ class CarouselCVC: UICollectionViewCell {
     }
     
     private let headerLable = UILabel().then{
-        $0.textColor = .white
+        $0.textColor = .mWhite
         $0.font = .mumentH1B25
         $0.lineBreakMode = .byWordWrapping
         $0.numberOfLines = 2
@@ -49,13 +49,13 @@ class CarouselCVC: UICollectionViewCell {
     }
     
     private let songTitleLabel = UILabel().then{
-        $0.textColor = .white
+        $0.textColor = .mWhite
         $0.font = .mumentB4M14
         
     }
     
     private let artistLabel = UILabel().then{
-        $0.textColor = .white
+        $0.textColor = .mPurple2
         $0.font = .mumentB8M12
     }
     
@@ -115,7 +115,7 @@ extension CarouselCVC {
         }
         
         artistLabel.snp.makeConstraints{
-            $0.top.equalTo(songTitleLabel.snp.bottom).offset(9)
+            $0.top.equalTo(songTitleLabel.snp.bottom).offset(3)
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
         }
     }
