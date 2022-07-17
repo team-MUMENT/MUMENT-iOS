@@ -10,10 +10,10 @@ import SnapKit
 import Then
 
 class CarouselCVC: UICollectionViewCell {
-
+    
     // MARK: - Properties
     lazy var pageButton = UIButton().then{
-//        $0.configuration = .plain()
+        //        $0.configuration = .plain()
         $0.makeRounded(cornerRadius: 15)
         $0.backgroundColor = .mGray1
         $0.layer.opacity = 0.7
@@ -36,7 +36,7 @@ class CarouselCVC: UICollectionViewCell {
     private let songTitleLabel = UILabel().then{
         $0.textColor = .white
         $0.font = .mumentB4M14
-            
+        
     }
     
     private let artistLabel = UILabel().then{
@@ -51,12 +51,12 @@ class CarouselCVC: UICollectionViewCell {
         super.init(frame: frame)
         setLayout()
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError()
     }
-
+    
     //MARK: - Functions
     func setData(_ cellData: CarouselModel,index: Int){
         backgroundImage.image = cellData.bannerImage

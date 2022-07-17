@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeVC: BaseVC {
-   
+    
     // MARK: - Properties
     private let headerView = HomeTVHeader()
     private let homeTV = UITableView()
