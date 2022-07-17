@@ -46,6 +46,9 @@ class SearchVC: BaseVC {
     private let recentSearchEmptyView = RecentSearchEmptyView().then {
         $0.isHidden = true
     }
+    private let searchResultEmptyView = SearchResultEmptyView().then {
+        $0.isHidden = true
+    }
     
     var searchTVType: SearchTVType = .recentSearch {
         didSet {
@@ -153,7 +156,7 @@ extension SearchVC {
     private func setLayout() {
         setNaviViewLayout()
         setRecentSearchTitleView()
-        view.addSubviews([naviView, recentSearchTitleView, resultTV, recentSearchEmptyView])
+        view.addSubviews([naviView, recentSearchTitleView, resultTV, recentSearchEmptyView, searchResultEmptyView])
         
         naviView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(11)
@@ -169,11 +172,17 @@ extension SearchVC {
         
         resultTV.snp.makeConstraints {
             $0.top.equalTo(recentSearchTitleView.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         recentSearchEmptyView.snp.makeConstraints {
-            $0.edges.equalTo(resultTV)
+            $0.top.equalTo(recentSearchTitleView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        searchResultEmptyView.snp.makeConstraints {
+            $0.top.equalTo(recentSearchTitleView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
