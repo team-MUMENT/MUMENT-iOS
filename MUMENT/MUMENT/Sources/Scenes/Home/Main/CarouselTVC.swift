@@ -85,6 +85,7 @@ extension CarouselTVC: UICollectionViewDelegate{
         }
         
         let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
+        let constantForCentering = carouselCV.frame.width - cellWidthIncludingSpacing - CVFlowLayout.minimumLineSpacing
         
         let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
         let index: Int
@@ -96,7 +97,7 @@ extension CarouselTVC: UICollectionViewDelegate{
             index = Int(round(estimatedIndex))
         }
         
-        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing, y: 0)
+        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing - constantForCentering, y: 0)
         
     }
     
