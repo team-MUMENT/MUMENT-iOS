@@ -20,8 +20,8 @@ struct CarouselModel {
 // MARK: - Extensions
 extension CarouselModel {
     static var sampleData: [CarouselModel] = [
-        CarouselModel(headerTitle:"신남 태그가 많이 남겨진 곡",albumImageTitle:"image1",songTitle: "San Francisco",artistName:"ADOY"),
-        CarouselModel(headerTitle:"저녁 태그가 많이 남겨진 곡",albumImageTitle:"image2",songTitle: "MacBook Air", artistName:"Apple"),
-        CarouselModel(headerTitle:"비 태그가 많이 남겨진 곡",albumImageTitle:"image3",songTitle:"MacBook Pro",artistName:"orange")
+        CarouselModel(headerTitle:"신남 태그가 \n많이 남겨진 곡",albumImageTitle:"image1",songTitle: "San Francisco",artistName:"ADOY"),
+        CarouselModel(headerTitle:"저녁 태그가 \n많이 남겨진 곡",albumImageTitle:"image2",songTitle: "MacBook Air", artistName:"Apple"),
+        CarouselModel(headerTitle:"비 태그가 \n많이 남겨진 곡",albumImageTitle:"image3",songTitle:"MacBook Pro",artistName:"orange")
     ]
 }

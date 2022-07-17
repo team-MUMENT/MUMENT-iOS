@@ -32,6 +32,11 @@ class CarouselTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCV()
         setLayout()
+        DispatchQueue.main.async {
+            self.carouselCV.scrollToItem(at: IndexPath(item: self.originalDataSourceCount,section: .zero),
+                                    at: .centeredHorizontally,
+                                    animated: false)
+        }
     }
     
     @available(*, unavailable)
