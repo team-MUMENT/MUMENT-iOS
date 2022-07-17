@@ -7,9 +7,15 @@
 
 import UIKit
 
-class SecondVC: UIViewController {
+class LikedMumentVC: UIViewController {
     
-    private let likedMumentListCV = UICollectionView(
+    var cellCategory : CellCategory = .listCell {
+        didSet {
+            self.likedMumentCV.reloadData()
+        }
+    }
+    
+    private let likedMumentCV = UICollectionView(
         frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()
     ).then {
         let layout = UICollectionViewFlowLayout()
@@ -30,42 +36,47 @@ class SecondVC: UIViewController {
     
     // MARK: - Function
     private func setCollectionView() {
-        self.likedMumentListCV.register(StorageCVC.self, forCellWithReuseIdentifier: StorageCVC.className)
-        likedMumentListCV.delegate = self
-        likedMumentListCV.dataSource = self
+        self.likedMumentCV.register(ListCVC.self, forCellWithReuseIdentifier: ListCVC.className)
+        self.likedMumentCV.register(AlbumCVC.self, forCellWithReuseIdentifier: AlbumCVC.className)
+        
+        likedMumentCV.delegate = self
+        likedMumentCV.dataSource = self
     }
 }
 
 // MARK: - CollectionView UI
-extension SecondVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 30
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: StorageCVC.className ,for: indexPath) as? StorageCVC
-        else {
-            return UICollectionViewCell()
+        guard let listCell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCVC.className, for: indexPath) as? ListCVC,
+              let albumCell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCVC.className, for: indexPath) as? AlbumCVC
+        else { return UICollectionViewCell() }
+
+        switch cellCategory {
+        case .listCell:
+            return listCell
+        case .albumCell:
+            return albumCell
         }
-        cell.setData()
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        return cellCategory.cellSize
     }
 }
 
-extension SecondVC {
+extension LikedMumentVC {
     private func setCVLayout() {
-        view.addSubViews([likedMumentListCV])
+        view.addSubViews([likedMumentCV])
         
-        likedMumentListCV.snp.makeConstraints{
+        likedMumentCV.snp.makeConstraints{
             $0.edges.equalToSuperview()
         }
     }
