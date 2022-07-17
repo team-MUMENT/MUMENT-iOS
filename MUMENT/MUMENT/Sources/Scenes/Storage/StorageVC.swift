@@ -74,6 +74,8 @@ class StorageVC: BaseVC {
         $0.contentMode = .scaleAspectFit
     }
     
+    private let storageBottomSheet = StorageBottomSheet()
+    
     private let buttonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fill
@@ -157,11 +159,23 @@ class StorageVC: BaseVC {
         filterButton.press {
             self.filterButton.isSelected.toggle()
             
-            self.tagsViewHeightConstant = self.filterButton.isSelected ? 49 : 0
+//            self.tagsViewHeightConstant = self.filterButton.isSelected ? 49 : 0
+//
+//            self.selectedTagsView.snp.updateConstraints {
+//                $0.height.equalTo(self.tagsViewHeightConstant)
+//            }
             
-            self.selectedTagsView.snp.updateConstraints {
-                $0.height.equalTo(self.tagsViewHeightConstant)
-            }
+            if self.filterButton.isSelected {
+                self.storageBottomSheet.modalTransitionStyle = .crossDissolve
+                self.storageBottomSheet.modalPresentationStyle = .overFullScreen
+                self.present(self.storageBottomSheet, animated: false) {
+                    self.storageBottomSheet.showBottomSheetWithAnimation()
+                }
+            }else {
+                self.present(self.storageBottomSheet, animated: false) {
+                    self.storageBottomSheet.hideBottomSheetWithAnimation()
+                }            }
+            
         }
         
         listButton.press {
