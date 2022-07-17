@@ -68,7 +68,7 @@ class StorageVC: BaseVC {
         $0.backgroundColor = .clear
     }
     
-    private let filterButton = UIButton().then {
+    let filterButton = UIButton().then {
         $0.setImage(UIImage(named: "mumentFilterOff"), for: .normal)
         $0.setImage(UIImage(named: "mumentFilterOn"), for: .selected)
         $0.contentMode = .scaleAspectFit
@@ -158,7 +158,7 @@ class StorageVC: BaseVC {
     private func setPressAction() {
         filterButton.press {
             self.filterButton.isSelected.toggle()
-            
+           // TODO: 필터 적용 버튼 클릭시로 수정
 //            self.tagsViewHeightConstant = self.filterButton.isSelected ? 49 : 0
 //
 //            self.selectedTagsView.snp.updateConstraints {
@@ -166,16 +166,12 @@ class StorageVC: BaseVC {
 //            }
             
             if self.filterButton.isSelected {
-                self.storageBottomSheet.modalTransitionStyle = .crossDissolve
                 self.storageBottomSheet.modalPresentationStyle = .overFullScreen
                 self.present(self.storageBottomSheet, animated: false) {
                     self.storageBottomSheet.showBottomSheetWithAnimation()
                 }
-            }else {
-                self.present(self.storageBottomSheet, animated: false) {
-                    self.storageBottomSheet.hideBottomSheetWithAnimation()
-                }            }
-            
+                self.filterButton.isSelected = !self.storageBottomSheet.isDismissed
+            }
         }
         
         listButton.press {
