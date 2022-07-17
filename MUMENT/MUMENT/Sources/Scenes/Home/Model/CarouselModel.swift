@@ -15,10 +15,6 @@ struct CarouselModel {
     }
     let songTitle: String
     let artistName:String
-//    let bannerImageTitle: String
-//    var bannerImage: UIImage? {
-//        return UIImage(named:bannerImageTitle)
-//    }
 }
 
 // MARK: - Extensions

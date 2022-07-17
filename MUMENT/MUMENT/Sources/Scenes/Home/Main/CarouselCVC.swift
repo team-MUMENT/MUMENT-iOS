@@ -13,53 +13,27 @@ import Then
 class CarouselCVC: UICollectionViewCell {
     
     // MARK: - Properties
-
-    
     var pageValue: String = "" {
         didSet{
             let highlitedString = NSAttributedString(string:  pageValue, attributes: [
-//                .font: UIFont.mumentC1R12,
+                .font: UIFont.mumentC1R12,
                 .foregroundColor: UIColor.mWhite
             ])
-//            NSMutableAttributedString(string: pageValue, attributes: [
-//                .font: UIFont.mumentC1R12,
-//                .foregroundColor: UIColor.mWhite
-//            ])
-//            let normalString = NSMutableAttributedString(string: " / 3 >", attributes: [
-//                .font: UIFont.mumentC1R12,
-//                .foregroundColor: UIColor.mGray2
-//            ])
+            
             let normalString = NSAttributedString(string:  " / 3 >", attributes: [
-//                .font: UIFont.mumentC1R12,
+                .font: UIFont.mumentC1R12,
                 .foregroundColor: UIColor.mGray2
             ])
-//
-//            highlitedString.append(normalString)
+            
             let title = highlitedString + normalString
-            
-//            let text = "\(pageValue) / 3 >"
-//            let text = "\(highlitedString) \(normalString)"
-//            let attributeString = NSMutableAttributedString(string: text)
-//            attributeString.addAttribute(.foregroundColor, value: UIColor.mWhite, range: (text as NSString).range(of: pageValue))
-//
             pageButton.setAttributedTitle(title, for: .normal)
-
-//            pageButton.
-//            pageButton.setAttributedTitle(attributeString, for: .normal)
-            
-//            pageButton.setTitle(text, for: .normal) ///String일 때.
-
         }
     }
     lazy var pageButton = UIButton().then{
-//        $0.configuration = .plain()
-//        $0.configuration?.attributedTitle =
+        $0.configuration = .plain()
         $0.makeRounded(cornerRadius: 15)
         $0.backgroundColor = .mGray1
         $0.layer.opacity = 0.7
-//        $0.setTitleColor(.mGray2, for: .normal)
-        $0.titleLabel?.font = .mumentC1R12
-    
     }
     
     private let headerLable = UILabel().then{
@@ -107,7 +81,7 @@ class CarouselCVC: UICollectionViewCell {
         albumImage.image = cellData.albumImage
         songTitleLabel.text = cellData.songTitle
         artistLabel.text = cellData.artistName
-        pageButton.setTitle("   \(index) / 3 >  ", for: .normal)
+        pageValue = "\(index)"
     }
 }
 
@@ -121,7 +95,6 @@ extension CarouselCVC {
         pageButton.snp.makeConstraints {
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
-//            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(26)
         }
         
         headerLable.snp.makeConstraints{
