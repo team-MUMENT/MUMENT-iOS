@@ -56,7 +56,7 @@ extension CarouselTVC {
     
     private func setLayout() {
         self.addSubviews([carouselCV])
-    
+        
         selectionStyle = .none
         carouselCV.snp.makeConstraints{
             $0.center.leading.trailing.equalToSuperview()
@@ -113,7 +113,7 @@ extension CarouselTVC: UICollectionViewDataSource {
         if let cell = cell as? CarouselCVC {
             cell.setData(increasedDataSource[indexPath.row],index:indexPath.row%3+1)
         }
-
+        
         return cell
     }
 }
@@ -124,12 +124,12 @@ extension CarouselTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         return CGSize(width: UIScreen.main.bounds.width, height: collectionView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-
+        
         return .zero
         // ???: zero로 안 하면 첫 번째 셀에서 마지막 셀로 넘어가는 스크롤이 동작하지 않음.
     }
