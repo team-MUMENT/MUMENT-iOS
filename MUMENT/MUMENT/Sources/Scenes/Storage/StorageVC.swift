@@ -13,6 +13,7 @@ class StorageVC: BaseVC {
     
     // MARK: - Properties
     private let naviView = DefaultNavigationView().then {
+        $0.backgroundColor = .clear
         $0.setTitleLabel(title: "보관함")
     }
     
@@ -57,6 +58,12 @@ class StorageVC: BaseVC {
         return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
     }()
     
+    private lazy var tagsViewHeight: NSLayoutConstraint = {
+        return selectedTagsView.heightAnchor.constraint(
+            equalToConstant: CGFloat(tagsViewHeightConstant)
+        )
+    }()
+    
     private lazy var filterSectionContainerView = UIView().then {
         $0.backgroundColor = .clear
     }
@@ -86,6 +93,12 @@ class StorageVC: BaseVC {
         $0.contentMode = .scaleAspectFit
     }
     
+    private let selectedTagsView = UIView().then {
+        $0.backgroundColor = UIColor.mGray5
+    }
+    
+    var tagsViewHeightConstant = 0
+    
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
     private let myMumentVC = MyMumentVC()
@@ -109,7 +122,9 @@ class StorageVC: BaseVC {
         setHeaderLayout()
         setSegmentLaysout()
         setFilterSectionLayout()
+        setTagsViewLayout()
         setPagerLayout()
+        
         setPressAction()
     }
     
@@ -139,10 +154,20 @@ class StorageVC: BaseVC {
     }
     
     private func setPressAction() {
+        filterButton.press {
+            self.filterButton.isSelected.toggle()
+            
+            self.tagsViewHeightConstant = self.filterButton.isSelected ? 49 : 0
+            
+            self.selectedTagsView.snp.updateConstraints {
+                $0.height.equalTo(self.tagsViewHeightConstant)
+            }
+        }
+        
         listButton.press {
             self.listButton.isSelected = true
             self.albumButton.isSelected = false
-            
+
             if self.segmentControl.selectedSegmentIndex == 0 {
                 self.myMumentVC.cellCategory = .listCell
             }else {
@@ -154,7 +179,7 @@ class StorageVC: BaseVC {
         albumButton.press {
             self.albumButton.isSelected = true
             self.listButton.isSelected = false
-            
+
             if self.segmentControl.selectedSegmentIndex == 0 {
                 self.myMumentVC.cellCategory = .albumCell
             }else {
@@ -167,8 +192,10 @@ class StorageVC: BaseVC {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             
         if segmentIndex == 0 {
+            listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[0]], direction: .reverse, animated: true)
         }else {
+            listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
     }
@@ -254,7 +281,7 @@ extension StorageVC {
     }
     
     private func setFilterSectionLayout() {
-        view.addSubviews([filterSectionContainerView])
+        view.addSubviews([filterSectionContainerView, selectedTagsView])
         
         filterSectionContainerView.snp.makeConstraints{
             $0.top.equalTo(segmentContainerView.snp.bottom)
@@ -282,10 +309,21 @@ extension StorageVC {
         
     }
     
+    private func setTagsViewLayout() {
+        ///필터 구현시까지 높이 0으로 처리
+        selectedTagsView.snp.makeConstraints{
+            $0.top.equalTo(filterSectionContainerView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(self.tagsViewHeightConstant)
+        }
+        
+        NSLayoutConstraint.activate([leadingDistance])
+    }
+    
     private func setPagerLayout() {
         view.addSubviews([pagerContainerView])
         pagerContainerView.snp.makeConstraints{
-            $0.top.equalTo(filterSectionContainerView.snp.bottom)
+            $0.top.equalTo(selectedTagsView.snp.bottom)
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)  
         }
     }
