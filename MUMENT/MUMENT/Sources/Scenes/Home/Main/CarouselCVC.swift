@@ -44,7 +44,9 @@ class CarouselCVC: UICollectionViewCell {
         $0.font = .mumentB8M12
     }
     
-    private let backgroundImage = UIImageView()
+    private let backgroundImage = UIImageView().then{
+        $0.makeRounded(cornerRadius: 15)
+    }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -59,7 +61,7 @@ class CarouselCVC: UICollectionViewCell {
     
     //MARK: - Functions
     func setData(_ cellData: CarouselModel,index: Int){
-        backgroundImage.image = cellData.bannerImage
+        backgroundImage.image = UIImage(named: "mumentBanner\(index)")
         headerLable.text = cellData.headerTitle
         albumImage.image = cellData.albumImage
         songTitleLabel.text = cellData.songTitle
