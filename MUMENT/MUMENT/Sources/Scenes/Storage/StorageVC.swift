@@ -45,7 +45,7 @@ class StorageVC: BaseVC {
         ], for: .selected)
         
         $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
-        $0.addTarget(self, action: #selector(segementClicked), for: .valueChanged)
+        $0.addTarget(self, action: #selector(didTapSegmentControl), for: .valueChanged)
     }
     
     private let underLineView = UIView().then {
@@ -88,9 +88,12 @@ class StorageVC: BaseVC {
     
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
-    private let contents: [UIViewController] = [
-        FirstVC(),
-        SecondVC()
+    private let myMumentVC = MyMumentVC()
+    private let likedMumentVC = LikedMumentVC()
+    
+    private lazy var contents: [UIViewController] = [
+        self.myMumentVC,
+        self.likedMumentVC
     ]
     
     private var currentIndex: Int = 0
@@ -107,6 +110,7 @@ class StorageVC: BaseVC {
         setSegmentLaysout()
         setFilterSectionLayout()
         setPagerLayout()
+        setPressAction()
     }
     
     // MARK: - Function
@@ -134,7 +138,32 @@ class StorageVC: BaseVC {
         })
     }
     
-    @objc private func segementClicked() {
+    private func setPressAction() {
+        listButton.press {
+            self.listButton.isSelected = true
+            self.albumButton.isSelected = false
+            
+            if self.segmentControl.selectedSegmentIndex == 0 {
+                self.myMumentVC.cellCategory = .listCell
+            }else {
+                self.likedMumentVC.cellCategory = .listCell
+            }
+            
+        }
+        
+        albumButton.press {
+            self.albumButton.isSelected = true
+            self.listButton.isSelected = false
+            
+            if self.segmentControl.selectedSegmentIndex == 0 {
+                self.myMumentVC.cellCategory = .albumCell
+            }else {
+                self.likedMumentVC.cellCategory = .albumCell
+            }
+        }
+    }
+    
+    @objc private func didTapSegmentControl() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             
         if segmentIndex == 0 {
@@ -143,7 +172,6 @@ class StorageVC: BaseVC {
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
     }
-
 }
 
 // MARK: - UIPageVC
@@ -263,14 +291,3 @@ extension StorageVC {
     }
     
 }
-
-// MARK: - SwiftUI Preview
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct ViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        StorageVC().showPreview(.iPhone13mini)
-    }
-}
-#endif
