@@ -10,44 +10,43 @@ import UIKit
 class ListCVC: UICollectionViewCell {
     
     // MARK: - Properties
-    private let imageView = UIImageView().then {
-        $0.contentMode = .scaleToFill
-    }
-    private let IDLabel = UILabel().then {
-        $0.font = UIFont.boldSystemFont(ofSize: 10)
-        $0.textAlignment = .center
-    }
+    var defaultData: [DefaultMumentCardModel] = DefaultMumentCardModel.sampleData
+    var withoutHeartData: [MumentCardWithoutHeartModel] = MumentCardWithoutHeartModel.sampleData
+    
+    private let defaulttCardView = DefaultMumentCardView()
+    private let withoutHeartCardView = MumentCardWithoutHeartView()
     
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setUI()
     }
     
     // MARK: - Function
-    private func setUI() {
-        self.addSubviews([imageView, IDLabel])
-        self.backgroundColor = .mPurple1
-        imageView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(10)
-            $0.height.equalTo(30)
-        }
-        
-        IDLabel.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).offset(2)
-            $0.leading.trailing.equalToSuperview().inset(10)
-            $0.bottom.equalToSuperview()
+    func setDefaultCardUI() {
+        self.addSubviews([defaulttCardView])
+        defaulttCardView.snp.makeConstraints{
+            $0.edges.equalToSuperview()
         }
     }
     
-    func setData() {
-        imageView.image = UIImage(named: "image1")
-        IDLabel.text = "testtest"
+    func setDefaultCardData() {
+        defaulttCardView.setData(defaultData[0])
+    }
+    
+    
+    func setWithoutHeartCardUI() {
+        self.addSubviews([withoutHeartCardView])
+        withoutHeartCardView.snp.makeConstraints{
+            $0.edges.equalToSuperview()
+        }
+    }
+    
+    func setWithoutHeartCardData() {
+        withoutHeartCardView.setData(withoutHeartData[0])
     }
 }
 
