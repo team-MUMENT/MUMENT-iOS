@@ -27,6 +27,9 @@ class CarouselTVC: UITableViewCell {
     private var scrollToEnd: Bool = false
     private var scrollToBegin: Bool = false
     
+//    let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
+//    let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
+//
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -61,35 +64,50 @@ class CarouselTVC: UITableViewCell {
     }
     
     func bannerTimer() {
-        let _: Timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { (Timer) in
+        let _: Timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (Timer) in
             self.bannerMove()
         }
     }
     
     func bannerMove() {
         // 현재페이지가 마지막 페이지일 경우
-//        if nowPage == increasedDataSource.count-1 {
-//            // 맨 처음 페이지로 돌아감
-//            carouselCV.scrollToItem(at: NSIndexPath(item: 0, section: 0) as IndexPath, at: .right, animated: true)
-//            nowPage = 0
-//            return
+        if nowPage%3 == 0 {
+            // 맨 처음 페이지로 돌아감
+            carouselCV.scrollToItem(at: NSIndexPath(item: 3, section: 0) as IndexPath, at: .right, animated: false)
+            nowPage = 3
+            
+        }
+//            let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
+//            let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
+//        if carouselCV.contentOffset.x < beginOffset{
+//            scrollToEnd = true
+//        } else if carouselCV.contentOffset.x > endOffset {
+//            scrollToBegin = true
 //        }
+        
+//        let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
+//        let constantForCentering = carouselCV.frame.width - cellWidthIncludingSpacing - CVFlowLayout.minimumLineSpacing
+//
+//        let estimatedIndex = carouselCV.contentOffset.x / cellWidthIncludingSpacing
+//        let index = Int(ceil(estimatedIndex))
+        
         // 다음 페이지로 전환
 //        nowPage = Int(carouselCV.contentOffset.x) / Int(carouselCV.frame.width)
         nowPage += 1
         carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath, at: .right, animated: true)
-        let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
-        let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
-        
-        print(carouselCV.contentOffset.x )
-        if carouselCV.contentOffset.x < beginOffset{
-            scrollToEnd = true
-        } else if carouselCV.contentOffset.x > endOffset {
-            scrollToBegin = true
-        }
-        
+//        let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
+//        let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
+//
+//        print(carouselCV.contentOffset.x )
+//        if carouselCV.contentOffset.x < beginOffset{
+//            scrollToEnd = true
+//        } else if carouselCV.contentOffset.x > endOffset {
+//            scrollToBegin = true
+//        }
+////
 //        let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
 //        let constantForCentering = carouselCV.frame.width - cellWidthIncludingSpacing - CVFlowLayout.minimumLineSpacing
+//
 //
 //        let estimatedIndex = carouselCV.contentOffset.x / cellWidthIncludingSpacing
 //        let index = Int(ceil(estimatedIndex))
@@ -100,21 +118,21 @@ class CarouselTVC: UITableViewCell {
 //        }
         
 //        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing - constantForCentering, y: 0)
-        
-        if scrollToBegin {
-            carouselCV.scrollToItem(at: IndexPath(item: originalDataSourceCount, section: .zero),
-                                    at: .centeredHorizontally,
-                                    animated: false)
-            scrollToBegin.toggle()
-            return
-        }
-        if scrollToEnd {
-            carouselCV.scrollToItem(at: IndexPath(item: originalDataSourceCount * 2 - 1, section: .zero),
-                                    at: .centeredHorizontally,
-                                    animated: false)
-            scrollToEnd.toggle()
-            return
-        }
+//
+//        if scrollToBegin {
+//            carouselCV.scrollToItem(at: IndexPath(item: originalDataSourceCount, section: .zero),
+//                                    at: .centeredHorizontally,
+//                                    animated: false)
+//            scrollToBegin.toggle()
+//            return
+//        }
+//        if scrollToEnd {
+//            carouselCV.scrollToItem(at: IndexPath(item: originalDataSourceCount * 2 - 1, section: .zero),
+//                                    at: .centeredHorizontally,
+//                                    animated: false)
+//            scrollToEnd.toggle()
+//            return
+//        }
     }
 }
 
