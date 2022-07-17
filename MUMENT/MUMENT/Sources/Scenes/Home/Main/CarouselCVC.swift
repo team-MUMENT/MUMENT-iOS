@@ -8,17 +8,72 @@
 import UIKit
 import SnapKit
 import Then
+//import SwiftyAttributes
 
 class CarouselCVC: UICollectionViewCell {
     
     // MARK: - Properties
+
+    
+    var pageValue: String = "" {
+        didSet{
+            let highlitedString = NSAttributedString(string:  pageValue, attributes: [
+//                .font: UIFont.mumentC1R12,
+                .foregroundColor: UIColor.mWhite
+            ])
+//            NSMutableAttributedString(string: pageValue, attributes: [
+//                .font: UIFont.mumentC1R12,
+//                .foregroundColor: UIColor.mWhite
+//            ])
+//            let normalString = NSMutableAttributedString(string: " / 3 >", attributes: [
+//                .font: UIFont.mumentC1R12,
+//                .foregroundColor: UIColor.mGray2
+//            ])
+            let normalString = NSAttributedString(string:  " / 3 >", attributes: [
+//                .font: UIFont.mumentC1R12,
+                .foregroundColor: UIColor.mGray2
+            ])
+//
+//            highlitedString.append(normalString)
+            let title = highlitedString + normalString
+            
+//            let text = "\(pageValue) / 3 >"
+//            let text = "\(highlitedString) \(normalString)"
+//            let attributeString = NSMutableAttributedString(string: text)
+//            attributeString.addAttribute(.foregroundColor, value: UIColor.mWhite, range: (text as NSString).range(of: pageValue))
+//
+            pageButton.setAttributedTitle(title, for: .normal)
+
+//            pageButton.
+//            pageButton.setAttributedTitle(attributeString, for: .normal)
+            
+//            pageButton.setTitle(text, for: .normal) ///String일 때.
+
+        }
+        
+//        guard let text = self.myLabel.text else { return }
+//
+//        // myLabel의 text로 NSMutableAttributedString 인스턴스를 만들어줍니다.
+//        let attributeString = NSMutableAttributedString(string: text)
+//
+//        // 적용할 글자 크기와 폰트를 설정합니다.
+//        let font = UIFont.systemFont(ofSize: 60)
+//
+//        // Pingu에만 방금 만든 폰트를 적용합니다.
+//        attributeString.addAttribute(.font, value: font, range: (text as NSString).range(of: pageValue))
+//
+//        // myLabel에 방금 만든 속성을 적용합니다.
+//        self.myLabel.attributedText = attributeString
+    }
     lazy var pageButton = UIButton().then{
-        //        $0.configuration = .plain()
+//        $0.configuration = .plain()
+//        $0.configuration?.attributedTitle =
         $0.makeRounded(cornerRadius: 15)
         $0.backgroundColor = .mGray1
         $0.layer.opacity = 0.7
-        $0.setTitleColor(.mWhite, for: .normal)
+//        $0.setTitleColor(.mGray2, for: .normal)
         $0.titleLabel?.font = .mumentC1R12
+    
     }
     
     private let headerLable = UILabel().then{
