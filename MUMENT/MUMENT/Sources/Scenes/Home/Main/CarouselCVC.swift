@@ -73,32 +73,34 @@ extension CarouselCVC {
     
     private func setLayout() {
         self.backgroundView = backgroundImage
-        self.addSubviews([headerLable,albumImage,songTitleLabel,artistLabel,pageButton])
+        self.addSubviews([pageButton,headerLable,albumImage,songTitleLabel,artistLabel])
+        
+        pageButton.snp.makeConstraints {
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
+//            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(26)
+        }
         
         headerLable.snp.makeConstraints{
-            $0.leading.top.equalTo(self.safeAreaLayoutGuide).inset(32)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(140)
+            $0.top.equalTo(pageButton.snp.bottom).offset(15)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(147)
         }
         
         albumImage.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(32)
-            $0.top.equalTo(headerLable.snp.bottom).offset(50)
-            $0.width.height.equalTo(50)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.top.equalTo(headerLable.snp.bottom).offset(70)
+            $0.width.height.equalTo(40)
         }
         
         songTitleLabel.snp.makeConstraints{
-            $0.top.equalTo(headerLable.snp.bottom).offset(50)
-            $0.leading.equalTo(albumImage.snp.trailing).offset(20)
+            $0.top.equalTo(headerLable.snp.bottom).offset(70)
+            $0.leading.equalTo(albumImage.snp.trailing).offset(10)
         }
         
         artistLabel.snp.makeConstraints{
             $0.top.equalTo(songTitleLabel.snp.bottom).offset(9)
-            $0.leading.equalTo(albumImage.snp.trailing).offset(20)
-        }
-        
-        pageButton.snp.makeConstraints {
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(38)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(26)
+            $0.leading.equalTo(albumImage.snp.trailing).offset(10)
         }
     }
 }
