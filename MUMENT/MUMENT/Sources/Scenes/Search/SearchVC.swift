@@ -83,9 +83,17 @@ class SearchVC: BaseVC {
     // MARK: - Functions
     private func setAllClearButton() {
         allClearButton.press { [weak self] in
-            self?.recentSearchDummyData = []
-            self?.resultTV.reloadData()
-            self?.setRecentSearchEmptyView()
+            let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
+            mumentAlert.setTitle(title: """
+최근 검색한 내역을
+모두 삭제하시겠어요?
+""")
+            mumentAlert.OKButton.press {
+                self?.recentSearchDummyData = []
+                self?.resultTV.reloadData()
+                self?.setRecentSearchEmptyView()
+            }
+            self?.present(mumentAlert, animated: true)
         }
     }
     
