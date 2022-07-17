@@ -15,7 +15,7 @@ class MumentHistoryVC: BaseVC {
     private let navigationBarView = DefaultNavigationBar()
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
-    var musicInfodataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
+    var musicInfoDataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
     var mumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
     // MARK: - View Life Cycle
@@ -93,7 +93,7 @@ extension MumentHistoryVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MumentHistoryTVHeader.className) as? MumentHistoryTVHeader else { return nil }
-        headerCell.setData(musicInfodataSource[0])
+        headerCell.setData(musicInfoDataSource[0])
         return headerCell
     }
     
