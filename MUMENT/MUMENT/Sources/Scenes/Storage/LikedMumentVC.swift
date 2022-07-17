@@ -21,12 +21,12 @@ class LikedMumentVC: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
-        $0.backgroundColor = .red
+        $0.backgroundColor = .clear
         $0.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         $0.showsVerticalScrollIndicator = false
         $0.collectionViewLayout = layout
     }
-    
+        
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,7 @@ class LikedMumentVC: UIViewController {
     private func setCollectionView() {
         self.likedMumentCV.register(ListCVC.self, forCellWithReuseIdentifier: ListCVC.className)
         self.likedMumentCV.register(AlbumCVC.self, forCellWithReuseIdentifier: AlbumCVC.className)
+        self.likedMumentCV.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.className )
         
         likedMumentCV.delegate = self
         likedMumentCV.dataSource = self
@@ -48,7 +49,11 @@ class LikedMumentVC: UIViewController {
 extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return 12
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -58,6 +63,8 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
 
         switch cellCategory {
         case .listCell:
+            listCell.setWithoutHeartCardUI()
+            listCell.setWithoutHeartCardData()
             return listCell
         case .albumCell:
             return albumCell
@@ -74,9 +81,49 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             return CGSize(width: 335, height: 216)
         case .albumCell:
             let CVWidth = collectionView.frame.width
-            let cellWidth = ((CVWidth) - (5 * 3)) / 4
+            let cellWidth = ((CVWidth - 40) - (5 * 3)) / 4
             return CGSize(width: cellWidth, height: cellWidth)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        switch cellCategory {
+        case .listCell:
+            return 15
+        case .albumCell:
+            return 5
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            guard let header = collectionView.dequeueReusableSupplementaryView(
+                 ofKind: kind, withReuseIdentifier: SectionHeader.className , for: indexPath)
+                     as? SectionHeader else {
+                return UICollectionReusableView()
+            }
+             return header
+        }else {
+            return UICollectionReusableView()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.size.width, height: 52)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        switch cellCategory{
+        case .listCell:
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        case .albumCell:
+            return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+       }
     }
 }
 
@@ -85,7 +132,7 @@ extension LikedMumentVC {
         view.addSubViews([likedMumentCV])
         
         likedMumentCV.snp.makeConstraints{
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
         }
     }
