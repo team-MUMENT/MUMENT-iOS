@@ -72,7 +72,7 @@ class MumentAlertWithButtons: BaseVC{
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        setCancelButtonAction()
+        setButtonAction()()
         setDefaultLayout()
         
         setButtonStackViewLayout()
@@ -103,8 +103,11 @@ class MumentAlertWithButtons: BaseVC{
         self.modalTransitionStyle = .crossDissolve
     }
     
-    func setCancelButtonAction() {
+    func setButtonAction() {
         cancelButton.press { [weak self] in
+            self?.dismiss(animated: true)
+        }
+        OKButton.press { [weak self] in
             self?.dismiss(animated: true)
         }
     }
