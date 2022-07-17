@@ -99,6 +99,7 @@
 		E781F2232881BC0800484C28 /* CellCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2222881BC0800484C28 /* CellCategory.swift */; };
 		E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2242881FB5A00484C28 /* AlbumCVC.swift */; };
 		E781F2272882A77500484C28 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2262882A77500484C28 /* SectionHeader.swift */; };
+		E781F22928846C6F00484C28 /* StorageBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F22828846C6F00484C28 /* StorageBottomSheet.swift */; };
 		E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D60FFE287EC821000720D4 /* ListCVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -190,6 +191,7 @@
 		E781F2222881BC0800484C28 /* CellCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCategory.swift; sourceTree = "<group>"; };
 		E781F2242881FB5A00484C28 /* AlbumCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCVC.swift; sourceTree = "<group>"; };
 		E781F2262882A77500484C28 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
+		E781F22828846C6F00484C28 /* StorageBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageBottomSheet.swift; sourceTree = "<group>"; };
 		E7D60FFE287EC821000720D4 /* ListCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -435,6 +437,7 @@
 				E781F2222881BC0800484C28 /* CellCategory.swift */,
 				E7D60FFE287EC821000720D4 /* ListCVC.swift */,
 				E781F2242881FB5A00484C28 /* AlbumCVC.swift */,
+				E781F22828846C6F00484C28 /* StorageBottomSheet.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -655,7 +658,7 @@
 				C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */,
 				E781F219288052DF00484C28 /* MyMumentVC.swift in Sources */,
 				4D2BADD328806C08004A7E00 /* MumentCardBySongTVC.swift in Sources */,
-				E781F219288052DF00484C28 /* FirstVC.swift in Sources */,
+				E781F219288052DF00484C28 /* MyMumentVC.swift in Sources */,
 				C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */,
 				C7BC6B6028770FB6008C75CE /* UILabel+.swift in Sources */,
 				4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */,
@@ -679,7 +682,8 @@
 				E781F21B288052ED00484C28 /* LikedMumentVC.swift in Sources */,
 				4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */,
 				4D7604612880ADB60044F2A6 /* DetailSongInfoView.swift in Sources */,
-				E781F21B288052ED00484C28 /* SecondVC.swift in Sources */,
+				E781F21B288052ED00484C28 /* LikedMumentVC.swift in Sources */,
+				E781F22928846C6F00484C28 /* StorageBottomSheet.swift in Sources */,
 				4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */,
 				C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */,
 				4D76045C2880ACB40044F2A6 /* DetailMumentCardView.swift in Sources */,
