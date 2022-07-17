@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D13A65B28829FF000197D2A /* MumentHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A65A28829FF000197D2A /* MumentHistoryVC.swift */; };
+		4D13A65D2882A42000197D2A /* MumentHistoryTVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A65C2882A42000197D2A /* MumentHistoryTVHeader.swift */; };
+		4D13A65F2882AF1B00197D2A /* OrderingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A65E2882AF1B00197D2A /* OrderingButton.swift */; };
 		4D2BADCA2880334C004A7E00 /* MumentsByTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */; };
 		4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */; };
 		4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */; };
@@ -99,6 +102,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D13A65A28829FF000197D2A /* MumentHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentHistoryVC.swift; sourceTree = "<group>"; };
+		4D13A65C2882A42000197D2A /* MumentHistoryTVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentHistoryTVHeader.swift; sourceTree = "<group>"; };
+		4D13A65E2882AF1B00197D2A /* OrderingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderingButton.swift; sourceTree = "<group>"; };
 		4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCVC.swift; sourceTree = "<group>"; };
 		4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagModel.swift; sourceTree = "<group>"; };
 		4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTitleModel.swift; sourceTree = "<group>"; };
@@ -203,6 +209,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D13A65928829FB500197D2A /* MumentHistory */ = {
+			isa = PBXGroup;
+			children = (
+				4D13A65A28829FF000197D2A /* MumentHistoryVC.swift */,
+				4D13A65C2882A42000197D2A /* MumentHistoryTVHeader.swift */,
+			);
+			path = MumentHistory;
+			sourceTree = "<group>";
+		};
 		4D76045D2880ACC60044F2A6 /* DetailMumentCard */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,7 +258,6 @@
 			children = (
 				4D7604592880AC840044F2A6 /* MumentDetailVC.swift */,
 				4D7604602880ADB60044F2A6 /* DetailSongInfoView.swift */,
-				4D2BADD828807281004A7E00 /* SongInfoView.swift */,
 			);
 			path = MumentDetail;
 			sourceTree = "<group>";
@@ -393,6 +407,7 @@
 				4D7604622880B94B0044F2A6 /* Main */,
 				4D7604632880BA0C0044F2A6 /* SongDetail */,
 				4D7604642880BA120044F2A6 /* MumentDetail */,
+				4D13A65928829FB500197D2A /* MumentHistory */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -464,6 +479,7 @@
 			isa = PBXGroup;
 			children = (
 				C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */,
+				4D13A65E2882AF1B00197D2A /* OrderingButton.swift */,
 				C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */,
 				4D76046D2881860C0044F2A6 /* MumentCardBySongView.swift */,
 				4D2BADD228806C08004A7E00 /* MumentCardBySongTVC.swift */,
@@ -472,6 +488,7 @@
 				4D9734F1287ECE29003EF546 /* MumentCardWithoutHeart */,
 				4D9734F0287ECE1B003EF546 /* DefaultMumentCard */,
 				4D64A9E9287D885A00450FCA /* DefaultTagView.swift */,
+				4D2BADD828807281004A7E00 /* SongInfoView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -617,6 +634,7 @@
 				C7BC6B6E28771152008C75CE /* UserDefaults+.swift in Sources */,
 				C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */,
 				C7BB531428759AB200E0E889 /* Adjusted+.swift in Sources */,
+				4D13A65F2882AF1B00197D2A /* OrderingButton.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
@@ -642,6 +660,7 @@
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,
+				4D13A65B28829FF000197D2A /* MumentHistoryVC.swift in Sources */,
 				C7BC6B6C287710F9008C75CE /* String+.swift in Sources */,
 				4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */,
 				C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */,
@@ -682,6 +701,7 @@
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
 				E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
+				4D13A65D2882A42000197D2A /* MumentHistoryTVHeader.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* zzService.swift in Sources */,
 				E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */,
 				4D76046828814A8A0044F2A6 /* MyMumentSectionHeader.swift in Sources */,
@@ -825,7 +845,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N4RT4KGQK9;
+				DEVELOPMENT_TEAM = T24N5ZR2DS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -840,7 +860,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "madilyn.MUMENT-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = jimin.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -855,7 +875,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N4RT4KGQK9;
+				DEVELOPMENT_TEAM = T24N5ZR2DS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -870,7 +890,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "madilyn.MUMENT-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = jimin.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

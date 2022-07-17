@@ -1,32 +1,31 @@
 //
-//  SongDetailVC.swift
+//  MumentHistoryVC.swift
 //  MUMENT
 //
-//  Created by 김지민 on 2022/07/15.
+//  Created by 김지민 on 2022/07/16.
 //
 
 import UIKit
 import SnapKit
 import Then
 
-class SongDetailVC: BaseVC {
+class MumentHistoryVC: BaseVC {
     
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
-    private let songInfoView = SongInfoView()
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
-    var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
-    var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
-    var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
+    var musicInfoDataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
+    var mumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTV()
         setLayout()
-        setSongIntfoData()
+        setData()
+        setTV()
     }
+    
     
     // MARK: - Functions
     private func setTV() {
@@ -34,54 +33,45 @@ class SongDetailVC: BaseVC {
         mumentTV.dataSource = self
         mumentTV.backgroundColor = .mBgwhite
         mumentTV.register(cell: MumentCardBySongTVC.self, forCellReuseIdentifier: MumentCardBySongTVC.className)
-        mumentTV.register(MyMumentSectionHeader.self, forHeaderFooterViewReuseIdentifier: MyMumentSectionHeader.className)
-        mumentTV.register(AllMumentsSectionHeader.self, forHeaderFooterViewReuseIdentifier: AllMumentsSectionHeader.className)
+        mumentTV.register(MumentHistoryTVHeader.self, forHeaderFooterViewReuseIdentifier: MumentHistoryTVHeader.className)
+        
         mumentTV.separatorStyle = .none
         mumentTV.showsVerticalScrollIndicator = false
     }
     
-    func setSongIntfoData(){
-        songInfoView.setData(songInfoDataSource[0])
+    func setData(){
+        navigationBarView.setTitle("뮤멘트 히스토리")
     }
 }
 
 // MARK: - UI
-extension SongDetailVC {
+extension MumentHistoryVC {
     
     private func setLayout() {
-        view.addSubviews([navigationBarView,songInfoView,mumentTV])
-        
+        view.addSubviews([navigationBarView,mumentTV])
         navigationBarView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(48)
         }
         
-        songInfoView.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom)
-            $0.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(230)
-        }
-        
         mumentTV.snp.makeConstraints{
-            $0.top.equalTo(songInfoView.snp.bottom)
+            $0.top.equalTo(navigationBarView.snp.bottom)
             $0.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
 
 // MARK: - UITableViewDataSource
-extension SongDetailVC: UITableViewDataSource {
+extension MumentHistoryVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0 :
-            return myMumentDataSource.count
-        case 1:
-            return allMumentsDataSource.count
+            return mumentDataSource.count
         default:
             return 0
         }
@@ -93,14 +83,7 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
-            cell.setData(myMumentDataSource[0])
-            return cell
-            
-        case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
-                return UITableViewCell()
-            }
-            cell.setData(allMumentsDataSource[indexPath.row])
+            cell.setData(mumentDataSource[indexPath.row])
             return cell
             
         default:
@@ -109,28 +92,23 @@ extension SongDetailVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section==0 {
-            guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyMumentSectionHeader.className) as? MyMumentSectionHeader else { return nil }
-            return headerCell
-        }else{
-            guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
-            return headerCell
-        }
+        guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MumentHistoryTVHeader.className) as? MumentHistoryTVHeader else { return nil }
+        headerCell.setData(musicInfoDataSource[0])
+        return headerCell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 50
+        return 130
     }
     
 }
 
 // MARK: - UITableViewDelegate
-extension SongDetailVC: UITableViewDelegate {
+extension MumentHistoryVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var cellHeight: CGFloat
         switch indexPath.section {
-        case 0,1:
+        case 0:
             cellHeight = 200
         default:
             cellHeight = 0
@@ -138,4 +116,3 @@ extension SongDetailVC: UITableViewDelegate {
         return cellHeight
     }
 }
-
