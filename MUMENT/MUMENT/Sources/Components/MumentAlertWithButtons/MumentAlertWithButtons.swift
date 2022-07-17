@@ -72,7 +72,7 @@ class MumentAlertWithButtons: BaseVC{
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        setButtonAction()()
+        setButtonAction()
         setDefaultLayout()
         
         setButtonStackViewLayout()
