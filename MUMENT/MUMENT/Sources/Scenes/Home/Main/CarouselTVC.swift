@@ -46,7 +46,7 @@ class CarouselTVC: UITableViewCell {
         carouselCV.register(CarouselCVC.self, forCellWithReuseIdentifier: CarouselCVC.className)
         
         carouselCV.showsHorizontalScrollIndicator = false
-//        carouselCV.isPagingEnabled = true
+        //        carouselCV.isPagingEnabled = true
         CVFlowLayout.scrollDirection = .horizontal
         CVFlowLayout.itemSize = CGSize(width: 335, height: 257)
         CVFlowLayout.minimumInteritemSpacing = 10
@@ -74,9 +74,7 @@ extension CarouselTVC: UICollectionViewDelegate{
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
-//        let beginOffset = 335 * CGFloat(originalDataSourceCount)
         let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
-//        let endOffset = 335 * CGFloat(originalDataSourceCount * 2 - 1)
         
         if scrollView.contentOffset.x < beginOffset && velocity.x < .zero {
             scrollToEnd = true
@@ -120,24 +118,4 @@ extension CarouselTVC: UICollectionViewDataSource {
         
         return cell
     }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension CarouselTVC: UICollectionViewDelegateFlowLayout {
-    
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-////        return CGSize(width: UIScreen.main.bounds.width, height: collectionView.frame.height)
-//        return CGSize(width: 335, height: 257)
-//        ///이렇게 고치면 첫 번째 셀에서 마지막 셀로 넘어가는 스크롤이 동작하지 않음.
-//
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//
-//        return 10
-//        // ???: zero로 안 하면 첫 번째 셀에서 마지막 셀로 넘어가는 스크롤이 동작하지 않음.
-//    }
 }
