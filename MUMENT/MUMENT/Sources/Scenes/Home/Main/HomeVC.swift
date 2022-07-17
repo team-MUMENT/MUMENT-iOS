@@ -101,19 +101,6 @@ extension HomeVC: UITableViewDataSource {
             return UITableViewCell()
         }
     }
-//
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        switch indexPath.section {
-//        case 0 :
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: CarouselTVC.className, for: indexPath) as? CarouselTVC else {
-//                return UITableViewCell()
-//            }
-//            cell.collectionView?(collectionView: UICollectionView, willDisplay: UICollectionViewCell, forItemAt: indexPath)
-////            cell.collectionView?(<#T##collectionView: UICollectionView##UICollectionView#>, willDisplay: <#T##UICollectionViewCell#>, forItemAt: <#T##IndexPath#>)
-//        default:
-//            return
-//        }
-//    }
 }
 
 // MARK: - UITableViewDelegate
