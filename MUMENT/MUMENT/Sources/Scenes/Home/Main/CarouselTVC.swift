@@ -46,7 +46,9 @@ class CarouselTVC: UITableViewCell {
         carouselCV.register(CarouselCVC.self, forCellWithReuseIdentifier: CarouselCVC.className)
         
         carouselCV.showsHorizontalScrollIndicator = false
-        //        carouselCV.isPagingEnabled = true
+        carouselCV.isPagingEnabled = false
+        carouselCV.decelerationRate = .fast
+        
         CVFlowLayout.scrollDirection = .horizontal
         CVFlowLayout.itemSize = CGSize(width: 335, height: 257)
         CVFlowLayout.minimumInteritemSpacing = 10
@@ -81,6 +83,21 @@ extension CarouselTVC: UICollectionViewDelegate{
         } else if scrollView.contentOffset.x > endOffset && velocity.x > .zero {
             scrollToBegin = true
         }
+        
+        let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
+        
+        let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
+        let index: Int
+        if velocity.x > 0 {
+            index = Int(ceil(estimatedIndex))
+        } else if velocity.x < 0 {
+            index = Int(floor(estimatedIndex))
+        } else {
+            index = Int(round(estimatedIndex))
+        }
+        
+        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing, y: 0)
+        
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
