@@ -50,20 +50,6 @@ class CarouselCVC: UICollectionViewCell {
 //            pageButton.setTitle(text, for: .normal) ///String일 때.
 
         }
-        
-//        guard let text = self.myLabel.text else { return }
-//
-//        // myLabel의 text로 NSMutableAttributedString 인스턴스를 만들어줍니다.
-//        let attributeString = NSMutableAttributedString(string: text)
-//
-//        // 적용할 글자 크기와 폰트를 설정합니다.
-//        let font = UIFont.systemFont(ofSize: 60)
-//
-//        // Pingu에만 방금 만든 폰트를 적용합니다.
-//        attributeString.addAttribute(.font, value: font, range: (text as NSString).range(of: pageValue))
-//
-//        // myLabel에 방금 만든 속성을 적용합니다.
-//        self.myLabel.attributedText = attributeString
     }
     lazy var pageButton = UIButton().then{
 //        $0.configuration = .plain()
