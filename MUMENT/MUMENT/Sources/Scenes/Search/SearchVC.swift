@@ -100,6 +100,16 @@ class SearchVC: BaseVC {
     private func setRecentSearchEmptyView() {
         recentSearchEmptyView.isHidden = !(recentSearchDummyData.isEmpty)
         recentSearchTitleView.isHidden = recentSearchDummyData.isEmpty
+    private func openRecentSearchTitleView() {
+        DispatchQueue.main.async {
+            self.recentSearchTitleView.isHidden = false
+        }
+    }
+    
+    private func closeRecentSearchTitleView() {
+        DispatchQueue.main.async {
+            self.recentSearchTitleView.isHidden = true
+        }
     }
 }
 
