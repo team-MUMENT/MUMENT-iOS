@@ -41,6 +41,7 @@ class CarouselCVC: UICollectionViewCell {
         $0.font = .mumentH1B25
         $0.lineBreakMode = .byWordWrapping
         $0.numberOfLines = 2
+        $0.adjustsFontSizeToFitWidth = true
     }
     
     private let albumImage = UIImageView().then{
@@ -100,7 +101,7 @@ extension CarouselCVC {
         headerLable.snp.makeConstraints{
             $0.top.equalTo(pageButton.snp.bottom).offset(15)
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(147)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide)
         }
         
         albumImage.snp.makeConstraints{
