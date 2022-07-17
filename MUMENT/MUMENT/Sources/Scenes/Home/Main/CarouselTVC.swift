@@ -32,6 +32,11 @@ class CarouselTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCV()
         setLayout()
+        DispatchQueue.main.async {
+            self.carouselCV.scrollToItem(at: IndexPath(item: self.originalDataSourceCount,section: .zero),
+                                    at: .centeredHorizontally,
+                                    animated: false)
+        }
     }
     
     @available(*, unavailable)
@@ -46,8 +51,12 @@ class CarouselTVC: UITableViewCell {
         carouselCV.register(CarouselCVC.self, forCellWithReuseIdentifier: CarouselCVC.className)
         
         carouselCV.showsHorizontalScrollIndicator = false
-        carouselCV.isPagingEnabled = true
+        carouselCV.isPagingEnabled = false
+        carouselCV.decelerationRate = .fast
+        
         CVFlowLayout.scrollDirection = .horizontal
+        CVFlowLayout.itemSize = CGSize(width: 335, height: 257)
+        CVFlowLayout.minimumInteritemSpacing = 10
     }
 }
 
@@ -79,6 +88,22 @@ extension CarouselTVC: UICollectionViewDelegate{
         } else if scrollView.contentOffset.x > endOffset && velocity.x > .zero {
             scrollToBegin = true
         }
+        
+        let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
+        let constantForCentering = carouselCV.frame.width - cellWidthIncludingSpacing - CVFlowLayout.minimumLineSpacing
+        
+        let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
+        let index: Int
+        if velocity.x > 0 {
+            index = Int(ceil(estimatedIndex))
+        } else if velocity.x < 0 {
+            index = Int(floor(estimatedIndex))
+        } else {
+            index = Int(round(estimatedIndex))
+        }
+        
+        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing - constantForCentering, y: 0)
+        
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -115,22 +140,5 @@ extension CarouselTVC: UICollectionViewDataSource {
         }
         
         return cell
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension CarouselTVC: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width: UIScreen.main.bounds.width, height: collectionView.frame.height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        
-        return .zero
-        // ???: zero로 안 하면 첫 번째 셀에서 마지막 셀로 넘어가는 스크롤이 동작하지 않음.
     }
 }
