@@ -78,9 +78,10 @@ class WriteVC: BaseVC {
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
-    private let feelTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+    private let feelTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
         $0.backgroundColor = .mBgwhite
         $0.showsHorizontalScrollIndicator = false
+        $0.contentInset = .zero
     }
     private let contentLabel = UILabel().then {
         $0.text = "이 순간의 여운을 글로 남겨보세요."
@@ -118,15 +119,21 @@ class WriteVC: BaseVC {
     
     var clickedimpressionTag: [Int] = []
     var clickedFeelTag: [Int] = []
-    var impressionTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브"]
-    var feelTagDummyData = ["🥁 비트", "🛫 도입부", "🎙 음색", "🎶 멜로디", "🎉 클라이막스", "💃 그루브", "🎡 벅참", "😄 신남", " 💐 설렘", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스", "🗯 스트레스"]
+    var impressionTagDummyData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
+    var feelTagDummyData = ["🎡 벅참", "🍁 센치함", "⌛️ 아련함", "😄 신남", "😔 우울", "💭 회상", "💐 설렘", "🕰 그리움", " 👥 위로", "😚 행복", "🛌 외로움", "🌅 낭만", "🙌 자신감", "🌋 스트레스", "☕️ 차분", "🍀 여유로움"]
     
     private let tagCellHeight = 35
     private let cellVerticalSpacing = 10
-    private let CVLayout = UICollectionViewFlowLayout().then {
+    private let impressionCVLayout = LeftAlignedCollectionViewFlowLayout().then {
+        $0.scrollDirection = .vertical
+        $0.minimumLineSpacing = 10
+        $0.minimumInteritemSpacing = 10
+        $0.sectionInset = .zero
+    }
+    private let feelCVLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
-        $0.minimumInteritemSpacing = 20
+        $0.minimumInteritemSpacing = 10
         $0.sectionInset = .zero
     }
     let disposeBag = DisposeBag()
@@ -163,15 +170,13 @@ class WriteVC: BaseVC {
         impressionTagCV.delegate = self
         impressionTagCV.layoutMargins = .zero
         impressionTagCV.allowsMultipleSelection = true
-        impressionTagCV.clipsToBounds = true
-        impressionTagCV.collectionViewLayout = CVLayout
+        impressionTagCV.collectionViewLayout = impressionCVLayout
         
         feelTagCV.dataSource = self
         feelTagCV.delegate = self
         feelTagCV.layoutMargins =  .zero
         feelTagCV.allowsMultipleSelection = true
-        feelTagCV.clipsToBounds = true
-        feelTagCV.collectionViewLayout = CVLayout
+        feelTagCV.collectionViewLayout = feelCVLayout
     }
     
     private func setIsPrivateToggleButton() {
@@ -183,7 +188,7 @@ class WriteVC: BaseVC {
     
     private func setContentTextView() {
         contentTextView.delegate = self
-        contentTextView.text = "텍스트로 기록을 남기지 않아도 괜찮아요."
+        contentTextView.text = "글로 쓰지 않아도 뮤멘트를 저장할 수 있어요."
         contentTextView.textColor = .mGray1
     }
     
@@ -277,7 +282,7 @@ extension WriteVC {
         impressionTagCV.snp.makeConstraints {
             $0.top.equalTo(impressionLabel.snp.bottom).offset(16)
             $0.left.equalTo(impressionLabel.snp.left)
-            $0.right.equalToSuperview()
+            $0.right.equalToSuperview().inset(20)
             $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
         }
         
@@ -368,9 +373,9 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
             sizingCell.setData(data: feelTagDummyData[indexPath.row])
         default: break
         }
-        
+
         sizingCell.contentLabel.sizeToFit()
-        
+
         let cellWidth = sizingCell.contentLabel.frame.width + 26
         let cellHeight = tagCellHeight
         return CGSize(width: cellWidth, height: CGFloat(cellHeight))
