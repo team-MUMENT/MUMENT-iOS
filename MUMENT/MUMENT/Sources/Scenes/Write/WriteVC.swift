@@ -116,6 +116,7 @@ class WriteVC: BaseVC {
     private let completeButton = MumentCompleteButton(isEnabled: true).then {
         $0.setTitle("완료", for: .normal)
     }
+    private let selectedMusicView = WriteMusicView()
     
     var clickedimpressionTag: [Int] = []
     var clickedFeelTag: [Int] = []
@@ -229,7 +230,7 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel, selectedMusicView])
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -253,6 +254,7 @@ extension WriteVC {
         
         selectMusicLabel.snp.makeConstraints {
             $0.top.equalTo(naviView.snp.bottom).offset(40)
+            $0.height.equalTo(20)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
@@ -337,6 +339,12 @@ extension WriteVC {
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(60)
             $0.bottom.equalToSuperview().inset(45)
+        }
+        
+        selectedMusicView.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(selectMusicLabel.snp.top)
+            $0.bottom.equalTo(searchButton.snp.bottom)
         }
     }
 }
