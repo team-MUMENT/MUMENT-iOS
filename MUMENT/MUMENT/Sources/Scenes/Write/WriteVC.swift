@@ -32,14 +32,15 @@ class WriteVC: BaseVC {
         $0.textColor = .mBlack2
     }
     private let searchButton = UIButton(type: .system).then {
-        $0.setTitle("곡, 아티스트 검색", for: .normal)
-        $0.setTitleColor(.mGray1, for: .normal)
-        $0.titleLabel?.font = .mumentB4M14
         $0.backgroundColor = .mGray5
         $0.layer.cornerRadius = 10
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "mumentSearch")
         $0.configuration?.imagePadding = 10
+        $0.setAttributedTitle(NSAttributedString(string: "곡, 아티스트",attributes: [
+            .font: UIFont.mumentB4M14,
+            .foregroundColor: UIColor.mGray1
+        ]), for: .normal)
         $0.contentHorizontalAlignment = .left
     }
     private let firstTimeMusicLabel = UILabel().then {
