@@ -29,7 +29,7 @@ class SongInfoView: UIView {
         $0.font = .mumentB4M14
     }
     
-    private let writeMumentButton = UIButton().then{
+    let writeMumentButton = UIButton().then{
         $0.makeRounded(cornerRadius: 11)
         $0.backgroundColor = .mPurple1
         $0.configuration = .plain()

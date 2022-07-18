@@ -26,6 +26,7 @@ class SongDetailVC: BaseVC {
         setTV()
         setLayout()
         setSongIntfoData()
+        setButtonActions()
     }
     
     // MARK: - Functions
@@ -42,6 +43,19 @@ class SongDetailVC: BaseVC {
     
     func setSongIntfoData(){
         songInfoView.setData(songInfoDataSource[0])
+    }
+    
+    private func setButtonActions(){
+        songInfoView.writeMumentButton.press{
+//            let writeVC = WriteVC()
+//            self.navigationController?.pushViewController(writeVC, animated: true)
+//            writeTab
+            
+            print("writeVC")
+            
+            self.tabBarController?.selectedIndex = 1
+//            self.tabBarController?.
+        }
     }
 }
 
