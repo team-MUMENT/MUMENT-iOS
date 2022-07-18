@@ -125,6 +125,11 @@ extension SongDetailVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section==0 {
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyMumentSectionHeader.className) as? MyMumentSectionHeader else { return nil }
+            headerCell.historyButton.press{
+                let mumentHistoryVC = MumentHistoryVC()
+                self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
+                print("mumentHistoryVC")
+            }
             return headerCell
         }else{
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
