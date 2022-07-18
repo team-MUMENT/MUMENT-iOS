@@ -51,14 +51,7 @@ class MumentDetailVC: BaseVC {
         setData()
         setClickEventHandlers()
     }
-    
-    @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        let songDetailVC = SongDetailVC()
-        self.navigationController?.pushViewController(songDetailVC, animated: true)
-        print("mumentHistoryVC")
-    }
-    
-    
+
     // MARK: - Functions
     func setData(){
         navigationBarView.setTitle("뮤멘트")
@@ -80,6 +73,12 @@ class MumentDetailVC: BaseVC {
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let songDetailVC = SongDetailVC()
+        self.navigationController?.pushViewController(songDetailVC, animated: true)
+        print("mumentHistoryVC")
     }
 }
 

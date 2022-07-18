@@ -7,6 +7,8 @@
 import UIKit
 
 class OrderingButton: UIButton {
+    
+    // MARK: - Properties
     private var buttonText = ""
     private func setConfiguration(){
         var configuration = UIButton.Configuration.plain()
@@ -27,6 +29,7 @@ class OrderingButton: UIButton {
         ]), for: .normal)
     }
     
+    // MARK: - Initialization
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }

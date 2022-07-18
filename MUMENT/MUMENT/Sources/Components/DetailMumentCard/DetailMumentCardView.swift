@@ -69,13 +69,7 @@ class DetailMumentCardView: UIView {
         super.init(frame: .zero)
         setUI()
         setLayout()
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-//        songInfoView.addGestureRecognizer(tapGestureRecognizer)
     }
-//    
-//    @objc func didTapView(_ sender: UITapGestureRecognizer) {
-//        print("did tap view", sender)
-//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
