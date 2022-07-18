@@ -59,6 +59,7 @@ class DetailSongInfoView: UIView {
 extension DetailSongInfoView {
     
     private func setLayout() {
+        self.backgroundColor = .red
         self.addSubviews([albumImage,titleStackView,artistLabel])
         
         albumImage.snp.makeConstraints{

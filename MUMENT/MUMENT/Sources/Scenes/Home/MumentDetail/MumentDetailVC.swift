@@ -50,7 +50,18 @@ class MumentDetailVC: BaseVC {
         setLayout()
         setData()
         setButtonActions()
+//        mumentCardView.isUserInteractionEnabled = false
+//        mumentCardView.songInfoView.isUserInteractionEnabled = true
+//        print(mumentCardView.songInfoView.isUserInteractionEnabled)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+//        mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
+//        mumentCardView.
     }
+    
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        print("mumentCardView did tap view", sender)
+    }
+    
     
     // MARK: - Functions
     func setData(){
