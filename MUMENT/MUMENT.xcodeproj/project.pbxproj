@@ -53,12 +53,13 @@
 		C71B47F92882ACF1001A7CD6 /* SearchResultEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47F82882ACF1001A7CD6 /* SearchResultEmptyView.swift */; };
 		C71B47FC2884369C001A7CD6 /* MumentAlertWithButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47FB2884369C001A7CD6 /* MumentAlertWithButtons.swift */; };
 		C71B47FF288450FD001A7CD6 /* MumentAlertTitleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47FE288450FD001A7CD6 /* MumentAlertTitleType.swift */; };
-		C71B4807288597ED001A7CD6 /* SearchBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B4806288597ED001A7CD6 /* SearchBottomSheetVC.swift */; };
-		C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48082885A877001A7CD6 /* SearchForWriteView.swift */; };
-		C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */; };
 		C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48002884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480228854CD2001A7CD6 /* AlignmentLayout.swift */; };
 		C71B48052885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48042885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift */; };
+		C71B4807288597ED001A7CD6 /* SearchBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B4806288597ED001A7CD6 /* SearchBottomSheetVC.swift */; };
+		C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48082885A877001A7CD6 /* SearchForWriteView.swift */; };
+		C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */; };
+		C71B480D2885EB84001A7CD6 /* Notification+Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
 		C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C1287C19B00017F2DA /* NetworkResult.swift */; };
@@ -166,12 +167,13 @@
 		C71B47F82882ACF1001A7CD6 /* SearchResultEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultEmptyView.swift; sourceTree = "<group>"; };
 		C71B47FB2884369C001A7CD6 /* MumentAlertWithButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentAlertWithButtons.swift; sourceTree = "<group>"; };
 		C71B47FE288450FD001A7CD6 /* MumentAlertTitleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentAlertTitleType.swift; sourceTree = "<group>"; };
-		C71B4806288597ED001A7CD6 /* SearchBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBottomSheetVC.swift; sourceTree = "<group>"; };
-		C71B48082885A877001A7CD6 /* SearchForWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForWriteView.swift; sourceTree = "<group>"; };
-		C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMusicView.swift; sourceTree = "<group>"; };
 		C71B48002884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		C71B480228854CD2001A7CD6 /* AlignmentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentLayout.swift; sourceTree = "<group>"; };
 		C71B48042885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlignedCollectionViewLayout.swift; sourceTree = "<group>"; };
+		C71B4806288597ED001A7CD6 /* SearchBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBottomSheetVC.swift; sourceTree = "<group>"; };
+		C71B48082885A877001A7CD6 /* SearchForWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForWriteView.swift; sourceTree = "<group>"; };
+		C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMusicView.swift; sourceTree = "<group>"; };
+		C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name+.swift"; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		C73FC9C1287C19B00017F2DA /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 				C7BC6B6F28771184008C75CE /* UIStackView+.swift */,
 				C7BC6B712877ECA0008C75CE /* CALayer+.swift */,
 				C71B47EE2881A11E001A7CD6 /* UIImageView+.swift */,
+				C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 			files = (
 				4D64A9F1287DEEC900450FCA /* MumentCardWithoutHeartModel.swift in Sources */,
 				C73FC9C8287C19DA0017F2DA /* NetworkConstants.swift in Sources */,
+				C71B480D2885EB84001A7CD6 /* Notification+Name+.swift in Sources */,
 				C71B47FF288450FD001A7CD6 /* MumentAlertTitleType.swift in Sources */,
 				4D2BADD028806A75004A7E00 /* SongDetailVC.swift in Sources */,
 				C7BC6B582876ADD6008C75CE /* ww.swift in Sources */,
