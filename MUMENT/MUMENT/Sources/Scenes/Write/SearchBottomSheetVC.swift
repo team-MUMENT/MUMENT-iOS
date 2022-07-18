@@ -19,7 +19,6 @@ class SearchBottomSheetVC: BaseVC {
     }
     
     private let contentView = SearchForWriteView()
-    
     private let containerHeight = NSLayoutConstraint()
     
     // MARK: - Initialization
@@ -75,6 +74,11 @@ class SearchBottomSheetVC: BaseVC {
 extension SearchBottomSheetVC {
     private func setUI() {
         self.view.backgroundColor = .mAlertBgBlack
+        NotificationCenter.default.addObserver(self, selector: #selector(hideBottomSheetForReceived(_:)), name: .sendSearchResult, object: nil)
+    }
+    
+    @objc func hideBottomSheetForReceived(_ notification: Notification){
+        self.hideBottomSheetWithAnimation()
     }
     
     private func setLayout() {
