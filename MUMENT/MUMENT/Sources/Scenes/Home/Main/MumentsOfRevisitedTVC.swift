@@ -77,7 +77,7 @@ extension MumentsOfRevisitedTVC: UICollectionViewDelegate{
             cell.isSelected = true
         }
         debugPrint("cell clicked", "\(indexPath)")
-        self.delegate?.cellSelected()
+        self.delegate?.mumentsOfRevisitedCVCSelected()
     }
 }
 

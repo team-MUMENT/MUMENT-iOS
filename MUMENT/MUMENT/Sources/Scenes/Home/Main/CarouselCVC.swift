@@ -10,13 +10,12 @@ import SnapKit
 import Then
 
 protocol CarouselCVCDelegate : AnyObject{
-    func cellSelected(index: Int)
+    func carouselCVCSelected()
 }
 
 class CarouselCVC: UICollectionViewCell {
     
     // MARK: - Properties
-    var index:Int = 0
     var delegate: CarouselCVCDelegate?
     var pageValue: String = "" {
         didSet{
