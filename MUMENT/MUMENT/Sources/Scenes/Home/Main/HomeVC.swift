@@ -19,6 +19,7 @@ class HomeVC: BaseVC {
         setTV()
         setLayout()
         setButtonActions()
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     // MARK: - Functions
@@ -74,6 +75,7 @@ extension HomeVC: MumentsByTagCVCDelegate {
 extension HomeVC {
     
     private func setLayout() {
+        
         view.addSubviews([headerView,homeTV])
         
         headerView.snp.makeConstraints {
