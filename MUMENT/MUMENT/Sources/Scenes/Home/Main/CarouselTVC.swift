@@ -36,8 +36,8 @@ class CarouselTVC: UITableViewCell {
         setLayout()
         DispatchQueue.main.async {
             self.carouselCV.scrollToItem(at: IndexPath(item: self.originalDataSourceCount,section: .zero),
-                                    at: .centeredHorizontally,
-                                    animated: false)
+                                         at: .centeredHorizontally,
+                                         animated: false)
         }
     }
     

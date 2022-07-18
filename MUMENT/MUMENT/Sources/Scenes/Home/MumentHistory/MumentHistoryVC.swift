@@ -27,7 +27,6 @@ class MumentHistoryVC: BaseVC {
         setClickEventHandlers()
     }
     
-    
     // MARK: - Functions
     private func setTV() {
         mumentTV.delegate = self

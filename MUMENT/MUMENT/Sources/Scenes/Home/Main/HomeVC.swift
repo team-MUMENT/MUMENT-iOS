@@ -54,38 +54,6 @@ class HomeVC: BaseVC {
     
 }
 
-extension HomeVC: CarouselCVCDelegate {
-    func carouselCVCSelected() {
-        let songDetailVC = SongDetailVC()
-        self.navigationController?.pushViewController(songDetailVC, animated: true)
-        print("songDetailVC")
-    }
-}
-
-//extension HomeVC: MumentForTodayTVCDelegate {
-//    func mumentForTodayTVCSelected() {
-//        let mumentDetailVC = MumentDetailVC()
-//        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-//        print("mumentDetailVC")
-//    }
-//}
-
-extension HomeVC: MumentsOfRevisitedCVCDelegate {
-    func mumentsOfRevisitedCVCSelected() {
-        let mumentDetailVC = MumentDetailVC()
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-        print("mumentDetailVC")
-    }
-}
-
-extension HomeVC: MumentsByTagCVCDelegate {
-    func mumentsByTagCVCSelected() {
-        let mumentDetailVC = MumentDetailVC()
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-        print("mumentDetailVC")
-    }
-}
-
 // MARK: - UI
 extension HomeVC {
     
@@ -102,6 +70,33 @@ extension HomeVC {
             $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.top.equalTo(headerView.snp.bottom)
         }
+    }
+}
+
+// MARK: - CarouselCVCDelegate
+extension HomeVC: CarouselCVCDelegate {
+    func carouselCVCSelected() {
+        let songDetailVC = SongDetailVC()
+        self.navigationController?.pushViewController(songDetailVC, animated: true)
+        print("songDetailVC")
+    }
+}
+
+// MARK: - MumentsOfRevisitedCVCDelegate
+extension HomeVC: MumentsOfRevisitedCVCDelegate {
+    func mumentsOfRevisitedCVCSelected() {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        print("mumentDetailVC")
+    }
+}
+
+// MARK: - MumentsByTagCVCDelegate
+extension HomeVC: MumentsByTagCVCDelegate {
+    func mumentsByTagCVCSelected() {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        print("mumentDetailVC")
     }
 }
 
@@ -134,7 +129,6 @@ extension HomeVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentForTodayTVC.className, for: indexPath) as? MumentForTodayTVC else {
                 return UITableViewCell()
             }
-//            cell.delegate = self
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCardView.addGestureRecognizer(tapGestureRecognizer)
             return cell
