@@ -144,9 +144,19 @@ class WriteVC: BaseVC {
         registerCell()
         hideKeyboardWhenTappedAround()
         setContentTextCounting()
+        setSearchButton()
     }
     
     // MARK: - Functions
+    private func setSearchButton() {
+        searchButton.press { [weak self] in
+            let searchBottomSheet = SearchBottomSheetVC()
+            self?.present(searchBottomSheet, animated: false) {
+                searchBottomSheet.showBottomSheetWithAnimation()
+            }
+        }
+    }
+    
     private func setRadioButton() {
         firstTimeButton.press {
             self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: true)
