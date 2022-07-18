@@ -35,6 +35,13 @@ class HomeVC: BaseVC {
         homeTV.separatorStyle = .none
         homeTV.showsVerticalScrollIndicator = false
     }
+    
+    private func setButtonActions(){
+        headerView.searchButton.press{
+            let searchVC = SearchVC()
+            self.navigationController?.pushViewController(searchVC, animated: true)
+        }
+    }
 }
 
 // MARK: - UI
