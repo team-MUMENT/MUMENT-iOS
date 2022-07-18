@@ -227,10 +227,24 @@ extension WriteVC {
         feelTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
     }
     
+    private func setSelectedMusicView() {
+        view.addSubviews([selectedMusicView])
+        
+        selectedMusicView.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(selectMusicLabel.snp.top)
+            $0.bottom.equalTo(searchButton.snp.bottom)
+        }
+    }
+    
+    private func removeSelectedMusicView() {
+        self.selectedMusicView.removeFromSuperview()
+    }
+    
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel, selectedMusicView])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -339,12 +353,6 @@ extension WriteVC {
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(60)
             $0.bottom.equalToSuperview().inset(45)
-        }
-        
-        selectedMusicView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(20)
-            $0.top.equalTo(selectMusicLabel.snp.top)
-            $0.bottom.equalTo(searchButton.snp.bottom)
         }
     }
 }
