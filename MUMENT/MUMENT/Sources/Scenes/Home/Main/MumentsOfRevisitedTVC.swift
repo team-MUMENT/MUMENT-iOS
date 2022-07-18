@@ -12,6 +12,8 @@ import Then
 class MumentsOfRevisitedTVC: UITableViewCell {
     
     // MARK: - Properties
+    weak var delegate: MumentsOfRevisitedCVCDelegate?
+    
     var dataSource: [MumentsOfRevisitedModel] = MumentsOfRevisitedModel.sampleData
     lazy var titleLabel = UILabel().then{
         $0.text = "다시 들은 곡의 뮤멘트"
@@ -64,6 +66,18 @@ extension MumentsOfRevisitedTVC {
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
         }
         
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension MumentsOfRevisitedTVC: UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? MumentsOfRevisitedCVC {
+            cell.isSelected = true
+        }
+        debugPrint("cell clicked", "\(indexPath)")
+        self.delegate?.cellSelected()
     }
 }
 

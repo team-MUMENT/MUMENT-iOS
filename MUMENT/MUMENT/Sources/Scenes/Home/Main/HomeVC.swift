@@ -52,6 +52,14 @@ extension HomeVC :CarouselCVCDelegate {
     }
 }
 
+extension HomeVC :MumentsOfRevisitedCVCDelegate {
+    func cellSelected() {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        print("mumentDetailVC")
+    }
+}
+
 // MARK: - UI
 extension HomeVC {
     
@@ -105,6 +113,7 @@ extension HomeVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentsOfRevisitedTVC.className, for: indexPath) as? MumentsOfRevisitedTVC else {
                 return UITableViewCell()
             }
+            cell.delegate = self
             return cell
             
         case 3:
