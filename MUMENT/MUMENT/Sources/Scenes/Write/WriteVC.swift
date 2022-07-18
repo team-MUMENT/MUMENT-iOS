@@ -123,10 +123,10 @@ class WriteVC: BaseVC {
     
     private let tagCellHeight = 35
     private let cellVerticalSpacing = 10
-    private let CVLayout = UICollectionViewFlowLayout().then {
+    private let CVLayout = LeftAlignedCollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
-        $0.minimumInteritemSpacing = 20
+        $0.minimumInteritemSpacing = 10
         $0.sectionInset = .zero
     }
     let disposeBag = DisposeBag()
