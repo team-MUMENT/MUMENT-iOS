@@ -18,6 +18,8 @@ class SearchBottomSheetVC: BaseVC {
         $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
     
+    private let contentView = SearchForWriteView()
+    
     private let containerHeight = NSLayoutConstraint()
     
     // MARK: - Initialization
@@ -77,12 +79,17 @@ extension SearchBottomSheetVC {
     
     private func setLayout() {
         view.addSubViews([containerView])
+        containerView.addSubviews([contentView])
         
         containerHeight.constant = 0
         containerView.snp.makeConstraints{
             $0.height.equalTo(containerHeight.constant)
             $0.width.equalTo(view.frame.width)
             $0.left.right.bottom.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 }
