@@ -45,7 +45,7 @@ class SearchForWriteView: UIView {
                 searchResultEmptyView.isHidden = true
             case .searchResult:
                 recentSearchEmptyView.isHidden = true
-                titleLabel.snp.updateConstraints {
+                titleLabel.snp.makeConstraints {
                     $0.height.equalTo(0)
                 }
             }
@@ -129,7 +129,7 @@ extension SearchForWriteView {
         }
         
         resultTV.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20.adjustedH)
+            $0.top.equalTo(titleLabel.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
