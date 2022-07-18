@@ -24,6 +24,7 @@ class MumentHistoryVC: BaseVC {
         setLayout()
         setData()
         setTV()
+//        setClickEventHandlers()
     }
     
     
@@ -41,6 +42,12 @@ class MumentHistoryVC: BaseVC {
     
     func setData(){
         navigationBarView.setTitle("뮤멘트 히스토리")
+    }
+    
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let songDetailVC = SongDetailVC()
+        self.navigationController?.pushViewController(songDetailVC, animated: true)
+        print("songDetailVC")
     }
 }
 
@@ -94,6 +101,10 @@ extension MumentHistoryVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MumentHistoryTVHeader.className) as? MumentHistoryTVHeader else { return nil }
         headerCell.setData(musicInfoDataSource[0])
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        headerCell.songInfoView.addGestureRecognizer(tapGestureRecognizer)
+        
         return headerCell
     }
     

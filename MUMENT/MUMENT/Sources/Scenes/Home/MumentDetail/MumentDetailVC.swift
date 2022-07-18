@@ -49,9 +49,7 @@ class MumentDetailVC: BaseVC {
         super.viewDidLoad()
         setLayout()
         setData()
-        setButtonActions()
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-        mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
+        setClickEventHandlers()
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
@@ -68,12 +66,15 @@ class MumentDetailVC: BaseVC {
         historyButtonText = "\(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
     }
     
-    func setButtonActions(){
+    func setClickEventHandlers(){
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
             print("mumentHistoryVC")
         }
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
     }
 }
 
