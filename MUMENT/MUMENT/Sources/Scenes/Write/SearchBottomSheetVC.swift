@@ -14,9 +14,21 @@ class SearchBottomSheetVC: BaseVC {
     // MARK: - Properties
     private let containerView = UIView().then {
         $0.backgroundColor = UIColor.mBgwhite
+        $0.layer.cornerRadius = 11
+        $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
     
     private let containerHeight = NSLayoutConstraint()
+    
+    // MARK: - Initialization
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        self.modalPresentationStyle = .overFullScreen
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -61,8 +73,8 @@ class SearchBottomSheetVC: BaseVC {
 extension SearchBottomSheetVC {
     private func setUI() {
         self.view.backgroundColor = .mAlertBgBlack
-            
     }
+    
     private func setLayout() {
         view.addSubViews([containerView])
         
