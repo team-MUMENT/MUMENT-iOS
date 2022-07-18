@@ -69,23 +69,16 @@ class DetailMumentCardView: UIView {
         super.init(frame: .zero)
         setUI()
         setLayout()
-//        setButtonActions()
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-//        tapGestureRecognizer.delegate = self
-        songInfoView.addGestureRecognizer(tapGestureRecognizer)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+//        songInfoView.addGestureRecognizer(tapGestureRecognizer)
     }
-    
-    @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        print("did tap view", sender)
-    }
+//    
+//    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+//        print("did tap view", sender)
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-//        setUI()
-//        setLayout()
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-//        tapGestureRecognizer.delegate = self
-//        songInfoView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     //MARK: - Functions
@@ -98,19 +91,7 @@ class DetailMumentCardView: UIView {
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
     }
-//
-//    func setButtonActions(){
-//        shareButton.press{
-//            print("shareButton")
-//        }
-//    }
 }
-
-//extension DetailMumentCardView: UIGestureRecognizerDelegate {
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-//        return true
-//    }
-//}
 
 // MARK: - UI
 extension DetailMumentCardView {
