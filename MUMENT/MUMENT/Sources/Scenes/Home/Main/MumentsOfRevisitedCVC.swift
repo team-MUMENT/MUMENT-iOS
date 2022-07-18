@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 protocol MumentsOfRevisitedCVCDelegate : AnyObject{
-    func cellSelected()
+    func mumentsOfRevisitedCVCSelected()
 }
 
 class MumentsOfRevisitedCVC: UICollectionViewCell {

@@ -9,9 +9,14 @@ import UIKit
 import SnapKit
 import Then
 
+protocol MumentForTodayTVCDelegate : AnyObject{
+    func mumentForTodayTVCSelected()
+}
+
 class MumentForTodayTVC: UITableViewCell {
     
     // MARK: - Properties
+    var delegate: MumentForTodayTVCDelegate?
     var dataSource: [DefaultMumentCardModel] = DefaultMumentCardModel.sampleData
     lazy var titleLabel = UILabel().then{
         $0.text = "오늘의 뮤멘트"
