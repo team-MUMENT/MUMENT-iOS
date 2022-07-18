@@ -180,6 +180,12 @@ extension SearchForWriteView: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension SearchForWriteView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch searchTVType {
+        case .recentSearch:
+            NotificationCenter.default.post(name: .sendSearchResult, object: recentSearchDummyData[indexPath.row])
+        case .searchResult:
+            NotificationCenter.default.post(name: .sendSearchResult, object: searchResultData[indexPath.row])
+        }
         print("\(indexPath.row) cell select")
     }
 }
