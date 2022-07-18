@@ -14,7 +14,6 @@ class MumentCardBySongTVC: UITableViewCell {
     // MARK: - Properties
     private let mumentCard = MumentCardBySongView()
     
-    
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,6 +25,7 @@ class MumentCardBySongTVC: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //MARK: - Functions
     func setData(_ cellData: MumentCardBySongModel){
         mumentCard.setData(cellData)
@@ -44,7 +44,6 @@ extension MumentCardBySongTVC {
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(10)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
         }
-        
     }
 }
 

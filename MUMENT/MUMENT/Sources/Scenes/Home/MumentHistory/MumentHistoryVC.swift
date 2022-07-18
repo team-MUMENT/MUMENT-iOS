@@ -126,4 +126,11 @@ extension MumentHistoryVC: UITableViewDelegate {
         }
         return cellHeight
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        print("mumentDetailVC")
+    }
+    
 }
