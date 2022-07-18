@@ -143,6 +143,7 @@ class WriteVC: BaseVC {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNotificationCenter()
         setTagCV()
         setLayout()
         setRadioButtonSelectStatus(button: firstTimeButton, isSelected: false)
@@ -157,6 +158,18 @@ class WriteVC: BaseVC {
     }
     
     // MARK: - Functions
+    
+    private func setNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setSelectedMusicViewForReceived(_:)), name: .sendSearchResult, object: nil)
+    }
+    
+    @objc func setSelectedMusicViewForReceived(_ notification: Notification){
+        self.setSelectedMusicView()
+        if let receivedData = notification.object as? MusicForSearchModel {
+            self.selectedMusicView.setData(data: receivedData)
+        }
+    }
+    
     private func setSearchButton() {
         searchButton.press { [weak self] in
             let searchBottomSheet = SearchBottomSheetVC()
