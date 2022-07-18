@@ -12,7 +12,7 @@ import Then
 class MumentCardBySongTVC: UITableViewCell {
     
     // MARK: - Properties
-    private let mumentCard = MumentCardBySongView()
+    let mumentCard = MumentCardBySongView()
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

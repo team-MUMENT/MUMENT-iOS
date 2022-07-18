@@ -55,6 +55,12 @@ class SongDetailVC: BaseVC {
             self.tabBarController?.selectedIndex = 1
         }
     }
+    
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        print("mumentDetailVC")
+    }
 }
 
 // MARK: - UI
@@ -106,6 +112,8 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(myMumentDataSource[0])
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
             
         case 1:
@@ -113,6 +121,8 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(allMumentsDataSource[indexPath.row])
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
             
         default:
