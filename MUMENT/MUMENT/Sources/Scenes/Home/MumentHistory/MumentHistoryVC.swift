@@ -24,7 +24,7 @@ class MumentHistoryVC: BaseVC {
         setLayout()
         setData()
         setTV()
-//        setClickEventHandlers()
+        setClickEventHandlers()
     }
     
     
@@ -42,6 +42,12 @@ class MumentHistoryVC: BaseVC {
     
     func setData(){
         navigationBarView.setTitle("뮤멘트 히스토리")
+    }
+    
+    func setClickEventHandlers(){
+        navigationBarView.backbutton.press{
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
