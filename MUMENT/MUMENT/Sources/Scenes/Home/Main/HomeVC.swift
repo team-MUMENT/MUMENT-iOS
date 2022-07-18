@@ -44,6 +44,14 @@ class HomeVC: BaseVC {
     }
 }
 
+extension HomeVC :CarouselCVCDelegate {
+    func cellSelected(index: Int) {
+        let songDetailVC = SongDetailVC()
+        self.navigationController?.pushViewController(songDetailVC, animated: true)
+        print("dkdkdkdkdkddkdk")
+    }
+}
+
 // MARK: - UI
 extension HomeVC {
     
@@ -84,6 +92,7 @@ extension HomeVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CarouselTVC.className, for: indexPath) as? CarouselTVC else {
                 return UITableViewCell()
             }
+            cell.delegate = self
             return cell
             
         case 1:

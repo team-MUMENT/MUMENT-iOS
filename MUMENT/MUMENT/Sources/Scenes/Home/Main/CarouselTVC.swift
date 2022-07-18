@@ -13,6 +13,8 @@ import Then
 class CarouselTVC: UITableViewCell {
     
     // MARK: - Properties
+    weak var delegate: CarouselCVCDelegate?
+    
     var dataSource: [CarouselModel] = CarouselModel.sampleData
     private lazy var increasedDataSource: [CarouselModel] = {
         dataSource + dataSource + dataSource
@@ -74,8 +76,23 @@ extension CarouselTVC {
     }
 }
 
+
 // MARK: - UICollectionViewDelegate
 extension CarouselTVC: UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? CarouselCVC {
+            cell.isSelected = true
+//            cell.index=indexPath.row
+//            cell.delegate=self
+            
+        }
+        debugPrint("cell clicked", "\(indexPath)")
+//        let searchVC = SearchVC()
+//        self.delegate?.likeButtonClicked(index:index)
+        self.delegate?.cellSelected(index: indexPath.row)
+//        self.navigationController?.pushViewController(searchVC, animated: true)
+    }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
