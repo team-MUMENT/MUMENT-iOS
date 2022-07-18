@@ -73,9 +73,7 @@ class StorageVC: BaseVC {
         $0.setImage(UIImage(named: "mumentFilterOn"), for: .selected)
         $0.contentMode = .scaleAspectFit
     }
-    
-    private let storageBottomSheet = StorageBottomSheet()
-    
+        
     private let buttonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fill
@@ -98,6 +96,8 @@ class StorageVC: BaseVC {
     private let selectedTagsView = UIView().then {
         $0.backgroundColor = UIColor.mGray5
     }
+    
+    private let storageBottomSheet = StorageBottomSheet()
     
     var tagsViewHeightConstant = 0
     
