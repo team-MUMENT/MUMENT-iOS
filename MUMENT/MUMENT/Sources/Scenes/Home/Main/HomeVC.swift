@@ -45,6 +45,13 @@ class HomeVC: BaseVC {
             print("searchVC")
         }
     }
+    
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        print("mumentDetailVC")
+    }
+    
 }
 
 extension HomeVC: CarouselCVCDelegate {
@@ -55,13 +62,13 @@ extension HomeVC: CarouselCVCDelegate {
     }
 }
 
-extension HomeVC: MumentForTodayTVCDelegate {
-    func mumentForTodayTVCSelected() {
-        let mumentDetailVC = MumentDetailVC()
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-        print("mumentDetailVC")
-    }
-}
+//extension HomeVC: MumentForTodayTVCDelegate {
+//    func mumentForTodayTVCSelected() {
+//        let mumentDetailVC = MumentDetailVC()
+//        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+//        print("mumentDetailVC")
+//    }
+//}
 
 extension HomeVC: MumentsOfRevisitedCVCDelegate {
     func mumentsOfRevisitedCVCSelected() {
@@ -127,7 +134,9 @@ extension HomeVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentForTodayTVC.className, for: indexPath) as? MumentForTodayTVC else {
                 return UITableViewCell()
             }
-            cell.delegate = self
+//            cell.delegate = self
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+            cell.mumentCardView.addGestureRecognizer(tapGestureRecognizer)
             return cell
             
         case 2:
