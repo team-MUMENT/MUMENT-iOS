@@ -18,6 +18,7 @@ class HomeVC: BaseVC {
         super.viewDidLoad()
         setTV()
         setLayout()
+        setButtonActions()
     }
     
     // MARK: - Functions
@@ -40,6 +41,7 @@ class HomeVC: BaseVC {
         headerView.searchButton.press{
             let searchVC = SearchVC()
             self.navigationController?.pushViewController(searchVC, animated: true)
+            print("searchVC")
         }
     }
 }
