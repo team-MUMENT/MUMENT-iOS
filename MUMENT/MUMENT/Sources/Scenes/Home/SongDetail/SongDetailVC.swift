@@ -46,15 +46,13 @@ class SongDetailVC: BaseVC {
     }
     
     private func setButtonActions(){
+        navigationBarView.backbutton.press{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
         songInfoView.writeMumentButton.press{
-//            let writeVC = WriteVC()
-//            self.navigationController?.pushViewController(writeVC, animated: true)
-//            writeTab
-            
             print("writeVC")
-            
             self.tabBarController?.selectedIndex = 1
-//            self.tabBarController?.
         }
     }
 }

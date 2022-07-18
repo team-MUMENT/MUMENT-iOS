@@ -67,6 +67,11 @@ class MumentDetailVC: BaseVC {
     }
     
     func setClickEventHandlers(){
+        
+        navigationBarView.backbutton.press{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
