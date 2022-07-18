@@ -44,7 +44,7 @@ class HomeVC: BaseVC {
     }
 }
 
-extension HomeVC :CarouselCVCDelegate {
+extension HomeVC: CarouselCVCDelegate {
     func cellSelected(index: Int) {
         let songDetailVC = SongDetailVC()
         self.navigationController?.pushViewController(songDetailVC, animated: true)
@@ -52,8 +52,16 @@ extension HomeVC :CarouselCVCDelegate {
     }
 }
 
-extension HomeVC :MumentsOfRevisitedCVCDelegate {
+extension HomeVC: MumentsOfRevisitedCVCDelegate {
     func cellSelected() {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        print("mumentDetailVC")
+    }
+}
+
+extension HomeVC: MumentsByTagCVCDelegate {
+    func mumentsByTagCVCSelected() {
         let mumentDetailVC = MumentDetailVC()
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
         print("mumentDetailVC")
@@ -120,6 +128,7 @@ extension HomeVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentsByTagTVC.className, for: indexPath) as? MumentsByTagTVC else {
                 return UITableViewCell()
             }
+            cell.delegate = self
             return cell
             
         default:
