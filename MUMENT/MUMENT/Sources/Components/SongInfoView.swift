@@ -46,23 +46,10 @@ class SongInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setLayout()
-//        DispatchQueue.main.async {
-//            <#code#>
-//        }
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-//        let tapGestureRecognizer = UITapGestureRecognizer()
-//        self.addGestureRecognizer(tapGestureRecognizer)
-//        tapGestureRecognizer.delegate = self
-//        self.isUserInteractionEnabled = true
     }
-    
-//    @objc func didTapView(_ sender: UITapGestureRecognizer) {
-//        print("did tap view", sender)
-//    }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        setLayout()
     }
     
     //MARK: - Functions
@@ -72,13 +59,6 @@ class SongInfoView: UIView {
         artistLabel.text = cellData.artist
     }
 }
-
-//extension SongInfoView: UIGestureRecognizerDelegate {
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-//
-//        return true
-//    }
-//}
 
 // MARK: - UI
 extension SongInfoView {
