@@ -75,7 +75,7 @@ class DetailMumentCardView: UIView {
         super.init(frame: .zero)
         setUI()
         setLayout()
-        setTags()
+//        setTags()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -94,9 +94,13 @@ class DetailMumentCardView: UIView {
         createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
+        
+        setTags()
     }
     
     func setTags(){
+        tagStackView.removeAllArrangedSubviews()
+
         let tag = TagView()
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
@@ -104,7 +108,7 @@ class DetailMumentCardView: UIView {
         
         
         if impressionTags.count != 0{
-            for i in 0...impressionTags.count{
+            for i in 0...impressionTags.count-1{
                 let tag = TagView()
                 tag.tagContent = impressionTags[i]
                 tagStackView.addArrangedSubview(tag)
@@ -112,7 +116,7 @@ class DetailMumentCardView: UIView {
         }
         
         if feelingTags.count != 0{
-            for i in 0...feelingTags.count{
+            for i in 0...feelingTags.count-1{
                 let tag = TagView()
                 tag.tagContent = feelingTags[i]
                 tagStackView.addArrangedSubview(tag)
@@ -161,7 +165,7 @@ extension DetailMumentCardView {
         tagStackView.snp.makeConstraints{
             $0.top.equalTo(songInfoView.snp.bottom).offset(13)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+//            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
         contentsLabel.snp.makeConstraints{
             $0.top.equalTo(tagStackView.snp.bottom).offset(22)

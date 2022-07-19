@@ -34,7 +34,6 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setLayout()
-        setTags()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -55,31 +54,8 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         createdAtLabel.text = cellData.createdAtLabel
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartButtonText = "\(cellData.heartCount)"
+        setTags()
     }
-    
-//    func setTags(){
-//        let tag = TagView()
-//        tag.tagType = "isFirst"
-//        tag.tagContentString = isFirst ? "처음" : "다시"
-//        tagStackView.addArrangedSubview(tag)
-//        
-//        
-//        if impressionTags.count != 0{
-//            for i in 0...impressionTags.count{
-//                let tag = TagView()
-//                tag.tagContent = impressionTags[i]
-//                tagStackView.addArrangedSubview(tag)
-//            }
-//        }
-//        
-//        if feelingTags.count != 0{
-//            for i in 0...feelingTags.count{
-//                let tag = TagView()
-//                tag.tagContent = feelingTags[i]
-//                tagStackView.addArrangedSubview(tag)
-//            }
-//        }
-//    }
 }
 
 // MARK: - UI

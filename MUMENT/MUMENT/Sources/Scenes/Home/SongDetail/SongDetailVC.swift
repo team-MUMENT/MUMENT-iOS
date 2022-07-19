@@ -106,7 +106,9 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
+//            cell.mumentCard.setTags()
             cell.setData(myMumentDataSource[0])
+//            cell.mumentCard.setTags()
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
@@ -116,6 +118,7 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(allMumentsDataSource[indexPath.row])
+            cell.mumentCard.setTags()
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
@@ -172,12 +175,9 @@ extension SongDetailVC: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0{
-
             navigationBarView.setTitle(songInfoDataSource[0].songtitle)
-            
         } else {
             navigationBarView.setTitle("")
-            
         }
      }
 }
