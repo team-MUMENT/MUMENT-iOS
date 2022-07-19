@@ -47,8 +47,13 @@ class MumentCardBySongView: UIView {
         $0.backgroundColor = .mGray4
     }
     
-    ///data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
-    let tagStackView = UIStackView()
+    var isFirst: Bool = false
+    var impressionTags: [Int] = []
+    var feelingTags: [Int] = []
+    let tagStackView = UIStackView().then{
+        $0.axis = .horizontal
+        $0.spacing = 8
+    }
     let contentsLabel = UILabel().then{
         $0.textColor = .mBlack2
         $0.lineBreakMode = .byTruncatingTail
@@ -65,11 +70,11 @@ class MumentCardBySongView: UIView {
         super.init(frame: .zero)
         setUI()
         setLayout()
+        setTags()
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        setLayout()
     }
     
     //MARK: - Functions
@@ -80,6 +85,33 @@ class MumentCardBySongView: UIView {
         createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartButtonText = "\(cellData.heartCount)"
+        isFirst = cellData.isFirst
+        impressionTags = cellData.impressionTags
+        feelingTags = cellData.feelingTags
+    }
+    
+    func setTags(){
+        let tag = TagView()
+        tag.tagType = "isFirst"
+        tag.tagContentString = isFirst ? "처음" : "다시"
+        tagStackView.addArrangedSubview(tag)
+        
+        
+        if impressionTags.count != 0{
+            for i in 0...impressionTags.count{
+                let tag = TagView()
+                tag.tagContent = impressionTags[i]
+                tagStackView.addArrangedSubview(tag)
+            }
+        }
+        
+        if feelingTags.count != 0{
+            for i in 0...feelingTags.count{
+                let tag = TagView()
+                tag.tagContent = feelingTags[i]
+                tagStackView.addArrangedSubview(tag)
+            }
+        }
     }
 }
 
