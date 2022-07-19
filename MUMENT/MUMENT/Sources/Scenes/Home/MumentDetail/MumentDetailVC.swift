@@ -22,20 +22,9 @@ class MumentDetailVC: BaseVC {
     private let mumentCardView = DetailMumentCardView()
     private let historyButton = UIButton().then{
         $0.makeRounded(cornerRadius: 11)
-//        $0.backgroundColor = .mGray4
-//        $0.configuration = .plain()
-//        $0.configuration?.image = UIImage(named: "rightArrow")
         $0.setBackgroundImage(UIImage(named:"history_btn"), for: .normal)
         $0.layer.cornerRadius = 10
-//        $0.titleLabel?.font = .mumentC1R12
-//        $0.titleLabel?.textAlignment = .left
-//            .setTitle(historyButtonText, for: .normal)
-//        $0.titleLabel?.textAlignment = .left
-//        $0.configuration?.imagePadding = 50.adjustedW
-//        $0.configuration?.imagePlacement = .trailing
-//        $0.configuration?.titleAlignment = .leading
         $0.contentHorizontalAlignment = .left
-//        $0.configuration?.background = UIImage(named:"history_btn")
     }
     
     let attributes: [NSAttributedString.Key: Any] = [
@@ -46,11 +35,6 @@ class MumentDetailVC: BaseVC {
     var historyButtonText: String = "" {
         didSet{
             historyButton.setAttributedTitle(NSAttributedString(string: historyButtonText,attributes: attributes), for: .normal)
-            historyButton.setTitle(historyButtonText, for: .normal)
-//            historyButton.titleLabel?.textAlignment = .left
-//            snp.updateConstraints{
-//                $0.height.equalTo(historyButton.frame.width*40/335)
-//            }
         }
     }
     
@@ -127,10 +111,8 @@ extension MumentDetailVC {
             $0.top.equalTo(mumentCardView.snp.bottom).offset(30)
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
-//            $0.height.equalTo(historyButton.frame.width*40/335)
             $0.height.equalTo(40)
             $0.width.equalTo(335)
-
             $0.bottom.equalToSuperview().inset(20)
         }
     }
