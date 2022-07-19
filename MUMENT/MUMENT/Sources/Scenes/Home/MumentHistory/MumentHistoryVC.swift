@@ -125,7 +125,7 @@ extension MumentHistoryVC: UITableViewDelegate {
         var cellHeight: CGFloat
         switch indexPath.section {
         case 0:
-            cellHeight = 200
+            cellHeight = UITableView.automaticDimension
         default:
             cellHeight = 0
         }
