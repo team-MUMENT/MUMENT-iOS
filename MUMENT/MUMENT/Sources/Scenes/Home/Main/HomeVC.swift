@@ -46,14 +46,12 @@ class HomeVC: BaseVC {
         headerView.searchButton.press{
             let searchVC = SearchVC()
             self.navigationController?.pushViewController(searchVC, animated: true)
-            print("searchVC")
         }
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-        print("mumentDetailVC")
     }
     
 }
@@ -80,7 +78,6 @@ extension HomeVC: CarouselCVCDelegate {
     func carouselCVCSelected() {
         let songDetailVC = SongDetailVC()
         self.navigationController?.pushViewController(songDetailVC, animated: true)
-        print("songDetailVC")
     }
 }
 
@@ -89,7 +86,6 @@ extension HomeVC: MumentsOfRevisitedCVCDelegate {
     func mumentsOfRevisitedCVCSelected() {
         let mumentDetailVC = MumentDetailVC()
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-        print("mumentDetailVC")
     }
 }
 
@@ -98,7 +94,6 @@ extension HomeVC: MumentsByTagCVCDelegate {
     func mumentsByTagCVCSelected() {
         let mumentDetailVC = MumentDetailVC()
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-        print("mumentDetailVC")
     }
 }
 

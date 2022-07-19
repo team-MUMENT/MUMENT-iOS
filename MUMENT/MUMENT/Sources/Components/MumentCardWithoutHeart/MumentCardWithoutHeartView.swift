@@ -91,12 +91,12 @@ class MumentCardWithoutHeartView: UIView {
     
     func setTags(){
         tagStackView.removeAllArrangedSubviews()
-
+        
         let tag = TagView()
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
         tagStackView.addArrangedSubview(tag)
-                
+        
         if impressionTags.count != 0{
             for i in 0...impressionTags.count-1{
                 let tag = TagView()

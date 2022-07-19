@@ -39,7 +39,7 @@ class SongDetailVC: BaseVC {
         mumentTV.separatorStyle = .none
         mumentTV.showsVerticalScrollIndicator = false
     }
-
+    
     private func setButtonActions(){
         navigationBarView.backbutton.press{
             self.navigationController?.popViewController(animated: true)
@@ -134,7 +134,6 @@ extension SongDetailVC: UITableViewDataSource {
             headerCell.historyButton.press{
                 let mumentHistoryVC = MumentHistoryVC()
                 self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
-                print("mumentHistoryVC")
             }
             return headerCell
         case 2:
@@ -177,6 +176,6 @@ extension SongDetailVC: UITableViewDelegate {
         } else {
             navigationBarView.setTitle("")
         }
-     }
+    }
 }
 
