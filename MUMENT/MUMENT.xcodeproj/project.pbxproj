@@ -56,13 +56,15 @@
 		C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48002884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480228854CD2001A7CD6 /* AlignmentLayout.swift */; };
 		C71B48052885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48042885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift */; };
+		C71B48122886DD29001A7CD6 /* SignInBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */; };
+		C71B48142886DD8E001A7CD6 /* SignAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48132886DD8E001A7CD6 /* SignAPI.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
 		C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C1287C19B00017F2DA /* NetworkResult.swift */; };
 		C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C3287C19CD0017F2DA /* APIConstants.swift */; };
 		C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C5287C19D30017F2DA /* GenericResponse.swift */; };
 		C73FC9C8287C19DA0017F2DA /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C7287C19DA0017F2DA /* NetworkConstants.swift */; };
-		C73FC9CA287C19E60017F2DA /* zzService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C9287C19E60017F2DA /* zzService.swift */; };
+		C73FC9CA287C19E60017F2DA /* SignService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C9287C19E60017F2DA /* SignService.swift */; };
 		C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */; };
 		C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CD287C19F40017F2DA /* EventLogger.swift */; };
 		C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */; };
@@ -166,13 +168,15 @@
 		C71B48002884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		C71B480228854CD2001A7CD6 /* AlignmentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentLayout.swift; sourceTree = "<group>"; };
 		C71B48042885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlignedCollectionViewLayout.swift; sourceTree = "<group>"; };
+		C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBodyModel.swift; sourceTree = "<group>"; };
+		C71B48132886DD8E001A7CD6 /* SignAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAPI.swift; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		C73FC9C1287C19B00017F2DA /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		C73FC9C3287C19CD0017F2DA /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		C73FC9C5287C19D30017F2DA /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
 		C73FC9C7287C19DA0017F2DA /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
-		C73FC9C9287C19E60017F2DA /* zzService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zzService.swift; sourceTree = "<group>"; };
+		C73FC9C9287C19E60017F2DA /* SignService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignService.swift; sourceTree = "<group>"; };
 		C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
 		C73FC9CD287C19F40017F2DA /* EventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogger.swift; sourceTree = "<group>"; };
 		C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTagCVC.swift; sourceTree = "<group>"; };
@@ -349,6 +353,22 @@
 			path = MumentAlertWithButtons;
 			sourceTree = "<group>";
 		};
+		C71B480F2886DD1C001A7CD6 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				C71B48102886DD22001A7CD6 /* Model */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		C71B48102886DD22001A7CD6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C73FC9BA287C193A0017F2DA /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */,
+				C71B48132886DD8E001A7CD6 /* SignAPI.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -382,7 +403,7 @@
 		C73FC9BD287C19560017F2DA /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C73FC9C9287C19E60017F2DA /* zzService.swift */,
+				C73FC9C9287C19E60017F2DA /* SignService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -572,6 +593,7 @@
 		C7BC6B4F2876AD26008C75CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				C71B480F2886DD1C001A7CD6 /* SignIn */,
 				C71B47E528807B56001A7CD6 /* Search */,
 				C74EC42428758D230068EB46 /* LaunchScreen.storyboard */,
 				C7BB531F2875A06800E0E889 /* Home */,
@@ -774,6 +796,7 @@
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
 				C7BC6B5A2876ADDD008C75CE /* ss.swift in Sources */,
 				4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */,
+				C71B48142886DD8E001A7CD6 /* SignAPI.swift in Sources */,
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
 				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
@@ -789,12 +812,13 @@
 				C71B48052885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift in Sources */,
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
 				4D9734F3287F3A41003EF546 /* Preview.swift in Sources */,
+				C71B48122886DD29001A7CD6 /* SignInBodyModel.swift in Sources */,
 				E781F2232881BC0800484C28 /* CellCategory.swift in Sources */,
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
 				E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				4D13A65D2882A42000197D2A /* MumentHistoryTVHeader.swift in Sources */,
-				C73FC9CA287C19E60017F2DA /* zzService.swift in Sources */,
+				C73FC9CA287C19E60017F2DA /* SignService.swift in Sources */,
 				E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */,
 				4D76046828814A8A0044F2A6 /* MyMumentSectionHeader.swift in Sources */,
 			);
