@@ -139,6 +139,7 @@ class WriteVC: BaseVC {
         $0.sectionInset = .zero
     }
     let disposeBag = DisposeBag()
+    var isFirstListen = false
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -146,8 +147,8 @@ class WriteVC: BaseVC {
         setNotificationCenter()
         setTagCV()
         setLayout()
-        setRadioButtonSelectStatus(button: firstTimeButton, isSelected: false)
-        setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: true)
+        setRadioButtonSelectStatus(button: firstTimeButton, isSelected: isFirstListen)
+        setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: !(isFirstListen))
         setRadioButton()
         setIsPrivateToggleButton()
         setContentTextView()
@@ -244,8 +245,15 @@ class WriteVC: BaseVC {
             let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel)
             mumentAlert.setTitleSubTitle(title: "뮤멘트 기록을 초기화하시겠어요?", subTitle: "확인 선택 시, 작성 중인 내용이 삭제됩니다.")
             mumentAlert.OKButton.press {
+                
+                // TODO: 함수화..
+                
+                /// 선택된 음악 초기화
                 self?.removeSelectedMusicView()
-                // TODO: 처음/다시 response값으로 초기화
+                
+                /// 처음/다시 response값으로 초기화
+                self?.setRadioButtonSelectStatus(button: self?.firstTimeButton ?? UIButton(), isSelected: self?.isFirstListen ?? true)
+                self?.setRadioButtonSelectStatus(button: self?.alreadyKnowButton ?? UIButton(), isSelected: !(self?.isFirstListen ?? true))
                 
                 /// 인상/감정 태그 배열 초기화
                 self?.feelTagCV.reloadData()
@@ -253,8 +261,12 @@ class WriteVC: BaseVC {
                 self?.clickedFeelTag = []
                 self?.clickedImpressionTag = []
                 
-                // TODO: 글 초기화
-                // TODO: 공개/비공개 토글 초기화(default: toggle off)
+                /// 글 초기화
+                self?.contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
+                self?.contentTextView.textColor = .mGray1
+                
+                /// 공개/비공개 토글 초기화(default: toggle off)
+                self?.isPrivateToggleButton.isSelected = false
             }
             self?.present(mumentAlert, animated: true)
         }
