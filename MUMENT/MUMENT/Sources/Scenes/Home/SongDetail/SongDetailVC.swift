@@ -98,6 +98,9 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(songInfoDataSource[0])
+            cell.writeMumentButton.press{
+                self.tabBarController?.selectedIndex = 1
+            }
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
