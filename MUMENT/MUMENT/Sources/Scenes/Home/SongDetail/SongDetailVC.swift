@@ -26,6 +26,7 @@ class SongDetailVC: BaseVC {
         setTV()
         setLayout()
         setSongIntfoData()
+        setButtonActions()
     }
     
     // MARK: - Functions
@@ -42,6 +43,23 @@ class SongDetailVC: BaseVC {
     
     func setSongIntfoData(){
         songInfoView.setData(songInfoDataSource[0])
+    }
+    
+    private func setButtonActions(){
+        navigationBarView.backbutton.press{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        songInfoView.writeMumentButton.press{
+            print("writeVC")
+            self.tabBarController?.selectedIndex = 1
+        }
+    }
+    
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        print("mumentDetailVC")
     }
 }
 
@@ -94,6 +112,8 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(myMumentDataSource[0])
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
             
         case 1:
@@ -101,6 +121,8 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(allMumentsDataSource[indexPath.row])
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
             
         default:
@@ -111,6 +133,11 @@ extension SongDetailVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section==0 {
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyMumentSectionHeader.className) as? MyMumentSectionHeader else { return nil }
+            headerCell.historyButton.press{
+                let mumentHistoryVC = MumentHistoryVC()
+                self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
+                print("mumentHistoryVC")
+            }
             return headerCell
         }else{
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
