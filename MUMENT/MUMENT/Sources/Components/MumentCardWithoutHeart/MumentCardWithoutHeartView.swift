@@ -68,7 +68,6 @@ class MumentCardWithoutHeartView: UIView {
         super.init(frame: .zero)
         setDefaultUI()
         setDefaultLayout()
-//        setTags()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -87,7 +86,6 @@ class MumentCardWithoutHeartView: UIView {
         isFirst = cellData.isFirst
         impressionTags = cellData.impressionTags
         feelingTags = cellData.feelingTags
-//        print(impressionTags.count)
         setTags()
     }
     
@@ -98,9 +96,7 @@ class MumentCardWithoutHeartView: UIView {
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
         tagStackView.addArrangedSubview(tag)
-        
-        print(isFirst,impressionTags,feelingTags)
-        
+                
         if impressionTags.count != 0{
             for i in 0...impressionTags.count-1{
                 let tag = TagView()
