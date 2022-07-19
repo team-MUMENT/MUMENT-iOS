@@ -60,6 +60,7 @@
 		C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48082885A877001A7CD6 /* SearchForWriteView.swift */; };
 		C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */; };
 		C71B480D2885EB84001A7CD6 /* Notification+Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */; };
+		C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48192886F5FF001A7CD6 /* Int+.swift */; };
 		C71B48122886DD29001A7CD6 /* SignInBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */; };
 		C71B48142886DD8E001A7CD6 /* SignAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48132886DD8E001A7CD6 /* SignAPI.swift */; };
 		C71B48162886E5DF001A7CD6 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48152886E5DF001A7CD6 /* SignInVC.swift */; };
@@ -178,6 +179,7 @@
 		C71B48082885A877001A7CD6 /* SearchForWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForWriteView.swift; sourceTree = "<group>"; };
 		C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMusicView.swift; sourceTree = "<group>"; };
 		C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name+.swift"; sourceTree = "<group>"; };
+		C71B48192886F5FF001A7CD6 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBodyModel.swift; sourceTree = "<group>"; };
 		C71B48132886DD8E001A7CD6 /* SignAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAPI.swift; sourceTree = "<group>"; };
 		C71B48152886E5DF001A7CD6 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				C7BC6B712877ECA0008C75CE /* CALayer+.swift */,
 				C71B47EE2881A11E001A7CD6 /* UIImageView+.swift */,
 				C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */,
+				C71B48192886F5FF001A7CD6 /* Int+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 				4D2BADD028806A75004A7E00 /* SongDetailVC.swift in Sources */,
 				C7BC6B582876ADD6008C75CE /* ww.swift in Sources */,
 				C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */,
 				4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */,
 				C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */,
 				C7BB53122875994500E0E889 /* UIViewController+.swift in Sources */,
