@@ -17,6 +17,9 @@ struct MumentCardWithoutHeartModel {
     var albumImage: UIImage? {
         return UIImage(named:albumImageTitle)
     }
+    let isFirst: Bool
+    let impressionTags: [Int]
+    let feelingTags: [Int]
     let songTitle: String
     let artistName:String
     let contentsLabel: String
@@ -26,6 +29,6 @@ struct MumentCardWithoutHeartModel {
 // MARK: - Extensions
 extension MumentCardWithoutHeartModel {
     static var sampleData: [MumentCardWithoutHeartModel] = [
-        MumentCardWithoutHeartModel(profileImageTitle:"image1", writerName:"이수지", albumImageTitle: "image4", songTitle:"Antifreeze", artistName: "백예린", contentsLabel:"음악은 저에게 영감을 줘요, 이 곡 추천해준 이부장에게 심심한 감사의 인사를 음악은 저에게 영감을 줘요.", createdAtLabel:"1 Sep, 2020")
+        MumentCardWithoutHeartModel(profileImageTitle:"image1", writerName:"이수지", albumImageTitle: "image4", isFirst:true, impressionTags: [100,101], feelingTags:[200,201], songTitle:"Antifreeze", artistName: "백예린", contentsLabel:"음악은 저에게 영감을 줘요, 이 곡 추천해준 이부장에게 심심한 감사의 인사를 음악은 저에게 영감을 줘요.", createdAtLabel:"1 Sep, 2020")
     ]
 }

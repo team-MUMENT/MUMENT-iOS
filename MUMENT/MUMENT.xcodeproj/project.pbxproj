@@ -566,13 +566,13 @@
 		C7BC6B4E2876AD22008C75CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				C71B47FD28843D4D001A7CD6 /* MumentAlertWithButtons */,
 				C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */,
 				4D13A65E2882AF1B00197D2A /* OrderingButton.swift */,
 				C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */,
 				4D76046D2881860C0044F2A6 /* MumentCardBySongView.swift */,
 				4D2BADD228806C08004A7E00 /* MumentCardBySongTVC.swift */,
 				4D760453288093280044F2A6 /* DefaultNavigationBar.swift */,
+				C71B47FD28843D4D001A7CD6 /* MumentAlertWithButtons */,
 				4D76045D2880ACC60044F2A6 /* DetailMumentCard */,
 				4D9734F1287ECE29003EF546 /* MumentCardWithoutHeart */,
 				4D9734F0287ECE1B003EF546 /* DefaultMumentCard */,

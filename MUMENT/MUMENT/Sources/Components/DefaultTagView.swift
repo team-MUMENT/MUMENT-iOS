@@ -8,31 +8,65 @@ import UIKit
 import SnapKit
 import Then
 
-class DefaultTagView: UIView {
+class TagView: UIView {
     
     // MARK: - Properties
-    //    private let profileImage = UIImageView()
+    private let contentLabel = UILabel().then {
+        $0.textAlignment = .center
+        $0.font = .mumentB8M12
+    }
+
+    var tagContent: Int = 0 {
+        didSet{
+            contentLabel.text = tagContent.string
+        }
+    }
+    
+    var tagContentString: String = ""{
+        didSet{
+            contentLabel.text = tagContentString
+        }
+    }
+    
+    var tagType = "" {
+        didSet{
+            if tagType == "isFirst" {
+                contentLabel.textColor = .mPurple1
+                self.backgroundColor = .mPurple2
+            }else{
+                contentLabel.textColor = .mGray1
+                self.backgroundColor = .mGray5
+            }
+        }
+    }
+
     
     // MARK: - Initialization
     override init(frame: CGRect) {
-        super.init(frame: .zero)
+        super.init(frame: frame)
         setLayout()
+        setUI()
     }
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-        setLayout()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
-}
-
-// MARK: - UI
-extension DefaultTagView {
-    func setLayout() {
-        //        self.addSubviews([profileImage])
-        //
-        //        profileImage.snp.makeConstraints {
-        //            $0.left.top.equalTo(self.safeAreaLayoutGuide).inset(20)
-        //        }
+    
+    // MARK: - UI
+    private func setLayout() {
+        self.addSubviews([contentLabel])
+        
+        contentLabel.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
+    
+    func setUI() {
+        self.makeRounded(cornerRadius: 20)
+    }
+    
+    // MARK: - Functions
+//    func setData(data: String) {
+//        contentLabel.text = data
+//    }
 }
-
