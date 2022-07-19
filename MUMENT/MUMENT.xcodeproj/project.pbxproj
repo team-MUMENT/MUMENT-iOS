@@ -56,6 +56,10 @@
 		C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48002884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480228854CD2001A7CD6 /* AlignmentLayout.swift */; };
 		C71B48052885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48042885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift */; };
+		C71B4807288597ED001A7CD6 /* SearchBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B4806288597ED001A7CD6 /* SearchBottomSheetVC.swift */; };
+		C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48082885A877001A7CD6 /* SearchForWriteView.swift */; };
+		C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */; };
+		C71B480D2885EB84001A7CD6 /* Notification+Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
 		C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C1287C19B00017F2DA /* NetworkResult.swift */; };
@@ -166,6 +170,10 @@
 		C71B48002884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		C71B480228854CD2001A7CD6 /* AlignmentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentLayout.swift; sourceTree = "<group>"; };
 		C71B48042885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlignedCollectionViewLayout.swift; sourceTree = "<group>"; };
+		C71B4806288597ED001A7CD6 /* SearchBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBottomSheetVC.swift; sourceTree = "<group>"; };
+		C71B48082885A877001A7CD6 /* SearchForWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForWriteView.swift; sourceTree = "<group>"; };
+		C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMusicView.swift; sourceTree = "<group>"; };
+		C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name+.swift"; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		C73FC9C1287C19B00017F2DA /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
@@ -447,6 +455,7 @@
 				C7BC6B6F28771184008C75CE /* UIStackView+.swift */,
 				C7BC6B712877ECA0008C75CE /* CALayer+.swift */,
 				C71B47EE2881A11E001A7CD6 /* UIImageView+.swift */,
+				C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -489,6 +498,9 @@
 				C7BC6B532876ADC4008C75CE /* Model */,
 				C7BB531B28759E0200E0E889 /* WriteVC.swift */,
 				C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */,
+				C71B4806288597ED001A7CD6 /* SearchBottomSheetVC.swift */,
+				C71B48082885A877001A7CD6 /* SearchForWriteView.swift */,
+				C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */,
 				C71B48002884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift */,
 				C71B480228854CD2001A7CD6 /* AlignmentLayout.swift */,
 				C71B48042885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift */,
@@ -704,11 +716,13 @@
 			files = (
 				4D64A9F1287DEEC900450FCA /* MumentCardWithoutHeartModel.swift in Sources */,
 				C73FC9C8287C19DA0017F2DA /* NetworkConstants.swift in Sources */,
+				C71B480D2885EB84001A7CD6 /* Notification+Name+.swift in Sources */,
 				C71B47FF288450FD001A7CD6 /* MumentAlertTitleType.swift in Sources */,
 				4D2BADD028806A75004A7E00 /* SongDetailVC.swift in Sources */,
 				C7BC6B582876ADD6008C75CE /* ww.swift in Sources */,
 				C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */,
+				C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */,
 				C7BB53122875994500E0E889 /* UIViewController+.swift in Sources */,
 				C7BC6B6E28771152008C75CE /* UserDefaults+.swift in Sources */,
 				C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */,
@@ -778,6 +792,7 @@
 				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
 				4D7604662880C8ED0044F2A6 /* MumentDetailVCModel.swift in Sources */,
+				C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */,
 				4D760454288093280044F2A6 /* DefaultNavigationBar.swift in Sources */,
 				4D2BADD928807281004A7E00 /* SongInfoView.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
@@ -789,6 +804,7 @@
 				C71B48052885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift in Sources */,
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
 				4D9734F3287F3A41003EF546 /* Preview.swift in Sources */,
+				C71B4807288597ED001A7CD6 /* SearchBottomSheetVC.swift in Sources */,
 				E781F2232881BC0800484C28 /* CellCategory.swift in Sources */,
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
 				E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */,
@@ -937,7 +953,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T24N5ZR2DS;
+				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -967,7 +983,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T24N5ZR2DS;
+				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
