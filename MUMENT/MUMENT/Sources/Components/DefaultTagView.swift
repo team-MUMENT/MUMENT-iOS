@@ -18,7 +18,7 @@ class TagView: UIView {
 
     var tagContent: Int = 0 {
         didSet{
-            contentLabel.text = tagContent.string
+            contentLabel.text = tagContent.tagString()
         }
     }
     
