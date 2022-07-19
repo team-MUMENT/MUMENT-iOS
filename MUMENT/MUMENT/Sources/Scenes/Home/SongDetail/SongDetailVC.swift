@@ -13,7 +13,6 @@ class SongDetailVC: BaseVC {
     
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
-//    private let songInfoView = SongInfoView()
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
     var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
@@ -25,7 +24,6 @@ class SongDetailVC: BaseVC {
         super.viewDidLoad()
         setTV()
         setLayout()
-//        setSongIntfoData()
         setButtonActions()
     }
     
@@ -41,20 +39,11 @@ class SongDetailVC: BaseVC {
         mumentTV.separatorStyle = .none
         mumentTV.showsVerticalScrollIndicator = false
     }
-    
-//    func setSongIntfoData(){
-//        songInfoView.setData(songInfoDataSource[0])
-//    }
-    
+
     private func setButtonActions(){
         navigationBarView.backbutton.press{
             self.navigationController?.popViewController(animated: true)
         }
-        
-//        songInfoView.writeMumentButton.press{
-//            print("writeVC")
-//            self.tabBarController?.selectedIndex = 1
-//        }
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
@@ -68,20 +57,12 @@ class SongDetailVC: BaseVC {
 extension SongDetailVC {
     
     private func setLayout() {
-        view.addSubviews([navigationBarView,
-//songInfoView,
-                          mumentTV])
+        view.addSubviews([navigationBarView,mumentTV])
         
         navigationBarView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(48)
         }
-        
-//        songInfoView.snp.makeConstraints {
-//            $0.top.equalTo(navigationBarView.snp.bottom)
-//            $0.left.right.equalTo(view.safeAreaLayoutGuide)
-//            $0.height.equalTo(230)
-//        }
         
         mumentTV.snp.makeConstraints{
             $0.top.equalTo(navigationBarView.snp.bottom)
@@ -117,8 +98,6 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(songInfoDataSource[0])
-//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-//            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {

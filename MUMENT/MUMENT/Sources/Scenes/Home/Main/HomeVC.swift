@@ -63,17 +63,13 @@ extension HomeVC {
     
     private func setLayout() {
         view.addSubviews([homeTV,headerView])
-//        view.addSubviews([headerView,homeTV])///이면 헤더가 안 보임. 
         
         headerView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(headerViewMaxHeight)
-            
         }
         
         homeTV.snp.makeConstraints {
-//            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
-//            $0.top.equalTo(headerView.snp.bottom)
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
