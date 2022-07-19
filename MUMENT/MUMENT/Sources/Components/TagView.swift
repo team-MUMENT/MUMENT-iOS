@@ -16,7 +16,7 @@ class TagView: UIView {
         $0.font = .mumentB8M12
         $0.textColor = .mGray1
     }
-
+    
     var tagContent: Int = 0 {
         didSet{
             contentLabel.text = tagContent.tagString()
@@ -37,7 +37,7 @@ class TagView: UIView {
             }
         }
     }
-
+    
     
     // MARK: - Initialization
     override init(frame: CGRect) {

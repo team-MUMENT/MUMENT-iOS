@@ -99,7 +99,7 @@ class DetailMumentCardView: UIView {
     
     func setTags(){
         tagStackView.removeAllArrangedSubviews()
-
+        
         let tag = TagView()
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
