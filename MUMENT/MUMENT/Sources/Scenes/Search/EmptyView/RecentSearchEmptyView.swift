@@ -62,4 +62,9 @@ extension RecentSearchEmptyView {
             $0.leading.trailing.equalToSuperview()
         }
     }
+    
+    func setUIForBottonSheet() {
+        imageView.image = UIImage(named: "mumentHeadSetEmptyRecentSearch")
+        titleLabel.text = "감상을 남기고 싶은 곡을 찾아보세요."
+    }
 }
