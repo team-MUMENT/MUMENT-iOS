@@ -22,12 +22,9 @@ class MumentDetailVC: BaseVC {
     private let mumentCardView = DetailMumentCardView()
     private let historyButton = UIButton().then{
         $0.makeRounded(cornerRadius: 11)
-        $0.backgroundColor = .mGray4
-        $0.configuration = .plain()
-        $0.configuration?.image = UIImage(named: "rightArrow")
+        $0.setBackgroundImage(UIImage(named:"history_btn"), for: .normal)
         $0.layer.cornerRadius = 10
-        $0.configuration?.imagePadding = 120
-        $0.configuration?.imagePlacement = .trailing
+        $0.contentHorizontalAlignment = .left
     }
     
     let attributes: [NSAttributedString.Key: Any] = [
@@ -56,7 +53,7 @@ class MumentDetailVC: BaseVC {
     func setData(){
         navigationBarView.setTitle("뮤멘트")
         mumentCardView.setData(dataSource[0])
-        historyButtonText = "\(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
+        historyButtonText = "     \(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
     }
     
     func setClickEventHandlers(){
@@ -115,6 +112,7 @@ extension MumentDetailVC {
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(40)
+            $0.width.equalTo(335)
             $0.bottom.equalToSuperview().inset(20)
         }
     }
