@@ -75,7 +75,6 @@ class DetailMumentCardView: UIView {
         super.init(frame: .zero)
         setUI()
         setLayout()
-//        setTags()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -105,7 +104,6 @@ class DetailMumentCardView: UIView {
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
         tagStackView.addArrangedSubview(tag)
-        
         
         if impressionTags.count != 0{
             for i in 0...impressionTags.count-1{
@@ -165,7 +163,6 @@ extension DetailMumentCardView {
         tagStackView.snp.makeConstraints{
             $0.top.equalTo(songInfoView.snp.bottom).offset(13)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-//            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
         contentsLabel.snp.makeConstraints{
             $0.top.equalTo(tagStackView.snp.bottom).offset(22)

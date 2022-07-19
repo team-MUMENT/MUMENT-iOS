@@ -70,7 +70,6 @@ class MumentCardBySongView: UIView {
         super.init(frame: .zero)
         setUI()
         setLayout()
-//        setTags()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -92,9 +91,8 @@ class MumentCardBySongView: UIView {
     }
     
     func setTags(){
-//        tagStackView.removeArrangedSubview(<#T##view: UIView##UIView#>)
         tagStackView.removeAllArrangedSubviews()
-//        tagStackView.removeFromSuperview()
+        
         let tag = TagView()
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
@@ -152,14 +150,13 @@ extension MumentCardBySongView {
         
         tagStackView.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-//            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.top.equalTo(separatorView.snp.bottom).offset(11)
         }
         
         contentsLabel.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.top.equalTo(tagStackView.snp.bottom).offset(10)
+            $0.top.equalTo(tagStackView.snp.bottom).offset(8)
         }
         
         createdAtLabel.snp.makeConstraints{

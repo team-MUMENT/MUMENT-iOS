@@ -106,9 +106,7 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
-//            cell.mumentCard.setTags()
             cell.setData(myMumentDataSource[0])
-//            cell.mumentCard.setTags()
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
@@ -166,7 +164,7 @@ extension SongDetailVC: UITableViewDelegate {
         case 0:
             cellHeight = 200
         case 1,2:
-            cellHeight = 200
+            cellHeight = 220
         default:
             cellHeight = 0
         }
