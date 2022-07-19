@@ -44,7 +44,6 @@ class MumentCardWithoutHeartView: UIView {
         $0.font = .mumentB6M13
     }
     
-    ///data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
     var isFirst: Bool = false
     var impressionTags: [Int] = []
     var feelingTags: [Int] = []
@@ -69,7 +68,7 @@ class MumentCardWithoutHeartView: UIView {
         super.init(frame: .zero)
         setDefaultUI()
         setDefaultLayout()
-        setTags()
+//        setTags()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -89,17 +88,21 @@ class MumentCardWithoutHeartView: UIView {
         impressionTags = cellData.impressionTags
         feelingTags = cellData.feelingTags
 //        print(impressionTags.count)
+        setTags()
     }
     
     func setTags(){
+        tagStackView.removeAllArrangedSubviews()
+
         let tag = TagView()
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
         tagStackView.addArrangedSubview(tag)
         
+        print(isFirst,impressionTags,feelingTags)
         
         if impressionTags.count != 0{
-            for i in 0...impressionTags.count{
+            for i in 0...impressionTags.count-1{
                 let tag = TagView()
                 tag.tagContent = impressionTags[i]
                 tagStackView.addArrangedSubview(tag)
@@ -107,7 +110,7 @@ class MumentCardWithoutHeartView: UIView {
         }
         
         if feelingTags.count != 0{
-            for i in 0...feelingTags.count{
+            for i in 0...feelingTags.count-1{
                 let tag = TagView()
                 tag.tagContent = feelingTags[i]
                 tagStackView.addArrangedSubview(tag)

@@ -14,6 +14,8 @@ class TagView: UIView {
     private let contentLabel = UILabel().then {
         $0.textAlignment = .center
         $0.font = .mumentB8M12
+        $0.textColor = .mGray1
+        $0.backgroundColor = .mGray5
     }
 
     var tagContent: Int = 0 {
@@ -32,10 +34,7 @@ class TagView: UIView {
         didSet{
             if tagType == "isFirst" {
                 contentLabel.textColor = .mPurple1
-                self.backgroundColor = .mPurple2
-            }else{
-                contentLabel.textColor = .mGray1
-                self.backgroundColor = .mGray5
+                contentLabel.backgroundColor = .mPurple2
             }
         }
     }
@@ -57,7 +56,11 @@ class TagView: UIView {
         self.addSubviews([contentLabel])
         
         contentLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+//            $0.edges.equalToSuperview()
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(7)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(7)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(5)
         }
     }
     
