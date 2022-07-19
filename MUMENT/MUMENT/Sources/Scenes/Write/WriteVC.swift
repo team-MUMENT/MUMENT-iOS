@@ -155,6 +155,7 @@ class WriteVC: BaseVC {
         hideKeyboardWhenTappedAround()
         setContentTextCounting()
         setSearchButton()
+        setRemoveSelectedMusicButton()
     }
     
     // MARK: - Functions
@@ -229,6 +230,12 @@ class WriteVC: BaseVC {
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func setRemoveSelectedMusicButton() {
+        selectedMusicView.removeButton.press { [weak self] in
+            self?.removeSelectedMusicView()
+        }
     }
 }
 
