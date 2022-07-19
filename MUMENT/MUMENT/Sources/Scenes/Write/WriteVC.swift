@@ -157,10 +157,10 @@ class WriteVC: BaseVC {
         setSearchButton()
         setRemoveSelectedMusicButton()
         setSelectedMusicViewPressed()
+        setResetButton()
     }
     
     // MARK: - Functions
-    
     private func setNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(setSelectedMusicViewForReceived(_:)), name: .sendSearchResult, object: nil)
     }
@@ -238,6 +238,18 @@ class WriteVC: BaseVC {
             self?.removeSelectedMusicView()
         }
     }
+    
+    private func setResetButton() {
+        resetButton.press { [weak self] in
+            let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel)
+            mumentAlert.setTitleSubTitle(title: "뮤멘트 기록을 초기화하시겠어요?", subTitle: "확인 선택 시, 작성 중인 내용이 삭제됩니다.")
+            mumentAlert.OKButton.press {
+                self?.removeSelectedMusicView()
+            }
+            self?.present(mumentAlert, animated: true)
+        }
+    }
+    
     private func setSelectedMusicViewPressed() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSelectedMusicView(_:)))
         selectedMusicView.addGestureRecognizer(tapGestureRecognizer)
