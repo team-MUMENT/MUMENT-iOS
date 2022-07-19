@@ -1,3 +1,4 @@
+
 //
 //  MumentsByTagCVC.swift
 //  MUMENT
@@ -7,6 +8,10 @@
 import UIKit
 import SnapKit
 import Then
+
+protocol MumentsByTagCVCDelegate : AnyObject{
+    func mumentsByTagCVCSelected()
+}
 
 class MumentsByTagCVC: UICollectionViewCell {
     

@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol MumentsOfRevisitedCVCDelegate : AnyObject{
+    func mumentsOfRevisitedCVCSelected()
+}
+
 class MumentsOfRevisitedCVC: UICollectionViewCell {
     
     // MARK: - Properties

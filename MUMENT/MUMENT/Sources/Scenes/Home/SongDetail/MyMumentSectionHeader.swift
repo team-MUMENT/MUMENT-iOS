@@ -18,7 +18,7 @@ class MyMumentSectionHeader: UITableViewHeaderFooterView {
         $0.font = .mumentB1B15
     }
     
-    private let historyButton = UIButton().then{
+    let historyButton = UIButton().then{
         $0.configuration = .plain()
         $0.configuration?.imagePlacement = .trailing
         $0.setAttributedTitle(NSAttributedString(string: "나의 히스토리 보기 >", attributes: [
