@@ -239,6 +239,33 @@ class WriteVC: BaseVC {
     }
 }
 
+// TODO: 컬렉션뷰 진짜 개모르겠다. 말렸다. ㅋ  종일 햇는데 컬렉션뷰에 잡아먹힌 기분이다. 나중에 할 거다. 며칠만 뒤에... 뇌를 좀 상쾌하게 바꾸고 다시 도전한다 .....................
+// MARK: - UICollectionViewDataSource
+extension WriteVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch collectionView {
+        case impressionTagCV:
+            return impressionTagDummyData.count
+        case feelTagCV:
+            return feelTagDummyData.count
+        default: return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WriteTagCVC.className, for: indexPath) as! WriteTagCVC
+        switch collectionView {
+        case impressionTagCV:
+            cell.setData(data: impressionTagDummyData[indexPath.row])
+            return cell
+        case feelTagCV:
+            cell.setData(data: feelTagDummyData[indexPath.row])
+            return cell
+        default: return cell
+        }
+    }
+}
+
 // MARK: - UICollectionViewDelegateFlowLayout
 extension WriteVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -441,33 +468,6 @@ extension WriteVC {
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(60)
             $0.bottom.equalToSuperview().inset(45)
-        }
-    }
-}
-
-// TODO: 컬렉션뷰 진짜 개모르겠다. 말렸다. ㅋ  종일 햇는데 컬렉션뷰에 잡아먹힌 기분이다. 나중에 할 거다. 며칠만 뒤에... 뇌를 좀 상쾌하게 바꾸고 다시 도전한다 .....................
-// MARK: - UICollectionViewDataSource
-extension WriteVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView {
-        case impressionTagCV:
-            return impressionTagDummyData.count
-        case feelTagCV:
-            return feelTagDummyData.count
-        default: return 0
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WriteTagCVC.className, for: indexPath) as! WriteTagCVC
-        switch collectionView {
-        case impressionTagCV:
-            cell.setData(data: impressionTagDummyData[indexPath.row])
-            return cell
-        case feelTagCV:
-            cell.setData(data: feelTagDummyData[indexPath.row])
-            return cell
-        default: return cell
         }
     }
 }
