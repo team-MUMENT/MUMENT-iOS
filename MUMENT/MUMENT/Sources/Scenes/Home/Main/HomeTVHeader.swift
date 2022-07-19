@@ -32,6 +32,10 @@ class HomeTVHeader: UIView {
         $0.contentHorizontalAlignment = .left
     }
     
+    private let headerCoverView = UIView().then{
+        $0.backgroundColor = .mBgwhite
+    }
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -48,7 +52,9 @@ class HomeTVHeader: UIView {
 extension HomeTVHeader {
     
     private func setLayout() {
-        self.addSubviews([logoButton,notificationButton,searchButton])
+        self.addSubviews([logoButton,notificationButton,searchButton
+//                          ,headerCoverView
+                         ])
         self.backgroundColor = .mBgwhite
        
         searchButton.snp.makeConstraints{
@@ -73,9 +79,15 @@ extension HomeTVHeader {
             $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
 //            $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
 //            $0.top.equalToSuperview().offset(11)
-            $0.width.height.equalTo(23)
+            $0.width.height.equalTo(48)
 //            $0.bottom.equalTo(searchButton.snp.top).inset(15)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(65)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(55)
         }
+        
+//        headerCoverView.snp.makeConstraints{
+//            $0.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
+//            $0.height.equalTo(48)
+//            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+//        }
     }
 }
