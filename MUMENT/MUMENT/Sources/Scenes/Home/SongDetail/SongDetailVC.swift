@@ -164,7 +164,7 @@ extension SongDetailVC: UITableViewDelegate {
         case 0:
             cellHeight = 200
         case 1,2:
-            cellHeight = 220
+            cellHeight = UITableView.automaticDimension
         default:
             cellHeight = 0
         }
