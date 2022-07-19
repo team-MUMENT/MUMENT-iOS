@@ -239,6 +239,69 @@ class WriteVC: BaseVC {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+extension WriteVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let sizingCell = WriteTagCVC()
+        switch collectionView {
+        case impressionTagCV:
+            sizingCell.setData(data: impressionTagDummyData[indexPath.row])
+        case feelTagCV:
+            sizingCell.setData(data: feelTagDummyData[indexPath.row])
+        default: break
+        }
+
+        sizingCell.contentLabel.sizeToFit()
+
+        let cellWidth = sizingCell.contentLabel.frame.width + 26
+        let cellHeight = tagCellHeight
+        return CGSize(width: cellWidth, height: CGFloat(cellHeight))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
+            cell.isSelected = true
+        }
+        debugPrint("cell clicked", "\(indexPath)")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
+            cell.isSelected = false
+        }
+        debugPrint("cell Unclicked", "\(indexPath)")
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension WriteVC: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if contentTextView.textColor == UIColor.mGray1 {
+            contentTextView.text = nil
+            contentTextView.textColor = .mBlack2
+        }
+        
+        writeScrollView.setContentOffset(CGPoint(x: 0, y: contentLabel.frame.midY - 20.adjustedH), animated: true)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if contentTextView.text.isEmpty {
+            contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
+            contentTextView.textColor = .mGray1
+        }
+        
+        writeScrollView.setContentOffset(CGPoint(x: 0, y: writeScrollView.contentSize.height - writeScrollView.bounds.height), animated: true)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = contentTextView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
+        return changedText.count <= 1000
+    }
+}
+
 // MARK: - UI
 extension WriteVC {
     
@@ -406,68 +469,5 @@ extension WriteVC: UICollectionViewDataSource {
             return cell
         default: return cell
         }
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension WriteVC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let sizingCell = WriteTagCVC()
-        switch collectionView {
-        case impressionTagCV:
-            sizingCell.setData(data: impressionTagDummyData[indexPath.row])
-        case feelTagCV:
-            sizingCell.setData(data: feelTagDummyData[indexPath.row])
-        default: break
-        }
-
-        sizingCell.contentLabel.sizeToFit()
-
-        let cellWidth = sizingCell.contentLabel.frame.width + 26
-        let cellHeight = tagCellHeight
-        return CGSize(width: cellWidth, height: CGFloat(cellHeight))
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
-            cell.isSelected = true
-        }
-        debugPrint("cell clicked", "\(indexPath)")
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
-        if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
-            cell.isSelected = false
-        }
-        debugPrint("cell Unclicked", "\(indexPath)")
-    }
-}
-
-// MARK: - UITextViewDelegate
-extension WriteVC: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if contentTextView.textColor == UIColor.mGray1 {
-            contentTextView.text = nil
-            contentTextView.textColor = .mBlack2
-        }
-        
-        writeScrollView.setContentOffset(CGPoint(x: 0, y: contentLabel.frame.midY - 20.adjustedH), animated: true)
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if contentTextView.text.isEmpty {
-            contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
-            contentTextView.textColor = .mGray1
-        }
-        
-        writeScrollView.setContentOffset(CGPoint(x: 0, y: writeScrollView.contentSize.height - writeScrollView.bounds.height), animated: true)
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let currentText = contentTextView.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
-        return changedText.count <= 1000
     }
 }
