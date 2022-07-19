@@ -9,9 +9,14 @@ import UIKit
 import SnapKit
 import Then
 
+protocol CarouselCVCDelegate : AnyObject{
+    func carouselCVCSelected()
+}
+
 class CarouselCVC: UICollectionViewCell {
     
     // MARK: - Properties
+    var delegate: CarouselCVCDelegate?
     var pageValue: String = "" {
         didSet{
             let highlitedString = NSAttributedString(string:  pageValue, attributes: [

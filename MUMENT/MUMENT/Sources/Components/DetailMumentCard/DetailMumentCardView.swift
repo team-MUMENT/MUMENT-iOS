@@ -33,7 +33,7 @@ class DetailMumentCardView: UIView {
         $0.backgroundColor = .mGray4
     }
     
-    private let songInfoView = DetailSongInfoView()
+    let songInfoView = DetailSongInfoView()
     
     private let tagStackView = UIStackView()
     private let contentsLabel = UILabel().then{
@@ -73,8 +73,6 @@ class DetailMumentCardView: UIView {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        setUI()
-        setLayout()
     }
     
     //MARK: - Functions
@@ -122,6 +120,8 @@ extension DetailMumentCardView {
         songInfoView.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(7)
             $0.top.equalTo(separatorView.snp.bottom).offset(7)
+            $0.height.equalTo(72)
+            $0.width.equalTo(144)
         }
         
         tagStackView.snp.makeConstraints{
