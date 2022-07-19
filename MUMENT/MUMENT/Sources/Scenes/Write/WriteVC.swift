@@ -119,7 +119,7 @@ class WriteVC: BaseVC {
     }
     private let selectedMusicView = WriteMusicView()
     
-    var clickedimpressionTag: [Int] = []
+    var clickedImpressionTag: [Int] = []
     var clickedFeelTag: [Int] = []
     var impressionTagDummyData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
     var feelTagDummyData = ["🎡 벅참", "🍁 센치함", "⌛️ 아련함", "😄 신남", "😔 우울", "💭 회상", "💐 설렘", "🕰 그리움", " 👥 위로", "😚 행복", "🛌 외로움", "🌅 낭만", "🙌 자신감", "🌋 스트레스", "☕️ 차분", "🍀 여유로움"]
@@ -245,6 +245,16 @@ class WriteVC: BaseVC {
             mumentAlert.setTitleSubTitle(title: "뮤멘트 기록을 초기화하시겠어요?", subTitle: "확인 선택 시, 작성 중인 내용이 삭제됩니다.")
             mumentAlert.OKButton.press {
                 self?.removeSelectedMusicView()
+                // TODO: 처음/다시 response값으로 초기화
+                
+                /// 인상/감정 태그 배열 초기화
+                self?.feelTagCV.reloadData()
+                self?.impressionTagCV.reloadData()
+                self?.clickedFeelTag = []
+                self?.clickedImpressionTag = []
+                
+                // TODO: 글 초기화
+                // TODO: 공개/비공개 토글 초기화(default: toggle off)
             }
             self?.present(mumentAlert, animated: true)
         }
