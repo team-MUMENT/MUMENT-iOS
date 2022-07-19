@@ -18,7 +18,7 @@ class MumentForTodayTVC: UITableViewCell {
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
-    private let mumentCardView = DefaultMumentCardView()
+    let mumentCardView = DefaultMumentCardView()
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
