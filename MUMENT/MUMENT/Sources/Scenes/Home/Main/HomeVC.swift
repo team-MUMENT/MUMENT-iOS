@@ -12,6 +12,8 @@ class HomeVC: BaseVC {
     // MARK: - Properties
     private let headerView = HomeTVHeader()
     private let homeTV = UITableView()
+    private let headerViewMaxHeight: CGFloat = 107.0 //headerView의 최대 높이값
+    private let headerViewMinHeight: CGFloat = 50.0 //headerVIew의 최소 높이값
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -34,6 +36,8 @@ class HomeVC: BaseVC {
         homeTV.rowHeight = 48
         homeTV.separatorStyle = .none
         homeTV.showsVerticalScrollIndicator = false
+        
+        homeTV.contentInset = UIEdgeInsets(top: headerViewMaxHeight, left: 0, bottom: 0, right: 0)
     }
 }
 
@@ -41,16 +45,19 @@ class HomeVC: BaseVC {
 extension HomeVC {
     
     private func setLayout() {
-        view.addSubviews([headerView,homeTV])
+        view.addSubviews([homeTV,headerView])
+//        view.addSubviews([headerView,homeTV])///이면 헤더가 안 보임. 
         
         headerView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(107)
+            $0.height.equalTo(headerViewMaxHeight)
+            
         }
         
         homeTV.snp.makeConstraints {
-            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.top.equalTo(headerView.snp.bottom)
+//            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+//            $0.top.equalTo(headerView.snp.bottom)
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -121,4 +128,16 @@ extension HomeVC: UITableViewDelegate {
         }
         return cellHeight
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 0{
+            headerView.snp.updateConstraints{
+                $0.height.equalTo(max(abs(scrollView.contentOffset.y), headerViewMinHeight))
+            }
+        } else {
+            headerView.snp.updateConstraints{
+                $0.height.equalTo(headerViewMinHeight)
+            }
+        }
+     }
 }
