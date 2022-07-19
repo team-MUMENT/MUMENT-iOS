@@ -156,6 +156,7 @@ class WriteVC: BaseVC {
         setContentTextCounting()
         setSearchButton()
         setRemoveSelectedMusicButton()
+        setSelectedMusicViewPressed()
     }
     
     // MARK: - Functions
@@ -235,6 +236,17 @@ class WriteVC: BaseVC {
     private func setRemoveSelectedMusicButton() {
         selectedMusicView.removeButton.press { [weak self] in
             self?.removeSelectedMusicView()
+        }
+    }
+    private func setSelectedMusicViewPressed() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSelectedMusicView(_:)))
+        selectedMusicView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func didTapSelectedMusicView(_ sender: UITapGestureRecognizer) {
+        let searchBottomSheet = SearchBottomSheetVC()
+        self.present(searchBottomSheet, animated: false) {
+            searchBottomSheet.showBottomSheetWithAnimation()
         }
     }
 }
