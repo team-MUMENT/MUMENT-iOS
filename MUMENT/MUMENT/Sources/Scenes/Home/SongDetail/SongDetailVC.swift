@@ -18,6 +18,8 @@ class SongDetailVC: BaseVC {
     var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
+//    var songInfoData:
+    var allMumentsData: [AllMumentsResponseModel.MumentList] = []
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -25,7 +27,7 @@ class SongDetailVC: BaseVC {
         setTV()
         setLayout()
         setButtonActions()
-        requestGetSongInfo()
+//        requestGetSongInfo()
         requestGetAllMuments()
         
     }
@@ -88,7 +90,7 @@ extension SongDetailVC: UITableViewDataSource {
         case 1 :
             return myMumentDataSource.count
         case 2:
-            return allMumentsDataSource.count
+            return allMumentsData.count
         default:
             return 0
         }
@@ -118,8 +120,7 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
-            cell.setData(allMumentsDataSource[indexPath.row])
-            cell.mumentCard.setTags()
+            cell.setData(allMumentsData[indexPath.row])
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
@@ -190,7 +191,7 @@ extension SongDetailVC {
            
         case .success(let response):
           if let res = response as? SongInfoResponseModel {
-              print(res.myMument)
+//              print(res.myMument)
               
           }
         default:
@@ -205,7 +206,9 @@ extension SongDetailVC {
          
       case .success(let response):
         if let res = response as? AllMumentsResponseModel {
-          print(res.mumentList)
+            print(res.mumentList, "jjjjjjj")
+            self.allMumentsData = res.mumentList
+            self.mumentTV.reloadData()
         }
 
       default:
