@@ -50,6 +50,7 @@ class MumentCardBySongView: UIView {
     var isFirst: Bool = false
     var impressionTags: [Int] = []
     var feelingTags: [Int] = []
+    var cardTags: [Int] = []
     let tagStackView = UIStackView().then{
         $0.axis = .horizontal
         $0.spacing = 8
@@ -90,6 +91,20 @@ class MumentCardBySongView: UIView {
         setTags()
     }
     
+    func setData(_ cellData: AllMumentsResponseModel.MumentList){
+        profileImage.setImageUrl(cellData.user.image)
+        writerNameLabel.text = cellData.user.name
+        contentsLabel.text = cellData.content
+        createdAtLabel.text = cellData.date
+        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+        heartButtonText = "\(cellData.likeCount)"
+        isFirst = cellData.isFirst
+//        impressionTags = cellData.impressionTag
+//        feelingTags = cellData.feelingTag
+        cardTags = cellData.cardTag
+        setTags()
+    }
+    
     func setTags(){
         tagStackView.removeAllArrangedSubviews()
         
@@ -98,21 +113,28 @@ class MumentCardBySongView: UIView {
         tag.tagContentString = isFirst ? "처음" : "다시"
         tagStackView.addArrangedSubview(tag)
                 
-        if impressionTags.count != 0{
-            for i in 0...impressionTags.count-1{
-                let tag = TagView()
-                tag.tagContent = impressionTags[i]
-                tagStackView.addArrangedSubview(tag)
-            }
-        }
-        
-        if feelingTags.count != 0{
-            for i in 0...feelingTags.count-1{
-                let tag = TagView()
-                tag.tagContent = feelingTags[i]
-                tagStackView.addArrangedSubview(tag)
-            }
-        }
+//        if impressionTags.count != 0{
+//            for i in 0...impressionTags.count-1{
+//                let tag = TagView()
+//                tag.tagContent = impressionTags[i]
+//                tagStackView.addArrangedSubview(tag)
+//            }
+//        }
+//
+//        if feelingTags.count != 0{
+//            for i in 0...feelingTags.count-1{
+//                let tag = TagView()
+//                tag.tagContent = feelingTags[i]
+//                tagStackView.addArrangedSubview(tag)
+//            }
+//        }
+        if cardTags.count != 0{
+                    for i in 0...cardTags.count-1{
+                        let tag = TagView()
+                        tag.tagContent = cardTags[i]
+                        tagStackView.addArrangedSubview(tag)
+                    }
+                }
         
     }
 }
