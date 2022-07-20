@@ -45,12 +45,16 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         profileImage.image = cellData.profileImage
         writerNameLabel.text = cellData.writerName
         albumImage.image = cellData.albumImage
+        isFirst = cellData.isFirst
+        impressionTags = cellData.impressionTags
+        feelingTags = cellData.feelingTags
         songTitleLabel.text = cellData.songTitle
         artistLabel.text = cellData.artistName
         contentsLabel.text = cellData.contentsLabel
         createdAtLabel.text = cellData.createdAtLabel
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartButtonText = "\(cellData.heartCount)"
+        setTags()
     }
 }
 
