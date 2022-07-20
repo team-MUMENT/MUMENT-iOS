@@ -120,8 +120,16 @@ class WriteVC: BaseVC {
     }
     private let selectedMusicView = WriteMusicView()
     
-    var clickedImpressionTag: [Int] = []
-    var clickedFeelTag: [Int] = []
+    var clickedImpressionTag: [Int] = [] {
+        didSet {
+            postMumentData.impressionTag = clickedImpressionTag
+        }
+    }
+    var clickedFeelTag: [Int] = [] {
+        didSet {
+            postMumentData.feelingTag = clickedFeelTag
+        }
+    }
     var impressionTagDummyData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
     var feelTagDummyData = ["🎡 벅참", "🍁 센치함", "⌛️ 아련함", "😄 신남", "😔 우울", "💭 회상", "💐 설렘", "🕰 그리움", " 👥 위로", "😚 행복", "🛌 외로움", "🌅 낭만", "🙌 자신감", "🌋 스트레스", "☕️ 차분", "🍀 여유로움"]
     
@@ -141,6 +149,8 @@ class WriteVC: BaseVC {
     }
     let disposeBag = DisposeBag()
     var isFirstListen = false
+    var musicId = ""
+    var postMumentData = PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false)
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -160,7 +170,7 @@ class WriteVC: BaseVC {
         setRemoveSelectedMusicButton()
         setSelectedMusicViewPressed()
         setResetButton()
-        
+        setCompleteButton()
     }
     
     // MARK: - Functions
@@ -173,12 +183,30 @@ class WriteVC: BaseVC {
         if let receivedData = notification.object as? SearchResultResponseModelElement {
             self.selectedMusicView.setData(data: receivedData)
             getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: receivedData.id)
+            musicId = receivedData.id
             setIsEnableCompleteButton(isEnabled: true)
         }
     }
     
     private func setDisableToggleButton() {
         // TODO: 처음들은곡/다시들은곡 선택 막는 거 alert이랑 ...
+    }
+    
+    private func setCompleteButton() {
+        completeButton.press { [weak self] in
+            self?.feelTagCV.indexPathsForSelectedItems?.forEach {
+                let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
+                self?.clickedFeelTag.append(cell.contentLabel.text?.tagInt() ?? 0)
+            }
+            
+            self?.impressionTagCV.indexPathsForSelectedItems?.forEach {
+                let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
+                self?.clickedImpressionTag.append(cell.contentLabel.text?.tagInt() ?? 0)
+            }
+            
+            self?.postMumentData = PostMumentBodyModel(isFirst: self?.firstTimeButton.isSelected ?? false, impressionTag: self?.clickedImpressionTag ?? [], feelingTag: self?.clickedFeelTag ?? [], content: self?.contentTextView.text ?? "", isPrivate: self?.isPrivateToggleButton.isSelected ?? false)
+            self?.postMument(userId: UserInfo.shared.userId ?? "", musicId: self?.musicId ?? "", data: self?.postMumentData ?? PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false))
+        }
     }
     
     private func setIsEnableCompleteButton(isEnabled: Bool) {
@@ -257,32 +285,8 @@ class WriteVC: BaseVC {
         resetButton.press { [weak self] in
             let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel)
             mumentAlert.setTitleSubTitle(title: "뮤멘트 기록을 초기화하시겠어요?", subTitle: "확인 선택 시, 작성 중인 내용이 삭제됩니다.")
-            mumentAlert.OKButton.press {
-                
-                // TODO: 함수화..
-                
-                /// 선택된 음악 초기화
-                self?.removeSelectedMusicView()
-                
-                /// 처음/다시 response값으로 초기화
-                self?.setRadioButtonSelectStatus(button: self?.firstTimeButton ?? UIButton(), isSelected: self?.isFirstListen ?? false)
-                self?.setRadioButtonSelectStatus(button: self?.alreadyKnowButton ?? UIButton(), isSelected: self?.isFirstListen ?? false)
-                
-                /// 인상/감정 태그 배열 초기화
-                self?.feelTagCV.reloadData()
-                self?.impressionTagCV.reloadData()
-                self?.clickedFeelTag = []
-                self?.clickedImpressionTag = []
-                
-                /// 글 초기화
-                self?.contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
-                self?.contentTextView.textColor = .mGray1
-                
-                /// 공개/비공개 토글 초기화(default: toggle off)
-                self?.isPrivateToggleButton.isSelected = false
-                
-                /// 완료 버튼 비활성화
-                self?.setIsEnableCompleteButton(isEnabled: false)
+            mumentAlert.OKButton.press { [weak self] in
+                self?.setDefaultView()
             }
             self?.present(mumentAlert, animated: true)
         }
@@ -373,6 +377,23 @@ extension WriteVC {
             }
         }
     }
+    
+    private func postMument(userId: String, musicId: String, data: PostMumentBodyModel) {
+        WriteAPI.shared.postMument(userId: userId, musicId: musicId, data: data) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if response is PostMumentResponseModel {
+                    self.setDefaultView()
+                    self.showToastMessage(message: "🎉 뮤멘트가 작성되었어요!")
+                }
+            default:
+                self.makeAlert(title: """
+네트워크 오류로 인해 연결에 실패했어요! 🥲
+잠시 후에 다시 시도해 주세요.
+""")
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -395,10 +416,10 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
             cell.isSelected = true
         }
-        debugPrint("cell clicked", "\(indexPath)")
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
