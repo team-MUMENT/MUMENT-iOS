@@ -29,7 +29,10 @@ extension MumentTabBarController {
                     UserInfo.shared.userId = result.id
                 }
             default:
-                self.makeAlert(title: "로그인 실패데스,,. plz 앱 재시작")
+                self.makeAlert(title: """
+네트워크 오류로 인해 연결에 실패했어요! 🥲
+잠시 후에 다시 시도해 주세요.
+""")
             }
         }
     }
