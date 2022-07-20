@@ -207,6 +207,7 @@ extension SongDetailVC {
         if let res = response as? AllMumentsResponseModel {
           print(res.mumentList)
         }
+
       default:
         self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
       }
