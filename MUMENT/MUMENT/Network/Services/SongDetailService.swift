@@ -12,11 +12,11 @@ import Alamofire
  TargetType을 채택해서 path, method, header, parameter를 각 라우터에 맞게 request를 만든다.
  */
 
-// MARK: - SongDetailBodyModel
-struct SongDetailBodyModel: Codable {
-    var musicId: String
-    var userId: String
-}
+//// MARK: - SongDetailBodyModel
+//struct SongDetailBodyModel: Codable {
+//    var musicId: String
+//    var userId: String
+//}
 
 enum SongDetailService {
     case getSongInfo(musicId: String, userId: String)
