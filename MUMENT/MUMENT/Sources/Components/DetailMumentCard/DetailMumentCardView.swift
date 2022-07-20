@@ -47,6 +47,10 @@ class DetailMumentCardView: UIView {
         $0.axis = .horizontal
         $0.spacing = 8
     }
+    let tagSubStackView = UIStackView().then{
+        $0.axis = .horizontal
+        $0.spacing = 8
+    }
     private let contentsLabel = UILabel().then{
         $0.textColor = .mGray1
         $0.lineBreakMode = .byCharWrapping
@@ -105,7 +109,6 @@ class DetailMumentCardView: UIView {
     func setData(_ cellData: MumentDetailResponseModel){
         profileImage.setImageUrl(cellData.user.image)
         writerNameLabel.text = cellData.user.name
-//        songInfoView.setData(cellData)
         songInfoView.setData(albumURL: cellData.music.image, songTitle: cellData.music.name, artist: cellData.music.artist ?? "")
         isFirst = cellData.isFirst
         impressionTags = cellData.impressionTag
@@ -177,6 +180,7 @@ extension DetailMumentCardView {
         songInfoView.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(7)
             $0.top.equalTo(separatorView.snp.bottom).offset(7)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.height.equalTo(72)
             $0.width.equalTo(144)
         }
