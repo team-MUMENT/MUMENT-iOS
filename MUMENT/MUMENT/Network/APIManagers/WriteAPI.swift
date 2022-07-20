@@ -28,4 +28,20 @@ class WriteAPI: BaseAPI {
             }
         }
     }
+    
+    /// [POST] 뮤멘트 기록하기
+    func postMument(userId: String, musicId: String, data: PostMumentBodyModel,
+                    completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(WriteService.postMument(userId: userId, musicId: musicId, data: data)).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, PostMumentResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
