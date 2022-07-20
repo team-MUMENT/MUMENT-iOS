@@ -99,8 +99,6 @@ class MumentCardBySongView: UIView {
         heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         heartButtonText = "\(cellData.likeCount)"
         isFirst = cellData.isFirst
-//        impressionTags = cellData.impressionTag
-//        feelingTags = cellData.feelingTag
         cardTags = cellData.cardTag
         setTags()
     }
@@ -112,30 +110,14 @@ class MumentCardBySongView: UIView {
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
         tagStackView.addArrangedSubview(tag)
-                
-//        if impressionTags.count != 0{
-//            for i in 0...impressionTags.count-1{
-//                let tag = TagView()
-//                tag.tagContent = impressionTags[i]
-//                tagStackView.addArrangedSubview(tag)
-//            }
-//        }
-//
-//        if feelingTags.count != 0{
-//            for i in 0...feelingTags.count-1{
-//                let tag = TagView()
-//                tag.tagContent = feelingTags[i]
-//                tagStackView.addArrangedSubview(tag)
-//            }
-//        }
-        if cardTags.count != 0{
-                    for i in 0...cardTags.count-1{
-                        let tag = TagView()
-                        tag.tagContent = cardTags[i]
-                        tagStackView.addArrangedSubview(tag)
-                    }
-                }
         
+        if cardTags.count != 0{
+            for i in 0...cardTags.count-1{
+                let tag = TagView()
+                tag.tagContent = cardTags[i]
+                tagStackView.addArrangedSubview(tag)
+            }
+        }
     }
 }
 
