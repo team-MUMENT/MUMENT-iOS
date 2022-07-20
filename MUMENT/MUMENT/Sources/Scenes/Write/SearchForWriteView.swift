@@ -137,7 +137,7 @@ extension SearchForWriteView {
                     completion(result)
                 }
             default:
-                print("네트워크 연결 실패 죄송")
+                print("네트워크 연결 실패")
             }
         }
     }
