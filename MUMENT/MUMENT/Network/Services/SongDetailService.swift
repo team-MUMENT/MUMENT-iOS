@@ -27,9 +27,9 @@ extension SongDetailService: TargetType {
     var path: String {
         switch self {
         case .getSongInfo(musicId: let musicId, userId: let userId):
-            return "/\(musicId)/\(userId)"
+            return "/music/\(musicId)/\(userId)"
         case .getAllMuments(musicId: let musicId, userId: let userId, _):
-            return "/\(musicId)/\(userId)/order"
+            return "/music/\(musicId)/\(userId)/order"
         }
     }
     

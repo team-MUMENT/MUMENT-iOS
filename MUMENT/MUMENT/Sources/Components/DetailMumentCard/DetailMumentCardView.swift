@@ -97,6 +97,22 @@ class DetailMumentCardView: UIView {
         setTags()
     }
     
+    func setData(_ cellData: MumentDetailResponseModel){
+            profileImage.setImageUrl(cellData.user.image)
+            writerNameLabel.text = cellData.user.name
+    //        songInfoView.setData(cellData)
+            songInfoView.setData(albumURL: cellData.music.image, songTitle: cellData.music.name, artist: cellData.music.artist ?? "")
+            isFirst = cellData.isFirst
+            impressionTags = cellData.impressionTag
+            feelingTags = cellData.feelingTag
+            contentsLabel.text = cellData.content
+            createdAtLabel.text = cellData.createdAt
+            heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+            heartLabel.text = "\(cellData.count)명이 좋아합니다."
+
+            setTags()
+        }
+    
     func setTags(){
         tagStackView.removeAllArrangedSubviews()
         
