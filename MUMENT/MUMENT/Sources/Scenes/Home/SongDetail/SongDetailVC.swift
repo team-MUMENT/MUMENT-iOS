@@ -25,6 +25,7 @@ class SongDetailVC: BaseVC {
         setTV()
         setLayout()
         setButtonActions()
+        requestGetAllMuments()
     }
     
     // MARK: - Functions
@@ -179,3 +180,20 @@ extension SongDetailVC: UITableViewDelegate {
     }
 }
 
+// MARK: - Network
+extension SongDetailVC {
+  private func requestGetAllMuments() {
+      SongDetailAPI.shared.getAllMuments(musicId: "62d2959e177f6e81ee8fa3de", userId: "62cd5d4383956edb45d7d0ef", isOrderLiked: true) { networkResult in
+      switch networkResult {
+         
+      case .success(let response):
+        if let res = response as? AllMumentsResponseModel {
+          print(res.mumentList)
+        }
+
+      default:
+        self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+      }
+    }
+  }
+}

@@ -47,6 +47,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         setLayout()
         setData()
         setClickEventHandlers()
+        requestGetMumentDetail()
     }
     
     // MARK: - Functions
@@ -145,3 +146,20 @@ extension MumentDetailVC {
     }
 }
 
+// MARK: - Network
+extension MumentDetailVC {
+  private func requestGetMumentDetail() {
+      MumentDetailAPI.shared.getMumentDetail(mumentId: "62cd6d136500907694a2a548", userId: "62cd5d4383956edb45d7d0ef") { networkResult in
+      switch networkResult {
+         
+      case .success(let response):
+        if let res = response as? MumentDetailResponseModel {
+            self.mumentCardView.setData(res)
+        }
+          
+      default:
+        self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+      }
+    }
+  }
+}
