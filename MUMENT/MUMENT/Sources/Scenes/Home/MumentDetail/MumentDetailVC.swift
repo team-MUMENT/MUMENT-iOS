@@ -71,23 +71,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
         mumentCardView.menuIconButton.press{
-//            let actionSheet = UIActionSheet(title: "Choose Option", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Save", "Delete")
-            
-//            actionSheet.show(in: self.view)let alert = UIAlertController(title: "Title", message: "Please Select an Option", preferredStyle: .actionSheet)
-            
-            
-            
-//            let alert = UIAlertController(title: "Title", message: "Please Select an Option", preferredStyle: .actionSheet)
 
-//            alert.addAction(UIAlertAction(title: "Approve", style: .default , handler:{ (UIAlertAction)in
-//                print("User click Approve button")
-//            }))
-
-//            self.present(alert, animated: true, completion: {
-//                    print("completion block")
-//            })
-            
-            
             let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
             let firstAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
