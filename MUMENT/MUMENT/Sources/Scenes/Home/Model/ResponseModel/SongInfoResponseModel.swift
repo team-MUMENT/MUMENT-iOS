@@ -1,5 +1,5 @@
 //
-//  AllMumentsResponseModel.swift
+//  SongInfoResponseModel.swift
 //  MUMENT
 //
 //  Created by 김지민 on 2022/07/21.
@@ -7,16 +7,34 @@
 
 import Foundation
 
-struct AllMumentsResponseModel: Codable {
-    let mumentList: [MumentList]
+struct SongInfoResponseModel: Codable {
+    let music: UserClass
+    let myMument: MyMument
 
     enum CodingKeys: String, CodingKey {
-        case mumentList = "mumentList"
+        case music = "music"
+        case myMument = "myMument"
     }
-    // MARK: - MumentList
-    struct MumentList: Codable {
-        let music: Music
-        let user: User
+    
+    // MARK: - UserClass
+    struct UserClass: Codable {
+        let id: String
+        let name: String
+        let artist: String?
+        let image: String
+
+        enum CodingKeys: String, CodingKey {
+            case id = "_id"
+            case name = "name"
+            case artist = "artist"
+            case image = "image"
+        }
+    }
+
+    // MARK: - MyMument
+    struct MyMument: Codable {
+        let music: PurpleMusic
+        let user: UserClass
         let id: String
         let isFirst: Bool
         let impressionTag: [Int]
@@ -52,25 +70,12 @@ struct AllMumentsResponseModel: Codable {
         }
     }
 
-    // MARK: - Music
-    struct Music: Codable {
+    // MARK: - PurpleMusic
+    struct PurpleMusic: Codable {
         let id: String
 
         enum CodingKeys: String, CodingKey {
             case id = "_id"
-        }
-    }
-
-    // MARK: - User
-    struct User: Codable {
-        let id: String
-        let name: String
-        let image: String
-
-        enum CodingKeys: String, CodingKey {
-            case id = "_id"
-            case name = "name"
-            case image = "image"
         }
     }
 }

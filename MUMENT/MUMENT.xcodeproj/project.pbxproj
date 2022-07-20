@@ -19,6 +19,7 @@
 		4D13A67028882B1100197D2A /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
 		4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */; };
 		4D13A6742888735800197D2A /* MumentDetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */; };
+		4D13A67628887A8000197D2A /* SongInfoResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */; };
 		4D2BADCA2880334C004A7E00 /* MumentsByTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */; };
 		4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */; };
 		4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */; };
@@ -147,6 +148,7 @@
 		4D13A66F28882B1100197D2A /* MumentDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentDetailService.swift; sourceTree = "<group>"; };
 		4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentsResponseModel.swift; sourceTree = "<group>"; };
 		4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentDetailResponseModel.swift; sourceTree = "<group>"; };
+		4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfoResponseModel.swift; sourceTree = "<group>"; };
 		4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCVC.swift; sourceTree = "<group>"; };
 		4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagModel.swift; sourceTree = "<group>"; };
 		4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTitleModel.swift; sourceTree = "<group>"; };
@@ -282,6 +284,30 @@
 				4D13A65C2882A42000197D2A /* MumentHistoryTVHeader.swift */,
 			);
 			path = MumentHistory;
+			sourceTree = "<group>";
+		};
+		4D13A6772888814500197D2A /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */,
+				4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */,
+				4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */,
+			);
+			path = ResponseModel;
+			sourceTree = "<group>";
+		};
+		4D13A6782888814C00197D2A /* DummyDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				4D2BADD428806C10004A7E00 /* MumentCardBySongModel.swift */,
+				C7BC6B552876ADCD008C75CE /* CarouselModel.swift */,
+				4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */,
+				4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */,
+				4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */,
+				4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */,
+				4D7604652880C8ED0044F2A6 /* MumentDetailVCModel.swift */,
+			);
+			path = DummyDataModel;
 			sourceTree = "<group>";
 		};
 		4D76045D2880ACC60044F2A6 /* DetailMumentCard */ = {
@@ -652,15 +678,8 @@
 		C7BC6B522876ADC0008C75CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4D2BADD428806C10004A7E00 /* MumentCardBySongModel.swift */,
-				C7BC6B552876ADCD008C75CE /* CarouselModel.swift */,
-				4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */,
-				4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */,
-				4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */,
-				4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */,
-				4D7604652880C8ED0044F2A6 /* MumentDetailVCModel.swift */,
-				4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */,
-				4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */,
+				4D13A6782888814C00197D2A /* DummyDataModel */,
+				4D13A6772888814500197D2A /* ResponseModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -795,6 +814,7 @@
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
 				E781F2272882A77500484C28 /* SectionHeader.swift in Sources */,
 				4D76046A28814A9A0044F2A6 /* AllMumentsSectionHeader.swift in Sources */,
+				4D13A67628887A8000197D2A /* SongInfoResponseModel.swift in Sources */,
 				4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */,
 				4D2BADCA2880334C004A7E00 /* MumentsByTagCVC.swift in Sources */,
 				C7BB53102875990700E0E889 /* BaseVC.swift in Sources */,
