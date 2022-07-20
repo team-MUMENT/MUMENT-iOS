@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MumentDetailVC: BaseVC {
+class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
@@ -47,8 +47,9 @@ class MumentDetailVC: BaseVC {
         setLayout()
         setData()
         setClickEventHandlers()
+        requestGetMumentDetail()
     }
-
+    
     // MARK: - Functions
     func setData(){
         navigationBarView.setTitle("뮤멘트")
@@ -65,17 +66,44 @@ class MumentDetailVC: BaseVC {
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
-            print("mumentHistoryVC")
         }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
+        mumentCardView.menuIconButton.press{
+
+            let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+            let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
+                self.tabBarController?.selectedIndex = 1
+            }
+
+            let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
+                let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
+                    mumentAlert.setTitle(title: "삭제하시겠어요?")
+                self.present(mumentAlert, animated: true)
+                
+                mumentAlert.OKButton.press {
+                    self.navigationController?.popViewController(animated: true)
+                            }
+            }
+
+            let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel) { action -> Void in }
+
+            actionSheetController.addAction(updatingAction)
+            actionSheetController.addAction(deletingAction)
+            actionSheetController.addAction(cancelAction)
+
+            self.present(actionSheetController, animated: true) {
+                print("option menu presented")
+            }
+        }
+        
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
         self.navigationController?.pushViewController(songDetailVC, animated: true)
-        print("mumentHistoryVC")
     }
 }
 
@@ -118,3 +146,20 @@ extension MumentDetailVC {
     }
 }
 
+// MARK: - Network
+extension MumentDetailVC {
+  private func requestGetMumentDetail() {
+      MumentDetailAPI.shared.getMumentDetail(mumentId: "62cd6d136500907694a2a548", userId: "62cd5d4383956edb45d7d0ef") { networkResult in
+      switch networkResult {
+         
+      case .success(let response):
+        if let res = response as? MumentDetailResponseModel {
+            self.mumentCardView.setData(res)
+        }
+          
+      default:
+        self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+      }
+    }
+  }
+}

@@ -52,7 +52,6 @@ class MumentHistoryVC: BaseVC {
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
         self.navigationController?.pushViewController(songDetailVC, animated: true)
-        print("songDetailVC")
     }
 }
 
@@ -125,7 +124,7 @@ extension MumentHistoryVC: UITableViewDelegate {
         var cellHeight: CGFloat
         switch indexPath.section {
         case 0:
-            cellHeight = 200
+            cellHeight = UITableView.automaticDimension
         default:
             cellHeight = 0
         }
@@ -135,7 +134,6 @@ extension MumentHistoryVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mumentDetailVC = MumentDetailVC()
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-        print("mumentDetailVC")
     }
     
 }
