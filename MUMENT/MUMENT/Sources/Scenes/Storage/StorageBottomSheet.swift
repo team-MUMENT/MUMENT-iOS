@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol storageBottomSheetDelegate: AnyObject {
+    func sendButtonData(data:[TagButton])
+}
+
 class StorageBottomSheet: UIViewController {
 
     private let containerView = UIView().then {
@@ -26,7 +30,7 @@ class StorageBottomSheet: UIViewController {
         $0.backgroundColor = UIColor.mGray3
     }
     
-    var isDismissed = true
+    var isDismissed = false
     
     private let selectedTagsCount = 1
     
@@ -91,7 +95,7 @@ class StorageBottomSheet: UIViewController {
         $0.sectionInset = .zero
     }
     
-    private let setTagFilterButton = UIButton().then {
+    private let setFilterTagButton = UIButton().then {
         $0.setTitle("태그 적용하기", for: .normal)
         $0.titleLabel?.font = UIFont.mumentB2B14
         $0.setTitleColor(UIColor.mWhite, for: .normal)
@@ -101,7 +105,7 @@ class StorageBottomSheet: UIViewController {
     private let allDeselecteButton = UIButton().then {
         $0.setImage(UIImage(named: "allDeselectedButton"), for: .normal)
     }
-    
+        
     private let selectedTagsSection = UIView().then {
         $0.backgroundColor = .mGray3
     }
@@ -115,13 +119,11 @@ class StorageBottomSheet: UIViewController {
         $0.distribution = .fillProportionally
     }
     
-    private let emptySelectedTag = UIButton().then {
-        $0.backgroundColor = .brown
-    }
-    
     var selectedTagButtons = [TagButton]()
     var selectedTagDictionay = [Int : Int]()
     var tagIndex = [Int]()
+    
+    weak var delegate: storageBottomSheetDelegate?
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -135,6 +137,8 @@ class StorageBottomSheet: UIViewController {
         setTagCV()
         registerCell()
         setFilterTagLayout()
+        setAllDeselectAction()
+        setFilterTagApplied()
     }
 
     private func setDismissButtonAction() {
@@ -172,7 +176,26 @@ class StorageBottomSheet: UIViewController {
         let filterTagButton = TagButton()
         selectedTagButtons.append(filterTagButton)
         selectedTagButtons[count].setTagButtonTitle(tagTitle)
-        self.setTagFilterButton.layoutIfNeeded()
+        self.setFilterTagButton.layoutIfNeeded()
+    }
+    
+    private func setAllDeselectAction() {
+        allDeselecteButton.press {
+            self.impressionTagCV.reloadData()
+            self.feelTagCV.reloadData()
+            
+            self.selectedTagButtons.forEach {
+                self.selectedTagsStackView.removeArrangedSubview($0)
+            }
+        }
+    }
+    
+    private func setFilterTagApplied() {
+        setFilterTagButton.press {
+            self.delegate?.sendButtonData(data: self.selectedTagButtons)
+
+            self.hideBottomSheetWithAnimation()
+        }
     }
 }
 
@@ -293,7 +316,7 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        
-        var indexPathPerCV  = indexPath
+        var indexPathPerCV = indexPath
         
         if selectedTagCount < 3 {
             if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
@@ -333,23 +356,36 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
                 }
             }
             self.selectedTagsStackView.layoutIfNeeded()
+            
+            selectedTagButtons.last?.press {
+                self.collectionView(collectionView, didDeselectItemAt: indexPath)
+            }
 
         }else {
             collectionView.deselectItem(at: indexPath, animated: false)
-            // TODO: 3개 제한 알림창 구현
+            // TODO: 3개 제한 토스트 창 삽입
+            
         }
-        bottomTagSectionHeight = 79
+        bottomTagSectionHeight = 70
         UIView.animate(withDuration: 0.3) {
             self.selectedTagsSection.snp.updateConstraints {
                 $0.height.equalTo(self.bottomTagSectionHeight)
             }
         }
         
-        selectedTagButtons.forEach {
-            $0.press {
-                self.collectionView(self.impressionTagCV, didDeselectItemAt: indexPathPerCV)
-            }
-        }
+//        selectedTagButtons.forEach {
+//            $0.press {
+////                self.collectionView(self.impressionTagCV, didDeselectItemAt: indexPathPerCV)
+//                self.collectionView(collectionView, didDeselectItemAt: indexPathPerCV)
+//            }
+//        }
+        
+//        selectedTagButtons.last?.removeTarget(nil, action: nil, for: .allEvents)
+        
+        
+//        allDeselecteButton.press {
+//            self.impressionTagCV.deselectItem(at: indexPathPerCV, animated: false)
+//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -367,9 +403,10 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             }
             selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row]!)
             tagIndex.remove(at: selectedTagDictionay[indexPath.row]!)
-
+            
         case feelTagCV:
-                        selectedTagButtons.forEach {
+            
+            selectedTagButtons.forEach {
                 self.selectedTagsStackView.removeArrangedSubview($0)
                 $0.removeFromSuperview()
             }
@@ -377,7 +414,7 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
                 self.selectedTagsStackView.removeArrangedSubview($0)
                 $0.removeFromSuperview()
             }
-            
+//            selectedTagButtons[selectedTagDictionay[indexPath.row + 100]!].removeTarget(nil, action: nil, for: .allEvents)
             selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row + 100]!)
             tagIndex.remove(at: selectedTagDictionay[indexPath.row + 100]!)
             
@@ -450,9 +487,9 @@ extension StorageBottomSheet {
     }
     
     func setBottomLayout() {
-        containerView.addSubViews([setTagFilterButton, allDeselecteButton, selectedTagsSection, selectedTagsStackView])
+        containerView.addSubViews([setFilterTagButton, allDeselecteButton, selectedTagsSection, selectedTagsStackView])
         
-        setTagFilterButton.snp.makeConstraints {
+        setFilterTagButton.snp.makeConstraints {
             $0.top.equalTo(feelTagCV.snp.bottom).offset(20.adjustedH)
             $0.right.equalToSuperview().inset(20)
             $0.width.equalTo(143)
@@ -461,14 +498,14 @@ extension StorageBottomSheet {
         
         allDeselecteButton.snp.makeConstraints {
             $0.left.equalToSuperview().inset(19)
-            $0.centerY.equalTo(setTagFilterButton)
+            $0.centerY.equalTo(setFilterTagButton)
             $0.height.equalTo(26)
         }
     }
     func setFilterTagLayout() {
         selectedTagsSection.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
-            $0.top.equalTo(setTagFilterButton.snp.bottom).offset( 20.adjustedH)
+            $0.top.equalTo(setFilterTagButton.snp.bottom).offset( 20.adjustedH)
             $0.height.equalTo(bottomTagSectionHeight)
         }
         
