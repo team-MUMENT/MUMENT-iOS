@@ -154,7 +154,7 @@ extension MumentDetailVC {
          
       case .success(let response):
         if let res = response as? MumentDetailResponseModel {
-            print(res)
+            self.mumentCardView.setData(res)
         }
           
       default:

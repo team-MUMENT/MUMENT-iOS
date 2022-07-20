@@ -16,6 +16,11 @@ class DetailMumentCardView: UIView {
         $0.axis = .horizontal
         $0.spacing = 7
     }
+    var profileImageURL = ""{
+        didSet{
+            
+        }
+    }
     private let profileImage = UIImageView().then{
         $0.makeRounded(cornerRadius: 12.5)
     }
@@ -93,6 +98,22 @@ class DetailMumentCardView: UIView {
         createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
+        
+        setTags()
+    }
+    
+    func setData(_ cellData: MumentDetailResponseModel){
+        profileImage.setImageUrl(cellData.user.image)
+        writerNameLabel.text = cellData.user.name
+//        songInfoView.setData(cellData)
+        songInfoView.setData(albumURL: cellData.music.image, songTitle: cellData.music.name, artist: cellData.music.artist ?? "")
+        isFirst = cellData.isFirst
+        impressionTags = cellData.impressionTag
+        feelingTags = cellData.feelingTag
+        contentsLabel.text = cellData.content
+        createdAtLabel.text = cellData.createdAt
+        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+        heartLabel.text = "\(cellData.count)명이 좋아합니다."
         
         setTags()
     }
