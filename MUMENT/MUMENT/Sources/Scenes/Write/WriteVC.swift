@@ -159,6 +159,7 @@ class WriteVC: BaseVC {
         setRemoveSelectedMusicButton()
         setSelectedMusicViewPressed()
         setResetButton()
+        getIsFirst(userId: "62cd5d4383956edb45d7d0ef", musicId: "62d2959e177f6e81ee8fa3de")
     }
     
     // MARK: - Functions
@@ -308,6 +309,23 @@ extension WriteVC: UICollectionViewDataSource {
             cell.setData(data: feelTagDummyData[indexPath.row])
             return cell
         default: return cell
+        }
+    }
+}
+
+// MARK: - Network
+extension WriteVC {
+    private func getIsFirst(userId: String, musicId: String) {
+        WriteAPI.shared.getIsFirst(userId: userId, musicId: musicId) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetIsFirstResponseModel {
+                    self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: result.isFirst)
+                    self.setRadioButtonSelectStatus(button: self.alreadyKnowButton, isSelected: !(result.isFirst))
+                }
+            default:
+                self.makeAlert(title: "네트워크 안됨 지송")
+            }
         }
     }
 }
