@@ -107,13 +107,14 @@ class StorageBottomSheet: UIViewController {
         $0.backgroundColor = .mGray3
     }
     
+    private var bottomTagSectionHeight = 0
+    
     private let selectedTagsStackView = UIStackView().then {
         $0.backgroundColor = .clear
         $0.spacing = 10
         $0.axis = .horizontal
-        $0.alignment = .leading
+        $0.distribution = .fillProportionally
     }
-
     
     private let emptySelectedTag = UIButton().then {
         $0.backgroundColor = .brown
@@ -171,7 +172,7 @@ class StorageBottomSheet: UIViewController {
     private func buttonAppend(_ count: Int, _ tagTitle: String) {
         let filterTagButton = TagButton()
         selectedTagButtons.append(filterTagButton)
-        selectedTagButtons[count].setTitle(tagTitle, for: .normal)
+        selectedTagButtons[count].setTagButtonTitle(tagTitle)
         self.setTagFilterButton.layoutIfNeeded()
     }
 }
@@ -321,7 +322,7 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             default: break
             }
             
-            self.selectedTagsStackView.removeArrangedSubview(emptySelectedTag)
+//            self.selectedTagsStackView.removeArrangedSubview(emptySelectedTag)
             selectedTagButtons.forEach {
                 self.selectedTagsStackView.removeArrangedSubview($0)
             }
@@ -331,15 +332,18 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
                 
                 $0.snp.makeConstraints {
                     $0.height.equalTo(35)
-                    $0.width.equalTo(89)
                 }
             }
-            self.selectedTagsStackView.addArrangedSubview(emptySelectedTag)
+//            self.selectedTagsStackView.addArrangedSubview(emptySelectedTag)
             self.selectedTagsStackView.layoutIfNeeded()
 
         }else {
             collectionView.deselectItem(at: indexPath, animated: false)
             // TODO: 3개 제한 알림창 구현
+        }
+        bottomTagSectionHeight = 79
+        self.selectedTagsSection.snp.updateConstraints {
+            $0.height.equalTo(bottomTagSectionHeight)
         }
     }
     
@@ -354,16 +358,20 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
         case impressionTagCV:
             
             clickedTagArray[indexPath.row] = 0
-            debugPrint("impression", selectedTagDictionay[indexPath.row]!)
+            selectedTagButtons.forEach {
+                self.selectedTagsStackView.removeArrangedSubview($0)
+                $0.removeFromSuperview()
+            }
             selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row]!)
             tagIndex.remove(at: selectedTagDictionay[indexPath.row]!)
-            debugPrint("remov1",selectedTagDictionay[indexPath.row]!)
 
         case feelTagCV:
             
             clickedTagArray[indexPath.row + 6] = 0
-            debugPrint("feel", selectedTagDictionay[indexPath.row + 100]!)
-            
+            selectedTagButtons.forEach {
+                self.selectedTagsStackView.removeArrangedSubview($0)
+                $0.removeFromSuperview()
+            }
             selectedTagButtons.forEach {
                 self.selectedTagsStackView.removeArrangedSubview($0)
                 $0.removeFromSuperview()
@@ -381,22 +389,26 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             count += 1
         }
         
-        self.selectedTagsStackView.removeArrangedSubview(emptySelectedTag)
-        emptySelectedTag.removeFromSuperview()
-        
-
+//        self.selectedTagsStackView.removeArrangedSubview(emptySelectedTag)
+//        emptySelectedTag.removeFromSuperview()
         
         selectedTagButtons.forEach {
             self.selectedTagsStackView.addArrangedSubview($0)
             
             $0.snp.makeConstraints {
                 $0.height.equalTo(35)
-                $0.width.equalTo(89)
             }
         }
-        self.selectedTagsStackView.addArrangedSubview(emptySelectedTag)
+//        self.selectedTagsStackView.addArrangedSubview(emptySelectedTag)
         
         self.selectedTagsStackView.layoutIfNeeded()
+        
+        if tagIndex.count == 0 {
+            bottomTagSectionHeight = 0
+            self.selectedTagsSection.snp.updateConstraints {
+                $0.height.equalTo(bottomTagSectionHeight)
+            }
+        }
     }
 }
 
@@ -458,25 +470,15 @@ extension StorageBottomSheet {
         selectedTagsSection.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
             $0.top.equalTo(setTagFilterButton.snp.bottom).offset( 20.adjustedH)
-            $0.bottom.equalToSuperview()
+            $0.height.equalTo(bottomTagSectionHeight)
         }
         
         selectedTagsStackView.snp.makeConstraints {
             $0.left.equalToSuperview().inset(20)
             $0.top.equalTo(selectedTagsSection).offset(14.adjustedH)
-            $0.right.equalTo(selectedTagsSection.snp.right)
             $0.height.equalTo(tagCellHeight)
         }
         
-        selectedTagButtons.forEach {
-            self.selectedTagsStackView.addArrangedSubview($0)
-            
-            $0.snp.makeConstraints {
-                $0.height.equalTo(35)
-//                $0.left.equalTo(T##other: ConstraintRelatableTarget##ConstraintRelatableTarget)
-            }
-        }
-        
-        selectedTagsStackView.addArrangedSubview(emptySelectedTag)
+//        selectedTagsStackView.addArrangedSubview(emptySelectedTag)
     }
 }
