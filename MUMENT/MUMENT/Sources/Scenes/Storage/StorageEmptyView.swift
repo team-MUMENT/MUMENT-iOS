@@ -72,6 +72,9 @@ extension StorageEmptyView {
     }
     
     func setLikedMumentLayout() {
+        titleLabel.text = "아직 좋아요한 뮤멘트가 없어요."
+        subTitleLabel.text = "좋아요를 눌러 마음에 든 뮤멘트를 언제든 꺼내보세요."
+        
         self.addSubviews([imageView, titleLabel, subTitleLabel])
         
         imageView.snp.makeConstraints {
