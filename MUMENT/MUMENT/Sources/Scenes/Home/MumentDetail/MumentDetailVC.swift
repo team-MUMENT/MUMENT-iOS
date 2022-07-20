@@ -145,3 +145,19 @@ extension MumentDetailVC {
     }
 }
 
+// MARK: - Network
+extension MumentDetailVC {
+  private func requestGetAllMument(musicId: String, userId: String, isOrderLiked: Bool) {
+      SongDetailAPI.shared.getAllMuments(musicId: musicId, userId: userId, isOrderLiked: isOrderLiked) { networkResult in
+      switch networkResult {
+         
+      case .success(let response):
+        if let res = response as? AllMumentsResponseModel {
+          print(res.mumentList)
+        }
+      default:
+        self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+      }
+    }
+  }
+}
