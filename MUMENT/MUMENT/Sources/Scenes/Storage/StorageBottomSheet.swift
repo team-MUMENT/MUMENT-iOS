@@ -77,11 +77,11 @@ class StorageBottomSheet: UIViewController {
         $0.isScrollEnabled = false
     }
     
-    var impressionTagDummyData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
-    var feelTagDummyData = ["🎡 벅참", "🍁 센치함", "⌛️ 아련함", "😄 신남", "😔 우울", "💭 회상", "💐 설렘", "🕰 그리움", " 👥 위로", "😚 행복", "🛌 외로움", "🌅 낭만", "🙌 자신감", "🌋 스트레스", "☕️ 차분", "🍀 여유로움"]
+    var impressionTagData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
+    var feelTagData = ["🎡 벅참", "🍁 센치함", "⌛️ 아련함", "😄 신남", "😔 우울", "💭 회상", "💐 설렘", "🕰 그리움", " 👥 위로", "😚 행복", "🛌 외로움", "🌅 낭만", "🙌 자신감", "🌋 스트레스", "☕️ 차분", "🍀 여유로움"]
     
     var clickedTagArray: [Int] = Array(repeating: 0, count: 22)
-    var clikedTagCount = 0
+    var selectedTagCount = 0
 
     private let tagCellHeight = 37
     private let cellVerticalSpacing = 10
@@ -113,55 +113,15 @@ class StorageBottomSheet: UIViewController {
         $0.axis = .horizontal
         $0.alignment = .leading
     }
-    // TODO: class SelectedTag : UIButton 만들어 then안의 내용 넣어주기
-    private let firstSelectedTag = UIButton().then {
-        $0.backgroundColor = .mBlue3
-        $0.makeRounded(cornerRadius: 17)
-        $0.setTitle("😄 신남", for: .normal)
-        $0.titleLabel?.font = UIFont.mumentB2B14
-        $0.setTitleColor(UIColor.mBlue1, for: .normal)
-        $0.setImage(UIImage(named: "mumentTagDelete"), for: .normal)
-        
-        $0.contentHorizontalAlignment = .center
-//        $0.semanticContentAttribute = .forceRightToLeft
-        $0.configuration = .plain()
-        $0.configuration?.imagePadding = 10.adjustedH
-        $0.configuration?.imagePlacement = .trailing
-     
-    }
-    
-    private let secondSelectedTag = UIButton().then {
-        $0.backgroundColor = .mBlue3
-        $0.makeRounded(cornerRadius: 17)
-        $0.setTitle("🛫 도입부", for: .normal)
-        $0.titleLabel?.font = UIFont.mumentB2B14
-        $0.setTitleColor(UIColor.mBlue1, for: .normal)
-        $0.setImage(UIImage(named: "mumentTagDelete"), for: .normal)
-        
-        $0.contentHorizontalAlignment = .center
-        $0.semanticContentAttribute = .forceRightToLeft
-     
-    }
-    
-    private let thirdSelectedTag = UIButton().then {
-        $0.backgroundColor = .mBlue3
-        $0.makeRounded(cornerRadius: 17)
-        
-        $0.setTitle("🗯 스트레스", for: .normal)
-        $0.titleLabel?.font = UIFont.mumentB2B14
-        $0.setTitleColor(UIColor.mBlue1, for: .normal)
-        $0.setImage(UIImage(named: "mumentTagDelete"), for: .normal)
-        
-        $0.contentHorizontalAlignment = .center
-        $0.semanticContentAttribute = .forceRightToLeft
-        
-        let tagName = "🗯 스트레스"
-        let width = tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.mumentB2B14]).width
-    }
+
     
     private let emptySelectedTag = UIButton().then {
         $0.backgroundColor = .brown
     }
+    
+    var selectedTagButtons = [TagButton]()
+    var selectedTagDictionay = [Int : Int]()
+    var tagIndex = [Int]()
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -170,11 +130,11 @@ class StorageBottomSheet: UIViewController {
         setCVLayout()
         setBottomLayout()
         setDismissButtonAction()
-        tagCount = "\(clikedTagCount)"
+        tagCount = "\(selectedTagCount)"
         
         setTagCV()
         registerCell()
-       
+        setFilterTagLayout()
     }
 
     private func setDismissButtonAction() {
@@ -190,7 +150,7 @@ class StorageBottomSheet: UIViewController {
         impressionTagCV.layoutMargins = .zero
         impressionTagCV.allowsMultipleSelection = true
         impressionTagCV.clipsToBounds = true
-        impressionTagCV.collectionViewLayout = leftCVLayout
+//        impressionTagCV.collectionViewLayout = leftCVLayout
         
         feelTagCV.dataSource = self
         feelTagCV.delegate = self
@@ -203,6 +163,16 @@ class StorageBottomSheet: UIViewController {
     private func registerCell() {
         impressionTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
         feelTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
+    }
+    
+    // TagButton 인스턴스 생성
+    // selectedTagButtons 배열에 인스턴스 append
+    // selectedTagButtons 배열 count번째의 버튼에
+    private func buttonAppend(_ count: Int, _ tagTitle: String) {
+        let filterTagButton = TagButton()
+        selectedTagButtons.append(filterTagButton)
+        selectedTagButtons[count].setTitle(tagTitle, for: .normal)
+        self.setTagFilterButton.layoutIfNeeded()
     }
 }
 
@@ -264,7 +234,7 @@ extension StorageBottomSheet {
     }
     
     func hideBottomSheetWithAnimation() {
-        UIView.animate(withDuration: 2) {
+        UIView.animate(withDuration: 0.3) {
             self.containerHeight.constant = 0
             self.containerView.snp.updateConstraints {
                 $0.height.equalTo(self.containerHeight.constant)
@@ -281,9 +251,9 @@ extension StorageBottomSheet: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case impressionTagCV:
-            return impressionTagDummyData.count
+            return impressionTagData.count
         case feelTagCV:
-            return feelTagDummyData.count
+            return feelTagData.count
         default: return 0
         }
     }
@@ -292,10 +262,10 @@ extension StorageBottomSheet: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WriteTagCVC.className, for: indexPath) as! WriteTagCVC
         switch collectionView {
         case impressionTagCV:
-            cell.setData(data: impressionTagDummyData[indexPath.row])
+            cell.setData(data: impressionTagData[indexPath.row])
             return cell
         case feelTagCV:
-            cell.setData(data: feelTagDummyData[indexPath.row])
+            cell.setData(data: feelTagData[indexPath.row])
             return cell
         default: return cell
         }
@@ -308,9 +278,9 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
         let sizingCell = WriteTagCVC()
         switch collectionView {
         case impressionTagCV:
-            sizingCell.setData(data: impressionTagDummyData[indexPath.row])
+            sizingCell.setData(data: impressionTagData[indexPath.row])
         case feelTagCV:
-            sizingCell.setData(data: feelTagDummyData[indexPath.row])
+            sizingCell.setData(data: feelTagData[indexPath.row])
         default: break
         }
         
@@ -323,19 +293,50 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        
-        if clikedTagCount < 3 {
+        if selectedTagCount < 3 {
             if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
                 cell.isSelected = true
-                clikedTagCount += 1
-                tagCount = "\(clikedTagCount)"
+                selectedTagCount += 1
+                tagCount = "\(selectedTagCount)"
             }
             switch collectionView {
             case impressionTagCV:
                 clickedTagArray[indexPath.row] = indexPath.row + 100
+                                
+                buttonAppend(selectedTagCount - 1, impressionTagData[indexPath.row])
+                // key가 태그 번호, value가 선택된 태그 인덱스 번호 0, 1, 2
+                selectedTagDictionay[indexPath.row] = selectedTagCount - 1
+                
+                tagIndex.append(indexPath.row)
+                
             case feelTagCV:
                 clickedTagArray[indexPath.row + 6] = indexPath.row + 200
+
+                buttonAppend(selectedTagCount - 1, feelTagData[indexPath.row])
+                // impressionTag번호와 다르게 구분하기 위해 + 100
+                selectedTagDictionay[indexPath.row + 100] = selectedTagCount - 1
+                
+                tagIndex.append(indexPath.row + 100)
+
             default: break
             }
+            
+            self.selectedTagsStackView.removeArrangedSubview(emptySelectedTag)
+            selectedTagButtons.forEach {
+                self.selectedTagsStackView.removeArrangedSubview($0)
+            }
+            
+            selectedTagButtons.forEach {
+                self.selectedTagsStackView.addArrangedSubview($0)
+                
+                $0.snp.makeConstraints {
+                    $0.height.equalTo(35)
+                    $0.width.equalTo(89)
+                }
+            }
+            self.selectedTagsStackView.addArrangedSubview(emptySelectedTag)
+            self.selectedTagsStackView.layoutIfNeeded()
+
         }else {
             collectionView.deselectItem(at: indexPath, animated: false)
             // TODO: 3개 제한 알림창 구현
@@ -346,16 +347,56 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
         
         if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
             cell.isSelected = false
-            clikedTagCount -= 1
-            tagCount = "\(clikedTagCount)"
+            selectedTagCount -= 1
+            tagCount = "\(selectedTagCount)"
         }
         switch collectionView {
         case impressionTagCV:
+            
             clickedTagArray[indexPath.row] = 0
+            debugPrint("impression", selectedTagDictionay[indexPath.row]!)
+            selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row]!)
+            tagIndex.remove(at: selectedTagDictionay[indexPath.row]!)
+            debugPrint("remov1",selectedTagDictionay[indexPath.row]!)
+
         case feelTagCV:
+            
             clickedTagArray[indexPath.row + 6] = 0
+            debugPrint("feel", selectedTagDictionay[indexPath.row + 100]!)
+            
+            selectedTagButtons.forEach {
+                self.selectedTagsStackView.removeArrangedSubview($0)
+                $0.removeFromSuperview()
+            }
+            
+            selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row + 100]!)
+            tagIndex.remove(at: selectedTagDictionay[indexPath.row + 100]!)
+            
         default: break
         }
+        
+        var count = 0
+        tagIndex.forEach {
+            selectedTagDictionay[$0] = count
+            count += 1
+        }
+        
+        self.selectedTagsStackView.removeArrangedSubview(emptySelectedTag)
+        emptySelectedTag.removeFromSuperview()
+        
+
+        
+        selectedTagButtons.forEach {
+            self.selectedTagsStackView.addArrangedSubview($0)
+            
+            $0.snp.makeConstraints {
+                $0.height.equalTo(35)
+                $0.width.equalTo(89)
+            }
+        }
+        self.selectedTagsStackView.addArrangedSubview(emptySelectedTag)
+        
+        self.selectedTagsStackView.layoutIfNeeded()
     }
 }
 
@@ -373,7 +414,7 @@ extension StorageBottomSheet {
         impressionTagCV.snp.makeConstraints {
             $0.top.equalTo(impressionLabel.snp.bottom).offset(16.adjustedH)
             $0.left.equalToSuperview().inset(20)
-            $0.right.equalToSuperview().inset(20)
+            $0.right.equalToSuperview().inset(86)
             $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
         }
         
@@ -412,7 +453,8 @@ extension StorageBottomSheet {
             $0.centerY.equalTo(setTagFilterButton)
             $0.height.equalTo(26)
         }
-        
+    }
+    func setFilterTagLayout() {
         selectedTagsSection.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
             $0.top.equalTo(setTagFilterButton.snp.bottom).offset( 20.adjustedH)
@@ -426,23 +468,15 @@ extension StorageBottomSheet {
             $0.height.equalTo(tagCellHeight)
         }
         
-        [firstSelectedTag, secondSelectedTag, thirdSelectedTag, emptySelectedTag].forEach {
+        selectedTagButtons.forEach {
             self.selectedTagsStackView.addArrangedSubview($0)
+            
+            $0.snp.makeConstraints {
+                $0.height.equalTo(35)
+//                $0.left.equalTo(T##other: ConstraintRelatableTarget##ConstraintRelatableTarget)
+            }
         }
         
-        firstSelectedTag.snp.makeConstraints {
-            $0.height.equalTo(35)
-            $0.width.equalTo(89)
-        }
-        
-        secondSelectedTag.snp.makeConstraints {
-            $0.height.equalTo(35)
-            $0.width.equalTo(89)
-        }
-        
-        thirdSelectedTag.snp.makeConstraints {
-            $0.height.equalTo(35)
-            $0.width.equalTo(89)
-        }
+        selectedTagsStackView.addArrangedSubview(emptySelectedTag)
     }
 }
