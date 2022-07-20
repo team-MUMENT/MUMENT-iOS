@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MumentDetailVC: BaseVC {
+class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
@@ -69,6 +69,35 @@ class MumentDetailVC: BaseVC {
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
+        mumentCardView.menuIconButton.press{
+
+            let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+            let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
+                self.tabBarController?.selectedIndex = 1
+            }
+
+            let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
+                let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
+                    mumentAlert.setTitle(title: "삭제하시겠어요?")
+                self.present(mumentAlert, animated: true)
+                
+                mumentAlert.OKButton.press {
+                    self.navigationController?.popViewController(animated: true)
+                            }
+            }
+
+            let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel) { action -> Void in }
+
+            actionSheetController.addAction(updatingAction)
+            actionSheetController.addAction(deletingAction)
+            actionSheetController.addAction(cancelAction)
+
+            self.present(actionSheetController, animated: true) {
+                print("option menu presented")
+            }
+        }
+        
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
