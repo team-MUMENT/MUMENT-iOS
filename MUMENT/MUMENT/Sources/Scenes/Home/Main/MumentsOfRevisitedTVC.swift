@@ -76,7 +76,6 @@ extension MumentsOfRevisitedTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? MumentsOfRevisitedCVC {
             cell.isSelected = true
         }
-        debugPrint("cell clicked", "\(indexPath)")
         self.delegate?.mumentsOfRevisitedCVCSelected()
     }
 }
