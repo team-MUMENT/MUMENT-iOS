@@ -116,6 +116,7 @@ class WriteVC: BaseVC {
     }
     private let completeButton = MumentCompleteButton(isEnabled: true).then {
         $0.setTitle("완료", for: .normal)
+        $0.isEnabled = false
     }
     private let selectedMusicView = WriteMusicView()
     
@@ -172,7 +173,16 @@ class WriteVC: BaseVC {
         if let receivedData = notification.object as? SearchResultResponseModelElement {
             self.selectedMusicView.setData(data: receivedData)
             getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: receivedData.id)
+            setIsEnableCompleteButton(isEnabled: true)
         }
+    }
+    
+    private func setDisableToggleButton() {
+        // TODO: 처음들은곡/다시들은곡 선택 막는 거 alert이랑 ...
+    }
+    
+    private func setIsEnableCompleteButton(isEnabled: Bool) {
+        self.completeButton.isEnabled = isEnabled
     }
     
     private func setSearchButton() {
@@ -239,6 +249,7 @@ class WriteVC: BaseVC {
     private func setRemoveSelectedMusicButton() {
         selectedMusicView.removeButton.press { [weak self] in
             self?.removeSelectedMusicView()
+            self?.setIsEnableCompleteButton(isEnabled: false)
         }
     }
     
@@ -269,6 +280,9 @@ class WriteVC: BaseVC {
                 
                 /// 공개/비공개 토글 초기화(default: toggle off)
                 self?.isPrivateToggleButton.isSelected = false
+                
+                /// 완료 버튼 비활성화
+                self?.setIsEnableCompleteButton(isEnabled: false)
             }
             self?.present(mumentAlert, animated: true)
         }
