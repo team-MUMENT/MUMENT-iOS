@@ -24,6 +24,5 @@ extension UIStackView {
             // Remove the views from self
             removedSubviews.forEach({ $0.removeFromSuperview() })
         }
-
 }
 

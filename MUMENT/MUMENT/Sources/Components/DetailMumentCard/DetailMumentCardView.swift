@@ -38,7 +38,12 @@ class DetailMumentCardView: UIView {
     var isFirst: Bool = false
     var impressionTags: [Int] = []
     var feelingTags: [Int] = []
+    var tagWidthSum: CGFloat = 0
     let tagStackView = UIStackView().then{
+        $0.axis = .horizontal
+        $0.spacing = 8
+    }
+    let tagSubStackView = UIStackView().then{
         $0.axis = .horizontal
         $0.spacing = 8
     }
@@ -93,6 +98,19 @@ class DetailMumentCardView: UIView {
         createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
+    }
+    
+    func setData(_ cellData: MumentDetailResponseModel){
+        profileImage.setImageUrl(cellData.user.image)
+        writerNameLabel.text = cellData.user.name
+        songInfoView.setData(albumURL: cellData.music.image, songTitle: cellData.music.name, artist: cellData.music.artist ?? "")
+        isFirst = cellData.isFirst
+        impressionTags = cellData.impressionTag
+        feelingTags = cellData.feelingTag
+        contentsLabel.text = cellData.content
+        createdAtLabel.text = cellData.createdAt
+        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+        heartLabel.text = "\(cellData.count)명이 좋아합니다."
         
         setTags()
     }
@@ -114,26 +132,25 @@ class DetailMumentCardView: UIView {
         }
     
     func setTags(){
-        tagStackView.removeAllArrangedSubviews()
         
+        tagStackView.removeAllArrangedSubviews()
+        tagSubStackView.removeAllArrangedSubviews()
+
         let tag = TagView()
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
         tagStackView.addArrangedSubview(tag)
-        
+                
         if impressionTags.count != 0{
             for i in 0...impressionTags.count-1{
                 let tag = TagView()
                 tag.tagContent = impressionTags[i]
-                tagStackView.addArrangedSubview(tag)
-            }
-        }
-        
-        if feelingTags.count != 0{
-            for i in 0...feelingTags.count-1{
-                let tag = TagView()
-                tag.tagContent = feelingTags[i]
-                tagStackView.addArrangedSubview(tag)
+                
+                if  tagStackView.subviews.count < 4 {
+                    tagStackView.addArrangedSubview(tag)
+                }else{
+                    tagSubStackView.addArrangedSubview(tag)
+                }
             }
         }
     }
@@ -149,7 +166,7 @@ extension DetailMumentCardView {
     }
     
     func setLayout() {
-        self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,contentsLabel,createdAtLabel,heartStackView,shareButton])
+        self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,tagSubStackView,contentsLabel,createdAtLabel,heartStackView,shareButton])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -172,6 +189,7 @@ extension DetailMumentCardView {
         songInfoView.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(7)
             $0.top.equalTo(separatorView.snp.bottom).offset(7)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.height.equalTo(72)
             $0.width.equalTo(144)
         }
@@ -180,8 +198,12 @@ extension DetailMumentCardView {
             $0.top.equalTo(songInfoView.snp.bottom).offset(13)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
         }
+        tagSubStackView.snp.makeConstraints{
+            $0.top.equalTo(tagStackView.snp.bottom).offset(8)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+        }
         contentsLabel.snp.makeConstraints{
-            $0.top.equalTo(tagStackView.snp.bottom).offset(22)
+            $0.top.equalTo(tagSubStackView.snp.bottom).offset(22)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
