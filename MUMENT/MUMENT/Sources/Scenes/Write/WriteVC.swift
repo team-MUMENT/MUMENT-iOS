@@ -288,6 +288,33 @@ class WriteVC: BaseVC {
         }
     }
     
+    private func setDefaultView() {
+        // TODO: 함수화..
+        
+        /// 선택된 음악 초기화
+        self.removeSelectedMusicView()
+        
+        /// 처음/다시 response값으로 초기화
+        self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: self.isFirstListen )
+        self.setRadioButtonSelectStatus(button: self.alreadyKnowButton, isSelected: self.isFirstListen)
+        
+        /// 인상/감정 태그 배열 초기화
+        self.feelTagCV.reloadData()
+        self.impressionTagCV.reloadData()
+        self.clickedFeelTag = []
+        self.clickedImpressionTag = []
+        
+        /// 글 초기화
+        self.contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
+        self.contentTextView.textColor = .mGray1
+        
+        /// 공개/비공개 토글 초기화(default: toggle off)
+        self.isPrivateToggleButton.isSelected = false
+        
+        /// 완료 버튼 비활성화
+        self.setIsEnableCompleteButton(isEnabled: false)
+    }
+    
     private func setSelectedMusicViewPressed() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSelectedMusicView(_:)))
         selectedMusicView.addGestureRecognizer(tapGestureRecognizer)
