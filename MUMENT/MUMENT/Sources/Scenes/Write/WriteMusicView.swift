@@ -77,9 +77,9 @@ extension WriteMusicView {
         }
     }
     
-    func setData(data: MusicForSearchModel) {
-        albumImageView.setImageUrl(data.imageUrl)
-        titleLabel.text = data.title
+    func setData(data: SearchResultResponseModelElement) {
+        albumImageView.setImageUrl(data.image)
+        titleLabel.text = data.name
         artistLabel.text = data.artist
     }
 }
