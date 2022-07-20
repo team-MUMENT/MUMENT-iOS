@@ -93,6 +93,8 @@
 		C7AE17DC2887FEA700A5E3FA /* GetIsFirstResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17DB2887FEA700A5E3FA /* GetIsFirstResponseModel.swift */; };
 		C7AE17E028880DEB00A5E3FA /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17DF28880DEB00A5E3FA /* UserInfo.swift */; };
 		C7AE17E228882D4100A5E3FA /* SearchResultResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E128882D4100A5E3FA /* SearchResultResponseModel.swift */; };
+		C7AE17E428882D6B00A5E3FA /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E328882D6B00A5E3FA /* SearchService.swift */; };
+		C7AE17E628882DE100A5E3FA /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E528882DE100A5E3FA /* SearchAPI.swift */; };
 		C7BB53002875960800E0E889 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB52FF2875960800E0E889 /* UIFont+.swift */; };
 		C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */; };
 		C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */; };
@@ -212,6 +214,8 @@
 		C7AE17DB2887FEA700A5E3FA /* GetIsFirstResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIsFirstResponseModel.swift; sourceTree = "<group>"; };
 		C7AE17DF28880DEB00A5E3FA /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C7AE17E128882D4100A5E3FA /* SearchResultResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultResponseModel.swift; sourceTree = "<group>"; };
+		C7AE17E328882D6B00A5E3FA /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		C7AE17E528882DE100A5E3FA /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		C7BB52FF2875960800E0E889 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -425,6 +429,7 @@
 				C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */,
 				C71B48132886DD8E001A7CD6 /* SignAPI.swift */,
 				C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */,
+				C7AE17E528882DE100A5E3FA /* SearchAPI.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -434,6 +439,7 @@
 			children = (
 				C73FC9C9287C19E60017F2DA /* SignService.swift */,
 				C7AE17D92887E4BD00A5E3FA /* WriteService.swift */,
+				C7AE17E328882D6B00A5E3FA /* SearchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -815,6 +821,8 @@
 				4D2BADD528806C10004A7E00 /* MumentCardBySongModel.swift in Sources */,
 				4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */,
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
+				C7AE17E628882DE100A5E3FA /* SearchAPI.swift in Sources */,
+				C7AE17E428882D6B00A5E3FA /* SearchService.swift in Sources */,
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
 				C7AE17DC2887FEA700A5E3FA /* GetIsFirstResponseModel.swift in Sources */,
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,
