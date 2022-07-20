@@ -18,6 +18,8 @@ class SongDetailVC: BaseVC {
     var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
+//    var songInfoData:
+    var allMumentsData: [AllMumentsResponseModel.MumentList] = []
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -25,7 +27,9 @@ class SongDetailVC: BaseVC {
         setTV()
         setLayout()
         setButtonActions()
+//        requestGetSongInfo()
         requestGetAllMuments()
+        
     }
     
     // MARK: - Functions
@@ -86,7 +90,7 @@ extension SongDetailVC: UITableViewDataSource {
         case 1 :
             return myMumentDataSource.count
         case 2:
-            return allMumentsDataSource.count
+            return allMumentsData.count
         default:
             return 0
         }
@@ -116,8 +120,7 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
-            cell.setData(allMumentsDataSource[indexPath.row])
-            cell.mumentCard.setTags()
+            cell.setData(allMumentsData[indexPath.row])
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
@@ -182,13 +185,30 @@ extension SongDetailVC: UITableViewDelegate {
 
 // MARK: - Network
 extension SongDetailVC {
+    private func requestGetSongInfo() {
+        SongDetailAPI.shared.getAllMuments(musicId: "62d2959e177f6e81ee8fa3de", userId: "62cd5d4383956edb45d7d0ef", isOrderLiked: true) { networkResult in
+        switch networkResult {
+           
+        case .success(let response):
+          if let res = response as? SongInfoResponseModel {
+//              print(res.myMument)
+              
+          }
+        default:
+          self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+        }
+      }
+    }
+    
   private func requestGetAllMuments() {
       SongDetailAPI.shared.getAllMuments(musicId: "62d2959e177f6e81ee8fa3de", userId: "62cd5d4383956edb45d7d0ef", isOrderLiked: true) { networkResult in
       switch networkResult {
          
       case .success(let response):
         if let res = response as? AllMumentsResponseModel {
-          print(res.mumentList)
+            print(res.mumentList, "jjjjjjj")
+            self.allMumentsData = res.mumentList
+            self.mumentTV.reloadData()
         }
 
       default:
