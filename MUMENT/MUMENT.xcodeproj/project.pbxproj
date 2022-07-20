@@ -60,11 +60,11 @@
 		C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48082885A877001A7CD6 /* SearchForWriteView.swift */; };
 		C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */; };
 		C71B480D2885EB84001A7CD6 /* Notification+Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */; };
-		C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48192886F5FF001A7CD6 /* Int+.swift */; };
 		C71B48122886DD29001A7CD6 /* SignInBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */; };
 		C71B48142886DD8E001A7CD6 /* SignAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48132886DD8E001A7CD6 /* SignAPI.swift */; };
 		C71B48162886E5DF001A7CD6 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48152886E5DF001A7CD6 /* SignInVC.swift */; };
 		C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48172886E7BA001A7CD6 /* SignInDataModel.swift */; };
+		C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48192886F5FF001A7CD6 /* Int+.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
 		C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C1287C19B00017F2DA /* NetworkResult.swift */; };
@@ -88,6 +88,9 @@
 		C74EC445287593BF0068EB46 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC444287593BF0068EB46 /* RxRelay */; };
 		C74EC447287593BF0068EB46 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC446287593BF0068EB46 /* RxSwift */; };
 		C74EC44C287594270068EB46 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC44B287594270068EB46 /* Alamofire */; };
+		C7AE17D82887E44C00A5E3FA /* WriteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */; };
+		C7AE17DA2887E4BE00A5E3FA /* WriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D92887E4BD00A5E3FA /* WriteService.swift */; };
+		C7AE17DC2887FEA700A5E3FA /* GetIsFirstResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17DB2887FEA700A5E3FA /* GetIsFirstResponseModel.swift */; };
 		C7BB53002875960800E0E889 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB52FF2875960800E0E889 /* UIFont+.swift */; };
 		C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */; };
 		C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */; };
@@ -179,11 +182,11 @@
 		C71B48082885A877001A7CD6 /* SearchForWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForWriteView.swift; sourceTree = "<group>"; };
 		C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMusicView.swift; sourceTree = "<group>"; };
 		C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name+.swift"; sourceTree = "<group>"; };
-		C71B48192886F5FF001A7CD6 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBodyModel.swift; sourceTree = "<group>"; };
 		C71B48132886DD8E001A7CD6 /* SignAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAPI.swift; sourceTree = "<group>"; };
 		C71B48152886E5DF001A7CD6 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		C71B48172886E7BA001A7CD6 /* SignInDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDataModel.swift; sourceTree = "<group>"; };
+		C71B48192886F5FF001A7CD6 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		C73FC9C1287C19B00017F2DA /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
@@ -202,6 +205,9 @@
 		C74EC42728758D230068EB46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C74EC434287592750068EB46 /* Colorsets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colorsets.xcassets; sourceTree = "<group>"; };
 		C74EC437287593110068EB46 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteAPI.swift; sourceTree = "<group>"; };
+		C7AE17D92887E4BD00A5E3FA /* WriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteService.swift; sourceTree = "<group>"; };
+		C7AE17DB2887FEA700A5E3FA /* GetIsFirstResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIsFirstResponseModel.swift; sourceTree = "<group>"; };
 		C7BB52FF2875960800E0E889 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -413,6 +419,7 @@
 			children = (
 				C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */,
 				C71B48132886DD8E001A7CD6 /* SignAPI.swift */,
+				C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -421,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				C73FC9C9287C19E60017F2DA /* SignService.swift */,
+				C7AE17D92887E4BD00A5E3FA /* WriteService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -642,6 +650,7 @@
 			isa = PBXGroup;
 			children = (
 				C7BC6B572876ADD6008C75CE /* ww.swift */,
+				C7AE17DB2887FEA700A5E3FA /* GetIsFirstResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -788,10 +797,12 @@
 				C71B47F52881A7C6001A7CD6 /* RecentSearchEmptyView.swift in Sources */,
 				4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */,
 				C71B47EF2881A11E001A7CD6 /* UIImageView+.swift in Sources */,
+				C7AE17DA2887E4BE00A5E3FA /* WriteService.swift in Sources */,
 				4D2BADD528806C10004A7E00 /* MumentCardBySongModel.swift in Sources */,
 				4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */,
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
+				C7AE17DC2887FEA700A5E3FA /* GetIsFirstResponseModel.swift in Sources */,
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,
 				4D13A65B28829FF000197D2A /* MumentHistoryVC.swift in Sources */,
 				C7BC6B6C287710F9008C75CE /* String+.swift in Sources */,
@@ -845,6 +856,7 @@
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
 				E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
+				C7AE17D82887E44C00A5E3FA /* WriteAPI.swift in Sources */,
 				4D13A65D2882A42000197D2A /* MumentHistoryTVHeader.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* SignService.swift in Sources */,
 				E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */,
