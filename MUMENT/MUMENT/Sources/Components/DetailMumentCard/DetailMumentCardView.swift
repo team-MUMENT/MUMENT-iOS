@@ -24,7 +24,7 @@ class DetailMumentCardView: UIView {
         $0.font = .mumentB6M13
     }
     
-    private let menuIconButton = UIButton().then{
+    let menuIconButton = UIButton().then{
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "kebab")
     }
