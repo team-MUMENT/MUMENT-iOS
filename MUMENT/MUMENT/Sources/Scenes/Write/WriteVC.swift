@@ -148,7 +148,7 @@ class WriteVC: BaseVC {
         setTagCV()
         setLayout()
         setRadioButtonSelectStatus(button: firstTimeButton, isSelected: isFirstListen)
-        setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: !(isFirstListen))
+        setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: isFirstListen)
         setRadioButton()
         setIsPrivateToggleButton()
         setContentTextView()
@@ -159,7 +159,7 @@ class WriteVC: BaseVC {
         setRemoveSelectedMusicButton()
         setSelectedMusicViewPressed()
         setResetButton()
-        getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: "62d2959e177f6e81ee8fa3de")
+        
     }
     
     // MARK: - Functions
@@ -169,8 +169,9 @@ class WriteVC: BaseVC {
     
     @objc func setSelectedMusicViewForReceived(_ notification: Notification){
         self.setSelectedMusicView()
-        if let receivedData = notification.object as? MusicForSearchModel {
+        if let receivedData = notification.object as? SearchResultResponseModelElement {
             self.selectedMusicView.setData(data: receivedData)
+            getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: receivedData.id)
         }
     }
     
@@ -253,8 +254,8 @@ class WriteVC: BaseVC {
                 self?.removeSelectedMusicView()
                 
                 /// 처음/다시 response값으로 초기화
-                self?.setRadioButtonSelectStatus(button: self?.firstTimeButton ?? UIButton(), isSelected: self?.isFirstListen ?? true)
-                self?.setRadioButtonSelectStatus(button: self?.alreadyKnowButton ?? UIButton(), isSelected: !(self?.isFirstListen ?? true))
+                self?.setRadioButtonSelectStatus(button: self?.firstTimeButton ?? UIButton(), isSelected: self?.isFirstListen ?? false)
+                self?.setRadioButtonSelectStatus(button: self?.alreadyKnowButton ?? UIButton(), isSelected: self?.isFirstListen ?? false)
                 
                 /// 인상/감정 태그 배열 초기화
                 self?.feelTagCV.reloadData()
