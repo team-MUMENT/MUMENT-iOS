@@ -26,7 +26,7 @@ extension MumentTabBarController {
             switch networkResult {
             case .success(let response):
                 if let result = response as? SignInDataModel {
-                    print("로그인 성공데스")
+                    UserInfo.shared.userId = result.id
                 }
             default:
                 self.makeAlert(title: "로그인 실패데스,,. plz 앱 재시작")

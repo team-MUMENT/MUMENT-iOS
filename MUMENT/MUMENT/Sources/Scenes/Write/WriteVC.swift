@@ -159,7 +159,7 @@ class WriteVC: BaseVC {
         setRemoveSelectedMusicButton()
         setSelectedMusicViewPressed()
         setResetButton()
-        getIsFirst(userId: "62cd5d4383956edb45d7d0ef", musicId: "62d2959e177f6e81ee8fa3de")
+        getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: "62d2959e177f6e81ee8fa3de")
     }
     
     // MARK: - Functions
