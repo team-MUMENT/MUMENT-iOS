@@ -74,11 +74,11 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
 
             let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-            let firstAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
+            let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
                 self.tabBarController?.selectedIndex = 1
             }
 
-            let secondAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
+            let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
                 let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
                     mumentAlert.setTitle(title: "삭제하시겠어요?")
                 self.present(mumentAlert, animated: true)
@@ -90,8 +90,8 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
 
             let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel) { action -> Void in }
 
-            actionSheetController.addAction(firstAction)
-            actionSheetController.addAction(secondAction)
+            actionSheetController.addAction(updatingAction)
+            actionSheetController.addAction(deletingAction)
             actionSheetController.addAction(cancelAction)
 
             self.present(actionSheetController, animated: true) {
