@@ -190,10 +190,7 @@ extension SongDetailVC {
         if let res = response as? AllMumentsResponseModel {
           print(res.mumentList)
         }
-//          if let data = data as? AllMumentsResponseModel {
-//                             self.postDetailModel = data
-//                             self.bottomView.setData(data: data)
-//                         }
+
       default:
         self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
       }

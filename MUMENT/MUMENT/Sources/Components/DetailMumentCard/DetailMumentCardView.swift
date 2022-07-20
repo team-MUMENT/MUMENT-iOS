@@ -16,11 +16,6 @@ class DetailMumentCardView: UIView {
         $0.axis = .horizontal
         $0.spacing = 7
     }
-    var profileImageURL = ""{
-        didSet{
-            
-        }
-    }
     private let profileImage = UIImageView().then{
         $0.makeRounded(cornerRadius: 12.5)
     }
@@ -103,8 +98,6 @@ class DetailMumentCardView: UIView {
         createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
-        
-//        setTags()
     }
     
     func setData(_ cellData: MumentDetailResponseModel){
@@ -126,57 +119,24 @@ class DetailMumentCardView: UIView {
         
         tagStackView.removeAllArrangedSubviews()
         tagSubStackView.removeAllArrangedSubviews()
-        print("tagStackView.frame.width",tagStackView.frame.width)
-//        tagWidthSum = 0
+
         let tag = TagView()
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
         tagStackView.addArrangedSubview(tag)
-        
-//        tagWidthSum += tag.frame.size.width + 8
-        
+                
         if impressionTags.count != 0{
             for i in 0...impressionTags.count-1{
                 let tag = TagView()
                 tag.tagContent = impressionTags[i]
-//                tagWidthSum += tag.frame.size.width + 8
-//                if tagWidthSum  < self.frame.width - 26
-//                print("self.frame.width",self.frame.width-66)
-//                if tagStackView.frame.width < self.frame.width - 66 {
                 
-                
-//                if  tagStackView.countStackView() < 3 {
                 if  tagStackView.subviews.count < 4 {
-//                    print("impressionTags tagStackView",impressionTags[i].tagString())
                     tagStackView.addArrangedSubview(tag)
                 }else{
-//                    print("impressionTags tagSubStackView",impressionTags[i].tagString())
-                    tagSubStackView.addArrangedSubview(tag)
-                }
-//                print("tagStackView.frame",tagStackView.frame)
-            }
-//            print("tagStackView.frame",tagStackView.frame)
-        }
-//        print("tagStackView.frame",tagStackView.frame.size)
-//        print("tagStackView.bounds",tagStackView.bounds)
-
-        if feelingTags.count != 0{
-            for i in 0...feelingTags.count-1{
-                let tag = TagView()
-                tag.tagContent = feelingTags[i]
-//                tagStackView.addArrangedSubview(tag)
-//                tagWidthSum += tag.frame.width + 8
-                if tagStackView.subviews.count < 4 {
-                    print("feelingTags tagStackView",feelingTags[i].tagString())
-                    tagStackView.addArrangedSubview(tag)
-                }else{
-                    print("feelingTags tagSubStackView",feelingTags[i].tagString())
                     tagSubStackView.addArrangedSubview(tag)
                 }
             }
         }
-//        print("tagStackView.frame.width",tagStackView.frame.width)
-//        print("tag.frame.width",tag.frame.size.width)
     }
 }
 
