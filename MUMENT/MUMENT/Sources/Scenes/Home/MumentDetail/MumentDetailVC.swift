@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MumentDetailVC: BaseVC {
+class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
@@ -70,6 +70,51 @@ class MumentDetailVC: BaseVC {
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
+        mumentCardView.menuIconButton.press{
+//            let actionSheet = UIActionSheet(title: "Choose Option", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Save", "Delete")
+            
+//            actionSheet.show(in: self.view)let alert = UIAlertController(title: "Title", message: "Please Select an Option", preferredStyle: .actionSheet)
+            
+            
+            
+//            let alert = UIAlertController(title: "Title", message: "Please Select an Option", preferredStyle: .actionSheet)
+
+//            alert.addAction(UIAlertAction(title: "Approve", style: .default , handler:{ (UIAlertAction)in
+//                print("User click Approve button")
+//            }))
+
+//            self.present(alert, animated: true, completion: {
+//                    print("completion block")
+//            })
+            
+            
+            let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+            let firstAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
+                self.tabBarController?.selectedIndex = 1
+            }
+
+            let secondAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
+                let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
+                    mumentAlert.setTitle(title: "삭제하시겠어요?")
+                self.present(mumentAlert, animated: true)
+                
+                mumentAlert.OKButton.press {
+                    self.navigationController?.popViewController(animated: true)
+                            }
+            }
+
+            let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel) { action -> Void in }
+
+            actionSheetController.addAction(firstAction)
+            actionSheetController.addAction(secondAction)
+            actionSheetController.addAction(cancelAction)
+
+            self.present(actionSheetController, animated: true) {
+                print("option menu presented")
+            }
+        }
+        
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
