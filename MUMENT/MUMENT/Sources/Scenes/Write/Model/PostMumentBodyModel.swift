@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - PostMumentBodyModel
 struct PostMumentBodyModel: Codable {
-    let isFirst: Bool
-    let impressionTag: [Int]
-    let feelingTag: [Int]
-    let content: String
-    let isPrivate: Bool
+    var isFirst: Bool
+    var impressionTag: [Int]
+    var feelingTag: [Int]
+    var content: String
+    var isPrivate: Bool
 
     enum CodingKeys: String, CodingKey {
         case isFirst = "isFirst"
