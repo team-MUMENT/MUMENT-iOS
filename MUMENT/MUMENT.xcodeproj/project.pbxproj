@@ -91,6 +91,7 @@
 		C7AE17D82887E44C00A5E3FA /* WriteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */; };
 		C7AE17DA2887E4BE00A5E3FA /* WriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D92887E4BD00A5E3FA /* WriteService.swift */; };
 		C7AE17DC2887FEA700A5E3FA /* GetIsFirstResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17DB2887FEA700A5E3FA /* GetIsFirstResponseModel.swift */; };
+		C7AE17E028880DEB00A5E3FA /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17DF28880DEB00A5E3FA /* UserInfo.swift */; };
 		C7BB53002875960800E0E889 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB52FF2875960800E0E889 /* UIFont+.swift */; };
 		C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */; };
 		C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */; };
@@ -208,6 +209,7 @@
 		C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteAPI.swift; sourceTree = "<group>"; };
 		C7AE17D92887E4BD00A5E3FA /* WriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteService.swift; sourceTree = "<group>"; };
 		C7AE17DB2887FEA700A5E3FA /* GetIsFirstResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIsFirstResponseModel.swift; sourceTree = "<group>"; };
+		C7AE17DF28880DEB00A5E3FA /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C7BB52FF2875960800E0E889 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -499,6 +501,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C7AE17DE28880DDB00A5E3FA /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				C7AE17DF28880DEB00A5E3FA /* UserInfo.swift */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
 		C7BB53032875972700E0E889 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +596,7 @@
 		C7BC6B4C2876ACD9008C75CE /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				C7AE17DE28880DDB00A5E3FA /* Singleton */,
 				C7BB530E287598FF00E0E889 /* Base */,
 				C74EC436287593030068EB46 /* Extensions */,
 			);
@@ -806,6 +817,7 @@
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,
 				4D13A65B28829FF000197D2A /* MumentHistoryVC.swift in Sources */,
 				C7BC6B6C287710F9008C75CE /* String+.swift in Sources */,
+				C7AE17E028880DEB00A5E3FA /* UserInfo.swift in Sources */,
 				4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */,
 				C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */,
 				C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */,
