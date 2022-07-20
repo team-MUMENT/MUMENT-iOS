@@ -24,6 +24,16 @@ extension UIStackView {
             // Remove the views from self
             removedSubviews.forEach({ $0.removeFromSuperview() })
         }
+    
+    func countStackView() -> Int {
+        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
+            return allSubviews + [subview]
+        }
+        // Deactivate all constraints
+        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
+        
+        return removedSubviews.count
+    }
 
 }
 

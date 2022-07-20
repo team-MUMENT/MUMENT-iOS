@@ -43,6 +43,7 @@ class DetailMumentCardView: UIView {
     var isFirst: Bool = false
     var impressionTags: [Int] = []
     var feelingTags: [Int] = []
+    var tagWidthSum: CGFloat = 0
     let tagStackView = UIStackView().then{
         $0.axis = .horizontal
         $0.spacing = 8
@@ -103,7 +104,7 @@ class DetailMumentCardView: UIView {
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
         
-        setTags()
+//        setTags()
     }
     
     func setData(_ cellData: MumentDetailResponseModel){
@@ -122,28 +123,60 @@ class DetailMumentCardView: UIView {
     }
     
     func setTags(){
-        tagStackView.removeAllArrangedSubviews()
         
+        tagStackView.removeAllArrangedSubviews()
+        tagSubStackView.removeAllArrangedSubviews()
+        print("tagStackView.frame.width",tagStackView.frame.width)
+//        tagWidthSum = 0
         let tag = TagView()
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
         tagStackView.addArrangedSubview(tag)
         
+//        tagWidthSum += tag.frame.size.width + 8
+        
         if impressionTags.count != 0{
             for i in 0...impressionTags.count-1{
                 let tag = TagView()
                 tag.tagContent = impressionTags[i]
-                tagStackView.addArrangedSubview(tag)
+//                tagWidthSum += tag.frame.size.width + 8
+//                if tagWidthSum  < self.frame.width - 26
+//                print("self.frame.width",self.frame.width-66)
+//                if tagStackView.frame.width < self.frame.width - 66 {
+                
+                
+//                if  tagStackView.countStackView() < 3 {
+                if  tagStackView.subviews.count < 4 {
+//                    print("impressionTags tagStackView",impressionTags[i].tagString())
+                    tagStackView.addArrangedSubview(tag)
+                }else{
+//                    print("impressionTags tagSubStackView",impressionTags[i].tagString())
+                    tagSubStackView.addArrangedSubview(tag)
+                }
+//                print("tagStackView.frame",tagStackView.frame)
             }
+//            print("tagStackView.frame",tagStackView.frame)
         }
-        
+//        print("tagStackView.frame",tagStackView.frame.size)
+//        print("tagStackView.bounds",tagStackView.bounds)
+
         if feelingTags.count != 0{
             for i in 0...feelingTags.count-1{
                 let tag = TagView()
                 tag.tagContent = feelingTags[i]
-                tagStackView.addArrangedSubview(tag)
+//                tagStackView.addArrangedSubview(tag)
+//                tagWidthSum += tag.frame.width + 8
+                if tagStackView.subviews.count < 4 {
+                    print("feelingTags tagStackView",feelingTags[i].tagString())
+                    tagStackView.addArrangedSubview(tag)
+                }else{
+                    print("feelingTags tagSubStackView",feelingTags[i].tagString())
+                    tagSubStackView.addArrangedSubview(tag)
+                }
             }
         }
+//        print("tagStackView.frame.width",tagStackView.frame.width)
+//        print("tag.frame.width",tag.frame.size.width)
     }
 }
 
@@ -157,7 +190,7 @@ extension DetailMumentCardView {
     }
     
     func setLayout() {
-        self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,contentsLabel,createdAtLabel,heartStackView,shareButton])
+        self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,tagSubStackView,contentsLabel,createdAtLabel,heartStackView,shareButton])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -189,8 +222,12 @@ extension DetailMumentCardView {
             $0.top.equalTo(songInfoView.snp.bottom).offset(13)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
         }
+        tagSubStackView.snp.makeConstraints{
+            $0.top.equalTo(tagStackView.snp.bottom).offset(8)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+        }
         contentsLabel.snp.makeConstraints{
-            $0.top.equalTo(tagStackView.snp.bottom).offset(22)
+            $0.top.equalTo(tagSubStackView.snp.bottom).offset(22)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
