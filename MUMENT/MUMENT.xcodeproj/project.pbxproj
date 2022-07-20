@@ -96,6 +96,7 @@
 		C7AE17E428882D6B00A5E3FA /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E328882D6B00A5E3FA /* SearchService.swift */; };
 		C7AE17E628882DE100A5E3FA /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E528882DE100A5E3FA /* SearchAPI.swift */; };
 		C7AE17E82888675600A5E3FA /* PostMumentBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E72888675600A5E3FA /* PostMumentBodyModel.swift */; };
+		C7AE17EA28886B4F00A5E3FA /* PostMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */; };
 		C7BB53002875960800E0E889 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB52FF2875960800E0E889 /* UIFont+.swift */; };
 		C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */; };
 		C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */; };
@@ -217,6 +218,7 @@
 		C7AE17E328882D6B00A5E3FA /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		C7AE17E528882DE100A5E3FA /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		C7AE17E72888675600A5E3FA /* PostMumentBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMumentBodyModel.swift; sourceTree = "<group>"; };
+		C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMumentResponseModel.swift; sourceTree = "<group>"; };
 		C7BB52FF2875960800E0E889 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -671,6 +673,7 @@
 			children = (
 				C7AE17DB2887FEA700A5E3FA /* GetIsFirstResponseModel.swift */,
 				C7AE17E72888675600A5E3FA /* PostMumentBodyModel.swift */,
+				C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -858,6 +861,7 @@
 				C7BC6B5A2876ADDD008C75CE /* ss.swift in Sources */,
 				4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */,
 				C71B48142886DD8E001A7CD6 /* SignAPI.swift in Sources */,
+				C7AE17EA28886B4F00A5E3FA /* PostMumentResponseModel.swift in Sources */,
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
 				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
