@@ -173,7 +173,6 @@ class WriteVC: BaseVC {
         setSelectedMusicViewPressed()
         setResetButton()
         setCompleteButton()
-        setRadioButtonPressed()
         setIsEnableCompleteButton(isEnabled: false)
     }
     
@@ -190,10 +189,6 @@ class WriteVC: BaseVC {
             musicId = receivedData.id
             setIsEnableCompleteButton(isEnabled: true)
         }
-    }
-    
-    private func setDisableToggleButton() {
-        
     }
     
     private func setCompleteButton() {
@@ -478,10 +473,6 @@ extension WriteVC {
     private func setRadioButtonSelectStatus(button: UIButton, isSelected: Bool) {
         button.isSelected = isSelected
         button.titleLabel?.font = isSelected ? .mumentB2B14 : .mumentB4M14
-    }
-    
-    private func setRadioButtonPressed() {
-
     }
     
     private func registerCell() {
