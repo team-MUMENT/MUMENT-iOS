@@ -48,18 +48,20 @@ class WriteVC: BaseVC {
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
-    private let firstTimeButton = UIButton(type: .custom).then {
+    private let firstListenButton = UIButton(type: .custom).then {
         $0.setTitle("처음 들어요", for: .normal)
         $0.setBackgroundColor(.mPurple2, for: .selected)
         $0.setBackgroundColor(.mGray5, for: .normal)
+        $0.setBackgroundColor(.mGray5, for: .disabled)
         $0.setTitleColor(.mPurple1, for: .selected)
         $0.setTitleColor(.mGray1, for: .normal)
         $0.makeRounded(cornerRadius: 11.adjustedH)
     }
-    private let alreadyKnowButton = UIButton(type: .custom).then {
+    private let againListenButton = UIButton(type: .custom).then {
         $0.setTitle("다시 들었어요", for: .normal)
         $0.setBackgroundColor(.mPurple2, for: .selected)
         $0.setBackgroundColor(.mGray5, for: .normal)
+        $0.setBackgroundColor(.mGray5, for: .disabled)
         $0.setTitleColor(.mPurple1, for: .selected)
         $0.setTitleColor(.mGray1, for: .normal)
         $0.makeRounded(cornerRadius: 11.adjustedH)
@@ -118,8 +120,7 @@ class WriteVC: BaseVC {
         $0.setTitle("완료", for: .normal)
         $0.isEnabled = false
     }
-    private let selectedMusicView = WriteMusicView()
-    
+    private var selectedMusicView = WriteMusicView()
     var clickedImpressionTag: [Int] = [] {
         didSet {
             postMumentData.impressionTag = clickedImpressionTag
@@ -149,6 +150,7 @@ class WriteVC: BaseVC {
     }
     let disposeBag = DisposeBag()
     var isFirstListen = false
+    var isFirstListenActivated = true
     var musicId = ""
     var postMumentData = PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false)
 
@@ -158,8 +160,8 @@ class WriteVC: BaseVC {
         setNotificationCenter()
         setTagCV()
         setLayout()
-        setRadioButtonSelectStatus(button: firstTimeButton, isSelected: isFirstListen)
-        setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: isFirstListen)
+        setRadioButtonSelectStatus(button: firstListenButton, isSelected: isFirstListen)
+        setRadioButtonSelectStatus(button: againListenButton, isSelected: isFirstListen)
         setRadioButton()
         setIsPrivateToggleButton()
         setContentTextView()
@@ -171,6 +173,7 @@ class WriteVC: BaseVC {
         setSelectedMusicViewPressed()
         setResetButton()
         setCompleteButton()
+        setIsEnableCompleteButton(isEnabled: false)
     }
     
     // MARK: - Functions
@@ -188,10 +191,6 @@ class WriteVC: BaseVC {
         }
     }
     
-    private func setDisableToggleButton() {
-        // TODO: 처음들은곡/다시들은곡 선택 막는 거 alert이랑 ...
-    }
-    
     private func setCompleteButton() {
         completeButton.press { [weak self] in
             self?.feelTagCV.indexPathsForSelectedItems?.forEach {
@@ -204,13 +203,15 @@ class WriteVC: BaseVC {
                 self?.clickedImpressionTag.append(cell.contentLabel.text?.tagInt() ?? 0)
             }
             
-            self?.postMumentData = PostMumentBodyModel(isFirst: self?.firstTimeButton.isSelected ?? false, impressionTag: self?.clickedImpressionTag ?? [], feelingTag: self?.clickedFeelTag ?? [], content: self?.contentTextView.text ?? "", isPrivate: self?.isPrivateToggleButton.isSelected ?? false)
+            self?.postMumentData = PostMumentBodyModel(isFirst: self?.firstListenButton.isSelected ?? false, impressionTag: self?.clickedImpressionTag ?? [], feelingTag: self?.clickedFeelTag ?? [], content: self?.contentTextView.text ?? "", isPrivate: self?.isPrivateToggleButton.isSelected ?? false)
             self?.postMument(userId: UserInfo.shared.userId ?? "", musicId: self?.musicId ?? "", data: self?.postMumentData ?? PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false))
         }
     }
     
     private func setIsEnableCompleteButton(isEnabled: Bool) {
         self.completeButton.isEnabled = isEnabled
+        self.firstListenButton.isEnabled = isEnabled
+        self.againListenButton.isEnabled = isEnabled
     }
     
     private func setSearchButton() {
@@ -223,13 +224,19 @@ class WriteVC: BaseVC {
     }
     
     private func setRadioButton() {
-        firstTimeButton.press {
-            self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: true)
-            self.setRadioButtonSelectStatus(button: self.alreadyKnowButton, isSelected: false)
+        firstListenButton.press {
+            self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: true)
+            self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: false)
+            if self.isFirstListenActivated == false {
+                self.showToastMessage(message: "‘처음 들어요'는 한 곡당 한 번만 선택할 수 있어요.")
+                self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: false)
+                self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: true)
+            }
+            
         }
-        alreadyKnowButton.press {
-            self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: false)
-            self.setRadioButtonSelectStatus(button: self.alreadyKnowButton, isSelected: true)
+        againListenButton.press {
+            self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: false)
+            self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: true)
         }
     }
     
@@ -299,8 +306,8 @@ class WriteVC: BaseVC {
         self.removeSelectedMusicView()
         
         /// 처음/다시 response값으로 초기화
-        self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: self.isFirstListen )
-        self.setRadioButtonSelectStatus(button: self.alreadyKnowButton, isSelected: self.isFirstListen)
+        self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: self.isFirstListen )
+        self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: self.isFirstListen)
         
         /// 인상/감정 태그 배열 초기화
         self.feelTagCV.reloadData()
@@ -366,8 +373,9 @@ extension WriteVC {
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetIsFirstResponseModel {
-                    self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: result.isFirst)
-                    self.setRadioButtonSelectStatus(button: self.alreadyKnowButton, isSelected: !(result.isFirst))
+                    self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: result.isFirst)
+                    self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: !(result.isFirst))
+                    self.isFirstListenActivated = result.firstavailable
                 }
             default:
                 self.makeAlert(title: """
@@ -416,9 +424,13 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
-            cell.isSelected = true
+        if Int(feelTagCV.indexPathsForSelectedItems?.count ?? 0) + Int(impressionTagCV.indexPathsForSelectedItems?.count ?? 0) > 5 {
+            self.showToastMessage(message: "감상 태그는 최대 5개까지 선택할 수 있어요.")
+            collectionView.deselectItem(at: indexPath, animated: true)
+        } else {
+            if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
+                cell.isSelected = true
+            }
         }
     }
     
@@ -489,7 +501,7 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -528,21 +540,21 @@ extension WriteVC {
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        firstTimeButton.snp.makeConstraints {
+        firstListenButton.snp.makeConstraints {
             $0.top.equalTo(firstTimeMusicLabel.snp.bottom).offset(16)
             $0.left.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.width.equalTo(163.adjustedW)
             $0.height.equalTo(40.adjustedH)
         }
         
-        alreadyKnowButton.snp.makeConstraints {
-            $0.top.equalTo(firstTimeButton.snp.top)
-            $0.width.height.equalTo(firstTimeButton)
+        againListenButton.snp.makeConstraints {
+            $0.top.equalTo(firstListenButton.snp.top)
+            $0.width.height.equalTo(firstListenButton)
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
         impressionLabel.snp.makeConstraints {
-            $0.top.equalTo(alreadyKnowButton.snp.bottomMargin).offset(50)
+            $0.top.equalTo(againListenButton.snp.bottomMargin).offset(50)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
