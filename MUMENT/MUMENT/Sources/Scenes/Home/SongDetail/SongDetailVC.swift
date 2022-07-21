@@ -206,7 +206,7 @@ extension SongDetailVC {
          
       case .success(let response):
         if let res = response as? AllMumentsResponseModel {
-            print(res.mumentList, "jjjjjjj")
+//            print(res.mumentList, "jjjjjjj")
             self.allMumentsData = res.mumentList
             self.mumentTV.reloadData()
         }
