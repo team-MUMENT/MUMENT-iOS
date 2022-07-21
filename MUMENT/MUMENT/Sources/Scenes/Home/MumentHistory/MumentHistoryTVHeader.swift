@@ -63,7 +63,8 @@ extension MumentHistoryTVHeader {
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(12)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(16)
             $0.height.equalTo(72)
-            $0.width.equalTo(144)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
+//            $0.width.equalTo(144)
         }
         
         latestOrderingButton.snp.makeConstraints{
