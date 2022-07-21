@@ -57,6 +57,7 @@ class SearchVC: BaseVC {
                 searchResultEmptyView.isHidden = true
             case .searchResult:
                 recentSearchEmptyView.isHidden = true
+                self.allClearButton.isHidden = true
                 recentSearchTitleView.snp.updateConstraints {
                     $0.height.equalTo(0)
                 }
@@ -90,6 +91,7 @@ class SearchVC: BaseVC {
     private func fetchSearchResultData() {
         if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
             recentSearchData = localData
+            recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
         } else {
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
             fetchSearchResultData()
@@ -305,6 +307,7 @@ extension SearchVC {
             $0.centerY.equalTo(recentSearchLabel)
             $0.trailing.equalToSuperview().inset(20)
             $0.width.equalTo(48.adjustedW)
+            $0.height.equalTo(16.adjustedW)
         }
     }
 }
