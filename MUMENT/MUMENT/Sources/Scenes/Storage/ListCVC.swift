@@ -11,7 +11,10 @@ class ListCVC: UICollectionViewCell {
     
     // MARK: - Properties
     var defaultData: [DefaultMumentCardModel] = DefaultMumentCardModel.sampleData
+
     var withoutHeartData: [MumentCardWithoutHeartModel] = MumentCardWithoutHeartModel.sampleData
+    
+    var withouHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
     
     private let defaultCardView = DefaultMumentCardView()
     private let withoutHeartCardView = MumentCardWithoutHeartView()
@@ -45,8 +48,10 @@ class ListCVC: UICollectionViewCell {
         }
     }
     
-    func setWithoutHeartCardData() {
-        withoutHeartCardView.setData(withoutHeartData[0])
+    func setWithoutHeartCardData(_ cellData: GetLikedMumentResponseModel.Mument) {
+//        withoutHeartCardView.setData(withoutHeartData[0])
+        withoutHeartCardView.setData(cellData)
     }
+    
 }
 
