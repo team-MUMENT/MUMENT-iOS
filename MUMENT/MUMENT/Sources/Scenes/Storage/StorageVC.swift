@@ -63,17 +63,17 @@ class StorageVC: BaseVC {
             equalToConstant: CGFloat(tagsViewHeightConstant)
         )
     }()
-    
+        
     private lazy var filterSectionContainerView = UIView().then {
         $0.backgroundColor = .clear
     }
     
-    private let filterButton = UIButton().then {
+    let filterButton = UIButton().then {
         $0.setImage(UIImage(named: "mumentFilterOff"), for: .normal)
         $0.setImage(UIImage(named: "mumentFilterOn"), for: .selected)
         $0.contentMode = .scaleAspectFit
     }
-    
+        
     private let buttonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fill
@@ -97,6 +97,8 @@ class StorageVC: BaseVC {
         $0.backgroundColor = UIColor.mGray5
     }
     
+    private let storageBottomSheet = StorageBottomSheet()
+    
     var tagsViewHeightConstant = 0
     
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
@@ -115,6 +117,16 @@ class StorageVC: BaseVC {
         $0.backgroundColor = .clear
     }
     
+    /// StorageBottomSheet에서 전달 받은 태그 버튼 배열
+    var selectedTagButtons = [TagButton]()
+    
+    private let selectedTagsStackView = UIStackView().then {
+        $0.backgroundColor = .clear
+        $0.spacing = 10
+        $0.axis = .horizontal
+        $0.distribution = .fillProportionally
+    }
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,8 +136,9 @@ class StorageVC: BaseVC {
         setFilterSectionLayout()
         setTagsViewLayout()
         setPagerLayout()
-        
         setPressAction()
+        
+        storageBottomSheet.delegate = self
     }
     
     // MARK: - Function
@@ -157,10 +170,12 @@ class StorageVC: BaseVC {
         filterButton.press {
             self.filterButton.isSelected.toggle()
             
-            self.tagsViewHeightConstant = self.filterButton.isSelected ? 49 : 0
-            
-            self.selectedTagsView.snp.updateConstraints {
-                $0.height.equalTo(self.tagsViewHeightConstant)
+            if self.filterButton.isSelected {
+                self.storageBottomSheet.modalPresentationStyle = .overFullScreen
+                self.present(self.storageBottomSheet, animated: false) {
+                    self.storageBottomSheet.showBottomSheetWithAnimation()
+                }
+                self.filterButton.isSelected = !self.storageBottomSheet.isDismissed
             }
         }
         
@@ -188,6 +203,32 @@ class StorageVC: BaseVC {
         }
     }
     
+    func showSelectedTagsView() {
+        // TODO: 필터 적용 버튼 클릭시로 수정
+        if selectedTagButtons.count != 0 {
+            self.tagsViewHeightConstant = 49
+            
+            selectedTagButtons.forEach {
+                self.selectedTagsStackView.addArrangedSubview($0)
+                debugPrint("foreach")
+                $0.snp.makeConstraints {
+                    $0.height.equalTo(35)
+                }
+            }
+            
+            debugPrint("selectedTagButtons1", selectedTagButtons.count)
+            
+        }else {
+            self.tagsViewHeightConstant = 0
+            debugPrint("selectedTagButtons2", selectedTagButtons.count)
+        }
+//        self.tagsViewHeightConstant = self.storageBottomSheet.isDismissed ? 49 : 0
+        
+        self.selectedTagsView.snp.updateConstraints {
+            $0.height.equalTo(self.tagsViewHeightConstant)
+        }
+    }
+    
     @objc private func didTapSegmentControl() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             
@@ -198,6 +239,13 @@ class StorageVC: BaseVC {
             listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
+    }
+}
+// MARK: - Protocol
+extension StorageVC: storageBottomSheetDelegate {
+    func sendButtonData(data: [TagButton]) {
+        selectedTagButtons = data
+        showSelectedTagsView()
     }
 }
 
@@ -306,17 +354,24 @@ extension StorageVC {
             $0.trailing.equalTo(filterSectionContainerView).inset(20)
             $0.width.equalTo(55)
         }
-        
     }
     
     private func setTagsViewLayout() {
-        ///필터 구현시까지 높이 0으로 처리
+        view.addSubviews([selectedTagsView])
         selectedTagsView.snp.makeConstraints{
             $0.top.equalTo(filterSectionContainerView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(self.tagsViewHeightConstant)
         }
         
+        selectedTagsView.addSubviews([selectedTagsStackView])
+        
+        selectedTagsStackView.snp.makeConstraints{
+//            $0.top.equalTo(selectedTagsView).offset(5)
+            $0.leading.equalToSuperview().inset(20)
+            $0.height.equalTo(35)
+            $0.centerY.equalTo(selectedTagsView)
+        }
         NSLayoutConstraint.activate([leadingDistance])
     }
     

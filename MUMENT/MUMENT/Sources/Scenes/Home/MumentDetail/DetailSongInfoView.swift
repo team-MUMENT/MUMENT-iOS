@@ -59,6 +59,12 @@ class DetailSongInfoView: UIView {
         titleLabel.text = songTitle
         artistLabel.text = artist
     }
+    
+    func setData(_ cellData: HistoryResponseModel.DataMusic){
+        albumImage.setImageUrl(cellData.image)
+        titleLabel.text = cellData.name
+        artistLabel.text = cellData.artist
+    }
 }
 
 // MARK: - UI
