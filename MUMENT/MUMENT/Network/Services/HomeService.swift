@@ -43,7 +43,6 @@ extension HomeService: TargetType {
     
     var header: HeaderType {
         switch self {
-
         case .getCarouselData:
             return .basic
         case .getMumentForTodayData:

@@ -11,23 +11,23 @@ class HomeVC: BaseVC {
     
     // MARK: - Properties
     private let headerView = HomeTVHeader()
-    private let homeTV = UITableView()
-    private let headerViewMaxHeight: CGFloat = 107.0 //headerView의 최대 높이값
-    private let headerViewMinHeight: CGFloat = 50.0 //headerVIew의 최소 높이값
+    private lazy var homeTV = UITableView()
+    private let headerViewMaxHeight: CGFloat = 107.0
+    private let headerViewMinHeight: CGFloat = 50.0
     var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", bannerList: [])
     var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(todayDate: "", todayMument: MumentForTodayResponseModel.TodayMument(music: MumentForTodayResponseModel.TodayMument.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.TodayMument.User(id: "", name: "", image: ""), id: "", mumentID: "", isFirst: true, impressionTag: [], feelingTag: [], content: "", cardTag: [], createdAt: "", date: "", displayDate: ""))
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     var mumentsByTagData: MumentsByTagResponseModel = MumentsByTagResponseModel(title: "", mumentList: [])
     
-
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
-        
         requestGetCarouselData()
-
-       
+        self.setLayout()
+        
+        
     }
     
     // MARK: - Functions
@@ -135,7 +135,7 @@ extension HomeVC: UITableViewDataSource {
             }
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCardView.addGestureRecognizer(tapGestureRecognizer)
-            cell.setData(mumentForTodayData) 
+            cell.setData(mumentForTodayData)
             return cell
             
         case 2:
@@ -193,91 +193,84 @@ extension HomeVC: UITableViewDelegate {
         let percentage = (offset-50)/50
         headerView.logoButton.alpha = percentage
         headerView.notificationButton.alpha = percentage
-     }
+    }
 }
 
 // MARK: - Network
 extension HomeVC {
     private func requestGetCarouselData() {
         HomeAPI.shared.getCarouselData() { networkResult in
-        switch networkResult {
-
-        case .success(let response):
-            print("999999")
-          if let res = response as? CarouselResponseModel {
-              print(res,"jjjjjjj")
-              self.carouselData = res
-//              self.homeTV.reloadData()
-              self.requestGetMumentForTodayData()
-
-          }
-        default:
-          self.makeAlert(title: """
+            switch networkResult {
+                
+            case .success(let response):
+                if let res = response as? CarouselResponseModel {
+                    self.carouselData = res
+                    self.requestGetMumentForTodayData()
+                }
+            default:
+                self.makeAlert(title: """
  네트워크 오류로 인해 연결에 실패했어요! 🥲
  잠시 후에 다시 시도해 주세요.
  """)
+            }
         }
-      }
     }
     
     private func requestGetMumentForTodayData() {
         HomeAPI.shared.getMumentForTodayData() { networkResult in
-        switch networkResult {
-
-        case .success(let response):
-          if let res = response as? MumentForTodayResponseModel {
-              self.mumentForTodayData = res
-//              self.homeTV.reloadData()
-              self.requestGetMumentsOfRevisitedData()
-              
-          }
-        default:
-          self.makeAlert(title: """
+            switch networkResult {
+                
+            case .success(let response):
+                if let res = response as? MumentForTodayResponseModel {
+                    self.mumentForTodayData = res
+                    self.requestGetMumentsOfRevisitedData()
+                }
+            default:
+                self.makeAlert(title: """
  네트워크 오류로 인해 연결에 실패했어요! 🥲
  잠시 후에 다시 시도해 주세요.
  """)
+            }
         }
-      }
     }
     
     private func requestGetMumentsOfRevisitedData() {
         HomeAPI.shared.getMumentOfRevisitedData() { networkResult in
-        switch networkResult {
-
-        case .success(let response):
-            if let res = response as? MumentsOfRevisitedResponseModel {
-                self.mumentsOfRevisitedData = res.againMument
-//              self.homeTV.reloadData()
-                self.requestGetMumentsByTagData()
+            switch networkResult {
                 
-          }
-        default:
-          self.makeAlert(title: """
+            case .success(let response):
+                if let res = response as? MumentsOfRevisitedResponseModel {
+                    self.mumentsOfRevisitedData = res.againMument
+                    self.requestGetMumentsByTagData()
+                }
+            default:
+                self.makeAlert(title: """
  네트워크 오류로 인해 연결에 실패했어요! 🥲
  잠시 후에 다시 시도해 주세요.
  """)
+            }
         }
-      }
     }
     
     private func requestGetMumentsByTagData() {
         HomeAPI.shared.getMumentsByTagData() { networkResult in
-        switch networkResult {
-           
-        case .success(let response):
-          if let res = response as? MumentsByTagResponseModel {
-              self.mumentsByTagData = res
-//              self.homeTV.reloadData()
-              self.setTV()
-              self.setLayout()
-              self.setButtonActions()
-          }
-        default:
-          self.makeAlert(title: """
+            switch networkResult {
+                
+            case .success(let response):
+                if let res = response as? MumentsByTagResponseModel {
+                    self.mumentsByTagData = res
+                    self.setTV()
+                    self.homeTV.reloadData()
+                    
+                    
+                    self.setButtonActions()
+                }
+            default:
+                self.makeAlert(title: """
  네트워크 오류로 인해 연결에 실패했어요! 🥲
  잠시 후에 다시 시도해 주세요.
  """)
+            }
         }
-      }
     }
 }

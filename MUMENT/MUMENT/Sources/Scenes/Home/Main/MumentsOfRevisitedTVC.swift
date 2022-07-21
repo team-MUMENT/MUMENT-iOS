@@ -16,7 +16,7 @@ class MumentsOfRevisitedTVC: UITableViewCell {
     
     var dataSource: [MumentsOfRevisitedModel] = MumentsOfRevisitedModel.sampleData
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
-
+    
     lazy var titleLabel = UILabel().then{
         $0.text = "다시 들은 곡의 뮤멘트"
         $0.textColor = .mBlack1
@@ -50,7 +50,6 @@ class MumentsOfRevisitedTVC: UITableViewCell {
     }
     
     func setData(_ cellData: [MumentsOfRevisitedResponseModel.AgainMument]){
-//        titleLabel.text = cellData.title
         mumentsOfRevisitedData = cellData
         mumentCV.reloadData()
     }
@@ -69,7 +68,6 @@ extension MumentsOfRevisitedTVC {
         
         mumentCV.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(18)
-            //            $0.leading.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
         }
@@ -99,8 +97,6 @@ extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MumentsOfRevisitedCVC.className, for: indexPath) as?  MumentsOfRevisitedCVC else {
             return UICollectionViewCell()
         }
-        
-//        cell.setData(dataSource[indexPath.row])
         cell.setData(mumentsOfRevisitedData[indexPath.row])
         return cell
     }

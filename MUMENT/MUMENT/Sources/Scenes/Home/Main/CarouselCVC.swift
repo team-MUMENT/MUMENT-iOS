@@ -91,7 +91,8 @@ class CarouselCVC: UICollectionViewCell {
     
     func setData(_ cellData: CarouselResponseModel.BannerList, index: Int){
         backgroundImage.image = UIImage(named: "mumentBanner\(index)")
-        headerLable.text = cellData.tagTitle
+        let parsedTitle = cellData.tagTitle.replacingOccurrences(of: "\\n", with: "\n" )
+        headerLable.text = parsedTitle
         albumImage.setImageUrl(cellData.music.image)
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist

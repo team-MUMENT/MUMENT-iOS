@@ -15,10 +15,8 @@ class HomeAPI: BaseAPI {
     
     /// [GET] Carousel
     func getCarouselData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        print("88888888")
 
         AFmanager.request(HomeService.getCarouselData).responseData { response in
-            debugPrint("AFManager")
             switch response.result {
                
             case .success:

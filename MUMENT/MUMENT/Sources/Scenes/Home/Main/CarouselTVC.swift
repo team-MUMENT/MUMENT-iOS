@@ -14,11 +14,6 @@ class CarouselTVC: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: CarouselCVCDelegate?
-    
-//    var dataSource: [CarouselModel] = CarouselModel.sampleData
-//    private lazy var increasedDataSource: [CarouselModel] = {
-//        dataSource + dataSource + dataSource
-//    }()
     var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://avatars.githubusercontent.com/u/25932970?s=88&u=9ceb91d683a7d9cfe968cd35cd07a428536605e6&v=4"), id: "", tagTitle: "", displayDate: "")]
         
     private var increasedCarouselData: [CarouselResponseModel.BannerList] = []
@@ -66,18 +61,13 @@ class CarouselTVC: UITableViewCell {
     }
     
     func setData(_ cellData: CarouselResponseModel) {
-        print("~~~~ cellData", cellData)
         carouselData = cellData.bannerList
         setIncreasedCarouselData()
-//        increasedCarouselData = carouselData + carouselData + carouselData
         carouselCV.reloadData()
     }
     
     func setIncreasedCarouselData() {
-        print("~~~ carouselData", carouselData)
         increasedCarouselData = carouselData + carouselData + carouselData
-        print("~~~ increasedCarouselData", increasedCarouselData)
-
     }
 }
 
@@ -158,7 +148,6 @@ extension CarouselTVC: UICollectionViewDelegate{
 extension CarouselTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("~~~~~~~~~~~",increasedCarouselData.count)
         return increasedCarouselData.count
     }
     
