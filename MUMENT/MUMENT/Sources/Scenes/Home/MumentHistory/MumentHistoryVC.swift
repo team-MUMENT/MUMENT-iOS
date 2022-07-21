@@ -18,6 +18,9 @@ class MumentHistoryVC: BaseVC {
     var musicInfoDataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
     var mumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
+    var musicInfoData: HistoryResponseModel.DataMusic?
+    var historyData: [HistoryResponseModel.MumentHistory] = []
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,7 @@ class MumentHistoryVC: BaseVC {
         setData()
         setTV()
         setClickEventHandlers()
+        requestGetHistoryData()
     }
     
     // MARK: - Functions
@@ -136,4 +140,24 @@ extension MumentHistoryVC: UITableViewDelegate {
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
+}
+// MARK: - Network
+extension MumentHistoryVC {
+    private func requestGetHistoryData() {
+        HistoryAPI.shared.getMumentHistoryData(userId: "62cd5d4383956edb45d7d0ef", musicId: "62d2959e177f6e81ee8fa3de", recentOnTop: true) { networkResult in
+        switch networkResult {
+           
+        case .success(let response):
+            if let res = response as? HistoryResponseModel {
+              print(res,"llllll")
+              
+          }else{
+              print("dtlgkdo")
+          }
+        default:
+          self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+        }
+      }
+    }
+
 }
