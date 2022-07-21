@@ -14,7 +14,7 @@ class HomeVC: BaseVC {
     private let homeTV = UITableView()
     private let headerViewMaxHeight: CGFloat = 107.0 //headerView의 최대 높이값
     private let headerViewMinHeight: CGFloat = 50.0 //headerVIew의 최소 높이값
-//    var carouselData: CarouselResponseModel
+    var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", bannerList: [])
     var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(todayDate: "", todayMument: MumentForTodayResponseModel.TodayMument(music: MumentForTodayResponseModel.TodayMument.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.TodayMument.User(id: "", name: "", image: ""), id: "", mumentID: "", isFirst: true, impressionTag: [], feelingTag: [], content: "", cardTag: [], createdAt: "", date: "", displayDate: ""))
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     var mumentsByTagData: MumentsByTagResponseModel = MumentsByTagResponseModel(title: "", mumentList: [])
@@ -24,12 +24,9 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
-        setTV()
-        setLayout()
-        setButtonActions()
-        requestGetMumentForTodayData()
-        requestGetMumentsOfRevisitedData()
-        requestGetMumentsByTagData()
+        
+        requestGetCarouselData()
+
        
     }
     
@@ -129,6 +126,7 @@ extension HomeVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.delegate = self
+            cell.setData(carouselData)
             return cell
             
         case 1:
@@ -200,20 +198,27 @@ extension HomeVC: UITableViewDelegate {
 
 // MARK: - Network
 extension HomeVC {
-//    private func requestGetSongInfo() {
-//        HomeAPI.shared.getCarouselData() { networkResult in
-//        switch networkResult {
-//
-//        case .success(let response):
-//          if let res = response as? SongInfoResponseModel {
-////              print(res.myMument)
-//
-//          }
-//        default:
-//          self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
-//        }
-//      }
-//    }
+    private func requestGetCarouselData() {
+        HomeAPI.shared.getCarouselData() { networkResult in
+        switch networkResult {
+
+        case .success(let response):
+            print("999999")
+          if let res = response as? CarouselResponseModel {
+              print(res,"jjjjjjj")
+              self.carouselData = res
+//              self.homeTV.reloadData()
+              self.requestGetMumentForTodayData()
+
+          }
+        default:
+          self.makeAlert(title: """
+ 네트워크 오류로 인해 연결에 실패했어요! 🥲
+ 잠시 후에 다시 시도해 주세요.
+ """)
+        }
+      }
+    }
     
     private func requestGetMumentForTodayData() {
         HomeAPI.shared.getMumentForTodayData() { networkResult in
@@ -221,9 +226,10 @@ extension HomeVC {
 
         case .success(let response):
           if let res = response as? MumentForTodayResponseModel {
-              print(res,"jjjjjjj")
               self.mumentForTodayData = res
-              self.homeTV.reloadData()
+//              self.homeTV.reloadData()
+              self.requestGetMumentsOfRevisitedData()
+              
           }
         default:
           self.makeAlert(title: """
@@ -241,7 +247,9 @@ extension HomeVC {
         case .success(let response):
             if let res = response as? MumentsOfRevisitedResponseModel {
                 self.mumentsOfRevisitedData = res.againMument
-              self.homeTV.reloadData()
+//              self.homeTV.reloadData()
+                self.requestGetMumentsByTagData()
+                
           }
         default:
           self.makeAlert(title: """
@@ -259,7 +267,10 @@ extension HomeVC {
         case .success(let response):
           if let res = response as? MumentsByTagResponseModel {
               self.mumentsByTagData = res
-              self.homeTV.reloadData()
+//              self.homeTV.reloadData()
+              self.setTV()
+              self.setLayout()
+              self.setButtonActions()
           }
         default:
           self.makeAlert(title: """

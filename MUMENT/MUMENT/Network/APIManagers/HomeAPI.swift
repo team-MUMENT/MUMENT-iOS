@@ -14,19 +14,23 @@ class HomeAPI: BaseAPI {
     private override init() { }
     
     /// [GET] Carousel
-//    func getCarouselData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
-//        AFmanager.request(HomeService.getCarouselData).responseData { response in
-//            switch response.result {
-//            case .success:
-//                guard let statusCode = response.response?.statusCode else { return }
-//                guard let data = response.data else { return }
-//                let networkResult = self.judgeStatus(by: statusCode, data, CarouselResponseModel.self)
-//                completion(networkResult)
-//            case .failure(let err):
-//                print(err.localizedDescription)
-//            }
-//        }
-//    }
+    func getCarouselData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        print("88888888")
+
+        AFmanager.request(HomeService.getCarouselData).responseData { response in
+            debugPrint("AFManager")
+            switch response.result {
+               
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, CarouselResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
     
     /// [GET] 오늘의 뮤멘트
     func getMumentForTodayData(completion: @escaping (NetworkResult<Any>) -> (Void)) {

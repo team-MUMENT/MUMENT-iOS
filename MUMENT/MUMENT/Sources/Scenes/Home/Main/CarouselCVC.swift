@@ -88,6 +88,15 @@ class CarouselCVC: UICollectionViewCell {
         artistLabel.text = cellData.artistName
         pageValue = "\(index)"
     }
+    
+    func setData(_ cellData: CarouselResponseModel.BannerList, index: Int){
+        backgroundImage.image = UIImage(named: "mumentBanner\(index)")
+        headerLable.text = cellData.tagTitle
+        albumImage.setImageUrl(cellData.music.image)
+        songTitleLabel.text = cellData.music.name
+        artistLabel.text = cellData.music.artist
+        pageValue = "\(index)"
+    }
 }
 
 // MARK: - UI
