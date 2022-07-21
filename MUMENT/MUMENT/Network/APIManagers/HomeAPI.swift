@@ -14,19 +14,19 @@ class HomeAPI: BaseAPI {
     private override init() { }
     
     /// [GET] Carousel
-    func getCarouselData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(HomeService.getCarouselData).responseData { response in
-            switch response.result {
-            case .success:
-                guard let statusCode = response.response?.statusCode else { return }
-                guard let data = response.data else { return }
-                let networkResult = self.judgeStatus(by: statusCode, data, SongInfoResponseModel.self)
-                completion(networkResult)
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
-        }
-    }
+//    func getCarouselData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+//        AFmanager.request(HomeService.getCarouselData).responseData { response in
+//            switch response.result {
+//            case .success:
+//                guard let statusCode = response.response?.statusCode else { return }
+//                guard let data = response.data else { return }
+//                let networkResult = self.judgeStatus(by: statusCode, data, CarouselResponseModel.self)
+//                completion(networkResult)
+//            case .failure(let err):
+//                print(err.localizedDescription)
+//            }
+//        }
+//    }
     
     /// [GET] 오늘의 뮤멘트
     func getMumentForTodayData(userId: String, completion: @escaping (NetworkResult<Any>) -> (Void)) {
@@ -35,7 +35,7 @@ class HomeAPI: BaseAPI {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
                 guard let data = response.data else { return }
-                let networkResult = self.judgeStatus(by: statusCode, data, AllMumentsResponseModel.self)
+                let networkResult = self.judgeStatus(by: statusCode, data, MumentForTodayResponseModel.self)
                 completion(networkResult)
             case .failure(let err):
                 print(err.localizedDescription)
@@ -45,7 +45,7 @@ class HomeAPI: BaseAPI {
     
     /// [GET] 다시 들은 곡의 뮤멘트
     func getMumentOfRevisitedData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(HomeService.getMumentOfRevisitedData).responseData { response in
+        AFmanager.request(HomeService.getMumentsOfRevisitedData).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
@@ -59,13 +59,13 @@ class HomeAPI: BaseAPI {
     }
     
     /// [GET] 랜덤 태그, 랜덤 뮤멘트
-    func getMumentByTagData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(HomeService.getMumentByTagData).responseData { response in
+    func getMumentsByTagData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(HomeService.getMumentsByTagData).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
                 guard let data = response.data else { return }
-                let networkResult = self.judgeStatus(by: statusCode, data, AllMumentsResponseModel.self)
+                let networkResult = self.judgeStatus(by: statusCode, data, MumentsByTagResponseModel.self)
                 completion(networkResult)
             case .failure(let err):
                 print(err.localizedDescription)

@@ -14,14 +14,22 @@ class HomeVC: BaseVC {
     private let homeTV = UITableView()
     private let headerViewMaxHeight: CGFloat = 107.0 //headerView의 최대 높이값
     private let headerViewMinHeight: CGFloat = 50.0 //headerVIew의 최소 높이값
+//    var carouselData: CarouselResponseModel
+    var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(id: "", music: MumentForTodayResponseModel.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.User(id: "", name: "", image: ""), isFirst: true, impressionTag: [], feelingTag: [], content: "", isPrivate: true, likeCount: 0, isDeleted: true, createdAt: "", isLiked: true)
+//    var mumentsOfRevisitedData:
+    var mumentsByTagData: MumentsByTagResponseModel = MumentsByTagResponseModel(title: "", mumentList: [])
     
+
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         setTV()
         setLayout()
         setButtonActions()
-        self.navigationController?.navigationBar.isHidden = true
+//        requestGetMumentForTodayInfo()
+        requestGetMumentsByTagData()
+       
     }
     
     // MARK: - Functions
@@ -128,6 +136,7 @@ extension HomeVC: UITableViewDataSource {
             }
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCardView.addGestureRecognizer(tapGestureRecognizer)
+            cell.setData(mumentForTodayData) 
             return cell
             
         case 2:
@@ -142,6 +151,7 @@ extension HomeVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.delegate = self
+            cell.setData(mumentsByTagData)
             return cell
             
         default:
@@ -188,35 +198,76 @@ extension HomeVC: UITableViewDelegate {
 
 // MARK: - Network
 extension HomeVC {
-    private func requestGetSongInfo() {
-        HomeAPI.shared.getCarouselData() { networkResult in
+//    private func requestGetSongInfo() {
+//        HomeAPI.shared.getCarouselData() { networkResult in
+//        switch networkResult {
+//
+//        case .success(let response):
+//          if let res = response as? SongInfoResponseModel {
+////              print(res.myMument)
+//
+//          }
+//        default:
+//          self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+//        }
+//      }
+//    }
+    
+//    private func requestGetMumentForTodayInfo() {
+//        HomeAPI.shared.getMumentForTodayData(userId: "62cd5d4383956edb45d7d0ef") { networkResult in
+//        switch networkResult {
+//
+//        case .success(let response):
+//          if let res = response as? MumentForTodayResponseModel {
+//              print(res,"jjjjjjj")
+//              self.mumentForTodayData = res
+//              self.homeTV.reloadData()
+//          }
+//        default:
+//          self.makeAlert(title: """
+// 네트워크 오류로 인해 연결에 실패했어요! 🥲
+// 잠시 후에 다시 시도해 주세요.
+// """)
+//        }
+//      }
+//    }
+    
+//    private func requestGetMumentsOfRevisitedData() {
+//        HomeAPI.shared.getMumentForTodayData(userId: "62cd5d4383956edb45d7d0ef") { networkResult in
+//        switch networkResult {
+//
+//        case .success(let response):
+//          if let res = response as? MumentForTodayResponseModel {
+//              print(res,"jjjjjjj")
+//              self.mumentForTodayData = res
+//              self.homeTV.reloadData()
+//          }
+//        default:
+//          self.makeAlert(title: """
+// 네트워크 오류로 인해 연결에 실패했어요! 🥲
+// 잠시 후에 다시 시도해 주세요.
+// """)
+//        }
+//      }
+//    }
+    
+    private func requestGetMumentsByTagData() {
+        HomeAPI.shared.getMumentsByTagData() { networkResult in
         switch networkResult {
            
         case .success(let response):
-          if let res = response as? SongInfoResponseModel {
-//              print(res.myMument)
-              
+//            print("99999")
+          if let res = response as? MumentsByTagResponseModel {
+              print(res,"jjjjjjj")
+              self.mumentsByTagData = res
+              self.homeTV.reloadData()
           }
         default:
-          self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+          self.makeAlert(title: """
+ 네트워크 오류로 인해 연결에 실패했어요! 🥲
+ 잠시 후에 다시 시도해 주세요.
+ """)
         }
       }
     }
-    
-//  private func requestGetAllMuments() {
-//      SongDetailAPI.shared.getAllMuments(musicId: "62d2959e177f6e81ee8fa3de", userId: "62cd5d4383956edb45d7d0ef", isOrderLiked: true) { networkResult in
-//      switch networkResult {
-//
-//      case .success(let response):
-//        if let res = response as? AllMumentsResponseModel {
-//            print(res.mumentList, "jjjjjjj")
-//            self.allMumentsData = res.mumentList
-//            self.mumentTV.reloadData()
-//        }
-//
-//      default:
-//        self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
-//      }
-//    }
-//  }
 }

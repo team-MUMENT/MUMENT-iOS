@@ -10,21 +10,21 @@ import Alamofire
 enum HomeService {
     case getCarouselData
     case getMumentForTodayData(userId: String)
-    case getMumentOfRevisitedData
-    case getMumentByTagData
+    case getMumentsOfRevisitedData
+    case getMumentsByTagData
 }
 
 extension HomeService: TargetType {
     var path: String {
         switch self {
         case .getCarouselData:
-            return "/home/recommendation"
+            return "/mument/banner"
         case .getMumentForTodayData(userId: let userId):
-            return "/home/today/\(userId)"
-        case .getMumentOfRevisitedData:
+            return "/mument/today/\(userId)"
+        case .getMumentsOfRevisitedData:
             return "/home/known"
-        case .getMumentByTagData:
-            return "/random"
+        case .getMumentsByTagData:
+            return "/mument/random"
         }
     }
     
@@ -34,9 +34,9 @@ extension HomeService: TargetType {
             return .get
         case .getMumentForTodayData:
             return .get
-        case .getMumentOfRevisitedData:
+        case .getMumentsOfRevisitedData:
             return .get
-        case .getMumentByTagData:
+        case .getMumentsByTagData:
             return .get
         }
     }
@@ -48,9 +48,9 @@ extension HomeService: TargetType {
             return .basic
         case .getMumentForTodayData:
             return .basic
-        case .getMumentOfRevisitedData:
+        case .getMumentsOfRevisitedData:
             return .basic
-        case .getMumentByTagData:
+        case .getMumentsByTagData:
             return .basic
         }
     }
@@ -61,9 +61,9 @@ extension HomeService: TargetType {
             return .requestPlain
         case .getMumentForTodayData(_):
             return .requestPlain
-        case .getMumentOfRevisitedData:
+        case .getMumentsOfRevisitedData:
             return .requestPlain
-        case .getMumentByTagData:
+        case .getMumentsByTagData:
             return .requestPlain
         }
     }
