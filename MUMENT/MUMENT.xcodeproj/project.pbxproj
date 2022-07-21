@@ -143,6 +143,9 @@
 		E781F2272882A77500484C28 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2262882A77500484C28 /* SectionHeader.swift */; };
 		E781F22928846C6F00484C28 /* StorageBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F22828846C6F00484C28 /* StorageBottomSheet.swift */; };
 		E781F22B2886EA7700484C28 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F22A2886EA7700484C28 /* TagButton.swift */; };
+		E781F22D28892E2400484C28 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F22C28892E2400484C28 /* StorageService.swift */; };
+		E781F22F28892EF400484C28 /* StorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F22E28892EF400484C28 /* StorageAPI.swift */; };
+		E781F23128892FCC00484C28 /* GetMyMumentStorageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F23028892FCC00484C28 /* GetMyMumentStorageResponseModel.swift */; };
 		E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D60FFE287EC821000720D4 /* ListCVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -278,6 +281,9 @@
 		E781F2262882A77500484C28 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		E781F22828846C6F00484C28 /* StorageBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageBottomSheet.swift; sourceTree = "<group>"; };
 		E781F22A2886EA7700484C28 /* TagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
+		E781F22C28892E2400484C28 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		E781F22E28892EF400484C28 /* StorageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
+		E781F23028892FCC00484C28 /* GetMyMumentStorageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyMumentStorageResponseModel.swift; sourceTree = "<group>"; };
 		E7D60FFE287EC821000720D4 /* ListCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -487,6 +493,7 @@
 				4D13A6672887FD8100197D2A /* SongDetailAPI.swift */,
 				4D13A6692887FD9300197D2A /* MumentDetailAPI.swift */,
 				4D13A66B2887FDAC00197D2A /* HistoryAPI.swift */,
+				E781F22E28892EF400484C28 /* StorageAPI.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -500,6 +507,7 @@
 				4D13A66D2888028400197D2A /* SongDetailService.swift */,
 				4D13A66F28882B1100197D2A /* MumentDetailService.swift */,
 				4D13A6792889141900197D2A /* HistorySerivce.swift */,
+				E781F22C28892E2400484C28 /* StorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -737,6 +745,7 @@
 			isa = PBXGroup;
 			children = (
 				E781F22A2886EA7700484C28 /* TagButton.swift */,
+				E781F23028892FCC00484C28 /* GetMyMumentStorageResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -845,6 +854,7 @@
 				C7BB53122875994500E0E889 /* UIViewController+.swift in Sources */,
 				C7BC6B6E28771152008C75CE /* UserDefaults+.swift in Sources */,
 				C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */,
+				E781F22F28892EF400484C28 /* StorageAPI.swift in Sources */,
 				C7BB531428759AB200E0E889 /* Adjusted+.swift in Sources */,
 				4D13A65F2882AF1B00197D2A /* OrderingButton.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
@@ -908,6 +918,7 @@
 				C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */,
 				4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */,
 				C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */,
+				E781F22D28892E2400484C28 /* StorageService.swift in Sources */,
 				4D13A6662887FD7700197D2A /* HomeAPI.swift in Sources */,
 				4D7604612880ADB60044F2A6 /* DetailSongInfoView.swift in Sources */,
 				4D13A6612886A87400197D2A /* SongInfoTVC.swift in Sources */,
@@ -931,6 +942,7 @@
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
 				4D7604662880C8ED0044F2A6 /* MumentDetailVCModel.swift in Sources */,
 				C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */,
+				E781F23128892FCC00484C28 /* GetMyMumentStorageResponseModel.swift in Sources */,
 				4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */,
 				4D760454288093280044F2A6 /* DefaultNavigationBar.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
