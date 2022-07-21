@@ -164,6 +164,22 @@ extension SearchVC: UITableViewDataSource {
     }
 }
 
+// MARK: - Network
+extension SearchVC {
+    func getSearchResult(keyword: String, completion: @escaping (SearchResultResponseModel) -> (Void)) {
+        SearchAPI.shared.getMusicSearch(keyword: keyword) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? SearchResultResponseModel {
+                    completion(result)
+                }
+            default:
+                print("네트워크 연결 실패")
+            }
+        }
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension SearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
