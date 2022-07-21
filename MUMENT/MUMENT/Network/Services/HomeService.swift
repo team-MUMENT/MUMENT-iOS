@@ -22,7 +22,7 @@ extension HomeService: TargetType {
         case .getMumentForTodayData(userId: let userId):
             return "/mument/today/\(userId)"
         case .getMumentsOfRevisitedData:
-            return "/home/known"
+            return "/mument/again"
         case .getMumentsByTagData:
             return "/mument/random"
         }

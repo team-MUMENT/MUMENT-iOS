@@ -15,6 +15,8 @@ class MumentsOfRevisitedTVC: UITableViewCell {
     weak var delegate: MumentsOfRevisitedCVCDelegate?
     
     var dataSource: [MumentsOfRevisitedModel] = MumentsOfRevisitedModel.sampleData
+    var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
+
     lazy var titleLabel = UILabel().then{
         $0.text = "다시 들은 곡의 뮤멘트"
         $0.textColor = .mBlack1
@@ -45,6 +47,12 @@ class MumentsOfRevisitedTVC: UITableViewCell {
         
         mumentCV.showsHorizontalScrollIndicator = false
         CVFlowLayout.scrollDirection = .horizontal
+    }
+    
+    func setData(_ cellData: [MumentsOfRevisitedResponseModel.AgainMument]){
+//        titleLabel.text = cellData.title
+        mumentsOfRevisitedData = cellData
+        mumentCV.reloadData()
     }
 }
 
@@ -84,7 +92,7 @@ extension MumentsOfRevisitedTVC: UICollectionViewDelegate{
 extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        return mumentsOfRevisitedData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -92,7 +100,8 @@ extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.setData(dataSource[indexPath.row])
+//        cell.setData(dataSource[indexPath.row])
+        cell.setData(mumentsOfRevisitedData[indexPath.row])
         return cell
     }
 }
