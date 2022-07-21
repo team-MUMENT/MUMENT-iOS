@@ -52,8 +52,8 @@ class SearchForWriteView: UIView {
         }
     }
     
-    var searchResultData: [MusicForSearchModel] = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")]
-    var recentSearchDummyData = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")] {
+    var searchResultData: SearchResultResponseModel = []
+    var recentSearchDummyData = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")] {
         didSet {
             recentSearchDummyData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
         }
@@ -112,35 +112,33 @@ class SearchForWriteView: UIView {
     }
 }
 
-// MARK: - UI
+// MARK: - UISearchBarDelegate
+extension SearchForWriteView: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.searchTextField.endEditing(true)
+        
+        getSearchResult(keyword: searchBar.searchTextField.text ?? "") { result in
+            self.searchResultData = result
+            self.searchTVType = .searchResult
+            self.resultTV.reloadData()
+            self.setSearchResultEmptyView(keyword: searchBar.searchTextField.text ?? "")
+            self.closeRecentSearchTitleView()
+        }
+    }
+}
+
+// MARK: - Network
 extension SearchForWriteView {
-    private func setLayout() {
-        self.addSubviews([searchBar, titleLabel, resultTV, recentSearchEmptyView, searchResultEmptyView])
-        
-        searchBar.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(35.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(40)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(40.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        resultTV.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        recentSearchEmptyView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        searchResultEmptyView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+    func getSearchResult(keyword: String, completion: @escaping (SearchResultResponseModel) -> (Void)) {
+        SearchAPI.shared.getMusicSearch(keyword: keyword) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? SearchResultResponseModel {
+                    completion(result)
+                }
+            default:
+                print("네트워크 연결 실패")
+            }
         }
     }
 }
@@ -190,13 +188,35 @@ extension SearchForWriteView: UITableViewDelegate {
     }
 }
 
-// MARK: - UISearchBarDelegate
-extension SearchForWriteView: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.searchTextField.endEditing(true)
-        searchTVType = .searchResult
-        self.resultTV.reloadData()
-        setSearchResultEmptyView(keyword: searchBar.searchTextField.text ?? "")
-        closeRecentSearchTitleView()
+// MARK: - UI
+extension SearchForWriteView {
+    private func setLayout() {
+        self.addSubviews([searchBar, titleLabel, resultTV, recentSearchEmptyView, searchResultEmptyView])
+        
+        searchBar.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(35.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(40)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(40.adjustedH)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        resultTV.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        recentSearchEmptyView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        searchResultEmptyView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
     }
 }
