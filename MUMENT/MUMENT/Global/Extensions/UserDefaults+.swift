@@ -13,6 +13,6 @@ extension UserDefaults {
     enum Keys {
 
         /// String
-        static var PW = "PW"
+        static var recentSearch = "recentSearch"
     }
 }
