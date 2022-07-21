@@ -8,7 +8,7 @@
 import Foundation
 
 /// MARK: - GetMyMumentStorageResponseModel
-struct GetMyMumentStorageResponseModel: Codable {
+struct GetMyMumentResponseModel: Codable {
   let muments: [Mument]
 
   enum CodingKeys: String, CodingKey {

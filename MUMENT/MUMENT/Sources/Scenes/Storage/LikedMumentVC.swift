@@ -137,3 +137,24 @@ extension LikedMumentVC {
         }
     }
 }
+
+// MARK: - Network
+extension LikedMumentVC {
+    private func getLikedMumentStorage(userId: String, filterTags: [Int]) {
+    StorageAPI.shared.getLikedMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
+      switch networkResult {
+      case .success(let response):
+        if let result = response as? GetLikedMumentResponseModel {
+            print(result.muments[0])
+        } else {
+          debugPrint("🚨당신 모델이 이상해열~🚨")
+        }
+      default:
+        self.makeAlert(title: """
+네트워크 오류로 인해 연결에 실패했어요! 😢
+잠시 후에 다시 시도해 주세요.
+""")
+      }
+    }
+  }
+}
