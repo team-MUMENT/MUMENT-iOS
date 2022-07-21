@@ -7,62 +7,73 @@
 
 import Foundation
 
+// MARK: - HistoryResponseModel
 struct MumentForTodayResponseModel: Codable {
-    let id: String
-    let music: Music
-    let user: User
-    let isFirst: Bool
-    let impressionTag: [Int]
-    let feelingTag: [Int]
-    let content: String?
-    let isPrivate: Bool
-    let likeCount: Int
-    let isDeleted: Bool
-    let createdAt: String
-    let isLiked: Bool
+    let todayDate: String
+    let todayMument: TodayMument
 
     enum CodingKeys: String, CodingKey {
-        case id = "_id"
-        case music = "music"
-        case user = "user"
-        case isFirst = "isFirst"
-        case impressionTag = "impressionTag"
-        case feelingTag = "feelingTag"
-        case content = "content"
-        case isPrivate = "isPrivate"
-        case likeCount = "likeCount"
-        case isDeleted = "isDeleted"
-        case createdAt = "createdAt"
-        case isLiked = "isLiked"
+        case todayDate = "todayDate"
+        case todayMument = "todayMument"
     }
     
-    // MARK: - Music
-    struct Music: Codable {
+    // MARK: - TodayMument
+    struct TodayMument: Codable {
+        let music: Music
+        let user: User
         let id: String
-        let name: String
-        let artist: String
-        let image: String
+        let mumentID: String
+        let isFirst: Bool
+        let impressionTag: [Int]
+        let feelingTag: [Int]
+        let content: String
+        let cardTag: [Int]
+        let createdAt: String
+        let date: String
+        let displayDate: String
 
         enum CodingKeys: String, CodingKey {
+            case music = "music"
+            case user = "user"
             case id = "_id"
-            case name = "name"
-            case artist = "artist"
-            case image = "image"
+            case mumentID = "mumentId"
+            case isFirst = "isFirst"
+            case impressionTag = "impressionTag"
+            case feelingTag = "feelingTag"
+            case content = "content"
+            case cardTag = "cardTag"
+            case createdAt = "createdAt"
+            case date = "date"
+            case displayDate = "displayDate"
+        }
+        
+        // MARK: - Music
+        struct Music: Codable {
+            let id: String
+            let name: String
+            let artist: String
+            let image: String
+
+            enum CodingKeys: String, CodingKey {
+                case id = "_id"
+                case name = "name"
+                case artist = "artist"
+                case image = "image"
+            }
+        }
+
+        // MARK: - User
+        struct User: Codable {
+            let id: String
+            let name: String
+            let image: String
+
+            enum CodingKeys: String, CodingKey {
+                case id = "_id"
+                case name = "name"
+                case image = "image"
+            }
         }
     }
-
-    // MARK: - User
-    struct User: Codable {
-        let id: String
-        let name: String
-        let image: String
-
-        enum CodingKeys: String, CodingKey {
-            case id = "_id"
-            case name = "name"
-            case image = "image"
-        }
-    }
-
 }
 

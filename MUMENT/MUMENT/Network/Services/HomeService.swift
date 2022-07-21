@@ -9,7 +9,7 @@ import Alamofire
 
 enum HomeService {
     case getCarouselData
-    case getMumentForTodayData(userId: String)
+    case getMumentForTodayData
     case getMumentsOfRevisitedData
     case getMumentsByTagData
 }
@@ -19,8 +19,8 @@ extension HomeService: TargetType {
         switch self {
         case .getCarouselData:
             return "/mument/banner"
-        case .getMumentForTodayData(userId: let userId):
-            return "/mument/today/\(userId)"
+        case .getMumentForTodayData:
+            return "/mument/today"
         case .getMumentsOfRevisitedData:
             return "/mument/again"
         case .getMumentsByTagData:
@@ -59,7 +59,7 @@ extension HomeService: TargetType {
         switch self {
         case .getCarouselData:
             return .requestPlain
-        case .getMumentForTodayData(_):
+        case .getMumentForTodayData:
             return .requestPlain
         case .getMumentsOfRevisitedData:
             return .requestPlain

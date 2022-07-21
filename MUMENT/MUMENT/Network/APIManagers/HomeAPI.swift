@@ -29,8 +29,8 @@ class HomeAPI: BaseAPI {
 //    }
     
     /// [GET] 오늘의 뮤멘트
-    func getMumentForTodayData(userId: String, completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(HomeService.getMumentForTodayData(userId: userId)).responseData { response in
+    func getMumentForTodayData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(HomeService.getMumentForTodayData).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
