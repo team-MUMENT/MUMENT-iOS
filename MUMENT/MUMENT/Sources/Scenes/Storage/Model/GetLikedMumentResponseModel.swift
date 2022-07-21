@@ -18,7 +18,7 @@ struct GetLikedMumentResponseModel: Codable {
         let music: Music
         let isFirst: Bool
         let impressionTag, feelingTag, cardTag: [Int]
-        let content: String
+        let content: String?
         let isPrivate, isLiked: Bool
         let createdAt: String
         let year, month: Int
@@ -38,7 +38,7 @@ struct GetLikedMumentResponseModel: Codable {
     // MARK: - User
     struct User: Codable {
         let id: String
-        let image: String
+        let image: String?
         let name: String
 
         enum CodingKeys: String, CodingKey {

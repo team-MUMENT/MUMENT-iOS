@@ -90,17 +90,34 @@ class MumentCardWithoutHeartView: UIView {
     }
     
     func setData(_ cellData: GetLikedMumentResponseModel.Mument){
-        profileImage.setImageUrl(cellData.user.image)
+        debugPrint("setdata")
+        profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?v=4")
         writerNameLabel.text = cellData.user.name
         albumImage.setImageUrl(cellData.music.image)
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
-        contentsLabel.text = cellData.content
+        contentsLabel.text = cellData.content 
         createdAtLabel.text = cellData.createdAt
         isFirst = cellData.isFirst
-        impressionTags = cellData.impressionTag
-        feelingTags = cellData.feelingTag
-        setTags()
+//        impressionTags = cellData.impressionTag
+//        feelingTags = cellData.feelingTag
+        
+        setCardTags(cellData.cardTag)
+    }
+    
+    func setCardTags(_ indexs: [Int]) {
+        let tag = TagView()
+        tag.tagType = "isFirst"
+        tag.tagContentString = isFirst ? "처음" : "다시"
+        tagStackView.addArrangedSubview(tag)
+        
+        if indexs.count != 0{
+            for i in 0...indexs.count-1{
+                let tag = TagView()
+                tag.tagContent = indexs[i]
+                tagStackView.addArrangedSubview(tag)
+            }
+        }
     }
     
     func setTags(){
