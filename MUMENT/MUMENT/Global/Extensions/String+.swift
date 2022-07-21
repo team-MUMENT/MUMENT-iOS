@@ -9,6 +9,57 @@ import UIKit
 
 extension String {
     
+    /// 태그 String을 Int로 반환하는 메서드
+    func tagInt() -> Int? {
+        if self == "🎙 음색" {
+            return 100
+        } else if self == "🥁 비트" {
+            return 101
+        } else if self == "🖋 가사" {
+            return 102
+        } else if self == "🎶 멜로디" {
+            return 103
+        } else if self == "🎸 베이스" {
+            return 104
+        } else if self == "🛫 도입부" {
+            return 105
+        } else if self == "🎡 벅참" {
+            return 200
+        } else if self == "😄 신남" {
+            return 201
+        } else if self == "💐 설렘" {
+            return 202
+        } else if self == "😚 행복" {
+            return 203
+        } else if self == "🙌 자신감" {
+            return 204
+        } else if self == "🍀 여유로움" {
+            return 205
+        } else if self == "🍁 센치함" {
+            return 206
+        } else if self == "😔 우울" {
+            return 207
+        } else if self == "🕰 그리움" {
+            return 208
+        } else if self == "🛌 외로움" {
+            return 209
+        } else if self == "🌋 스트레스" {
+            return 210
+        } else if self == "⌛️ 아련함" {
+            return 211
+        } else if self == "💭 회상" {
+            return 212
+        } else if self == " 👥 위로" {
+            return 213
+        } else if self == "🌅 낭만" {
+            return 214
+        } else if self == "☕️ 차분" {
+            return 215
+        } else {
+            return nil
+        }
+    }
+    
     /// String을 UIImage로 반환하는 메서드
     func makeImage() -> UIImage? {
         if let data = Data(base64Encoded: self, options: .ignoreUnknownCharacters){

@@ -1,27 +1,27 @@
 //
-//  SongDetailAPI.swift
+//  WriteAPI.swift
 //  MUMENT
 //
-//  Created by 김지민 on 2022/07/20.
+//  Created by madilyn on 2022/07/20.
 //
-//////
+
 import Foundation
 import Alamofire
 
-class SongDetailAPI: BaseAPI {
-    static let shared = SongDetailAPI()
+class WriteAPI: BaseAPI {
+    static let shared = WriteAPI()
     
     private override init() { }
     
-    /// [GET] 곡 정보, 내가 기록한 뮤멘트
-    func getSongInfo(musicId: String, userId: String,
+    /// [GET] 처음/다시 조회
+    func getIsFirst(userId: String, musicId: String,
                     completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(SongDetailService.getSongInfo(musicId: musicId, userId: userId)).responseData { response in
+        AFmanager.request(WriteService.getIsFirst(userId: userId, musicId: musicId)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
                 guard let data = response.data else { return }
-                let networkResult = self.judgeStatus(by: statusCode, data, SongInfoResponseModel.self)
+                let networkResult = self.judgeStatus(by: statusCode, data, GetIsFirstResponseModel.self)
                 completion(networkResult)
             case .failure(let err):
                 print(err.localizedDescription)
@@ -29,20 +29,19 @@ class SongDetailAPI: BaseAPI {
         }
     }
     
-    /// [GET] 모든 뮤멘트
-    func getAllMuments(musicId: String, userId: String, isOrderLiked: Bool,
+    /// [POST] 뮤멘트 기록하기
+    func postMument(userId: String, musicId: String, data: PostMumentBodyModel,
                     completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(SongDetailService.getAllMuments(musicId: musicId, userId: userId, isOrderLiked: isOrderLiked)).responseData { response in
+        AFmanager.request(WriteService.postMument(userId: userId, musicId: musicId, data: data)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
                 guard let data = response.data else { return }
-                let networkResult = self.judgeStatus(by: statusCode, data, AllMumentsResponseModel.self)
+                let networkResult = self.judgeStatus(by: statusCode, data, PostMumentResponseModel.self)
                 completion(networkResult)
             case .failure(let err):
                 print(err.localizedDescription)
             }
         }
     }
-    
 }

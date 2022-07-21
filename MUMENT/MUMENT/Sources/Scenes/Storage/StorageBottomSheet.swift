@@ -31,9 +31,7 @@ class StorageBottomSheet: UIViewController {
     }
     
     var isDismissed = false
-    
-    private let selectedTagsCount = 1
-    
+        
     private let selectedTagsCountLabel = UILabel().then {
         $0.setLabel(text: "", font: UIFont.mumentB4M14)
     }
@@ -95,6 +93,13 @@ class StorageBottomSheet: UIViewController {
         $0.sectionInset = .zero
     }
     
+    private let leftCVLayoutForImpression = LeftAlignedCollectionViewFlowLayout().then {
+        $0.scrollDirection = .vertical
+        $0.minimumLineSpacing = 0
+        $0.minimumInteritemSpacing = 0
+        $0.sectionInset = .zero
+    }
+    
     private let setFilterTagButton = UIButton().then {
         $0.setTitle("태그 적용하기", for: .normal)
         $0.titleLabel?.font = UIFont.mumentB2B14
@@ -143,7 +148,7 @@ class StorageBottomSheet: UIViewController {
 
     private func setDismissButtonAction() {
         dismissButton.press {
-            self.isDismissed = true
+//            self.isDismissed = true
             self.hideBottomSheetWithAnimation()
         }
     }
@@ -154,14 +159,14 @@ class StorageBottomSheet: UIViewController {
         impressionTagCV.layoutMargins = .zero
         impressionTagCV.allowsMultipleSelection = true
         impressionTagCV.clipsToBounds = true
-//        impressionTagCV.collectionViewLayout = leftCVLayout
+        impressionTagCV.collectionViewLayout = leftCVLayout
         
         feelTagCV.dataSource = self
         feelTagCV.delegate = self
         feelTagCV.layoutMargins = .zero
         feelTagCV.allowsMultipleSelection = true
         feelTagCV.clipsToBounds = true
-        feelTagCV.collectionViewLayout = leftCVLayout
+        feelTagCV.collectionViewLayout = leftCVLayoutForImpression
     }
     
     private func registerCell() {
@@ -181,19 +186,28 @@ class StorageBottomSheet: UIViewController {
     
     private func setAllDeselectAction() {
         allDeselecteButton.press {
+            
+            self.selectedTagButtons = []
+            self.selectedTagDictionay = [:]
+            self.tagIndex = []
+            self.selectedTagsStackView.removeAllArrangedSubviews()
+            self.tagCount = "0"
+            self.selectedTagCount = 0
             self.impressionTagCV.reloadData()
             self.feelTagCV.reloadData()
             
-            self.selectedTagButtons.forEach {
-                self.selectedTagsStackView.removeArrangedSubview($0)
+            UIView.animate(withDuration: 0.3) {
+                self.selectedTagsSection.snp.updateConstraints {
+                    $0.height.equalTo(0)
+                }
             }
+            
         }
     }
     
     private func setFilterTagApplied() {
         setFilterTagButton.press {
             self.delegate?.sendButtonData(data: self.selectedTagButtons)
-
             self.hideBottomSheetWithAnimation()
         }
     }
@@ -257,6 +271,7 @@ extension StorageBottomSheet {
     }
     
     func hideBottomSheetWithAnimation() {
+        self.isDismissed = true
         UIView.animate(withDuration: 0.3) {
             self.containerHeight.constant = 0
             self.containerView.snp.updateConstraints {
@@ -359,6 +374,8 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             
             selectedTagButtons.last?.press {
                 self.collectionView(collectionView, didDeselectItemAt: indexPath)
+                collectionView.deselectItem(at: indexPath, animated: false)
+                
             }
 
         }else {
@@ -372,20 +389,7 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
                 $0.height.equalTo(self.bottomTagSectionHeight)
             }
         }
-        
-//        selectedTagButtons.forEach {
-//            $0.press {
-////                self.collectionView(self.impressionTagCV, didDeselectItemAt: indexPathPerCV)
-//                self.collectionView(collectionView, didDeselectItemAt: indexPathPerCV)
-//            }
-//        }
-        
-//        selectedTagButtons.last?.removeTarget(nil, action: nil, for: .allEvents)
-        
-        
-//        allDeselecteButton.press {
-//            self.impressionTagCV.deselectItem(at: indexPathPerCV, animated: false)
-//        }
+ 
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -458,11 +462,11 @@ extension StorageBottomSheet {
             $0.left.equalToSuperview().inset(22)
             $0.height.equalTo(16)
         }
-        
+
         impressionTagCV.snp.makeConstraints {
             $0.top.equalTo(impressionLabel.snp.bottom).offset(16.adjustedH)
             $0.left.equalToSuperview().inset(20)
-            $0.right.equalToSuperview().inset(86)
+            $0.right.equalToSuperview().inset(80)
             $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
         }
         

@@ -4,11 +4,12 @@
 //
 //  Created by 김지민 on 2022/07/21.
 //
-
+////
 import Foundation
 
+// MARK: - SongInfoResponseModel
 struct SongInfoResponseModel: Codable {
-    let music: UserClass
+    let music: Music
     let myMument: MyMument
 
     enum CodingKeys: String, CodingKey {
@@ -16,66 +17,79 @@ struct SongInfoResponseModel: Codable {
         case myMument = "myMument"
     }
     
-    // MARK: - UserClass
-    struct UserClass: Codable {
+    // MARK: - SongInfoResponseModelMusic
+    struct Music: Codable {
         let id: String
         let name: String
-        let artist: String?
         let image: String
+        let artist: String
 
         enum CodingKeys: String, CodingKey {
             case id = "_id"
             case name = "name"
-            case artist = "artist"
             case image = "image"
+            case artist = "artist"
         }
     }
 
     // MARK: - MyMument
     struct MyMument: Codable {
-        let music: PurpleMusic
-        let user: UserClass
-        let id: String
-        let isFirst: Bool
-        let impressionTag: [Int]
         let feelingTag: [Int]
-        let content: String
-        let isPrivate: Bool
-        let likeCount: Int
-        let isDeleted: Bool
-        let createdAt: String
         let updatedAt: String
-        let v: Int
+        let music: MyMumentMusic
+        let id: String
+        let likeCount: Int
+        let impressionTag: [Int]
+        let isDeleted: Bool
+        let isPrivate: Bool
         let cardTag: [Int]
         let date: String
+        let isFirst: Bool
         let isLiked: Bool
+        let v: Int
+        let user: User
+        let createdAt: String
+        let content: String?
 
         enum CodingKeys: String, CodingKey {
-            case music = "music"
-            case user = "user"
-            case id = "_id"
-            case isFirst = "isFirst"
-            case impressionTag = "impressionTag"
             case feelingTag = "feelingTag"
-            case content = "content"
-            case isPrivate = "isPrivate"
-            case likeCount = "likeCount"
-            case isDeleted = "isDeleted"
-            case createdAt = "createdAt"
             case updatedAt = "updatedAt"
-            case v = "__v"
+            case music = "music"
+            case id = "_id"
+            case likeCount = "likeCount"
+            case impressionTag = "impressionTag"
+            case isDeleted = "isDeleted"
+            case isPrivate = "isPrivate"
             case cardTag = "cardTag"
             case date = "date"
+            case isFirst = "isFirst"
             case isLiked = "isLiked"
+            case v = "__v"
+            case user = "user"
+            case createdAt = "createdAt"
+            case content = "content"
         }
-    }
+        
+        // MARK: - MyMumentMusic
+        struct MyMumentMusic: Codable {
+            let id: String
 
-    // MARK: - PurpleMusic
-    struct PurpleMusic: Codable {
-        let id: String
+            enum CodingKeys: String, CodingKey {
+                case id = "_id"
+            }
+        }
 
-        enum CodingKeys: String, CodingKey {
-            case id = "_id"
+        // MARK: - User
+        struct User: Codable {
+            let id: String
+            let name: String
+            let image: String
+
+            enum CodingKeys: String, CodingKey {
+                case id = "_id"
+                case name = "name"
+                case image = "image"
+            }
         }
     }
 }

@@ -63,16 +63,17 @@ class SearchVC: BaseVC {
             }
         }
     }
-    var searchResultData: [MusicForSearchModel] = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")]
-    var recentSearchDummyData = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")] {
+    var searchResultData: SearchResultResponseModel = []
+    var recentSearchData: SearchResultResponseModel = [] {
         didSet {
-            recentSearchDummyData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
+            recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
         }
     }
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchSearchResultData()
         setLayout()
         setAllClearButton()
         setResultTV()
@@ -80,7 +81,22 @@ class SearchVC: BaseVC {
         setSearchBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchSearchResultData()
+    }
+    
     // MARK: - Functions
+    private func fetchSearchResultData() {
+        if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
+            recentSearchData = localData
+        } else {
+            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
+            fetchSearchResultData()
+        }
+        resultTV.reloadData()
+    }
+    
     private func setAllClearButton() {
         allClearButton.press { [weak self] in
             let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
@@ -89,7 +105,8 @@ class SearchVC: BaseVC {
 모두 삭제하시겠어요?
 """)
             mumentAlert.OKButton.press {
-                self?.recentSearchDummyData = []
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
+                self?.recentSearchData = []
                 self?.resultTV.reloadData()
                 self?.setRecentSearchEmptyView()
             }
@@ -111,7 +128,7 @@ class SearchVC: BaseVC {
     }
     
     private func setRecentSearchEmptyView() {
-        self.recentSearchEmptyView.isHidden = !(self.recentSearchDummyData.isEmpty)
+        self.recentSearchEmptyView.isHidden = !(self.recentSearchData.isEmpty)
     }
     
     private func setSearchResultEmptyView(keyword: String) {
@@ -137,7 +154,7 @@ extension SearchVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch searchTVType {
         case .recentSearch:
-            return recentSearchDummyData.count
+            return recentSearchData.count
         case .searchResult:
             return searchResultData.count
         }
@@ -147,10 +164,11 @@ extension SearchVC: UITableViewDataSource {
         switch searchTVType {
         case .recentSearch:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTVC.className) as? RecentSearchTVC else { return UITableViewCell()}
-            cell.setData(data: recentSearchDummyData[indexPath.row])
+            cell.setData(data: recentSearchData.reversed()[indexPath.row])
             cell.removeButton.removeTarget(nil, action: nil, for: .allEvents)
             cell.removeButton.press {
-                self.recentSearchDummyData.remove(at: indexPath.row)
+                self.recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 1)
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
                 tableView.reloadData()
                 self.setRecentSearchEmptyView()
             }
@@ -164,9 +182,43 @@ extension SearchVC: UITableViewDataSource {
     }
 }
 
+// MARK: - Network
+extension SearchVC {
+    func getSearchResult(keyword: String, completion: @escaping (SearchResultResponseModel) -> (Void)) {
+        SearchAPI.shared.getMusicSearch(keyword: keyword) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? SearchResultResponseModel {
+                    completion(result)
+                }
+            default:
+                print("네트워크 연결 실패")
+            }
+        }
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension SearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch searchTVType {
+        case .recentSearch:
+            recentSearchData.append(recentSearchData[indexPath.row])
+            recentSearchData.remove(at: indexPath.row)
+            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+        case .searchResult:
+            if recentSearchData.contains(searchResultData[indexPath.row]) {
+                recentSearchData.append(recentSearchData[indexPath.row])
+                recentSearchData.remove(at: indexPath.row)
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            } else {
+                recentSearchData.append(searchResultData[indexPath.row])
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            }
+        }
+        
+        fetchSearchResultData()
+        
         let songDetailVC = SongDetailVC()
         self.navigationController?.pushViewController(songDetailVC, animated: true)
         print("songDetailVC")
@@ -177,10 +229,14 @@ extension SearchVC: UITableViewDelegate {
 extension SearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.searchTextField.endEditing(true)
-        searchTVType = .searchResult
-        self.resultTV.reloadData()
-        setSearchResultEmptyView(keyword: searchBar.searchTextField.text ?? "")
-        closeRecentSearchTitleView()
+        
+        getSearchResult(keyword: searchBar.searchTextField.text ?? "") { result in
+            self.searchResultData = result
+            self.searchTVType = .searchResult
+            self.resultTV.reloadData()
+            self.setSearchResultEmptyView(keyword: searchBar.searchTextField.text ?? "")
+            self.closeRecentSearchTitleView()
+        }
     }
 }
 

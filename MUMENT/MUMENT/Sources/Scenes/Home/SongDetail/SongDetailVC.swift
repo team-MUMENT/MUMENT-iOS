@@ -4,7 +4,7 @@
 //
 //  Created by 김지민 on 2022/07/15.
 //
-
+//////
 import UIKit
 import SnapKit
 import Then
@@ -18,7 +18,8 @@ class SongDetailVC: BaseVC {
     var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
-//    var songInfoData:
+    var songInfoData: SongInfoResponseModel.Music = SongInfoResponseModel.Music(id: "", name: "", image: "", artist: "")
+    var myMumentData: SongInfoResponseModel.MyMument = SongInfoResponseModel.MyMument(feelingTag: [], updatedAt: "", music: SongInfoResponseModel.MyMument.MyMumentMusic(id: ""), id: "", likeCount: 0, impressionTag: [], isDeleted: true, isPrivate: true, cardTag: [], date: "", isFirst: true, isLiked: true, v: 0, user: SongInfoResponseModel.MyMument.User(id: "", name: "", image: ""), createdAt: "", content: "")
     var allMumentsData: [AllMumentsResponseModel.MumentList] = []
     
     // MARK: - View Life Cycle
@@ -27,8 +28,8 @@ class SongDetailVC: BaseVC {
         setTV()
         setLayout()
         setButtonActions()
-//        requestGetSongInfo()
-        requestGetAllMuments()
+        requestGetSongInfo()
+        requestGetAllMuments(true)
         
     }
     
@@ -103,6 +104,7 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(songInfoDataSource[0])
+            cell.setData(songInfoData)
             cell.writeMumentButton.press{
                 self.tabBarController?.selectedIndex = 1
             }
@@ -111,7 +113,7 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
-            cell.setData(myMumentDataSource[0])
+            cell.setData(myMumentData)
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
@@ -142,6 +144,7 @@ extension SongDetailVC: UITableViewDataSource {
             return headerCell
         case 2:
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
+            headerCell.delegate=self
             return headerCell
         default:
             return nil
@@ -183,37 +186,50 @@ extension SongDetailVC: UITableViewDelegate {
     }
 }
 
+extension SongDetailVC :AllMumentsSectionHeaderDelegate {
+    func sortingFilterButtonClicked(_ recentOnTop: Bool) {
+        requestGetAllMuments(recentOnTop)
+    }
+}
+
+
 // MARK: - Network
 extension SongDetailVC {
     private func requestGetSongInfo() {
-        SongDetailAPI.shared.getAllMuments(musicId: "62d2959e177f6e81ee8fa3de", userId: "62cd5d4383956edb45d7d0ef", isOrderLiked: true) { networkResult in
-        switch networkResult {
-           
-        case .success(let response):
-          if let res = response as? SongInfoResponseModel {
-//              print(res.myMument)
-              
-          }
-        default:
-          self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+        SongDetailAPI.shared.getSongInfo(musicId: "62d29b39177f6e81ee8fa3f3", userId: "62cd5d4383956edb45d7d0ef") { networkResult in
+            switch networkResult {
+                
+            case .success(let response):
+                if let res = response as? SongInfoResponseModel {
+                    self.songInfoData = res.music
+                    self.myMumentData = res.myMument
+                    self.mumentTV.reloadData()
+                }
+            default:
+                self.makeAlert(title: """
+ 네트워크 오류로 인해 연결에 실패했어요! 🥲
+ 잠시 후에 다시 시도해 주세요.
+ """)
+            }
         }
-      }
     }
     
-  private func requestGetAllMuments() {
-      SongDetailAPI.shared.getAllMuments(musicId: "62d2959e177f6e81ee8fa3de", userId: "62cd5d4383956edb45d7d0ef", isOrderLiked: true) { networkResult in
-      switch networkResult {
-         
-      case .success(let response):
-        if let res = response as? AllMumentsResponseModel {
-            print(res.mumentList, "jjjjjjj")
-            self.allMumentsData = res.mumentList
-            self.mumentTV.reloadData()
+    private func requestGetAllMuments(_ isOrderLiked: Bool) {
+        SongDetailAPI.shared.getAllMuments(musicId: "62d29b39177f6e81ee8fa3f3", userId: "62cd5d4383956edb45d7d0ef", isOrderLiked: isOrderLiked) { networkResult in
+            switch networkResult {
+                
+            case .success(let response):
+                if let res = response as? AllMumentsResponseModel {
+                    self.allMumentsData = res.mumentList
+                    self.mumentTV.reloadData()
+                }
+                
+            default:
+                self.makeAlert(title: """
+ 네트워크 오류로 인해 연결에 실패했어요! 🥲
+ 잠시 후에 다시 시도해 주세요.
+ """)
+            }
         }
-
-      default:
-        self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
-      }
     }
-  }
 }

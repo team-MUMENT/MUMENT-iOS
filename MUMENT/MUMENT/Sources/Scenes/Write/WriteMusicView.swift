@@ -20,11 +20,13 @@ class WriteMusicView: UIView {
         $0.text = "노래 제목"
         $0.font = .mumentB2B14
         $0.textColor = .mBlack2
+        $0.lineBreakMode = .byTruncatingTail
     }
     private let artistLabel = UILabel().then {
         $0.text = "가수 이름"
         $0.font = .mumentB6M13
         $0.textColor = .mGray1
+        $0.lineBreakMode = .byTruncatingTail
     }
     let removeButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "mumentDelete2"), for: .normal)
@@ -63,6 +65,7 @@ extension WriteMusicView {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(albumImageView.snp.top).inset(8)
             $0.leading.equalTo(albumImageView.snp.trailing).offset(10)
+            $0.right.equalTo(removeButton.snp.left).offset(10)
         }
         
         artistLabel.snp.makeConstraints {
@@ -77,9 +80,9 @@ extension WriteMusicView {
         }
     }
     
-    func setData(data: MusicForSearchModel) {
-        albumImageView.setImageUrl(data.imageUrl)
-        titleLabel.text = data.title
+    func setData(data: SearchResultResponseModelElement) {
+        albumImageView.setImageUrl(data.image)
+        titleLabel.text = data.name
         artistLabel.text = data.artist
     }
 }
