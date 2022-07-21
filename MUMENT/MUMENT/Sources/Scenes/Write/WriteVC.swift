@@ -32,14 +32,15 @@ class WriteVC: BaseVC {
         $0.textColor = .mBlack2
     }
     private let searchButton = UIButton(type: .system).then {
-        $0.setTitle("곡, 아티스트 검색", for: .normal)
-        $0.setTitleColor(.mGray1, for: .normal)
-        $0.titleLabel?.font = .mumentB4M14
         $0.backgroundColor = .mGray5
         $0.layer.cornerRadius = 10
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "mumentSearch")
         $0.configuration?.imagePadding = 10
+        $0.setAttributedTitle(NSAttributedString(string: "곡, 아티스트",attributes: [
+            .font: UIFont.mumentB4M14,
+            .foregroundColor: UIColor.mGray1
+        ]), for: .normal)
         $0.contentHorizontalAlignment = .left
     }
     private let firstTimeMusicLabel = UILabel().then {
@@ -116,8 +117,9 @@ class WriteVC: BaseVC {
     private let completeButton = MumentCompleteButton(isEnabled: true).then {
         $0.setTitle("완료", for: .normal)
     }
+    private let selectedMusicView = WriteMusicView()
     
-    var clickedimpressionTag: [Int] = []
+    var clickedImpressionTag: [Int] = []
     var clickedFeelTag: [Int] = []
     var impressionTagDummyData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
     var feelTagDummyData = ["🎡 벅참", "🍁 센치함", "⌛️ 아련함", "😄 신남", "😔 우울", "💭 회상", "💐 설렘", "🕰 그리움", " 👥 위로", "😚 행복", "🛌 외로움", "🌅 낭만", "🙌 자신감", "🌋 스트레스", "☕️ 차분", "🍀 여유로움"]
@@ -137,23 +139,49 @@ class WriteVC: BaseVC {
         $0.sectionInset = .zero
     }
     let disposeBag = DisposeBag()
+    var isFirstListen = false
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNotificationCenter()
         setTagCV()
         setLayout()
-        setRadioButtonSelectStatus(button: firstTimeButton, isSelected: false)
-        setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: true)
+        setRadioButtonSelectStatus(button: firstTimeButton, isSelected: isFirstListen)
+        setRadioButtonSelectStatus(button: alreadyKnowButton, isSelected: !(isFirstListen))
         setRadioButton()
         setIsPrivateToggleButton()
         setContentTextView()
         registerCell()
         hideKeyboardWhenTappedAround()
         setContentTextCounting()
+        setSearchButton()
+        setRemoveSelectedMusicButton()
+        setSelectedMusicViewPressed()
+        setResetButton()
     }
     
     // MARK: - Functions
+    private func setNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setSelectedMusicViewForReceived(_:)), name: .sendSearchResult, object: nil)
+    }
+    
+    @objc func setSelectedMusicViewForReceived(_ notification: Notification){
+        self.setSelectedMusicView()
+        if let receivedData = notification.object as? MusicForSearchModel {
+            self.selectedMusicView.setData(data: receivedData)
+        }
+    }
+    
+    private func setSearchButton() {
+        searchButton.press { [weak self] in
+            let searchBottomSheet = SearchBottomSheetVC()
+            self?.present(searchBottomSheet, animated: false) {
+                searchBottomSheet.showBottomSheetWithAnimation()
+            }
+        }
+    }
+    
     private func setRadioButton() {
         firstTimeButton.press {
             self.setRadioButtonSelectStatus(button: self.firstTimeButton, isSelected: true)
@@ -205,132 +233,54 @@ class WriteVC: BaseVC {
             })
             .disposed(by: disposeBag)
     }
-}
-
-// MARK: - UI
-extension WriteVC {
     
-    private func setRadioButtonSelectStatus(button: UIButton, isSelected: Bool) {
-        button.isSelected = isSelected
-        button.titleLabel?.font = isSelected ? .mumentB2B14 : .mumentB4M14
+    private func setRemoveSelectedMusicButton() {
+        selectedMusicView.removeButton.press { [weak self] in
+            self?.removeSelectedMusicView()
+        }
     }
     
-    private func registerCell() {
-        impressionTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
-        feelTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
+    private func setResetButton() {
+        resetButton.press { [weak self] in
+            let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel)
+            mumentAlert.setTitleSubTitle(title: "뮤멘트 기록을 초기화하시겠어요?", subTitle: "확인 선택 시, 작성 중인 내용이 삭제됩니다.")
+            mumentAlert.OKButton.press {
+                
+                // TODO: 함수화..
+                
+                /// 선택된 음악 초기화
+                self?.removeSelectedMusicView()
+                
+                /// 처음/다시 response값으로 초기화
+                self?.setRadioButtonSelectStatus(button: self?.firstTimeButton ?? UIButton(), isSelected: self?.isFirstListen ?? true)
+                self?.setRadioButtonSelectStatus(button: self?.alreadyKnowButton ?? UIButton(), isSelected: !(self?.isFirstListen ?? true))
+                
+                /// 인상/감정 태그 배열 초기화
+                self?.feelTagCV.reloadData()
+                self?.impressionTagCV.reloadData()
+                self?.clickedFeelTag = []
+                self?.clickedImpressionTag = []
+                
+                /// 글 초기화
+                self?.contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
+                self?.contentTextView.textColor = .mGray1
+                
+                /// 공개/비공개 토글 초기화(default: toggle off)
+                self?.isPrivateToggleButton.isSelected = false
+            }
+            self?.present(mumentAlert, animated: true)
+        }
     }
     
-    private func setLayout() {
-        view.addSubviews([writeScrollView])
-        writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
-        
-        writeScrollView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        writeContentView.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.centerX.top.bottom.equalToSuperview()
-        }
-        
-        naviView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(52.adjustedH)
-        }
-        
-        resetButton.snp.makeConstraints {
-            $0.centerY.equalTo(naviView)
-            $0.width.height.equalTo(25.adjustedW)
-            $0.rightMargin.equalToSuperview().inset(20)
-        }
-        
-        selectMusicLabel.snp.makeConstraints {
-            $0.top.equalTo(naviView.snp.bottom).offset(40)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        searchButton.snp.makeConstraints {
-            $0.top.equalTo(selectMusicLabel.snp.bottom).offset(16)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(40.adjustedH)
-        }
-        
-        firstTimeMusicLabel.snp.makeConstraints {
-            $0.top.equalTo(searchButton.snp.bottom).offset(50)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        firstTimeButton.snp.makeConstraints {
-            $0.top.equalTo(firstTimeMusicLabel.snp.bottom).offset(16)
-            $0.left.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.width.equalTo(163.adjustedW)
-            $0.height.equalTo(40.adjustedH)
-        }
-        
-        alreadyKnowButton.snp.makeConstraints {
-            $0.top.equalTo(firstTimeButton.snp.top)
-            $0.width.height.equalTo(firstTimeButton)
-            $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
-        }
-        
-        impressionLabel.snp.makeConstraints {
-            $0.top.equalTo(alreadyKnowButton.snp.bottomMargin).offset(50)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        impressionTagCV.snp.makeConstraints {
-            $0.top.equalTo(impressionLabel.snp.bottom).offset(16)
-            $0.left.equalTo(impressionLabel.snp.left)
-            $0.right.equalToSuperview().inset(20)
-            $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
-        }
-        
-        feelLabel.snp.makeConstraints {
-            $0.top.equalTo(impressionTagCV.snp.bottomMargin).offset(50)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        feelTagCV.snp.makeConstraints {
-            $0.top.equalTo(feelLabel.snp.bottom).offset(16)
-            $0.left.equalTo(feelLabel.snp.left)
-            $0.right.equalToSuperview()
-            $0.height.equalTo(tagCellHeight * 3 + cellVerticalSpacing * 2)
-        }
-        
-        contentLabel.snp.makeConstraints {
-            $0.top.equalTo(feelTagCV.snp.bottomMargin).offset(50)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        contentTextView.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottomMargin).offset(16)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(252.adjustedH)
-        }
-        
-        countTextViewLabel.snp.makeConstraints {
-            $0.right.equalTo(contentTextView.snp.right).inset(13)
-            $0.bottom.equalTo(contentTextView.snp.bottom).inset(15)
-        }
-        
-        isPrivateToggleButton.snp.makeConstraints {
-            $0.top.equalTo(contentTextView.snp.bottomMargin).offset(15)
-            $0.right.equalToSuperview().inset(20)
-            $0.width.equalTo(49)
-            $0.height.equalTo(28)
-        }
-        
-        privateLabel.snp.makeConstraints {
-            $0.centerY.equalTo(isPrivateToggleButton)
-            $0.right.equalToSuperview().inset(78.adjustedW)
-        }
-        
-        completeButton.snp.makeConstraints {
-            $0.top.equalTo(isPrivateToggleButton.snp.bottomMargin).offset(60)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(60)
-            $0.bottom.equalToSuperview().inset(45)
+    private func setSelectedMusicViewPressed() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSelectedMusicView(_:)))
+        selectedMusicView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func didTapSelectedMusicView(_ sender: UITapGestureRecognizer) {
+        let searchBottomSheet = SearchBottomSheetVC()
+        self.present(searchBottomSheet, animated: false) {
+            searchBottomSheet.showBottomSheetWithAnimation()
         }
     }
 }
@@ -422,5 +372,148 @@ extension WriteVC: UITextViewDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
         return changedText.count <= 1000
+    }
+}
+
+// MARK: - UI
+extension WriteVC {
+    
+    private func setRadioButtonSelectStatus(button: UIButton, isSelected: Bool) {
+        button.isSelected = isSelected
+        button.titleLabel?.font = isSelected ? .mumentB2B14 : .mumentB4M14
+    }
+    
+    private func registerCell() {
+        impressionTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
+        feelTagCV.register(cell: WriteTagCVC.self, forCellWithReuseIdentifier: WriteTagCVC.className)
+    }
+    
+    private func setSelectedMusicView() {
+        view.addSubviews([selectedMusicView])
+        
+        selectedMusicView.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(selectMusicLabel.snp.top)
+            $0.bottom.equalTo(searchButton.snp.bottom)
+        }
+    }
+    
+    private func removeSelectedMusicView() {
+        self.selectedMusicView.removeFromSuperview()
+    }
+    
+    private func setLayout() {
+        view.addSubviews([writeScrollView])
+        writeScrollView.addSubviews([writeContentView])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstTimeButton, alreadyKnowButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        
+        writeScrollView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        writeContentView.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.centerX.top.bottom.equalToSuperview()
+        }
+        
+        naviView.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.height.equalTo(52.adjustedH)
+        }
+        
+        resetButton.snp.makeConstraints {
+            $0.centerY.equalTo(naviView)
+            $0.width.height.equalTo(25.adjustedW)
+            $0.rightMargin.equalToSuperview().inset(20)
+        }
+        
+        selectMusicLabel.snp.makeConstraints {
+            $0.top.equalTo(naviView.snp.bottom).offset(40)
+            $0.height.equalTo(20)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        searchButton.snp.makeConstraints {
+            $0.top.equalTo(selectMusicLabel.snp.bottom).offset(16)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(40.adjustedH)
+        }
+        
+        firstTimeMusicLabel.snp.makeConstraints {
+            $0.top.equalTo(searchButton.snp.bottom).offset(50)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        firstTimeButton.snp.makeConstraints {
+            $0.top.equalTo(firstTimeMusicLabel.snp.bottom).offset(16)
+            $0.left.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.width.equalTo(163.adjustedW)
+            $0.height.equalTo(40.adjustedH)
+        }
+        
+        alreadyKnowButton.snp.makeConstraints {
+            $0.top.equalTo(firstTimeButton.snp.top)
+            $0.width.height.equalTo(firstTimeButton)
+            $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
+        
+        impressionLabel.snp.makeConstraints {
+            $0.top.equalTo(alreadyKnowButton.snp.bottomMargin).offset(50)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        impressionTagCV.snp.makeConstraints {
+            $0.top.equalTo(impressionLabel.snp.bottom).offset(16)
+            $0.left.equalTo(impressionLabel.snp.left)
+            $0.right.equalToSuperview().inset(20)
+            $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
+        }
+        
+        feelLabel.snp.makeConstraints {
+            $0.top.equalTo(impressionTagCV.snp.bottomMargin).offset(50)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        feelTagCV.snp.makeConstraints {
+            $0.top.equalTo(feelLabel.snp.bottom).offset(16)
+            $0.left.equalTo(feelLabel.snp.left)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(tagCellHeight * 3 + cellVerticalSpacing * 2)
+        }
+        
+        contentLabel.snp.makeConstraints {
+            $0.top.equalTo(feelTagCV.snp.bottomMargin).offset(50)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        contentTextView.snp.makeConstraints {
+            $0.top.equalTo(contentLabel.snp.bottomMargin).offset(16)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(252.adjustedH)
+        }
+        
+        countTextViewLabel.snp.makeConstraints {
+            $0.right.equalTo(contentTextView.snp.right).inset(13)
+            $0.bottom.equalTo(contentTextView.snp.bottom).inset(15)
+        }
+        
+        isPrivateToggleButton.snp.makeConstraints {
+            $0.top.equalTo(contentTextView.snp.bottomMargin).offset(15)
+            $0.right.equalToSuperview().inset(20)
+            $0.width.equalTo(49)
+            $0.height.equalTo(28)
+        }
+        
+        privateLabel.snp.makeConstraints {
+            $0.centerY.equalTo(isPrivateToggleButton)
+            $0.right.equalToSuperview().inset(78.adjustedW)
+        }
+        
+        completeButton.snp.makeConstraints {
+            $0.top.equalTo(isPrivateToggleButton.snp.bottomMargin).offset(60)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(60)
+            $0.bottom.equalToSuperview().inset(45)
+        }
     }
 }

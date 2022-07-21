@@ -167,7 +167,9 @@ extension SearchVC: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension SearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.row) cell select")
+        let songDetailVC = SongDetailVC()
+        self.navigationController?.pushViewController(songDetailVC, animated: true)
+        print("songDetailVC")
     }
 }
 
@@ -198,7 +200,7 @@ extension SearchVC {
         recentSearchTitleView.snp.makeConstraints {
             $0.top.equalTo(naviView.snp.bottom).offset(30.adjustedH)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(23)
+            $0.height.equalTo(45)
         }
         
         resultTV.snp.makeConstraints {
@@ -240,6 +242,7 @@ extension SearchVC {
         recentSearchLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(20)
             $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
         }
         
         allClearButton.snp.makeConstraints {

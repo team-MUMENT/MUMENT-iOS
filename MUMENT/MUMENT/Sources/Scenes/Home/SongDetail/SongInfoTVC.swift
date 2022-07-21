@@ -1,14 +1,15 @@
 //
-//  SongInfoView.swift
+//  SongInfoTVC.swift
 //  MUMENT
 //
-//  Created by 김지민 on 2022/07/15.
+//  Created by 김지민 on 2022/07/19.
 //
+
 import UIKit
 import SnapKit
 import Then
 
-class SongInfoView: UIView {
+class SongInfoTVC: UITableViewCell {
     
     // MARK: - Properties
     private let albumImage = UIImageView().then{
@@ -29,7 +30,7 @@ class SongInfoView: UIView {
         $0.font = .mumentB4M14
     }
     
-    private let writeMumentButton = UIButton().then{
+    let writeMumentButton = UIButton().then{
         $0.makeRounded(cornerRadius: 11)
         $0.backgroundColor = .mPurple1
         $0.configuration = .plain()
@@ -41,18 +42,18 @@ class SongInfoView: UIView {
             .foregroundColor: UIColor.mWhite
         ]), for: .normal)
     }
-    
+
     // MARK: - Initialization
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setLayout()
+        selectionStyle = .none
     }
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-        setLayout()
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    
     //MARK: - Functions
     func setData(_ cellData: SongDetailInfoModel){
         albumImage.image = cellData.albumImage
@@ -62,7 +63,7 @@ class SongInfoView: UIView {
 }
 
 // MARK: - UI
-extension SongInfoView {
+extension SongInfoTVC {
     
     private func setLayout() {
         self.addSubviews([albumImage,songInfoStackView,writeMumentButton])

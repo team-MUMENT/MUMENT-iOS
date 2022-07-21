@@ -47,8 +47,14 @@ class MumentCardBySongView: UIView {
         $0.backgroundColor = .mGray4
     }
     
-    ///data에 있는 것 만큼 DefaultTagView()하고 stack view에 추가
-    let tagStackView = UIStackView()
+    var isFirst: Bool = false
+    var impressionTags: [Int] = []
+    var feelingTags: [Int] = []
+    var cardTags: [Int] = []
+    let tagStackView = UIStackView().then{
+        $0.axis = .horizontal
+        $0.spacing = 8
+    }
     let contentsLabel = UILabel().then{
         $0.textColor = .mBlack2
         $0.lineBreakMode = .byTruncatingTail
@@ -69,7 +75,6 @@ class MumentCardBySongView: UIView {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        setLayout()
     }
     
     //MARK: - Functions
@@ -80,6 +85,39 @@ class MumentCardBySongView: UIView {
         createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartButtonText = "\(cellData.heartCount)"
+        isFirst = cellData.isFirst
+        impressionTags = cellData.impressionTags
+        feelingTags = cellData.feelingTags
+        setTags()
+    }
+    
+    func setData(_ cellData: AllMumentsResponseModel.MumentList){
+        profileImage.setImageUrl(cellData.user.image)
+        writerNameLabel.text = cellData.user.name
+        contentsLabel.text = cellData.content
+        createdAtLabel.text = cellData.date
+        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+        heartButtonText = "\(cellData.likeCount)"
+        isFirst = cellData.isFirst
+        cardTags = cellData.cardTag
+        setTags()
+    }
+    
+    func setTags(){
+        tagStackView.removeAllArrangedSubviews()
+        
+        let tag = TagView()
+        tag.tagType = "isFirst"
+        tag.tagContentString = isFirst ? "처음" : "다시"
+        tagStackView.addArrangedSubview(tag)
+        
+        if cardTags.count != 0{
+            for i in 0...cardTags.count-1{
+                let tag = TagView()
+                tag.tagContent = cardTags[i]
+                tagStackView.addArrangedSubview(tag)
+            }
+        }
     }
 }
 
@@ -114,14 +152,13 @@ extension MumentCardBySongView {
         
         tagStackView.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.top.equalTo(separatorView.snp.bottom).offset(11)
         }
         
         contentsLabel.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.top.equalTo(tagStackView.snp.bottom).offset(10)
+            $0.top.equalTo(tagStackView.snp.bottom).offset(8)
         }
         
         createdAtLabel.snp.makeConstraints{
