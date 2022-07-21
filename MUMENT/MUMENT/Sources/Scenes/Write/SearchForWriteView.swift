@@ -193,10 +193,11 @@ extension SearchForWriteView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch searchTVType {
         case .recentSearch:
-            recentSearchData.append(recentSearchData[indexPath.row])
-            recentSearchData.remove(at: indexPath.row)
+            NotificationCenter.default.post(name: .sendSearchResult, object: recentSearchData.reversed()[indexPath.row])
+            recentSearchData.append(recentSearchData.reversed()[indexPath.row])
+            recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
-            NotificationCenter.default.post(name: .sendSearchResult, object: recentSearchData[indexPath.row])
+            
         case .searchResult:
             if recentSearchData.contains(searchResultData[indexPath.row]) {
                 recentSearchData.append(recentSearchData[indexPath.row])
