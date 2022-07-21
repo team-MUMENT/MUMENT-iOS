@@ -15,7 +15,7 @@ class HomeVC: BaseVC {
     private let headerViewMaxHeight: CGFloat = 107.0 //headerView의 최대 높이값
     private let headerViewMinHeight: CGFloat = 50.0 //headerVIew의 최소 높이값
 //    var carouselData: CarouselResponseModel
-    var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(id: "", music: MumentForTodayResponseModel.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.User(id: "", name: "", image: ""), isFirst: true, impressionTag: [], feelingTag: [], content: "", isPrivate: true, likeCount: 0, isDeleted: true, createdAt: "", isLiked: true)
+    var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(todayDate: "", todayMument: MumentForTodayResponseModel.TodayMument(music: MumentForTodayResponseModel.TodayMument.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.TodayMument.User(id: "", name: "", image: ""), id: "", mumentID: "", isFirst: true, impressionTag: [], feelingTag: [], content: "", cardTag: [], createdAt: "", date: "", displayDate: ""))
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     var mumentsByTagData: MumentsByTagResponseModel = MumentsByTagResponseModel(title: "", mumentList: [])
     
@@ -27,7 +27,7 @@ class HomeVC: BaseVC {
         setTV()
         setLayout()
         setButtonActions()
-//        requestGetMumentForTodayInfo()
+        requestGetMumentForTodayData()
         requestGetMumentsOfRevisitedData()
         requestGetMumentsByTagData()
        
@@ -215,24 +215,24 @@ extension HomeVC {
 //      }
 //    }
     
-//    private func requestGetMumentForTodayInfo() {
-//        HomeAPI.shared.getMumentForTodayData(userId: "62cd5d4383956edb45d7d0ef") { networkResult in
-//        switch networkResult {
-//
-//        case .success(let response):
-//          if let res = response as? MumentForTodayResponseModel {
-//              print(res,"jjjjjjj")
-//              self.mumentForTodayData = res
-//              self.homeTV.reloadData()
-//          }
-//        default:
-//          self.makeAlert(title: """
-// 네트워크 오류로 인해 연결에 실패했어요! 🥲
-// 잠시 후에 다시 시도해 주세요.
-// """)
-//        }
-//      }
-//    }
+    private func requestGetMumentForTodayData() {
+        HomeAPI.shared.getMumentForTodayData() { networkResult in
+        switch networkResult {
+
+        case .success(let response):
+          if let res = response as? MumentForTodayResponseModel {
+              print(res,"jjjjjjj")
+              self.mumentForTodayData = res
+              self.homeTV.reloadData()
+          }
+        default:
+          self.makeAlert(title: """
+ 네트워크 오류로 인해 연결에 실패했어요! 🥲
+ 잠시 후에 다시 시도해 주세요.
+ """)
+        }
+      }
+    }
     
     private func requestGetMumentsOfRevisitedData() {
         HomeAPI.shared.getMumentOfRevisitedData() { networkResult in
