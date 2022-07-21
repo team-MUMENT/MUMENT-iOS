@@ -15,7 +15,6 @@ class SongDetailVC: BaseVC {
     private let navigationBarView = DefaultNavigationBar()
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
-    var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     var songInfoData: SongInfoResponseModel.Music = SongInfoResponseModel.Music(id: "", name: "", image: "", artist: "")
@@ -29,7 +28,6 @@ class SongDetailVC: BaseVC {
         setTV()
         setLayout()
         setButtonActions()
-        requestGetSongInfo()
         requestGetAllMuments(true)
         
     }
@@ -104,7 +102,7 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SongInfoTVC.className, for: indexPath) as? SongInfoTVC else {
                 return UITableViewCell()
             }
-            cell.setData(songInfoDataSource[0])
+            print("songInfoData", songInfoData)
             cell.setData(songInfoData)
             cell.writeMumentButton.press{
                 self.tabBarController?.selectedIndex = 1
@@ -180,7 +178,7 @@ extension SongDetailVC: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0{
-            navigationBarView.setTitle(songInfoDataSource[0].songtitle)
+            navigationBarView.setTitle(songInfoData.name)
         } else {
             navigationBarView.setTitle("")
         }
@@ -199,7 +197,6 @@ extension SongDetailVC {
     private func requestGetSongInfo() {
         SongDetailAPI.shared.getSongInfo(musicId: self.musicId ?? "", userId: UserInfo.shared.userId ?? "") { networkResult in
             switch networkResult {
-                
             case .success(let response):
                 if let res = response as? SongInfoResponseModel {
                     self.songInfoData = res.music
