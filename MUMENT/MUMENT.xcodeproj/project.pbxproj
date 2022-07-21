@@ -16,7 +16,6 @@
 		4D13A66A2887FD9300197D2A /* MumentDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A6692887FD9300197D2A /* MumentDetailAPI.swift */; };
 		4D13A66C2887FDAC00197D2A /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66B2887FDAC00197D2A /* HistoryAPI.swift */; };
 		4D13A66E2888028400197D2A /* SongDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66D2888028400197D2A /* SongDetailService.swift */; };
-		4D13A67028882B1100197D2A /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
 		4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */; };
 		4D13A6742888735800197D2A /* MumentDetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */; };
 		4D13A67628887A8000197D2A /* SongInfoResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */; };
@@ -98,6 +97,7 @@
 		C74EC447287593BF0068EB46 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC446287593BF0068EB46 /* RxSwift */; };
 		C74EC44C287594270068EB46 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC44B287594270068EB46 /* Alamofire */; };
 		C7AE17D628872F3100A5E3FA /* StorageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D528872F3100A5E3FA /* StorageEmptyView.swift */; };
+		C7AE17EF2889322900A5E3FA /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
 		C7BB53002875960800E0E889 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB52FF2875960800E0E889 /* UIFont+.swift */; };
 		C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */; };
 		C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */; };
@@ -905,6 +905,7 @@
 				E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				4D13A65D2882A42000197D2A /* MumentHistoryTVHeader.swift in Sources */,
+				C7AE17EF2889322900A5E3FA /* MumentDetailService.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* SignService.swift in Sources */,
 				E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */,
 				4D76046828814A8A0044F2A6 /* MyMumentSectionHeader.swift in Sources */,
