@@ -9,9 +9,15 @@ import UIKit
 import SnapKit
 import Then
 
+protocol AllMumentsSectionHeaderDelegate : AnyObject{
+    func sortingFilterButtonClicked(_ recentOnTop: Bool)
+}
+
 class AllMumentsSectionHeader: UITableViewHeaderFooterView {
     
     // MARK: - Properties
+    var delegate: AllMumentsSectionHeaderDelegate?
+    
     private let titleLabel = UILabel().then{
         $0.text = "모든 뮤멘트"
         $0.textColor = .mBlack2
@@ -30,7 +36,6 @@ class AllMumentsSectionHeader: UITableViewHeaderFooterView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setLayout()
     }
     
     // MARK: - Functions
@@ -41,10 +46,12 @@ class AllMumentsSectionHeader: UITableViewHeaderFooterView {
         mostLikedOrderingButton.press {
             self.mostLikedOrderingButton.isSelected = true
             self.latestOrderingButton.isSelected = false
+            self.delegate?.sortingFilterButtonClicked(true)
         }
         latestOrderingButton.press {
             self.latestOrderingButton.isSelected = true
             self.mostLikedOrderingButton.isSelected = false
+            self.delegate?.sortingFilterButtonClicked(false)
         }
     }
 }
