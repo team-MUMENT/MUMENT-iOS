@@ -12,6 +12,7 @@ import Then
 class MumentsByTagTVC: UITableViewCell {
     
     // MARK: - Properties
+    weak var delegate: MumentsByTagCVCDelegate?
     var dataSource: [MumentsByTagModel] = MumentsByTagModel.sampleData
     var titleDataSource: MumentsByTagTitleModel = MumentsByTagTitleModel.sampleData
     lazy var titleLabel = UILabel().then{
@@ -71,6 +72,17 @@ extension MumentsByTagTVC {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+extension MumentsByTagTVC: UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? MumentsByTagCVC {
+            cell.isSelected = true
+        }
+        self.delegate?.mumentsByTagCVCSelected()
+    }
+}
+
 // MARK: - UICollectionViewDataSource
 extension MumentsByTagTVC: UICollectionViewDataSource {
     
@@ -98,3 +110,4 @@ extension MumentsByTagTVC: UICollectionViewDelegateFlowLayout {
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
+
