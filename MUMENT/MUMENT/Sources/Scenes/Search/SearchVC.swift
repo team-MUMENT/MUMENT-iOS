@@ -203,11 +203,15 @@ extension SearchVC {
 // MARK: - UITableViewDelegate
 extension SearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let songDetailVC = SongDetailVC()
+
         switch searchTVType {
         case .recentSearch:
-            recentSearchData.append(recentSearchData[indexPath.row])
-            recentSearchData.remove(at: indexPath.row)
+            songDetailVC.musicId = recentSearchData.reversed()[indexPath.row].id
+            recentSearchData.append(recentSearchData.reversed()[indexPath.row])
+            recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            
         case .searchResult:
             if recentSearchData.contains(searchResultData[indexPath.row]) {
                 recentSearchData.append(recentSearchData[indexPath.row])
@@ -217,11 +221,11 @@ extension SearchVC: UITableViewDelegate {
                 recentSearchData.append(searchResultData[indexPath.row])
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             }
+            songDetailVC.musicId = recentSearchData[indexPath.row].id
         }
         
         fetchSearchResultData()
         
-        let songDetailVC = SongDetailVC()
         self.navigationController?.pushViewController(songDetailVC, animated: true)
         print("songDetailVC")
     }
