@@ -36,7 +36,6 @@ class MyMumentSectionHeader: UITableViewHeaderFooterView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setLayout()
     }
 }
 
