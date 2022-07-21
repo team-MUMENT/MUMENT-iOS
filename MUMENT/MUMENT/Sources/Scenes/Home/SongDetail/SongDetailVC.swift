@@ -4,7 +4,7 @@
 //
 //  Created by 김지민 on 2022/07/15.
 //
-
+//////
 import UIKit
 import SnapKit
 import Then
@@ -18,8 +18,8 @@ class SongDetailVC: BaseVC {
     var songInfoDataSource: [SongDetailInfoModel] = SongDetailInfoModel.sampleData
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
-    var songInfoData: SongInfoResponseModel.Music?
-    var myMumentData: SongInfoResponseModel.MyMument?
+    var songInfoData: SongInfoResponseModel.Music = SongInfoResponseModel.Music(id: "", name: "", image: "", artist: "")
+    var myMumentData: SongInfoResponseModel.MyMument = SongInfoResponseModel.MyMument(feelingTag: [], updatedAt: "", music: SongInfoResponseModel.MyMument.MyMumentMusic(id: ""), id: "", likeCount: 0, impressionTag: [], isDeleted: true, isPrivate: true, cardTag: [], date: "", isFirst: true, isLiked: true, v: 0, user: SongInfoResponseModel.MyMument.User(id: "", name: "", image: ""), createdAt: "", content: "")
     var allMumentsData: [AllMumentsResponseModel.MumentList] = []
     
     // MARK: - View Life Cycle
@@ -104,7 +104,7 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(songInfoDataSource[0])
-//            cell.setData(songInfoData)
+            cell.setData(songInfoData)
             cell.writeMumentButton.press{
                 self.tabBarController?.selectedIndex = 1
             }
@@ -113,8 +113,7 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
-            cell.setData(myMumentDataSource[0])
-//            cell.setData(myMumentData)
+            cell.setData(myMumentData)
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
@@ -199,8 +198,6 @@ extension SongDetailVC {
               self.songInfoData = res.music
               self.myMumentData = res.myMument
               self.mumentTV.reloadData()
-          }else{
-              print("Asdasdsdsddsdsads")
           }
         default:
           self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
