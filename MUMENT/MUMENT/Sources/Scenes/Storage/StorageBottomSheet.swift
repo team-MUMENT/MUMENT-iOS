@@ -181,12 +181,22 @@ class StorageBottomSheet: UIViewController {
     
     private func setAllDeselectAction() {
         allDeselecteButton.press {
+            
+            self.selectedTagButtons = []
+            self.selectedTagDictionay = [:]
+            self.tagIndex = []
+            self.selectedTagsStackView.removeAllArrangedSubviews()
+            self.tagCount = "0"
+            self.selectedTagCount = 0
             self.impressionTagCV.reloadData()
             self.feelTagCV.reloadData()
             
-            self.selectedTagButtons.forEach {
-                self.selectedTagsStackView.removeArrangedSubview($0)
+            UIView.animate(withDuration: 0.3) {
+                self.selectedTagsSection.snp.updateConstraints {
+                    $0.height.equalTo(0)
+                }
             }
+            
         }
     }
     
@@ -359,6 +369,8 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             
             selectedTagButtons.last?.press {
                 self.collectionView(collectionView, didDeselectItemAt: indexPath)
+                collectionView.deselectItem(at: indexPath, animated: false)
+                
             }
 
         }else {
@@ -372,20 +384,7 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
                 $0.height.equalTo(self.bottomTagSectionHeight)
             }
         }
-        
-//        selectedTagButtons.forEach {
-//            $0.press {
-////                self.collectionView(self.impressionTagCV, didDeselectItemAt: indexPathPerCV)
-//                self.collectionView(collectionView, didDeselectItemAt: indexPathPerCV)
-//            }
-//        }
-        
-//        selectedTagButtons.last?.removeTarget(nil, action: nil, for: .allEvents)
-        
-        
-//        allDeselecteButton.press {
-//            self.impressionTagCV.deselectItem(at: indexPathPerCV, animated: false)
-//        }
+ 
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
