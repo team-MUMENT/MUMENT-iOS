@@ -57,6 +57,7 @@ class SearchVC: BaseVC {
                 searchResultEmptyView.isHidden = true
             case .searchResult:
                 recentSearchEmptyView.isHidden = true
+                self.allClearButton.isHidden = true
                 recentSearchTitleView.snp.updateConstraints {
                     $0.height.equalTo(0)
                 }
@@ -90,6 +91,7 @@ class SearchVC: BaseVC {
     private func fetchSearchResultData() {
         if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
             recentSearchData = localData
+            recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
         } else {
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
             fetchSearchResultData()
@@ -201,11 +203,15 @@ extension SearchVC {
 // MARK: - UITableViewDelegate
 extension SearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let songDetailVC = SongDetailVC()
+
         switch searchTVType {
         case .recentSearch:
-            recentSearchData.append(recentSearchData[indexPath.row])
-            recentSearchData.remove(at: indexPath.row)
+            songDetailVC.musicId = recentSearchData.reversed()[indexPath.row].id
+            recentSearchData.append(recentSearchData.reversed()[indexPath.row])
+            recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            
         case .searchResult:
             if recentSearchData.contains(searchResultData[indexPath.row]) {
                 recentSearchData.append(recentSearchData[indexPath.row])
@@ -215,11 +221,11 @@ extension SearchVC: UITableViewDelegate {
                 recentSearchData.append(searchResultData[indexPath.row])
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             }
+            songDetailVC.musicId = recentSearchData[indexPath.row].id
         }
         
         fetchSearchResultData()
         
-        let songDetailVC = SongDetailVC()
         self.navigationController?.pushViewController(songDetailVC, animated: true)
         print("songDetailVC")
     }
@@ -305,6 +311,7 @@ extension SearchVC {
             $0.centerY.equalTo(recentSearchLabel)
             $0.trailing.equalToSuperview().inset(20)
             $0.width.equalTo(48.adjustedW)
+            $0.height.equalTo(16.adjustedW)
         }
     }
 }
