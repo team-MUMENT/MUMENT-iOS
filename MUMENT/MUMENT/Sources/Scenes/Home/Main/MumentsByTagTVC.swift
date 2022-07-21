@@ -102,7 +102,6 @@ extension MumentsByTagTVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-//        cell.setData(dataSource[indexPath.row])
         cell.setData(mumentsByTagData[indexPath.row])
         return cell
     }
