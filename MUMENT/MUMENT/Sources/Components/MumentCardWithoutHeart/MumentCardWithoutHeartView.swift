@@ -89,6 +89,20 @@ class MumentCardWithoutHeartView: UIView {
         setTags()
     }
     
+    func setData(_ cellData: MumentForTodayResponseModel){
+        profileImage.setImageUrl(cellData.todayMument.user.image)
+        writerNameLabel.text = cellData.todayMument.user.name
+        albumImage.setImageUrl(cellData.todayMument.music.image)
+        songTitleLabel.text = cellData.todayMument.music.name
+        artistLabel.text = cellData.todayMument.music.artist
+        contentsLabel.text = cellData.todayMument.content
+        createdAtLabel.text = cellData.todayMument.date
+        isFirst = cellData.todayMument.isFirst
+        impressionTags = cellData.todayMument.impressionTag
+        feelingTags = cellData.todayMument.feelingTag
+        setTags()
+    }
+    
     func setTags(){
         tagStackView.removeAllArrangedSubviews()
         
