@@ -16,7 +16,6 @@
 		4D13A66A2887FD9300197D2A /* MumentDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A6692887FD9300197D2A /* MumentDetailAPI.swift */; };
 		4D13A66C2887FDAC00197D2A /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66B2887FDAC00197D2A /* HistoryAPI.swift */; };
 		4D13A66E2888028400197D2A /* SongDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66D2888028400197D2A /* SongDetailService.swift */; };
-		4D13A67028882B1100197D2A /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
 		4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */; };
 		4D13A6742888735800197D2A /* MumentDetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */; };
 		4D13A67628887A8000197D2A /* SongInfoResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */; };
@@ -51,6 +50,7 @@
 		4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */; };
 		4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */; };
 		4D9734F3287F3A41003EF546 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734F2287F3A41003EF546 /* Preview.swift */; };
+		4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
 		C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47E628807B64001A7CD6 /* SearchVC.swift */; };
 		C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */; };
@@ -907,6 +907,7 @@
 				E781F2232881BC0800484C28 /* CellCategory.swift in Sources */,
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
 				E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */,
+				4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				4D13A65D2882A42000197D2A /* MumentHistoryTVHeader.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* SignService.swift in Sources */,
