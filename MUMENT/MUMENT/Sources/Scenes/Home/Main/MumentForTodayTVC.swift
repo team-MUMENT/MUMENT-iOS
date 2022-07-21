@@ -55,4 +55,8 @@ extension MumentForTodayTVC {
     private func fetchData() {
         mumentCardView.setData(dataSource[0])
     }
+    
+    func setData(_ cellData: MumentForTodayResponseModel) {
+        mumentCardView.setData(cellData)
+    }
 }
