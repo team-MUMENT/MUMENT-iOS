@@ -9,6 +9,8 @@ import UIKit
 
 class LikedMumentVC: UIViewController {
     
+    var withouHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
+    
     var cellCategory : CellCategory = .listCell {
         didSet {
             self.likedMumentCV.reloadData()
@@ -26,12 +28,13 @@ class LikedMumentVC: UIViewController {
         $0.showsVerticalScrollIndicator = false
         $0.collectionViewLayout = layout
     }
-        
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionView()
         setCVLayout()
+        getLikedMumentStorage(userId: "62cd5d4383956edb45d7d0ef", filterTags: [])
     }
     
     // MARK: - Function
@@ -47,9 +50,9 @@ class LikedMumentVC: UIViewController {
 
 // MARK: - CollectionView UI
 extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-        
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return withouHeartMumentData.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -60,11 +63,12 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         guard let listCell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCVC.className, for: indexPath) as? ListCVC,
               let albumCell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCVC.className, for: indexPath) as? AlbumCVC
         else { return UICollectionViewCell() }
-
+        
         switch cellCategory {
         case .listCell:
+            debugPrint("indexPath.row",indexPath.row)
             listCell.setWithoutHeartCardUI()
-            listCell.setWithoutHeartCardData()
+            listCell.setWithoutHeartCardData(withouHeartMumentData[indexPath.row])
             return listCell
         case .albumCell:
             return albumCell
@@ -72,8 +76,8 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         
         switch cellCategory{
@@ -103,11 +107,11 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let header = collectionView.dequeueReusableSupplementaryView(
-                 ofKind: kind, withReuseIdentifier: SectionHeader.className , for: indexPath)
-                     as? SectionHeader else {
+                ofKind: kind, withReuseIdentifier: SectionHeader.className , for: indexPath)
+                    as? SectionHeader else {
                 return UICollectionReusableView()
             }
-             return header
+            return header
         }else {
             return UICollectionReusableView()
         }
@@ -123,7 +127,7 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         case .albumCell:
             return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-       }
+        }
     }
 }
 
@@ -141,20 +145,22 @@ extension LikedMumentVC {
 // MARK: - Network
 extension LikedMumentVC {
     private func getLikedMumentStorage(userId: String, filterTags: [Int]) {
-    StorageAPI.shared.getLikedMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
-      switch networkResult {
-      case .success(let response):
-        if let result = response as? GetLikedMumentResponseModel {
-            print(result.muments[0])
-        } else {
-          debugPrint("🚨당신 모델이 이상해열~🚨")
-        }
-      default:
-        self.makeAlert(title: """
+        StorageAPI.shared.getLikedMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetLikedMumentResponseModel {
+                    self.withouHeartMumentData = result.muments
+                    debugPrint("result값은 대입함",result)
+                    self.likedMumentCV.reloadData()
+                } else {
+                    debugPrint("🚨당신 모델이 이상해열~🚨")
+                }
+            default:
+                self.makeAlert(title: """
 네트워크 오류로 인해 연결에 실패했어요! 😢
 잠시 후에 다시 시도해 주세요.
 """)
-      }
+            }
+        }
     }
-  }
 }
