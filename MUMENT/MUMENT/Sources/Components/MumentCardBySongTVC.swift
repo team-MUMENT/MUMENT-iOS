@@ -19,6 +19,7 @@ class MumentCardBySongTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setLayout()
         selectionStyle = .none
+        self.backgroundColor = .mBgwhite
     }
     
     @available(*, unavailable)

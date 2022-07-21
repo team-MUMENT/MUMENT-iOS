@@ -84,6 +84,7 @@ extension SongInfoTVC {
         songInfoStackView.snp.makeConstraints{
             $0.leading.equalTo(albumImage.snp.trailing).offset(15)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(28)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
         }
         
         writeMumentButton.snp.makeConstraints{
