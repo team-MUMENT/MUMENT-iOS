@@ -31,6 +31,10 @@ class MumentCardBySongTVC: UITableViewCell {
         mumentCard.setData(cellData)
     }
     
+    func setData(_ cellData: HistoryResponseModel.MumentHistory){
+        mumentCard.setData(cellData)
+    }
+    
     func setData(_ cellData: AllMumentsResponseModel.MumentList){
         mumentCard.setData(cellData)
     }
