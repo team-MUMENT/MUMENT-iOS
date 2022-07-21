@@ -28,7 +28,7 @@ class MumentHistoryVC: BaseVC {
         setData()
         setTV()
         setClickEventHandlers()
-        requestGetHistoryData()
+        requestGetHistoryData(true)
     }
     
     // MARK: - Functions
@@ -112,7 +112,7 @@ extension MumentHistoryVC: UITableViewDataSource {
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         headerCell.songInfoView.addGestureRecognizer(tapGestureRecognizer)
-        
+        headerCell.delegate=self
         return headerCell
     }
     
@@ -141,10 +141,17 @@ extension MumentHistoryVC: UITableViewDelegate {
     }
     
 }
+
+extension MumentHistoryVC :MumentHistoryTVHeaderDelegate {
+    func sortingFilterButtonClicked(_ recentOnTop: Bool) {
+        requestGetHistoryData(recentOnTop)
+    }
+}
+
 // MARK: - Network
 extension MumentHistoryVC {
-    private func requestGetHistoryData() {
-        HistoryAPI.shared.getMumentHistoryData(userId: "62cd5d4383956edb45d7d0ef", musicId: "62cd4416177f6e81ee8fa398", recentOnTop: true) { networkResult in
+    private func requestGetHistoryData(_ recentOnTop: Bool) {
+        HistoryAPI.shared.getMumentHistoryData(userId: "62cd5d4383956edb45d7d0ef", musicId: "62cd4416177f6e81ee8fa398", recentOnTop: recentOnTop) { networkResult in
             switch networkResult {
                 
             case .success(let response):
