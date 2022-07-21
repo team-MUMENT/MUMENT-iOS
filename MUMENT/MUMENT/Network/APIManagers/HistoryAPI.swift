@@ -23,7 +23,6 @@ class HistoryAPI: BaseAPI {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode, data, HistoryResponseModel.self)
                 completion(networkResult)
-                print(networkResult,"!!!!!!!!!")
             case .failure(let err):
                 print(err.localizedDescription)
             }
