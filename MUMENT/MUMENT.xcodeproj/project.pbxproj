@@ -19,6 +19,8 @@
 		4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */; };
 		4D13A6742888735800197D2A /* MumentDetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */; };
 		4D13A67628887A8000197D2A /* SongInfoResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */; };
+		4D13A67A2889141900197D2A /* HistorySerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A6792889141900197D2A /* HistorySerivce.swift */; };
+		4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A67B2889163400197D2A /* HistoryResponseModel.swift */; };
 		4D2BADCA2880334C004A7E00 /* MumentsByTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */; };
 		4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */; };
 		4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */; };
@@ -160,6 +162,8 @@
 		4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentsResponseModel.swift; sourceTree = "<group>"; };
 		4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentDetailResponseModel.swift; sourceTree = "<group>"; };
 		4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfoResponseModel.swift; sourceTree = "<group>"; };
+		4D13A6792889141900197D2A /* HistorySerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySerivce.swift; sourceTree = "<group>"; };
+		4D13A67B2889163400197D2A /* HistoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponseModel.swift; sourceTree = "<group>"; };
 		4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCVC.swift; sourceTree = "<group>"; };
 		4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagModel.swift; sourceTree = "<group>"; };
 		4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTitleModel.swift; sourceTree = "<group>"; };
@@ -314,6 +318,7 @@
 				4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */,
 				4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */,
 				4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */,
+				4D13A67B2889163400197D2A /* HistoryResponseModel.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -498,6 +503,7 @@
 				C7AE17E328882D6B00A5E3FA /* SearchService.swift */,
 				4D13A66D2888028400197D2A /* SongDetailService.swift */,
 				4D13A66F28882B1100197D2A /* MumentDetailService.swift */,
+				4D13A6792889141900197D2A /* HistorySerivce.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -846,6 +852,7 @@
 				C7BB531428759AB200E0E889 /* Adjusted+.swift in Sources */,
 				4D13A65F2882AF1B00197D2A /* OrderingButton.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
+				4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */,
 				C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */,
@@ -894,6 +901,7 @@
 				C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */,
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
 				C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */,
+				4D13A67A2889141900197D2A /* HistorySerivce.swift in Sources */,
 				C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */,
 				C7BB531628759BBD00E0E889 /* MumentTabBarController.swift in Sources */,
 				C7BC6B6228771020008C75CE /* UICollectionView+.swift in Sources */,
