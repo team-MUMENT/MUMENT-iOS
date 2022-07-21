@@ -52,16 +52,17 @@ class SearchForWriteView: UIView {
         }
     }
     
-    var searchResultData: [MusicForSearchModel] = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")]
-    var recentSearchDummyData = [MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트"), MusicForSearchModel(imageUrl: "https://avatars.githubusercontent.com/u/108561249?s=400&u=96c3e4200232298c52c06e429bd323cad25bc98c&v=4", title: "노래", artist: "아티스트")] {
+    var searchResultData: SearchResultResponseModel = []
+    var recentSearchData: SearchResultResponseModel = [] {
         didSet {
-            recentSearchDummyData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
+            recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
         }
     }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        fetchSearchResultData()
         setLayout()
         setResultTV()
         setRecentSearchEmptyView()
@@ -70,6 +71,7 @@ class SearchForWriteView: UIView {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
+        fetchSearchResultData()
         setLayout()
         setResultTV()
         setRecentSearchEmptyView()
@@ -77,6 +79,16 @@ class SearchForWriteView: UIView {
     }
     
     // MARK: - Functions
+    private func fetchSearchResultData() {
+        if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
+            recentSearchData = localData
+        } else {
+            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
+            fetchSearchResultData()
+        }
+        resultTV.reloadData()
+    }
+    
     private func setResultTV() {
         resultTV.delegate = self
         resultTV.dataSource = self
@@ -91,7 +103,7 @@ class SearchForWriteView: UIView {
     }
     
     private func setRecentSearchEmptyView() {
-        self.recentSearchEmptyView.isHidden = !(self.recentSearchDummyData.isEmpty)
+        self.recentSearchEmptyView.isHidden = !(self.recentSearchData.isEmpty)
     }
     
     private func setSearchResultEmptyView(keyword: String) {
@@ -109,6 +121,94 @@ class SearchForWriteView: UIView {
         DispatchQueue.main.async {
             self.titleLabel.isHidden = true
         }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension SearchForWriteView: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.searchTextField.endEditing(true)
+        
+        getSearchResult(keyword: searchBar.searchTextField.text ?? "") { result in
+            self.searchResultData = result
+            self.searchTVType = .searchResult
+            self.resultTV.reloadData()
+            self.setSearchResultEmptyView(keyword: searchBar.searchTextField.text ?? "")
+            self.closeRecentSearchTitleView()
+        }
+    }
+}
+
+// MARK: - Network
+extension SearchForWriteView {
+    func getSearchResult(keyword: String, completion: @escaping (SearchResultResponseModel) -> (Void)) {
+        SearchAPI.shared.getMusicSearch(keyword: keyword) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? SearchResultResponseModel {
+                    completion(result)
+                }
+            default:
+                print("네트워크 연결 실패")
+            }
+        }
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension SearchForWriteView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch searchTVType {
+        case .recentSearch:
+            return recentSearchData.count
+        case .searchResult:
+            return searchResultData.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch searchTVType {
+        case .recentSearch:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTVC.className) as? RecentSearchTVC else { return UITableViewCell()}
+            cell.setData(data: recentSearchData.reversed()[indexPath.row])
+            cell.removeButton.removeTarget(nil, action: nil, for: .allEvents)
+            cell.removeButton.press {
+                self.recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 1)
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+                tableView.reloadData()
+                self.setRecentSearchEmptyView()
+            }
+            return cell
+        case .searchResult:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTVC.className) as? SearchTVC else { return UITableViewCell()}
+            cell.setData(data: searchResultData[indexPath.row])
+            return cell
+        }
+        
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension SearchForWriteView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch searchTVType {
+        case .recentSearch:
+            recentSearchData.append(recentSearchData[indexPath.row])
+            recentSearchData.remove(at: indexPath.row)
+            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            NotificationCenter.default.post(name: .sendSearchResult, object: recentSearchData[indexPath.row])
+        case .searchResult:
+            if recentSearchData.contains(searchResultData[indexPath.row]) {
+                recentSearchData.append(recentSearchData[indexPath.row])
+                recentSearchData.remove(at: indexPath.row)
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            } else {
+                recentSearchData.append(searchResultData[indexPath.row])
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            }
+            NotificationCenter.default.post(name: .sendSearchResult, object: searchResultData[indexPath.row])
+        }
+        print("\(indexPath.row) cell select")
     }
 }
 
@@ -142,61 +242,5 @@ extension SearchForWriteView {
             $0.top.equalTo(titleLabel.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension SearchForWriteView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch searchTVType {
-        case .recentSearch:
-            return recentSearchDummyData.count
-        case .searchResult:
-            return searchResultData.count
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch searchTVType {
-        case .recentSearch:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTVC.className) as? RecentSearchTVC else { return UITableViewCell()}
-            cell.setData(data: recentSearchDummyData[indexPath.row])
-            cell.removeButton.removeTarget(nil, action: nil, for: .allEvents)
-            cell.removeButton.press {
-                self.recentSearchDummyData.remove(at: indexPath.row)
-                tableView.reloadData()
-                self.setRecentSearchEmptyView()
-            }
-            return cell
-        case .searchResult:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTVC.className) as? SearchTVC else { return UITableViewCell()}
-            cell.setData(data: searchResultData[indexPath.row])
-            return cell
-        }
-        
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension SearchForWriteView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch searchTVType {
-        case .recentSearch:
-            NotificationCenter.default.post(name: .sendSearchResult, object: recentSearchDummyData[indexPath.row])
-        case .searchResult:
-            NotificationCenter.default.post(name: .sendSearchResult, object: searchResultData[indexPath.row])
-        }
-        print("\(indexPath.row) cell select")
-    }
-}
-
-// MARK: - UISearchBarDelegate
-extension SearchForWriteView: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.searchTextField.endEditing(true)
-        searchTVType = .searchResult
-        self.resultTV.reloadData()
-        setSearchResultEmptyView(keyword: searchBar.searchTextField.text ?? "")
-        closeRecentSearchTitleView()
     }
 }

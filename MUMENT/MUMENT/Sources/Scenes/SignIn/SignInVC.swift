@@ -44,7 +44,10 @@ extension SignInVC {
 //            case .networkFail:
 //                // 에러 처리...
             default:
-                self.makeAlert(title: "네트워크 오류로 인해 어쩌구...")
+                self.makeAlert(title: """
+네트워크 오류로 인해 연결에 실패했어요! 🥲
+잠시 후에 다시 시도해 주세요.
+""")
             }
         }
     }
