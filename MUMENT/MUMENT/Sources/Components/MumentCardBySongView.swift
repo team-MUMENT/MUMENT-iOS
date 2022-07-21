@@ -115,6 +115,18 @@ class MumentCardBySongView: UIView {
         setTags()
     }
     
+    func setData(_ cellData: SongInfoResponseModel.MyMument){
+        profileImage.setImageUrl(cellData.user.image)
+        writerNameLabel.text = cellData.user.name
+        contentsLabel.text = cellData.content
+        createdAtLabel.text = cellData.date
+        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+        heartButtonText = "\(cellData.likeCount)"
+        isFirst = cellData.isFirst
+        cardTags = cellData.cardTag
+        setTags()
+    }
+    
     func setTags(){
         tagStackView.removeAllArrangedSubviews()
         
