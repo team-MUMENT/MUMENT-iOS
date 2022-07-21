@@ -424,9 +424,13 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
-            cell.isSelected = true
+        if Int(feelTagCV.indexPathsForSelectedItems?.count ?? 0) + Int(impressionTagCV.indexPathsForSelectedItems?.count ?? 0) > 5 {
+            self.showToastMessage(message: "감상 태그는 최대 5개까지 선택할 수 있어요.")
+            collectionView.deselectItem(at: indexPath, animated: true)
+        } else {
+            if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
+                cell.isSelected = true
+            }
         }
     }
     
