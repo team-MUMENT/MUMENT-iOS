@@ -60,6 +60,12 @@ class SongInfoTVC: UITableViewCell {
         titleLabel.text = cellData.songtitle
         artistLabel.text = cellData.artist
     }
+    
+    func setData(_ cellData: SongInfoResponseModel.Music){
+        albumImage.setImageUrl(cellData.image)
+        titleLabel.text = cellData.name
+        artistLabel.text = cellData.artist
+    }
 }
 
 // MARK: - UI

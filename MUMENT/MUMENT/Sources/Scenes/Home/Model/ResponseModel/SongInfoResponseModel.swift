@@ -4,7 +4,7 @@
 //
 //  Created by 김지민 on 2022/07/21.
 //
-
+////
 import Foundation
 
 // MARK: - SongInfoResponseModel
@@ -49,7 +49,7 @@ struct SongInfoResponseModel: Codable {
         let v: Int
         let user: User
         let createdAt: String
-        let content: String
+        let content: String?
 
         enum CodingKeys: String, CodingKey {
             case feelingTag = "feelingTag"
