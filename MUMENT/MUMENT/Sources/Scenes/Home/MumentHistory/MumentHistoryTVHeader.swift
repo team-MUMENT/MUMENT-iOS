@@ -10,9 +10,15 @@ import UIKit
 import SnapKit
 import Then
 
+protocol MumentHistoryTVHeaderDelegate : AnyObject{
+    func sortingFilterButtonClicked(_ recentOnTop: Bool)
+}
+
 class MumentHistoryTVHeader: UITableViewHeaderFooterView {
     
     // MARK: - Properties
+    var delegate: MumentHistoryTVHeaderDelegate?
+    
     let songInfoView = DetailSongInfoView()
     private let latestOrderingButton = OrderingButton("최신순")
     private let oldestOrderingButton = OrderingButton("오래된순")
@@ -37,10 +43,12 @@ class MumentHistoryTVHeader: UITableViewHeaderFooterView {
         latestOrderingButton.press {
             self.latestOrderingButton.isSelected = true
             self.oldestOrderingButton.isSelected = false
+            self.delegate?.sortingFilterButtonClicked(true)
         }
         oldestOrderingButton.press {
             self.oldestOrderingButton.isSelected = true
             self.latestOrderingButton.isSelected = false
+            self.delegate?.sortingFilterButtonClicked(false)
         }
     }
     
@@ -64,7 +72,6 @@ extension MumentHistoryTVHeader {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(16)
             $0.height.equalTo(72)
             $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
-//            $0.width.equalTo(144)
         }
         
         latestOrderingButton.snp.makeConstraints{
