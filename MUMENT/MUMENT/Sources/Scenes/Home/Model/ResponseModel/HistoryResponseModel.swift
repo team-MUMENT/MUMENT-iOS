@@ -26,7 +26,7 @@ struct HistoryResponseModel: Codable {
         let isFirst: Bool
         let impressionTag: [Int]
         let feelingTag: [Int]
-        let content: String
+        let content: String?
         let isPrivate: Bool
         let likeCount: Int
         let isDeleted: Bool

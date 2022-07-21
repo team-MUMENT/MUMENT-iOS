@@ -18,7 +18,7 @@ class MumentHistoryVC: BaseVC {
     var musicInfoDataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
     var mumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
-    var musicInfoData: HistoryResponseModel.DataMusic?
+    var musicInfoData: HistoryResponseModel.DataMusic = HistoryResponseModel.DataMusic(id: "", name: "", artist: "", image: "")
     var historyData: [HistoryResponseModel.MumentHistory] = []
     
     // MARK: - View Life Cycle
@@ -86,7 +86,7 @@ extension MumentHistoryVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0 :
-            return mumentDataSource.count
+            return historyData.count
         default:
             return 0
         }
@@ -98,7 +98,7 @@ extension MumentHistoryVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
-            cell.setData(mumentDataSource[indexPath.row])
+            cell.setData(historyData[indexPath.row])
             return cell
             
         default:
@@ -108,7 +108,7 @@ extension MumentHistoryVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MumentHistoryTVHeader.className) as? MumentHistoryTVHeader else { return nil }
-        headerCell.setData(musicInfoDataSource[0])
+        headerCell.setData(musicInfoData)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         headerCell.songInfoView.addGestureRecognizer(tapGestureRecognizer)
@@ -145,19 +145,18 @@ extension MumentHistoryVC: UITableViewDelegate {
 extension MumentHistoryVC {
     private func requestGetHistoryData() {
         HistoryAPI.shared.getMumentHistoryData(userId: "62cd5d4383956edb45d7d0ef", musicId: "62d2959e177f6e81ee8fa3de", recentOnTop: true) { networkResult in
-        switch networkResult {
-           
-        case .success(let response):
-            if let res = response as? HistoryResponseModel {
-              print(res,"llllll")
-              
-          }else{
-              print("dtlgkdo")
-          }
-        default:
-          self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+            switch networkResult {
+                
+            case .success(let response):
+                if let res = response as? HistoryResponseModel {
+                    self.musicInfoData = res.music
+                    self.historyData = res.mumentHistory
+                    self.mumentTV.reloadData()
+                }
+            default:
+                self.makeAlert(title: "네트워킁 오류로 어쩌구..죄송")
+            }
         }
-      }
     }
-
+    
 }
