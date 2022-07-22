@@ -101,7 +101,7 @@ class MumentCardWithoutHeartView: UIView {
         isFirst = cellData.todayMument.isFirst
         impressionTags = cellData.todayMument.impressionTag
         feelingTags = cellData.todayMument.feelingTag
-        setTags()
+        setCardTags(cellData.todayMument.cardTag)
     }
     
     func setData(_ cellData: GetLikedMumentResponseModel.Mument){
