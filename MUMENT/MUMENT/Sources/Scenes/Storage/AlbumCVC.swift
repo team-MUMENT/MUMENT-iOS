@@ -13,11 +13,12 @@ class AlbumCVC: UICollectionViewCell {
 
     let mumentAlbumView = UIImageView()
     
+    
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
-        fetchData()
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +34,7 @@ class AlbumCVC: UICollectionViewCell {
         }
     }
     
-    private func fetchData() {
-        mumentAlbumView.image = UIImage(named: dataSource[0].albumImageTitle)
+    func fetchData(_ cellData: GetLikedMumentResponseModel.Mument) {
+        mumentAlbumView.setImageUrl(cellData.music.image)
     }
 }

@@ -14,8 +14,8 @@ class SectionHeader: UICollectionReusableView {
     // MARK: - Properties
     
     // 날짜표시 위한 임시 변수
-    private let year = 2022
-    private let month = 7
+//    private let year = 2022
+//    private let month = 7
     
     private let headerTitle = UILabel().then {
         $0.backgroundColor = .clear
@@ -25,7 +25,7 @@ class SectionHeader: UICollectionReusableView {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setHeader()
+//        setHeader()
     }
 
     @available(*, unavailable)
@@ -35,7 +35,7 @@ class SectionHeader: UICollectionReusableView {
 }
 
 extension SectionHeader {
-    func setHeader() {
+    func setHeader(_ year:Int, _ month:Int) {
         self.addSubViews([headerTitle])
         headerTitle.setLabel(text: "\(year)년 \(month)월", font: UIFont.mumentH3B16)
         headerTitle.textColor = UIColor.mBlack2
