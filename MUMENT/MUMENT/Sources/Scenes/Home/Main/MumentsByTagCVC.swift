@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 protocol MumentsByTagCVCDelegate : AnyObject{
-    func mumentsByTagCVCSelected()
+    func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList)
 }
 
 class MumentsByTagCVC: UICollectionViewCell {
