@@ -177,7 +177,7 @@ extension MumentCardWithoutHeartView {
         
         createdAtLabel.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
+            $0.top.equalTo(contentsLabel.snp.bottom).offset(8)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
         

@@ -47,12 +47,14 @@ extension MyMumentSectionHeader {
         
         titleLabel.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(15)
+//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(15)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(5)
         }
         
         historyButton.snp.makeConstraints{
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
+//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
             $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide)
         }
     }
 }
