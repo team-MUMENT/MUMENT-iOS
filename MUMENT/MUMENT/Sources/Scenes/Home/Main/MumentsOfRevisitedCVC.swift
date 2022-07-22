@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol MumentsOfRevisitedCVCDelegate : AnyObject{
+    func mumentsOfRevisitedCVCSelected()
+}
+
 class MumentsOfRevisitedCVC: UICollectionViewCell {
     
     // MARK: - Properties
@@ -69,6 +73,14 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
         contentsLabel.text = cellData.contents
         profileImage.image = cellData.profileImage
         writerNameLabel.text = cellData.writerName
+    }
+    
+    func setData(_ cellData: MumentsOfRevisitedResponseModel.AgainMument){
+        albumImage.setImageUrl(cellData.music.image)
+        titleLabel.text = "\(cellData.music.name) - \(cellData.music.artist)"
+        contentsLabel.text = cellData.content
+        profileImage.setImageUrl(cellData.user.image)
+        writerNameLabel.text = cellData.user.name
     }
 }
 

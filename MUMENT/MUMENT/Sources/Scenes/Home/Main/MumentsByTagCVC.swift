@@ -1,3 +1,4 @@
+
 //
 //  MumentsByTagCVC.swift
 //  MUMENT
@@ -7,6 +8,10 @@
 import UIKit
 import SnapKit
 import Then
+
+protocol MumentsByTagCVCDelegate : AnyObject{
+    func mumentsByTagCVCSelected()
+}
 
 class MumentsByTagCVC: UICollectionViewCell {
     
@@ -66,6 +71,13 @@ class MumentsByTagCVC: UICollectionViewCell {
         contentsLabel.text = cellData.contents
         profileImage.image = cellData.profileImage
         writerNameLabel.text = cellData.writerName
+    }
+    
+    func setData(_ cellData: MumentsByTagResponseModel.MumentList){
+        titleAndArtistLabel.text = "\(cellData.music.name) - \(cellData.music.artist)"
+        contentsLabel.text = cellData.content
+        profileImage.setImageUrl(cellData.user.image ?? "")
+        writerNameLabel.text = cellData.user.name
     }
 }
 

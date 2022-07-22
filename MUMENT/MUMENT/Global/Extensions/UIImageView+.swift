@@ -16,7 +16,7 @@ extension UIImageView {
         self.tintColor = color
     }
     
-    /// URL을 통해 이미지를 불러오는 메서드
+    /// URL을 통해 이미지를 불러오는 메서드 + 캐싱
     func setImageUrl(_ url: String) {
         let cacheKey = NSString(string: url)
         

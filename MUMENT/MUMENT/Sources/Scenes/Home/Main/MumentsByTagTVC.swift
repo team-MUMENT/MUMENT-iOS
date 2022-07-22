@@ -12,7 +12,9 @@ import Then
 class MumentsByTagTVC: UITableViewCell {
     
     // MARK: - Properties
+    weak var delegate: MumentsByTagCVCDelegate?
     var dataSource: [MumentsByTagModel] = MumentsByTagModel.sampleData
+    var mumentsByTagData: [MumentsByTagResponseModel.MumentList] = []
     var titleDataSource: MumentsByTagTitleModel = MumentsByTagTitleModel.sampleData
     lazy var titleLabel = UILabel().then{
         $0.textColor = .mBlack1
@@ -51,6 +53,12 @@ class MumentsByTagTVC: UITableViewCell {
     func setData(_ cellData: MumentsByTagTitleModel){
         titleLabel.text = "\(cellData.title)을 느낀 순간"
     }
+    
+    func setData(_ cellData: MumentsByTagResponseModel){
+        titleLabel.text = cellData.title
+        mumentsByTagData = cellData.mumentList
+        mumentCV.reloadData()
+    }
 }
 
 // MARK: - UI
@@ -73,11 +81,22 @@ extension MumentsByTagTVC {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+extension MumentsByTagTVC: UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? MumentsByTagCVC {
+            cell.isSelected = true
+        }
+        self.delegate?.mumentsByTagCVCSelected()
+    }
+}
+
 // MARK: - UICollectionViewDataSource
 extension MumentsByTagTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        return mumentsByTagData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -85,7 +104,7 @@ extension MumentsByTagTVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.setData(dataSource[indexPath.row])
+        cell.setData(mumentsByTagData[indexPath.row])
         return cell
     }
 }
@@ -100,3 +119,4 @@ extension MumentsByTagTVC: UICollectionViewDelegateFlowLayout {
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
+

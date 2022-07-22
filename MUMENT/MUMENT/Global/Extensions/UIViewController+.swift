@@ -146,6 +146,33 @@ extension UIViewController {
         let generator = UIImpactFeedbackGenerator(style: degree)
         generator.impactOccurred()
     }
+    
+    // MARK: - toast message 띄우기
+    /// viewController에 message를 띄워 줍니다.
+    ///
+    ///- parameters:
+    ///   - message: 화면에 보여질 메시지
+    ///   - vc: 토스트 메시지가 띄워질 view controller
+    func showToastMessage(message : String) {
+        let width = 335.adjustedW
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width / 2 - CGFloat(width) / 2, y: 675.adjustedH, width: CGFloat(width), height: 40))
+        
+        toastLabel.backgroundColor = UIColor.mBlack2
+        toastLabel.textColor = UIColor.mWhite
+        toastLabel.font = UIFont.mumentB8M12
+        toastLabel.textAlignment = .center
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10
+        toastLabel.clipsToBounds = true
+        self.view.addSubview(toastLabel)
+        
+        UIView.animate(withDuration: 0.3, delay: 2.0, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
 }
 
 #if canImport(SwiftUI) && DEBUG

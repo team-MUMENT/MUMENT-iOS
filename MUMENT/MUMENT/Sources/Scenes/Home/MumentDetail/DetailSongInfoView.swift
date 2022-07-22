@@ -20,8 +20,8 @@ class DetailSongInfoView: UIView {
     lazy var titleStackView = UIStackView(arrangedSubviews: [titleLabel, rightArrowImage]).then{
         $0.axis = .horizontal
         $0.spacing = 6
+        $0.distribution = .fillProportionally
         $0.alignment = .center
-        
     }
     private let titleLabel = UILabel().then{
         $0.textColor = .mBlack1
@@ -53,6 +53,18 @@ class DetailSongInfoView: UIView {
         titleLabel.text = cellData.songtitle
         artistLabel.text = cellData.artist
     }
+    
+    func setData(albumURL: String,songTitle: String, artist: String){
+        albumImage.setImageUrl(albumURL)
+        titleLabel.text = songTitle
+        artistLabel.text = artist
+    }
+    
+    func setData(_ cellData: HistoryResponseModel.DataMusic){
+        albumImage.setImageUrl(cellData.image)
+        titleLabel.text = cellData.name
+        artistLabel.text = cellData.artist
+    }
 }
 
 // MARK: - UI
@@ -71,11 +83,17 @@ extension DetailSongInfoView {
         titleStackView.snp.makeConstraints{
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(19)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide)
         }
         
         artistLabel.snp.makeConstraints{
             $0.top.equalTo(titleStackView.snp.bottom).offset(3)
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
+        }
+        
+        rightArrowImage.snp.makeConstraints{
+            $0.height.equalTo(10)
+            $0.width.equalTo(6)
         }
     }
 }

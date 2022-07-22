@@ -12,9 +12,29 @@ class MumentTabBarController: UITabBarController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTabBarItemStyle()
-        setShadow()
-        setTabBar()
+        self.setTabBarItemStyle()
+        self.setShadow()
+        self.setTabBar()
+        requestSignIn()
+    }
+}
+
+// MARK: - Network
+extension MumentTabBarController {
+    private func requestSignIn() {
+        SignAPI.shared.postSignIn(body: SignInBodyModel(profileId: "chaen", password: "chaen")) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? SignInDataModel {
+                    UserInfo.shared.userId = result.id
+                }
+            default:
+                self.makeAlert(title: """
+네트워크 오류로 인해 연결에 실패했어요! 🥲
+잠시 후에 다시 시도해 주세요.
+""")
+            }
+        }
     }
 }
 
@@ -41,7 +61,7 @@ extension MumentTabBarController {
     }
     
     func setTabBar() {
-        let homeTab = makeTabVC(vc: HomeVC(), tabBarTitle: "홈", tabBarImg: "mumentIconHomeOff", tabBarSelectedImg: "mumentIconHomeOn")
+        let homeTab = makeTabVC(vc: BaseNC(rootViewController: HomeVC()), tabBarTitle: "홈", tabBarImg: "mumentIconHomeOff", tabBarSelectedImg: "mumentIconHomeOn")
         let writeTab = makeTabVC(vc: WriteVC(), tabBarTitle: "기록하기", tabBarImg: "mumentIconRecordOff", tabBarSelectedImg: "mumentIconRecordOn")
         let storageTab = makeTabVC(vc: StorageVC(), tabBarTitle: "보관함", tabBarImg: "mumentIconLibraryOff", tabBarSelectedImg: "mumentIconLibraryOn")
         

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MumentDetailVC: BaseVC {
+class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
@@ -22,12 +22,9 @@ class MumentDetailVC: BaseVC {
     private let mumentCardView = DetailMumentCardView()
     private let historyButton = UIButton().then{
         $0.makeRounded(cornerRadius: 11)
-        $0.backgroundColor = .mGray4
-        $0.configuration = .plain()
-        $0.configuration?.image = UIImage(named: "rightArrow")
+        $0.setBackgroundImage(UIImage(named:"history_btn"), for: .normal)
         $0.layer.cornerRadius = 10
-        $0.configuration?.imagePadding = 120
-        $0.configuration?.imagePlacement = .trailing
+        $0.contentHorizontalAlignment = .left
     }
     
     let attributes: [NSAttributedString.Key: Any] = [
@@ -49,14 +46,64 @@ class MumentDetailVC: BaseVC {
         super.viewDidLoad()
         setLayout()
         setData()
-        
+        setClickEventHandlers()
+        requestGetMumentDetail()
     }
     
     // MARK: - Functions
     func setData(){
         navigationBarView.setTitle("뮤멘트")
         mumentCardView.setData(dataSource[0])
-        historyButtonText = "\(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
+        historyButtonText = "     \(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
+    }
+    
+    func setClickEventHandlers(){
+        
+        navigationBarView.backbutton.press{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        historyButton.press{
+            let mumentHistoryVC = MumentHistoryVC()
+            self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
+        }
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
+        mumentCardView.menuIconButton.press{
+
+            let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+            let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
+                self.tabBarController?.selectedIndex = 1
+            }
+
+            let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
+                let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
+                    mumentAlert.setTitle(title: "삭제하시겠어요?")
+                self.present(mumentAlert, animated: true)
+                
+                mumentAlert.OKButton.press {
+                    self.navigationController?.popViewController(animated: true)
+                            }
+            }
+
+            let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel) { action -> Void in }
+
+            actionSheetController.addAction(updatingAction)
+            actionSheetController.addAction(deletingAction)
+            actionSheetController.addAction(cancelAction)
+
+            self.present(actionSheetController, animated: true) {
+                print("option menu presented")
+            }
+        }
+        
+    }
+    
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let songDetailVC = SongDetailVC()
+        self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
 
@@ -93,8 +140,29 @@ extension MumentDetailVC {
             $0.left.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(40)
+            $0.width.equalTo(335)
             $0.bottom.equalToSuperview().inset(20)
         }
     }
 }
 
+// MARK: - Network
+extension MumentDetailVC {
+  private func requestGetMumentDetail() {
+      MumentDetailAPI.shared.getMumentDetail(mumentId: "62cd6d136500907694a2a548", userId: "62cd5d4383956edb45d7d0ef") { networkResult in
+      switch networkResult {
+         
+      case .success(let response):
+        if let res = response as? MumentDetailResponseModel {
+            self.mumentCardView.setData(res)
+        }
+          
+      default:
+        self.makeAlert(title: """
+ 네트워크 오류로 인해 연결에 실패했어요! 🥲
+ 잠시 후에 다시 시도해 주세요.
+ """)
+      }
+    }
+  }
+}
