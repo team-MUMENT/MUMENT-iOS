@@ -75,7 +75,6 @@ extension DetailSongInfoView {
         
         albumImage.snp.makeConstraints{
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(11)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(10)
             $0.height.width.equalTo(55)
         }
