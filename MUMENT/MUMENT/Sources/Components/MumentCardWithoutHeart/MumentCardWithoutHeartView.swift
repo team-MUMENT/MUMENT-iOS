@@ -217,4 +217,3 @@ extension MumentCardWithoutHeartView {
         }
     }
 }
-

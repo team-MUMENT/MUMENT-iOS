@@ -72,6 +72,9 @@ class MumentCardBySongView: UIView {
         }
     }
     
+    var mumentId: String = ""
+    var userId: String = ""
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -95,6 +98,8 @@ class MumentCardBySongView: UIView {
         heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
+        mumentId = cellData.id
+        userId = cellData.user.id
         setTags()
     }
     
@@ -108,6 +113,8 @@ class MumentCardBySongView: UIView {
         heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
+        mumentId = cellData.id
+        userId = cellData.user.id
         setTags()
     }
     
@@ -121,6 +128,8 @@ class MumentCardBySongView: UIView {
         heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
+        mumentId = cellData.id
+        userId = cellData.user.id
         setTags()
     }
     
@@ -143,12 +152,14 @@ class MumentCardBySongView: UIView {
     
     func setButtonActions(){
         heartButton.press {
-            var previousState = self.isLiked
+            let previousState = self.isLiked
             self.isLiked.toggle()
             if previousState {
                 self.heartCount -= 1
+                self.requestDeleteHeartLiked(mumentId: self.mumentId, userId: self.userId)
             }else{
                 self.heartCount += 1
+                self.requestPostHeartLiked(mumentId: self.mumentId, userId: self.userId)
             }
         }
     }
@@ -203,6 +214,38 @@ extension MumentCardBySongView {
         
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(25)
+        }
+    }
+}
+
+extension MumentCardBySongView {
+    private func requestPostHeartLiked(mumentId: String, userId: String) {
+        LikeAPI.shared.postHeartLiked(mumentId: mumentId, userId: userId) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? LikeResponseModel {
+                    print("!~~~~~~~~",res)
+                }
+                
+            default:
+                print("LikeAPI.shared.postHeartLiked")
+                return
+            }
+        }
+    }
+    
+    private func requestDeleteHeartLiked(mumentId: String, userId: String) {
+        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId, userId: userId) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? LikeResponseModel {
+                    print("!~~~~~~~~",res)
+                }
+                
+            default:
+                print("LikeAPI.shared.deleteHeartLiked")
+                return
+            }
         }
     }
 }
