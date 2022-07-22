@@ -155,8 +155,10 @@ extension MumentDetailVC {
           switch networkResult {
           case .success(let response):
               if let res = response as? MumentDetailResponseModel {
+                  print("dddddddd")
                   self.dataSource = res
-                  self.mumentCardView.setData(res)
+                  self.setData()
+//                  self.mumentCardView.setData(res)
               }
               
           default:
