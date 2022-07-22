@@ -10,6 +10,8 @@ import Foundation
 
 class MyMumentVC: UIViewController {
     
+    var defaultMumentData: [GetMyMumentResponseModel.Mument] = []
+    
     var cellCategory : CellCategory = .listCell {
         didSet {
             self.myMumentCV.reloadData()
@@ -27,14 +29,17 @@ class MyMumentVC: UIViewController {
         $0.showsVerticalScrollIndicator = false
         $0.collectionViewLayout = layout
     }
+    
+    var dateArray: [Int] = [1]
+    var dateDictionary : [Int : Int] = [:]
+    var numberOfSections = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionView()
         setUILayout()
         
-        
-        getMyMumentStorage(userId: UserInfo.shared.userId ?? "false", filterTags: [])
+        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: [])
         
     }
     
@@ -47,17 +52,58 @@ class MyMumentVC: UIViewController {
         myMumentCV.delegate = self
         myMumentCV.dataSource = self
     }
+    
+    /// Set 으로 중복값 제거하기
+    func removeDuplication(in array: [Int]) -> [Int]{
+        let set = Set(array)
+        let duplicationRemovedArray = Array(set)
+        return duplicationRemovedArray
+    }
+    
+    func setDateDictionary() {
+        var dates: [Int] = []
+        var date = 0
+        
+        if defaultMumentData.count != 1 {
+            
+            defaultMumentData.forEach {
+                date = $0.year * 100 + $0.month
+                debugPrint("date!",date)
+                dates.append(date)
+                dateDictionary[date] = 0
+            }
+            /// date 배열을 중복제거하고 dateArray에 대입
+            dateArray = dates.uniqued()
+            dateArray.sort(by: >)
+            dateArray.forEach {
+                debugPrint("dateArray",$0)
+            }
+            for i in 0...dateArray.count-1 {
+                defaultMumentData.forEach {
+                    let mdate = $0.year * 100 + $0.month
+                    /// 뮤멘트 데이터의 날짜가 미리 정렬해놓은 날짜 배열의 값과 일치 할때
+                    if mdate == dateArray[i] {
+                        dateDictionary[mdate]! += 1
+                    }
+                }
+            }
+            debugPrint("numberofSection", dateArray.count)
+            numberOfSections = dateArray.count
+        } else {
+            numberOfSections = 1
+        }
+    }
 }
 
 // MARK: - CollectionView UI
 extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return dateDictionary[ self.dateArray[section] ] ?? 1
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 5
+        return numberOfSections
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -70,9 +116,30 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         switch cellCategory {
         case .listCell:
             listCell.setDefaultCardUI()
-            listCell.setDefaultCardData()
+            
+            debugPrint("안녕하세열", defaultMumentData)
+            if indexPath.section == 0 {
+                listCell.setDefaultCardData(defaultMumentData[indexPath.row])
+                return listCell
+            }
+            var mData = 0
+            for i in 0...indexPath.section-1{
+                mData += (dateDictionary[dateArray[i]])!
+            }
+            debugPrint("mData",mData)
+            listCell.setDefaultCardData(defaultMumentData[mData + indexPath.row])
             return listCell
         case .albumCell:
+            if indexPath.section == 0 {
+                albumCell.fetchData(defaultMumentData[indexPath.row])
+                return albumCell
+            }
+            var mData = 0
+            for i in 0...indexPath.section-1{
+                mData += (dateDictionary[dateArray[i]])!
+            }
+            debugPrint("mData",mData)
+            albumCell.fetchData(defaultMumentData[mData + indexPath.row])
             return albumCell
         }
     }
@@ -111,6 +178,9 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
                      as? SectionHeader else {
                 return UICollectionReusableView()
             }
+            let year = dateArray[indexPath.section] / 100
+            let month = dateArray[indexPath.section] % 10
+            header.setHeader(year, month)
              return header
         }else {
             return UICollectionReusableView()
@@ -148,7 +218,12 @@ extension MyMumentVC {
       switch networkResult {
       case .success(let response):
         if let result = response as? GetMyMumentResponseModel {
-            print(result.muments)
+            self.defaultMumentData = result.muments
+            debugPrint("여기 전체 리절트 보임", result)
+            debugPrint("여기 뮤멘트 보임",result.muments)
+            self.setDateDictionary()
+            debugPrint("self.dateDictionary",self.dateDictionary)
+            self.myMumentCV.reloadData()
         } else {
           debugPrint("🚨당신 모델이 이상해열~🚨")
         }
