@@ -92,7 +92,7 @@ class MumentCardBySongView: UIView {
     }
     
     func setData(_ cellData: HistoryResponseModel.MumentHistory){
-        profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?s=88&u=9ceb91d683a7d9cfe968cd35cd07a428536605e6&v=4")
+        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
@@ -104,7 +104,7 @@ class MumentCardBySongView: UIView {
     }
     
     func setData(_ cellData: AllMumentsResponseModel.MumentList){
-        profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?s=88&u=9ceb91d683a7d9cfe968cd35cd07a428536605e6&v=4")
+        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
@@ -116,7 +116,7 @@ class MumentCardBySongView: UIView {
     }
     
     func setData(_ cellData: SongInfoResponseModel.MyMument){
-        profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?s=88&u=9ceb91d683a7d9cfe968cd35cd07a428536605e6&v=4")
+        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date

@@ -93,7 +93,7 @@ class CarouselCVC: UICollectionViewCell {
         backgroundImage.image = UIImage(named: "mumentBanner\(index)")
         let parsedTitle = cellData.tagTitle.replacingOccurrences(of: "\\n", with: "\n" )
         headerLable.text = parsedTitle
-        albumImage.setImageUrl(cellData.music.image ?? "https://avatars.githubusercontent.com/u/25932970?s=88&u=9ceb91d683a7d9cfe968cd35cd07a428536605e6&v=4")
+        albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
         pageValue = "\(index)"
