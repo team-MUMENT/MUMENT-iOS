@@ -63,7 +63,6 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         contentsLabel.text = cellData.contentsLabel
         createdAtLabel.text = cellData.createdAtLabel
         heartButton.setImage(cellData.heartImage, for: .normal)
-//        heartButtonText = "\(cellData.heartCount)"
         isLiked = cellData.isLiked
         heartCount = cellData.heartCount
         setTags()
@@ -103,7 +102,6 @@ extension DefaultMumentCardView {
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
-                    print("!~~~~~~~~",res)
                 }
 
             default:
@@ -118,7 +116,6 @@ extension DefaultMumentCardView {
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
-                    print("!~~~~~~~~",res)
                 }
                 
             default:

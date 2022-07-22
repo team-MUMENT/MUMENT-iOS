@@ -98,7 +98,6 @@ class MumentCardBySongView: UIView {
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
-//        userId = cellData.user.id
         setTags()
     }
     
@@ -112,7 +111,6 @@ class MumentCardBySongView: UIView {
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
-//        userId = cellData.user.id
         setTags()
     }
     
@@ -126,7 +124,6 @@ class MumentCardBySongView: UIView {
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
-//        userId = cellData.user.id
         setTags()
     }
     
@@ -221,7 +218,6 @@ extension MumentCardBySongView {
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
-                    print("!~~~~~~~~",res)
                 }
 
             default:
@@ -236,7 +232,6 @@ extension MumentCardBySongView {
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
-                    print("!~~~~~~~~",res)
                 }
                 
             default:
