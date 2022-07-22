@@ -236,13 +236,13 @@ extension DetailMumentCardView {
         heartStackView.snp.makeConstraints{
             $0.top.equalTo(createdAtLabel.snp.bottom)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(5)
-            
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(5)
         }
         
         shareButton.snp.makeConstraints{
             $0.top.equalTo(createdAtLabel.snp.bottom)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(2)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(10)
         }
         
         profileImage.snp.makeConstraints{
