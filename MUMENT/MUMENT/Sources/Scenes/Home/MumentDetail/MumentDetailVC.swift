@@ -65,6 +65,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
+            mumentHistoryVC.musicId = self.dataSource?.music.id
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
         }
         
@@ -157,9 +158,6 @@ extension MumentDetailVC {
           switch networkResult {
           case .success(let response):
               if let result = response as? MumentDetailResponseModel {
-                  print("anananan")
-                  print(result)
-                  print("!!!!!!!!!!!!")
                   self.dataSource = result
                   
                   print(self.dataSource)

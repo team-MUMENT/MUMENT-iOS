@@ -139,6 +139,7 @@ extension MumentHistoryVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = musicId
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
