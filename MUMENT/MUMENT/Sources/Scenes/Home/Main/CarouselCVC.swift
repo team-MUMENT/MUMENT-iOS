@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 protocol CarouselCVCDelegate : AnyObject{
-    func carouselCVCSelected()
+    func carouselCVCSelected(data: CarouselResponseModel.BannerList)
 }
 
 class CarouselCVC: UICollectionViewCell {
