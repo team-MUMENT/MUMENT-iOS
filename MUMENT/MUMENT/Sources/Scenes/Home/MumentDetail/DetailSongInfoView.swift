@@ -65,7 +65,7 @@ class DetailSongInfoView: UIView {
     }
     
     func setData(_ cellData: HistoryResponseModel.DataMusic){
-        albumImage.setImageUrl(cellData.image)
+        albumImage.setImageUrl(cellData.image ?? "https://avatars.githubusercontent.com/u/25932970?s=88&u=9ceb91d683a7d9cfe968cd35cd07a428536605e6&v=4")
         titleLabel.text = cellData.name
         titleLabel.sizeToFit()
         artistLabel.text = cellData.artist
