@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - DataClass
 struct MumentDetailResponseModel: Codable {
-    let user: Music = Music(id: "", name: "", artist: "", image: "")
+    let user: User = User(id: "", image: "", name: "")
     let music: Music = Music(id: "", name: "", artist: "", image: "")
     let isFirst: Bool = true
     let impressionTag: [Int] = []
@@ -31,6 +31,18 @@ struct MumentDetailResponseModel: Codable {
         case isLiked = "isLiked"
         case createdAt = "createdAt"
         case count = "count"
+    }
+    
+    struct User: Codable {
+        let id: String
+        let image: String
+        let name: String
+
+        enum CodingKeys: String, CodingKey {
+            case id = "_id"
+            case image = "image"
+            case name = "name"
+        }
     }
     
     // MARK: - Music
