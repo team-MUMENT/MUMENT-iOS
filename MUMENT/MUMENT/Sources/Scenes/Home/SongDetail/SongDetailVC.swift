@@ -182,8 +182,10 @@ extension SongDetailVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 1,2 :
+        case 1 :
             return 50
+        case 2:
+            return 40
         default:
             return 0
         }

@@ -64,18 +64,26 @@ extension AllMumentsSectionHeader {
         
         titleLabel.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
+//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(5)
+        }
+        
+        latestOrderingButton.snp.makeConstraints{
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(15)
+//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.width.equalTo(45)
+//            $0.height.equalTo(14)
         }
         
         mostLikedOrderingButton.snp.makeConstraints{
             $0.trailing.equalTo(latestOrderingButton.snp.leading)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
-            
+//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.width.equalTo(55)
+//            $0.height.equalTo(14)
         }
         
-        latestOrderingButton.snp.makeConstraints{
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
-        }
+       
     }
 }
