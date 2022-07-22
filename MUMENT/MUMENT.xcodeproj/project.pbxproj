@@ -154,6 +154,7 @@
 		E781F22F28892EF400484C28 /* StorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F22E28892EF400484C28 /* StorageAPI.swift */; };
 		E781F23128892FCC00484C28 /* GetMyMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F23028892FCC00484C28 /* GetMyMumentResponseModel.swift */; };
 		E781F2332889ADE400484C28 /* GetLikedMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2322889ADE400484C28 /* GetLikedMumentResponseModel.swift */; };
+		E781F235288AF55400484C28 /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F234288AF55400484C28 /* Sequence+.swift */; };
 		E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D60FFE287EC821000720D4 /* ListCVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -299,6 +300,7 @@
 		E781F22E28892EF400484C28 /* StorageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
 		E781F23028892FCC00484C28 /* GetMyMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyMumentResponseModel.swift; sourceTree = "<group>"; };
 		E781F2322889ADE400484C28 /* GetLikedMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLikedMumentResponseModel.swift; sourceTree = "<group>"; };
+		E781F234288AF55400484C28 /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		E7D60FFE287EC821000720D4 /* ListCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -595,6 +597,7 @@
 				C71B47EE2881A11E001A7CD6 /* UIImageView+.swift */,
 				C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */,
 				C71B48192886F5FF001A7CD6 /* Int+.swift */,
+				E781F234288AF55400484C28 /* Sequence+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -943,6 +946,7 @@
 				E781F21B288052ED00484C28 /* LikedMumentVC.swift in Sources */,
 				C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */,
 				4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */,
+				E781F235288AF55400484C28 /* Sequence+.swift in Sources */,
 				C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */,
 				E781F22D28892E2400484C28 /* StorageService.swift in Sources */,
 				4D13A6662887FD7700197D2A /* HomeAPI.swift in Sources */,
