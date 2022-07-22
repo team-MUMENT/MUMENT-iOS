@@ -18,14 +18,18 @@ class MumentHistoryVC: BaseVC {
     var musicInfoDataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
     var mumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
+    var musicInfoData: HistoryResponseModel.DataMusic = HistoryResponseModel.DataMusic(id: "", name: "", artist: "", image: "")
+    var historyData: [HistoryResponseModel.MumentHistory] = []
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         setData()
         setTV()
+        setClickEventHandlers()
+        requestGetHistoryData(true)
     }
-    
     
     // MARK: - Functions
     private func setTV() {
@@ -41,6 +45,17 @@ class MumentHistoryVC: BaseVC {
     
     func setData(){
         navigationBarView.setTitle("뮤멘트 히스토리")
+    }
+    
+    func setClickEventHandlers(){
+        navigationBarView.backbutton.press{
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let songDetailVC = SongDetailVC()
+        self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
 
@@ -71,7 +86,7 @@ extension MumentHistoryVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0 :
-            return mumentDataSource.count
+            return historyData.count
         default:
             return 0
         }
@@ -83,7 +98,7 @@ extension MumentHistoryVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
-            cell.setData(mumentDataSource[indexPath.row])
+            cell.setData(historyData[indexPath.row])
             return cell
             
         default:
@@ -93,7 +108,11 @@ extension MumentHistoryVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MumentHistoryTVHeader.className) as? MumentHistoryTVHeader else { return nil }
-        headerCell.setData(musicInfoDataSource[0])
+        headerCell.setData(musicInfoData)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        headerCell.songInfoView.addGestureRecognizer(tapGestureRecognizer)
+        headerCell.delegate=self
         return headerCell
     }
     
@@ -109,10 +128,45 @@ extension MumentHistoryVC: UITableViewDelegate {
         var cellHeight: CGFloat
         switch indexPath.section {
         case 0:
-            cellHeight = 200
+            cellHeight = UITableView.automaticDimension
         default:
             cellHeight = 0
         }
         return cellHeight
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+    }
+    
+}
+
+extension MumentHistoryVC :MumentHistoryTVHeaderDelegate {
+    func sortingFilterButtonClicked(_ recentOnTop: Bool) {
+        requestGetHistoryData(recentOnTop)
+    }
+}
+
+// MARK: - Network
+extension MumentHistoryVC {
+    private func requestGetHistoryData(_ recentOnTop: Bool) {
+        HistoryAPI.shared.getMumentHistoryData(userId: "62cd5d4383956edb45d7d0ef", musicId: "62cd4416177f6e81ee8fa398", recentOnTop: recentOnTop) { networkResult in
+            switch networkResult {
+                
+            case .success(let response):
+                if let res = response as? HistoryResponseModel {
+                    self.musicInfoData = res.music
+                    self.historyData = res.mumentHistory
+                    self.mumentTV.reloadData()
+                }
+            default:
+                self.makeAlert(title: """
+ 네트워크 오류로 인해 연결에 실패했어요! 🥲
+ 잠시 후에 다시 시도해 주세요.
+ """)
+            }
+        }
+    }
+    
 }

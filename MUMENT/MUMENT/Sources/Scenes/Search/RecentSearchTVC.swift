@@ -38,10 +38,10 @@ class RecentSearchTVC: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(data: MusicForSearchModel) {
+    func setData(data: SearchResultResponseModelElement) {
         albumImageView.setImageColor(color: .mGray5)
-        albumImageView.setImageUrl(data.imageUrl)
-        titleLabel.text = data.title
+        albumImageView.setImageUrl(data.image)
+        titleLabel.text = data.name
         artistLabel.text = data.artist
     }
 }
