@@ -20,6 +20,9 @@ class MumentHistoryTVHeader: UITableViewHeaderFooterView {
     var delegate: MumentHistoryTVHeaderDelegate?
     
     let songInfoView = DetailSongInfoView()
+//        .then{
+//        $0.clipsToBounds = true
+//    }
     private let latestOrderingButton = OrderingButton("최신순")
     private let oldestOrderingButton = OrderingButton("오래된순")
     
@@ -77,12 +80,13 @@ extension MumentHistoryTVHeader {
         latestOrderingButton.snp.makeConstraints{
             $0.trailing.equalTo(oldestOrderingButton.snp.leading)
             $0.top.equalTo(songInfoView.snp.bottom).offset(13)
-            
+            $0.width.equalTo(40)
         }
         
         oldestOrderingButton.snp.makeConstraints{
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(19)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(15)
             $0.top.equalTo(songInfoView.snp.bottom).offset(13)
+            $0.width.equalTo(55)
         }
     }
 }
