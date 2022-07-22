@@ -237,6 +237,9 @@ class StorageVC: BaseVC {
         self.selectedTagsView.snp.updateConstraints {
             $0.height.equalTo(self.tagsViewHeightConstant)
         }
+        
+        likedMumentVC.setTagsTitle(selectedTagButtons)
+        myMumentVC.setTagsTitle(selectedTagButtons)
     }
     
     @objc private func didTapSegmentControl() {

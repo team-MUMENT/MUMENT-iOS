@@ -11,6 +11,7 @@ import SwiftUI
 class LikedMumentVC: UIViewController {
     
     var withoutHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
+    var selectedTagsInt: [Int] = []
     
     var cellCategory : CellCategory = .listCell {
         didSet {
@@ -38,7 +39,7 @@ class LikedMumentVC: UIViewController {
         super.viewDidLoad()
         setCollectionView()
         setCVLayout()
-        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: [])
+        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
     // MARK: - Function
@@ -49,6 +50,18 @@ class LikedMumentVC: UIViewController {
         
         likedMumentCV.delegate = self
         likedMumentCV.dataSource = self
+    }
+    
+    func setTagsTitle(_ tagButtton:[TagButton]) {
+        selectedTagsInt = []
+        tagButtton.forEach {
+            if let title = $0.titleLabel?.text {
+                selectedTagsInt.append(title.tagInt() ?? 0)
+                debugPrint("타이틀", title)
+                debugPrint("프린트", title.tagInt() ?? 0)
+            }
+        }
+         getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
     /// Set 으로 중복값 제거하기
@@ -62,21 +75,21 @@ class LikedMumentVC: UIViewController {
         var dates: [Int] = []
         var date = 0
         
-        debugPrint("나와라!", withoutHeartMumentData)
         if withoutHeartMumentData.count != 1 {
             
             withoutHeartMumentData.forEach {
                 date = $0.year * 100 + $0.month
-                debugPrint("date!",date)
                 dates.append(date)
                 dateDictionary[date] = 0
             }
             /// date 배열을 중복제거하고 dateArray에 대입
             dateArray = dates.uniqued()
             dateArray.sort(by: >)
-            dateArray.forEach {
-                debugPrint("dateArray",$0)
+         
+            if dateArray.count == 0 {
+                dateArray = [1]
             }
+            
             for i in 0...dateArray.count-1 {
                 withoutHeartMumentData.forEach {
                     let mdate = $0.year * 100 + $0.month
@@ -86,7 +99,6 @@ class LikedMumentVC: UIViewController {
                     }
                 }
             }
-            debugPrint("numberofSection", dateArray.count)
             numberOfSections = dateArray.count
         } else {
             numberOfSections = 1
@@ -99,9 +111,7 @@ class LikedMumentVC: UIViewController {
 extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        debugPrint("section", section)
-        debugPrint("dateArr",self.dateArray[section] )
-        debugPrint("dateDic",dateDictionary[ self.dateArray[section]] ?? 1 )
+        
         return dateDictionary[ self.dateArray[section] ] ?? 1
       
     }
@@ -119,7 +129,6 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         case .listCell:
             listCell.setWithoutHeartCardUI()
             
-            debugPrint("안녕하세열", withoutHeartMumentData)
             if indexPath.section == 0 {
                 listCell.setWithoutHeartCardData(withoutHeartMumentData[indexPath.row])
                 return listCell
@@ -128,7 +137,6 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             for i in 0...indexPath.section-1{
                 mData += (dateDictionary[dateArray[i]])!
             }
-            debugPrint("mData",mData)
             listCell.setWithoutHeartCardData(withoutHeartMumentData[mData + indexPath.row])
             return listCell
         case .albumCell:
@@ -140,7 +148,6 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             for i in 0...indexPath.section-1{
                 mData += (dateDictionary[dateArray[i]])!
             }
-            debugPrint("mData",mData)
             albumCell.fetchData(withoutHeartMumentData[mData + indexPath.row])
             return albumCell
         }
@@ -217,16 +224,13 @@ extension LikedMumentVC {
 
 // MARK: - Network
 extension LikedMumentVC {
-    private func getLikedMumentStorage(userId: String, filterTags: [Int]) {
+    func getLikedMumentStorage(userId: String, filterTags: [Int]) {
         StorageAPI.shared.getLikedMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetLikedMumentResponseModel {
                     self.withoutHeartMumentData = result.muments
-                    debugPrint("여기 전체 리절트 보임", result)
-                    debugPrint("여기 뮤멘트 보임",result.muments)
                     self.setDateDictionary()
-                    debugPrint("self.dateDictionary",self.dateDictionary)
                     self.likedMumentCV.reloadData()
                 } else {
                     debugPrint("🚨당신 모델이 이상해열~🚨")

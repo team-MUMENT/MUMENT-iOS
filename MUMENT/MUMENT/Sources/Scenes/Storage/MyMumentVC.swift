@@ -11,7 +11,7 @@ import Foundation
 class MyMumentVC: UIViewController {
     
     var defaultMumentData: [GetMyMumentResponseModel.Mument] = []
-    
+    var selectedTagsInt: [Int] = []
     var cellCategory : CellCategory = .listCell {
         didSet {
             self.myMumentCV.reloadData()
@@ -39,7 +39,7 @@ class MyMumentVC: UIViewController {
         setCollectionView()
         setUILayout()
         
-        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: [])
+        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
         
     }
     
@@ -51,6 +51,18 @@ class MyMumentVC: UIViewController {
         
         myMumentCV.delegate = self
         myMumentCV.dataSource = self
+    }
+    
+    func setTagsTitle(_ tagButtton:[TagButton]) {
+        selectedTagsInt = []
+        tagButtton.forEach {
+            if let title = $0.titleLabel?.text {
+                selectedTagsInt.append(title.tagInt() ?? 0)
+                debugPrint("타이틀", title)
+                debugPrint("프린트", title.tagInt() ?? 0)
+            }
+        }
+         getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
     /// Set 으로 중복값 제거하기
@@ -68,16 +80,17 @@ class MyMumentVC: UIViewController {
             
             defaultMumentData.forEach {
                 date = $0.year * 100 + $0.month
-                debugPrint("date!",date)
                 dates.append(date)
                 dateDictionary[date] = 0
             }
             /// date 배열을 중복제거하고 dateArray에 대입
             dateArray = dates.uniqued()
             dateArray.sort(by: >)
-            dateArray.forEach {
-                debugPrint("dateArray",$0)
+            
+            if dateArray.count == 0 {
+                dateArray = [1]
             }
+            
             for i in 0...dateArray.count-1 {
                 defaultMumentData.forEach {
                     let mdate = $0.year * 100 + $0.month
@@ -87,7 +100,6 @@ class MyMumentVC: UIViewController {
                     }
                 }
             }
-            debugPrint("numberofSection", dateArray.count)
             numberOfSections = dateArray.count
         } else {
             numberOfSections = 1
@@ -117,7 +129,6 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         case .listCell:
             listCell.setDefaultCardUI()
             
-            debugPrint("안녕하세열", defaultMumentData)
             if indexPath.section == 0 {
                 listCell.setDefaultCardData(defaultMumentData[indexPath.row])
                 return listCell
@@ -126,7 +137,6 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             for i in 0...indexPath.section-1{
                 mData += (dateDictionary[dateArray[i]])!
             }
-            debugPrint("mData",mData)
             listCell.setDefaultCardData(defaultMumentData[mData + indexPath.row])
             return listCell
         case .albumCell:
@@ -138,7 +148,6 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             for i in 0...indexPath.section-1{
                 mData += (dateDictionary[dateArray[i]])!
             }
-            debugPrint("mData",mData)
             albumCell.fetchData(defaultMumentData[mData + indexPath.row])
             return albumCell
         }
@@ -219,10 +228,7 @@ extension MyMumentVC {
       case .success(let response):
         if let result = response as? GetMyMumentResponseModel {
             self.defaultMumentData = result.muments
-            debugPrint("여기 전체 리절트 보임", result)
-            debugPrint("여기 뮤멘트 보임",result.muments)
             self.setDateDictionary()
-            debugPrint("self.dateDictionary",self.dateDictionary)
             self.myMumentCV.reloadData()
         } else {
           debugPrint("🚨당신 모델이 이상해열~🚨")
