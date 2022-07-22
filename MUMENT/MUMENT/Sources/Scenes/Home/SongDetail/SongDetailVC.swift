@@ -55,7 +55,7 @@ class SongDetailVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = self.songInfoData.id
+        mumentDetailVC.mumentId = self.myMumentData?.id
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
         print("mumentDetailVC")
     }
@@ -113,12 +113,6 @@ extension SongDetailVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        if myMumentDataSource.count == 0 && allMumentsData.count == 0 {
-//            return UITableViewCell()
-//        } else {
-//
-//        }
         
         switch indexPath.section {
         case 0:

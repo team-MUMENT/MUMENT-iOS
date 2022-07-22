@@ -7,17 +7,18 @@
 
 import Foundation
 
+// MARK: - MumentDetailResponseModel
 struct MumentDetailResponseModel: Codable {
-    let isFirst: Bool = false
-    let content: String = ""
-    let impressionTag: [Int] = []
-    let isLiked: Bool = false
-    let count: Int = 0
-    let music: Music = Music(id: "", name: "", image: "", artist: " ")
-    let likeCount: Int = 0
-    let createdAt: String = ""
-    let feelingTag: [Int] = []
-    let user: User = User(id: "", image: "", name: "")
+    let isFirst: Bool
+    let content: String?
+    let impressionTag: [Int]
+    let isLiked: Bool
+    let count: Int
+    let music: Music
+    let likeCount: Int
+    let createdAt: String
+    let feelingTag: [Int]
+    let user: User
 
     enum CodingKeys: String, CodingKey {
         case isFirst = "isFirst"
@@ -61,4 +62,3 @@ struct MumentDetailResponseModel: Codable {
     }
 
 }
-
