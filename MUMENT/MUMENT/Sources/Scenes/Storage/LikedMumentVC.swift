@@ -29,16 +29,16 @@ class LikedMumentVC: UIViewController {
         $0.showsVerticalScrollIndicator = false
         $0.collectionViewLayout = layout
     }
-    var idxCount = 0
     var dateArray: [Int] = [1]
     var dateDictionary : [Int : Int] = [:]
     var numberOfSections = 0
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionView()
         setCVLayout()
-        getLikedMumentStorage(userId: "62cd5d4383956edb45d7d0ef", filterTags: [])
+        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: [])
     }
     
     // MARK: - Function
@@ -91,7 +91,6 @@ class LikedMumentVC: UIViewController {
         } else {
             numberOfSections = 1
         }
-//        self.likedMumentCV.reloadData()
     }
     
 }
@@ -108,7 +107,6 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        idxCount = 0
         return numberOfSections
     }
     
@@ -134,16 +132,6 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             listCell.setWithoutHeartCardData(withoutHeartMumentData[mData + indexPath.row])
             return listCell
         case .albumCell:
-//            for i in 0...self.withoutHeartMumentData.count - 1 {
-//                let date = withoutHeartMumentData[i].year * 100 + withoutHeartMumentData[i].month
-//                if dateArray[indexPath.section] == date {
-//                    albumCell.fetchData(withoutHeartMumentData[i])
-//                    return albumCell
-//                }
-//            }
-//            albumCell.fetchData(withoutHeartMumentData[indexPath.row])
-//            return albumCell
-            
             if indexPath.section == 0 {
                 albumCell.fetchData(withoutHeartMumentData[indexPath.row])
                 return albumCell
@@ -220,7 +208,6 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
 extension LikedMumentVC {
     private func setCVLayout() {
         view.addSubViews([likedMumentCV])
-        
         likedMumentCV.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
