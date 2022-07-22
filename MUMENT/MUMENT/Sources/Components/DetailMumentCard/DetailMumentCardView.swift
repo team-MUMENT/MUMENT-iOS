@@ -105,7 +105,20 @@ class DetailMumentCardView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentDetailResponseModel, mumentId: String){
+    func setData(_ cellData: MumentDetailVCModel){
+        profileImage.image = cellData.profileImage
+        writerNameLabel.text = cellData.writerName
+        songInfoView.setData(cellData)
+        isFirst = cellData.isFirst
+        impressionTags = cellData.impressionTags
+        feelingTags = cellData.feelingTags
+        contentsLabel.text = cellData.contents
+        createdAtLabel.text = cellData.createdAt
+        heartButton.setImage(cellData.heartImage, for: .normal)
+        heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
+    }
+    
+    func setData(_ cellData: MumentDetailResponseModel){
         print("들어왓나열?", cellData)
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name

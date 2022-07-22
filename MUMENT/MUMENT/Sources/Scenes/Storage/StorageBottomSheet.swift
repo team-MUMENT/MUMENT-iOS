@@ -145,9 +145,6 @@ class StorageBottomSheet: BaseVC {
         setAllDeselectAction()
         setFilterTagApplied()
         
-        debugPrint("width",UIScreen.main.bounds.width)
-        debugPrint("height",UIScreen.main.bounds.height)
-
     }
 
     private func setDismissButtonAction() {

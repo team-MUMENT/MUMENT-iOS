@@ -44,16 +44,15 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
-//        setData()
         setClickEventHandlers()
         requestGetMumentDetail()
     }
     
     // MARK: - Functions
     func setData(){
-        print("안냔냐냔")
         DispatchQueue.main.async {
             self.navigationBarView.setTitle("뮤멘트")
+            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, music: MUMENT.MumentDetailResponseModel.Music(id: "", name: "", image: Optional(""), artist: " "), likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: "", image: Optional(""), name: "")))
             self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(), mumentId: self.mumentId ?? "")
             self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
         }
@@ -67,6 +66,8 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
+            mumentHistoryVC.musicId = self.dataSource?.music.id
+            mumentHistoryVC.userId = self.dataSource?.user.id
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
         }
         
@@ -106,6 +107,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
         songDetailVC.musicId = dataSource?.music.id
+        print("오늘의뮤멘트", songDetailVC.musicId)
         songDetailVC.songInfoData = SongInfoResponseModel.Music(id: dataSource?.music.id ?? "", name: dataSource?.music.name ?? "", image: dataSource?.music.image ?? "", artist: dataSource?.music.artist ?? "")
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
@@ -157,14 +159,12 @@ extension MumentDetailVC {
           
           switch networkResult {
           case .success(let response):
-              if let res = response as? MumentDetailResponseModel {
-                  print("dddddddd")
-                  print(res)
-                  
-                  self.dataSource = res
+              if let result = response as? MumentDetailResponseModel {
+                  self.dataSource = result
                   
                   print(self.dataSource)
                   self.setData()
+                  self.mumentCardView.setData(result)
                   
                   self.mumentCardView.setData(res,mumentId: self.mumentId ?? "")
               }
