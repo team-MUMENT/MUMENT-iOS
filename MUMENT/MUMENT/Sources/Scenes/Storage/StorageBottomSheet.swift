@@ -96,7 +96,7 @@ class StorageBottomSheet: BaseVC {
     private let leftCVLayoutForFeel = LeftAlignedCollectionViewFlowLayout().then {
         $0.scrollDirection = .vertical
         $0.minimumLineSpacing = 0
-        $0.minimumInteritemSpacing = 0
+        $0.minimumInteritemSpacing = 5
         $0.sectionInset = .zero
     }
     
@@ -265,7 +265,7 @@ extension StorageBottomSheet {
 extension StorageBottomSheet {
     func showBottomSheetWithAnimation() {
         UIView.animate(withDuration: 0.3) {
-            self.containerHeight.constant = UIScreen.main.bounds.height >= 670 ? 650.adjustedH : 750.adjustedH
+            self.containerHeight.constant = UIScreen.main.bounds.height >= 670 ? 690.adjustedH : 750.adjustedH
             self.containerView.snp.updateConstraints {
                 $0.height.equalTo(self.containerHeight.constant)
             }
@@ -484,9 +484,9 @@ extension StorageBottomSheet {
             feelTagCV.snp.makeConstraints {
                 $0.top.equalTo(feelLabel.snp.bottom).offset(16.adjustedH)
                 $0.left.equalToSuperview().inset(10.adjustedW)
-                $0.right.equalToSuperview().inset(15.adjustedW)
-                $0.height.equalTo(tagCellHeight * 5 + cellVerticalSpacing * 4)
-                $0.width.equalTo(containerView.frame.width)
+                $0.right.equalToSuperview().inset(25.adjustedW)
+                $0.height.equalTo(tagCellHeight * 5 + cellVerticalSpacing * 4 + 20)
+//                $0.width.equalTo(containerView.frame.width)
             }
         }else {
             /// se 같은 작은 기기 일 때
