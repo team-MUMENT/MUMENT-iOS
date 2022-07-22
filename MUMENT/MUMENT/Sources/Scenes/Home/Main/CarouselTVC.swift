@@ -40,7 +40,7 @@ class CarouselTVC: UITableViewCell {
                                          at: .centeredHorizontally,
                                          animated: false)
         }
-        bannerTimer()
+//        bannerTimer()
     }
     
     @available(*, unavailable)
@@ -77,62 +77,11 @@ class CarouselTVC: UITableViewCell {
             nowPage = 3
             
         }
-//            let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
-//            let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
-//        if carouselCV.contentOffset.x < beginOffset{
-//            scrollToEnd = true
-//        } else if carouselCV.contentOffset.x > endOffset {
-//            scrollToBegin = true
-//        }
-        
-//        let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
-//        let constantForCentering = carouselCV.frame.width - cellWidthIncludingSpacing - CVFlowLayout.minimumLineSpacing
-//
-//        let estimatedIndex = carouselCV.contentOffset.x / cellWidthIncludingSpacing
-//        let index = Int(ceil(estimatedIndex))
         
         // 다음 페이지로 전환
 //        nowPage = Int(carouselCV.contentOffset.x) / Int(carouselCV.frame.width)
         nowPage += 1
         carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath, at: .right, animated: true)
-//        let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
-//        let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
-//
-//        print(carouselCV.contentOffset.x )
-//        if carouselCV.contentOffset.x < beginOffset{
-//            scrollToEnd = true
-//        } else if carouselCV.contentOffset.x > endOffset {
-//            scrollToBegin = true
-//        }
-////
-//        let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
-//        let constantForCentering = carouselCV.frame.width - cellWidthIncludingSpacing - CVFlowLayout.minimumLineSpacing
-//
-//
-//        let estimatedIndex = carouselCV.contentOffset.x / cellWidthIncludingSpacing
-//        let index = Int(ceil(estimatedIndex))
-//        } else if velocity.x < 0 {
-//            index = Int(floor(estimatedIndex))
-//        } else {
-//            index = Int(round(estimatedIndex))
-//        }
-        
-//        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing - constantForCentering, y: 0)
-//
-//        if scrollToBegin {
-//            carouselCV.scrollToItem(at: IndexPath(item: originalDataSourceCount, section: .zero),
-//                                    at: .centeredHorizontally,
-//                                    animated: false)
-//            scrollToBegin.toggle()
-//            return
-//        }
-//        if scrollToEnd {
-//            carouselCV.scrollToItem(at: IndexPath(item: originalDataSourceCount * 2 - 1, section: .zero),
-//                                    at: .centeredHorizontally,
-//                                    animated: false)
-//            scrollToEnd.toggle()
-//            return
-//        }
     }
 }
 
@@ -166,7 +115,8 @@ extension CarouselTVC: UICollectionViewDelegate{
         }
         
         let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
-        let constantForCentering = carouselCV.frame.width - cellWidthIncludingSpacing - CVFlowLayout.minimumLineSpacing
+        let constantForCentering = (carouselCV.frame.width - CVFlowLayout.itemSize.width)/2
+//        cellWidthIncludingSpacing - CVFlowLayout.minimumLineSpacing
         
         let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
         let index: Int
@@ -183,6 +133,8 @@ extension CarouselTVC: UICollectionViewDelegate{
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        nowAdsPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+
         if scrollToBegin {
             carouselCV.scrollToItem(at: IndexPath(item: originalDataSourceCount, section: .zero),
                                     at: .centeredHorizontally,
