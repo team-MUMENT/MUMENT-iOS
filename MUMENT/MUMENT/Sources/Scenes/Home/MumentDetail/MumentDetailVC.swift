@@ -104,6 +104,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
         songDetailVC.musicId = dataSource?.music.id
+        print("오늘의뮤멘트", songDetailVC.musicId)
         songDetailVC.songInfoData = SongInfoResponseModel.Music(id: dataSource?.music.id ?? "", name: dataSource?.music.name ?? "", image: dataSource?.music.image ?? "", artist: dataSource?.music.artist ?? "")
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
