@@ -214,10 +214,21 @@ class StorageVC: BaseVC {
             selectedTagButtons.forEach {
                 self.selectedTagsStackView.addArrangedSubview($0)
                 debugPrint("foreach")
+                
                 $0.snp.makeConstraints {
                     $0.height.equalTo(35)
                 }
             }
+            
+//            for i in 0...selectedTagButtons.count - 1 {
+//                selectedTagButtons[i].press {
+//                    selectedTagButtons[i].isSelected.toggle()
+//                    if selectedTagButtons[i].isSelected == false {
+//                        self.selectedTagsStackView.removeArrangedSubview($0)
+//                        selectedTagButtons[i].removeFromSuperview()
+//                    }
+//                }
+//            }
                         
         }else {
             self.tagsViewHeightConstant = 0
