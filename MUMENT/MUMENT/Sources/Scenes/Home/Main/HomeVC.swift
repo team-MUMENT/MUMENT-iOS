@@ -57,6 +57,7 @@ class HomeVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = mumentForTodayData.todayMument.mumentID
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
@@ -81,24 +82,28 @@ extension HomeVC {
 
 // MARK: - CarouselCVCDelegate
 extension HomeVC: CarouselCVCDelegate {
-    func carouselCVCSelected() {
+    func carouselCVCSelected(data: CarouselResponseModel.BannerList) {
         let songDetailVC = SongDetailVC()
+        songDetailVC.songInfoData = SongInfoResponseModel.Music(id: data.music.id, name: data.music.name, image: data.music.image, artist: data.music.artist)
+        songDetailVC.musicId = data.music.id
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
 
 // MARK: - MumentsOfRevisitedCVCDelegate
 extension HomeVC: MumentsOfRevisitedCVCDelegate {
-    func mumentsOfRevisitedCVCSelected() {
+    func mumentsOfRevisitedCVCSelected(data: MumentsOfRevisitedResponseModel.AgainMument) {
         let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = data.mumentID
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
 
 // MARK: - MumentsByTagCVCDelegate
 extension HomeVC: MumentsByTagCVCDelegate {
-    func mumentsByTagCVCSelected() {
+    func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList) {
         let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = data.id
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
@@ -222,6 +227,7 @@ extension HomeVC {
                 
             case .success(let response):
                 if let res = response as? MumentForTodayResponseModel {
+                    print(res)
                     self.mumentForTodayData = res
                     self.requestGetMumentsOfRevisitedData()
                 }

@@ -88,7 +88,7 @@ extension MumentsByTagTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? MumentsByTagCVC {
             cell.isSelected = true
         }
-        self.delegate?.mumentsByTagCVCSelected()
+        self.delegate?.mumentsByTagCVCSelected(data: mumentsByTagData[indexPath.row])
     }
 }
 
