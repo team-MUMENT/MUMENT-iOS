@@ -128,12 +128,9 @@ class DetailMumentCardView: UIView {
         feelingTags = cellData.feelingTag
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.createdAt
-        //        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         isLiked = cellData.isLiked
-        //        heartLabel.text = "\(cellData.count)명이 좋아합니다."
         heartCount = cellData.count
         self.mumentId = mumentId
-        //        userId = cellData.user.id
         
         setTags()
     }
@@ -274,7 +271,6 @@ extension DetailMumentCardView {
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
-                    print("!~~~~~~~~",res)
                 }
                 
             default:
@@ -289,7 +285,6 @@ extension DetailMumentCardView {
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
-                    print("!~~~~~~~~",res)
                 }
                 
             default:
@@ -298,6 +293,6 @@ extension DetailMumentCardView {
             }
         }
     }
-   
+    
 }
 
