@@ -165,7 +165,8 @@ extension SongDetailVC: UITableViewDataSource {
         switch section {
         case 1 :
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyMumentSectionHeader.className) as? MyMumentSectionHeader else { return nil }
-            headerCell.historyButton.press{
+            headerCell.historyButton.removeTarget(nil, action: nil, for: .allEvents)
+            headerCell.historyButton.press {
                 let mumentHistoryVC = MumentHistoryVC()
                 self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
             }
