@@ -25,6 +25,7 @@ class MumentForTodayTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         fetchData()
         setLayout()
+        self.backgroundColor = .mBgwhite
     }
     
     @available(*, unavailable)

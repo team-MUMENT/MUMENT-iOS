@@ -44,6 +44,8 @@ class MumentsByTagTVC: UITableViewCell {
         
         mumentCV.showsHorizontalScrollIndicator = false
         CVFlowLayout.scrollDirection = .horizontal
+        mumentCV.backgroundColor = .mBgwhite
+        self.backgroundColor = .mBgwhite
     }
     
     func setData(_ cellData: MumentsByTagTitleModel){

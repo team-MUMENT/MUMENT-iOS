@@ -61,6 +61,9 @@ class CarouselTVC: UITableViewCell {
         CVFlowLayout.scrollDirection = .horizontal
         CVFlowLayout.itemSize = CGSize(width: 335, height: 257)
         CVFlowLayout.minimumInteritemSpacing = 10
+        
+        carouselCV.backgroundColor = .mBgwhite
+        self.backgroundColor = .mBgwhite
     }
     
     func bannerTimer() {
@@ -116,7 +119,6 @@ extension CarouselTVC: UICollectionViewDelegate{
         
         let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
         let constantForCentering = (carouselCV.frame.width - CVFlowLayout.itemSize.width)/2
-//        cellWidthIncludingSpacing - CVFlowLayout.minimumLineSpacing
         
         let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
         let index: Int
