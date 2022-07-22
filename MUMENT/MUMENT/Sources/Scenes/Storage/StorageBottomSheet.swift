@@ -13,7 +13,7 @@ protocol storageBottomSheetDelegate: AnyObject {
     func sendButtonData(data:[TagButton])
 }
 
-class StorageBottomSheet: UIViewController {
+class StorageBottomSheet: BaseVC {
 
     private let containerView = UIView().then {
         $0.backgroundColor = UIColor.mBgwhite
@@ -86,17 +86,17 @@ class StorageBottomSheet: UIViewController {
 
     private let tagCellHeight = 37
     private let cellVerticalSpacing = 10
-    private let leftCVLayout = LeftAlignedCollectionViewFlowLayout().then {
-        $0.scrollDirection = .vertical
-        $0.minimumLineSpacing = 10
-        $0.minimumInteritemSpacing = 10
-        $0.sectionInset = .zero
-    }
-    
     private let leftCVLayoutForImpression = LeftAlignedCollectionViewFlowLayout().then {
         $0.scrollDirection = .vertical
         $0.minimumLineSpacing = 0
         $0.minimumInteritemSpacing = 0
+        $0.sectionInset = .zero
+    }
+    
+    private let leftCVLayoutForFeel = LeftAlignedCollectionViewFlowLayout().then {
+        $0.scrollDirection = .vertical
+        $0.minimumLineSpacing = 0
+        $0.minimumInteritemSpacing = 5
         $0.sectionInset = .zero
     }
     
@@ -144,6 +144,10 @@ class StorageBottomSheet: UIViewController {
         setFilterTagLayout()
         setAllDeselectAction()
         setFilterTagApplied()
+        
+        debugPrint("width",UIScreen.main.bounds.width)
+        debugPrint("height",UIScreen.main.bounds.height)
+
     }
 
     private func setDismissButtonAction() {
@@ -159,14 +163,14 @@ class StorageBottomSheet: UIViewController {
         impressionTagCV.layoutMargins = .zero
         impressionTagCV.allowsMultipleSelection = true
         impressionTagCV.clipsToBounds = true
-        impressionTagCV.collectionViewLayout = leftCVLayout
+        impressionTagCV.collectionViewLayout = leftCVLayoutForImpression
         
         feelTagCV.dataSource = self
         feelTagCV.delegate = self
         feelTagCV.layoutMargins = .zero
         feelTagCV.allowsMultipleSelection = true
         feelTagCV.clipsToBounds = true
-        feelTagCV.collectionViewLayout = leftCVLayoutForImpression
+        feelTagCV.collectionViewLayout = leftCVLayoutForFeel
     }
     
     private func registerCell() {
@@ -224,7 +228,7 @@ extension StorageBottomSheet {
         
         containerView.snp.makeConstraints{
             $0.height.equalTo(containerHeight.constant)
-            $0.width.equalTo(view.frame.width)
+            $0.width.equalToSuperview()
             $0.left.right.bottom.equalToSuperview()
         }
         containerView.layer.cornerRadius = 11
@@ -261,7 +265,7 @@ extension StorageBottomSheet {
 extension StorageBottomSheet {
     func showBottomSheetWithAnimation() {
         UIView.animate(withDuration: 0.3) {
-            self.containerHeight.constant = 699.adjustedH
+            self.containerHeight.constant = UIScreen.main.bounds.height >= 670 ? 690.adjustedH : 750.adjustedH
             self.containerView.snp.updateConstraints {
                 $0.height.equalTo(self.containerHeight.constant)
             }
@@ -457,37 +461,62 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
 extension StorageBottomSheet {
     func setCVLayout() {
         containerView.addSubviews([impressionLabel, impressionTagCV, feelLabel, feelTagCV])
-    
-        impressionLabel.snp.makeConstraints {
-            $0.top.equalTo(underLineView.snp.bottom).offset(45.adjustedH)
-            $0.left.equalToSuperview().inset(22)
-            $0.height.equalTo(16)
-        }
-
-        impressionTagCV.snp.makeConstraints {
-            $0.top.equalTo(impressionLabel.snp.bottom).offset(16.adjustedH)
-            $0.left.equalToSuperview().inset(20)
-            $0.right.equalToSuperview().inset(80)
-            $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
-        }
-        
-        feelLabel.snp.makeConstraints {
-            $0.top.equalTo(impressionTagCV.snp.bottom).offset(23.adjustedH)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(19)
-        }
-        
-        feelTagCV.snp.makeConstraints {
-            $0.top.equalTo(feelLabel.snp.bottom).offset(16.adjustedH)
-            $0.left.equalToSuperview().inset(10.adjustedW)
-            if UIScreen.main.bounds.height >= 800 {
-                $0.right.equalToSuperview().inset(19.adjustedW)
-                $0.height.equalTo(tagCellHeight * 5 + cellVerticalSpacing * 4)
-            }else {
-                $0.right.equalToSuperview()
-                $0.height.equalTo(tagCellHeight * 4 + cellVerticalSpacing * 3)
+        if UIScreen.main.bounds.width >= 375 {
+            impressionLabel.snp.makeConstraints {
+                $0.top.equalTo(underLineView.snp.bottom).offset(45.adjustedH)
+                $0.left.equalToSuperview().inset(22)
+                $0.height.equalTo(16)
             }
-            $0.width.equalTo(containerView.frame.width - 20)
+            
+            impressionTagCV.snp.makeConstraints {
+                $0.top.equalTo(impressionLabel.snp.bottom).offset(16.adjustedH)
+                $0.left.equalToSuperview().inset(20)
+                $0.right.equalToSuperview().inset(80)
+                $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
+            }
+            
+            feelLabel.snp.makeConstraints {
+                $0.top.equalTo(impressionTagCV.snp.bottom).offset(23.adjustedH)
+                $0.horizontalEdges.equalToSuperview().inset(20)
+                $0.height.equalTo(19)
+            }
+            
+            feelTagCV.snp.makeConstraints {
+                $0.top.equalTo(feelLabel.snp.bottom).offset(16.adjustedH)
+                $0.left.equalToSuperview().inset(10.adjustedW)
+                $0.right.equalToSuperview().inset(25.adjustedW)
+                $0.height.equalTo(tagCellHeight * 5 + cellVerticalSpacing * 4 + 20)
+//                $0.width.equalTo(containerView.frame.width)
+            }
+        }else {
+            /// se 같은 작은 기기 일 때
+            impressionLabel.snp.makeConstraints {
+                $0.top.equalTo(underLineView.snp.bottom).offset(5)
+                $0.left.equalToSuperview().inset(22)
+                $0.height.equalTo(16)
+            }
+            
+            impressionTagCV.snp.makeConstraints {
+                $0.top.equalTo(impressionLabel.snp.bottom).offset(5.adjustedH)
+                $0.left.equalToSuperview().inset(20)
+                $0.right.equalToSuperview().inset(80)
+                $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
+            }
+            
+            feelLabel.snp.makeConstraints {
+                $0.top.equalTo(impressionTagCV.snp.bottom).offset(5.adjustedH)
+                $0.horizontalEdges.equalToSuperview().inset(20)
+                $0.height.equalTo(19)
+            }
+            
+            feelTagCV.snp.makeConstraints {
+                $0.top.equalTo(feelLabel.snp.bottom).offset(5.adjustedH)
+                $0.left.equalToSuperview().inset(10)
+//                $0.right.equalToSuperview().inset(10.adjustedW)
+                $0.right.equalToSuperview().inset(10.adjustedW)
+                $0.height.equalTo(tagCellHeight * 5 + cellVerticalSpacing * 4)
+//                $0.width.equalTo(containerView.frame.width)
+            }
         }
     }
     
@@ -495,7 +524,7 @@ extension StorageBottomSheet {
         containerView.addSubViews([setFilterTagButton, allDeselecteButton, selectedTagsSection, selectedTagsStackView])
         
         setFilterTagButton.snp.makeConstraints {
-            $0.top.equalTo(feelTagCV.snp.bottom).offset(20.adjustedH)
+            $0.top.equalTo(feelTagCV.snp.bottom).offset(15.adjustedH)
             $0.right.equalToSuperview().inset(20)
             $0.width.equalTo(143)
             $0.height.equalTo(45.adjustedH)
@@ -510,7 +539,7 @@ extension StorageBottomSheet {
     func setFilterTagLayout() {
         selectedTagsSection.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
-            $0.top.equalTo(setFilterTagButton.snp.bottom).offset( 20.adjustedH)
+            $0.top.equalTo(setFilterTagButton.snp.bottom).offset(20.adjustedH)
             $0.height.equalTo(bottomTagSectionHeight)
         }
         
