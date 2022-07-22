@@ -13,7 +13,7 @@ class OrderingButton: UIButton {
     private func setConfiguration(){
         var configuration = UIButton.Configuration.plain()
         configuration.imagePlacement = .trailing
-        configuration.buttonSize = .small
+        configuration.buttonSize = .mini
         configuration.baseBackgroundColor = UIColor.mBgwhite
         self.configuration = configuration
     }
@@ -41,7 +41,8 @@ class OrderingButton: UIButton {
     init(_ text:String) {
         super.init(frame:CGRect.zero)
         buttonText = text
-        setConfiguration()
+//        setConfiguration()
+        self.backgroundColor = .mBgwhite
         setTextStyle()
     }
 }

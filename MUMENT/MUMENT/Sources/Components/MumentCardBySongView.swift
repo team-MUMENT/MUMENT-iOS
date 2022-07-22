@@ -151,7 +151,7 @@ extension MumentCardBySongView {
     func setUI(){
         self.backgroundColor = .mWhite
         self.makeRounded(cornerRadius: 11)
-        self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 5.0)
+        self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.1,radius: 3.0)
     }
     
     func setLayout() {
@@ -187,7 +187,7 @@ extension MumentCardBySongView {
         
         createdAtLabel.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
+            $0.top.equalTo(contentsLabel.snp.bottom).offset(8)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
         
