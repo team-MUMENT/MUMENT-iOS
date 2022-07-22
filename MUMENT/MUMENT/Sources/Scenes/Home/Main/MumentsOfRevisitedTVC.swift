@@ -82,7 +82,7 @@ extension MumentsOfRevisitedTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? MumentsOfRevisitedCVC {
             cell.isSelected = true
         }
-        self.delegate?.mumentsOfRevisitedCVCSelected()
+        self.delegate?.mumentsOfRevisitedCVCSelected(data: mumentsOfRevisitedData[indexPath.row])
     }
 }
 

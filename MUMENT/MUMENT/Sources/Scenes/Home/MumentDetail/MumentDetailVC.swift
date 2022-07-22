@@ -37,9 +37,8 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             historyButton.setAttributedTitle(NSAttributedString(string: historyButtonText,attributes: attributes), for: .normal)
         }
     }
-    
-    var dataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
-    
+    var mumentId: String?
+    var dataSource: MumentDetailResponseModel?
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -53,8 +52,8 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     // MARK: - Functions
     func setData(){
         navigationBarView.setTitle("뮤멘트")
-        mumentCardView.setData(dataSource[0])
-        historyButtonText = "     \(dataSource[0].mumentCount)개의 뮤멘트가 있는 히스토리 보러가기"
+        mumentCardView.setData(dataSource ?? MumentDetailResponseModel())
+        historyButtonText = "     \(dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
     }
     
     func setClickEventHandlers(){
@@ -103,6 +102,8 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
+        songDetailVC.musicId = dataSource?.music.id
+        songDetailVC.songInfoData = SongInfoResponseModel.Music(id: dataSource?.music.id ?? "", name: dataSource?.music.name ?? "", image: dataSource?.music.image ?? "", artist: dataSource?.music.artist ?? "")
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
@@ -149,20 +150,21 @@ extension MumentDetailVC {
 // MARK: - Network
 extension MumentDetailVC {
   private func requestGetMumentDetail() {
-      MumentDetailAPI.shared.getMumentDetail(mumentId: "62cd6d136500907694a2a548", userId: "62cd5d4383956edb45d7d0ef") { networkResult in
-      switch networkResult {
-         
-      case .success(let response):
-        if let res = response as? MumentDetailResponseModel {
-            self.mumentCardView.setData(res)
-        }
+      MumentDetailAPI.shared.getMumentDetail(mumentId: mumentId ?? "", userId: UserInfo.shared.userId ?? "") { networkResult in
           
-      default:
-        self.makeAlert(title: """
+          switch networkResult {
+          case .success(let response):
+              if let res = response as? MumentDetailResponseModel {
+                  self.dataSource = res
+                  self.mumentCardView.setData(res)
+              }
+              
+          default:
+              self.makeAlert(title: """
  네트워크 오류로 인해 연결에 실패했어요! 🥲
  잠시 후에 다시 시도해 주세요.
  """)
+          }
       }
-    }
   }
 }
