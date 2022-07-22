@@ -28,6 +28,9 @@
 		4D2BADD328806C08004A7E00 /* MumentCardBySongTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADD228806C08004A7E00 /* MumentCardBySongTVC.swift */; };
 		4D2BADD528806C10004A7E00 /* MumentCardBySongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADD428806C10004A7E00 /* MumentCardBySongModel.swift */; };
 		4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADD628806E15004A7E00 /* SongDetailTVC.swift */; };
+		4D300665288B0C0A007FF4DB /* LikeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D300664288B0C0A007FF4DB /* LikeAPI.swift */; };
+		4D300667288B0C8C007FF4DB /* LikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D300666288B0C8C007FF4DB /* LikeService.swift */; };
+		4D300669288B0DC7007FF4DB /* LikeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D300668288B0DC7007FF4DB /* LikeResponseModel.swift */; };
 		4D41D58228898737000E1296 /* CarouselResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D58128898737000E1296 /* CarouselResponseModel.swift */; };
 		4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */; };
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
@@ -57,6 +60,8 @@
 		4DC4D84E2889BA100060D00F /* MumentsByTagResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */; };
 		4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */; };
 		4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
+		4DEED413288B32B300C6337B /* DeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED412288B32B300C6337B /* DeleteAPI.swift */; };
+		4DEED415288B32E500C6337B /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED414288B32E500C6337B /* DeleteService.swift */; };
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
 		C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47E628807B64001A7CD6 /* SearchVC.swift */; };
 		C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */; };
@@ -181,6 +186,9 @@
 		4D2BADD228806C08004A7E00 /* MumentCardBySongTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardBySongTVC.swift; sourceTree = "<group>"; };
 		4D2BADD428806C10004A7E00 /* MumentCardBySongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardBySongModel.swift; sourceTree = "<group>"; };
 		4D2BADD628806E15004A7E00 /* SongDetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailTVC.swift; sourceTree = "<group>"; };
+		4D300664288B0C0A007FF4DB /* LikeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeAPI.swift; sourceTree = "<group>"; };
+		4D300666288B0C8C007FF4DB /* LikeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeService.swift; sourceTree = "<group>"; };
+		4D300668288B0DC7007FF4DB /* LikeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeResponseModel.swift; sourceTree = "<group>"; };
 		4D41D58128898737000E1296 /* CarouselResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselResponseModel.swift; sourceTree = "<group>"; };
 		4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayResponseModel.swift; sourceTree = "<group>"; };
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
@@ -209,6 +217,8 @@
 		4D9734F2287F3A41003EF546 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagResponseModel.swift; sourceTree = "<group>"; };
 		4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedResponseModel.swift; sourceTree = "<group>"; };
+		4DEED412288B32B300C6337B /* DeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAPI.swift; sourceTree = "<group>"; };
+		4DEED414288B32E500C6337B /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		C71B47E628807B64001A7CD6 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicForSearchModel.swift; sourceTree = "<group>"; };
@@ -336,6 +346,7 @@
 			children = (
 				4D13A671288872E200197D2A /* AllMumentsResponseModel.swift */,
 				4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */,
+				4D300668288B0DC7007FF4DB /* LikeResponseModel.swift */,
 				4D13A6732888735800197D2A /* MumentDetailResponseModel.swift */,
 				4D41D58128898737000E1296 /* CarouselResponseModel.swift */,
 				4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */,
@@ -511,7 +522,9 @@
 				C71B48132886DD8E001A7CD6 /* SignAPI.swift */,
 				C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */,
 				C7AE17E528882DE100A5E3FA /* SearchAPI.swift */,
+				4DEED412288B32B300C6337B /* DeleteAPI.swift */,
 				4D13A6652887FD7700197D2A /* HomeAPI.swift */,
+				4D300664288B0C0A007FF4DB /* LikeAPI.swift */,
 				4D13A6672887FD8100197D2A /* SongDetailAPI.swift */,
 				4D13A6692887FD9300197D2A /* MumentDetailAPI.swift */,
 				4D13A66B2887FDAC00197D2A /* HistoryAPI.swift */,
@@ -529,6 +542,8 @@
 				4D13A66D2888028400197D2A /* SongDetailService.swift */,
 				4D13A66F28882B1100197D2A /* MumentDetailService.swift */,
 				4D13A6792889141900197D2A /* HistorySerivce.swift */,
+				4D300666288B0C8C007FF4DB /* LikeService.swift */,
+				4DEED414288B32E500C6337B /* DeleteService.swift */,
 				E781F22C28892E2400484C28 /* StorageService.swift */,
 				4D90D15C28892E71008265E1 /* HomeService.swift */,
 			);
@@ -910,6 +925,7 @@
 				E781F219288052DF00484C28 /* MyMumentVC.swift in Sources */,
 				4D13A66C2887FDAC00197D2A /* HistoryAPI.swift in Sources */,
 				4D41D58228898737000E1296 /* CarouselResponseModel.swift in Sources */,
+				4DEED413288B32B300C6337B /* DeleteAPI.swift in Sources */,
 				C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */,
 				C7BC6B6028770FB6008C75CE /* UILabel+.swift in Sources */,
 				C71B48162886E5DF001A7CD6 /* SignInVC.swift in Sources */,
@@ -947,9 +963,11 @@
 				C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */,
 				4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */,
 				E781F235288AF55400484C28 /* Sequence+.swift in Sources */,
+				4DEED415288B32E500C6337B /* DeleteService.swift in Sources */,
 				C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */,
 				E781F22D28892E2400484C28 /* StorageService.swift in Sources */,
 				4D13A6662887FD7700197D2A /* HomeAPI.swift in Sources */,
+				4D300669288B0DC7007FF4DB /* LikeResponseModel.swift in Sources */,
 				4D7604612880ADB60044F2A6 /* DetailSongInfoView.swift in Sources */,
 				4D13A6612886A87400197D2A /* SongInfoTVC.swift in Sources */,
 				E781F21B288052ED00484C28 /* LikedMumentVC.swift in Sources */,
@@ -996,12 +1014,14 @@
 				E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */,
 				4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
+				4D300665288B0C0A007FF4DB /* LikeAPI.swift in Sources */,
 				C7AE17D82887E44C00A5E3FA /* WriteAPI.swift in Sources */,
 				4D13A65D2882A42000197D2A /* MumentHistoryTVHeader.swift in Sources */,
 				C7AE17EF2889322900A5E3FA /* MumentDetailService.swift in Sources */,
 				4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* SignService.swift in Sources */,
 				E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */,
+				4D300667288B0C8C007FF4DB /* LikeService.swift in Sources */,
 				4D76046828814A8A0044F2A6 /* MyMumentSectionHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
