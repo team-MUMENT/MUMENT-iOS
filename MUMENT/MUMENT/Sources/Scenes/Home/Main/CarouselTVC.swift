@@ -93,7 +93,7 @@ extension CarouselTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? CarouselCVC {
             cell.isSelected = true
         }
-        self.delegate?.carouselCVCSelected()
+        self.delegate?.carouselCVCSelected(data: increasedCarouselData[indexPath.row])
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
