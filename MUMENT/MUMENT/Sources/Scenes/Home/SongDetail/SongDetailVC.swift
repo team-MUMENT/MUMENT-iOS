@@ -33,6 +33,12 @@ class SongDetailVC: BaseVC {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestGetSongInfo()
+        requestGetAllMuments(true)
+    }
+    
     // MARK: - Functions
     private func setTV() {
         mumentTV.delegate = self

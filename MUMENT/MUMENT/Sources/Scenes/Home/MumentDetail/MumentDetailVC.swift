@@ -52,7 +52,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     func setData(){
         DispatchQueue.main.async {
             self.navigationBarView.setTitle("뮤멘트")
-            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, music: MUMENT.MumentDetailResponseModel.Music(id: "", name: "", image: Optional(""), artist: " "), likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: "", image: Optional(""), name: "")))
+            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, music: MUMENT.MumentDetailResponseModel.Music(id: "", name: "", image: Optional(""), artist: " "), likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: "", image: Optional(""), name: "")), mumentId: self.mumentId ?? "")
             self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
         }
     }
@@ -86,6 +86,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                 self.present(mumentAlert, animated: true)
                 
                 mumentAlert.OKButton.press {
+                    self.requestDeleteMument()
                     self.navigationController?.popViewController(animated: true)
                             }
             }
@@ -106,7 +107,6 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
         songDetailVC.musicId = dataSource?.music.id
-        print("오늘의뮤멘트", songDetailVC.musicId)
         songDetailVC.songInfoData = SongInfoResponseModel.Music(id: dataSource?.music.id ?? "", name: dataSource?.music.name ?? "", image: dataSource?.music.image ?? "", artist: dataSource?.music.artist ?? "")
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
@@ -160,10 +160,8 @@ extension MumentDetailVC {
           case .success(let response):
               if let result = response as? MumentDetailResponseModel {
                   self.dataSource = result
-                  
-                  print(self.dataSource)
                   self.setData()
-                  self.mumentCardView.setData(result)
+                  self.mumentCardView.setData(result,mumentId: self.mumentId ?? "")
               }
               
           default:
@@ -174,4 +172,20 @@ extension MumentDetailVC {
           }
       }
   }
+    
+    private func requestDeleteMument() {
+        DeleteAPI.shared.deleteMument(mumentId: mumentId ?? "") { networkResult in
+            
+            switch networkResult {
+            case .success(let response):
+                return
+            default:
+                self.makeAlert(title: """
+   네트워크 오류로 인해 연결에 실패했어요! 🥲
+   잠시 후에 다시 시도해 주세요.
+   """)
+            }
+        }
+    }
+    
 }
