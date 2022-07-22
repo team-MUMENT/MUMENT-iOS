@@ -115,6 +115,7 @@
 		C7AE17E82888675600A5E3FA /* PostMumentBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E72888675600A5E3FA /* PostMumentBodyModel.swift */; };
 		C7AE17EA28886B4F00A5E3FA /* PostMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */; };
 		C7AE17EF2889322900A5E3FA /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
+		C7AE17F3288A59B300A5E3FA /* SongDetailMyMumentEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyView.swift */; };
 		C7BB53002875960800E0E889 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB52FF2875960800E0E889 /* UIFont+.swift */; };
 		C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */; };
 		C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */; };
@@ -258,6 +259,7 @@
 		C7AE17E528882DE100A5E3FA /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		C7AE17E72888675600A5E3FA /* PostMumentBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMumentBodyModel.swift; sourceTree = "<group>"; };
 		C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMumentResponseModel.swift; sourceTree = "<group>"; };
+		C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailMyMumentEmptyView.swift; sourceTree = "<group>"; };
 		C7BB52FF2875960800E0E889 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				4D76046728814A8A0044F2A6 /* MyMumentSectionHeader.swift */,
 				4D76046928814A9A0044F2A6 /* AllMumentsSectionHeader.swift */,
 				4D2BADD628806E15004A7E00 /* SongDetailTVC.swift */,
+				C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyView.swift */,
 			);
 			path = SongDetail;
 			sourceTree = "<group>";
@@ -921,6 +924,7 @@
 				C7AE17E028880DEB00A5E3FA /* UserInfo.swift in Sources */,
 				4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */,
 				4D13A6682887FD8100197D2A /* SongDetailAPI.swift in Sources */,
+				C7AE17F3288A59B300A5E3FA /* SongDetailMyMumentEmptyView.swift in Sources */,
 				C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */,
 				C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */,
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
