@@ -96,12 +96,9 @@ class MumentCardWithoutHeartView: UIView {
         albumImage.setImageUrl(cellData.music.image)
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
-        contentsLabel.text = cellData.content 
+        contentsLabel.text = cellData.content ?? ""
         createdAtLabel.text = cellData.createdAt
         isFirst = cellData.isFirst
-//        impressionTags = cellData.impressionTag
-//        feelingTags = cellData.feelingTag
-        
         setCardTags(cellData.cardTag)
     }
     
@@ -109,6 +106,7 @@ class MumentCardWithoutHeartView: UIView {
         let tag = TagView()
         tag.tagType = "isFirst"
         tag.tagContentString = isFirst ? "처음" : "다시"
+        tagStackView.removeAllArrangedSubviews()
         tagStackView.addArrangedSubview(tag)
         
         if indexs.count != 0{

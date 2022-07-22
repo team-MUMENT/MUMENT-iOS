@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import SwiftUI
 
 class LikedMumentVC: UIViewController {
     
-    var withouHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
+    var withoutHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
     
     var cellCategory : CellCategory = .listCell {
         didSet {
@@ -17,7 +18,7 @@ class LikedMumentVC: UIViewController {
         }
     }
     
-    private let likedMumentCV = UICollectionView(
+    private lazy var likedMumentCV = UICollectionView(
         frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()
     ).then {
         let layout = UICollectionViewFlowLayout()
@@ -29,6 +30,9 @@ class LikedMumentVC: UIViewController {
         $0.collectionViewLayout = layout
     }
     
+    var dateArray: [Int] = [1]
+    var dateDictionary : [Int : Int] = [:]
+    var numberOfSections = 0
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,17 +50,65 @@ class LikedMumentVC: UIViewController {
         likedMumentCV.delegate = self
         likedMumentCV.dataSource = self
     }
+    
+    /// Set 으로 중복값 제거하기
+    func removeDuplication(in array: [Int]) -> [Int]{
+        let set = Set(array)
+        let duplicationRemovedArray = Array(set)
+        return duplicationRemovedArray
+    }
+    
+    func setDateDictionary() {
+        var dates: [Int] = []
+        var date = 0
+        var count = 0
+        debugPrint("나와라!", withoutHeartMumentData)
+        if withoutHeartMumentData.count != 1 {
+            withoutHeartMumentData.forEach {
+                date = $0.year * 100 + $0.month
+                debugPrint("date!",date)
+                dates.append(date)
+            }
+            dates.forEach {
+                if $0 == date {
+                    count += 1
+                    dateDictionary[date] = count
+                }else {
+                    dateDictionary[date] = count + 1
+                }
+                debugPrint("데이트 값",date)
+            }
+            debugPrint("데이트 배열 수",dates.count)
+            dates.sort()
+            /// date 배열을 중복제거하고 dateArray에 대입
+            dateArray = removeDuplication(in: dateArray)
+            dateArray = dates
+            numberOfSections = dateArray.count
+        }
+        numberOfSections = 1
+    }
+    
 }
 
 // MARK: - CollectionView UI
 extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return withouHeartMumentData.count
+//        if dateArray.count == 0 {
+//            dateArray = [1]
+//        }
+        for i in 0...dateArray.count - 1 {
+            if i == section {
+                debugPrint("😢",self.dateArray[i])
+                return dateDictionary[self.dateArray[i]] ?? 0
+            }
+        }
+        return 1
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 5
+        
+        return numberOfSections
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -66,11 +118,24 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         
         switch cellCategory {
         case .listCell:
-            debugPrint("indexPath.row",indexPath.row)
             listCell.setWithoutHeartCardUI()
-            listCell.setWithoutHeartCardData(withouHeartMumentData[indexPath.row])
+            for i in 0...self.withoutHeartMumentData.count-1 {
+                let date = withoutHeartMumentData[i].year * 100 + withoutHeartMumentData[i].month
+                if dateArray[indexPath.section] == date {
+                    listCell.setWithoutHeartCardData(withoutHeartMumentData[i])
+                    return listCell
+                }
+            }
             return listCell
         case .albumCell:
+            for i in 0...self.withoutHeartMumentData.count-1 {
+                let date = withoutHeartMumentData[i].year * 100 + withoutHeartMumentData[i].month
+                if dateArray[indexPath.section] == date {
+                    albumCell.fetchData(withoutHeartMumentData[i])
+                    return albumCell
+                }
+            }
+            albumCell.fetchData(withoutHeartMumentData[indexPath.row])
             return albumCell
         }
     }
@@ -82,7 +147,7 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         
         switch cellCategory{
         case .listCell:
-            return CGSize(width: 335, height: 216)
+            return CGSize(width: 335.adjustedW, height: 216)
         case .albumCell:
             let CVWidth = collectionView.frame.width
             let cellWidth = ((CVWidth - 40) - (5 * 3)) / 4
@@ -111,6 +176,9 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
                     as? SectionHeader else {
                 return UICollectionReusableView()
             }
+            let year = dateArray[indexPath.section] / 100
+            let month = dateArray[indexPath.section] % 10
+            header.setHeader(year, month)
             return header
         }else {
             return UICollectionReusableView()
@@ -149,8 +217,11 @@ extension LikedMumentVC {
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetLikedMumentResponseModel {
-                    self.withouHeartMumentData = result.muments
-                    debugPrint("result값은 대입함",result)
+                    self.withoutHeartMumentData = result.muments
+                    debugPrint("여기 전체 리절트 보임", result)
+                    debugPrint("여기 뮤멘트 보임",result.muments)
+                    self.setDateDictionary()
+                    debugPrint("self.dateDictionary",self.dateDictionary)
                     self.likedMumentCV.reloadData()
                 } else {
                     debugPrint("🚨당신 모델이 이상해열~🚨")
