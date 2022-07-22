@@ -23,7 +23,7 @@ class HomeTVHeader: UIView {
     lazy var searchButton = UIButton().then{
         $0.setTitle("어떤 노래가 궁금하신가요?", for: .normal)
         $0.setTitleColor(.mGray1, for: .normal)
-        $0.titleLabel?.font = .mumentB2B14
+        $0.titleLabel?.font = .mumentB4M14
         $0.backgroundColor = .mGray5
         $0.layer.cornerRadius = 10
         $0.configuration = .plain()
@@ -40,7 +40,6 @@ class HomeTVHeader: UIView {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        setLayout()
     }
 }
 
@@ -58,9 +57,9 @@ extension HomeTVHeader {
         }
         
         notificationButton.snp.makeConstraints{
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
-            $0.width.height.equalTo(23)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(10)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(2)
+            $0.width.height.equalTo(48)
         }
         
         searchButton.snp.makeConstraints{

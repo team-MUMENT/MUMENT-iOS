@@ -34,6 +34,7 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setLayout()
+        self.backgroundColor = .mBgwhite
     }
     
     required init(coder aDecoder: NSCoder) {
