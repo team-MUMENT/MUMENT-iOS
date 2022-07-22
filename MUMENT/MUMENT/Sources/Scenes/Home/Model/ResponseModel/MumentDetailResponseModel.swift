@@ -7,56 +7,58 @@
 
 import Foundation
 
-// MARK: - DataClass
 struct MumentDetailResponseModel: Codable {
-    let user: User = User(id: "", image: "", name: "")
-    let music: Music = Music(id: "", name: "", artist: "", image: "")
-    let isFirst: Bool = true
-    let impressionTag: [Int] = []
-    let feelingTag: [Int] = []
+    let isFirst: Bool = false
     let content: String = ""
-    let likeCount: Int = 0
+    let impressionTag: [Int] = []
     let isLiked: Bool = false
-    let createdAt: String = ""
     let count: Int = 0
+    let music: Music = Music(id: "", name: "", image: "", artist: " ")
+    let likeCount: Int = 0
+    let createdAt: String = ""
+    let feelingTag: [Int] = []
+    let user: User = User(id: "", image: "", name: "")
 
     enum CodingKeys: String, CodingKey {
-        case user = "user"
-        case music = "music"
         case isFirst = "isFirst"
-        case impressionTag = "impressionTag"
-        case feelingTag = "feelingTag"
         case content = "content"
-        case likeCount = "likeCount"
+        case impressionTag = "impressionTag"
         case isLiked = "isLiked"
-        case createdAt = "createdAt"
         case count = "count"
-    }
-    
-    struct User: Codable {
-        let id: String
-        let image: String
-        let name: String
-
-        enum CodingKeys: String, CodingKey {
-            case id = "_id"
-            case image = "image"
-            case name = "name"
-        }
+        case music = "music"
+        case likeCount = "likeCount"
+        case createdAt = "createdAt"
+        case feelingTag = "feelingTag"
+        case user = "user"
     }
     
     // MARK: - Music
     struct Music: Codable {
         let id: String
         let name: String
-        let artist: String?
-        let image: String
+        let image: String?
+        let artist: String
 
         enum CodingKeys: String, CodingKey {
             case id = "_id"
             case name = "name"
-            case artist = "artist"
             case image = "image"
+            case artist = "artist"
         }
     }
+
+    // MARK: - User
+    struct User: Codable {
+        let id: String
+        let image: String?
+        let name: String
+
+        enum CodingKeys: String, CodingKey {
+            case id = "_id"
+            case image = "image"
+            case name = "name"
+        }
+    }
+
 }
+

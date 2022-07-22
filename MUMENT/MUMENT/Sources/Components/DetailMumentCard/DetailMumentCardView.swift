@@ -101,9 +101,10 @@ class DetailMumentCardView: UIView {
     }
     
     func setData(_ cellData: MumentDetailResponseModel){
-        profileImage.setImageUrl(cellData.user.image)
+        print("들어왓나열?", cellData)
+        profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?s=88&u=9ceb91d683a7d9cfe968cd35cd07a428536605e6&v=4")
         writerNameLabel.text = cellData.user.name
-        songInfoView.setData(albumURL: cellData.music.image, songTitle: cellData.music.name, artist: cellData.music.artist ?? "")
+        songInfoView.setData(albumURL: cellData.music.image ?? "https://avatars.githubusercontent.com/u/25932970?s=88&u=9ceb91d683a7d9cfe968cd35cd07a428536605e6&v=4", songTitle: cellData.music.name, artist: cellData.music.artist )
         isFirst = cellData.isFirst
         impressionTags = cellData.impressionTag
         feelingTags = cellData.feelingTag

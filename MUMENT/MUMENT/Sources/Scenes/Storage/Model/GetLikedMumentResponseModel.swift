@@ -32,7 +32,7 @@ struct GetLikedMumentResponseModel: Codable {
     // MARK: - Music
     struct Music: Codable {
         let name, artist: String
-        let image: String
+        let image: String?
     }
 
     // MARK: - User

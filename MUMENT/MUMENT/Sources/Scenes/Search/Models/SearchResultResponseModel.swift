@@ -11,7 +11,7 @@ struct SearchResultResponseModelElement: Codable, Equatable {
     let id: String
     let name: String
     let artist: String
-    let image: String
+    let image: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
