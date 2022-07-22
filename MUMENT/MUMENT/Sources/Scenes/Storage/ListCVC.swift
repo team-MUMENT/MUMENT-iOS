@@ -11,6 +11,7 @@ class ListCVC: UICollectionViewCell {
     
     // MARK: - Properties
     var defaultData: [DefaultMumentCardModel] = DefaultMumentCardModel.sampleData
+
     var withoutHeartData: [MumentCardWithoutHeartModel] = MumentCardWithoutHeartModel.sampleData
     
     private let defaultCardView = DefaultMumentCardView()
@@ -37,16 +38,19 @@ class ListCVC: UICollectionViewCell {
         defaultCardView.setData(defaultData[0])
     }
     
-    
     func setWithoutHeartCardUI() {
+//        for view in self.subviews {
+//            view.removeFromSuperview()
+//        }
         self.addSubviews([withoutHeartCardView])
         withoutHeartCardView.snp.makeConstraints{
             $0.edges.equalToSuperview()
         }
     }
     
-    func setWithoutHeartCardData() {
-        withoutHeartCardView.setData(withoutHeartData[0])
+    func setWithoutHeartCardData(_ cellData: GetLikedMumentResponseModel.Mument) {
+        debugPrint("setWithoutHeartCardData")
+        withoutHeartCardView.setData(cellData)
     }
 }
 

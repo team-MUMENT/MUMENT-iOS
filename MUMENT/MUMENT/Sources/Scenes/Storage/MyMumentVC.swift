@@ -32,6 +32,10 @@ class MyMumentVC: UIViewController {
         super.viewDidLoad()
         setCollectionView()
         setUILayout()
+        
+        
+        getMyMumentStorage(userId: UserInfo.shared.userId ?? "false", filterTags: [])
+        
     }
     
     // MARK: - Function
@@ -75,12 +79,11 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         switch cellCategory{
         case .listCell:
-            return CGSize(width: 335, height: 216)
+            return CGSize(width: 335.adjustedW, height: 216)
         case .albumCell:
             let CVWidth = collectionView.frame.width
             let cellWidth = ((CVWidth - 40) - (5 * 3)) / 4
@@ -137,4 +140,24 @@ extension MyMumentVC {
             $0.top.bottom.equalToSuperview()
         }
     }
+}
+// MARK: - Network
+extension MyMumentVC {
+    private func getMyMumentStorage(userId: String, filterTags: [Int]) {
+    StorageAPI.shared.getMyMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
+      switch networkResult {
+      case .success(let response):
+        if let result = response as? GetMyMumentResponseModel {
+            print(result.muments)
+        } else {
+          debugPrint("🚨당신 모델이 이상해열~🚨")
+        }
+      default:
+        self.makeAlert(title: """
+네트워크 오류로 인해 연결에 실패했어요! 😢
+잠시 후에 다시 시도해 주세요.
+""")
+      }
+    }
+  }
 }

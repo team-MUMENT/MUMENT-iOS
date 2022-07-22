@@ -137,10 +137,7 @@ class StorageVC: BaseVC {
         setTagsViewLayout()
         setPagerLayout()
         setPressAction()
-        
-        storageBottomSheet.delegate = self
-        
-        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: [])
+        setBottomSheet()
     }
     
     // MARK: - Function
@@ -156,6 +153,10 @@ class StorageVC: BaseVC {
         if let firstVC = contents.first {
             pagerVC.setViewControllers([firstVC], direction: .forward, animated: true)
         }
+    }
+    
+    private func setBottomSheet() {
+        storageBottomSheet.delegate = self
     }
 
     @objc private func changeUnderLinePosition() {
@@ -213,18 +214,25 @@ class StorageVC: BaseVC {
             selectedTagButtons.forEach {
                 self.selectedTagsStackView.addArrangedSubview($0)
                 debugPrint("foreach")
+                
                 $0.snp.makeConstraints {
                     $0.height.equalTo(35)
                 }
             }
             
-            debugPrint("selectedTagButtons1", selectedTagButtons.count)
-            
+//            for i in 0...selectedTagButtons.count - 1 {
+//                selectedTagButtons[i].press {
+//                    selectedTagButtons[i].isSelected.toggle()
+//                    if selectedTagButtons[i].isSelected == false {
+//                        self.selectedTagsStackView.removeArrangedSubview($0)
+//                        selectedTagButtons[i].removeFromSuperview()
+//                    }
+//                }
+//            }
+                        
         }else {
             self.tagsViewHeightConstant = 0
-            debugPrint("selectedTagButtons2", selectedTagButtons.count)
         }
-//        self.tagsViewHeightConstant = self.storageBottomSheet.isDismissed ? 49 : 0
         
         self.selectedTagsView.snp.updateConstraints {
             $0.height.equalTo(self.tagsViewHeightConstant)
@@ -387,23 +395,23 @@ extension StorageVC {
     
 }
 
-// MARK: - Network
-extension StorageVC {
-  private func getMyMumentStorage(userId: String, filterTags: [Int]) {
-    StorageAPI.shared.getMyMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
-      switch networkResult {
-      case .success(let response):
-        if let result = response as? GetMyMumentStorageResponseModel {
-            print(result.muments[0])
-        } else {
-          debugPrint("🚨당신 모델이 이상해열~🚨")
-        }
-      default:
-        self.makeAlert(title: """
-네트워크 오류로 인해 연결에 실패했어요! 😢
-잠시 후에 다시 시도해 주세요.
-""")
-      }
-    }
-  }
-}
+//// MARK: - Network
+//extension StorageVC {
+//  private func getMyMumentStorage(userId: String, filterTags: [Int]) {
+//    StorageAPI.shared.getMyMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
+//      switch networkResult {
+//      case .success(let response):
+//        if let result = response as? GetMyMumentStorageResponseModel {
+//            print(result.muments[0])
+//        } else {
+//          debugPrint("🚨당신 모델이 이상해열~🚨")
+//        }
+//      default:
+//        self.makeAlert(title: """
+//네트워크 오류로 인해 연결에 실패했어요! 😢
+//잠시 후에 다시 시도해 주세요.
+//""")
+//      }
+//    }
+//  }
+//}
