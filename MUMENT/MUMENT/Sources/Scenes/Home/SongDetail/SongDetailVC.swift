@@ -21,6 +21,7 @@ class SongDetailVC: BaseVC {
     var songInfoData: SongInfoResponseModel.Music = SongInfoResponseModel.Music(id: "", name: "", image: "", artist: "")
     var myMumentData: SongInfoResponseModel.MyMument = SongInfoResponseModel.MyMument(feelingTag: [], updatedAt: "", music: SongInfoResponseModel.MyMument.MyMumentMusic(id: ""), id: "", likeCount: 0, impressionTag: [], isDeleted: true, isPrivate: true, cardTag: [], date: "", isFirst: true, isLiked: true, v: 0, user: SongInfoResponseModel.MyMument.User(id: "", name: "", image: ""), createdAt: "", content: "")
     var allMumentsData: [AllMumentsResponseModel.MumentList] = []
+    var musicId: String?
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -196,14 +197,14 @@ extension SongDetailVC :AllMumentsSectionHeaderDelegate {
 // MARK: - Network
 extension SongDetailVC {
     private func requestGetSongInfo() {
-        SongDetailAPI.shared.getSongInfo(musicId: "62d29b39177f6e81ee8fa3f3", userId: "62cd5d4383956edb45d7d0ef") { networkResult in
+        SongDetailAPI.shared.getSongInfo(musicId: self.musicId ?? "", userId: UserInfo.shared.userId ?? "") { networkResult in
             switch networkResult {
                 
             case .success(let response):
                 if let res = response as? SongInfoResponseModel {
                     self.songInfoData = res.music
                     self.myMumentData = res.myMument
-                    self.mumentTV.reloadData()
+                    self.mumentTV.reloadSections(IndexSet(integer: 0), with: .automatic)
                 }
             default:
                 self.makeAlert(title: """
@@ -215,7 +216,7 @@ extension SongDetailVC {
     }
     
     private func requestGetAllMuments(_ isOrderLiked: Bool) {
-        SongDetailAPI.shared.getAllMuments(musicId: "62d29b39177f6e81ee8fa3f3", userId: "62cd5d4383956edb45d7d0ef", isOrderLiked: isOrderLiked) { networkResult in
+        SongDetailAPI.shared.getAllMuments(musicId: self.musicId ?? "", userId: UserInfo.shared.userId ?? "", isOrderLiked: isOrderLiked) { networkResult in
             switch networkResult {
                 
             case .success(let response):
