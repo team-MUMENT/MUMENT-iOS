@@ -10,7 +10,7 @@ import Foundation
 // MARK: - SongInfoResponseModel
 struct SongInfoResponseModel: Codable {
     let music: Music
-    let myMument: MyMument
+    let myMument: MyMument?
 
     enum CodingKeys: String, CodingKey {
         case music = "music"

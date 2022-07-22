@@ -204,15 +204,18 @@ extension SearchVC {
 extension SearchVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let songDetailVC = SongDetailVC()
-
+        
         switch searchTVType {
         case .recentSearch:
+            songDetailVC.musicId = recentSearchData.reversed()[indexPath.row].id
+            songDetailVC.songInfoData = SongInfoResponseModel.Music(id: recentSearchData.reversed()[indexPath.row].id, name: recentSearchData.reversed()[indexPath.row].name, image: recentSearchData.reversed()[indexPath.row].image, artist: recentSearchData.reversed()[indexPath.row].artist)
             songDetailVC.musicId = recentSearchData.reversed()[indexPath.row].id
             recentSearchData.append(recentSearchData.reversed()[indexPath.row])
             recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
-            
         case .searchResult:
+            songDetailVC.musicId = searchResultData[indexPath.row].id
+            songDetailVC.songInfoData = SongInfoResponseModel.Music(id: searchResultData[indexPath.row].id, name: searchResultData[indexPath.row].name, image: searchResultData[indexPath.row].image, artist: searchResultData[indexPath.row].artist)
             if recentSearchData.contains(searchResultData[indexPath.row]) {
                 recentSearchData.append(recentSearchData[indexPath.row])
                 recentSearchData.remove(at: indexPath.row)
@@ -221,13 +224,10 @@ extension SearchVC: UITableViewDelegate {
                 recentSearchData.append(searchResultData[indexPath.row])
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             }
-            songDetailVC.musicId = recentSearchData[indexPath.row].id
         }
-        
         fetchSearchResultData()
         
         self.navigationController?.pushViewController(songDetailVC, animated: true)
-        print("songDetailVC")
     }
 }
 
