@@ -118,7 +118,7 @@ class DetailMumentCardView: UIView {
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
     }
     
-    func setData(_ cellData: MumentDetailResponseModel){
+    func setData(_ cellData: MumentDetailResponseModel, mumentId: String){
         print("들어왓나열?", cellData)
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
