@@ -160,6 +160,19 @@ class DetailMumentCardView: UIView {
                 }
             }
         }
+        
+        if feelingTags.count != 0{
+            for i in 0...feelingTags.count-1{
+                let tag = TagView()
+                tag.tagContent = feelingTags[i]
+                
+                if  tagStackView.subviews.count < 4 {
+                    tagStackView.addArrangedSubview(tag)
+                }else{
+                    tagSubStackView.addArrangedSubview(tag)
+                }
+            }
+        }
     }
     
     func setButtonActions(){
@@ -285,5 +298,6 @@ extension DetailMumentCardView {
             }
         }
     }
+   
 }
 
