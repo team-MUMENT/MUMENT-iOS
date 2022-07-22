@@ -79,12 +79,11 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         switch cellCategory{
         case .listCell:
-            return CGSize(width: 335, height: 216)
+            return CGSize(width: 335.adjustedW, height: 216)
         case .albumCell:
             let CVWidth = collectionView.frame.width
             let cellWidth = ((CVWidth - 40) - (5 * 3)) / 4
@@ -149,7 +148,7 @@ extension MyMumentVC {
       switch networkResult {
       case .success(let response):
         if let result = response as? GetMyMumentResponseModel {
-            print(result.muments[0])
+            print(result.muments)
         } else {
           debugPrint("🚨당신 모델이 이상해열~🚨")
         }
