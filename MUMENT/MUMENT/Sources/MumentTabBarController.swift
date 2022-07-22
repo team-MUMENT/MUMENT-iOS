@@ -22,7 +22,7 @@ class MumentTabBarController: UITabBarController {
 // MARK: - Network
 extension MumentTabBarController {
     private func requestSignIn() {
-        SignAPI.shared.postSignIn(body: SignInBodyModel(profileId: "chaen", password: "chaen")) { networkResult in
+        SignAPI.shared.postSignIn(body: SignInBodyModel(profileId: "iangOS", password: "lovemument")) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? SignInDataModel {
