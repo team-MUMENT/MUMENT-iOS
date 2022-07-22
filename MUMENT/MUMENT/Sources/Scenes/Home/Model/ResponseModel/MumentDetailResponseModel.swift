@@ -9,16 +9,16 @@ import Foundation
 
 // MARK: - DataClass
 struct MumentDetailResponseModel: Codable {
-    let user: Music
-    let music: Music
-    let isFirst: Bool
-    let impressionTag: [Int]
-    let feelingTag: [Int]
-    let content: String
-    let likeCount: Int
-    let isLiked: Bool
-    let createdAt: String
-    let count: Int
+    let user: Music = Music(id: "", name: "", artist: "", image: "")
+    let music: Music = Music(id: "", name: "", artist: "", image: "")
+    let isFirst: Bool = true
+    let impressionTag: [Int] = []
+    let feelingTag: [Int] = []
+    let content: String = ""
+    let likeCount: Int = 0
+    let isLiked: Bool = false
+    let createdAt: String = ""
+    let count: Int = 0
 
     enum CodingKeys: String, CodingKey {
         case user = "user"
