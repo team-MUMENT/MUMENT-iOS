@@ -20,6 +20,8 @@ class MumentHistoryVC: BaseVC {
     
     var musicInfoData: HistoryResponseModel.DataMusic = HistoryResponseModel.DataMusic(id: "", name: "", artist: "", image: "")
     var historyData: [HistoryResponseModel.MumentHistory] = []
+    var musicId: String?
+    var userId: String?
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -55,6 +57,7 @@ class MumentHistoryVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
+        songDetailVC.musicId = self.musicId
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
@@ -137,6 +140,7 @@ extension MumentHistoryVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = musicId
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
@@ -151,7 +155,7 @@ extension MumentHistoryVC :MumentHistoryTVHeaderDelegate {
 // MARK: - Network
 extension MumentHistoryVC {
     private func requestGetHistoryData(_ recentOnTop: Bool) {
-        HistoryAPI.shared.getMumentHistoryData(userId: "62cd5d4383956edb45d7d0ef", musicId: "62d29b39177f6e81ee8fa3f3", recentOnTop: recentOnTop) { networkResult in
+        HistoryAPI.shared.getMumentHistoryData(userId: userId ?? UserInfo.shared.userId ?? "", musicId: self.musicId ?? "", recentOnTop: recentOnTop) { networkResult in
             switch networkResult {
                 
             case .success(let response):
