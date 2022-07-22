@@ -48,8 +48,9 @@ extension RecentSearchEmptyView {
         
         imageView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.trailing.leading.equalToSuperview().inset(120)
-            $0.height.equalTo(109)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(135.adjustedW)
+            $0.height.equalTo(109.adjustedW)
         }
         
         titleLabel.snp.makeConstraints {

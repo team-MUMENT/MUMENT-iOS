@@ -25,6 +25,7 @@ class MumentForTodayTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         fetchData()
         setLayout()
+        self.backgroundColor = .mBgwhite
     }
     
     @available(*, unavailable)
@@ -54,5 +55,9 @@ extension MumentForTodayTVC {
 extension MumentForTodayTVC {
     private func fetchData() {
         mumentCardView.setData(dataSource[0])
+    }
+    
+    func setData(_ cellData: MumentForTodayResponseModel) {
+        mumentCardView.setData(cellData)
     }
 }

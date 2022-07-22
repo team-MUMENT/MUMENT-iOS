@@ -24,7 +24,7 @@ class CarouselCVC: UICollectionViewCell {
                 .foregroundColor: UIColor.mWhite
             ])
             
-            let normalString = NSAttributedString(string:  " / 3 >", attributes: [
+            let normalString = NSAttributedString(string:  " / 3 ", attributes: [
                 .font: UIFont.mumentC1R12,
                 .foregroundColor: UIColor.mGray2
             ])
@@ -35,7 +35,7 @@ class CarouselCVC: UICollectionViewCell {
     }
     lazy var pageButton = UIButton().then{
         $0.configuration = .plain()
-        $0.makeRounded(cornerRadius: 15)
+        $0.makeRounded(cornerRadius: 12)
         $0.backgroundColor = .mGray1
         $0.layer.opacity = 0.7
     }
@@ -88,6 +88,16 @@ class CarouselCVC: UICollectionViewCell {
         artistLabel.text = cellData.artistName
         pageValue = "\(index)"
     }
+    
+    func setData(_ cellData: CarouselResponseModel.BannerList, index: Int){
+        backgroundImage.image = UIImage(named: "mumentBanner\(index)")
+        let parsedTitle = cellData.tagTitle.replacingOccurrences(of: "\\n", with: "\n" )
+        headerLable.text = parsedTitle
+        albumImage.setImageUrl(cellData.music.image)
+        songTitleLabel.text = cellData.music.name
+        artistLabel.text = cellData.music.artist
+        pageValue = "\(index)"
+    }
 }
 
 // MARK: - UI
@@ -100,6 +110,8 @@ extension CarouselCVC {
         pageButton.snp.makeConstraints {
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.width.equalTo(49)
+            $0.height.equalTo(24)
         }
         
         headerLable.snp.makeConstraints{
