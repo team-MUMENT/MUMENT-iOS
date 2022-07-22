@@ -9,9 +9,9 @@ import SnapKit
 import Then
 
 class MumentCardWithoutHeartView: UIView {
-    
+        
     // MARK: - Properties
-    lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then{
+    lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then {
         $0.axis = .horizontal
         $0.spacing = 7
     }
@@ -87,6 +87,7 @@ class MumentCardWithoutHeartView: UIView {
         impressionTags = cellData.impressionTags
         feelingTags = cellData.feelingTags
         setTags()
+        
     }
     
     func setData(_ cellData: MumentForTodayResponseModel){
@@ -101,6 +102,8 @@ class MumentCardWithoutHeartView: UIView {
         impressionTags = cellData.todayMument.impressionTag
         feelingTags = cellData.todayMument.feelingTag
         setTags()
+    }
+    
     func setData(_ cellData: GetLikedMumentResponseModel.Mument){
         debugPrint("setdata")
         profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?v=4")
