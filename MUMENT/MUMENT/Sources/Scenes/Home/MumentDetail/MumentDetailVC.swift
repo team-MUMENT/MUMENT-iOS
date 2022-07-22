@@ -54,7 +54,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         print("안냔냐냔")
         DispatchQueue.main.async {
             self.navigationBarView.setTitle("뮤멘트")
-            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel())
+            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(), mumentId: self.mumentId ?? "")
             self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
         }
     }
@@ -165,7 +165,8 @@ extension MumentDetailVC {
                   
                   print(self.dataSource)
                   self.setData()
-//                  self.mumentCardView.setData(res)
+                  
+                  self.mumentCardView.setData(res,mumentId: self.mumentId ?? "")
               }
               
           default:

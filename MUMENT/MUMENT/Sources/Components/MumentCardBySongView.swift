@@ -93,13 +93,12 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
-//        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         isLiked = cellData.isLiked
         heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
-        userId = cellData.user.id
+//        userId = cellData.user.id
         setTags()
     }
     
@@ -108,13 +107,12 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
-//        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         isLiked = cellData.isLiked
         heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
-        userId = cellData.user.id
+//        userId = cellData.user.id
         setTags()
     }
     
@@ -123,13 +121,12 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
-//        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         isLiked = cellData.isLiked
         heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
-        userId = cellData.user.id
+//        userId = cellData.user.id
         setTags()
     }
     
@@ -156,10 +153,10 @@ class MumentCardBySongView: UIView {
             self.isLiked.toggle()
             if previousState {
                 self.heartCount -= 1
-                self.requestDeleteHeartLiked(mumentId: self.mumentId, userId: self.userId)
+                self.requestDeleteHeartLiked(mumentId: self.mumentId)
             }else{
                 self.heartCount += 1
-                self.requestPostHeartLiked(mumentId: self.mumentId, userId: self.userId)
+                self.requestPostHeartLiked(mumentId: self.mumentId)
             }
         }
     }
@@ -219,14 +216,14 @@ extension MumentCardBySongView {
 }
 
 extension MumentCardBySongView {
-    private func requestPostHeartLiked(mumentId: String, userId: String) {
-        LikeAPI.shared.postHeartLiked(mumentId: mumentId, userId: userId) { networkResult in
+    private func requestPostHeartLiked(mumentId: String) {
+        LikeAPI.shared.postHeartLiked(mumentId: mumentId, userId: "62cd5d4383956edb45d7d0ef") { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
                     print("!~~~~~~~~",res)
                 }
-                
+
             default:
                 print("LikeAPI.shared.postHeartLiked")
                 return
@@ -234,8 +231,8 @@ extension MumentCardBySongView {
         }
     }
     
-    private func requestDeleteHeartLiked(mumentId: String, userId: String) {
-        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId, userId: userId) { networkResult in
+    private func requestDeleteHeartLiked(mumentId: String) {
+        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId, userId: "62cd5d4383956edb45d7d0ef") { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
