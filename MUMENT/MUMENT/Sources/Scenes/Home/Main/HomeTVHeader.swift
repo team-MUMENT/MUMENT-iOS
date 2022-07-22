@@ -53,7 +53,7 @@ extension HomeTVHeader {
     private func setLayout() {
         self.addSubviews([logoButton,notificationButton,searchButton])
         self.backgroundColor = .mBgwhite
-       
+        
         searchButton.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
@@ -69,12 +69,9 @@ extension HomeTVHeader {
         }
         
         notificationButton.snp.makeConstraints{
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
             $0.width.height.equalTo(48)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(55)
             $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(10)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(2)
-            $0.width.height.equalTo(48)
         }
     }
 }

@@ -15,7 +15,8 @@ class CarouselTVC: UITableViewCell {
     // MARK: - Properties
     weak var delegate: CarouselCVCDelegate?
     var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://avatars.githubusercontent.com/u/25932970?s=88&u=9ceb91d683a7d9cfe968cd35cd07a428536605e6&v=4"), id: "", tagTitle: "", displayDate: "")]
-        
+    var nowPage: Int = 3
+    
     private var increasedCarouselData: [CarouselResponseModel.BannerList] = []
     
     private lazy var carouselCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
@@ -127,8 +128,8 @@ extension CarouselTVC: UICollectionViewDelegate{
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
-        let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
+        let beginOffset = (carouselCV.frame.width - CVFlowLayout.minimumLineSpacing) * 3
+        let endOffset = (carouselCV.frame.width - CVFlowLayout.minimumLineSpacing) * 6
         
         if scrollView.contentOffset.x < beginOffset && velocity.x < .zero {
             scrollToEnd = true
@@ -154,17 +155,15 @@ extension CarouselTVC: UICollectionViewDelegate{
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        nowAdsPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-
         if scrollToBegin {
-            carouselCV.scrollToItem(at: IndexPath(item: originalDataSourceCount, section: .zero),
+            carouselCV.scrollToItem(at: IndexPath(item: 3, section: .zero),
                                     at: .centeredHorizontally,
                                     animated: false)
             scrollToBegin.toggle()
             return
         }
         if scrollToEnd {
-            carouselCV.scrollToItem(at: IndexPath(item: originalDataSourceCount * 2 - 1, section: .zero),
+            carouselCV.scrollToItem(at: IndexPath(item: 5, section: .zero),
                                     at: .centeredHorizontally,
                                     animated: false)
             scrollToEnd.toggle()
