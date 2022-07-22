@@ -59,6 +59,12 @@ class SongDetailVC: BaseVC {
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
         print("mumentDetailVC")
     }
+    
+    @objc func didTapAllMumentView(_ sender: UITapGestureRecognizer, index: Int) {
+        let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = self.allMumentsData[index].id
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+    }
 }
 
 // MARK: - UI
@@ -119,7 +125,6 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SongInfoTVC.className, for: indexPath) as? SongInfoTVC else {
                 return UITableViewCell()
             }
-            print("songInfoData", songInfoData)
             cell.setData(songInfoData)
             cell.writeMumentButton.press{
                 self.tabBarController?.selectedIndex = 1
@@ -144,13 +149,22 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
+            cell.mumentCard.gestureRecognizers?.removeAll()
             cell.setData(allMumentsData[indexPath.row])
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
+//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapAllMumentView(.init(), index: indexPath.row)))
+//            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
             
         default:
             return UITableViewCell()
+        }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 {
+            let mumentDetailVC = MumentDetailVC()
+            print("이게머져",self.allMumentsData[indexPath.row])
+            mumentDetailVC.mumentId = self.allMumentsData[indexPath.row].id
+            self.navigationController?.pushViewController(mumentDetailVC, animated: true)
         }
     }
     
@@ -228,9 +242,7 @@ extension SongDetailVC {
                 if let res = response as? SongInfoResponseModel {
                     self.songInfoData = res.music
                     self.myMumentData = res.myMument
-                    print("냐냐냠", self.myMumentData ?? "nil")
-
-                    self.mumentTV.reloadSections(IndexSet(1...1), with: .automatic)
+                    self.mumentTV.reloadSections(IndexSet(0...1), with: .automatic)
                 }
             default:
                 self.makeAlert(title: """
