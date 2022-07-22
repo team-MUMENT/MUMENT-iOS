@@ -37,9 +37,9 @@ class MumentCardBySongView: UIView {
         .foregroundColor: UIColor.mGray1
     ]
     
-    var heartButtonText: String = "" {
+    var heartCount: Int = 0 {
         didSet{
-            heartButton.setAttributedTitle(NSAttributedString(string: heartButtonText,attributes: attributes), for: .normal)
+            heartButton.setAttributedTitle(NSAttributedString(string: "\(heartCount)",attributes: attributes), for: .normal)
         }
     }
     
@@ -66,11 +66,18 @@ class MumentCardBySongView: UIView {
         $0.font = .mumentC1R12
     }
     
+    var isLiked: Bool = false{
+        didSet{
+            heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+        }
+    }
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setUI()
         setLayout()
+        setButtonActions()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -78,26 +85,14 @@ class MumentCardBySongView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentCardBySongModel){
-        profileImage.image = cellData.profileImage
-        writerNameLabel.text = cellData.writerName
-        contentsLabel.text = cellData.contents
-        createdAtLabel.text = cellData.createdAt
-        heartButton.setImage(cellData.heartImage, for: .normal)
-        heartButtonText = "\(cellData.heartCount)"
-        isFirst = cellData.isFirst
-        impressionTags = cellData.impressionTags
-        feelingTags = cellData.feelingTags
-        setTags()
-    }
-    
     func setData(_ cellData: HistoryResponseModel.MumentHistory){
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
-        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
-        heartButtonText = "\(cellData.likeCount)"
+//        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+        isLiked = cellData.isLiked
+        heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         setTags()
@@ -108,8 +103,9 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
-        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
-        heartButtonText = "\(cellData.likeCount)"
+//        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+        isLiked = cellData.isLiked
+        heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         setTags()
@@ -120,8 +116,9 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
-        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
-        heartButtonText = "\(cellData.likeCount)"
+//        heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
+        isLiked = cellData.isLiked
+        heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         setTags()
@@ -140,6 +137,18 @@ class MumentCardBySongView: UIView {
                 let tag = TagView()
                 tag.tagContent = cardTags[i]
                 tagStackView.addArrangedSubview(tag)
+            }
+        }
+    }
+    
+    func setButtonActions(){
+        heartButton.press {
+            var previousState = self.isLiked
+            self.isLiked.toggle()
+            if previousState {
+                self.heartCount -= 1
+            }else{
+                self.heartCount += 1
             }
         }
     }
