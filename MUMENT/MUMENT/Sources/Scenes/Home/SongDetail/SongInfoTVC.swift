@@ -63,7 +63,7 @@ class SongInfoTVC: UITableViewCell {
     }
     
     func setData(_ cellData: SongInfoResponseModel.Music){
-        albumImage.setImageUrl(cellData.image)
+        albumImage.setImageUrl(cellData.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         titleLabel.text = cellData.name
         artistLabel.text = cellData.artist
     }

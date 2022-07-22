@@ -69,7 +69,7 @@ struct HistoryResponseModel: Codable {
         struct User: Codable {
             let id: String
             let name: String
-            let image: String
+            let image: String?
 
             enum CodingKeys: String, CodingKey {
                 case id = "_id"
@@ -84,7 +84,7 @@ struct HistoryResponseModel: Codable {
         let id: String
         let name: String
         let artist: String
-        let image: String
+        let image: String?
 
         enum CodingKeys: String, CodingKey {
             case id = "_id"

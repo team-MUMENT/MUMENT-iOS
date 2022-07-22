@@ -53,7 +53,7 @@ struct GetMyMumentResponseModel: Codable {
   struct Music: Codable {
     let id: String
     let name: String
-    let image: String
+    let image: String?
     let artist: String
 
     enum CodingKeys: String, CodingKey {
@@ -67,7 +67,7 @@ struct GetMyMumentResponseModel: Codable {
   // MARK: - User
   struct User: Codable {
     let id: String
-    let image: String
+    let image: String?
     let name: String
 
     enum CodingKeys: String, CodingKey {

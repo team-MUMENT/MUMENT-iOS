@@ -44,16 +44,19 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
-        setData()
+//        setData()
         setClickEventHandlers()
         requestGetMumentDetail()
     }
     
     // MARK: - Functions
     func setData(){
-        navigationBarView.setTitle("뮤멘트")
-        mumentCardView.setData(dataSource ?? MumentDetailResponseModel())
-        historyButtonText = "     \(dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
+        print("안냔냐냔")
+        DispatchQueue.main.async {
+            self.navigationBarView.setTitle("뮤멘트")
+            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel())
+            self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
+        }
     }
     
     func setClickEventHandlers(){
@@ -156,7 +159,11 @@ extension MumentDetailVC {
           case .success(let response):
               if let res = response as? MumentDetailResponseModel {
                   print("dddddddd")
+                  print(res)
+                  
                   self.dataSource = res
+                  
+                  print(self.dataSource)
                   self.setData()
 //                  self.mumentCardView.setData(res)
               }

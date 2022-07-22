@@ -37,7 +37,7 @@ class SearchTVC: UITableViewCell {
     
     func setData(data: SearchResultResponseModelElement) {
         albumImageView.setImageColor(color: .mGray5)
-        albumImageView.setImageUrl(data.image)
+        albumImageView.setImageUrl(data.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         titleLabel.text = data.name
         artistLabel.text = data.artist
     }

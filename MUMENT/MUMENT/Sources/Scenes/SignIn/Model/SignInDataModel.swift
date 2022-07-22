@@ -11,7 +11,7 @@ struct SignInDataModel: Codable {
     let id: String
     let profileID: String
     let name: String
-    let image: String
+    let image: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
