@@ -77,12 +77,13 @@ extension MumentHistoryTVHeader {
         latestOrderingButton.snp.makeConstraints{
             $0.trailing.equalTo(oldestOrderingButton.snp.leading)
             $0.top.equalTo(songInfoView.snp.bottom).offset(13)
-            
+            $0.width.equalTo(40)
         }
         
         oldestOrderingButton.snp.makeConstraints{
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(19)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(15)
             $0.top.equalTo(songInfoView.snp.bottom).offset(13)
+            $0.width.equalTo(55)
         }
     }
 }
