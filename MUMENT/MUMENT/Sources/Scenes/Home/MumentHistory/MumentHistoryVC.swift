@@ -20,6 +20,7 @@ class MumentHistoryVC: BaseVC {
     
     var musicInfoData: HistoryResponseModel.DataMusic = HistoryResponseModel.DataMusic(id: "", name: "", artist: "", image: "")
     var historyData: [HistoryResponseModel.MumentHistory] = []
+    var musicId: String?
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -151,7 +152,7 @@ extension MumentHistoryVC :MumentHistoryTVHeaderDelegate {
 // MARK: - Network
 extension MumentHistoryVC {
     private func requestGetHistoryData(_ recentOnTop: Bool) {
-        HistoryAPI.shared.getMumentHistoryData(userId: "62cd5d4383956edb45d7d0ef", musicId: "62d29b39177f6e81ee8fa3f3", recentOnTop: recentOnTop) { networkResult in
+        HistoryAPI.shared.getMumentHistoryData(userId: UserInfo.shared.userId ?? "", musicId: self.musicId ?? "", recentOnTop: recentOnTop) { networkResult in
             switch networkResult {
                 
             case .success(let response):

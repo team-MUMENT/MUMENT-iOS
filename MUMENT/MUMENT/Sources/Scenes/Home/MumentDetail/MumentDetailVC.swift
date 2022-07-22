@@ -44,7 +44,6 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
-//        setData()
         setClickEventHandlers()
         requestGetMumentDetail()
     }

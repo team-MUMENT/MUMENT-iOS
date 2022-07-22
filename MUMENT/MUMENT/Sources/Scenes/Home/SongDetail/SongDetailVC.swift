@@ -162,6 +162,7 @@ extension SongDetailVC: UITableViewDataSource {
             headerCell.historyButton.removeTarget(nil, action: nil, for: .allEvents)
             headerCell.historyButton.press {
                 let mumentHistoryVC = MumentHistoryVC()
+                mumentHistoryVC.musicId = self.musicId
                 self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
             }
             return headerCell
