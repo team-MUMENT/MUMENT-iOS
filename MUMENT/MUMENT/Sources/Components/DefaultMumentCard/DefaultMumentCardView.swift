@@ -80,6 +80,25 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
                 self.requestPostHeartLiked(mumentId: self.mumentId)
             }
         }
+        
+    func setData(_ cellData: GetMyMumentResponseModel.Mument){
+        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        writerNameLabel.text = cellData.user.name
+        albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        isFirst = cellData.isFirst
+        impressionTags = cellData.impressionTag
+        feelingTags = cellData.feelingTag
+        songTitleLabel.text = cellData.music.name
+        artistLabel.text = cellData.music.artist
+        contentsLabel.text = cellData.content
+        createdAtLabel.text = cellData.createdAt
+        if cellData.isLiked {
+            heartButton.setImage(UIImage(named: "heart_filled"), for: .normal)
+        }else{
+            heartButton.setImage(UIImage(named: "heart"), for: .normal)
+        }
+        heartButtonText = "\(cellData.likeCount)"
+        setTags()
     }
 }
 
