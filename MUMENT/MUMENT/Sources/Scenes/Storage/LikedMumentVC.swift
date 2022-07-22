@@ -29,7 +29,7 @@ class LikedMumentVC: UIViewController {
         $0.showsVerticalScrollIndicator = false
         $0.collectionViewLayout = layout
     }
-    
+    var idxCount = 0
     var dateArray: [Int] = [1]
     var dateDictionary : [Int : Int] = [:]
     var numberOfSections = 0
@@ -61,31 +61,37 @@ class LikedMumentVC: UIViewController {
     func setDateDictionary() {
         var dates: [Int] = []
         var date = 0
-        var count = 0
+        
         debugPrint("나와라!", withoutHeartMumentData)
         if withoutHeartMumentData.count != 1 {
+            
             withoutHeartMumentData.forEach {
                 date = $0.year * 100 + $0.month
                 debugPrint("date!",date)
                 dates.append(date)
+                dateDictionary[date] = 0
             }
-            dates.forEach {
-                if $0 == date {
-                    count += 1
-                    dateDictionary[date] = count
-                }else {
-                    dateDictionary[date] = count + 1
-                }
-                debugPrint("데이트 값",date)
-            }
-            debugPrint("데이트 배열 수",dates.count)
-            dates.sort()
             /// date 배열을 중복제거하고 dateArray에 대입
-            dateArray = removeDuplication(in: dateArray)
-            dateArray = dates
+            dateArray = dates.uniqued()
+            dateArray.sort(by: >)
+            dateArray.forEach {
+                debugPrint("dateArray",$0)
+            }
+            for i in 0...dateArray.count-1 {
+                withoutHeartMumentData.forEach {
+                    let mdate = $0.year * 100 + $0.month
+                    /// 뮤멘트 데이터의 날짜가 미리 정렬해놓은 날짜 배열의 값과 일치 할때
+                    if mdate == dateArray[i] {
+                        dateDictionary[mdate]! += 1
+                    }
+                }
+            }
+            debugPrint("numberofSection", dateArray.count)
             numberOfSections = dateArray.count
+        } else {
+            numberOfSections = 1
         }
-        numberOfSections = 1
+//        self.likedMumentCV.reloadData()
     }
     
 }
@@ -94,20 +100,15 @@ class LikedMumentVC: UIViewController {
 extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if dateArray.count == 0 {
-//            dateArray = [1]
-//        }
-        for i in 0...dateArray.count - 1 {
-            if i == section {
-                debugPrint("😢",self.dateArray[i])
-                return dateDictionary[self.dateArray[i]] ?? 0
-            }
-        }
-        return 1
+        debugPrint("section", section)
+        debugPrint("dateArr",self.dateArray[section] )
+        debugPrint("dateDic",dateDictionary[ self.dateArray[section]] ?? 1 )
+        return dateDictionary[ self.dateArray[section] ] ?? 1
+      
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
+        idxCount = 0
         return numberOfSections
     }
     
@@ -119,23 +120,40 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         switch cellCategory {
         case .listCell:
             listCell.setWithoutHeartCardUI()
-            for i in 0...self.withoutHeartMumentData.count-1 {
-                let date = withoutHeartMumentData[i].year * 100 + withoutHeartMumentData[i].month
-                if dateArray[indexPath.section] == date {
-                    listCell.setWithoutHeartCardData(withoutHeartMumentData[i])
-                    return listCell
-                }
+            
+            debugPrint("안녕하세열", withoutHeartMumentData)
+            if indexPath.section == 0 {
+                listCell.setWithoutHeartCardData(withoutHeartMumentData[indexPath.row])
+                return listCell
             }
+            var mData = 0
+            for i in 0...indexPath.section-1{
+                mData += (dateDictionary[dateArray[i]])!
+            }
+            debugPrint("mData",mData)
+            listCell.setWithoutHeartCardData(withoutHeartMumentData[mData + indexPath.row])
             return listCell
         case .albumCell:
-            for i in 0...self.withoutHeartMumentData.count-1 {
-                let date = withoutHeartMumentData[i].year * 100 + withoutHeartMumentData[i].month
-                if dateArray[indexPath.section] == date {
-                    albumCell.fetchData(withoutHeartMumentData[i])
-                    return albumCell
-                }
+//            for i in 0...self.withoutHeartMumentData.count - 1 {
+//                let date = withoutHeartMumentData[i].year * 100 + withoutHeartMumentData[i].month
+//                if dateArray[indexPath.section] == date {
+//                    albumCell.fetchData(withoutHeartMumentData[i])
+//                    return albumCell
+//                }
+//            }
+//            albumCell.fetchData(withoutHeartMumentData[indexPath.row])
+//            return albumCell
+            
+            if indexPath.section == 0 {
+                albumCell.fetchData(withoutHeartMumentData[indexPath.row])
+                return albumCell
             }
-            albumCell.fetchData(withoutHeartMumentData[indexPath.row])
+            var mData = 0
+            for i in 0...indexPath.section-1{
+                mData += (dateDictionary[dateArray[i]])!
+            }
+            debugPrint("mData",mData)
+            albumCell.fetchData(withoutHeartMumentData[mData + indexPath.row])
             return albumCell
         }
     }
