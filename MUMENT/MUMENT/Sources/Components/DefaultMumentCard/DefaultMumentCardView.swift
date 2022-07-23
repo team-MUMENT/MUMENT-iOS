@@ -121,7 +121,7 @@ extension DefaultMumentCardView {
 
 extension DefaultMumentCardView {
     private func requestPostHeartLiked(mumentId: String) {
-        LikeAPI.shared.postHeartLiked(mumentId: mumentId, userId: "62cd5d4383956edb45d7d0ef") { networkResult in
+        LikeAPI.shared.postHeartLiked(mumentId: mumentId, userId: UserInfo.shared.userId ?? "") { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
@@ -135,7 +135,7 @@ extension DefaultMumentCardView {
     }
     
     private func requestDeleteHeartLiked(mumentId: String) {
-        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId, userId: "62cd5d4383956edb45d7d0ef") { networkResult in
+        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId, userId: UserInfo.shared.userId ?? "") { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
