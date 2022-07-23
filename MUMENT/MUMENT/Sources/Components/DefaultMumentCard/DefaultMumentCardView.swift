@@ -25,10 +25,10 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
     ]
     
     var heartCount: Int = 0 {
-         didSet{
-             heartButton.setAttributedTitle(NSAttributedString(string: "\(heartCount)",attributes: attributes), for: .normal)
-         }
-     }
+        didSet{
+            heartButton.setAttributedTitle(NSAttributedString(string: "\(heartCount)",attributes: attributes), for: .normal)
+        }
+    }
     
     var isLiked: Bool = false{
         didSet{
@@ -43,6 +43,7 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setLayout()
+        setButtonActions()
         self.backgroundColor = .mBgwhite
     }
     
@@ -80,7 +81,7 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
                 self.requestPostHeartLiked(mumentId: self.mumentId)
             }
         }
-        
+    }
     func setData(_ cellData: GetMyMumentResponseModel.Mument){
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
@@ -92,13 +93,16 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         artistLabel.text = cellData.music.artist
         contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.createdAt
-        if cellData.isLiked {
-            heartButton.setImage(UIImage(named: "heart_filled"), for: .normal)
-        }else{
-            heartButton.setImage(UIImage(named: "heart"), for: .normal)
-        }
-        heartButtonText = "\(cellData.likeCount)"
-        setTags()
+        isLiked = cellData.isLiked
+        mumentId = cellData.id
+//        if cellData.isLiked {
+//            heartButton.setImage(UIImage(named: "heart_filled"), for: .normal)
+//        }else{
+//            heartButton.setImage(UIImage(named: "heart"), for: .normal)
+//        }
+        heartCount = cellData.likeCount
+//        setTags()
+        setCardTags(cellData.cardTag)
     }
 }
 
@@ -122,7 +126,7 @@ extension DefaultMumentCardView {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
                 }
-
+                
             default:
                 print("LikeAPI.shared.postHeartLiked")
                 return
