@@ -42,6 +42,11 @@ class LikedMumentVC: UIViewController {
         getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+    }
+    
     // MARK: - Function
     private func setCollectionView() {
         self.likedMumentCV.register(ListCVC.self, forCellWithReuseIdentifier: ListCVC.className)

@@ -33,7 +33,7 @@ class MyMumentVC: UIViewController {
     var dateArray: [Int] = [1]
     var dateDictionary : [Int : Int] = [:]
     var numberOfSections = 0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionView()
@@ -41,6 +41,11 @@ class MyMumentVC: UIViewController {
         
         getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
     // MARK: - Function
@@ -62,7 +67,7 @@ class MyMumentVC: UIViewController {
                 debugPrint("프린트", title.tagInt() ?? 0)
             }
         }
-         getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
     /// Set 으로 중복값 제거하기
@@ -109,7 +114,7 @@ class MyMumentVC: UIViewController {
 
 // MARK: - CollectionView UI
 extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-        
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dateDictionary[ self.dateArray[section] ] ?? 1
     }
@@ -120,11 +125,11 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let listCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ListCVC.className, for: indexPath) as? ListCVC,
+            withReuseIdentifier: ListCVC.className, for: indexPath) as? ListCVC,
               let albumCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: AlbumCVC.className, for: indexPath) as? AlbumCVC
         else { return UICollectionViewCell() }
-
+        
         switch cellCategory {
         case .listCell:
             listCell.setDefaultCardUI()
@@ -154,8 +159,8 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath) -> CGSize {
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         switch cellCategory{
         case .listCell:
@@ -183,14 +188,14 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let header = collectionView.dequeueReusableSupplementaryView(
-                 ofKind: kind, withReuseIdentifier: SectionHeader.className , for: indexPath)
-                     as? SectionHeader else {
+                ofKind: kind, withReuseIdentifier: SectionHeader.className , for: indexPath)
+                    as? SectionHeader else {
                 return UICollectionReusableView()
             }
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] % 10
             header.setHeader(year, month)
-             return header
+            return header
         }else {
             return UICollectionReusableView()
         }
@@ -206,7 +211,7 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         case .albumCell:
             return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-       }
+        }
     }
 }
 
@@ -223,22 +228,22 @@ extension MyMumentVC {
 // MARK: - Network
 extension MyMumentVC {
     private func getMyMumentStorage(userId: String, filterTags: [Int]) {
-    StorageAPI.shared.getMyMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
-      switch networkResult {
-      case .success(let response):
-        if let result = response as? GetMyMumentResponseModel {
-            self.defaultMumentData = result.muments
-            self.setDateDictionary()
-            self.myMumentCV.reloadData()
-        } else {
-          debugPrint("🚨당신 모델이 이상해열~🚨")
-        }
-      default:
-        self.makeAlert(title: """
+        StorageAPI.shared.getMyMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetMyMumentResponseModel {
+                    self.defaultMumentData = result.muments
+                    self.setDateDictionary()
+                    self.myMumentCV.reloadData()
+                } else {
+                    debugPrint("🚨당신 모델이 이상해열~🚨")
+                }
+            default:
+                self.makeAlert(title: """
 네트워크 오류로 인해 연결에 실패했어요! 😢
 잠시 후에 다시 시도해 주세요.
 """)
-      }
+            }
+        }
     }
-  }
 }
