@@ -34,6 +34,11 @@ class MyMumentVC: UIViewController {
     var dateDictionary : [Int : Int] = [:]
     var numberOfSections = 0
     
+    private let emptyView = StorageEmptyView().then {
+           $0.setMyMumentLayout()
+       }
+    
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionView()
@@ -85,6 +90,7 @@ class MyMumentVC: UIViewController {
             
             defaultMumentData.forEach {
                 date = $0.year * 100 + $0.month
+                debugPrint("데이트",date)
                 dates.append(date)
                 dateDictionary[date] = 0
             }
@@ -109,6 +115,7 @@ class MyMumentVC: UIViewController {
         } else {
             numberOfSections = 1
         }
+        debugPrint("데이트어레이",dateArray.count)
     }
 }
 
@@ -134,7 +141,14 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         case .listCell:
             listCell.setDefaultCardUI()
             
+            debugPrint("뮤멘트카운트",defaultMumentData.count)
+            
             if indexPath.section == 0 {
+                if indexPath.row > defaultMumentData.count - 1{
+                    listCell.setEmptyCardView()
+                    myMumentCV.reloadData()
+                    return listCell
+                }
                 listCell.setDefaultCardData(defaultMumentData[indexPath.row])
                 return listCell
             }
@@ -192,6 +206,15 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
                     as? SectionHeader else {
                 return UICollectionReusableView()
             }
+            if indexPath.row > defaultMumentData.count - 1{
+                header.resetHeader()
+                setEmptyViewLayout()
+                // 기록하기 버튼 클릭시 이동
+                emptyView.writeButton.press {
+                    self.tabBarController?.selectedIndex = 1
+                }
+                return header
+            }
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] % 10
             header.setHeader(year, month)
@@ -222,6 +245,14 @@ extension MyMumentVC {
         myMumentCV.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
+        }
+    }
+    
+    func setEmptyViewLayout() {
+        myMumentCV.removeFromSuperview()
+        view.addSubviews([emptyView])
+        emptyView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 }
