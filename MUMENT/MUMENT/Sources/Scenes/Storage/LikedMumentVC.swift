@@ -34,6 +34,10 @@ class LikedMumentVC: UIViewController {
     var dateDictionary : [Int : Int] = [:]
     var numberOfSections = 0
     
+    private let emptyView = StorageEmptyView().then {
+          $0.setLikedMumentLayout()
+      }
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +66,6 @@ class LikedMumentVC: UIViewController {
         tagButtton.forEach {
             if let title = $0.titleLabel?.text {
                 selectedTagsInt.append(title.tagInt() ?? 0)
-                debugPrint("타이틀", title)
-                debugPrint("프린트", title.tagInt() ?? 0)
             }
         }
          getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
@@ -132,9 +134,15 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         
         switch cellCategory {
         case .listCell:
-            listCell.setWithoutHeartCardUI()
+            
             
             if indexPath.section == 0 {
+                if indexPath.row > withoutHeartMumentData.count - 1{
+                    listCell.setEmptyCardView()
+                    likedMumentCV.reloadData()
+                    return listCell
+                }
+                listCell.setWithoutHeartCardUI()
                 listCell.setWithoutHeartCardData(withoutHeartMumentData[indexPath.row])
                 return listCell
             }
@@ -142,6 +150,7 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             for i in 0...indexPath.section-1{
                 mData += (dateDictionary[dateArray[i]])!
             }
+            listCell.setWithoutHeartCardUI()
             listCell.setWithoutHeartCardData(withoutHeartMumentData[mData + indexPath.row])
             return listCell
         case .albumCell:
@@ -194,6 +203,11 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
                     as? SectionHeader else {
                 return UICollectionReusableView()
             }
+            if indexPath.row > withoutHeartMumentData.count - 1{
+                header.resetHeader()
+                setEmptyViewLayout() 
+                return header
+            }
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] % 10
             header.setHeader(year, month)
@@ -223,6 +237,14 @@ extension LikedMumentVC {
         likedMumentCV.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
+        }
+    }
+    
+    func setEmptyViewLayout() {
+        likedMumentCV.removeFromSuperview()
+        view.addSubviews([emptyView])
+        emptyView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 }

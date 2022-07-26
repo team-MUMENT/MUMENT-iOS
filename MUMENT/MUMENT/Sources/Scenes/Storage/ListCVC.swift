@@ -16,6 +16,7 @@ class ListCVC: UICollectionViewCell {
     
     private let defaultCardView = DefaultMumentCardView()
     private let withoutHeartCardView = MumentCardWithoutHeartView()
+    private let storageEmptyView = StorageEmptyView()
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -45,6 +46,13 @@ class ListCVC: UICollectionViewCell {
 //        }
         self.addSubviews([withoutHeartCardView])
         withoutHeartCardView.snp.makeConstraints{
+            $0.edges.equalToSuperview()
+        }
+    }
+    
+    func setEmptyCardView() {
+        self.addSubviews([storageEmptyView])
+        storageEmptyView.snp.makeConstraints{
             $0.edges.equalToSuperview()
         }
     }
