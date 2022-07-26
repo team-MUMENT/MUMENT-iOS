@@ -66,8 +66,6 @@ class LikedMumentVC: UIViewController {
         tagButtton.forEach {
             if let title = $0.titleLabel?.text {
                 selectedTagsInt.append(title.tagInt() ?? 0)
-                debugPrint("타이틀", title)
-                debugPrint("프린트", title.tagInt() ?? 0)
             }
         }
          getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
