@@ -68,8 +68,6 @@ class MyMumentVC: UIViewController {
         tagButtton.forEach {
             if let title = $0.titleLabel?.text {
                 selectedTagsInt.append(title.tagInt() ?? 0)
-                debugPrint("타이틀", title)
-                debugPrint("프린트", title.tagInt() ?? 0)
             }
         }
         getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
@@ -90,7 +88,6 @@ class MyMumentVC: UIViewController {
             
             defaultMumentData.forEach {
                 date = $0.year * 100 + $0.month
-                debugPrint("데이트",date)
                 dates.append(date)
                 dateDictionary[date] = 0
             }
@@ -115,7 +112,6 @@ class MyMumentVC: UIViewController {
         } else {
             numberOfSections = 1
         }
-        debugPrint("데이트어레이",dateArray.count)
     }
 }
 
@@ -140,9 +136,7 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         switch cellCategory {
         case .listCell:
             listCell.setDefaultCardUI()
-            
-            debugPrint("뮤멘트카운트",defaultMumentData.count)
-            
+                        
             if indexPath.section == 0 {
                 if indexPath.row > defaultMumentData.count - 1{
                     listCell.setEmptyCardView()
