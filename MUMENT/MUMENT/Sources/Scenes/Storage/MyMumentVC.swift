@@ -202,13 +202,14 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             }
             if indexPath.row > defaultMumentData.count - 1{
                 header.resetHeader()
-                setEmptyViewLayout()
-                // 기록하기 버튼 클릭시 이동
+                /// 기록하기 버튼 클릭시 이동
+                emptyView.isHidden = false
                 emptyView.writeButton.press {
                     self.tabBarController?.selectedIndex = 1
                 }
                 return header
             }
+            emptyView.isHidden = true
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] % 10
             header.setHeader(year, month)
@@ -235,19 +236,18 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
 extension MyMumentVC { 
     
     func setUILayout() {
-        view.addSubViews([myMumentCV])
+        view.addSubViews([myMumentCV, emptyView])
         myMumentCV.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
         }
-    }
-    
-    func setEmptyViewLayout() {
-        myMumentCV.removeFromSuperview()
+        
         view.addSubviews([emptyView])
         emptyView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        emptyView.isHidden = true
     }
 }
 // MARK: - Network
