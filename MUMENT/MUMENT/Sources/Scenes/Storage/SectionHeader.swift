@@ -44,7 +44,9 @@ extension SectionHeader {
             $0.left.equalToSuperview().inset(20)
             $0.right.top.bottom.equalToSuperview()
         }
-        
     }
     
+    func resetHeader() {
+        self.removeFromSuperview()
+    }
 }
