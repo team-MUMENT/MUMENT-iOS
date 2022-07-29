@@ -38,10 +38,12 @@ class MumentCardWithoutHeartView: UIView {
     let songTitleLabel = UILabel().then{
         $0.textColor = .mBlack1
         $0.font = .mumentB2B14
+        $0.lineBreakMode = .byTruncatingTail
     }
     let artistLabel = UILabel().then{
         $0.textColor = .mGray1
         $0.font = .mumentB6M13
+        $0.lineBreakMode = .byTruncatingTail
     }
     
     var isFirst: Bool = false
@@ -192,6 +194,7 @@ extension MumentCardWithoutHeartView {
         songInfoStackView.snp.makeConstraints{
             $0.left.equalTo(albumImage.snp.right).offset(10)
             $0.top.equalTo(separatorView.snp.bottom).offset(15)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
         
         tagStackView.snp.makeConstraints{
