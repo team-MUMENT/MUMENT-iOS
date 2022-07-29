@@ -19,6 +19,8 @@ class MumentsByTagCVC: UICollectionViewCell {
     lazy var titleSectionStackView = UIStackView(arrangedSubviews: [titleIconImage, titleAndArtistLabel]).then{
         $0.axis = .horizontal
         $0.spacing = 5
+        $0.alignment = .center
+//        $0.alignment = .top
     }
     
     private let titleIconImage = UIImageView().then{
@@ -34,7 +36,7 @@ class MumentsByTagCVC: UICollectionViewCell {
         $0.textColor = .mGray1
         $0.font = .mumentB6M13
         $0.lineBreakMode = .byTruncatingTail
-        $0.numberOfLines = 6
+        $0.numberOfLines = 5
     }
     
     let separatorView = UIView().then{
@@ -92,7 +94,24 @@ extension MumentsByTagCVC {
     
     private func setLayout() {
         
-        self.addSubviews([titleSectionStackView,contentsLabel,separatorView,writerInfoStackView])
+        self.addSubviews([writerInfoStackView,separatorView, titleSectionStackView,contentsLabel])
+      
+        writerInfoStackView.snp.makeConstraints{
+//            $0.top.equalTo(separatorView.snp.bottom).offset(10)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(13)
+        }
+        
+        separatorView.snp.makeConstraints{
+//            $0.top.equalTo(writerInfoStackView.snp.top).offset(10)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.bottom.equalToSuperview().inset(50)
+//            $0.top.equalTo(contentsLabel.snp.bottom).offset(10)
+//            $0.bottom.equalTo(writerInfoStackView.snp.top).offset(30)
+            $0.height.equalTo(1)
+        }
         
         titleSectionStackView.snp.makeConstraints{
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(19)
@@ -106,20 +125,6 @@ extension MumentsByTagCVC {
             $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(13)
         }
         
-        separatorView.snp.makeConstraints{
-            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.top.equalTo(contentsLabel.snp.bottom).offset(15)
-            $0.height.equalTo(1)
-        }
-        
-        writerInfoStackView.snp.makeConstraints{
-            $0.top.equalTo(separatorView.snp.bottom).offset(10)
-            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(13)
-        }
-        
         titleIconImage.snp.makeConstraints{
             $0.height.width.equalTo(12)
         }
@@ -127,6 +132,7 @@ extension MumentsByTagCVC {
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(24)
         }
+        
     }
 }
 
