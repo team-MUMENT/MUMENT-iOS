@@ -98,7 +98,9 @@ class MumentCardWithoutHeartView: UIView {
         albumImage.setImageUrl(cellData.todayMument.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         songTitleLabel.text = cellData.todayMument.music.name
         artistLabel.text = cellData.todayMument.music.artist
-        contentsLabel.text = cellData.todayMument.content
+        let parsedContents = cellData.todayMument.content.replacingOccurrences(of: "\\n", with: "\n" )
+        contentsLabel.text = parsedContents
+//        contentsLabel.text = cellData.todayMument.content
         createdAtLabel.text = cellData.todayMument.date
         isFirst = cellData.todayMument.isFirst
         impressionTags = cellData.todayMument.impressionTag
@@ -113,7 +115,9 @@ class MumentCardWithoutHeartView: UIView {
         albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
-        contentsLabel.text = cellData.content ?? ""
+        let parsedContents = cellData.content?.replacingOccurrences(of: "\\n", with: "\n" )
+        contentsLabel.text = parsedContents
+//        contentsLabel.text = cellData.content ?? ""
         createdAtLabel.text = cellData.createdAt
         isFirst = cellData.isFirst
         setCardTags(cellData.cardTag)
