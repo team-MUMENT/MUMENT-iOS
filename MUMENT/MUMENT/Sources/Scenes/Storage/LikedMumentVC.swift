@@ -205,9 +205,11 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             }
             if indexPath.row > withoutHeartMumentData.count - 1{
                 header.resetHeader()
-                setEmptyViewLayout() 
+                
+                emptyView.isHidden = false
                 return header
             }
+            emptyView.isHidden = true
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] % 10
             header.setHeader(year, month)
@@ -233,19 +235,18 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
 
 extension LikedMumentVC {
     private func setCVLayout() {
-        view.addSubViews([likedMumentCV])
+        view.addSubViews([likedMumentCV, emptyView])
         likedMumentCV.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
         }
-    }
-    
-    func setEmptyViewLayout() {
-        likedMumentCV.removeFromSuperview()
+        
         view.addSubviews([emptyView])
         emptyView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        emptyView.isHidden = true
     }
 }
 
