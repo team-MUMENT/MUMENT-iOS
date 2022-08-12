@@ -202,7 +202,7 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             }
             if indexPath.row > defaultMumentData.count - 1{
                 header.resetHeader()
-                /// 기록하기 버튼 클릭시 이동
+                
                 emptyView.isHidden = false
                 emptyView.writeButton.press {
                     self.tabBarController?.selectedIndex = 1
