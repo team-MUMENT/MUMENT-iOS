@@ -182,7 +182,6 @@ class StorageBottomSheet: BaseVC {
         let filterTagButton = TagButton()
         selectedTagButtons.append(filterTagButton)
         selectedTagButtons[count].setTagButtonTitle(tagTitle)
-        self.setFilterTagButton.layoutIfNeeded()
     }
     
     private func setAllDeselectAction() {
@@ -373,10 +372,10 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             }
             self.selectedTagsStackView.layoutIfNeeded()
             
+            // 방금 추가된 선택 버튼 클릭시 컬렉션 뷰에서도 deselect되도록 설정
             selectedTagButtons.last?.press {
                 self.collectionView(collectionView, didDeselectItemAt: indexPath)
                 collectionView.deselectItem(at: indexPath, animated: false)
-                
             }
 
         }else {
@@ -407,8 +406,8 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
                 self.selectedTagsStackView.removeArrangedSubview($0)
                 $0.removeFromSuperview()
             }
-            selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row]!)
-            tagIndex.remove(at: selectedTagDictionay[indexPath.row]!)
+            selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row] ?? 0)
+            tagIndex.remove(at: selectedTagDictionay[indexPath.row] ?? 0)
             
         case feelTagCV:
             
@@ -420,9 +419,8 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
                 self.selectedTagsStackView.removeArrangedSubview($0)
                 $0.removeFromSuperview()
             }
-//            selectedTagButtons[selectedTagDictionay[indexPath.row + 100]!].removeTarget(nil, action: nil, for: .allEvents)
-            selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row + 100]!)
-            tagIndex.remove(at: selectedTagDictionay[indexPath.row + 100]!)
+            selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row + 100] ?? 0)
+            tagIndex.remove(at: selectedTagDictionay[indexPath.row + 100] ?? 0)
             
         default: break
         }
