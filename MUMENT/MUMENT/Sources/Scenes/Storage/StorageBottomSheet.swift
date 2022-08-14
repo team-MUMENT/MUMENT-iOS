@@ -201,7 +201,6 @@ class StorageBottomSheet: BaseVC {
                     $0.height.equalTo(0)
                 }
             }
-            
         }
     }
     
@@ -267,7 +266,19 @@ extension StorageBottomSheet {
             }
             self.view.layoutIfNeeded()
         }
+        //TODO: 바텀시트 하단 선택 태그 UI 업데이트
+        selectedTagButtons.forEach {
+            self.selectedTagsStackView.removeArrangedSubview($0)
+        }
         
+        selectedTagButtons.forEach {
+            self.selectedTagsStackView.addArrangedSubview($0)
+            
+            $0.snp.makeConstraints {
+                $0.height.equalTo(35)
+            }
+        }
+        self.selectedTagsStackView.layoutIfNeeded()
     }
     
     func hideBottomSheetWithAnimation() {
@@ -365,14 +376,29 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             
             selectedTagButtons.forEach {
                 self.selectedTagsStackView.addArrangedSubview($0)
-                
+                                
                 $0.snp.makeConstraints {
                     $0.height.equalTo(35)
                 }
+                
+                /// 스택뷰가 길어지는거 방지
+                if self.selectedTagButtons.count == 3 {
+                    self.selectedTagsStackView.snp.makeConstraints {
+                        $0.left.right.equalTo(selectedTagsSection).inset(5)
+                    }
+                }else {
+                    self.selectedTagsStackView.snp.removeConstraints()
+                    selectedTagsStackView.snp.makeConstraints {
+                        $0.left.equalToSuperview().inset(10)
+                        $0.top.equalTo(selectedTagsSection).offset(14.adjustedH)
+                        $0.height.equalTo(tagCellHeight)
+                    }
+                }
+
             }
             self.selectedTagsStackView.layoutIfNeeded()
             
-            // 방금 추가된 선택 버튼 클릭시 컬렉션 뷰에서도 deselect되도록 설정
+            /// 방금 추가된 선택 버튼 클릭시 컬렉션 뷰에서도 deselect되도록 설정
             selectedTagButtons.last?.press {
                 self.collectionView(collectionView, didDeselectItemAt: indexPath)
                 collectionView.deselectItem(at: indexPath, animated: false)
@@ -380,7 +406,6 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
 
         }else {
             collectionView.deselectItem(at: indexPath, animated: false)
-            // TODO: 3개 제한 토스트 창 삽입
             self.showToastMessage(message: "태그는 최대 3개까지 선택할 수 있어요.")
             
         }
@@ -410,15 +435,11 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             tagIndex.remove(at: selectedTagDictionay[indexPath.row] ?? 0)
             
         case feelTagCV:
-            
             selectedTagButtons.forEach {
                 self.selectedTagsStackView.removeArrangedSubview($0)
                 $0.removeFromSuperview()
             }
-            selectedTagButtons.forEach {
-                self.selectedTagsStackView.removeArrangedSubview($0)
-                $0.removeFromSuperview()
-            }
+
             selectedTagButtons.remove(at: selectedTagDictionay[indexPath.row + 100] ?? 0)
             tagIndex.remove(at: selectedTagDictionay[indexPath.row + 100] ?? 0)
             
@@ -431,6 +452,13 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             count += 1
         }
         
+        self.selectedTagsStackView.snp.removeConstraints()
+        selectedTagsStackView.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(10)
+            $0.top.equalTo(selectedTagsSection).offset(14.adjustedH)
+            $0.height.equalTo(tagCellHeight)
+        }
+        
         selectedTagButtons.forEach {
             self.selectedTagsStackView.addArrangedSubview($0)
             
@@ -438,6 +466,7 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
                 $0.height.equalTo(35)
             }
         }
+        
         
         self.selectedTagsStackView.layoutIfNeeded()
         
