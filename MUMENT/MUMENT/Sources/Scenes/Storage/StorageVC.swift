@@ -118,7 +118,15 @@ class StorageVC: BaseVC {
     }
     
     /// StorageBottomSheet에서 전달 받은 태그 버튼 배열
-    var selectedTagButtons = [TagButton]()
+    var selectedTagButtons = [TagButton]() {
+        didSet {
+            if self.selectedTagButtons.count == 0 {
+                self.filterButton.isSelected = false
+            }else {
+                self.filterButton.isSelected = true
+            }
+        }
+    }
     
     private let selectedTagsStackView = UIStackView().then {
         $0.backgroundColor = .clear
@@ -171,16 +179,9 @@ class StorageVC: BaseVC {
     
     private func setPressAction() {
         filterButton.press {
-            self.filterButton.isSelected.toggle()
-            
-            if self.filterButton.isSelected {
-                self.storageBottomSheet.modalPresentationStyle = .overFullScreen
-                self.present(self.storageBottomSheet, animated: false) {
-                    self.storageBottomSheet.showBottomSheetWithAnimation()
-                }
-                
-                // TODO: 필터 버튼 활성 표시 수정
-                self.filterButton.isSelected = !self.storageBottomSheet.isDismissed
+            self.storageBottomSheet.modalPresentationStyle = .overFullScreen
+            self.present(self.storageBottomSheet, animated: false) {
+                self.storageBottomSheet.showBottomSheetWithAnimation()
             }
         }
         
@@ -249,6 +250,8 @@ class StorageVC: BaseVC {
 // MARK: - Protocol
 extension StorageVC: storageBottomSheetDelegate {
     func sendButtonData(data: [TagButton]) {
+        
+        
         selectedTagButtons = data
 
         selectedTagButtons.forEach { button in
@@ -389,8 +392,7 @@ extension StorageVC {
         selectedTagsView.addSubviews([selectedTagsStackView])
         
         selectedTagsStackView.snp.makeConstraints{
-//            $0.top.equalTo(selectedTagsView).offset(5)
-            $0.leading.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().inset(10)
             $0.height.equalTo(35)
             $0.centerY.equalTo(selectedTagsView)
         }
