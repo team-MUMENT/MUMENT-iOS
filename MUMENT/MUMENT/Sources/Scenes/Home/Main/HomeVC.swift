@@ -25,9 +25,8 @@ class HomeVC: BaseVC {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         requestGetCarouselData()
-        self.setLayout()
-        
-        
+        setLayout()
+        setButtonActions()
     }
     
     // MARK: - Functions
@@ -267,9 +266,6 @@ extension HomeVC {
                     self.mumentsByTagData = res
                     self.setTV()
                     self.homeTV.reloadData()
-                    
-                    
-                    self.setButtonActions()
                 }
             default:
                 self.makeAlert(title: """
