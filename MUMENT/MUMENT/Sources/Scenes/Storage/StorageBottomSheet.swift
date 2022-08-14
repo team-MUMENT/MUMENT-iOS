@@ -100,7 +100,7 @@ class StorageBottomSheet: BaseVC {
         $0.sectionInset = .zero
     }
     
-    private let setFilterTagButton = UIButton().then {
+    private let tagAppliedButton = UIButton().then {
         $0.setTitle("태그 적용하기", for: .normal)
         $0.titleLabel?.font = UIFont.mumentB2B14
         $0.setTitleColor(UIColor.mWhite, for: .normal)
@@ -142,6 +142,7 @@ class StorageBottomSheet: BaseVC {
         setTagCV()
         registerCell()
         setFilterTagLayout()
+        
         setAllDeselectAction()
         setFilterTagApplied()
         
@@ -205,7 +206,7 @@ class StorageBottomSheet: BaseVC {
     }
     
     private func setFilterTagApplied() {
-        setFilterTagButton.press {
+        tagAppliedButton.press {
             self.delegate?.sendButtonData(data: self.selectedTagButtons)
             self.hideBottomSheetWithAnimation()
         }
@@ -354,14 +355,14 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
             switch collectionView {
             case impressionTagCV:
                 buttonAppend(selectedTagCount - 1, impressionTagData[indexPath.row])
-                // key가 태그 번호, value가 선택된 태그 인덱스 번호 0, 1, 2
+                /// key가 태그 번호, value가 선택된 태그 인덱스 번호 0, 1, 2
                 selectedTagDictionay[indexPath.row] = selectedTagCount - 1
                 
                 tagIndex.append(indexPath.row)
                 
             case feelTagCV:
                 buttonAppend(selectedTagCount - 1, feelTagData[indexPath.row])
-                // impressionTag번호와 다르게 구분하기 위해 + 100
+                /// impressionTag번호와 다르게 구분하기 위해 + 100
                 selectedTagDictionay[indexPath.row + 100] = selectedTagCount - 1
                 
                 tagIndex.append(indexPath.row + 100)
@@ -380,21 +381,6 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
                 $0.snp.makeConstraints {
                     $0.height.equalTo(35)
                 }
-                
-                /// 스택뷰가 길어지는거 방지
-                if self.selectedTagButtons.count == 3 {
-                    self.selectedTagsStackView.snp.makeConstraints {
-                        $0.left.right.equalTo(selectedTagsSection).inset(5)
-                    }
-                }else {
-                    self.selectedTagsStackView.snp.removeConstraints()
-                    selectedTagsStackView.snp.makeConstraints {
-                        $0.left.equalToSuperview().inset(10)
-                        $0.top.equalTo(selectedTagsSection).offset(14.adjustedH)
-                        $0.height.equalTo(tagCellHeight)
-                    }
-                }
-
             }
             self.selectedTagsStackView.layoutIfNeeded()
             
@@ -450,13 +436,6 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
         tagIndex.forEach {
             selectedTagDictionay[$0] = count
             count += 1
-        }
-        
-        self.selectedTagsStackView.snp.removeConstraints()
-        selectedTagsStackView.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(10)
-            $0.top.equalTo(selectedTagsSection).offset(14.adjustedH)
-            $0.height.equalTo(tagCellHeight)
         }
         
         selectedTagButtons.forEach {
@@ -545,30 +524,44 @@ extension StorageBottomSheet {
     }
     
     func setBottomLayout() {
-        containerView.addSubViews([setFilterTagButton, allDeselecteButton, selectedTagsSection, selectedTagsStackView])
+        containerView.addSubViews([tagAppliedButton, allDeselecteButton, selectedTagsSection, selectedTagsStackView])
         
-        setFilterTagButton.snp.makeConstraints {
-            $0.top.equalTo(feelTagCV.snp.bottom).offset(15.adjustedH)
-            $0.right.equalToSuperview().inset(20)
-            $0.width.equalTo(143)
-            $0.height.equalTo(45.adjustedH)
-        }
-        
-        allDeselecteButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(19)
-            $0.centerY.equalTo(setFilterTagButton)
-            $0.height.equalTo(26)
+        if UIScreen.main.bounds.width >= 375 {
+            tagAppliedButton.snp.makeConstraints {
+                $0.top.equalTo(feelTagCV.snp.bottom).offset(15.adjustedH)
+                $0.right.equalToSuperview().inset(20)
+                $0.width.equalTo(143)
+                $0.height.equalTo(45.adjustedH)
+            }
+            
+            allDeselecteButton.snp.makeConstraints {
+                $0.left.equalToSuperview().inset(19)
+                $0.centerY.equalTo(tagAppliedButton)
+                $0.height.equalTo(26)
+            }
+        }else {
+            tagAppliedButton.snp.makeConstraints {
+                $0.top.equalTo(feelTagCV.snp.bottom)
+                $0.right.equalToSuperview().inset(20)
+                $0.width.equalTo(143)
+                $0.height.equalTo(45.adjustedH)
+            }
+            
+            allDeselecteButton.snp.makeConstraints {
+                $0.left.equalToSuperview().inset(19)
+                $0.centerY.equalTo(tagAppliedButton)
+                $0.height.equalTo(26)
+            }
         }
     }
     func setFilterTagLayout() {
         selectedTagsSection.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
-            $0.top.equalTo(setFilterTagButton.snp.bottom).offset(20.adjustedH)
+            $0.top.equalTo(tagAppliedButton.snp.bottom).offset(20.adjustedH)
             $0.height.equalTo(bottomTagSectionHeight)
         }
-        
         selectedTagsStackView.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(10)
             $0.top.equalTo(selectedTagsSection).offset(14.adjustedH)
             $0.height.equalTo(tagCellHeight)
         }
