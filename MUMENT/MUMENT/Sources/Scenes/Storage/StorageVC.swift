@@ -226,6 +226,8 @@ class StorageVC: BaseVC {
             $0.height.equalTo(self.tagsViewHeightConstant)
         }
         
+        self.selectedTagsView.layoutIfNeeded()
+        
         likedMumentVC.setTagsTitle(selectedTagButtons)
         myMumentVC.setTagsTitle(selectedTagButtons)
     }
@@ -259,6 +261,7 @@ extension StorageVC: storageBottomSheetDelegate {
                 }
                 self.selectedTagButtons = tempButtons
                 self.selectedTagsStackView.removeAllArrangedSubviews()
+                
                 self.showSelectedTagsView()
             }
         }
