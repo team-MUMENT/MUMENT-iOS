@@ -154,6 +154,11 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             return listCell
         case .albumCell:
             if indexPath.section == 0 {
+                if indexPath.row > defaultMumentData.count - 1{
+                    albumCell.setEmptyCardView()
+                    myMumentCV.reloadData()
+                    return albumCell
+                }
                 albumCell.fetchData(defaultMumentData[indexPath.row])
                 return albumCell
             }
