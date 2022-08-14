@@ -38,7 +38,6 @@ class AlbumCVC: UICollectionViewCell {
     
     func fetchData(_ cellData: GetLikedMumentResponseModel.Mument) {
         mumentAlbumView.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
-        debugPrint("좋아요한 뮤멘트 이미지 fetch")
     }
     
     func fetchData(_ cellData: GetMyMumentResponseModel.Mument) {

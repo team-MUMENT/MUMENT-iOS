@@ -178,6 +178,8 @@ class StorageVC: BaseVC {
                 self.present(self.storageBottomSheet, animated: false) {
                     self.storageBottomSheet.showBottomSheetWithAnimation()
                 }
+                
+                // TODO: 필터 버튼 활성 표시 수정
                 self.filterButton.isSelected = !self.storageBottomSheet.isDismissed
             }
         }
