@@ -155,6 +155,11 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             return listCell
         case .albumCell:
             if indexPath.section == 0 {
+                if indexPath.row > withoutHeartMumentData.count - 1{
+                    albumCell.setEmptyCardView()
+                    likedMumentCV.reloadData()
+                    return albumCell
+                }
                 albumCell.fetchData(withoutHeartMumentData[indexPath.row])
                 return albumCell
             }
