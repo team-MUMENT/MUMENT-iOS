@@ -41,9 +41,6 @@ class ListCVC: UICollectionViewCell {
     }
     
     func setWithoutHeartCardUI() {
-//        for view in self.subviews {
-//            view.removeFromSuperview()
-//        }
         self.addSubviews([withoutHeartCardView])
         withoutHeartCardView.snp.makeConstraints{
             $0.edges.equalToSuperview()
@@ -58,7 +55,6 @@ class ListCVC: UICollectionViewCell {
     }
     
     func setWithoutHeartCardData(_ cellData: GetLikedMumentResponseModel.Mument) {
-        debugPrint("setWithoutHeartCardData")
         withoutHeartCardView.setData(cellData)
     }
 }
