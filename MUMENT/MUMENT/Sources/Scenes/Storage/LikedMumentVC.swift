@@ -82,7 +82,7 @@ class LikedMumentVC: UIViewController {
         var dates: [Int] = []
         var date = 0
         
-        if withoutHeartMumentData.count != 1 {
+        if withoutHeartMumentData.count != 0 {
             
             withoutHeartMumentData.forEach {
                 date = $0.year * 100 + $0.month
@@ -155,6 +155,11 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             return listCell
         case .albumCell:
             if indexPath.section == 0 {
+                if indexPath.row > withoutHeartMumentData.count - 1{
+                    albumCell.setEmptyCardView()
+                    likedMumentCV.reloadData()
+                    return albumCell
+                }
                 albumCell.fetchData(withoutHeartMumentData[indexPath.row])
                 return albumCell
             }
@@ -203,7 +208,7 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
                     as? SectionHeader else {
                 return UICollectionReusableView()
             }
-            if indexPath.row > withoutHeartMumentData.count - 1{
+            if withoutHeartMumentData.count == 0{
                 header.resetHeader()
                 
                 emptyView.isHidden = false
