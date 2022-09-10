@@ -13,9 +13,7 @@ class MumentsByTagTVC: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: MumentsByTagCVCDelegate?
-    var dataSource: [MumentsByTagModel] = MumentsByTagModel.sampleData
     var mumentsByTagData: [MumentsByTagResponseModel.MumentList] = []
-    var titleDataSource: MumentsByTagTitleModel = MumentsByTagTitleModel.sampleData
     lazy var titleLabel = UILabel().then{
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
@@ -23,6 +21,9 @@ class MumentsByTagTVC: UITableViewCell {
     private lazy var mumentCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
     
+    // Test Code
+    var titleDataSource: MumentsByTagTitleModel = MumentsByTagTitleModel.sampleData
+    var dataSource: [MumentsByTagModel] = MumentsByTagModel.sampleData
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -88,7 +89,11 @@ extension MumentsByTagTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? MumentsByTagCVC {
             cell.isSelected = true
         }
-        self.delegate?.mumentsByTagCVCSelected(data: mumentsByTagData[indexPath.row])
+//        self.delegate?.mumentsByTagCVCSelected(data: mumentsByTagData[indexPath.row])
+        
+        // Test Code
+        self.delegate?.mumentsByTagCVCSelected()
+        
     }
 }
 
@@ -96,7 +101,10 @@ extension MumentsByTagTVC: UICollectionViewDelegate{
 extension MumentsByTagTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mumentsByTagData.count
+//        return mumentsByTagData.count
+        
+        // Test Code
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -104,7 +112,10 @@ extension MumentsByTagTVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.setData(mumentsByTagData[indexPath.row])
+//        cell.setData(mumentsByTagData[indexPath.row])
+        
+        // Test Code
+        cell.setData(dataSource[indexPath.row])
         return cell
     }
 }

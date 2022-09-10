@@ -11,6 +11,9 @@ import Then
 
 protocol CarouselCVCDelegate : AnyObject{
     func carouselCVCSelected(data: CarouselResponseModel.BannerList)
+    
+    // Test Code
+    func carouselCVCSelected()
 }
 
 class CarouselCVC: UICollectionViewCell {
