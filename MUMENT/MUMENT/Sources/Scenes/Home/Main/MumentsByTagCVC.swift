@@ -11,6 +11,10 @@ import Then
 
 protocol MumentsByTagCVCDelegate : AnyObject{
     func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList)
+    
+    // Test Code
+    func mumentsByTagCVCSelected()
+
 }
 
 class MumentsByTagCVC: UICollectionViewCell {

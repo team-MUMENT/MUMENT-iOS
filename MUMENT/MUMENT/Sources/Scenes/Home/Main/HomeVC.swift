@@ -25,9 +25,11 @@ class HomeVC: BaseVC {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         requestGetCarouselData()
-        self.setLayout()
+        setLayout()
+        setButtonActions()
         
-        
+        // Test Code
+        self.setTV()
     }
     
     // MARK: - Functions
@@ -88,6 +90,12 @@ extension HomeVC: CarouselCVCDelegate {
         songDetailVC.musicId = data.music.id
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
+    
+    // Test Code
+    func carouselCVCSelected() {
+        let songDetailVC = SongDetailVC()
+        self.navigationController?.pushViewController(songDetailVC, animated: true)
+    }
 }
 
 // MARK: - MumentsOfRevisitedCVCDelegate
@@ -97,6 +105,12 @@ extension HomeVC: MumentsOfRevisitedCVCDelegate {
         mumentDetailVC.mumentId = data.mumentID
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
+    
+    // Test Code
+    func mumentsOfRevisitedCVCSelected() {
+        let mumentDetailVC = MumentDetailVC()
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+    }
 }
 
 // MARK: - MumentsByTagCVCDelegate
@@ -104,6 +118,12 @@ extension HomeVC: MumentsByTagCVCDelegate {
     func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList) {
         let mumentDetailVC = MumentDetailVC()
         mumentDetailVC.mumentId = data.id
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+    }
+    
+    // Test Code
+    func mumentsByTagCVCSelected() {
+        let mumentDetailVC = MumentDetailVC()
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
