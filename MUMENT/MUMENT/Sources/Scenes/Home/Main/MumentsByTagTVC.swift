@@ -76,7 +76,7 @@ extension MumentsByTagTVC {
         mumentCV.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(18)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(15)
         }
         
     }
@@ -129,5 +129,9 @@ extension MumentsByTagTVC: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
+        }
 }
 
