@@ -60,6 +60,7 @@
 		4DC4D84E2889BA100060D00F /* MumentsByTagResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */; };
 		4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */; };
 		4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
+		4DE75A8228CCBAE400BC3EC4 /* MumentsByTagCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE75A8128CCBAE400BC3EC4 /* MumentsByTagCardView.swift */; };
 		4DEED413288B32B300C6337B /* DeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED412288B32B300C6337B /* DeleteAPI.swift */; };
 		4DEED415288B32E500C6337B /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED414288B32E500C6337B /* DeleteService.swift */; };
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
@@ -217,6 +218,7 @@
 		4D9734F2287F3A41003EF546 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagResponseModel.swift; sourceTree = "<group>"; };
 		4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedResponseModel.swift; sourceTree = "<group>"; };
+		4DE75A8128CCBAE400BC3EC4 /* MumentsByTagCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCardView.swift; sourceTree = "<group>"; };
 		4DEED412288B32B300C6337B /* DeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAPI.swift; sourceTree = "<group>"; };
 		4DEED414288B32E500C6337B /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */,
 				4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */,
 				4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */,
+				4DE75A8128CCBAE400BC3EC4 /* MumentsByTagCardView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -900,6 +903,7 @@
 				4D13A65F2882AF1B00197D2A /* OrderingButton.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */,
+				4DE75A8228CCBAE400BC3EC4 /* MumentsByTagCardView.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */,
 				C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */,
