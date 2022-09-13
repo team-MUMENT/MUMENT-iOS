@@ -93,7 +93,6 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         let parsedContents = cellData.content?.replacingOccurrences(of: "\\n", with: "\n" )
         contentsLabel.text = parsedContents
-//        contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
         isLiked = cellData.isLiked
         heartCount = cellData.likeCount
@@ -108,7 +107,6 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         let parsedContents = cellData.content?.replacingOccurrences(of: "\\n", with: "\n" )
         contentsLabel.text = parsedContents
-//        contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
         isLiked = cellData.isLiked
         heartCount = cellData.likeCount
@@ -123,7 +121,6 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         let parsedContents = cellData.content?.replacingOccurrences(of: "\\n", with: "\n" )
         contentsLabel.text = parsedContents
-//        contentsLabel.text = cellData.content
         createdAtLabel.text = cellData.date
         isLiked = cellData.isLiked
         heartCount = cellData.likeCount
@@ -225,7 +222,7 @@ extension MumentCardBySongView {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
                 }
-
+                
             default:
                 print("LikeAPI.shared.postHeartLiked")
                 return

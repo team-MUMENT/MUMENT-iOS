@@ -21,7 +21,7 @@ class MumentForTodayTVC: UITableViewCell {
     
     // Test Code
     var dataSource: [MumentCardWithoutHeartModel] = MumentCardWithoutHeartModel.sampleData
-
+    
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

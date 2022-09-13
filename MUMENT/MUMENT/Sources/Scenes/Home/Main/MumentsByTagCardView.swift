@@ -15,7 +15,6 @@ class MumentsByTagCardView: UIView {
         $0.axis = .horizontal
         $0.spacing = 5
         $0.alignment = .center
-        //        $0.alignment = .top
     }
     
     private let titleIconImage = UIImageView().then{
@@ -87,21 +86,17 @@ extension MumentsByTagCardView {
     private func setDefaultLayout() {
         
         self.addSubviews([writerInfoStackView,separatorView, titleSectionStackView,contentsLabel])
-      
+        
         writerInfoStackView.snp.makeConstraints{
-//            $0.top.equalTo(separatorView.snp.bottom).offset(10)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
         
         separatorView.snp.makeConstraints{
-//            $0.top.equalTo(writerInfoStackView.snp.top).offset(10)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.bottom.equalToSuperview().inset(50)
-//            $0.top.equalTo(contentsLabel.snp.bottom).offset(10)
-//            $0.bottom.equalTo(writerInfoStackView.snp.top).offset(30)
             $0.height.equalTo(1)
         }
         
