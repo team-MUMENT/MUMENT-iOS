@@ -82,7 +82,7 @@ class LikedMumentVC: UIViewController {
         var dates: [Int] = []
         var date = 0
         
-        if withoutHeartMumentData.count != 1 {
+        if withoutHeartMumentData.count != 0 {
             
             withoutHeartMumentData.forEach {
                 date = $0.year * 100 + $0.month
@@ -155,6 +155,11 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             return listCell
         case .albumCell:
             if indexPath.section == 0 {
+                if indexPath.row > withoutHeartMumentData.count - 1{
+                    albumCell.setEmptyCardView()
+                    likedMumentCV.reloadData()
+                    return albumCell
+                }
                 albumCell.fetchData(withoutHeartMumentData[indexPath.row])
                 return albumCell
             }
@@ -203,11 +208,13 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
                     as? SectionHeader else {
                 return UICollectionReusableView()
             }
-            if indexPath.row > withoutHeartMumentData.count - 1{
+            if withoutHeartMumentData.count == 0{
                 header.resetHeader()
-                setEmptyViewLayout() 
+                
+                emptyView.isHidden = false
                 return header
             }
+            emptyView.isHidden = true
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] % 10
             header.setHeader(year, month)
@@ -233,19 +240,18 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
 
 extension LikedMumentVC {
     private func setCVLayout() {
-        view.addSubViews([likedMumentCV])
+        view.addSubViews([likedMumentCV, emptyView])
         likedMumentCV.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
         }
-    }
-    
-    func setEmptyViewLayout() {
-        likedMumentCV.removeFromSuperview()
+        
         view.addSubviews([emptyView])
         emptyView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        emptyView.isHidden = true
     }
 }
 

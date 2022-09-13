@@ -118,7 +118,15 @@ class StorageVC: BaseVC {
     }
     
     /// StorageBottomSheet에서 전달 받은 태그 버튼 배열
-    var selectedTagButtons = [TagButton]()
+    var selectedTagButtons = [TagButton]() {
+        didSet {
+            if self.selectedTagButtons.count == 0 {
+                self.filterButton.isSelected = false
+            }else {
+                self.filterButton.isSelected = true
+            }
+        }
+    }
     
     private let selectedTagsStackView = UIStackView().then {
         $0.backgroundColor = .clear
@@ -171,14 +179,9 @@ class StorageVC: BaseVC {
     
     private func setPressAction() {
         filterButton.press {
-            self.filterButton.isSelected.toggle()
-            
-            if self.filterButton.isSelected {
-                self.storageBottomSheet.modalPresentationStyle = .overFullScreen
-                self.present(self.storageBottomSheet, animated: false) {
-                    self.storageBottomSheet.showBottomSheetWithAnimation()
-                }
-                self.filterButton.isSelected = !self.storageBottomSheet.isDismissed
+            self.storageBottomSheet.modalPresentationStyle = .overFullScreen
+            self.present(self.storageBottomSheet, animated: false) {
+                self.storageBottomSheet.showBottomSheetWithAnimation()
             }
         }
         
@@ -207,28 +210,16 @@ class StorageVC: BaseVC {
     }
     
     func showSelectedTagsView() {
-        // TODO: 필터 적용 버튼 클릭시로 수정
         if selectedTagButtons.count != 0 {
             self.tagsViewHeightConstant = 49
             
             selectedTagButtons.forEach {
                 self.selectedTagsStackView.addArrangedSubview($0)
-                debugPrint("foreach")
                 
                 $0.snp.makeConstraints {
                     $0.height.equalTo(35)
                 }
             }
-            
-//            for i in 0...selectedTagButtons.count - 1 {
-//                selectedTagButtons[i].press {
-//                    selectedTagButtons[i].isSelected.toggle()
-//                    if selectedTagButtons[i].isSelected == false {
-//                        self.selectedTagsStackView.removeArrangedSubview($0)
-//                        selectedTagButtons[i].removeFromSuperview()
-//                    }
-//                }
-//            }
                         
         }else {
             self.tagsViewHeightConstant = 0
@@ -237,6 +228,8 @@ class StorageVC: BaseVC {
         self.selectedTagsView.snp.updateConstraints {
             $0.height.equalTo(self.tagsViewHeightConstant)
         }
+        
+        self.selectedTagsView.layoutIfNeeded()
         
         likedMumentVC.setTagsTitle(selectedTagButtons)
         myMumentVC.setTagsTitle(selectedTagButtons)
@@ -257,7 +250,26 @@ class StorageVC: BaseVC {
 // MARK: - Protocol
 extension StorageVC: storageBottomSheetDelegate {
     func sendButtonData(data: [TagButton]) {
+        
+        
         selectedTagButtons = data
+
+        selectedTagButtons.forEach { button in
+            button.press {
+                var tempButtons = [TagButton]()
+                
+                self.selectedTagButtons.forEach { thisButton in
+                    if thisButton == button {}
+                    else {
+                        tempButtons.append(thisButton)
+                    }
+                }
+                self.selectedTagButtons = tempButtons
+                self.selectedTagsStackView.removeAllArrangedSubviews()
+                
+                self.showSelectedTagsView()
+            }
+        }
         showSelectedTagsView()
     }
 }
@@ -380,8 +392,7 @@ extension StorageVC {
         selectedTagsView.addSubviews([selectedTagsStackView])
         
         selectedTagsStackView.snp.makeConstraints{
-//            $0.top.equalTo(selectedTagsView).offset(5)
-            $0.leading.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().inset(10)
             $0.height.equalTo(35)
             $0.centerY.equalTo(selectedTagsView)
         }
@@ -397,24 +408,3 @@ extension StorageVC {
     }
     
 }
-
-//// MARK: - Network
-//extension StorageVC {
-//  private func getMyMumentStorage(userId: String, filterTags: [Int]) {
-//    StorageAPI.shared.getMyMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
-//      switch networkResult {
-//      case .success(let response):
-//        if let result = response as? GetMyMumentStorageResponseModel {
-//            print(result.muments[0])
-//        } else {
-//          debugPrint("🚨당신 모델이 이상해열~🚨")
-//        }
-//      default:
-//        self.makeAlert(title: """
-//네트워크 오류로 인해 연결에 실패했어요! 😢
-//잠시 후에 다시 시도해 주세요.
-//""")
-//      }
-//    }
-//  }
-//}
