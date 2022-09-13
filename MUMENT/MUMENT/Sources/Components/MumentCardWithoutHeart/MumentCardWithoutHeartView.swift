@@ -9,7 +9,7 @@ import SnapKit
 import Then
 
 class MumentCardWithoutHeartView: UIView {
-        
+    
     // MARK: - Properties
     lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then {
         $0.axis = .horizontal
@@ -100,7 +100,6 @@ class MumentCardWithoutHeartView: UIView {
         artistLabel.text = cellData.todayMument.music.artist
         let parsedContents = cellData.todayMument.content.replacingOccurrences(of: "\\n", with: "\n" )
         contentsLabel.text = parsedContents
-//        contentsLabel.text = cellData.todayMument.content
         createdAtLabel.text = cellData.todayMument.date
         isFirst = cellData.todayMument.isFirst
         impressionTags = cellData.todayMument.impressionTag
@@ -117,7 +116,6 @@ class MumentCardWithoutHeartView: UIView {
         artistLabel.text = cellData.music.artist
         let parsedContents = cellData.content?.replacingOccurrences(of: "\\n", with: "\n" )
         contentsLabel.text = parsedContents
-//        contentsLabel.text = cellData.content ?? ""
         createdAtLabel.text = cellData.createdAt
         isFirst = cellData.isFirst
         setCardTags(cellData.cardTag)

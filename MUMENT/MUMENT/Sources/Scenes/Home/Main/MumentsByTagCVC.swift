@@ -14,7 +14,7 @@ protocol MumentsByTagCVCDelegate : AnyObject{
     
     // Test Code
     func mumentsByTagCVCSelected()
-
+    
 }
 
 class MumentsByTagCVC: UICollectionViewCell {
@@ -56,7 +56,6 @@ extension MumentsByTagCVC {
         self.addSubviews([mumentsByTagCardView])
         
         mumentsByTagCardView.snp.makeConstraints{
-//            $0.edges.equalTo(self.safeAreaLayoutGuide)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(5)
             $0.right.equalTo(self.safeAreaLayoutGuide).offset(5)
             $0.bottom.equalTo(self.safeAreaLayoutGuide)
