@@ -84,7 +84,7 @@ class MyMumentVC: UIViewController {
         var dates: [Int] = []
         var date = 0
         
-        if defaultMumentData.count != 1 {
+        if defaultMumentData.count != 0 {
             
             defaultMumentData.forEach {
                 date = $0.year * 100 + $0.month
@@ -154,6 +154,11 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             return listCell
         case .albumCell:
             if indexPath.section == 0 {
+                if indexPath.row > defaultMumentData.count - 1{
+                    albumCell.setEmptyCardView()
+                    myMumentCV.reloadData()
+                    return albumCell
+                }
                 albumCell.fetchData(defaultMumentData[indexPath.row])
                 return albumCell
             }
@@ -200,9 +205,9 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
                     as? SectionHeader else {
                 return UICollectionReusableView()
             }
-            if indexPath.row > defaultMumentData.count - 1{
+            if defaultMumentData.count == 0 {
                 header.resetHeader()
-                /// 기록하기 버튼 클릭시 이동
+                
                 emptyView.isHidden = false
                 emptyView.writeButton.press {
                     self.tabBarController?.selectedIndex = 1

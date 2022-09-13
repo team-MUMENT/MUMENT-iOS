@@ -287,9 +287,6 @@ extension HomeVC {
                     self.mumentsByTagData = res
                     self.setTV()
                     self.homeTV.reloadData()
-                    
-                    
-                    self.setButtonActions()
                 }
             default:
                 self.makeAlert(title: """

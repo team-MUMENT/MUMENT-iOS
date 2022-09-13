@@ -19,7 +19,7 @@ class TagButton: UIButton {
         self.setImage(UIImage(named: "mumentTagDelete"), for: .normal)
         self.contentHorizontalAlignment = .center
         self.configuration = .plain()
-        self.configuration?.imagePadding = 10.adjustedH
+        self.configuration?.imagePadding = 5.adjustedH
         self.configuration?.imagePlacement = .trailing
         self.attributedTitle(for: .normal)
     }
