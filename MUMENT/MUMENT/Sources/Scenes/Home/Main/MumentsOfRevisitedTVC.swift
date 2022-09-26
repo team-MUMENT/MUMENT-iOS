@@ -71,7 +71,7 @@ extension MumentsOfRevisitedTVC {
         mumentCV.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(18)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(15)
         }
         
     }
@@ -84,7 +84,10 @@ extension MumentsOfRevisitedTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? MumentsOfRevisitedCVC {
             cell.isSelected = true
         }
-        self.delegate?.mumentsOfRevisitedCVCSelected(data: mumentsOfRevisitedData[indexPath.row])
+        //        self.delegate?.mumentsOfRevisitedCVCSelected(data: mumentsOfRevisitedData[indexPath.row])
+        
+        // Test Code
+        self.delegate?.mumentsOfRevisitedCVCSelected()
     }
 }
 
@@ -92,14 +95,20 @@ extension MumentsOfRevisitedTVC: UICollectionViewDelegate{
 extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mumentsOfRevisitedData.count
+        //        return mumentsOfRevisitedData.count
+        
+        // Test Code
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MumentsOfRevisitedCVC.className, for: indexPath) as?  MumentsOfRevisitedCVC else {
             return UICollectionViewCell()
         }
-        cell.setData(mumentsOfRevisitedData[indexPath.row])
+        //        cell.setData(mumentsOfRevisitedData[indexPath.row])
+        
+        // Test Code
+        cell.setData(dataSource[indexPath.row])
         return cell
     }
 }
@@ -112,5 +121,9 @@ extension MumentsOfRevisitedTVC: UICollectionViewDelegateFlowLayout {
         let cellHeight = 275
         
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 15)
     }
 }

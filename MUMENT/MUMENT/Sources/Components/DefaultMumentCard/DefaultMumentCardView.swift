@@ -61,8 +61,8 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         feelingTags = cellData.feelingTags
         songTitleLabel.text = cellData.songTitle
         artistLabel.text = cellData.artistName
-        contentsLabel.text = cellData.contentsLabel
-        createdAtLabel.text = cellData.createdAtLabel
+        contentsLabel.text = cellData.contents.replaceNewLineKeyword()
+        createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         isLiked = cellData.isLiked
         heartCount = cellData.heartCount
@@ -91,17 +91,11 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         feelingTags = cellData.feelingTag
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
-        contentsLabel.text = cellData.content
+        contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
         isLiked = cellData.isLiked
         mumentId = cellData.id
-//        if cellData.isLiked {
-//            heartButton.setImage(UIImage(named: "heart_filled"), for: .normal)
-//        }else{
-//            heartButton.setImage(UIImage(named: "heart"), for: .normal)
-//        }
         heartCount = cellData.likeCount
-//        setTags()
         setCardTags(cellData.cardTag)
     }
 }

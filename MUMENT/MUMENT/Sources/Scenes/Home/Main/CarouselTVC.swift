@@ -15,6 +15,14 @@ class CarouselTVC: UITableViewCell {
     // MARK: - Properties
     weak var delegate: CarouselCVCDelegate?
     var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), id: "", tagTitle: "", displayDate: "")]
+    
+    // Test Code
+    var dataSource: [CarouselModel] = CarouselModel.sampleData
+    private lazy var increasedDataSource: [CarouselModel] = {
+        dataSource + dataSource + dataSource
+    }()
+    /// 더미데이터 이용 테스트 코드로 했을 때는 다음 셀로 넘어가는 거 다른 셀로 넘어가지는 않음. 부자연스럽기는 함. API 연결 했을 때만 오류가 있는 것 같음. 
+    
     var nowPage: Int = 3
     
     private var increasedCarouselData: [CarouselResponseModel.BannerList] = []
@@ -22,15 +30,17 @@ class CarouselTVC: UITableViewCell {
     private lazy var carouselCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
     private var originalDataSourceCount: Int {
-        carouselData.count
+//        carouselData.count
+        
+        dataSource.count
     }
     
     private var scrollToEnd: Bool = false
     private var scrollToBegin: Bool = false
     
-//    let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
-//    let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
-//
+    //    let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
+    //    let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
+    //
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -41,7 +51,7 @@ class CarouselTVC: UITableViewCell {
                                          at: .centeredHorizontally,
                                          animated: false)
         }
-//        bannerTimer()
+        //        bannerTimer()
     }
     
     @available(*, unavailable)
@@ -84,7 +94,7 @@ class CarouselTVC: UITableViewCell {
         }
         
         // 다음 페이지로 전환
-//        nowPage = Int(carouselCV.contentOffset.x) / Int(carouselCV.frame.width)
+        //        nowPage = Int(carouselCV.contentOffset.x) / Int(carouselCV.frame.width)
         nowPage += 1
         carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath, at: .right, animated: true)
     }
@@ -122,7 +132,10 @@ extension CarouselTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? CarouselCVC {
             cell.isSelected = true
         }
-        self.delegate?.carouselCVCSelected(data: increasedCarouselData[indexPath.row])
+        //        self.delegate?.carouselCVCSelected(data: increasedCarouselData[indexPath.row])
+        
+        // Test Code
+        self.delegate?.carouselCVCSelected()
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
@@ -177,14 +190,20 @@ extension CarouselTVC: UICollectionViewDelegate{
 extension CarouselTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return increasedCarouselData.count
+        //        return increasedCarouselData.count
+        
+        // Test Code
+        return increasedDataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCVC.className, for: indexPath)
         if let cell = cell as? CarouselCVC {
-            cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
+            //            cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
+            
+            // Test Code
+            cell.setData(increasedDataSource[indexPath.row], index: indexPath.row%3+1)
         }
         
         return cell

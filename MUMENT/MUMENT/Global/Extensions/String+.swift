@@ -115,4 +115,8 @@ extension String {
             return dateFormatter.string(from: self.toDate())
         }
     }
+    
+    func replaceNewLineKeyword() -> String {
+        return self.replacingOccurrences(of: "\\n", with: "\n")
+    }
 }

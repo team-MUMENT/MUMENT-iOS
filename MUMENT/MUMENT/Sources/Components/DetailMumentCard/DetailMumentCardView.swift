@@ -112,7 +112,7 @@ class DetailMumentCardView: UIView {
         isFirst = cellData.isFirst
         impressionTags = cellData.impressionTags
         feelingTags = cellData.feelingTags
-        contentsLabel.text = cellData.contents
+        contentsLabel.text = cellData.contents.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
@@ -126,7 +126,7 @@ class DetailMumentCardView: UIView {
         isFirst = cellData.isFirst
         impressionTags = cellData.impressionTag
         feelingTags = cellData.feelingTag
-        contentsLabel.text = cellData.content
+        contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
         isLiked = cellData.isLiked
         heartCount = cellData.count
