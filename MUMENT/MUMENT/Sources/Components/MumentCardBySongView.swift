@@ -91,8 +91,7 @@ class MumentCardBySongView: UIView {
     func setData(_ cellData: HistoryResponseModel.MumentHistory){
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
-        let parsedContents = cellData.content?.replacingOccurrences(of: "\\n", with: "\n" )
-        contentsLabel.text = parsedContents
+        contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.date
         isLiked = cellData.isLiked
         heartCount = cellData.likeCount
@@ -105,8 +104,7 @@ class MumentCardBySongView: UIView {
     func setData(_ cellData: AllMumentsResponseModel.MumentList){
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
-        let parsedContents = cellData.content?.replacingOccurrences(of: "\\n", with: "\n" )
-        contentsLabel.text = parsedContents
+        contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.date
         isLiked = cellData.isLiked
         heartCount = cellData.likeCount
@@ -119,8 +117,7 @@ class MumentCardBySongView: UIView {
     func setData(_ cellData: SongInfoResponseModel.MyMument){
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
-        let parsedContents = cellData.content?.replacingOccurrences(of: "\\n", with: "\n" )
-        contentsLabel.text = parsedContents
+        contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.date
         isLiked = cellData.isLiked
         heartCount = cellData.likeCount
