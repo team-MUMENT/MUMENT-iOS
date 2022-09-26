@@ -21,6 +21,7 @@ class CarouselTVC: UITableViewCell {
     private lazy var increasedDataSource: [CarouselModel] = {
         dataSource + dataSource + dataSource
     }()
+    /// 더미데이터 이용 테스트 코드로 했을 때는 다음 셀로 넘어가는 거 다른 셀로 넘어가지는 않음. 부자연스럽기는 함. API 연결 했을 때만 오류가 있는 것 같음. 
     
     var nowPage: Int = 3
     
@@ -29,7 +30,9 @@ class CarouselTVC: UITableViewCell {
     private lazy var carouselCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
     private var originalDataSourceCount: Int {
-        carouselData.count
+//        carouselData.count
+        
+        dataSource.count
     }
     
     private var scrollToEnd: Bool = false
