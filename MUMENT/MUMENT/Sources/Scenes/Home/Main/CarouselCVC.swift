@@ -11,6 +11,9 @@ import Then
 
 protocol CarouselCVCDelegate : AnyObject{
     func carouselCVCSelected(data: CarouselResponseModel.BannerList)
+    
+    // Test Code
+    func carouselCVCSelected()
 }
 
 class CarouselCVC: UICollectionViewCell {
@@ -91,8 +94,7 @@ class CarouselCVC: UICollectionViewCell {
     
     func setData(_ cellData: CarouselResponseModel.BannerList, index: Int){
         backgroundImage.image = UIImage(named: "mumentBanner\(index)")
-        let parsedTitle = cellData.tagTitle.replacingOccurrences(of: "\\n", with: "\n" )
-        headerLable.text = parsedTitle
+        headerLable.text = cellData.tagTitle.replaceNewLineKeyword()
         albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist

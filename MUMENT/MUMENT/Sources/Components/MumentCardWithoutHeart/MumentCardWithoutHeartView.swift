@@ -9,7 +9,7 @@ import SnapKit
 import Then
 
 class MumentCardWithoutHeartView: UIView {
-        
+    
     // MARK: - Properties
     lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then {
         $0.axis = .horizontal
@@ -38,10 +38,12 @@ class MumentCardWithoutHeartView: UIView {
     let songTitleLabel = UILabel().then{
         $0.textColor = .mBlack1
         $0.font = .mumentB2B14
+        $0.lineBreakMode = .byTruncatingTail
     }
     let artistLabel = UILabel().then{
         $0.textColor = .mGray1
         $0.font = .mumentB6M13
+        $0.lineBreakMode = .byTruncatingTail
     }
     
     var isFirst: Bool = false
@@ -96,7 +98,7 @@ class MumentCardWithoutHeartView: UIView {
         albumImage.setImageUrl(cellData.todayMument.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         songTitleLabel.text = cellData.todayMument.music.name
         artistLabel.text = cellData.todayMument.music.artist
-        contentsLabel.text = cellData.todayMument.content
+        contentsLabel.text = cellData.todayMument.content.replaceNewLineKeyword()
         createdAtLabel.text = cellData.todayMument.date
         isFirst = cellData.todayMument.isFirst
         impressionTags = cellData.todayMument.impressionTag
@@ -111,7 +113,7 @@ class MumentCardWithoutHeartView: UIView {
         albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
-        contentsLabel.text = cellData.content ?? ""
+        contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
         isFirst = cellData.isFirst
         setCardTags(cellData.cardTag)
@@ -192,6 +194,7 @@ extension MumentCardWithoutHeartView {
         songInfoStackView.snp.makeConstraints{
             $0.left.equalTo(albumImage.snp.right).offset(10)
             $0.top.equalTo(separatorView.snp.bottom).offset(15)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
         
         tagStackView.snp.makeConstraints{
