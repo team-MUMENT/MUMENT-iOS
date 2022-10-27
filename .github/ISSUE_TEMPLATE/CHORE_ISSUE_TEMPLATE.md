@@ -2,7 +2,7 @@
 name: "\U0001F3A7 Chore Issue Template"
 about: Chore 이슈 템플릿입니다.
 title: "[CHORE] 어쩌고-저쩌고"
-labels: '✅ chore'
+labels: '✅ Chore'
 assignees: ''
 
 ---
