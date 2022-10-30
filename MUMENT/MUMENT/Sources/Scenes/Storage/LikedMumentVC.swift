@@ -266,7 +266,7 @@ extension LikedMumentVC {
                     self.setDateDictionary()
                     self.likedMumentCV.reloadData()
                 } else {
-                    debugPrint("🚨당신 모델이 이상해열~🚨")
+                    debugPrint(MessageType.modelErrorForDebug.message)
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
