@@ -34,13 +34,12 @@
 		4D41D58228898737000E1296 /* CarouselResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D58128898737000E1296 /* CarouselResponseModel.swift */; };
 		4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */; };
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
-		4D4C872A29103F1D00B85676 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4C872929103F1D00B85676 /* Splash.storyboard */; };
+		4D4C872A29103F1D00B85676 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4C872929103F1D00B85676 /* LaunchScreen.storyboard */; };
 		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
 		4D64A9EA287D885A00450FCA /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* TagView.swift */; };
 		4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */; };
 		4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EE287DEC1800450FCA /* DefaultMumentCardView.swift */; };
 		4D64A9F1287DEEC900450FCA /* MumentCardWithoutHeartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9F0287DEEC900450FCA /* MumentCardWithoutHeartModel.swift */; };
-		4D65552829103EAE00AB8601 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65552729103EAE00AB8601 /* SplashVC.swift */; };
 		4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CE8287975740060CE41 /* HomeTVHeader.swift */; };
 		4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEA287975800060CE41 /* CarouselTVC.swift */; };
 		4D696CEF287978360060CE41 /* MumentsOfRevisitedTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* MumentsOfRevisitedTVC.swift */; };
@@ -195,13 +194,12 @@
 		4D41D58128898737000E1296 /* CarouselResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselResponseModel.swift; sourceTree = "<group>"; };
 		4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayResponseModel.swift; sourceTree = "<group>"; };
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
-		4D4C872929103F1D00B85676 /* Splash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
+		4D4C872929103F1D00B85676 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardModel.swift; sourceTree = "<group>"; };
 		4D64A9EE287DEC1800450FCA /* DefaultMumentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardView.swift; sourceTree = "<group>"; };
 		4D64A9F0287DEEC900450FCA /* MumentCardWithoutHeartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartModel.swift; sourceTree = "<group>"; };
-		4D65552729103EAE00AB8601 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		4D696CE8287975740060CE41 /* HomeTVHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVHeader.swift; sourceTree = "<group>"; };
 		4D696CEA287975800060CE41 /* CarouselTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTVC.swift; sourceTree = "<group>"; };
 		4D696CEE287978360060CE41 /* MumentsOfRevisitedTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedTVC.swift; sourceTree = "<group>"; };
@@ -380,8 +378,7 @@
 		4D65552929103ED400AB8601 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				4D65552729103EAE00AB8601 /* SplashVC.swift */,
-				4D4C872929103F1D00B85676 /* Splash.storyboard */,
+				4D4C872929103F1D00B85676 /* LaunchScreen.storyboard */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -892,7 +889,7 @@
 				C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */,
 				C74EC435287592750068EB46 /* Colorsets.xcassets in Resources */,
 				C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */,
-				4D4C872A29103F1D00B85676 /* Splash.storyboard in Resources */,
+				4D4C872A29103F1D00B85676 /* LaunchScreen.storyboard in Resources */,
 				C7BB530A2875973800E0E889 /* NotoSans-Medium.ttf in Resources */,
 				C7BB530B2875973800E0E889 /* NotoSans-Regular.ttf in Resources */,
 				C74EC42328758D230068EB46 /* Assets.xcassets in Resources */,
@@ -977,7 +974,6 @@
 				C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */,
 				C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */,
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
-				4D65552829103EAE00AB8601 /* SplashVC.swift in Sources */,
 				C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */,
 				4D13A67A2889141900197D2A /* HistorySerivce.swift in Sources */,
 				C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */,
