@@ -165,10 +165,7 @@ extension MumentHistoryVC {
                     self.mumentTV.reloadData()
                 }
             default:
-                self.makeAlert(title: """
- 네트워크 오류로 인해 연결에 실패했어요! 🥲
- 잠시 후에 다시 시도해 주세요.
- """)
+                self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
