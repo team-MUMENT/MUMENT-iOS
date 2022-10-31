@@ -34,7 +34,7 @@
 		4D41D58228898737000E1296 /* CarouselResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D58128898737000E1296 /* CarouselResponseModel.swift */; };
 		4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */; };
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
-		4D4C872A29103F1D00B85676 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4C872929103F1D00B85676 /* LaunchScreen.storyboard */; };
+		4D4C872A29103F1D00B85676 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4C872929103F1D00B85676 /* Splash.storyboard */; };
 		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
 		4D64A9EA287D885A00450FCA /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* TagView.swift */; };
 		4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */; };
@@ -194,7 +194,7 @@
 		4D41D58128898737000E1296 /* CarouselResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselResponseModel.swift; sourceTree = "<group>"; };
 		4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayResponseModel.swift; sourceTree = "<group>"; };
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
-		4D4C872929103F1D00B85676 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4D4C872929103F1D00B85676 /* Splash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardModel.swift; sourceTree = "<group>"; };
@@ -378,7 +378,7 @@
 		4D65552929103ED400AB8601 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				4D4C872929103F1D00B85676 /* LaunchScreen.storyboard */,
+				4D4C872929103F1D00B85676 /* Splash.storyboard */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -889,7 +889,7 @@
 				C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */,
 				C74EC435287592750068EB46 /* Colorsets.xcassets in Resources */,
 				C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */,
-				4D4C872A29103F1D00B85676 /* LaunchScreen.storyboard in Resources */,
+				4D4C872A29103F1D00B85676 /* Splash.storyboard in Resources */,
 				C7BB530A2875973800E0E889 /* NotoSans-Medium.ttf in Resources */,
 				C7BB530B2875973800E0E889 /* NotoSans-Regular.ttf in Resources */,
 				C74EC42328758D230068EB46 /* Assets.xcassets in Resources */,
@@ -1184,7 +1184,7 @@
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1216,7 +1216,7 @@
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
