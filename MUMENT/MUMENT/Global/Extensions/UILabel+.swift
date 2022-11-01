@@ -39,6 +39,23 @@ extension UILabel {
         }
     }
     
+    func setHyperlinkedStyle(to targetStrings: [String]) {
+        if let labelText = self.text, labelText.count > 0 {
+            let attributedString = NSMutableAttributedString(string: labelText)
+            let linkAttributes : [NSAttributedString.Key: Any] = [
+                .underlineStyle: NSUnderlineStyle.single.rawValue,
+                .font: UIFont.mumentB7B12
+            ]
+            for targetString in targetStrings{
+                attributedString.setAttributes(
+                    linkAttributes,
+                    range: (labelText as NSString).range(of: targetString))
+            }
+            
+            attributedText = attributedString
+        }
+    }
+    
     /// 자간 설정 메서드
     func setCharacterSpacing(_ spacing: CGFloat){
         let attributedStr = NSMutableAttributedString(string: self.text ?? "")
@@ -48,8 +65,8 @@ extension UILabel {
     
     /// 글씨의 오토레이아웃이 기본으로 되어있는 메서드
     func setLabel(text: String, color: UIColor = .mBlack1, font: UIFont) {
-            self.font = font
-            self.textColor = color
-            self.text = text
-        }
+        self.font = font
+        self.textColor = color
+        self.text = text
+    }
 }
