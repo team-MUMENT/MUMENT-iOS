@@ -39,12 +39,13 @@ extension UILabel {
         }
     }
     
-    func setHyperlinkedStyle(to targetStrings: [String]) {
+    func setHyperlinkedStyle(to targetStrings: [String], with font: UIFont
+    ) {
         if let labelText = self.text, labelText.count > 0 {
             let attributedString = NSMutableAttributedString(string: labelText)
             let linkAttributes : [NSAttributedString.Key: Any] = [
                 .underlineStyle: NSUnderlineStyle.single.rawValue,
-                .font: UIFont.mumentB7B12
+                .font: font
             ]
             for targetString in targetStrings{
                 attributedString.setAttributes(

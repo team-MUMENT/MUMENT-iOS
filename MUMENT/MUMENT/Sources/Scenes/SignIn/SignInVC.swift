@@ -38,7 +38,7 @@ final class SignInVC: BaseVC {
         $0.numberOfLines = 2
         $0.textAlignment = .center
         $0.sizeToFit()
-        $0.setHyperlinkedStyle(to: ["이용약관","개인정보처리방침"])
+        $0.setHyperlinkedStyle(to: ["이용약관","개인정보처리방침"],with:.mumentB7B12)
     }
     
     // MARK: - Initialization
