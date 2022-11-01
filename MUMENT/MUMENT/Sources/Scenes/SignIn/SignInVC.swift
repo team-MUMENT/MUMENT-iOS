@@ -26,6 +26,7 @@ final class SignInVC: BaseVC {
     private let appleSignInButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "appleLogin"), for: .normal)
     }
+    
     // TODO: - NSAttributedString 이용해서 스타일 바꾸고 링크 연결하기
     private let privacyPolicyLabel = UILabel().then{
         $0.font = .mumentB8M12
@@ -34,6 +35,7 @@ final class SignInVC: BaseVC {
         $0.numberOfLines = 2
         $0.textAlignment = .center
         $0.sizeToFit()
+        $0.setHyperlinkedStyle(to: ["이용약관","개인정보처리방침"])
     }
     
     // MARK: - Initialization
