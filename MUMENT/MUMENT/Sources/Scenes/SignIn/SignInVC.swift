@@ -8,6 +8,7 @@
 import UIKit
 import Then
 import SnapKit
+import SafariServices
 
 final class SignInVC: BaseVC {
     
@@ -44,16 +45,74 @@ final class SignInVC: BaseVC {
         setBackgroundImage()
         setLayout()
         setButtonActions()
+        setPrivacyPolicyLabelTapRecognizer()
     }
     
     // MARK: - Functions
-    func setButtonActions(){
+    private func setButtonActions(){
         kakaoSignInButton.press{
             print("카카오로 계속하기 버튼 클릭됨")
         }
         
         appleSignInButton.press{
             print("Apple로 계속하기 버튼 클릭됨")
+        }
+    }
+    
+    private func setPrivacyPolicyLabelTapRecognizer() {
+        privacyPolicyLabel.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(privacyPolicyLabelTapped)
+        )
+//        let tapGestureRecognizer2 = UITapGestureRecognizer(
+//            target: self,
+//            action: #selector(agreementLabelTapped)
+//        )
+        privacyPolicyLabel.addGestureRecognizer(tapGestureRecognizer)
+//        privacyPolicyLabel.addGestureRecognizer(tapGestureRecognizer2)
+    }
+    
+    // TODO: - 연결될 웹페이지 링크 차후 노션 링크로 변경하기
+    @objc private func privacyPolicyLabelTapped(_ sender: UITapGestureRecognizer) {
+        
+        // privacyPolicyLabel에서 UITapGestureRecognizer로 선택된 부분의 CGPoint를 구합니다.
+        let point = sender.location(in: privacyPolicyLabel)
+        
+        if let calaulatedRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관과") {
+            let agreementRect = CGRect(x: calaulatedRect.origin.x + 40, y: calaulatedRect.origin.y, width: calaulatedRect.width - 10, height: calaulatedRect.height)
+            if agreementRect.contains(point) {
+                print(agreementRect)
+                present(url:  "https://www.google.com")
+            }
+        }
+        
+        if let personalInfoPolicyRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "개인정보처리방침"),
+           personalInfoPolicyRect.contains(point) {
+            print(personalInfoPolicyRect)
+            present(url: "https://www.github.com")
+        }
+    }
+    
+//    @objc private func agreementLabelTapped(_ sender: UITapGestureRecognizer) {
+        
+        // privacyPolicyLabel에서 UITapGestureRecognizer로 선택된 부분의 CGPoint를 구합니다.
+//        let point = sender.location(in: privacyPolicyLabel)
+        //        print(privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관과"))
+        // privacyPolicyLabel 내에서 문자열 '이용약관'이 차지하는 CGRect값을 구해, 그 안에 point가 포함되는지를 판단합니다.
+        
+    
+        //        if let agreementRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관과"),
+        //           agreementRect.contains(point) {
+        //            print(agreementRect)
+        //            present(url:  "https://www.google.com")
+        //        }
+//    }
+    
+    private func present(url string: String) {
+        if let url = URL(string: string) {
+            let viewController = SFSafariViewController(url: url)
+            present(viewController, animated: true)
         }
     }
 }
