@@ -38,7 +38,7 @@ final class SignInVC: BaseVC {
         $0.numberOfLines = 2
         $0.textAlignment = .center
         $0.sizeToFit()
-        $0.setHyperlinkedStyle(to: ["이용약관","개인정보처리방침"],with:.mumentB7B12)
+        $0.setHyperlinkedStyle(to: ["이용약관", "개인정보처리방침"], with: .mumentB7B12)
     }
     
     // MARK: - Initialization
@@ -80,7 +80,7 @@ final class SignInVC: BaseVC {
         if let calaulatedTermsRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관") {
             let actualTermsRect = CGRect(x: calaulatedTermsRect.origin.x + 40, y: calaulatedTermsRect.origin.y, width: calaulatedTermsRect.width - 10, height: calaulatedTermsRect.height)
             if actualTermsRect.contains(point) {
-                present(url:  "https://www.google.com")
+                present(url: "https://www.google.com")
             }
         }
         
