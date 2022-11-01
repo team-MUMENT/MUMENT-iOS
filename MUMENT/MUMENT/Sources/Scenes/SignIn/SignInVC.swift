@@ -16,19 +16,21 @@ final class SignInVC: BaseVC {
     private let logoImageView = UIImageView().then{
         $0.image = UIImage(named: "mumentLogoLogin")
     }
+    
     private let guidingLabel = UILabel().then{
         $0.font = .mumentB4M14
         $0.textColor = .mBlack2
         $0.text = "회원가입을 통해 나의 음악 감상을 쌓아보세요."
     }
+    
     private let kakaoSignInButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "kakaoLogin"), for: .normal)
     }
+    
     private let appleSignInButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "appleLogin"), for: .normal)
     }
     
-    // TODO: - NSAttributedString 이용해서 스타일 바꾸고 링크 연결하기
     private let privacyPolicyLabel = UILabel().then{
         $0.font = .mumentB8M12
         $0.textColor = .mGray2
@@ -65,12 +67,7 @@ final class SignInVC: BaseVC {
             target: self,
             action: #selector(privacyPolicyLabelTapped)
         )
-//        let tapGestureRecognizer2 = UITapGestureRecognizer(
-//            target: self,
-//            action: #selector(agreementLabelTapped)
-//        )
         privacyPolicyLabel.addGestureRecognizer(tapGestureRecognizer)
-//        privacyPolicyLabel.addGestureRecognizer(tapGestureRecognizer2)
     }
     
     // TODO: - 연결될 웹페이지 링크 차후 노션 링크로 변경하기
@@ -79,35 +76,20 @@ final class SignInVC: BaseVC {
         // privacyPolicyLabel에서 UITapGestureRecognizer로 선택된 부분의 CGPoint를 구합니다.
         let point = sender.location(in: privacyPolicyLabel)
         
-        if let calaulatedRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관과") {
-            let agreementRect = CGRect(x: calaulatedRect.origin.x + 40, y: calaulatedRect.origin.y, width: calaulatedRect.width - 10, height: calaulatedRect.height)
-            if agreementRect.contains(point) {
-                print(agreementRect)
+        // privacyPolicyLabel 내에서 문자열 '이용약관'이 차지하는 CGRect값을 구해, 그 안에 point가 포함되는지를 판단합니다.
+        if let calaulatedTermsRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관") {
+            let actualTermsRect = CGRect(x: calaulatedTermsRect.origin.x + 40, y: calaulatedTermsRect.origin.y, width: calaulatedTermsRect.width - 10, height: calaulatedTermsRect.height)
+            if actualTermsRect.contains(point) {
                 present(url:  "https://www.google.com")
             }
         }
         
+        // privacyPolicyLabel 내에서 문자열 '개인정보처리방침'이 차지하는 CGRect값을 구해, 그 안에 point가 포함되는지를 판단합니다.
         if let personalInfoPolicyRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "개인정보처리방침"),
            personalInfoPolicyRect.contains(point) {
-            print(personalInfoPolicyRect)
             present(url: "https://www.github.com")
         }
     }
-    
-//    @objc private func agreementLabelTapped(_ sender: UITapGestureRecognizer) {
-        
-        // privacyPolicyLabel에서 UITapGestureRecognizer로 선택된 부분의 CGPoint를 구합니다.
-//        let point = sender.location(in: privacyPolicyLabel)
-        //        print(privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관과"))
-        // privacyPolicyLabel 내에서 문자열 '이용약관'이 차지하는 CGRect값을 구해, 그 안에 point가 포함되는지를 판단합니다.
-        
-    
-        //        if let agreementRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관과"),
-        //           agreementRect.contains(point) {
-        //            print(agreementRect)
-        //            present(url:  "https://www.google.com")
-        //        }
-//    }
     
     private func present(url string: String) {
         if let url = URL(string: string) {
