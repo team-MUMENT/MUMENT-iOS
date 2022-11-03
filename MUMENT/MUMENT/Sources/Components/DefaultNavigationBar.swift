@@ -30,7 +30,7 @@ class DefaultNavigationBar: UIView {
         $0.configuration = .plain()
     }
     
-    private let titleLabel = UILabel().then{
+    private let titleLabel = UILabel().then {
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
