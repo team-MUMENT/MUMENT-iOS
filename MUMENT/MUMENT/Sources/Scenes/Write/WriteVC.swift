@@ -18,11 +18,9 @@ class WriteVC: BaseVC {
     private let writeContentView = UIView().then {
         $0.backgroundColor = .mBgwhite
     }
-    private let naviView = DefaultNavigationView().then {
+    private let naviView = DefaultNavigationBar(naviType: .leftCloseRightDone).then {
         $0.setTitleLabel(title: "기록하기")
-    }
-    private let resetButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "mumentReset"), for: .normal)
+        $0.doneButton.isEnabled = false
     }
     private let selectMusicLabel = UILabel().then {
         $0.text = "곡을 선택해주세요."
@@ -149,6 +147,7 @@ class WriteVC: BaseVC {
         setNotificationCenter()
         setTagCV()
         setLayout()
+        setNaviView()
         setRadioButtonSelectStatus(button: firstListenButton, isSelected: isFirstListen)
         setRadioButtonSelectStatus(button: againListenButton, isSelected: isFirstListen)
         setRadioButton()
@@ -160,7 +159,6 @@ class WriteVC: BaseVC {
         setSearchButton()
         setRemoveSelectedMusicButton()
         setSelectedMusicViewPressed()
-        setResetButton()
         setCompleteButton()
         setIsEnableCompleteButton(isEnabled: false)
     }
@@ -273,17 +271,6 @@ class WriteVC: BaseVC {
         }
     }
     
-    private func setResetButton() {
-        resetButton.press { [weak self] in
-            let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel)
-            mumentAlert.setTitleSubTitle(title: "뮤멘트 기록을 초기화하시겠어요?", subTitle: "확인 선택 시, 작성 중인 내용이 삭제됩니다.")
-            mumentAlert.OKButton.press { [weak self] in
-                self?.setDefaultView()
-            }
-            self?.present(mumentAlert, animated: true)
-        }
-    }
-    
     private func setDefaultView() {
         // TODO: 함수화..
         
@@ -320,6 +307,16 @@ class WriteVC: BaseVC {
         let searchBottomSheet = SearchBottomSheetVC()
         self.present(searchBottomSheet, animated: false) {
             searchBottomSheet.showBottomSheetWithAnimation()
+        }
+    }
+    
+    private func setNaviView() {
+        self.naviView.closeButton.press {
+            self.dismiss(animated: true)
+        }
+        self.naviView.doneButton.press {
+            debugPrint("완료 버튼 누름")
+            self.dismiss(animated: true)
         }
     }
 }
@@ -485,7 +482,7 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        writeContentView.addSubviews([naviView, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
         feelTagScrollView.addSubview(feelTagCV)
         
         writeScrollView.snp.makeConstraints {
@@ -499,13 +496,7 @@ extension WriteVC {
         
         naviView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(52.adjustedH)
-        }
-        
-        resetButton.snp.makeConstraints {
-            $0.centerY.equalTo(naviView)
-            $0.width.height.equalTo(25.adjustedW)
-            $0.rightMargin.equalToSuperview().inset(20)
+            $0.height.equalTo(48)
         }
         
         selectMusicLabel.snp.makeConstraints {
