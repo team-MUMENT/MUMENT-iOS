@@ -12,7 +12,7 @@ import Then
 class DefaultNavigationBar: UIView {
     
     // MARK: - Properties
-    let backbutton = UIButton().then{
+    let backButton = UIButton().then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.configuration = .plain()
     }
@@ -43,9 +43,9 @@ class DefaultNavigationBar: UIView {
 extension DefaultNavigationBar {
     
     private func setDefaultLayout() {
-        self.addSubviews([backbutton,titleLabel])
+        self.addSubviews([backButton, titleLabel])
         
-        backbutton.snp.makeConstraints{
+        backButton.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(5)
             $0.top.equalTo(self.safeAreaLayoutGuide)
             $0.height.width.equalTo(48)

@@ -50,7 +50,7 @@ class MumentHistoryVC: BaseVC {
     }
     
     func setClickEventHandlers(){
-        navigationBarView.backbutton.press{
+        navigationBarView.backButton.press{
             self.navigationController?.popViewController(animated: true)
         }
     }
