@@ -61,4 +61,7 @@ extension UIFont {
         return UIFont(name: "NotoSans-Regular", size: 12.0)!
     }
     
+    class var mumentC2R12: UIFont {
+        return UIFont(name: "NotoSans-Regular", size: 10.0)!
+    }
 }
