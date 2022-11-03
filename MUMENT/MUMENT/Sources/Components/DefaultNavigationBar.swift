@@ -9,6 +9,19 @@ import UIKit
 import SnapKit
 import Then
 
+enum DefaultNavigationBarType {
+    
+    /// leftArrow: 좌측 back 버튼 + 타이틀
+    case leftArrow
+    
+    /// leftArrowRightDone: 좌측 back 버튼 + 타이틀 + 우측 완료 버튼
+    case leftArrowRightDone
+    
+    /// leftCloseRightDone: 좌측 Close 버튼 + 타이틀 + 우측 완료 버튼
+
+    case leftCloseRightDone
+}
+
 class DefaultNavigationBar: UIView {
     
     // MARK: - Properties
