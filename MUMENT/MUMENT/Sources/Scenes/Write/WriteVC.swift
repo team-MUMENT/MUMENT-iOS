@@ -81,8 +81,8 @@ class WriteVC: BaseVC {
     }
     private let feelTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
         $0.backgroundColor = .mBgwhite
-        $0.showsHorizontalScrollIndicator = false
         $0.contentInset = .zero
+        $0.isScrollEnabled = false
     }
     private let contentLabel = UILabel().then {
         $0.text = "이 순간의 여운을 글로 남겨보세요."
@@ -558,8 +558,8 @@ extension WriteVC {
         
         impressionTagCV.snp.makeConstraints {
             $0.top.equalTo(impressionLabel.snp.bottom).offset(16)
-            $0.left.equalTo(impressionLabel.snp.left)
-            $0.right.equalToSuperview().inset(20)
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview().inset(70)
             $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
         }
         
