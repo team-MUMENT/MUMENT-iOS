@@ -35,15 +35,40 @@ class DefaultNavigationBar: UIView {
         $0.font = .mumentH2B18
     }
     
+    let closeButton: UIButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "mumentDelete3"), for: .normal)
+    }
+    
+    let doneButton: UIButton = UIButton(type: .system).then {
+        $0.setTitle("완료", for: .normal)
+        $0.setTitleColor(.mGray2, for: .disabled)
+        $0.setTitleColor(.mPurple1, for: .normal)
+        $0.titleLabel?.font = .mumentH2B18
+    }
+    
+    var type: DefaultNavigationBarType = .leftArrow
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setDefaultLayout()
+        setLeftArrowLayout()
+    }
+    
+    init(naviType: DefaultNavigationBarType = .leftArrow) {
+        super.init(frame: .zero)
+        switch naviType {
+        case .leftArrow:
+            setLeftArrowLayout()
+        case .leftArrowRightDone:
+            setLeftArrowRightDoneLayout()
+        case .leftCloseRightDone:
+            setLeftCloseRightDone()
+        }
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        setDefaultLayout()
+        setLeftArrowLayout()
     }
     
     //MARK: - Functions
@@ -55,17 +80,62 @@ class DefaultNavigationBar: UIView {
 // MARK: - UI
 extension DefaultNavigationBar {
     
-    private func setDefaultLayout() {
+    private func setLeftArrowLayout() {
         self.addSubviews([backButton, titleLabel])
         
         backButton.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(5)
-            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.height.width.equalTo(48)
         }
         
         titleLabel.snp.makeConstraints{
             $0.centerX.centerY.equalTo(self.safeAreaLayoutGuide)
         }
+    }
+    
+    private func setLeftArrowRightDoneLayout() {
+        self.addSubviews([backButton, titleLabel, doneButton])
+        
+        backButton.snp.makeConstraints{
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(5)
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.height.width.equalTo(48)
+        }
+        
+        titleLabel.snp.makeConstraints{
+            $0.centerX.centerY.equalTo(self.safeAreaLayoutGuide)
+        }
+        
+        doneButton.snp.makeConstraints {
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(20)
+            $0.width.equalTo(50)
+        }
+    }
+    
+    private func setLeftCloseRightDone() {
+        self.addSubviews([closeButton, titleLabel, doneButton])
+        
+        closeButton.snp.makeConstraints{
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(5)
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.height.width.equalTo(48)
+        }
+        
+        titleLabel.snp.makeConstraints{
+            $0.centerX.centerY.equalTo(self.safeAreaLayoutGuide)
+        }
+        
+        doneButton.snp.makeConstraints {
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(20)
+            $0.width.equalTo(50)
+        }
+    }
+    
+    /// 커스텀 네비 바 타이틀 설정하는 메서드
+    func setTitleLabel(title: String) {
+        self.titleLabel.text = title
     }
 }
