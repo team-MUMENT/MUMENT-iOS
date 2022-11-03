@@ -76,7 +76,7 @@ extension WriteMusicView {
         removeButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(8)
             $0.centerY.equalTo(albumImageView)
-            $0.width.height.equalTo(20)
+            $0.width.height.equalTo(24)
         }
     }
     
