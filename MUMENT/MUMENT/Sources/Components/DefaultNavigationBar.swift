@@ -18,7 +18,7 @@ enum DefaultNavigationBarType {
     case leftArrowRightDone
     
     /// leftCloseRightDone: 좌측 Close 버튼 + 타이틀 + 우측 완료 버튼
-
+    
     case leftCloseRightDone
 }
 
