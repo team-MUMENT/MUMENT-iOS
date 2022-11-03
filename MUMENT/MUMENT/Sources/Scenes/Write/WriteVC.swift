@@ -79,6 +79,9 @@ class WriteVC: BaseVC {
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
+    private let feelTagScrollView = UIScrollView().then {
+        $0.showsHorizontalScrollIndicator = false
+    }
     private let feelTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
         $0.backgroundColor = .mBgwhite
         $0.contentInset = .zero
@@ -337,7 +340,6 @@ class WriteVC: BaseVC {
     }
 }
 
-// TODO: 컬렉션뷰 진짜 개모르겠다. 말렸다. ㅋ  종일 햇는데 컬렉션뷰에 잡아먹힌 기분이다. 나중에 할 거다. 며칠만 뒤에... 뇌를 좀 상쾌하게 바꾸고 다시 도전한다 .....................
 // MARK: - UICollectionViewDataSource
 extension WriteVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -499,7 +501,8 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        feelTagScrollView.addSubview(feelTagCV)
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -568,15 +571,20 @@ extension WriteVC {
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        feelTagCV.snp.makeConstraints {
+        feelTagScrollView.snp.makeConstraints {
             $0.top.equalTo(feelLabel.snp.bottom).offset(16)
-            $0.left.equalTo(feelLabel.snp.left)
-            $0.right.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(tagCellHeight * 3 + cellVerticalSpacing * 2)
+        }
+        
+        feelTagCV.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.width.equalTo(550)
             $0.height.equalTo(tagCellHeight * 3 + cellVerticalSpacing * 2)
         }
         
         contentLabel.snp.makeConstraints {
-            $0.top.equalTo(feelTagCV.snp.bottomMargin).offset(50)
+            $0.top.equalTo(feelTagScrollView.snp.bottomMargin).offset(50)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
