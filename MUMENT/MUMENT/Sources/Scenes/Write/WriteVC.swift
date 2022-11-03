@@ -132,8 +132,8 @@ class WriteVC: BaseVC {
             postMumentData.feelingTag = clickedFeelTag
         }
     }
-    let impressionTagDummyData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
-    let feelTagDummyData = ["🎡 벅참", "😄 신남", "💐 설렘", "😚 행복", "🙌 자신감", "🍀 여유로움", "🍁 센치함", "😔 우울", "🕰 그리움", "🛌 외로움", "🌋 스트레스", "⌛️ 아련함", "💭 회상", " 👥 위로", "🌅 낭만", "☕️ 차분"]
+    let impressionTagData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
+    let feelTagData = ["🎡 벅참", "😄 신남", "💐 설렘", "😚 행복", "🙌 자신감", "🍀 여유로움", "🍁 센치함", "😔 우울", "🕰 그리움", "🛌 외로움", "🌋 스트레스", "⌛️ 아련함", "💭 회상", " 👥 위로", "🌅 낭만", "☕️ 차분"]
     
     private let tagCellHeight = 35
     private let cellVerticalSpacing = 10
@@ -329,9 +329,9 @@ extension WriteVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case impressionTagCV:
-            return impressionTagDummyData.count
+            return impressionTagData.count
         case feelTagCV:
-            return feelTagDummyData.count
+            return feelTagData.count
         default: return 0
         }
     }
@@ -340,10 +340,10 @@ extension WriteVC: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WriteTagCVC.className, for: indexPath) as! WriteTagCVC
         switch collectionView {
         case impressionTagCV:
-            cell.setData(data: impressionTagDummyData[indexPath.row])
+            cell.setData(data: impressionTagData[indexPath.row])
             return cell
         case feelTagCV:
-            cell.setData(data: feelTagDummyData[indexPath.row])
+            cell.setData(data: feelTagData[indexPath.row])
             return cell
         default: return cell
         }
@@ -394,9 +394,9 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
         let sizingCell = WriteTagCVC()
         switch collectionView {
         case impressionTagCV:
-            sizingCell.setData(data: impressionTagDummyData[indexPath.row])
+            sizingCell.setData(data: impressionTagData[indexPath.row])
         case feelTagCV:
-            sizingCell.setData(data: feelTagDummyData[indexPath.row])
+            sizingCell.setData(data: feelTagData[indexPath.row])
         default: break
         }
 
