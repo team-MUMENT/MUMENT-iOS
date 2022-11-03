@@ -137,18 +137,6 @@ class WriteVC: BaseVC {
     
     private let tagCellHeight = 35
     private let cellVerticalSpacing = 10
-    private let impressionCVLayout = LeftAlignedCollectionViewFlowLayout().then {
-        $0.scrollDirection = .vertical
-        $0.minimumLineSpacing = 10
-        $0.minimumInteritemSpacing = 10
-        $0.sectionInset = .zero
-    }
-    private let feelCVLayout = UICollectionViewFlowLayout().then {
-        $0.scrollDirection = .horizontal
-        $0.minimumLineSpacing = 10
-        $0.minimumInteritemSpacing = 10
-        $0.sectionInset = .zero
-    }
     let disposeBag = DisposeBag()
     var isFirstListen = false
     var isFirstListenActivated = true
@@ -242,17 +230,13 @@ class WriteVC: BaseVC {
     }
     
     private func setTagCV() {
-        impressionTagCV.dataSource = self
-        impressionTagCV.delegate = self
-        impressionTagCV.layoutMargins = .zero
-        impressionTagCV.allowsMultipleSelection = true
-        impressionTagCV.collectionViewLayout = impressionCVLayout
-        
-        feelTagCV.dataSource = self
-        feelTagCV.delegate = self
-        feelTagCV.layoutMargins =  .zero
-        feelTagCV.allowsMultipleSelection = true
-        feelTagCV.collectionViewLayout = feelCVLayout
+        [impressionTagCV, feelTagCV].forEach {
+            $0.dataSource = self
+            $0.delegate = self
+            $0.allowsMultipleSelection = true
+            $0.layoutMargins = .zero
+            $0.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
+        }
     }
     
     private func setIsPrivateToggleButton() {
