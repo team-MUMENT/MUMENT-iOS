@@ -14,9 +14,7 @@ import RxCocoa
 class WriteVC: BaseVC {
     
     // MARK: - Properties
-    private let writeScrollView = UIScrollView().then {
-        $0.bounces = false
-    }
+    private let writeScrollView = UIScrollView()
     private let writeContentView = UIView().then {
         $0.backgroundColor = .mBgwhite
     }
