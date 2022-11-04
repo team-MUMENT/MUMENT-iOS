@@ -61,14 +61,23 @@ final class MumentTabBarController: UITabBarController {
         UITabBar.clearShadow()
         tabBar.layer.setShadow(color: .mShadow, alpha: 1, x: 0, y: -3, blur: 10)
     }
+
+// MARK: - UITabBarControllerDelegate
+extension MumentTabBarController: UITabBarControllerDelegate {
     
-    func setTabBar() {
-        let homeTab = makeTabVC(vc: BaseNC(rootViewController: HomeVC()), tabBarTitle: "홈", tabBarImg: "mumentIconHomeOff", tabBarSelectedImg: "mumentIconHomeOn")
-        let writeTab = makeTabVC(vc: WriteVC(), tabBarTitle: "기록하기", tabBarImg: "mumentIconRecordOff", tabBarSelectedImg: "mumentIconRecordOn")
-        let storageTab = makeTabVC(vc: StorageVC(), tabBarTitle: "보관함", tabBarImg: "mumentIconLibraryOff", tabBarSelectedImg: "mumentIconLibraryOn")
+    /// 1번 인덱스인 기록하기를 눌렀을 때, WriteVC를 present하기 위함
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
-        let tabs = [homeTab, writeTab, storageTab]
-        self.setViewControllers(tabs, animated: false)
+        let writeIndex = 1
+        if viewController.tabBarItem.tag != writeIndex { return true }
+        
+        let writeVC = WriteVC()
+        writeVC.modalPresentationStyle = .overFullScreen
+        viewController.present(writeVC, animated: true)
+        return false
+    }
+}
+
 // MARK: - Network
 extension MumentTabBarController {
     private func requestSignIn() {
