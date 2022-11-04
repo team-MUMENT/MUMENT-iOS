@@ -36,6 +36,23 @@ final class MumentTabBarController: UITabBarController {
     
     /// TabBarItem을 지정하는 메서드
     private func setTabBar() {
+        self.delegate = self
+        
+        let homeTab = makeTabVC(vc: BaseNC(rootViewController: HomeVC()), tabBarTitle: "홈", tabBarImg: "mumentIconHomeOff", tabBarSelectedImg: "mumentIconHomeOn")
+        homeTab.tabBarItem.tag = 0
+        
+        let writeTab = makeTabVC(vc: WriteVC(), tabBarTitle: "", tabBarImg: "mumentNavibarPlus", tabBarSelectedImg: "mumentNavibarPlus")
+        writeTab.tabBarItem.tag = 1
+        writeTab.tabBarItem.imageInsets = UIEdgeInsets(top: -7, left: 0, bottom: 9, right: 0)
+        
+        let storageTab = makeTabVC(vc: StorageVC(), tabBarTitle: "보관함", tabBarImg: "mumentIconLibraryOff", tabBarSelectedImg: "mumentIconLibraryOn")
+        storageTab.tabBarItem.tag = 2
+        
+        let tabs = [homeTab, writeTab, storageTab]
+        self.setViewControllers(tabs, animated: false)
+    }
+}
+
         tabBar.tintColor = .mPurple1
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.mumentB8M12], for: .normal)
     }
