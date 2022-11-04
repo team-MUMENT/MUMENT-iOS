@@ -153,7 +153,7 @@ extension UIViewController {
     ///- parameters:
     ///   - message: 화면에 보여질 메시지
     ///   - vc: 토스트 메시지가 띄워질 view controller
-    func showToastMessage(message : String) {
+    func showToastMessage(message: String, color: ToastMessageColorType) {
         let width = 335.adjustedW
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width / 2 - CGFloat(width) / 2, y: 675.adjustedH, width: CGFloat(width), height: 40))
         
