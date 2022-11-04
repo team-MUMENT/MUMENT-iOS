@@ -84,12 +84,10 @@ extension MumentTabBarController {
     
     /// TabBar의 UI를 지정하는 메서드
     private func setTabBarUI() {
-        self.tabBar.backgroundColor = .clear
-        
         let appearance = self.tabBar.standardAppearance
         appearance.shadowColor = nil
-        appearance.backgroundImage = nil
         appearance.shadowImage = nil
+        appearance.backgroundImage = nil
         appearance.backgroundEffect = nil
         appearance.backgroundColor = .clear
         self.tabBar.standardAppearance = appearance
