@@ -11,6 +11,10 @@ import Then
 
 final class MumentTabBarController: UITabBarController {
     
+    // MARK: Components
+    private let backgroundView: UIImageView = UIImageView().then {
+        $0.image = UIImage(named: "mumentTabBarBG")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setTabBarItemStyle()
