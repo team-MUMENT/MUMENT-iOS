@@ -82,36 +82,15 @@ extension DefaultNavigationBar {
     
     private func setLeftArrowLayout() {
         self.addSubviews([backButton, titleLabel])
-        
-        backButton.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(5)
-            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
-            $0.height.width.equalTo(48)
-        }
-        
-        titleLabel.snp.makeConstraints{
-            $0.centerX.centerY.equalTo(self.safeAreaLayoutGuide)
-        }
+        self.setBackButtonLayout()
+        self.setTitleLabelLayout()
     }
     
     private func setLeftArrowRightDoneLayout() {
         self.addSubviews([backButton, titleLabel, doneButton])
-        
-        backButton.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(5)
-            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
-            $0.height.width.equalTo(48)
-        }
-        
-        titleLabel.snp.makeConstraints{
-            $0.centerX.centerY.equalTo(self.safeAreaLayoutGuide)
-        }
-        
-        doneButton.snp.makeConstraints {
-            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(20)
-            $0.width.equalTo(50)
-        }
+        self.setBackButtonLayout()
+        self.setTitleLabelLayout()
+        self.setDoneButtonLayout()
     }
     
     private func setLeftCloseRightDone() {
@@ -123,10 +102,25 @@ extension DefaultNavigationBar {
             $0.height.width.equalTo(48)
         }
         
+        self.setTitleLabelLayout()
+        self.setDoneButtonLayout()
+    }
+    
+    private func setBackButtonLayout() {
+        backButton.snp.makeConstraints{
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(5)
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.height.width.equalTo(48)
+        }
+    }
+    
+    private func setTitleLabelLayout() {
         titleLabel.snp.makeConstraints{
             $0.centerX.centerY.equalTo(self.safeAreaLayoutGuide)
         }
-        
+    }
+    
+    private func setDoneButtonLayout() {
         doneButton.snp.makeConstraints {
             $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(20)
