@@ -14,17 +14,13 @@ import RxCocoa
 class WriteVC: BaseVC {
     
     // MARK: - Properties
-    private let writeScrollView = UIScrollView().then {
-        $0.bounces = false
-    }
+    private let writeScrollView = UIScrollView()
     private let writeContentView = UIView().then {
         $0.backgroundColor = .mBgwhite
     }
-    private let naviView = DefaultNavigationView().then {
+    private let naviView = DefaultNavigationBar(naviType: .leftCloseRightDone).then {
         $0.setTitleLabel(title: "기록하기")
-    }
-    private let resetButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "mumentReset"), for: .normal)
+        $0.doneButton.isEnabled = false
     }
     private let selectMusicLabel = UILabel().then {
         $0.text = "곡을 선택해주세요."
@@ -81,10 +77,13 @@ class WriteVC: BaseVC {
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
+    private let feelTagScrollView = UIScrollView().then {
+        $0.showsHorizontalScrollIndicator = false
+    }
     private let feelTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
         $0.backgroundColor = .mBgwhite
-        $0.showsHorizontalScrollIndicator = false
         $0.contentInset = .zero
+        $0.isScrollEnabled = false
     }
     private let contentLabel = UILabel().then {
         $0.text = "이 순간의 여운을 글로 남겨보세요."
@@ -131,23 +130,11 @@ class WriteVC: BaseVC {
             postMumentData.feelingTag = clickedFeelTag
         }
     }
-    var impressionTagDummyData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
-    var feelTagDummyData = ["🎡 벅참", "🍁 센치함", "⌛️ 아련함", "😄 신남", "😔 우울", "💭 회상", "💐 설렘", "🕰 그리움", " 👥 위로", "😚 행복", "🛌 외로움", "🌅 낭만", "🙌 자신감", "🌋 스트레스", "☕️ 차분", "🍀 여유로움"]
+    let impressionTagData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
+    let feelTagData = ["🎡 벅참", "😄 신남", "💐 설렘", "😚 행복", "🙌 자신감", "🍀 여유로움", "🍁 센치함", "😔 우울", "🕰 그리움", "🛌 외로움", "🌋 스트레스", "⌛️ 아련함", "💭 회상", " 👥 위로", "🌅 낭만", "☕️ 차분"]
     
     private let tagCellHeight = 35
     private let cellVerticalSpacing = 10
-    private let impressionCVLayout = LeftAlignedCollectionViewFlowLayout().then {
-        $0.scrollDirection = .vertical
-        $0.minimumLineSpacing = 10
-        $0.minimumInteritemSpacing = 10
-        $0.sectionInset = .zero
-    }
-    private let feelCVLayout = UICollectionViewFlowLayout().then {
-        $0.scrollDirection = .horizontal
-        $0.minimumLineSpacing = 10
-        $0.minimumInteritemSpacing = 10
-        $0.sectionInset = .zero
-    }
     let disposeBag = DisposeBag()
     var isFirstListen = false
     var isFirstListenActivated = true
@@ -160,6 +147,7 @@ class WriteVC: BaseVC {
         setNotificationCenter()
         setTagCV()
         setLayout()
+        setNaviView()
         setRadioButtonSelectStatus(button: firstListenButton, isSelected: isFirstListen)
         setRadioButtonSelectStatus(button: againListenButton, isSelected: isFirstListen)
         setRadioButton()
@@ -171,7 +159,6 @@ class WriteVC: BaseVC {
         setSearchButton()
         setRemoveSelectedMusicButton()
         setSelectedMusicViewPressed()
-        setResetButton()
         setCompleteButton()
         setIsEnableCompleteButton(isEnabled: false)
     }
@@ -241,17 +228,13 @@ class WriteVC: BaseVC {
     }
     
     private func setTagCV() {
-        impressionTagCV.dataSource = self
-        impressionTagCV.delegate = self
-        impressionTagCV.layoutMargins = .zero
-        impressionTagCV.allowsMultipleSelection = true
-        impressionTagCV.collectionViewLayout = impressionCVLayout
-        
-        feelTagCV.dataSource = self
-        feelTagCV.delegate = self
-        feelTagCV.layoutMargins =  .zero
-        feelTagCV.allowsMultipleSelection = true
-        feelTagCV.collectionViewLayout = feelCVLayout
+        [impressionTagCV, feelTagCV].forEach {
+            $0.dataSource = self
+            $0.delegate = self
+            $0.allowsMultipleSelection = true
+            $0.layoutMargins = .zero
+            $0.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
+        }
     }
     
     private func setIsPrivateToggleButton() {
@@ -285,17 +268,6 @@ class WriteVC: BaseVC {
         selectedMusicView.removeButton.press { [weak self] in
             self?.removeSelectedMusicView()
             self?.setIsEnableCompleteButton(isEnabled: false)
-        }
-    }
-    
-    private func setResetButton() {
-        resetButton.press { [weak self] in
-            let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel)
-            mumentAlert.setTitleSubTitle(title: "뮤멘트 기록을 초기화하시겠어요?", subTitle: "확인 선택 시, 작성 중인 내용이 삭제됩니다.")
-            mumentAlert.OKButton.press { [weak self] in
-                self?.setDefaultView()
-            }
-            self?.present(mumentAlert, animated: true)
         }
     }
     
@@ -337,17 +309,26 @@ class WriteVC: BaseVC {
             searchBottomSheet.showBottomSheetWithAnimation()
         }
     }
+    
+    private func setNaviView() {
+        self.naviView.closeButton.press {
+            self.dismiss(animated: true)
+        }
+        self.naviView.doneButton.press {
+            debugPrint("완료 버튼 누름")
+            self.dismiss(animated: true)
+        }
+    }
 }
 
-// TODO: 컬렉션뷰 진짜 개모르겠다. 말렸다. ㅋ  종일 햇는데 컬렉션뷰에 잡아먹힌 기분이다. 나중에 할 거다. 며칠만 뒤에... 뇌를 좀 상쾌하게 바꾸고 다시 도전한다 .....................
 // MARK: - UICollectionViewDataSource
 extension WriteVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case impressionTagCV:
-            return impressionTagDummyData.count
+            return impressionTagData.count
         case feelTagCV:
-            return feelTagDummyData.count
+            return feelTagData.count
         default: return 0
         }
     }
@@ -356,10 +337,10 @@ extension WriteVC: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WriteTagCVC.className, for: indexPath) as! WriteTagCVC
         switch collectionView {
         case impressionTagCV:
-            cell.setData(data: impressionTagDummyData[indexPath.row])
+            cell.setData(data: impressionTagData[indexPath.row])
             return cell
         case feelTagCV:
-            cell.setData(data: feelTagDummyData[indexPath.row])
+            cell.setData(data: feelTagData[indexPath.row])
             return cell
         default: return cell
         }
@@ -404,9 +385,9 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
         let sizingCell = WriteTagCVC()
         switch collectionView {
         case impressionTagCV:
-            sizingCell.setData(data: impressionTagDummyData[indexPath.row])
+            sizingCell.setData(data: impressionTagData[indexPath.row])
         case feelTagCV:
-            sizingCell.setData(data: feelTagDummyData[indexPath.row])
+            sizingCell.setData(data: feelTagData[indexPath.row])
         default: break
         }
 
@@ -495,7 +476,8 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, resetButton, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagCV, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        writeContentView.addSubviews([naviView, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        feelTagScrollView.addSubview(feelTagCV)
         
         writeScrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
@@ -508,13 +490,7 @@ extension WriteVC {
         
         naviView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(52.adjustedH)
-        }
-        
-        resetButton.snp.makeConstraints {
-            $0.centerY.equalTo(naviView)
-            $0.width.height.equalTo(25.adjustedW)
-            $0.rightMargin.equalToSuperview().inset(20)
+            $0.height.equalTo(48)
         }
         
         selectMusicLabel.snp.makeConstraints {
@@ -554,8 +530,8 @@ extension WriteVC {
         
         impressionTagCV.snp.makeConstraints {
             $0.top.equalTo(impressionLabel.snp.bottom).offset(16)
-            $0.left.equalTo(impressionLabel.snp.left)
-            $0.right.equalToSuperview().inset(20)
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview().inset(70)
             $0.height.equalTo(tagCellHeight * 2 + cellVerticalSpacing)
         }
         
@@ -564,15 +540,20 @@ extension WriteVC {
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        feelTagCV.snp.makeConstraints {
+        feelTagScrollView.snp.makeConstraints {
             $0.top.equalTo(feelLabel.snp.bottom).offset(16)
-            $0.left.equalTo(feelLabel.snp.left)
-            $0.right.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(tagCellHeight * 3 + cellVerticalSpacing * 2)
+        }
+        
+        feelTagCV.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.width.equalTo(550)
             $0.height.equalTo(tagCellHeight * 3 + cellVerticalSpacing * 2)
         }
         
         contentLabel.snp.makeConstraints {
-            $0.top.equalTo(feelTagCV.snp.bottomMargin).offset(50)
+            $0.top.equalTo(feelTagScrollView.snp.bottomMargin).offset(50)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
