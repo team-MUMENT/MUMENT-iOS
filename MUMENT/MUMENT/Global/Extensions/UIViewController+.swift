@@ -155,10 +155,21 @@ extension UIViewController {
     ///   - vc: 토스트 메시지가 띄워질 view controller
     func showToastMessage(message: String, color: ToastMessageColorType) {
         let width = 335.adjustedW
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width / 2 - CGFloat(width) / 2, y: 675.adjustedH, width: CGFloat(width), height: 40))
+        var frame = CGRect()
+        let toastLabel = UILabel()
         
-        toastLabel.backgroundColor = UIColor.mBlack2
-        toastLabel.textColor = UIColor.mWhite
+        switch color {
+        case .black:
+            toastLabel.backgroundColor = .mBlack2
+            toastLabel.textColor =  .mWhite
+            frame = CGRect(x: self.view.frame.size.width / 2 - CGFloat(width) / 2, y: 675.adjustedH, width: CGFloat(width), height: 40)
+        case .red:
+            toastLabel.backgroundColor = .mRed.withAlphaComponent(0.4)
+            toastLabel.textColor = .mBlack1
+            frame = CGRect(x: self.view.frame.size.width / 2 - CGFloat(width) / 2, y: 107.adjustedH, width: CGFloat(width), height: 40)
+        }
+        
+        toastLabel.frame = frame
         toastLabel.font = UIFont.mumentB8M12
         toastLabel.textAlignment = .center
         toastLabel.text = message
