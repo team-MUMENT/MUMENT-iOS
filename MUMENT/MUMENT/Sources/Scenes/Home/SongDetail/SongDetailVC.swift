@@ -54,7 +54,7 @@ class SongDetailVC: BaseVC {
     }
     
     private func setButtonActions(){
-        navigationBarView.backbutton.press{
+        navigationBarView.backButton.press{
             self.navigationController?.popViewController(animated: true)
         }
     }

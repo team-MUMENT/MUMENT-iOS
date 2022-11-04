@@ -59,7 +59,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     func setClickEventHandlers(){
         
-        navigationBarView.backbutton.press{
+        navigationBarView.backButton.press{
             self.navigationController?.popViewController(animated: true)
         }
         
