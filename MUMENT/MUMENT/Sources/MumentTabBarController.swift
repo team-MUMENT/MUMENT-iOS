@@ -6,39 +6,22 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
-class MumentTabBarController: UITabBarController {
+final class MumentTabBarController: UITabBarController {
     
-    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setTabBarItemStyle()
         self.setShadow()
         self.setTabBar()
-        requestSignIn()
+        self.requestSignIn()
     }
-}
-
-// MARK: - Network
-extension MumentTabBarController {
-    private func requestSignIn() {
-        SignAPI.shared.postSignIn(body: SignInBodyModel(profileId: "iangOS", password: "lovemument")) { networkResult in
-            switch networkResult {
-            case .success(let response):
-                if let result = response as? SignInDataModel {
-                    UserInfo.shared.userId = result.id
-                }
-            default:
-                self.makeAlert(title: MessageType.networkError.message)
-            }
-        }
     }
-}
-
-// MARK: - UI
-extension MumentTabBarController {
     
-    func makeTabVC(vc: UIViewController, tabBarTitle: String, tabBarImg: String, tabBarSelectedImg: String) -> UIViewController {
+    /// TabBarItem 생성해 주는 메서드
+    private func makeTabVC(vc: UIViewController, tabBarTitle: String, tabBarImg: String, tabBarSelectedImg: String) -> UIViewController {
         
         vc.tabBarItem = UITabBarItem(title: tabBarTitle,
                                      image: UIImage(named: tabBarImg)?.withRenderingMode(.alwaysOriginal),
@@ -47,7 +30,8 @@ extension MumentTabBarController {
         return vc
     }
     
-    func setTabBarItemStyle() {
+    /// TabBarItem을 지정하는 메서드
+    private func setTabBar() {
         tabBar.tintColor = .mPurple1
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.mumentB8M12], for: .normal)
     }
@@ -64,5 +48,18 @@ extension MumentTabBarController {
         
         let tabs = [homeTab, writeTab, storageTab]
         self.setViewControllers(tabs, animated: false)
+// MARK: - Network
+extension MumentTabBarController {
+    private func requestSignIn() {
+        SignAPI.shared.postSignIn(body: SignInBodyModel(profileId: "iangOS", password: "lovemument")) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? SignInDataModel {
+                    UserInfo.shared.userId = result.id
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
