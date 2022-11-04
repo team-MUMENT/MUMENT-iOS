@@ -74,6 +74,10 @@ extension UIColor {
     }
     
     @nonobjc class var mAlertBgBlack: UIColor {
-      return UIColor(white: 0.0, alpha: 0.65)
+        return UIColor(white: 0.0, alpha: 0.65)
+    }
+    
+    @nonobjc class var mRed: UIColor {
+        return UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
     }
 }
