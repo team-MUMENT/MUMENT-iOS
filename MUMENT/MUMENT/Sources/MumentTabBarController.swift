@@ -15,13 +15,19 @@ final class MumentTabBarController: UITabBarController {
     private let backgroundView: UIImageView = UIImageView().then {
         $0.image = UIImage(named: "mumentTabBarBG")
     }
+    
+    // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setTabBarItemStyle()
-        self.setShadow()
         self.setTabBar()
+        self.setTabBarUI()
         self.requestSignIn()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.setTabBarHeight()
     }
     
     /// TabBarItem 생성해 주는 메서드
@@ -53,14 +59,46 @@ final class MumentTabBarController: UITabBarController {
     }
 }
 
+// MARK: - UI
+extension MumentTabBarController {
+    
+    /// TabBar의 height을 설정하는 메서드
+    private func setTabBarHeight() {
+        let height = self.view.safeAreaInsets.bottom + 48
+        
+        var tabFrame = self.tabBar.frame
+        tabFrame.size.height = height
+        tabFrame.origin.y = self.view.frame.size.height - height
+        
+        self.tabBar.frame = tabFrame
+        self.tabBar.setNeedsLayout()
+        self.tabBar.layoutIfNeeded()
+        backgroundView.frame = tabBar.frame
+    }
+    
+    /// TabBarItem 스타일을 지정하는 메서드
+    private func setTabBarItemStyle() {
         tabBar.tintColor = .mPurple1
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.mumentB8M12], for: .normal)
     }
     
-    func setShadow() {
-        UITabBar.clearShadow()
-        tabBar.layer.setShadow(color: .mShadow, alpha: 1, x: 0, y: -3, blur: 10)
+    /// TabBar의 UI를 지정하는 메서드
+    private func setTabBarUI() {
+        self.tabBar.backgroundColor = .clear
+        
+        let appearance = self.tabBar.standardAppearance
+        appearance.shadowColor = nil
+        appearance.backgroundImage = nil
+        appearance.shadowImage = nil
+        appearance.backgroundEffect = nil
+        appearance.backgroundColor = .clear
+        self.tabBar.standardAppearance = appearance
+        
+        self.backgroundView.addShadow(location: .top)
+        self.view.addSubviews([backgroundView])
+        self.view.bringSubviewToFront(self.tabBar)
     }
+}
 
 // MARK: - UITabBarControllerDelegate
 extension MumentTabBarController: UITabBarControllerDelegate {
