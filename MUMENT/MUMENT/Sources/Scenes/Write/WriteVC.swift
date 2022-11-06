@@ -215,7 +215,7 @@ class WriteVC: BaseVC {
             self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: true)
             self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: false)
             if self.isFirstListenActivated == false {
-                self.showToastMessage(message: "‘처음 들어요'는 한 곡당 한 번만 선택할 수 있어요.")
+                self.showToastMessage(message: "‘처음 들어요'는 한 곡당 한 번만 선택할 수 있어요.", color: .black)
                 self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: false)
                 self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: true)
             }
@@ -370,7 +370,7 @@ extension WriteVC {
             case .success(let response):
                 if response is PostMumentResponseModel {
                     self.setDefaultView()
-                    self.showToastMessage(message: "🎉 뮤멘트가 작성되었어요!")
+                    self.showToastMessage(message: "🎉 뮤멘트가 작성되었어요!", color: .black)
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
@@ -400,7 +400,7 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if Int(feelTagCV.indexPathsForSelectedItems?.count ?? 0) + Int(impressionTagCV.indexPathsForSelectedItems?.count ?? 0) > 5 {
-            self.showToastMessage(message: "감상 태그는 최대 5개까지 선택할 수 있어요.")
+            self.showToastMessage(message: "감상 태그는 최대 5개까지 선택할 수 있어요.", color: .black)
             collectionView.deselectItem(at: indexPath, animated: true)
         } else {
             if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
