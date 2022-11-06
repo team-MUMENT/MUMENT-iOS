@@ -26,7 +26,7 @@ class AutoSignInVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
             
             // TODO: - 자동 로그인 되었을 시 아래 코드 수행되도록
             let tabBarControlller = MumentTabBarController()
@@ -52,7 +52,7 @@ extension AutoSignInVC {
         
         logoImageView.snp.makeConstraints{
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(295)
-            $0.centerX.equalTo(view.safeAreaLayoutGuide)
+            $0.centerX.equalToSuperview()
         }
     }
 }
