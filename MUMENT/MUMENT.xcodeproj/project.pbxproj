@@ -34,7 +34,8 @@
 		4D41D58228898737000E1296 /* CarouselResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D58128898737000E1296 /* CarouselResponseModel.swift */; };
 		4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */; };
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
-		4D4C872A29103F1D00B85676 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4C872929103F1D00B85676 /* Splash.storyboard */; };
+		4D58547029175E69003F5DF9 /* AutoSignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */; };
+		4D585473291762B2003F5DF9 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D585472291762B2003F5DF9 /* Splash.storyboard */; };
 		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
 		4D64A9EA287D885A00450FCA /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* TagView.swift */; };
 		4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */; };
@@ -194,7 +195,8 @@
 		4D41D58128898737000E1296 /* CarouselResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselResponseModel.swift; sourceTree = "<group>"; };
 		4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayResponseModel.swift; sourceTree = "<group>"; };
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
-		4D4C872929103F1D00B85676 /* Splash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
+		4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSignInVC.swift; sourceTree = "<group>"; };
+		4D585472291762B2003F5DF9 /* Splash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardModel.swift; sourceTree = "<group>"; };
@@ -375,10 +377,10 @@
 			path = DummyDataModel;
 			sourceTree = "<group>";
 		};
-		4D65552929103ED400AB8601 /* Splash */ = {
+		4D585471291762B2003F5DF9 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				4D4C872929103F1D00B85676 /* Splash.storyboard */,
+				4D585472291762B2003F5DF9 /* Splash.storyboard */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -493,6 +495,7 @@
 			children = (
 				C71B48102886DD22001A7CD6 /* Model */,
 				C71B48152886E5DF001A7CD6 /* SignInVC.swift */,
+				4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -765,7 +768,7 @@
 		C7BC6B4F2876AD26008C75CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				4D65552929103ED400AB8601 /* Splash */,
+				4D585471291762B2003F5DF9 /* Splash */,
 				C71B480F2886DD1C001A7CD6 /* SignIn */,
 				C71B47E528807B56001A7CD6 /* Search */,
 				C7BB531F2875A06800E0E889 /* Home */,
@@ -889,10 +892,10 @@
 				C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */,
 				C74EC435287592750068EB46 /* Colorsets.xcassets in Resources */,
 				C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */,
-				4D4C872A29103F1D00B85676 /* Splash.storyboard in Resources */,
 				C7BB530A2875973800E0E889 /* NotoSans-Medium.ttf in Resources */,
 				C7BB530B2875973800E0E889 /* NotoSans-Regular.ttf in Resources */,
 				C74EC42328758D230068EB46 /* Assets.xcassets in Resources */,
+				4D585473291762B2003F5DF9 /* Splash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -987,6 +990,7 @@
 				C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */,
 				4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */,
 				E781F235288AF55400484C28 /* Sequence+.swift in Sources */,
+				4D58547029175E69003F5DF9 /* AutoSignInVC.swift in Sources */,
 				4DEED415288B32E500C6337B /* DeleteService.swift in Sources */,
 				C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */,
 				E781F22D28892E2400484C28 /* StorageService.swift in Sources */,
