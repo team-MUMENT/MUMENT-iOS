@@ -392,7 +392,7 @@ extension StorageBottomSheet: UICollectionViewDelegateFlowLayout {
 
         }else {
             collectionView.deselectItem(at: indexPath, animated: false)
-            self.showToastMessage(message: "태그는 최대 3개까지 선택할 수 있어요.")
+            self.showToastMessage(message: "태그는 최대 3개까지 선택할 수 있어요.", color: .black)
             
         }
         bottomTagSectionHeight = 70
