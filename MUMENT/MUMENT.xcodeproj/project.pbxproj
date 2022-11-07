@@ -226,6 +226,7 @@
 		4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagResponseModel.swift; sourceTree = "<group>"; };
 		4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedResponseModel.swift; sourceTree = "<group>"; };
 		4DE75A8128CCBAE400BC3EC4 /* MumentsByTagCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCardView.swift; sourceTree = "<group>"; };
+		4DE7693D2918DF0E00747F79 /* MUMENT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MUMENT.entitlements; sourceTree = "<group>"; };
 		4DEED412288B32B300C6337B /* DeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAPI.swift; sourceTree = "<group>"; };
 		4DEED414288B32E500C6337B /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
@@ -601,6 +602,7 @@
 		C74EC41828758D220068EB46 /* MUMENT */ = {
 			isa = PBXGroup;
 			children = (
+				4DE7693D2918DF0E00747F79 /* MUMENT.entitlements */,
 				C74EC42728758D230068EB46 /* Info.plist */,
 				C7BC6B4C2876ACD9008C75CE /* Global */,
 				C73FC9BA287C193A0017F2DA /* Network */,
@@ -1192,6 +1194,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
@@ -1224,6 +1227,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
