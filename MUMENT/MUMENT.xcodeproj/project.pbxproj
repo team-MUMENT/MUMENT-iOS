@@ -59,6 +59,8 @@
 		4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */; };
 		4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */; };
 		4D9734F3287F3A41003EF546 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734F2287F3A41003EF546 /* Preview.swift */; };
+		4DA2E1C32918D3FB0037F5BD /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA2E1C22918D3FB0037F5BD /* KakaoSDK */; };
+		4DA2E1C52918D3FB0037F5BD /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA2E1C42918D3FB0037F5BD /* KakaoSDKAuth */; };
 		4DC4D84E2889BA100060D00F /* MumentsByTagResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */; };
 		4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */; };
 		4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
@@ -328,12 +330,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C74EC447287593BF0068EB46 /* RxSwift in Frameworks */,
+				4DA2E1C32918D3FB0037F5BD /* KakaoSDK in Frameworks */,
 				C74EC44C287594270068EB46 /* Alamofire in Frameworks */,
 				C74EC445287593BF0068EB46 /* RxRelay in Frameworks */,
 				C74EC43B287593910068EB46 /* SnapKit in Frameworks */,
 				C74EC441287593BF0068EB46 /* RxBlocking in Frameworks */,
 				C74EC443287593BF0068EB46 /* RxCocoa in Frameworks */,
 				C74EC43E2875939F0068EB46 /* Then in Frameworks */,
+				4DA2E1C52918D3FB0037F5BD /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -842,6 +846,8 @@
 				C74EC444287593BF0068EB46 /* RxRelay */,
 				C74EC446287593BF0068EB46 /* RxSwift */,
 				C74EC44B287594270068EB46 /* Alamofire */,
+				4DA2E1C22918D3FB0037F5BD /* KakaoSDK */,
+				4DA2E1C42918D3FB0037F5BD /* KakaoSDKAuth */,
 			);
 			productName = MUMENT;
 			productReference = C74EC41628758D220068EB46 /* MUMENT.app */;
@@ -877,6 +883,7 @@
 				C74EC43C2875939F0068EB46 /* XCRemoteSwiftPackageReference "Then" */,
 				C74EC43F287593BF0068EB46 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				C74EC44A287594270068EB46 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = C74EC41728758D220068EB46 /* Products */;
 			projectDirPath = "";
@@ -1267,6 +1274,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		C74EC439287593910068EB46 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1302,6 +1317,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4DA2E1C22918D3FB0037F5BD /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		4DA2E1C42918D3FB0037F5BD /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
 		C74EC43A287593910068EB46 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C74EC439287593910068EB46 /* XCRemoteSwiftPackageReference "SnapKit" */;
