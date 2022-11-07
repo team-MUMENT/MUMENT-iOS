@@ -9,6 +9,7 @@ import UIKit
 import Then
 import SnapKit
 import SafariServices
+import KakaoSDKUser
 
 final class SignInVC: BaseVC {
     
@@ -53,7 +54,21 @@ final class SignInVC: BaseVC {
     // MARK: - Functions
     private func setButtonActions(){
         kakaoSignInButton.press{
-            print("카카오로 계속하기 버튼 클릭됨")
+            
+            // 카카오톡 설치 여부 확인
+            if (UserApi.isKakaoTalkLoginAvailable()) {
+                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                    if let error = error {
+                        print(error)
+                    }
+                    else {
+                        print("loginWithKakaoTalk() success.")
+
+                        //서버한테 보내서 jwt 토큰 발급 받기
+                        _ = oauthToken
+                    }
+                }
+            }
         }
         
         appleSignInButton.press{

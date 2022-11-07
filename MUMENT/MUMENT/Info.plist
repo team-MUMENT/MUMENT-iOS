@@ -4,11 +4,18 @@
 <dict>
 	<key>CFBundleURLTypes</key>
 	<array>
-		<dict/>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakaoa03c85e89f6892684a4533911f5ab502</string>
+			</array>
+		</dict>
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>kakaompassauth</string>
+		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 	</array>
 	<key>UIAppFonts</key>
