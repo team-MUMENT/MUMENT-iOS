@@ -65,7 +65,7 @@ final class SignInVC: BaseVC {
                     else {
                         print("loginWithKakaoTalk() success.")
                         
-                        //서버한테 보내서 jwt 토큰 발급 받기
+                        // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
                         _ = oauthToken
                     }
                 }
@@ -177,11 +177,15 @@ extension SignInVC: ASAuthorizationControllerDelegate {
             print("fullName", fullName as Any)
             print("email", email as Any)
             
+            // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
+            
             // iCloud의 패스워드를 연동해 왔을 때
         case let passwordCredential as ASPasswordCredential:
             let username = passwordCredential.user
             let password = passwordCredential.password
             print("username", username)
+            
+            // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
         default:
             break
         }
@@ -191,31 +195,15 @@ extension SignInVC: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("apple 로그인 사용자 인증 실패")
         print("error \(error)")
-        // TODO: - 필요 시 추가적인 에러 처리
+        
+        // 필요 시 추가적인 에러 처리
     }
-    
-//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//      let appleIDProvider = ASAuthorizationAppleIDProvider()
-//      appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { (credentialState, error) in
-//        switch credentialState {
-//        case .authorized:
-//          // Authorization Logic
-//        case .revoked, .notFound:
-//          // Not Authorization Logic
-//          DispatchQueue.main.async {
-//            self.window?.rootViewController?.showLoginViewController()
-//          }
-//        default:
-//          break
-//        }
-//      }
-//      return true
-//    }
 }
 
 // MARK: - ASAuthorizationControllerPresentationContextProviding
 extension SignInVC: ASAuthorizationControllerPresentationContextProviding {
     
+    /// 애플 로그인 UI를 어디에 띄울지 가장 적합한 뷰 앵커를 반환합니다.
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
