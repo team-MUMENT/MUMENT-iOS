@@ -9,6 +9,8 @@ import UIKit
 import Then
 import SnapKit
 import SafariServices
+import KakaoSDKUser
+import AuthenticationServices
 
 final class SignInVC: BaseVC {
     
@@ -53,11 +55,32 @@ final class SignInVC: BaseVC {
     // MARK: - Functions
     private func setButtonActions(){
         kakaoSignInButton.press{
-            print("카카오로 계속하기 버튼 클릭됨")
+            
+            // 카카오톡 설치 여부 확인
+            if (UserApi.isKakaoTalkLoginAvailable()) {
+                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                    if let error = error {
+                        print(error)
+                    }
+                    else {
+                        print("loginWithKakaoTalk() success.")
+                        
+                        // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
+                        _ = oauthToken
+                    }
+                }
+            }
         }
         
         appleSignInButton.press{
-            print("Apple로 계속하기 버튼 클릭됨")
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
         }
     }
     
@@ -135,5 +158,53 @@ extension SignInVC {
             $0.top.equalTo(appleSignInButton.snp.bottom).offset(40)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+}
+
+// MARK: - ASAuthorizationControllerDelegate
+extension SignInVC: ASAuthorizationControllerDelegate {
+    
+    /// 사용자 인증 성공 시 인증 정보를 반환 받습니다.
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+            
+            // 비밀번호 및 FaceID 인증 경우를 통해 왔을 때
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            print("userIdentifier", userIdentifier)
+            print("fullName", fullName as Any)
+            print("email", email as Any)
+            
+            // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
+            
+            // iCloud의 패스워드를 연동해 왔을 때
+        case let passwordCredential as ASPasswordCredential:
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+            print("username", username)
+            
+            // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
+        default:
+            break
+        }
+    }
+    
+    /// 사용자 인증 실패 시 에러 처리를 합니다.
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("apple 로그인 사용자 인증 실패")
+        print("error \(error)")
+        
+        // 필요 시 추가적인 에러 처리
+    }
+}
+
+// MARK: - ASAuthorizationControllerPresentationContextProviding
+extension SignInVC: ASAuthorizationControllerPresentationContextProviding {
+    
+    /// 애플 로그인 UI를 어디에 띄울지 가장 적합한 뷰 앵커를 반환합니다.
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }
