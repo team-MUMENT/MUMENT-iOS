@@ -20,8 +20,7 @@ class StorageBottomSheet: BaseVC {
     }
     private let containerHeight = NSLayoutConstraint()
     let dismissButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentDelete_48x48"), for: .normal)
-        $0.contentMode = .scaleAspectFit
+        $0.setImage(UIImage(named: "mumentDelete"), for: .normal)
     }
     private let bottomSheetTitle = UILabel().then {
         $0.setLabel(text: "필터", color: UIColor.mBlack2, font: UIFont.mumentH2B18)
@@ -234,9 +233,9 @@ extension StorageBottomSheet {
         containerView.addSubViews([dismissButton, bottomSheetTitle, underLineView, selectedTagsCountLabel])
         
         dismissButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(3)
-            $0.top.equalToSuperview().inset(9)
-            $0.height.width.equalTo(48)
+            $0.left.equalToSuperview().inset(14)
+            $0.top.equalToSuperview().inset(20)
+            $0.height.equalTo(25)
         }
         
         bottomSheetTitle.snp.makeConstraints {
