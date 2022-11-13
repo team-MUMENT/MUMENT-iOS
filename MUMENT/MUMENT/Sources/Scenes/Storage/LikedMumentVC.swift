@@ -35,8 +35,8 @@ class LikedMumentVC: UIViewController {
     var numberOfSections = 0
     
     private let emptyView = StorageEmptyView().then {
-          $0.setLikedMumentLayout()
-      }
+        $0.setLikedMumentLayout()
+    }
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -68,7 +68,7 @@ class LikedMumentVC: UIViewController {
                 selectedTagsInt.append(title.tagInt() ?? 0)
             }
         }
-         getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
     /// Set 으로 중복값 제거하기
@@ -92,7 +92,7 @@ class LikedMumentVC: UIViewController {
             /// date 배열을 중복제거하고 dateArray에 대입
             dateArray = dates.uniqued()
             dateArray.sort(by: >)
-         
+            
             if dateArray.count == 0 {
                 dateArray = [1]
             }
@@ -114,13 +114,13 @@ class LikedMumentVC: UIViewController {
     
 }
 
-// MARK: - CollectionView UI
+// MARK: - CollectionView
 extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return dateDictionary[ self.dateArray[section] ] ?? 1
-      
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -235,6 +235,12 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         case .albumCell:
             return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = withoutHeartMumentData[indexPath.row].id
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
 
