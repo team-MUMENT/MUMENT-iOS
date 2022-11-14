@@ -47,6 +47,7 @@ final class SetProfileVC: BaseVC {
         
         self.setLayout()
         self.setClearButtonTapAction()
+        self.checkNickNameIsValid()
     }
     
     private func setClearButtonTapAction() {
@@ -55,6 +56,28 @@ final class SetProfileVC: BaseVC {
         }
     }
     
+    private func checkNickNameIsValid() {
+        nickNameTextField.rx.text
+            .orEmpty
+            .skip(1)
+            .distinctUntilChanged()
+            .subscribe(onNext: { changedText in
+                if changedText.count > 0 {
+                    let regex = "[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9\\s]{0,}"
+                    if NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: changedText) && changedText.trimmingCharacters(in: .whitespaces).count >= 2 {
+                        self.naviView.doneButton.isEnabled = true
+                        self.infoLabel.textColor = .mGray2
+                    } else {
+                        self.naviView.doneButton.isEnabled = false
+                        self.infoLabel.textColor = .mRed
+                    }
+                } else {
+                    self.naviView.doneButton.isEnabled = false
+                    self.infoLabel.textColor = .mGray2
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - UI
