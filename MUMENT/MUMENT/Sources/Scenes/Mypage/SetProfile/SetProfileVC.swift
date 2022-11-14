@@ -52,6 +52,7 @@ final class SetProfileVC: BaseVC {
         self.checkEnterNickNameLimit()
     }
     
+    /// 클리어 버튼 탭할 경우, 완료 버튼 비활성화하는 메서드
     private func setClearButtonTapAction() {
         nickNameTextField.clearButton.press { [weak self] in
             self?.naviView.doneButton.isEnabled = false
@@ -59,6 +60,7 @@ final class SetProfileVC: BaseVC {
         }
     }
     
+    /// 닉네임 유효성 검사 메서드
     private func checkNickNameIsValid() {
         nickNameTextField.rx.text
             .orEmpty
@@ -82,6 +84,7 @@ final class SetProfileVC: BaseVC {
             .disposed(by: disposeBag)
     }
     
+    /// 닉네임 글자 수를 Label에 띄우는 메서드
     private func setNickNameCountLabel() {
         nickNameTextField.rx.text
             .orEmpty
@@ -96,6 +99,7 @@ final class SetProfileVC: BaseVC {
             .disposed(by: disposeBag)
     }
     
+    /// 닉네임 글자 수가 초과될 경우 입력을 제한하는 메서드
     private func checkEnterNickNameLimit() {
         nickNameTextField.rx.text
             .orEmpty
