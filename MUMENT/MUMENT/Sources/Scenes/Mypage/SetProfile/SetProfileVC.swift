@@ -46,6 +46,13 @@ final class SetProfileVC: BaseVC {
         super.viewDidLoad()
         
         self.setLayout()
+        self.setClearButtonTapAction()
+    }
+    
+    private func setClearButtonTapAction() {
+        nickNameTextField.clearButton.press { [weak self] in
+            self?.naviView.doneButton.isEnabled = false
+        }
     }
     
 }
