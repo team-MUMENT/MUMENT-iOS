@@ -49,6 +49,7 @@ final class SetProfileVC: BaseVC {
         self.setClearButtonTapAction()
         self.checkNickNameIsValid()
         self.setNickNameCountLabel()
+        self.checkEnterNickNameLimit()
     }
     
     private func setClearButtonTapAction() {
@@ -94,6 +95,21 @@ final class SetProfileVC: BaseVC {
             .disposed(by: disposeBag)
     }
     
+    private func checkEnterNickNameLimit() {
+        nickNameTextField.rx.text
+            .orEmpty
+            .skip(1)
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { changedText in
+                if changedText.count > 15 {
+                    let index = changedText.index(changedText.startIndex, offsetBy: 15)
+                    self.nickNameTextField.text = String(changedText[..<index])
+                    self.nickNameTextField.resignFirstResponder()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - UI
