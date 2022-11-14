@@ -48,6 +48,7 @@ final class SetProfileVC: BaseVC {
         self.setLayout()
         self.setClearButtonTapAction()
         self.checkNickNameIsValid()
+        self.setNickNameCountLabel()
     }
     
     private func setClearButtonTapAction() {
@@ -78,6 +79,21 @@ final class SetProfileVC: BaseVC {
             })
             .disposed(by: disposeBag)
     }
+    
+    private func setNickNameCountLabel() {
+        nickNameTextField.rx.text
+            .orEmpty
+            .skip(1)
+            .subscribe(onNext: { changedText in
+                DispatchQueue.main.async {
+                    let countString = "\(changedText.count)"
+                    self.nickNameCountLabel.text = countString + "/15"
+                    self.nickNameCountLabel.setColor(to: countString, with: .mPurple1)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
 }
 
 // MARK: - UI
