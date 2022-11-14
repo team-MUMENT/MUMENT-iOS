@@ -55,6 +55,7 @@ final class SetProfileVC: BaseVC {
     private func setClearButtonTapAction() {
         nickNameTextField.clearButton.press { [weak self] in
             self?.naviView.doneButton.isEnabled = false
+            self?.infoLabel.textColor = .mGray2
         }
     }
     
