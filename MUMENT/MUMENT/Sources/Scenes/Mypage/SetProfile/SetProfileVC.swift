@@ -20,6 +20,8 @@ final class SetProfileVC: BaseVC {
     }
     private let loadImageButton: UIButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "mumentProfileCamera"), for: .normal)
+        $0.layer.cornerRadius = 131.adjustedH / 2
+        $0.clipsToBounds = true
     }
     private let nickNameTextField: MumentTextField = MumentTextField().then {
         $0.placeholder = "닉네임을 입력해주세요. (필수)"
@@ -128,11 +130,11 @@ extension SetProfileVC {
         }
         loadImageButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(131)
-            $0.top.equalTo(naviView.snp.bottom).offset(79)
+            $0.width.height.equalTo(131.adjustedH)
+            $0.top.equalTo(naviView.snp.bottom).offset(79.adjustedH)
         }
         nickNameTextField.snp.makeConstraints {
-            $0.top.equalTo(loadImageButton.snp.bottom).offset(64)
+            $0.top.equalTo(loadImageButton.snp.bottom).offset(64.adjustedH)
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(50)
         }
