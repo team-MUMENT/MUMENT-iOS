@@ -58,6 +58,7 @@ final class SetProfileVC: BaseVC {
         self.setNickNameCountLabel()
         self.checkEnterNickNameLimit()
         self.setLoadImageButtonAction()
+        self.setDoneButtonAction()
     }
     
     /// 클리어 버튼 탭할 경우, 완료 버튼 비활성화하는 메서드
@@ -144,6 +145,12 @@ final class SetProfileVC: BaseVC {
         }
     }
     
+    /// 완료 버튼 액션 메서드
+    private func setDoneButtonAction() {
+        self.naviView.doneButton.press { [weak self] in
+            self?.showToastMessage(message: "중복된 닉네임이 존재합니다.", color: .red)
+        }
+    }
 }
 
 // MARK: - UI
