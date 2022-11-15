@@ -27,6 +27,11 @@ extension UIButton {
         self.setBackgroundImage(colorImage, for: state)
     }
     
+    /// 버튼의 Title을 Font, Color와 함께 상태별로 지정하는 메서드. 상태가 여러 개 필요할 경우, 각각의 상태에 모두 title과 font, color를 지정해 주어야 함.
+    func setTitleWithCustom(_ title: String, font: UIFont?, color: UIColor?, for state: UIControl.State) {
+        self.setAttributedTitle(NSAttributedString(string: title, attributes: [.font: font ?? UIFont(), .foregroundColor: color ?? .mBlack1]), for: state)
+    }
+    
     /// button의 기본, 클릭 이미지를 빠르게 설정하는 메서드
     func setImgByName(name: String, selectedName: String?) {
         self.setImage(UIImage(named: name), for: .normal)
