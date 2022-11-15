@@ -42,12 +42,16 @@ final class SetProfileVC: BaseVC {
     
     // MARK: Properties
     private let disposeBag: DisposeBag = DisposeBag()
+    private let imagePickerController: UIImagePickerController = UIImagePickerController().then {
+        $0.sourceType = .photoLibrary
+    }
     private let actionSheetVC = MumentActionSheetVC(actionName: ["라이브러리에서 선택", "프로필 사진 삭제"])
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.imagePickerController.delegate = self
         self.setLayout()
         self.setClearButtonTapAction()
         self.checkNickNameIsValid()
@@ -169,5 +173,20 @@ extension SetProfileVC {
             $0.centerY.equalTo(infoLabel)
             $0.right.equalTo(nickNameTextField)
         }
+    }
+}
+
+extension SetProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            DispatchQueue.main.async {
+                self.loadImageButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+            }
+        }
+        self.imagePickerController.dismiss(animated: true)
+    }
+    
+    func openLibrary(presentingVC: UIViewController) {
+        presentingVC.present(imagePickerController, animated: true)
     }
 }
