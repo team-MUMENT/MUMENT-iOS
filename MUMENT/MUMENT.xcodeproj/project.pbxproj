@@ -91,6 +91,8 @@
 		C71B48162886E5DF001A7CD6 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48152886E5DF001A7CD6 /* SignInVC.swift */; };
 		C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48172886E7BA001A7CD6 /* SignInDataModel.swift */; };
 		C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48192886F5FF001A7CD6 /* Int+.swift */; };
+		C7394B0C29234E2700BF6AE1 /* MumentActionSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7394B0B29234E2700BF6AE1 /* MumentActionSheetVC.swift */; };
+		C7394B0E292362EC00BF6AE1 /* MumentActionSheetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7394B0D292362EC00BF6AE1 /* MumentActionSheetTVC.swift */; };
 		C73CBCFC291549ED009E9A40 /* ToastMessageColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CBCFB291549ED009E9A40 /* ToastMessageColorType.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
@@ -255,6 +257,8 @@
 		C71B48152886E5DF001A7CD6 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		C71B48172886E7BA001A7CD6 /* SignInDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDataModel.swift; sourceTree = "<group>"; };
 		C71B48192886F5FF001A7CD6 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
+		C7394B0B29234E2700BF6AE1 /* MumentActionSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentActionSheetVC.swift; sourceTree = "<group>"; };
+		C7394B0D292362EC00BF6AE1 /* MumentActionSheetTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentActionSheetTVC.swift; sourceTree = "<group>"; };
 		C73CBCFB291549ED009E9A40 /* ToastMessageColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageColorType.swift; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
@@ -778,6 +782,7 @@
 		C7BC6B4E2876AD22008C75CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4D9734F0287ECE1B003EF546 /* DefaultMumentCard */,
 				C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */,
 				4D13A65E2882AF1B00197D2A /* OrderingButton.swift */,
 				C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */,
@@ -787,9 +792,10 @@
 				C71B47FD28843D4D001A7CD6 /* MumentAlertWithButtons */,
 				4D76045D2880ACC60044F2A6 /* DetailMumentCard */,
 				4D9734F1287ECE29003EF546 /* MumentCardWithoutHeart */,
-				4D9734F0287ECE1B003EF546 /* DefaultMumentCard */,
 				4D64A9E9287D885A00450FCA /* TagView.swift */,
 				C79CD4502921BF7200DE4A47 /* MumentTextField.swift */,
+				C7394B0B29234E2700BF6AE1 /* MumentActionSheetVC.swift */,
+				C7394B0D292362EC00BF6AE1 /* MumentActionSheetTVC.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -959,6 +965,7 @@
 				4D13A65F2882AF1B00197D2A /* OrderingButton.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */,
+				C7394B0C29234E2700BF6AE1 /* MumentActionSheetVC.swift in Sources */,
 				4DE75A8228CCBAE400BC3EC4 /* MumentsByTagCardView.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */,
@@ -1018,6 +1025,7 @@
 				C7BB531628759BBD00E0E889 /* MumentTabBarController.swift in Sources */,
 				C7BC6B6228771020008C75CE /* UICollectionView+.swift in Sources */,
 				C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */,
+				C7394B0E292362EC00BF6AE1 /* MumentActionSheetTVC.swift in Sources */,
 				4D90D15D28892E71008265E1 /* HomeService.swift in Sources */,
 				E781F22B2886EA7700484C28 /* TagButton.swift in Sources */,
 				C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */,
