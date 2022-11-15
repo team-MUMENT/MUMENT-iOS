@@ -42,6 +42,7 @@ final class SetProfileVC: BaseVC {
     
     // MARK: Properties
     private let disposeBag: DisposeBag = DisposeBag()
+    private let actionSheetVC = MumentActionSheetVC(actionName: ["라이브러리에서 선택", "프로필 사진 삭제"])
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -52,6 +53,7 @@ final class SetProfileVC: BaseVC {
         self.checkNickNameIsValid()
         self.setNickNameCountLabel()
         self.checkEnterNickNameLimit()
+        self.setLoadImageButtonAction()
     }
     
     /// 클리어 버튼 탭할 경우, 완료 버튼 비활성화하는 메서드
@@ -117,6 +119,27 @@ final class SetProfileVC: BaseVC {
             })
             .disposed(by: disposeBag)
     }
+    
+    /// 프로필 사진 설정 버튼 액션 메서드
+    private func setLoadImageButtonAction() {
+        self.loadImageButton.press { [weak self] in
+            self?.actionSheetVC.actionTableView.rx.itemSelected
+                .subscribe(onNext: { indexPath in
+                    self?.actionSheetVC.actionTableView.deselectRow(at: indexPath, animated: true)
+                    self?.actionSheetVC.dismiss(animated: true) {
+                        switch indexPath.row {
+                        case 0:
+                            self?.openLibrary(presentingVC: self ?? BaseVC())
+                        case 1:
+                            self?.loadImageButton.setImage(UIImage(named: "mumentProfileCamera"), for: .normal)
+                        default: break
+                        }
+                    }
+                }).disposed(by: self?.actionSheetVC.disposeBag ?? DisposeBag())
+            self?.present(self?.actionSheetVC ?? BaseVC(), animated: true)
+        }
+    }
+    
 }
 
 // MARK: - UI
