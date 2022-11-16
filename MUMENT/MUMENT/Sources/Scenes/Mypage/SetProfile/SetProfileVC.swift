@@ -19,6 +19,7 @@ final class SetProfileVC: BaseVC {
         $0.doneButton.isEnabled = false
     }
     private let loadImageButton: UIButton = UIButton(type: .system).then {
+        $0.imageView?.contentMode = .scaleAspectFill
         $0.setImage(UIImage(named: "mumentProfileCamera"), for: .normal)
         $0.layer.cornerRadius = 131.adjustedH / 2
         $0.clipsToBounds = true
