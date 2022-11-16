@@ -19,6 +19,7 @@ extension UILabel {
         }
     }
     
+    /// 특정 문자열 컬러 변경하는 메서드
     func setColor(to targetString: String, with color: UIColor) {
         if let labelText = self.text, labelText.count > 0 {
             let attributedString = NSMutableAttributedString(string: labelText)
@@ -29,6 +30,7 @@ extension UILabel {
         }
     }
     
+    /// 특정 문자열 폰트 변경하는 메서드
     func setFont(to targetString: String, with font: UIFont) {
         if let labelText = self.text, labelText.count > 0 {
             let attributedString = NSMutableAttributedString(string: labelText)

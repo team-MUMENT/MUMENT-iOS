@@ -12,7 +12,7 @@ enum DeviceType {
     case iPhone8
     case iPhone13Pro
     case iPhone13mini
-
+    
     func name() -> String {
         switch self {
         case .iPhoneSE2:
@@ -173,15 +173,19 @@ extension UIViewController {
         toastLabel.font = UIFont.mumentB8M12
         toastLabel.textAlignment = .center
         toastLabel.text = message
-        toastLabel.alpha = 1.0
+        toastLabel.alpha = 0.0
         toastLabel.layer.cornerRadius = 10
         toastLabel.clipsToBounds = true
         self.view.addSubview(toastLabel)
         
-        UIView.animate(withDuration: 0.3, delay: 2.0, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseInOut], animations: {
+            toastLabel.alpha = 1.0
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, delay: 2.0, options: .curveEaseInOut, animations: {
+                toastLabel.alpha = 0.0
+            }, completion:  { _ in
+                toastLabel.removeFromSuperview()
+            })
         })
     }
 }
@@ -189,18 +193,18 @@ extension UIViewController {
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 extension UIViewController {
-
+    
     private struct Preview: UIViewControllerRepresentable {
         let viewController: UIViewController
-
+        
         func makeUIViewController(context: Context) -> UIViewController {
             return viewController
         }
-
+        
         func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         }
     }
-
+    
     func showPreview(_ deviceType: DeviceType = .iPhone13mini) -> some View {
         Preview(viewController: self).previewDevice(PreviewDevice(rawValue: deviceType.name()))
     }
