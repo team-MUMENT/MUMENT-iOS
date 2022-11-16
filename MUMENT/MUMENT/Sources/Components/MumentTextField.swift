@@ -14,12 +14,16 @@ import RxSwift
  뮤멘트에서 자주 사용되는 텍스트필드
  */
 final class MumentTextField: UITextField {
+    
+    // MARK: Components
     let clearButton: UIButton = UIButton().then {
         $0.setImage(UIImage(named: "mumentDelete2"), for: .normal)
     }
     
+    // MARK: Properties
     private let disposeBag: DisposeBag = DisposeBag()
     
+    // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setDefaultStyle()
@@ -32,6 +36,7 @@ final class MumentTextField: UITextField {
         self.setTextFieldClearBtn(textField: self, clearBtn: self.clearButton)
     }
     
+    // MARK: Functions
     /// textField-btn 에 clear 기능 세팅하는 함수
     private func setTextFieldClearBtn(textField: UITextField, clearBtn: UIButton) {
         textField.rx.text
@@ -52,6 +57,7 @@ final class MumentTextField: UITextField {
     }
 }
 
+// MARK: - UI
 extension MumentTextField {
     private func setDefaultStyle() {
         self.addSubviews([clearButton])
