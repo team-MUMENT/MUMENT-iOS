@@ -51,7 +51,7 @@ final class MumentTabBarController: UITabBarController {
         writeTab.tabBarItem.tag = 1
         writeTab.tabBarItem.imageInsets = UIEdgeInsets(top: -7, left: 0, bottom: 9, right: 0)
         
-        let storageTab = makeTabVC(vc: StorageVC(), tabBarTitle: "보관함", tabBarImg: "mumentIconLibraryOff", tabBarSelectedImg: "mumentIconLibraryOn")
+        let storageTab = makeTabVC(vc: BaseNC(rootViewController: StorageVC()), tabBarTitle: "보관함", tabBarImg: "mumentIconLibraryOff", tabBarSelectedImg: "mumentIconLibraryOn")
         storageTab.tabBarItem.tag = 2
         
         let tabs = [homeTab, writeTab, storageTab]
