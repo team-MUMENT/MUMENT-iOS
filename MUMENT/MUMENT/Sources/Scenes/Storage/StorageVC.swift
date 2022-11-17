@@ -84,21 +84,6 @@ class StorageVC: BaseVC {
         $0.axis = .horizontal
         $0.distribution = .fillProportionally
     }
-    // MARK: - Properties
-    private var currentIndex: Int = 0
-    
-    var tagsViewHeightConstant = 0
-    
-    private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-
-    private let myMumentVC = MyMumentVC()
-    private let likedMumentVC = LikedMumentVC()
-    private let storageBottomSheet = StorageBottomSheet()
-
-    private lazy var contents: [UIViewController] = [
-        self.myMumentVC,
-        self.likedMumentVC
-    ]
     
     private lazy var segmentControl = UISegmentedControl().then {
         $0.selectedSegmentTintColor = .clear
@@ -123,6 +108,21 @@ class StorageVC: BaseVC {
         $0.addTarget(self, action: #selector(didTapSegmentControl), for: .valueChanged)
     }
     
+    // MARK: - Properties
+    private var currentIndex: Int = 0
+    
+    var tagsViewHeightConstant = 0
+    
+    private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+
+    private let myMumentVC = MyMumentVC()
+    private let likedMumentVC = LikedMumentVC()
+    private let storageBottomSheet = StorageBottomSheet()
+
+    private lazy var contents: [UIViewController] = [
+        self.myMumentVC,
+        self.likedMumentVC
+    ]
     
     /// 움직일 underLineView의 leadingAnchor 따로 작성
     private lazy var leadingDistance: NSLayoutConstraint = {
