@@ -54,9 +54,9 @@ extension OnboardingVC {
         view.addSubviews([CV,pagingControl,initiatingButton])
         
         CV.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
-            
-            pagingControl.snp.makeConstraints {
+//            $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.edges.equalToSuperview()
+        }
                 $0.top.equalTo(view.safeAreaLayoutGuide).offset(38)
                 $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             }
