@@ -31,6 +31,7 @@ final class OnboardingVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
+        setCV()
         pagingControl.numberOfPages = dataSource.count
     }
     
