@@ -17,8 +17,6 @@ final class OnboardingVC: BaseVC {
     private var dataSource: [OnboardingModel] = OnboardingModel.onboardingData
     
     private let pagingControl = UIPageControl().then{
-//        $0.translatesAutoresizingMaskIntoConstraints = false
-//        $0.hidesForSinglePage = true
         $0.currentPageIndicatorTintColor = .mPurple1
         $0.pageIndicatorTintColor = .mGray3
     }
@@ -41,7 +39,7 @@ final class OnboardingVC: BaseVC {
         CV.dataSource = self
         CV.register(OnboardingCVC.self, forCellWithReuseIdentifier: OnboardingCVC.className)
         CV.showsHorizontalScrollIndicator = false
-//        CV.isPagingEnabled = true
+        CV.isPagingEnabled = true
         
         CVFlowLayout.scrollDirection = .horizontal
         CVFlowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -76,17 +74,9 @@ extension OnboardingVC {
 // MARK: - UICollectionViewDelegate
 extension OnboardingVC: UICollectionViewDelegate{
     
-    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //        if let cell = collectionView.cellForItem(at: indexPath) as? OnboardingCVC {
-    //            cell.isSelected = true
-    //        }
-    //        self.delegate?.carouselCVCSelected(data: increasedCarouselData[indexPath.row])
-    
-    // Test Code
-    //        self.delegate?.carouselCVCSelected()
-    //    }
-    
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        pagingControl.currentPage = Int(floor(scrollView.contentOffset.x / UIScreen.main.bounds.width))
+       }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -104,5 +94,15 @@ extension OnboardingVC: UICollectionViewDataSource {
         }
         cell.setData(dataSource[indexPath.row])
         return cell
+    }
+}
+
+extension OnboardingVC: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: CV.frame.width, height: CV.frame.height)
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
