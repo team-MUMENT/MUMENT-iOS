@@ -12,17 +12,23 @@ import Then
 final class OnboardingVC: BaseVC {
     
     // MARK: - Properties
-    private let CVFlowLayout = UICollectionViewFlowLayout()
-    private lazy var CV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
+    private let CVFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     private var dataSource: [OnboardingModel] = OnboardingModel.onboardingData
     
-    private let pagingControl = UIPageControl().then{
+    // MARK: - Components
+    private lazy var CV: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
+    
+    private let pageControl: UIPageControl = UIPageControl().then {
         $0.currentPageIndicatorTintColor = .mPurple1
         $0.pageIndicatorTintColor = .mGray3
+        $0.isUserInteractionEnabled = false
+//        $0.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
     }
     
-    private let initiatingButton = MumentCompleteButton(isEnabled: false).then{
+    private let initiatingButton: MumentCompleteButton = MumentCompleteButton(isEnabled: false).then {
         $0.setTitle("시작하기", for: .normal)
+        $0.setBackgroundColor(.mBgwhite, for: .disabled)
+        $0.setTitleColor(.mGray2, for: .normal)
     }
     
     // MARK: - View Life Cycle
@@ -30,7 +36,7 @@ final class OnboardingVC: BaseVC {
         super.viewDidLoad()
         setLayout()
         setCV()
-        pagingControl.numberOfPages = dataSource.count
+        setPageControl()
     }
     
     // MARK: - Functions
@@ -45,28 +51,33 @@ final class OnboardingVC: BaseVC {
         CVFlowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         CVFlowLayout.minimumInteritemSpacing = 0
     }
+    
+    private func setPageControl(){
+        pageControl.numberOfPages = dataSource.count
+    }
 }
 
 // MARK: - UI
 extension OnboardingVC {
     
     private func setLayout() {
-        view.addSubviews([CV,pagingControl,initiatingButton])
+        view.addSubviews([CV,pageControl,initiatingButton])
         
         CV.snp.makeConstraints {
 //            $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.edges.equalToSuperview()
         }
-                $0.top.equalTo(view.safeAreaLayoutGuide).offset(38)
-                $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            }
-            
-            initiatingButton.snp.makeConstraints{
-                $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-                $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-                $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(60)
-                $0.height.equalTo(50)
-            }
+        
+        pageControl.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(46)
+            $0.centerX.equalToSuperview()
+        }
+        
+        initiatingButton.snp.makeConstraints{
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.bottom.equalToSuperview().inset(63)
+            $0.height.equalTo(50)
         }
     }
 }
@@ -75,7 +86,7 @@ extension OnboardingVC {
 extension OnboardingVC: UICollectionViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        pagingControl.currentPage = Int(floor(scrollView.contentOffset.x / UIScreen.main.bounds.width))
+        pageControl.currentPage = Int(floor(scrollView.contentOffset.x / UIScreen.main.bounds.width))
        }
 }
 
