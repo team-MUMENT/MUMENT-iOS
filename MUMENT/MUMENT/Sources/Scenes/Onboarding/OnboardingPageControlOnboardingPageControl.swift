@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PageControl: UIPageControl {
+class OnboardingPageControl: UIPageControl {
 
     override func layoutSubviews() {
         super.layoutSubviews()

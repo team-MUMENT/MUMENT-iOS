@@ -16,9 +16,9 @@ final class OnboardingVC: BaseVC {
     private var dataSource: [OnboardingModel] = OnboardingModel.onboardingData
     
     // MARK: - Components
-    private lazy var CV: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
+    private lazy var backgroundImageCV: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     
-    private let pageControl: PageControl = PageControl().then {
+    private let pageControl: OnboardingPageControl = OnboardingPageControl().then {
         $0.currentPageIndicatorTintColor = .mPurple1
         $0.pageIndicatorTintColor = .mGray3
         $0.isUserInteractionEnabled = false
@@ -41,11 +41,11 @@ final class OnboardingVC: BaseVC {
     
     // MARK: - Functions
     private func setCV() {
-        CV.delegate = self
-        CV.dataSource = self
-        CV.register(OnboardingCVC.self, forCellWithReuseIdentifier: OnboardingCVC.className)
-        CV.showsHorizontalScrollIndicator = false
-        CV.isPagingEnabled = true
+        backgroundImageCV.delegate = self
+        backgroundImageCV.dataSource = self
+        backgroundImageCV.register(OnboardingCVC.self, forCellWithReuseIdentifier: OnboardingCVC.className)
+        backgroundImageCV.showsHorizontalScrollIndicator = false
+        backgroundImageCV.isPagingEnabled = true
         
         CVFlowLayout.scrollDirection = .horizontal
         CVFlowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -70,9 +70,9 @@ final class OnboardingVC: BaseVC {
 extension OnboardingVC {
     
     private func setLayout() {
-        view.addSubviews([CV, pageControl, initiatingButton])
+        view.addSubviews([backgroundImageCV, pageControl, initiatingButton])
         
-        CV.snp.makeConstraints {
+        backgroundImageCV.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
