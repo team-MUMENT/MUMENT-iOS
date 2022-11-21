@@ -28,7 +28,7 @@ final class OnboardingVC: BaseVC {
     private let initiatingButton: MumentCompleteButton = MumentCompleteButton(isEnabled: false).then {
         $0.setTitle("시작하기", for: .normal)
         $0.setBackgroundColor(.mBgwhite, for: .disabled)
-        $0.setTitleColor(.mGray2, for: .normal)
+        $0.setTitleColor(.mGray2, for: .disabled)
     }
     
     // MARK: - View Life Cycle
@@ -37,6 +37,31 @@ final class OnboardingVC: BaseVC {
         setLayout()
         setCV()
         setPageControl()
+//        pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
+//        pageControl.subviews.forEach {
+//                    $0.transform = CGAffineTransform(scaleX: 2, y: 2)
+//                }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let contentView = pageControl.subviews
+//        print(">>>>>>>>>",contentView[0].subviews)
+//        print(">>>>",contentView[0].subviews[0].subviews)
+//        let images = contentView[0].subviews
+//        contentView[0].subviews.forEach {
+//
+//            $0.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+//        }
+//        for subview in contentView[0].subviews[0].subviews {
+//            print(subview)
+//            if type(of: subview) is UIImageView.Type {
+//                subview.transform = CGAffineTransform(scaleX: 2, y: 2)
+//            }
+//        }
+//        pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
+//        pageControl.subviews.forEach {
+//            $0.transform = CGAffineTransform(scaleX: 2, y: 2)
+//        }
     }
     
     // MARK: - Functions
@@ -87,6 +112,9 @@ extension OnboardingVC: UICollectionViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(floor(scrollView.contentOffset.x / UIScreen.main.bounds.width))
+//        print(".....",pageControl.currentPage == dataSource.count)
+//        print(">>>>>",pageControl.currentPage,dataSource.count)
+        initiatingButton.isEnabled = pageControl.currentPage == dataSource.count - 1
        }
 }
 
