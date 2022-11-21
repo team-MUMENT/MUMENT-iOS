@@ -37,6 +37,7 @@ final class OnboardingVC: BaseVC {
         setLayout()
         setCV()
         setPageControl()
+        setButtonActions()
 //        pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
 //        pageControl.subviews.forEach {
 //                    $0.transform = CGAffineTransform(scaleX: 2, y: 2)
@@ -79,6 +80,15 @@ final class OnboardingVC: BaseVC {
     
     private func setPageControl(){
         pageControl.numberOfPages = dataSource.count
+    }
+    
+    private func setButtonActions(){
+        initiatingButton.press{
+            let tabBarController = MumentTabBarController()
+            tabBarController.modalPresentationStyle = .overFullScreen
+            tabBarController.modalTransitionStyle = .crossDissolve
+            self.present(tabBarController, animated: true)
+        }
     }
 }
 
