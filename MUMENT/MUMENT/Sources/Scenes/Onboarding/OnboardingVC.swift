@@ -22,7 +22,6 @@ final class OnboardingVC: BaseVC {
         $0.currentPageIndicatorTintColor = .mPurple1
         $0.pageIndicatorTintColor = .mGray3
         $0.isUserInteractionEnabled = false
-//        $0.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
     }
     
     private let initiatingButton: MumentCompleteButton = MumentCompleteButton(isEnabled: false).then {
@@ -38,12 +37,6 @@ final class OnboardingVC: BaseVC {
         setCV()
         setPageControl()
         setButtonActions()
-//        pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
-//        pageControl.subviews.forEach {
-//                    $0.transform = CGAffineTransform(scaleX: 2, y: 2)
-//                }
-    }
-    
     }
     
     // MARK: - Functions
@@ -77,10 +70,9 @@ final class OnboardingVC: BaseVC {
 extension OnboardingVC {
     
     private func setLayout() {
-        view.addSubviews([CV,pageControl,initiatingButton])
+        view.addSubviews([CV, pageControl, initiatingButton])
         
         CV.snp.makeConstraints {
-//            $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.edges.equalToSuperview()
         }
         
@@ -89,7 +81,7 @@ extension OnboardingVC {
             $0.centerX.equalToSuperview()
         }
         
-        initiatingButton.snp.makeConstraints{
+        initiatingButton.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.bottom.equalToSuperview().inset(63)
@@ -99,16 +91,12 @@ extension OnboardingVC {
 }
 
 // MARK: - UICollectionViewDelegate
-extension OnboardingVC: UICollectionViewDelegate{
+extension OnboardingVC: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(floor(scrollView.contentOffset.x / UIScreen.main.bounds.width))
-//        print(".....",pageControl.currentPage == dataSource.count)
-//        print(">>>>>",pageControl.currentPage,dataSource.count)
         initiatingButton.isEnabled = pageControl.currentPage == dataSource.count - 1
-//        modifyPageControlScale()
-       }
-    
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -129,10 +117,8 @@ extension OnboardingVC: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension OnboardingVC: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: CV.frame.width, height: CV.frame.height)
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
