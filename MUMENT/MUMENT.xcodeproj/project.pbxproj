@@ -37,7 +37,7 @@
 		4D41D58228898737000E1296 /* CarouselResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D58128898737000E1296 /* CarouselResponseModel.swift */; };
 		4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */; };
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
-		4D5A2823292B50520001F8F9 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A2822292B50520001F8F9 /* PageControl.swift */; };
+		4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */; };
 		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
 		4D64A9EA287D885A00450FCA /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* TagView.swift */; };
 		4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */; };
@@ -201,7 +201,7 @@
 		4D41D58128898737000E1296 /* CarouselResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselResponseModel.swift; sourceTree = "<group>"; };
 		4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayResponseModel.swift; sourceTree = "<group>"; };
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
-		4D5A2822292B50520001F8F9 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageControlOnboardingPageControl.swift; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardModel.swift; sourceTree = "<group>"; };
@@ -387,7 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				4D1F144D29114EE90093D641 /* OnboardingVC.swift */,
-				4D5A2822292B50520001F8F9 /* PageControl.swift */,
+				4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */,
 				4D1F144F291153AD0093D641 /* OnboardingCVC.swift */,
 				4D1F14512911548F0093D641 /* OnbordingModel.swift */,
 			);
@@ -1029,7 +1029,7 @@
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
 				4D7604662880C8ED0044F2A6 /* MumentDetailVCModel.swift in Sources */,
 				4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */,
-				4D5A2823292B50520001F8F9 /* PageControl.swift in Sources */,
+				4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */,
 				C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */,
 				E781F23128892FCC00484C28 /* GetMyMumentResponseModel.swift in Sources */,
 				4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */,
