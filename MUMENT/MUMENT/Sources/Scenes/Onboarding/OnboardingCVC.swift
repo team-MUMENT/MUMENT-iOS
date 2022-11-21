@@ -9,15 +9,20 @@ import UIKit
 import SnapKit
 import Then
 
-class OnboardingCVC: UICollectionViewCell {
+final class OnboardingCVC: UICollectionViewCell {
     
     private let headingLabel: UILabel = UILabel().then{
         $0.font = .mumentH1B25
-                $0.textColor = .mGray2
-//                $0.text = "로그인 시 이용약관과\n개인정보처리방침에 동의하게 됩니다."
-//                $0.textAlignment = .center
-//                $0.sizeToFit()
-//                $0.setHyperlinkedStyle(to: ["이용약관","개인정보처리방침"],with:.mumentB7B12)
+        $0.textColor = .mBlack1
+        //                $0.text = "로그인 시 이용약관과\n개인정보처리방침에 동의하게 됩니다."
+        //                $0.textAlignment = .center
+        //                $0.sizeToFit()
+        //                $0.setHyperlinkedStyle(to: ["이용약관","개인정보처리방침"],with:.mumentB7B12)
+    }
+    private var highlightedHeadingText: String = ""{
+        didSet{
+            headingLabel.setColor(to: highlightedHeadingText, with: .mPurple1)
+        }
     }
     
     private let subHeadingLabel: UILabel = UILabel().then{
@@ -37,13 +42,13 @@ class OnboardingCVC: UICollectionViewCell {
         }
     }
     
-//    :String{
-//        didSet{
-//            let backgroundImageView = UIImageView(frame: super.view.frame)
-//            backgroundImageView.image = UIImage(named: backgroundImageTitle)
-//            self.view.addSubview(backgroundImageView)
-//        }
-//    }
+    //    :String{
+    //        didSet{
+    //            let backgroundImageView = UIImageView(frame: super.view.frame)
+    //            backgroundImageView.image = UIImage(named: backgroundImageTitle)
+    //            self.view.addSubview(backgroundImageView)
+    //        }
+    //    }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -60,8 +65,9 @@ class OnboardingCVC: UICollectionViewCell {
     //MARK: - Functions
     func setData(_ cellData: OnboardingModel){
         headingLabel.text = cellData.heading
+        highlightedHeadingText = cellData.highlightedHeading
         subHeadingLabel.text = cellData.subHeading
-//        backgroundImageView.image = cellData.backgroundImage
+        //        backgroundImageView.image = cellData.backgroundImage
         backgroundImageTitle = cellData.backgroundImageTitle
         
     }
@@ -71,17 +77,17 @@ class OnboardingCVC: UICollectionViewCell {
 extension OnboardingCVC {
     
     private func setBackgroundImage(){
-            let backgroundImageView = UIImageView(frame: frame)
-            backgroundImageView.image = UIImage(named: backgroundImageTitle)
-            backgroundImageView.contentMode = .scaleAspectFit
-//            self.view.addSubview(backgroundImageView)
+        let backgroundImageView = UIImageView(frame: frame)
+        backgroundImageView.image = UIImage(named: backgroundImageTitle)
+        backgroundImageView.contentMode = .scaleAspectFit
+        //            self.view.addSubview(backgroundImageView)
         self.backgroundView = backgroundImageView
-        }
-//
+    }
+    
     private func setUI() {
-//        self.backgroundView = backgroundImageView
+        //        self.backgroundView = backgroundImageView
         self.addSubviews([headingLabel, subHeadingLabel])
-
+        
         headingLabel.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(115)
             $0.centerX.equalToSuperview()
