@@ -18,7 +18,7 @@ final class OnboardingVC: BaseVC {
     // MARK: - Components
     private lazy var CV: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     
-    private let pageControl: UIPageControl = UIPageControl().then {
+    private let pageControl: PageControl = PageControl().then {
         $0.currentPageIndicatorTintColor = .mPurple1
         $0.pageIndicatorTintColor = .mGray3
         $0.isUserInteractionEnabled = false
@@ -44,44 +44,8 @@ final class OnboardingVC: BaseVC {
 //                }
     }
     
-    override func viewDidLayoutSubviews() {
-       modifyPageControlScale()
     }
     
-    private func modifyPageControlScale(){
-        let contentView = pageControl.subviews
-        print(">>>>>>>>>",contentView[0].subviews[0].subviews)
-    //        print(">>>>",contentView[0].subviews[0].subviews)
-    //        let images = contentView[0].subviews
-    //        contentView[0].subviews.forEach {
-    //
-    //            $0.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-    //        }
-        for subview in contentView[0].subviews[0].subviews {
-    //            print(subview)
-    //            if type(of: subview) is UIImageView.Type {
-    //
-    //                subview.transform = CGAffineTransform(scaleX: 2, y: 2)
-    //            }
-            if let subview = subview as? UIImageView {
-    //                print(">>>>",subview)
-                subview.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-            }else{
-                subview.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-            }
-           
-
-        }
-//        pageControl.updateConstraints()
-//        pageControl.setNeedsLayout()
-       pageControl.layoutIfNeeded()
-//        pageControl.layoutSubviews()
-    }
-    
-//        pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
-//        pageControl.subviews.forEach {
-//            $0.transform = CGAffineTransform(scaleX: 2, y: 2)
-//        }
     // MARK: - Functions
     private func setCV() {
         CV.delegate = self
