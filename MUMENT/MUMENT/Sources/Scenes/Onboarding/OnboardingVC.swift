@@ -45,26 +45,43 @@ final class OnboardingVC: BaseVC {
     }
     
     override func viewDidLayoutSubviews() {
+       modifyPageControlScale()
+    }
+    
+    private func modifyPageControlScale(){
         let contentView = pageControl.subviews
-//        print(">>>>>>>>>",contentView[0].subviews)
-//        print(">>>>",contentView[0].subviews[0].subviews)
-//        let images = contentView[0].subviews
-//        contentView[0].subviews.forEach {
-//
-//            $0.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-//        }
-//        for subview in contentView[0].subviews[0].subviews {
-//            print(subview)
-//            if type(of: subview) is UIImageView.Type {
-//                subview.transform = CGAffineTransform(scaleX: 2, y: 2)
-//            }
-//        }
+        print(">>>>>>>>>",contentView[0].subviews[0].subviews)
+    //        print(">>>>",contentView[0].subviews[0].subviews)
+    //        let images = contentView[0].subviews
+    //        contentView[0].subviews.forEach {
+    //
+    //            $0.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+    //        }
+        for subview in contentView[0].subviews[0].subviews {
+    //            print(subview)
+    //            if type(of: subview) is UIImageView.Type {
+    //
+    //                subview.transform = CGAffineTransform(scaleX: 2, y: 2)
+    //            }
+            if let subview = subview as? UIImageView {
+    //                print(">>>>",subview)
+                subview.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            }else{
+                subview.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+            }
+           
+
+        }
+//        pageControl.updateConstraints()
+//        pageControl.setNeedsLayout()
+       pageControl.layoutIfNeeded()
+//        pageControl.layoutSubviews()
+    }
+    
 //        pageControl.transform = CGAffineTransform(scaleX: 2, y: 2)
 //        pageControl.subviews.forEach {
 //            $0.transform = CGAffineTransform(scaleX: 2, y: 2)
 //        }
-    }
-    
     // MARK: - Functions
     private func setCV() {
         CV.delegate = self
@@ -125,7 +142,9 @@ extension OnboardingVC: UICollectionViewDelegate{
 //        print(".....",pageControl.currentPage == dataSource.count)
 //        print(">>>>>",pageControl.currentPage,dataSource.count)
         initiatingButton.isEnabled = pageControl.currentPage == dataSource.count - 1
+//        modifyPageControlScale()
        }
+    
 }
 
 // MARK: - UICollectionViewDataSource
