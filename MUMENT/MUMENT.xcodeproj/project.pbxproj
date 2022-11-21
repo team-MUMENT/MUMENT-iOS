@@ -36,6 +36,7 @@
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
 		4D58547029175E69003F5DF9 /* AutoSignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */; };
 		4D585473291762B2003F5DF9 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D585472291762B2003F5DF9 /* Splash.storyboard */; };
+		4D5A2826292B64700001F8F9 /* MembershipWithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A2825292B64700001F8F9 /* MembershipWithdrawalVC.swift */; };
 		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
 		4D64A9EA287D885A00450FCA /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* TagView.swift */; };
 		4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */; };
@@ -204,6 +205,7 @@
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
 		4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSignInVC.swift; sourceTree = "<group>"; };
 		4D585472291762B2003F5DF9 /* Splash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
+		4D5A2825292B64700001F8F9 /* MembershipWithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipWithdrawalVC.swift; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardModel.swift; sourceTree = "<group>"; };
@@ -398,6 +400,14 @@
 				4D585472291762B2003F5DF9 /* Splash.storyboard */,
 			);
 			path = Splash;
+			sourceTree = "<group>";
+		};
+		4D5A2824292B63B00001F8F9 /* MembershipWithdrawal */ = {
+			isa = PBXGroup;
+			children = (
+				4D5A2825292B64700001F8F9 /* MembershipWithdrawalVC.swift */,
+			);
+			path = MembershipWithdrawal;
 			sourceTree = "<group>";
 		};
 		4D76045D2880ACC60044F2A6 /* DetailMumentCard */ = {
@@ -652,6 +662,7 @@
 		C79CD44C2921AB3300DE4A47 /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
+				4D5A2824292B63B00001F8F9 /* MembershipWithdrawal */,
 				C79CD44D2921AB6200DE4A47 /* SetProfile */,
 			);
 			path = Mypage;
@@ -954,6 +965,7 @@
 				C71B47FF288450FD001A7CD6 /* MumentAlertTitleType.swift in Sources */,
 				4D2BADD028806A75004A7E00 /* SongDetailVC.swift in Sources */,
 				C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				4D5A2826292B64700001F8F9 /* MembershipWithdrawalVC.swift in Sources */,
 				C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */,
 				4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */,
 				C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */,
