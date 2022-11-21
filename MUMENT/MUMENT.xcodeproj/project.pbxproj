@@ -38,6 +38,8 @@
 		4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */; };
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
 		4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */; };
+		4D58547029175E69003F5DF9 /* AutoSignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */; };
+		4D585473291762B2003F5DF9 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D585472291762B2003F5DF9 /* Splash.storyboard */; };
 		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
 		4D64A9EA287D885A00450FCA /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* TagView.swift */; };
 		4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */; };
@@ -61,6 +63,8 @@
 		4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */; };
 		4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */; };
 		4D9734F3287F3A41003EF546 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734F2287F3A41003EF546 /* Preview.swift */; };
+		4DA2E1C32918D3FB0037F5BD /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA2E1C22918D3FB0037F5BD /* KakaoSDK */; };
+		4DA2E1C52918D3FB0037F5BD /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA2E1C42918D3FB0037F5BD /* KakaoSDKAuth */; };
 		4DC4D84E2889BA100060D00F /* MumentsByTagResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */; };
 		4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */; };
 		4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
@@ -91,6 +95,9 @@
 		C71B48162886E5DF001A7CD6 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48152886E5DF001A7CD6 /* SignInVC.swift */; };
 		C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48172886E7BA001A7CD6 /* SignInDataModel.swift */; };
 		C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48192886F5FF001A7CD6 /* Int+.swift */; };
+		C7394B0C29234E2700BF6AE1 /* MumentActionSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7394B0B29234E2700BF6AE1 /* MumentActionSheetVC.swift */; };
+		C7394B0E292362EC00BF6AE1 /* MumentActionSheetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7394B0D292362EC00BF6AE1 /* MumentActionSheetTVC.swift */; };
+		C73CBCFC291549ED009E9A40 /* ToastMessageColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CBCFB291549ED009E9A40 /* ToastMessageColorType.swift */; };
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
 		C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C1287C19B00017F2DA /* NetworkResult.swift */; };
@@ -104,7 +111,6 @@
 		C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC41928758D220068EB46 /* AppDelegate.swift */; };
 		C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC41B28758D220068EB46 /* SceneDelegate.swift */; };
 		C74EC42328758D230068EB46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74EC42228758D230068EB46 /* Assets.xcassets */; };
-		C74EC42628758D230068EB46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C74EC42428758D230068EB46 /* LaunchScreen.storyboard */; };
 		C74EC435287592750068EB46 /* Colorsets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74EC434287592750068EB46 /* Colorsets.xcassets */; };
 		C74EC438287593110068EB46 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC437287593110068EB46 /* UIColor+.swift */; };
 		C74EC43B287593910068EB46 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC43A287593910068EB46 /* SnapKit */; };
@@ -114,6 +120,8 @@
 		C74EC445287593BF0068EB46 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC444287593BF0068EB46 /* RxRelay */; };
 		C74EC447287593BF0068EB46 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC446287593BF0068EB46 /* RxSwift */; };
 		C74EC44C287594270068EB46 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC44B287594270068EB46 /* Alamofire */; };
+		C79CD44F2921BD4500DE4A47 /* SetProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */; };
+		C79CD4512921BF7200DE4A47 /* MumentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CD4502921BF7200DE4A47 /* MumentTextField.swift */; };
 		C7AE17D628872F3100A5E3FA /* StorageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D528872F3100A5E3FA /* StorageEmptyView.swift */; };
 		C7AE17D82887E44C00A5E3FA /* WriteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */; };
 		C7AE17DA2887E4BE00A5E3FA /* WriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D92887E4BD00A5E3FA /* WriteService.swift */; };
@@ -202,6 +210,8 @@
 		4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayResponseModel.swift; sourceTree = "<group>"; };
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
 		4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageControlOnboardingPageControl.swift; sourceTree = "<group>"; };
+		4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSignInVC.swift; sourceTree = "<group>"; };
+		4D585472291762B2003F5DF9 /* Splash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardModel.swift; sourceTree = "<group>"; };
@@ -228,6 +238,7 @@
 		4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagResponseModel.swift; sourceTree = "<group>"; };
 		4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedResponseModel.swift; sourceTree = "<group>"; };
 		4DE75A8128CCBAE400BC3EC4 /* MumentsByTagCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCardView.swift; sourceTree = "<group>"; };
+		4DE7693D2918DF0E00747F79 /* MUMENT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MUMENT.entitlements; sourceTree = "<group>"; };
 		4DEED412288B32B300C6337B /* DeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAPI.swift; sourceTree = "<group>"; };
 		4DEED414288B32E500C6337B /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
@@ -254,6 +265,9 @@
 		C71B48152886E5DF001A7CD6 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		C71B48172886E7BA001A7CD6 /* SignInDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDataModel.swift; sourceTree = "<group>"; };
 		C71B48192886F5FF001A7CD6 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
+		C7394B0B29234E2700BF6AE1 /* MumentActionSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentActionSheetVC.swift; sourceTree = "<group>"; };
+		C7394B0D292362EC00BF6AE1 /* MumentActionSheetTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentActionSheetTVC.swift; sourceTree = "<group>"; };
+		C73CBCFB291549ED009E9A40 /* ToastMessageColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageColorType.swift; sourceTree = "<group>"; };
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		C73FC9C1287C19B00017F2DA /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
@@ -268,10 +282,11 @@
 		C74EC41928758D220068EB46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C74EC41B28758D220068EB46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C74EC42228758D230068EB46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C74EC42528758D230068EB46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C74EC42728758D230068EB46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C74EC434287592750068EB46 /* Colorsets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colorsets.xcassets; sourceTree = "<group>"; };
 		C74EC437287593110068EB46 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileVC.swift; sourceTree = "<group>"; };
+		C79CD4502921BF7200DE4A47 /* MumentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentTextField.swift; sourceTree = "<group>"; };
 		C7AE17D528872F3100A5E3FA /* StorageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageEmptyView.swift; sourceTree = "<group>"; };
 		C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteAPI.swift; sourceTree = "<group>"; };
 		C7AE17D92887E4BD00A5E3FA /* WriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteService.swift; sourceTree = "<group>"; };
@@ -332,12 +347,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C74EC447287593BF0068EB46 /* RxSwift in Frameworks */,
+				4DA2E1C32918D3FB0037F5BD /* KakaoSDK in Frameworks */,
 				C74EC44C287594270068EB46 /* Alamofire in Frameworks */,
 				C74EC445287593BF0068EB46 /* RxRelay in Frameworks */,
 				C74EC43B287593910068EB46 /* SnapKit in Frameworks */,
 				C74EC441287593BF0068EB46 /* RxBlocking in Frameworks */,
 				C74EC443287593BF0068EB46 /* RxCocoa in Frameworks */,
 				C74EC43E2875939F0068EB46 /* Then in Frameworks */,
+				4DA2E1C52918D3FB0037F5BD /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +409,12 @@
 				4D1F14512911548F0093D641 /* OnbordingModel.swift */,
 			);
 			path = Onboarding;
+		4D585471291762B2003F5DF9 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				4D585472291762B2003F5DF9 /* Splash.storyboard */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 		4D76045D2880ACC60044F2A6 /* DetailMumentCard */ = {
@@ -504,6 +527,7 @@
 			children = (
 				C71B48102886DD22001A7CD6 /* Model */,
 				C71B48152886E5DF001A7CD6 /* SignInVC.swift */,
+				4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -603,6 +627,7 @@
 		C74EC41828758D220068EB46 /* MUMENT */ = {
 			isa = PBXGroup;
 			children = (
+				4DE7693D2918DF0E00747F79 /* MUMENT.entitlements */,
 				C74EC42728758D230068EB46 /* Info.plist */,
 				C7BC6B4C2876ACD9008C75CE /* Global */,
 				C73FC9BA287C193A0017F2DA /* Network */,
@@ -639,6 +664,22 @@
 				E781F234288AF55400484C28 /* Sequence+.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C79CD44C2921AB3300DE4A47 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				C79CD44D2921AB6200DE4A47 /* SetProfile */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		C79CD44D2921AB6200DE4A47 /* SetProfile */ = {
+			isa = PBXGroup;
+			children = (
+				C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */,
+			);
+			path = SetProfile;
 			sourceTree = "<group>";
 		};
 		C7AE17DE28880DDB00A5E3FA /* Singleton */ = {
@@ -758,6 +799,7 @@
 		C7BC6B4E2876AD22008C75CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4D9734F0287ECE1B003EF546 /* DefaultMumentCard */,
 				C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */,
 				4D13A65E2882AF1B00197D2A /* OrderingButton.swift */,
 				C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */,
@@ -767,8 +809,10 @@
 				C71B47FD28843D4D001A7CD6 /* MumentAlertWithButtons */,
 				4D76045D2880ACC60044F2A6 /* DetailMumentCard */,
 				4D9734F1287ECE29003EF546 /* MumentCardWithoutHeart */,
-				4D9734F0287ECE1B003EF546 /* DefaultMumentCard */,
 				4D64A9E9287D885A00450FCA /* TagView.swift */,
+				C79CD4502921BF7200DE4A47 /* MumentTextField.swift */,
+				C7394B0B29234E2700BF6AE1 /* MumentActionSheetVC.swift */,
+				C7394B0D292362EC00BF6AE1 /* MumentActionSheetTVC.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -777,12 +821,13 @@
 			isa = PBXGroup;
 			children = (
 				4D1F144C29114EC60093D641 /* Onboarding */,
+				4D585471291762B2003F5DF9 /* Splash */,
 				C71B480F2886DD1C001A7CD6 /* SignIn */,
 				C71B47E528807B56001A7CD6 /* Search */,
-				C74EC42428758D230068EB46 /* LaunchScreen.storyboard */,
 				C7BB531F2875A06800E0E889 /* Home */,
 				C7BB53202875A06F00E0E889 /* Write */,
 				C7BB53222875A07A00E0E889 /* Storage */,
+				C79CD44C2921AB3300DE4A47 /* Mypage */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -820,6 +865,7 @@
 			isa = PBXGroup;
 			children = (
 				C7DE6F53290ECE61002B9048 /* MessageType.swift */,
+				C73CBCFB291549ED009E9A40 /* ToastMessageColorType.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -848,6 +894,8 @@
 				C74EC444287593BF0068EB46 /* RxRelay */,
 				C74EC446287593BF0068EB46 /* RxSwift */,
 				C74EC44B287594270068EB46 /* Alamofire */,
+				4DA2E1C22918D3FB0037F5BD /* KakaoSDK */,
+				4DA2E1C42918D3FB0037F5BD /* KakaoSDKAuth */,
 			);
 			productName = MUMENT;
 			productReference = C74EC41628758D220068EB46 /* MUMENT.app */;
@@ -883,6 +931,7 @@
 				C74EC43C2875939F0068EB46 /* XCRemoteSwiftPackageReference "Then" */,
 				C74EC43F287593BF0068EB46 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				C74EC44A287594270068EB46 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = C74EC41728758D220068EB46 /* Products */;
 			projectDirPath = "";
@@ -903,8 +952,8 @@
 				C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */,
 				C7BB530A2875973800E0E889 /* NotoSans-Medium.ttf in Resources */,
 				C7BB530B2875973800E0E889 /* NotoSans-Regular.ttf in Resources */,
-				C74EC42628758D230068EB46 /* LaunchScreen.storyboard in Resources */,
 				C74EC42328758D230068EB46 /* Assets.xcassets in Resources */,
+				4D585473291762B2003F5DF9 /* Splash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -934,6 +983,7 @@
 				4D13A65F2882AF1B00197D2A /* OrderingButton.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */,
+				C7394B0C29234E2700BF6AE1 /* MumentActionSheetVC.swift in Sources */,
 				4DE75A8228CCBAE400BC3EC4 /* MumentsByTagCardView.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */,
@@ -954,6 +1004,7 @@
 				C7BC6B6A287710D6008C75CE /* UIButton+.swift in Sources */,
 				4D76045A2880AC840044F2A6 /* MumentDetailVC.swift in Sources */,
 				C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */,
+				C79CD44F2921BD4500DE4A47 /* SetProfileVC.swift in Sources */,
 				E781F219288052DF00484C28 /* MyMumentVC.swift in Sources */,
 				C71B47FC2884369C001A7CD6 /* MumentAlertWithButtons.swift in Sources */,
 				4D2BADD328806C08004A7E00 /* MumentCardBySongTVC.swift in Sources */,
@@ -993,6 +1044,7 @@
 				C7BB531628759BBD00E0E889 /* MumentTabBarController.swift in Sources */,
 				C7BC6B6228771020008C75CE /* UICollectionView+.swift in Sources */,
 				C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */,
+				C7394B0E292362EC00BF6AE1 /* MumentActionSheetTVC.swift in Sources */,
 				4D90D15D28892E71008265E1 /* HomeService.swift in Sources */,
 				E781F22B2886EA7700484C28 /* TagButton.swift in Sources */,
 				C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */,
@@ -1000,6 +1052,7 @@
 				C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */,
 				4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */,
 				E781F235288AF55400484C28 /* Sequence+.swift in Sources */,
+				4D58547029175E69003F5DF9 /* AutoSignInVC.swift in Sources */,
 				4DEED415288B32E500C6337B /* DeleteService.swift in Sources */,
 				C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */,
 				E781F22D28892E2400484C28 /* StorageService.swift in Sources */,
@@ -1022,6 +1075,7 @@
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
 				4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */,
 				C71B48142886DD8E001A7CD6 /* SignAPI.swift in Sources */,
+				C79CD4512921BF7200DE4A47 /* MumentTextField.swift in Sources */,
 				E781F2332889ADE400484C28 /* GetLikedMumentResponseModel.swift in Sources */,
 				C7AE17EA28886B4F00A5E3FA /* PostMumentResponseModel.swift in Sources */,
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
@@ -1045,6 +1099,7 @@
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
 				4D9734F3287F3A41003EF546 /* Preview.swift in Sources */,
 				4D13A6742888735800197D2A /* MumentDetailResponseModel.swift in Sources */,
+				C73CBCFC291549ED009E9A40 /* ToastMessageColorType.swift in Sources */,
 				C71B48122886DD29001A7CD6 /* SignInBodyModel.swift in Sources */,
 				C71B4807288597ED001A7CD6 /* SearchBottomSheetVC.swift in Sources */,
 				4D13A66A2887FD9300197D2A /* MumentDetailAPI.swift in Sources */,
@@ -1067,17 +1122,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		C74EC42428758D230068EB46 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C74EC42528758D230068EB46 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C74EC42828758D230068EB46 /* Debug */ = {
@@ -1131,6 +1175,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1186,6 +1231,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1201,13 +1247,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1231,13 +1280,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1280,6 +1332,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		C74EC439287593910068EB46 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1315,6 +1375,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4DA2E1C22918D3FB0037F5BD /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		4DA2E1C42918D3FB0037F5BD /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
 		C74EC43A287593910068EB46 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C74EC439287593910068EB46 /* XCRemoteSwiftPackageReference "SnapKit" */;

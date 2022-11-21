@@ -11,7 +11,7 @@ import Then
 
 class StorageVC: BaseVC {
     
-    // MARK: - Properties
+    // MARK: - Components
     private let naviView = DefaultNavigationView().then {
         $0.backgroundColor = .clear
         $0.setTitleLabel(title: "보관함")
@@ -26,43 +26,9 @@ class StorageVC: BaseVC {
         $0.backgroundColor = .clear
     }
     
-    private lazy var segmentControl = UISegmentedControl().then {
-        $0.selectedSegmentTintColor = .clear
-        $0.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
-        $0.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
-        
-        $0.insertSegment(withTitle: "나의 뮤멘트", at: 0, animated: true)
-        $0.insertSegment(withTitle: "좋아요한 뮤멘트", at: 1, animated: true)
-        $0.selectedSegmentIndex = 0
-                
-        $0.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.mGray1,
-            NSAttributedString.Key.font: UIFont.mumentH3B16
-        ], for: .normal)
-        
-        $0.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.mPurple1,
-            NSAttributedString.Key.font: UIFont.mumentH3B16,
-        ], for: .selected)
-        
-        $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
-        $0.addTarget(self, action: #selector(didTapSegmentControl), for: .valueChanged)
-    }
-    
     private let underLineView = UIView().then {
         $0.backgroundColor = .mPurple1
     }
-    
-    /// 움직일 underLineView의 leadingAnchor 따로 작성
-    private lazy var leadingDistance: NSLayoutConstraint = {
-        return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
-    }()
-    
-    private lazy var tagsViewHeight: NSLayoutConstraint = {
-        return selectedTagsView.heightAnchor.constraint(
-            equalToConstant: CGFloat(tagsViewHeightConstant)
-        )
-    }()
         
     private lazy var filterSectionContainerView = UIView().then {
         $0.backgroundColor = .clear
@@ -96,23 +62,7 @@ class StorageVC: BaseVC {
     private let selectedTagsView = UIView().then {
         $0.backgroundColor = UIColor.mGray5
     }
-    
-    private let storageBottomSheet = StorageBottomSheet()
-    
-    var tagsViewHeightConstant = 0
-    
-    private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-
-    private let myMumentVC = MyMumentVC()
-    private let likedMumentVC = LikedMumentVC()
-    
-    private lazy var contents: [UIViewController] = [
-        self.myMumentVC,
-        self.likedMumentVC
-    ]
-    
-    private var currentIndex: Int = 0
-    
+        
     private lazy var pagerContainerView = UIView().then {
         $0.backgroundColor = .clear
     }
@@ -135,9 +85,60 @@ class StorageVC: BaseVC {
         $0.distribution = .fillProportionally
     }
     
+    private lazy var segmentControl = UISegmentedControl().then {
+        $0.selectedSegmentTintColor = .clear
+        $0.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
+        $0.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+        
+        $0.insertSegment(withTitle: "나의 뮤멘트", at: 0, animated: true)
+        $0.insertSegment(withTitle: "좋아요한 뮤멘트", at: 1, animated: true)
+        $0.selectedSegmentIndex = 0
+                
+        $0.setTitleTextAttributes([
+            NSAttributedString.Key.foregroundColor: UIColor.mGray1,
+            NSAttributedString.Key.font: UIFont.mumentH3B16
+        ], for: .normal)
+        
+        $0.setTitleTextAttributes([
+            NSAttributedString.Key.foregroundColor: UIColor.mPurple1,
+            NSAttributedString.Key.font: UIFont.mumentH3B16,
+        ], for: .selected)
+        
+        $0.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
+        $0.addTarget(self, action: #selector(didTapSegmentControl), for: .valueChanged)
+    }
+    
+    // MARK: - Properties
+    private var currentIndex: Int = 0
+    
+    var tagsViewHeightConstant = 0
+    
+    private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+
+    private let myMumentVC = MyMumentVC()
+    private let likedMumentVC = LikedMumentVC()
+    private let storageBottomSheet = StorageBottomSheet()
+
+    private lazy var contents: [UIViewController] = [
+        self.myMumentVC,
+        self.likedMumentVC
+    ]
+    
+    /// 움직일 underLineView의 leadingAnchor 따로 작성
+    private lazy var leadingDistance: NSLayoutConstraint = {
+        return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
+    }()
+    
+    private lazy var tagsViewHeight: NSLayoutConstraint = {
+        return selectedTagsView.heightAnchor.constraint(
+            equalToConstant: CGFloat(tagsViewHeightConstant)
+        )
+    }()
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         setPageViewController()
         setHeaderLayout()
         setSegmentLaysout()

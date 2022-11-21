@@ -12,7 +12,7 @@ enum DeviceType {
     case iPhone8
     case iPhone13Pro
     case iPhone13mini
-
+    
     func name() -> String {
         switch self {
         case .iPhoneSE2:
@@ -153,24 +153,39 @@ extension UIViewController {
     ///- parameters:
     ///   - message: 화면에 보여질 메시지
     ///   - vc: 토스트 메시지가 띄워질 view controller
-    func showToastMessage(message : String) {
+    func showToastMessage(message: String, color: ToastMessageColorType) {
         let width = 335.adjustedW
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width / 2 - CGFloat(width) / 2, y: 675.adjustedH, width: CGFloat(width), height: 40))
+        var frame = CGRect()
+        let toastLabel = UILabel()
         
-        toastLabel.backgroundColor = UIColor.mBlack2
-        toastLabel.textColor = UIColor.mWhite
+        switch color {
+        case .black:
+            toastLabel.backgroundColor = .mBlack2
+            toastLabel.textColor =  .mWhite
+            frame = CGRect(x: self.view.frame.size.width / 2 - CGFloat(width) / 2, y: 675.adjustedH, width: CGFloat(width), height: 40)
+        case .red:
+            toastLabel.backgroundColor = .mRed.withAlphaComponent(0.4)
+            toastLabel.textColor = .mBlack1
+            frame = CGRect(x: self.view.frame.size.width / 2 - CGFloat(width) / 2, y: 107.adjustedH, width: CGFloat(width), height: 40)
+        }
+        
+        toastLabel.frame = frame
         toastLabel.font = UIFont.mumentB8M12
         toastLabel.textAlignment = .center
         toastLabel.text = message
-        toastLabel.alpha = 1.0
+        toastLabel.alpha = 0.0
         toastLabel.layer.cornerRadius = 10
         toastLabel.clipsToBounds = true
         self.view.addSubview(toastLabel)
         
-        UIView.animate(withDuration: 0.3, delay: 2.0, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseInOut], animations: {
+            toastLabel.alpha = 1.0
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, delay: 2.0, options: .curveEaseInOut, animations: {
+                toastLabel.alpha = 0.0
+            }, completion:  { _ in
+                toastLabel.removeFromSuperview()
+            })
         })
     }
 }
@@ -178,18 +193,18 @@ extension UIViewController {
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 extension UIViewController {
-
+    
     private struct Preview: UIViewControllerRepresentable {
         let viewController: UIViewController
-
+        
         func makeUIViewController(context: Context) -> UIViewController {
             return viewController
         }
-
+        
         func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         }
     }
-
+    
     func showPreview(_ deviceType: DeviceType = .iPhone13mini) -> some View {
         Preview(viewController: self).previewDevice(PreviewDevice(rawValue: deviceType.name()))
     }

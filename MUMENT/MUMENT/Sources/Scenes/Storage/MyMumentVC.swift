@@ -45,7 +45,6 @@ class MyMumentVC: UIViewController {
         setUILayout()
         
         getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,7 +114,7 @@ class MyMumentVC: UIViewController {
     }
 }
 
-// MARK: - CollectionView UI
+// MARK: - CollectionView
 extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -236,6 +235,12 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = defaultMumentData[indexPath.row].id
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+    }
 }
 
 extension MyMumentVC { 
@@ -255,6 +260,7 @@ extension MyMumentVC {
         emptyView.isHidden = true
     }
 }
+
 // MARK: - Network
 extension MyMumentVC {
     private func getMyMumentStorage(userId: String, filterTags: [Int]) {
