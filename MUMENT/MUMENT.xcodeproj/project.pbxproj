@@ -21,6 +21,9 @@
 		4D13A67628887A8000197D2A /* SongInfoResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */; };
 		4D13A67A2889141900197D2A /* HistorySerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A6792889141900197D2A /* HistorySerivce.swift */; };
 		4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A67B2889163400197D2A /* HistoryResponseModel.swift */; };
+		4D1F144E29114EE90093D641 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1F144D29114EE90093D641 /* OnboardingVC.swift */; };
+		4D1F1450291153AD0093D641 /* OnboardingCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1F144F291153AD0093D641 /* OnboardingCVC.swift */; };
+		4D1F14522911548F0093D641 /* OnbordingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1F14512911548F0093D641 /* OnbordingModel.swift */; };
 		4D2BADCA2880334C004A7E00 /* MumentsByTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */; };
 		4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */; };
 		4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */; };
@@ -34,6 +37,7 @@
 		4D41D58228898737000E1296 /* CarouselResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D58128898737000E1296 /* CarouselResponseModel.swift */; };
 		4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */; };
 		4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */; };
+		4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */; };
 		4D58547029175E69003F5DF9 /* AutoSignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */; };
 		4D585473291762B2003F5DF9 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D585472291762B2003F5DF9 /* Splash.storyboard */; };
 		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
@@ -189,6 +193,9 @@
 		4D13A67528887A8000197D2A /* SongInfoResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfoResponseModel.swift; sourceTree = "<group>"; };
 		4D13A6792889141900197D2A /* HistorySerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySerivce.swift; sourceTree = "<group>"; };
 		4D13A67B2889163400197D2A /* HistoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponseModel.swift; sourceTree = "<group>"; };
+		4D1F144D29114EE90093D641 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
+		4D1F144F291153AD0093D641 /* OnboardingCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCVC.swift; sourceTree = "<group>"; };
+		4D1F14512911548F0093D641 /* OnbordingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbordingModel.swift; sourceTree = "<group>"; };
 		4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCVC.swift; sourceTree = "<group>"; };
 		4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagModel.swift; sourceTree = "<group>"; };
 		4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTitleModel.swift; sourceTree = "<group>"; };
@@ -202,6 +209,7 @@
 		4D41D58128898737000E1296 /* CarouselResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselResponseModel.swift; sourceTree = "<group>"; };
 		4D41D583288987E6000E1296 /* MumentForTodayResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayResponseModel.swift; sourceTree = "<group>"; };
 		4D4C8657287BCD3D00D972AF /* CarouselCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCVC.swift; sourceTree = "<group>"; };
+		4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageControlOnboardingPageControl.swift; sourceTree = "<group>"; };
 		4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSignInVC.swift; sourceTree = "<group>"; };
 		4D585472291762B2003F5DF9 /* Splash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
@@ -392,6 +400,15 @@
 			path = DummyDataModel;
 			sourceTree = "<group>";
 		};
+		4D1F144C29114EC60093D641 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				4D1F144D29114EE90093D641 /* OnboardingVC.swift */,
+				4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */,
+				4D1F144F291153AD0093D641 /* OnboardingCVC.swift */,
+				4D1F14512911548F0093D641 /* OnbordingModel.swift */,
+			);
+			path = Onboarding;
 		4D585471291762B2003F5DF9 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -803,6 +820,7 @@
 		C7BC6B4F2876AD26008C75CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				4D1F144C29114EC60093D641 /* Onboarding */,
 				4D585471291762B2003F5DF9 /* Splash */,
 				C71B480F2886DD1C001A7CD6 /* SignIn */,
 				C71B47E528807B56001A7CD6 /* Search */,
@@ -1003,6 +1021,7 @@
 				C71B47EF2881A11E001A7CD6 /* UIImageView+.swift in Sources */,
 				C7AE17DA2887E4BE00A5E3FA /* WriteService.swift in Sources */,
 				4D2BADD528806C10004A7E00 /* MumentCardBySongModel.swift in Sources */,
+				4D1F14522911548F0093D641 /* OnbordingModel.swift in Sources */,
 				4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */,
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
 				C7AE17E628882DE100A5E3FA /* SearchAPI.swift in Sources */,
@@ -1037,6 +1056,7 @@
 				4DEED415288B32E500C6337B /* DeleteService.swift in Sources */,
 				C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */,
 				E781F22D28892E2400484C28 /* StorageService.swift in Sources */,
+				4D1F144E29114EE90093D641 /* OnboardingVC.swift in Sources */,
 				4D13A6662887FD7700197D2A /* HomeAPI.swift in Sources */,
 				4D300669288B0DC7007FF4DB /* LikeResponseModel.swift in Sources */,
 				4D7604612880ADB60044F2A6 /* DetailSongInfoView.swift in Sources */,
@@ -1063,6 +1083,7 @@
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
 				4D7604662880C8ED0044F2A6 /* MumentDetailVCModel.swift in Sources */,
 				4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */,
+				4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */,
 				C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */,
 				E781F23128892FCC00484C28 /* GetMyMumentResponseModel.swift in Sources */,
 				4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */,
@@ -1073,6 +1094,7 @@
 				C71B47F32881A44B001A7CD6 /* RecentSearchTVC.swift in Sources */,
 				4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */,
 				C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */,
+				4D1F1450291153AD0093D641 /* OnboardingCVC.swift in Sources */,
 				C71B48052885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift in Sources */,
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
 				4D9734F3287F3A41003EF546 /* Preview.swift in Sources */,
