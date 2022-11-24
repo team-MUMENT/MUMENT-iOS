@@ -409,6 +409,8 @@
 				4D1F14512911548F0093D641 /* OnbordingModel.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		4D585471291762B2003F5DF9 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
