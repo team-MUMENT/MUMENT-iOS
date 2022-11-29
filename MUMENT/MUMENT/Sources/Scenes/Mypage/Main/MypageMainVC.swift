@@ -47,6 +47,15 @@ final class MypageMainVC: BaseVC {
             case .setting, .service, .info: return 56
             }
         }
+        
+        var headerTitle: String {
+            switch self {
+            case .setting: return "설정"
+            case .service: return "서비스"
+            case .info: return "정보"
+            default: return ""
+            }
+        }
     }
     
     // MARK: Components
@@ -127,14 +136,8 @@ extension MypageMainVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel().then {
-            $0.text = "header"
-            $0.backgroundColor = .orange
-        }
-        return label
-    }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
+        let headerView: MypageMainHeaderView = MypageMainHeaderView(title: Section(rawValue: section)?.headerTitle ?? "")
+        return headerView
     }
 }
 
