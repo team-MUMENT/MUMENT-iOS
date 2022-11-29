@@ -13,7 +13,6 @@ final class MypageMainVC: BaseVC {
     
     enum Number {
         static let sections: Int = 5
-        static let separatorHorizontalInset: CGFloat = 20
     }
     
     enum Section: Int {
@@ -44,7 +43,15 @@ final class MypageMainVC: BaseVC {
         var headerHeight: CGFloat {
             switch self {
             case .profile, .footer: return 0
-            case .setting, .service, .info: return 56
+            case .setting, .service, .info: return 36
+            }
+        }
+        
+        var footerHeight: CGFloat {
+            switch self {
+            case .profile: return 10
+            case .setting, .service: return 28
+            default: return 0
             }
         }
         
@@ -72,11 +79,9 @@ final class MypageMainVC: BaseVC {
         $0.setTitleLabel(title: "마이 페이지")
     }
     private let tableView: UITableView = UITableView().then {
-        $0.separatorInset.left = Number.separatorHorizontalInset
-        $0.separatorInset.right = Number.separatorHorizontalInset
-        $0.separatorColor = .mGray1
-        $0.backgroundColor = .mPurple2
+        $0.separatorStyle = .none
         $0.sectionHeaderTopPadding = 0
+        $0.backgroundColor = .mBgwhite
     }
     
     override func viewDidLoad() {
@@ -98,7 +103,19 @@ final class MypageMainVC: BaseVC {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        self.tableView.register(cell: MypageMainTVC.self)
+        self.tableView.do({
+            $0.register(cell: MypageMainTVC.self)
+            $0.register(cell: MypageMainProfileTVC.self)
+            $0.register(cell: MypageMainFooterTVC.self)
+        })
+    }
+    
+    private func requestSignOut() {
+        // TODO: ..
+    }
+    
+    private func requestWithDraw() {
+        // TODO: ..
     }
 }
 
@@ -118,9 +135,22 @@ extension MypageMainVC: UITableViewDataSource {
         if let tableSection = Section(rawValue: indexPath.section) {
             switch tableSection {
             case .profile:
-                return UITableViewCell()
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainProfileTVC.className) as? MypageMainProfileTVC else { return UITableViewCell() }
+                cell.setNickname(text: "blueingreen")
+                return cell
             case .footer:
-                return UITableViewCell()
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainFooterTVC.className) as? MypageMainFooterTVC else { return UITableViewCell() }
+                cell.setVersionLabel(version: "1.0")
+                
+                cell.setSignOutAction { [weak self] in
+                    self?.requestSignOut()
+                }
+                
+                cell.setWithDrawAction { [weak self] in
+                    self?.requestWithDraw()
+                }
+                
+                return cell
             default:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainTVC.className) as? MypageMainTVC else { return UITableViewCell() }
                 cell.setTitle(text: tableSection.rowTitle[indexPath.row])
@@ -147,6 +177,16 @@ extension MypageMainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView: MypageMainHeaderView = MypageMainHeaderView(title: Section(rawValue: section)?.headerTitle ?? "")
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if let tableSection = Section(rawValue: section) {
+            return tableSection.footerHeight
+        } else { return 0 }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return MypageMainSeparatorView(type: Section(rawValue: section) ?? .profile)
     }
 }
 
