@@ -56,6 +56,15 @@ final class MypageMainVC: BaseVC {
             default: return ""
             }
         }
+        
+        var rowTitle: [String] {
+            switch self {
+            case .setting: return ["알림 설정", "차단 유저 관리"]
+            case .service: return ["공지사항", "자주 묻는 질문", "문의하기"]
+            case .info: return ["앱 정보", "뮤멘트 소개"]
+            default: return []
+            }
+        }
     }
     
     // MARK: Components
@@ -88,6 +97,8 @@ final class MypageMainVC: BaseVC {
     private func setTableView() {
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        
+        self.tableView.register(cell: MypageMainTVC.self)
     }
 }
 
@@ -108,14 +119,12 @@ extension MypageMainVC: UITableViewDataSource {
             switch tableSection {
             case .profile:
                 return UITableViewCell()
-            case .setting:
-                return UITableViewCell()
-            case .service:
-                return UITableViewCell()
-            case .info:
-                return UITableViewCell()
             case .footer:
                 return UITableViewCell()
+            default:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainTVC.className) as? MypageMainTVC else { return UITableViewCell() }
+                cell.setTitle(text: tableSection.rowTitle[indexPath.row])
+                return cell
             }
         } else { return UITableViewCell() }
     }
