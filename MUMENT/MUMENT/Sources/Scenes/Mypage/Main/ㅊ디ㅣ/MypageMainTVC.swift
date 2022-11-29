@@ -50,12 +50,12 @@ extension MypageMainTVC {
         
         self.rightArrowImageView.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel)
-            $0.trailing.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(12)
             $0.width.height.equalTo(24)
         }
     }
     
     private func setUI() {
-        
+        self.backgroundColor = .mBgwhite
     }
 }
