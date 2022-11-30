@@ -20,6 +20,7 @@ final class MypageMainHeaderView: UIView {
     // MARK: Initialization
     init(title: String) {
         super.init(frame: .zero)
+        
         self.setTitle(text: title)
         self.setLayout()
         self.setUI()
