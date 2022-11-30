@@ -127,6 +127,8 @@
 		C7612D452937B493005F74B1 /* GetNoticeListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */; };
 		C7612D472937B778005F74B1 /* GetNoticeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */; };
 		C7612D4A2937B83D005F74B1 /* MypageNoticeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */; };
+		C7612D4C2937BBE5005F74B1 /* MypageNoticeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D4B2937BBE5005F74B1 /* MypageNoticeDetailVC.swift */; };
+		C7612D4E2937C816005F74B1 /* MypageNoticeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D4D2937C816005F74B1 /* MypageNoticeTitleView.swift */; };
 		C766F9C32935C25D00E08D5C /* MypageMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C22935C25D00E08D5C /* MypageMainVC.swift */; };
 		C766F9C62935E0F800E08D5C /* MypageMainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C52935E0F800E08D5C /* MypageMainHeaderView.swift */; };
 		C766F9C82935E69C00E08D5C /* MypageMainTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C72935E69C00E08D5C /* MypageMainTVC.swift */; };
@@ -303,6 +305,8 @@
 		C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeListResponseModel.swift; sourceTree = "<group>"; };
 		C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeResponseModel.swift; sourceTree = "<group>"; };
 		C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeTVC.swift; sourceTree = "<group>"; };
+		C7612D4B2937BBE5005F74B1 /* MypageNoticeDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeDetailVC.swift; sourceTree = "<group>"; };
+		C7612D4D2937C816005F74B1 /* MypageNoticeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeTitleView.swift; sourceTree = "<group>"; };
 		C766F9C22935C25D00E08D5C /* MypageMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainVC.swift; sourceTree = "<group>"; };
 		C766F9C52935E0F800E08D5C /* MypageMainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainHeaderView.swift; sourceTree = "<group>"; };
 		C766F9C72935E69C00E08D5C /* MypageMainTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainTVC.swift; sourceTree = "<group>"; };
@@ -696,6 +700,8 @@
 				C7612D482937B827005F74B1 /* Cell */,
 				C7612D432937B442005F74B1 /* Model */,
 				C7612D41293798AA005F74B1 /* MypageNoticeVC.swift */,
+				C7612D4B2937BBE5005F74B1 /* MypageNoticeDetailVC.swift */,
+				C7612D4D2937C816005F74B1 /* MypageNoticeTitleView.swift */,
 			);
 			path = Notice;
 			sourceTree = "<group>";
@@ -1068,6 +1074,7 @@
 				C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */,
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
 				E781F2272882A77500484C28 /* SectionHeader.swift in Sources */,
+				C7612D4C2937BBE5005F74B1 /* MypageNoticeDetailVC.swift in Sources */,
 				4D76046A28814A9A0044F2A6 /* AllMumentsSectionHeader.swift in Sources */,
 				4D13A67628887A8000197D2A /* SongInfoResponseModel.swift in Sources */,
 				4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */,
@@ -1085,6 +1092,7 @@
 				4D76045A2880AC840044F2A6 /* MumentDetailVC.swift in Sources */,
 				C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */,
 				C766F9C62935E0F800E08D5C /* MypageMainHeaderView.swift in Sources */,
+				C7612D4E2937C816005F74B1 /* MypageNoticeTitleView.swift in Sources */,
 				C79CD44F2921BD4500DE4A47 /* SetProfileVC.swift in Sources */,
 				E781F219288052DF00484C28 /* MyMumentVC.swift in Sources */,
 				C7612D3B29361F30005F74B1 /* MypageMainSeparatorView.swift in Sources */,
