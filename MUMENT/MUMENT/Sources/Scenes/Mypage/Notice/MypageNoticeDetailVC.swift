@@ -24,10 +24,11 @@ final class MypageNoticeDetailVC: BaseVC {
         $0.isEditable = false
         $0.contentInset = .zero
         $0.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        $0.dataDetectorTypes = .link
     }
     
     // MARK: Properties
-    private var noticeData: GetNoticeResponseModel = GetNoticeResponseModel(title: "게시물 이름 1", createdAt: "2022.10.18", content: String(repeating: "게시판 내용입니다. ", count: 200))
+    private var noticeData: GetNoticeResponseModel = GetNoticeResponseModel(title: "게시물 이름 1", createdAt: "2022.10.18", content: String(repeating: "https://www.github.com ", count: 200))
     private var noticeId: String = ""
     
     // MARK: Initialization
@@ -47,6 +48,7 @@ final class MypageNoticeDetailVC: BaseVC {
         
         self.setLayout()
         self.setBackButton()
+        self.setContentTextView()
         self.setTitleView()
         self.setContent()
     }
@@ -56,6 +58,10 @@ final class MypageNoticeDetailVC: BaseVC {
         self.naviView.backButton.press { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    private func setContentTextView() {
+        self.contentTextView.delegate = self
     }
     
     private func setTitleView() {
@@ -87,5 +93,12 @@ extension MypageNoticeDetailVC {
             $0.top.equalTo(self.titleView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+    }
+}
+
+extension MypageNoticeDetailVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        self.openSafariVC(url: URL)
+        return false
     }
 }
