@@ -12,7 +12,6 @@ import Then
 final class MypageMainTVC: UITableViewCell {
     
     // MARK: Components
-    
     private let titleLabel: UILabel = UILabel().then {
         $0.font = .mumentH4M16
         $0.textColor = .mBlack1
@@ -23,6 +22,7 @@ final class MypageMainTVC: UITableViewCell {
     // MARK: Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         self.setLayout()
         self.setUI()
     }
