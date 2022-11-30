@@ -74,6 +74,9 @@ extension MypageNoticeVC: UITableViewDataSource {
 extension MypageNoticeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let detailVC = MypageNoticeDetailVC(noticeId: self.noticeList[indexPath.row].id)
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
