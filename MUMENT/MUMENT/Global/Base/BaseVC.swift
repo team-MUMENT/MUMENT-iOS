@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate {
     
@@ -54,6 +55,13 @@ extension BaseVC {
     
     func setMumentBackGroundColor() {
         view.backgroundColor = .mBgwhite
+    }
+    
+    func openSafariVC(url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.modalPresentationStyle = .pageSheet
+        
+        self.present(safariVC, animated: true)
     }
 }
 
