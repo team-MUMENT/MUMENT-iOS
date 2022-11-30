@@ -95,7 +95,7 @@ final class MypageMainVC: BaseVC {
     // MARK: Methods
     private func setBackButton() {
         self.naviView.backButton.press { [weak self] in
-            self?.dismiss(animated: true)
+            self?.navigationController?.popViewController(animated: true)
         }
     }
     
