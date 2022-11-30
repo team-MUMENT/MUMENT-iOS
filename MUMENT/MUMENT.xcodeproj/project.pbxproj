@@ -123,6 +123,10 @@
 		C7612D3B29361F30005F74B1 /* MypageMainSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D3A29361F30005F74B1 /* MypageMainSeparatorView.swift */; };
 		C7612D3D2936294B005F74B1 /* MypageMainFooterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D3C2936294B005F74B1 /* MypageMainFooterTVC.swift */; };
 		C7612D3F29365F4F005F74B1 /* MumentUnderLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D3E29365F4F005F74B1 /* MumentUnderLineButton.swift */; };
+		C7612D42293798AA005F74B1 /* MypageNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D41293798AA005F74B1 /* MypageNoticeVC.swift */; };
+		C7612D452937B493005F74B1 /* GetNoticeListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */; };
+		C7612D472937B778005F74B1 /* GetNoticeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */; };
+		C7612D4A2937B83D005F74B1 /* MypageNoticeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */; };
 		C766F9C32935C25D00E08D5C /* MypageMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C22935C25D00E08D5C /* MypageMainVC.swift */; };
 		C766F9C62935E0F800E08D5C /* MypageMainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C52935E0F800E08D5C /* MypageMainHeaderView.swift */; };
 		C766F9C82935E69C00E08D5C /* MypageMainTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C72935E69C00E08D5C /* MypageMainTVC.swift */; };
@@ -295,6 +299,10 @@
 		C7612D3A29361F30005F74B1 /* MypageMainSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainSeparatorView.swift; sourceTree = "<group>"; };
 		C7612D3C2936294B005F74B1 /* MypageMainFooterTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainFooterTVC.swift; sourceTree = "<group>"; };
 		C7612D3E29365F4F005F74B1 /* MumentUnderLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentUnderLineButton.swift; sourceTree = "<group>"; };
+		C7612D41293798AA005F74B1 /* MypageNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeVC.swift; sourceTree = "<group>"; };
+		C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeListResponseModel.swift; sourceTree = "<group>"; };
+		C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeResponseModel.swift; sourceTree = "<group>"; };
+		C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeTVC.swift; sourceTree = "<group>"; };
 		C766F9C22935C25D00E08D5C /* MypageMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainVC.swift; sourceTree = "<group>"; };
 		C766F9C52935E0F800E08D5C /* MypageMainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainHeaderView.swift; sourceTree = "<group>"; };
 		C766F9C72935E69C00E08D5C /* MypageMainTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainTVC.swift; sourceTree = "<group>"; };
@@ -682,6 +690,33 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C7612D40293798A1005F74B1 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				C7612D482937B827005F74B1 /* Cell */,
+				C7612D432937B442005F74B1 /* Model */,
+				C7612D41293798AA005F74B1 /* MypageNoticeVC.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
+		C7612D432937B442005F74B1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */,
+				C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C7612D482937B827005F74B1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		C766F9C12935C25300E08D5C /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -707,6 +742,7 @@
 		C79CD44C2921AB3300DE4A47 /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
+				C7612D40293798A1005F74B1 /* Notice */,
 				C766F9C12935C25300E08D5C /* Main */,
 				C79CD44D2921AB6200DE4A47 /* SetProfile */,
 			);
@@ -1025,6 +1061,7 @@
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */,
 				C7394B0C29234E2700BF6AE1 /* MumentActionSheetVC.swift in Sources */,
+				C7612D42293798AA005F74B1 /* MypageNoticeVC.swift in Sources */,
 				4DE75A8228CCBAE400BC3EC4 /* MumentsByTagCardView.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */,
@@ -1038,6 +1075,7 @@
 				C7BB53102875990700E0E889 /* BaseVC.swift in Sources */,
 				C71B47F72882A612001A7CD6 /* SearchTVType.swift in Sources */,
 				C74EC438287593110068EB46 /* UIColor+.swift in Sources */,
+				C7612D4A2937B83D005F74B1 /* MypageNoticeTVC.swift in Sources */,
 				C7BC6B562876ADCD008C75CE /* CarouselModel.swift in Sources */,
 				4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */,
 				4D696CEF287978360060CE41 /* MumentsOfRevisitedTVC.swift in Sources */,
@@ -1113,8 +1151,10 @@
 				C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */,
 				4D76045C2880ACB40044F2A6 /* DetailMumentCardView.swift in Sources */,
 				C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */,
+				C7612D452937B493005F74B1 /* GetNoticeListResponseModel.swift in Sources */,
 				4D64A9EA287D885A00450FCA /* TagView.swift in Sources */,
 				C71B47F12881A14F001A7CD6 /* ImageCacheManager.swift in Sources */,
+				C7612D472937B778005F74B1 /* GetNoticeResponseModel.swift in Sources */,
 				C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */,
 				C7AE17E228882D4100A5E3FA /* SearchResultResponseModel.swift in Sources */,
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
