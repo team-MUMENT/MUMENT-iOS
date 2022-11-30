@@ -10,12 +10,7 @@ import Then
 import SnapKit
 
 final class MypageMainVC: BaseVC {
-    
-    enum Number {
-        static let sections: Int = 5
-    }
-    
-    enum Section: Int {
+    enum Section: Int, CaseIterable {
         case profile = 0
         case setting = 1
         case service = 2
@@ -132,7 +127,7 @@ final class MypageMainVC: BaseVC {
 // MARK: - UITableViewDataSource
 extension MypageMainVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Number.sections
+        return Section.allCases.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
