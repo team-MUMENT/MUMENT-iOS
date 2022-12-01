@@ -48,8 +48,16 @@ final class SetNotificationVC: BaseVC {
         
         self.setLayout()
         self.setBackButton()
+        self.setToggleButtonAction()
+        self.setNotificationCenter()
+        self.checkNotificationStatusFirstTime()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.checkNotificationStatus()
+    }
     
     // MARK: Methods
     private func setBackButton() {
@@ -58,6 +66,43 @@ final class SetNotificationVC: BaseVC {
         }
     }
     
+    private func setToggleButtonAction() {
+        self.toggleButton.press {
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    /// 앱 알림 설정을 시스템에서 받아오는 함수
+    @objc private func checkNotificationStatus() {
+        UNUserNotificationCenter.current().getNotificationSettings { setting in
+            self.isSystemNotiSettingOn = setting.alertSetting == .enabled
+            if self.isOriginalSystemNotiSettingOn == false && self.isSystemNotiSettingOn == true {
+                debugPrint("alert_accept")
+            } else if self.isOriginalSystemNotiSettingOn == true && self.isSystemNotiSettingOn == false {
+                debugPrint("alert_refuse")
+            }
+            DispatchQueue.main.async {
+                self.toggleButton.isSelected = self.isSystemNotiSettingOn
+            }
+        }
+    }
+    
+    @objc private func checkNotificationStatusFirstTime() {
+        UNUserNotificationCenter.current().getNotificationSettings { setting in
+            self.isSystemNotiSettingOn = setting.alertSetting == .enabled
+            self.isOriginalSystemNotiSettingOn = setting.alertSetting == .enabled
+            DispatchQueue.main.async {
+                self.toggleButton.isSelected = self.isOriginalSystemNotiSettingOn
+            }
+        }
+    }
+    
+    /// 앱 상태 변화 observer 세팅 함수
+    private func setNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(checkNotificationStatus), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
 }
 
 // MARK: - UI
