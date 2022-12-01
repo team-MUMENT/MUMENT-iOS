@@ -47,9 +47,7 @@ final class MembershipWithdrawalVC: BaseVC {
         $0.textColor = .mBlack1
     }
 
-    private let dropDownButton = UIButton().then {
-        $0.setTitle("이유 선택", for: .normal)
-    }
+    private let reasonSelectionButton: DropDownButton = DropDownButton(title: "이유 선택")
     
     private let checkBoxButton = UIButton().then {
         $0.setBackgroundImage(UIImage(named: "mumentUnchecked"), for: .normal)
@@ -80,7 +78,7 @@ final class MembershipWithdrawalVC: BaseVC {
 extension MembershipWithdrawalVC {
 
     private func setLayout() {
-        view.addSubviews([naviView, imageView, headingLabel, noticeLabel, inquiryLabel, dropDownButton, withdrawalButton, reconfirmingStackView])
+        view.addSubviews([naviView, imageView, headingLabel, noticeLabel, inquiryLabel, reasonSelectionButton, withdrawalButton, reconfirmingStackView])
 
         naviView.snp.makeConstraints {
             $0.left.top.right.equalTo(view.safeAreaLayoutGuide)
@@ -106,7 +104,7 @@ extension MembershipWithdrawalVC {
             $0.leading.equalToSuperview().offset(20)
         }
         
-        dropDownButton.snp.makeConstraints {
+        reasonSelectionButton.snp.makeConstraints {
             $0.top.equalTo(inquiryLabel.snp.bottom).offset(13)
             $0.leading.equalToSuperview().offset(20)
         }
