@@ -70,7 +70,7 @@ final class MypageMainVC: BaseVC {
         
         var rowVC: [UIViewController] {
             switch self {
-            case .setting: return [UIViewController(), UIViewController()]
+            case .setting: return [SetNotificationVC(), UIViewController()]
             case .service: return [MypageNoticeVC(), UIViewController(), UIViewController()]
             case .info: return [UIViewController(), UIViewController()]
             default: return []
