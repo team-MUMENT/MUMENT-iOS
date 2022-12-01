@@ -9,8 +9,15 @@ import UIKit
 import SnapKit
 import Then
 
-class MembershipWithdrawalVC: BaseVC {
+final class MembershipWithdrawalVC: BaseVC {
 
+    // MARK: Properties
+    private var userName: String = ""{
+        didSet{
+            noticeLabel.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. \(userName)님이 좋아하신 뮤멘트들도 더이상 모아볼 수 없게 됩니다."
+        }
+    }
+    
     // MARK: - Components
     private let naviView = DefaultNavigationBar(naviType: .leftArrow).then {
         $0.setTitleLabel(title: "회원탈퇴")
@@ -23,17 +30,21 @@ class MembershipWithdrawalVC: BaseVC {
     private let headingLabel = UILabel().then {
         $0.text = "정말 떠나시는 건가요?"
         $0.font = .mumentH2B18
+        $0.textColor = .mBlack1
     }
     
     private let noticeLabel = UILabel().then {
         $0.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. 00님이 좋아하신 뮤멘트들도 더이상 모아볼 수 없게 됩니다."
         $0.font = .mumentB3M14
+        $0.textColor = .mBlack2
         $0.numberOfLines = 3
+        $0.lineBreakMode = .byCharWrapping
     }
     
     private let inquiryLabel = UILabel().then {
         $0.text = "탈퇴하시려는 이유가 궁금해요."
         $0.font = .mumentB4M14
+        $0.textColor = .mBlack1
     }
 
     private let dropDownButton = UIButton().then {
@@ -51,6 +62,7 @@ class MembershipWithdrawalVC: BaseVC {
     
     lazy var reconfirmingStackView = UIStackView(arrangedSubviews: [checkBoxButton, reconfirmingLabel]).then{
         $0.axis = .horizontal
+        $0.spacing = 5
     }
     
     private let withdrawalButton = MumentCompleteButton(isEnabled: false).then {
@@ -101,11 +113,12 @@ extension MembershipWithdrawalVC {
 
         withdrawalButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(39)
-            $0.centerX.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(47)
         }
         
         reconfirmingStackView.snp.makeConstraints {
-            $0.bottom.equalTo(withdrawalButton.snp.top).offset(15)
+            $0.bottom.equalTo(withdrawalButton.snp.top).offset(-30)
             $0.centerX.equalToSuperview()
         }
     }
