@@ -241,7 +241,7 @@ class StorageVC: BaseVC {
         myMumentVC.setTagsTitle(selectedTagButtons)
     }
     
-    @objc private func pushToMyPageMainVC() {
+    private func pushToMyPageMainVC() {
         let myPageVC = MypageMainVC()
         self.navigationController?.pushViewController(myPageVC, animated: true)
     }
