@@ -179,6 +179,11 @@ class StorageVC: BaseVC {
     }
     
     private func setPressAction() {
+        
+        profileButton.press {
+            self.pushToMyPageMainVC()
+        }
+        
         filterButton.press {
             self.storageBottomSheet.modalPresentationStyle = .overFullScreen
             self.present(self.storageBottomSheet, animated: false) {
@@ -236,6 +241,11 @@ class StorageVC: BaseVC {
         myMumentVC.setTagsTitle(selectedTagButtons)
     }
     
+    @objc private func pushToMyPageMainVC() {
+        let myPageVC = MypageMainVC()
+        self.navigationController?.pushViewController(myPageVC, animated: true)
+    }
+    
     @objc private func didTapSegmentControl() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             
@@ -251,7 +261,6 @@ class StorageVC: BaseVC {
 // MARK: - Protocol
 extension StorageVC: storageBottomSheetDelegate {
     func sendButtonData(data: [TagButton]) {
-        
         
         selectedTagButtons = data
 
