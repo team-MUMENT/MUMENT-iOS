@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import Foundation
+import SnapKit
+import Then
 
 class MyMumentVC: UIViewController {
     
@@ -36,6 +37,7 @@ class MyMumentVC: UIViewController {
        }
     
     // MARK: - Properties
+    var tagsViewHeightConstant = 0
     var defaultMumentData: [GetMyMumentResponseModel.Mument] = []
     var selectedTagsInt: [Int] = []
     var cellCategory : CellCategory = .listCell {
@@ -263,13 +265,18 @@ extension MyMumentVC: UICollectionViewDelegateFlowLayout {
 extension MyMumentVC { 
     
     func setUILayout() {
-        view.addSubViews([myMumentCV, emptyView])
-        myMumentCV.snp.makeConstraints{
-            $0.leading.trailing.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+        view.addSubViews([selectedTagsView, myMumentCV, emptyView])
+        
+        selectedTagsView.snp.makeConstraints {
+            $0.directionalHorizontalEdges.top.equalToSuperview()
+            $0.height.equalTo(self.tagsViewHeightConstant)
         }
         
-        view.addSubviews([emptyView])
+        myMumentCV.snp.makeConstraints{
+            $0.directionalHorizontalEdges.bottom.equalToSuperview()
+            $0.top.equalTo(selectedTagsView.snp.bottom)
+        }
+        
         emptyView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
