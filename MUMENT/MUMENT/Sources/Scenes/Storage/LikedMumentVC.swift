@@ -10,13 +10,9 @@ import SwiftUI
 
 class LikedMumentVC: UIViewController {
     
-    var withoutHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
-    var selectedTagsInt: [Int] = []
-    
-    var cellCategory : CellCategory = .listCell {
-        didSet {
-            self.likedMumentCV.reloadData()
-        }
+    // MARK: - Components
+    private let selectedTagsView = UIView().then {
+        $0.backgroundColor = UIColor.mGray5
     }
     
     private lazy var likedMumentCV = UICollectionView(
@@ -49,6 +45,15 @@ class LikedMumentVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+    }
+    
+    // MARK: - Properties
+    var withoutHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
+    var selectedTagsInt: [Int] = []
+    var cellCategory : CellCategory = .listCell {
+        didSet {
+            self.likedMumentCV.reloadData()
+        }
     }
     
     // MARK: - Function
@@ -114,8 +119,8 @@ class LikedMumentVC: UIViewController {
     
 }
 
-// MARK: - CollectionView
-extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+// MARK: - UICollectionViewDataSource
+extension LikedMumentVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -187,19 +192,7 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        
-        switch cellCategory {
-        case .listCell:
-            return 15
-        case .albumCell:
-            return 5
-        }
-    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
@@ -223,6 +216,34 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             return UICollectionReusableView()
         }
     }
+}
+
+// MARK: - UICollectionViewDelegate
+extension LikedMumentVC: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = withoutHeartMumentData[indexPath.row].id
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension LikedMumentVC: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        switch cellCategory {
+        case .listCell:
+            return 15
+        case .albumCell:
+            return 5
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.size.width, height: 52)
@@ -236,14 +257,10 @@ extension LikedMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = withoutHeartMumentData[indexPath.row].id
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-    }
 }
 
+
+// MARK: - UI
 extension LikedMumentVC {
     private func setCVLayout() {
         view.addSubViews([likedMumentCV, emptyView])

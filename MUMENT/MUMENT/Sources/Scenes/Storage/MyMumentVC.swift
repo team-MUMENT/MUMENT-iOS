@@ -10,12 +10,9 @@ import Foundation
 
 class MyMumentVC: UIViewController {
     
-    var defaultMumentData: [GetMyMumentResponseModel.Mument] = []
-    var selectedTagsInt: [Int] = []
-    var cellCategory : CellCategory = .listCell {
-        didSet {
-            self.myMumentCV.reloadData()
-        }
+    // MARK: - Components
+    private let selectedTagsView = UIView().then {
+        $0.backgroundColor = UIColor.mGray5
     }
     
     private let myMumentCV = UICollectionView(
@@ -37,6 +34,15 @@ class MyMumentVC: UIViewController {
     private let emptyView = StorageEmptyView().then {
            $0.setMyMumentLayout()
        }
+    
+    // MARK: - Properties
+    var defaultMumentData: [GetMyMumentResponseModel.Mument] = []
+    var selectedTagsInt: [Int] = []
+    var cellCategory : CellCategory = .listCell {
+        didSet {
+            self.myMumentCV.reloadData()
+        }
+    }
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -114,8 +120,8 @@ class MyMumentVC: UIViewController {
     }
 }
 
-// MARK: - CollectionView
-extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+// MARK: - UICollectionViewDataSource
+extension MyMumentVC: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dateDictionary[ self.dateArray[section] ] ?? 1
@@ -184,19 +190,6 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        switch cellCategory {
-        case .listCell:
-            return 15
-        case .albumCell:
-            return 5
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let header = collectionView.dequeueReusableSupplementaryView(
@@ -222,6 +215,35 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             return UICollectionReusableView()
         }
     }
+}
+
+// MARK: - UICollectionViewDelegate
+extension MyMumentVC: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.mumentId = defaultMumentData[indexPath.row].id
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension MyMumentVC: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        switch cellCategory {
+        case .listCell:
+            return 15
+        case .albumCell:
+            return 5
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.size.width, height: 52)
@@ -235,14 +257,9 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = defaultMumentData[indexPath.row].id
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-    }
 }
 
+// MARK: - UI
 extension MyMumentVC { 
     
     func setUILayout() {
