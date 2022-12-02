@@ -169,6 +169,7 @@
 		C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6F28771184008C75CE /* UIStackView+.swift */; };
 		C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B712877ECA0008C75CE /* CALayer+.swift */; };
 		C7DE6F54290ECE61002B9048 /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DE6F53290ECE61002B9048 /* MessageType.swift */; };
+		E74FBCAC293A73CE00CE241D /* FilterSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74FBCAB293A73CE00CE241D /* FilterSectionView.swift */; };
 		E781F219288052DF00484C28 /* MyMumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F218288052DF00484C28 /* MyMumentVC.swift */; };
 		E781F21B288052ED00484C28 /* LikedMumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F21A288052ED00484C28 /* LikedMumentVC.swift */; };
 		E781F2232881BC0800484C28 /* CellCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2222881BC0800484C28 /* CellCategory.swift */; };
@@ -340,6 +341,7 @@
 		C7BC6B6F28771184008C75CE /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		C7BC6B712877ECA0008C75CE /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		C7DE6F53290ECE61002B9048 /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
+		E74FBCAB293A73CE00CE241D /* FilterSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSectionView.swift; sourceTree = "<group>"; };
 		E781F218288052DF00484C28 /* MyMumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMumentVC.swift; sourceTree = "<group>"; };
 		E781F21A288052ED00484C28 /* LikedMumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedMumentVC.swift; sourceTree = "<group>"; };
 		E781F2222881BC0800484C28 /* CellCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCategory.swift; sourceTree = "<group>"; };
@@ -790,6 +792,7 @@
 				E781F2242881FB5A00484C28 /* AlbumCVC.swift */,
 				C7AE17D528872F3100A5E3FA /* StorageEmptyView.swift */,
 				E781F22828846C6F00484C28 /* StorageBottomSheet.swift */,
+				E74FBCAB293A73CE00CE241D /* FilterSectionView.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -1070,6 +1073,7 @@
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
 				C7AE17E628882DE100A5E3FA /* SearchAPI.swift in Sources */,
 				C7AE17E428882D6B00A5E3FA /* SearchService.swift in Sources */,
+				E74FBCAC293A73CE00CE241D /* FilterSectionView.swift in Sources */,
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
 				C7AE17DC2887FEA700A5E3FA /* GetIsFirstResponseModel.swift in Sources */,
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,

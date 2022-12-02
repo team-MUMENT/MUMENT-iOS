@@ -30,34 +30,7 @@ class StorageVC: BaseVC {
         $0.backgroundColor = .mPurple1
     }
         
-    private lazy var filterSectionContainerView = UIView().then {
-        $0.backgroundColor = .clear
-    }
-    
-    let filterButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentFilterOff"), for: .normal)
-        $0.setImage(UIImage(named: "mumentFilterOn"), for: .selected)
-        $0.contentMode = .scaleAspectFit
-    }
-        
-    private let buttonStackView = UIStackView().then {
-        $0.axis = .horizontal
-        $0.distribution = .fill
-        $0.spacing = 15
-    }
-    
-    private let albumButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentAlbumOff"), for: .normal)
-        $0.setImage(UIImage(named: "mumentAlbumOn"), for: .selected)
-        $0.contentMode = .scaleAspectFit
-    }
-    
-    private let listButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentListOff"), for: .normal)
-        $0.setImage(UIImage(named: "mumentListOn"), for: .selected)
-        $0.isSelected = true
-        $0.contentMode = .scaleAspectFit
-    }
+    private lazy var filterSectionView = FilterSectionView()
     
     private let selectedTagsView = UIView().then {
         $0.backgroundColor = UIColor.mGray5
@@ -71,9 +44,9 @@ class StorageVC: BaseVC {
     var selectedTagButtons = [TagButton]() {
         didSet {
             if self.selectedTagButtons.count == 0 {
-                self.filterButton.isSelected = false
+                filterSectionView.filterButton.isSelected = false
             }else {
-                self.filterButton.isSelected = true
+                filterSectionView.filterButton.isSelected = true
             }
         }
     }
@@ -179,16 +152,16 @@ class StorageVC: BaseVC {
     }
     
     private func setPressAction() {
-        filterButton.press {
+        filterSectionView.filterButton.press {
             self.storageBottomSheet.modalPresentationStyle = .overFullScreen
             self.present(self.storageBottomSheet, animated: false) {
                 self.storageBottomSheet.showBottomSheetWithAnimation()
             }
         }
         
-        listButton.press {
-            self.listButton.isSelected = true
-            self.albumButton.isSelected = false
+        filterSectionView.listButton.press {
+            self.filterSectionView.listButton.isSelected = true
+            self.filterSectionView.albumButton.isSelected = false
 
             if self.segmentControl.selectedSegmentIndex == 0 {
                 self.myMumentVC.cellCategory = .listCell
@@ -198,9 +171,9 @@ class StorageVC: BaseVC {
             
         }
         
-        albumButton.press {
-            self.albumButton.isSelected = true
-            self.listButton.isSelected = false
+        filterSectionView.albumButton.press {
+            self.filterSectionView.albumButton.isSelected = true
+            self.filterSectionView.listButton.isSelected = false
 
             if self.segmentControl.selectedSegmentIndex == 0 {
                 self.myMumentVC.cellCategory = .albumCell
@@ -240,10 +213,10 @@ class StorageVC: BaseVC {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             
         if segmentIndex == 0 {
-            listButton.sendActions(for: .touchUpInside)
+            filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[0]], direction: .reverse, animated: true)
         }else {
-            listButton.sendActions(for: .touchUpInside)
+            filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
     }
@@ -355,37 +328,19 @@ extension StorageVC {
     }
     
     private func setFilterSectionLayout() {
-        view.addSubviews([filterSectionContainerView, selectedTagsView])
+        view.addSubview(filterSectionView)
         
-        filterSectionContainerView.snp.makeConstraints{
+        filterSectionView.snp.makeConstraints{
             $0.top.equalTo(segmentContainerView.snp.bottom)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.directionalHorizontalEdges.equalToSuperview()
             $0.height.equalTo(44)
-        }
-        
-        filterSectionContainerView.addSubViews([filterButton, buttonStackView])
-        
-        filterButton.snp.makeConstraints{
-            $0.top.equalTo(filterSectionContainerView).inset(12)
-            $0.leading.equalTo(filterSectionContainerView).inset(20)
-            $0.bottom.equalTo(filterSectionContainerView).inset(12)
-        }
-        
-        [albumButton, listButton].forEach {
-            self.buttonStackView.addArrangedSubview($0)
-        }
-        
-        buttonStackView.snp.makeConstraints{
-            $0.top.bottom.equalTo(filterSectionContainerView).inset(12)
-            $0.trailing.equalTo(filterSectionContainerView).inset(20)
-            $0.width.equalTo(55)
         }
     }
     
     private func setTagsViewLayout() {
         view.addSubviews([selectedTagsView])
         selectedTagsView.snp.makeConstraints{
-            $0.top.equalTo(filterSectionContainerView.snp.bottom)
+            $0.top.equalTo(filterSectionView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(self.tagsViewHeightConstant)
         }
