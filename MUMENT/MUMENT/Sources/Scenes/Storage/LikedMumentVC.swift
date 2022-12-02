@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import SwiftUI
+import SnapKit
+import Then
 
 class LikedMumentVC: UIViewController {
     
@@ -34,6 +35,16 @@ class LikedMumentVC: UIViewController {
         $0.setLikedMumentLayout()
     }
     
+    // MARK: - Properties
+    var tagsViewHeightConstant = 0
+    var withoutHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
+    var selectedTagsInt: [Int] = []
+    var cellCategory : CellCategory = .listCell {
+        didSet {
+            self.likedMumentCV.reloadData()
+        }
+    }
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,14 +58,6 @@ class LikedMumentVC: UIViewController {
         getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
-    // MARK: - Properties
-    var withoutHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
-    var selectedTagsInt: [Int] = []
-    var cellCategory : CellCategory = .listCell {
-        didSet {
-            self.likedMumentCV.reloadData()
-        }
-    }
     
     // MARK: - Function
     private func setCollectionView() {
@@ -263,13 +266,18 @@ extension LikedMumentVC: UICollectionViewDelegateFlowLayout {
 // MARK: - UI
 extension LikedMumentVC {
     private func setCVLayout() {
-        view.addSubViews([likedMumentCV, emptyView])
-        likedMumentCV.snp.makeConstraints{
-            $0.leading.trailing.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+        view.addSubViews([selectedTagsView, likedMumentCV, emptyView])
+        
+        selectedTagsView.snp.makeConstraints {
+            $0.directionalHorizontalEdges.top.equalToSuperview()
+            $0.height.equalTo(self.tagsViewHeightConstant)
         }
         
-        view.addSubviews([emptyView])
+        likedMumentCV.snp.makeConstraints{
+            $0.directionalHorizontalEdges.bottom.equalToSuperview()
+            $0.top.equalTo(selectedTagsView.snp.bottom)
+        }
+        
         emptyView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
