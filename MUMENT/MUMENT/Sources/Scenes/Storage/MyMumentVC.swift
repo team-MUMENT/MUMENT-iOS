@@ -215,7 +215,7 @@ extension MyMumentVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             }
             emptyView.isHidden = true
             let year = dateArray[indexPath.section] / 100
-            let month = dateArray[indexPath.section] % 10
+            let month = dateArray[indexPath.section] - (100 * year)
             header.setHeader(year, month)
             return header
         }else {
