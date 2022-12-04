@@ -179,7 +179,6 @@ class StorageVC: BaseVC {
     }
     
     private func setPressAction() {
-        
         profileButton.press {
             self.pushToMyPageMainVC()
         }
