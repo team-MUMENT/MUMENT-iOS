@@ -67,6 +67,15 @@ final class MypageMainVC: BaseVC {
             default: return []
             }
         }
+        
+        var rowVC: [UIViewController] {
+            switch self {
+            case .setting: return [UIViewController(), UIViewController()]
+            case .service: return [MypageNoticeVC(), UIViewController(), UIViewController()]
+            case .info: return [UIViewController(), UIViewController()]
+            default: return []
+            }
+        }
     }
     
     // MARK: Components
@@ -82,6 +91,7 @@ final class MypageMainVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.isHidden = true
         self.setLayout()
         self.setBackButton()
         self.setTableView()
@@ -90,7 +100,7 @@ final class MypageMainVC: BaseVC {
     // MARK: Methods
     private func setBackButton() {
         self.naviView.backButton.press { [weak self] in
-            self?.dismiss(animated: true)
+            self?.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -159,6 +169,10 @@ extension MypageMainVC: UITableViewDataSource {
 extension MypageMainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if let tableSection = Section(rawValue: indexPath.section) {
+            self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
