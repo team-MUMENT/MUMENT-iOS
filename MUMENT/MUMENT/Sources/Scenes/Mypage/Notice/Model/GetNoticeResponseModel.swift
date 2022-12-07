@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - GetNoticeListResponseModel
+// MARK: - GetNoticeResponseModel
 struct GetNoticeResponseModel: Codable {
     var title, createdAt, content: String
 }
