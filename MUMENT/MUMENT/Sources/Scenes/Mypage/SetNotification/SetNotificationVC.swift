@@ -78,11 +78,6 @@ final class SetNotificationVC: BaseVC {
     @objc private func checkNotificationStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { setting in
             self.isSystemNotiSettingOn = setting.alertSetting == .enabled
-            if self.isOriginalSystemNotiSettingOn == false && self.isSystemNotiSettingOn == true {
-                debugPrint("alert_accept")
-            } else if self.isOriginalSystemNotiSettingOn == true && self.isSystemNotiSettingOn == false {
-                debugPrint("alert_refuse")
-            }
             DispatchQueue.main.async {
                 self.toggleButton.isSelected = self.isSystemNotiSettingOn
             }
