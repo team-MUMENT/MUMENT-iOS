@@ -1,19 +1,19 @@
 {
   "images" : [
     {
+      "idiom" : "universal",
       "filename" : "mumentProfileSleep60.png",
-      "scale" : "1x",
-      "idiom" : "universal"
+      "scale" : "1x"
     },
     {
       "filename" : "mumentProfileSleep60@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "idiom" : "universal"
     },
     {
+      "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "mumentProfileSleep60@3x.png",
-      "idiom" : "universal"
+      "filename" : "mumentProfileSleep60@3x.png"
     }
   ],
   "info" : {

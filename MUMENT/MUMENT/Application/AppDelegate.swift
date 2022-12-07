@@ -11,30 +11,30 @@ import KakaoSDKAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         sleep(1)
         
         // 네이티브 앱 키(카카오 디벨로퍼 계정에서 제공)를 사용해 iOS SDK를 초기화합니다.
         KakaoSDK.initSDK(appKey: "a03c85e89f6892684a4533911f5ab502")
-
+        self.requestNotificationPermission()
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
-
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    private func requestNotificationPermission(){
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound, .badge], completionHandler: {didAllow, Error in
+            if didAllow {
+                debugPrint("Push: 권한 허용")
+            } else {
+                debugPrint("Push: 권한 거부")
+            }
+        })
     }
 }
-
