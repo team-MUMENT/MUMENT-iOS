@@ -9,24 +9,12 @@ import UIKit
 import SnapKit
 import Then
 
-class MyMumentVC: UIViewController {
+class MyMumentVC: BaseVC {
     
     // MARK: - Components
-    private let selectedTagsView = UIView().then {
-        $0.backgroundColor = UIColor.mGray5
-    }
-    
-    private let myMumentCV = UICollectionView(
-        frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()
-    ).then {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        
-        $0.backgroundColor = .clear
-        $0.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
-        $0.showsVerticalScrollIndicator = false
-        $0.collectionViewLayout = layout
-    }
+    lazy var filterSectionView = FilterSectionView()
+    private let tagSectionView = TagSectionView()
+    private let myMumentCV = StorageMumentCV()
     
     var dateArray: [Int] = [1]
     var dateDictionary : [Int : Int] = [:]
@@ -37,12 +25,24 @@ class MyMumentVC: UIViewController {
        }
     
     // MARK: - Properties
+    private let storageBottomSheet = StorageBottomSheet()
     var tagsViewHeightConstant = 0
     var defaultMumentData: [GetMyMumentResponseModel.Mument] = []
     var selectedTagsInt: [Int] = []
     var cellCategory : CellCategory = .listCell {
         didSet {
             self.myMumentCV.reloadData()
+        }
+    }
+    
+    /// StorageBottomSheet에서 전달 받은 태그 버튼 배열
+    var selectedTagButtons = [TagButton]() {
+        didSet {
+            if self.selectedTagButtons.count == 0 {
+                filterSectionView.filterButton.isSelected = false
+            }else {
+                filterSectionView.filterButton.isSelected = true
+            }
         }
     }
     
@@ -53,6 +53,9 @@ class MyMumentVC: UIViewController {
         setUILayout()
         
         getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+        
+        setBottomSheet()
+        setPressAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,6 +122,78 @@ class MyMumentVC: UIViewController {
         } else {
             numberOfSections = 1
         }
+    }
+    
+    private func setPressAction() {
+        filterSectionView.filterButton.press {
+            self.storageBottomSheet.modalPresentationStyle = .overFullScreen
+            self.present(self.storageBottomSheet, animated: false) {
+                self.storageBottomSheet.showBottomSheetWithAnimation()
+            }
+        }
+        
+        filterSectionView.listButton.press { [self] in
+            cellCategory = .listCell
+        }
+        
+        filterSectionView.albumButton.press { [self] in
+            cellCategory = .albumCell
+        }
+    }
+}
+
+// MARK: - Protocol
+extension MyMumentVC: storageBottomSheetDelegate {
+    
+    func showSelectedTagsView() {
+        if selectedTagButtons.count != 0 {
+            self.tagsViewHeightConstant = 49
+            
+            selectedTagButtons.forEach {
+                tagSectionView.selectedTagsStackView.addArrangedSubview($0)
+                
+                $0.snp.makeConstraints {
+                    $0.height.equalTo(35)
+                }
+            }
+                        
+        }else {
+            self.tagsViewHeightConstant = 0
+        }
+        
+        tagSectionView.snp.updateConstraints {
+            $0.height.equalTo(self.tagsViewHeightConstant)
+        }
+        
+        tagSectionView.layoutIfNeeded()
+        
+        self.setTagsTitle(selectedTagButtons)
+    }
+
+    private func setBottomSheet() {
+        storageBottomSheet.delegate = self
+    }
+    
+    func sendButtonData(data: [TagButton]) {
+        selectedTagButtons = data
+
+        selectedTagButtons.forEach { button in
+            button.press {
+                var tempButtons = [TagButton]()
+                
+                self.selectedTagButtons.forEach { thisButton in
+                    if thisButton == button {}
+                    else {
+                        tempButtons.append(thisButton)
+                    }
+                }
+                self.selectedTagButtons = tempButtons
+                self.tagSectionView.selectedTagsStackView.removeAllArrangedSubviews()
+                
+                self.showSelectedTagsView()
+            }
+        }
+        showSelectedTagsView()
     }
 }
 
@@ -261,24 +336,31 @@ extension MyMumentVC: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - UI
+// MARK: - Layout
 extension MyMumentVC { 
     
     func setUILayout() {
-        view.addSubViews([selectedTagsView, myMumentCV, emptyView])
+        view.addSubViews([filterSectionView, tagSectionView, myMumentCV, emptyView])
         
-        selectedTagsView.snp.makeConstraints {
+        filterSectionView.snp.makeConstraints {
             $0.directionalHorizontalEdges.top.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        
+        tagSectionView.snp.makeConstraints {
+            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.top.equalTo(filterSectionView.snp.bottom)
             $0.height.equalTo(self.tagsViewHeightConstant)
         }
         
         myMumentCV.snp.makeConstraints{
             $0.directionalHorizontalEdges.bottom.equalToSuperview()
-            $0.top.equalTo(selectedTagsView.snp.bottom)
+            $0.top.equalTo(tagSectionView.snp.bottom)
         }
         
         emptyView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.directionalHorizontalEdges.bottom.equalToSuperview()
+            $0.top.equalTo(tagSectionView)
         }
         
         emptyView.isHidden = true
