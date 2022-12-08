@@ -112,6 +112,11 @@ class StorageVC: BaseVC {
     }
     
     
+    private func pushToMyPageMainVC() {
+        let myPageVC = MypageMainVC()
+        self.navigationController?.pushViewController(myPageVC, animated: true)
+    }
+    
     @objc private func didTapSegmentControl() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             

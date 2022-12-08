@@ -1,9 +1,9 @@
 {
   "images" : [
     {
-      "filename" : "mumentProfileSmile60.png",
       "scale" : "1x",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "mumentProfileSmile60.png"
     },
     {
       "idiom" : "universal",
