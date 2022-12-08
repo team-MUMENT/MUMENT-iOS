@@ -14,6 +14,7 @@ class SearchForWriteView: UIView {
     // MARK: - Properties
     private let searchBar = UISearchBar().then {
         $0.setImage(UIImage(named: "mumentSearch"), for: .search, state: .normal)
+        $0.setImage(UIImage(named: "mumentDelete2"), for: .clear, state: .normal)
         $0.barTintColor = .mGray5
         $0.makeRounded(cornerRadius: 11.adjustedH)
         $0.placeholder = " 곡, 아티스트"
