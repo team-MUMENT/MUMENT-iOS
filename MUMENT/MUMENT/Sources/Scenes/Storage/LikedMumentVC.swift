@@ -9,24 +9,13 @@ import UIKit
 import SnapKit
 import Then
 
-class LikedMumentVC: UIViewController {
+class LikedMumentVC: BaseVC {
     
     // MARK: - Components
-    private let selectedTagsView = UIView().then {
-        $0.backgroundColor = UIColor.mGray5
-    }
-    
-    private lazy var likedMumentCV = UICollectionView(
-        frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()
-    ).then {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        
-        $0.backgroundColor = .clear
-        $0.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
-        $0.showsVerticalScrollIndicator = false
-        $0.collectionViewLayout = layout
-    }
+    lazy var filterSectionView = FilterSectionView()
+    private let tagSectionView = TagSectionView()
+    private let likedMumentCV = StorageMumentCV()
+   
     var dateArray: [Int] = [1]
     var dateDictionary : [Int : Int] = [:]
     var numberOfSections = 0
@@ -36,6 +25,7 @@ class LikedMumentVC: UIViewController {
     }
     
     // MARK: - Properties
+    private let storageBottomSheet = StorageBottomSheet()
     var tagsViewHeightConstant = 0
     var withoutHeartMumentData: [GetLikedMumentResponseModel.Mument] = []
     var selectedTagsInt: [Int] = []
@@ -45,12 +35,26 @@ class LikedMumentVC: UIViewController {
         }
     }
     
+    // StorageBottomSheet에서 전달 받은 태그 버튼 배열
+    var selectedTagButtons = [TagButton]() {
+        didSet {
+            if self.selectedTagButtons.count == 0 {
+                filterSectionView.filterButton.isSelected = false
+            }else {
+                filterSectionView.filterButton.isSelected = true
+            }
+        }
+    }
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionView()
-        setCVLayout()
+        setUILayout()
         getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+        
+        setBottomSheet()
+        setPressAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,6 +124,78 @@ class LikedMumentVC: UIViewController {
         }
     }
     
+    private func setPressAction() {
+        filterSectionView.filterButton.press {
+            self.storageBottomSheet.modalPresentationStyle = .overFullScreen
+            self.present(self.storageBottomSheet, animated: false) {
+                self.storageBottomSheet.showBottomSheetWithAnimation()
+            }
+        }
+        
+        filterSectionView.listButton.press { [self] in
+            cellCategory = .listCell
+        }
+        
+        filterSectionView.albumButton.press { [self] in
+            cellCategory = .albumCell
+        }
+    }
+    
+}
+
+// MARK: - Protocol
+extension LikedMumentVC: storageBottomSheetDelegate {
+    
+    func showSelectedTagsView() {
+        if selectedTagButtons.count != 0 {
+            self.tagsViewHeightConstant = 49
+            
+            selectedTagButtons.forEach {
+                tagSectionView.selectedTagsStackView.addArrangedSubview($0)
+                
+                $0.snp.makeConstraints {
+                    $0.height.equalTo(35)
+                }
+            }
+                        
+        }else {
+            self.tagsViewHeightConstant = 0
+        }
+        
+        tagSectionView.snp.updateConstraints {
+            $0.height.equalTo(self.tagsViewHeightConstant)
+        }
+        
+        tagSectionView.layoutIfNeeded()
+        
+        self.setTagsTitle(selectedTagButtons)
+    }
+
+    private func setBottomSheet() {
+        storageBottomSheet.delegate = self
+    }
+    
+    func sendButtonData(data: [TagButton]) {
+        selectedTagButtons = data
+
+        selectedTagButtons.forEach { button in
+            button.press {
+                var tempButtons = [TagButton]()
+                
+                self.selectedTagButtons.forEach { thisButton in
+                    if thisButton == button {}
+                    else {
+                        tempButtons.append(thisButton)
+                    }
+                }
+                self.selectedTagButtons = tempButtons
+                self.tagSectionView.selectedTagsStackView.removeAllArrangedSubviews()
+                
+                self.showSelectedTagsView()
+            }
+        }
+        showSelectedTagsView()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -263,23 +339,31 @@ extension LikedMumentVC: UICollectionViewDelegateFlowLayout {
 }
 
 
-// MARK: - UI
+// MARK: - Layout
 extension LikedMumentVC {
-    private func setCVLayout() {
-        view.addSubViews([selectedTagsView, likedMumentCV, emptyView])
+    
+    private func setUILayout() {
+        view.addSubViews([filterSectionView, tagSectionView, likedMumentCV, emptyView])
         
-        selectedTagsView.snp.makeConstraints {
+        filterSectionView.snp.makeConstraints {
             $0.directionalHorizontalEdges.top.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        
+        tagSectionView.snp.makeConstraints {
+            $0.directionalHorizontalEdges.equalToSuperview()
+            $0.top.equalTo(filterSectionView.snp.bottom)
             $0.height.equalTo(self.tagsViewHeightConstant)
         }
         
         likedMumentCV.snp.makeConstraints{
             $0.directionalHorizontalEdges.bottom.equalToSuperview()
-            $0.top.equalTo(selectedTagsView.snp.bottom)
+            $0.top.equalTo(tagSectionView.snp.bottom)
         }
         
         emptyView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.directionalHorizontalEdges.bottom.equalToSuperview()
+            $0.top.equalTo(tagSectionView)
         }
         
         emptyView.isHidden = true
