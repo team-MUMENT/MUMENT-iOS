@@ -43,6 +43,16 @@ final class FilterSectionView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setFilterSectionLayout()
+        
+        listButton.press { [self] in
+            listButton.isSelected = true
+            albumButton.isSelected = false
+        }
+        
+        albumButton.press { [self] in
+            albumButton.isSelected = true
+            listButton.isSelected = false
+        }
     }
     
     required init?(coder: NSCoder) {
