@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class StorageMumentVC: BaseVC {
+final class StorageMumentVC: BaseVC {
     
     // MARK: - Enum
     enum TabType {

@@ -11,7 +11,7 @@ import Then
 
 final class TagSectionView: UIView {
     
-    let selectedTagsStackView = UIStackView().then {
+    private let selectedTagsStackView = UIStackView().then {
         $0.backgroundColor = .clear
         $0.spacing = 10
         $0.axis = .horizontal
@@ -49,5 +49,4 @@ final class TagSectionView: UIView {
             $0.centerY.equalToSuperview()
         }
     }
-
 }
