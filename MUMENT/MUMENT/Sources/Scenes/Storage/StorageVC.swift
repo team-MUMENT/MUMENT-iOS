@@ -62,9 +62,9 @@ class StorageVC: BaseVC {
         
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
-    private let myMumentVC = MyMumentVC()
-    private let likedMumentVC = LikedMumentVC()
-
+    private let myMumentVC = StorageMumentVC(type: .myMument)
+    private let likedMumentVC = StorageMumentVC(type: .likedMument)
+    
     private lazy var contents: [UIViewController] = [
         self.myMumentVC,
         self.likedMumentVC
@@ -124,7 +124,7 @@ class StorageVC: BaseVC {
             myMumentVC.filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[0]], direction: .reverse, animated: true)
         }else {
-            myMumentVC.filterSectionView.listButton.sendActions(for: .touchUpInside)
+            likedMumentVC.filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
     }
@@ -205,7 +205,6 @@ extension StorageVC {
             $0.width.equalTo(segmentControl.snp.width).dividedBy(segmentControl.numberOfSegments)
             
         }
-        
         NSLayoutConstraint.activate([leadingDistance])
     }
     
