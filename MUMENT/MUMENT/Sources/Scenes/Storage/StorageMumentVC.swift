@@ -194,8 +194,7 @@ extension StorageMumentVC: storageBottomSheetDelegate {
                 var tempButtons = [TagButton]()
                 
                 self.selectedTagButtons.forEach { thisButton in
-                    if thisButton == button {}
-                    else {
+                    if thisButton != button {
                         tempButtons.append(thisButton)
                     }
                 }
@@ -322,7 +321,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
             let month = dateArray[indexPath.section] - (100 * year)
             header.setHeader(year, month)
             return header
-        }else {
+        } else {
             return UICollectionReusableView()
         }
     }
