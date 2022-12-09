@@ -168,15 +168,7 @@ extension StorageMumentVC: storageBottomSheetDelegate {
     private func showSelectedTagsView() {
         if selectedTagButtons.count != 0 {
             self.tagsViewHeightConstant = 49
-            
-            selectedTagButtons.forEach {
-                tagSectionView.selectedTagsStackView.addArrangedSubview($0)
-                
-                $0.snp.makeConstraints {
-                    $0.height.equalTo(35)
-                }
-            }
-            
+            self.tagSectionView.addTagButtonsToStackView(tagButtons: selectedTagButtons)
         }else {
             self.tagsViewHeightConstant = 0
         }
@@ -208,7 +200,7 @@ extension StorageMumentVC: storageBottomSheetDelegate {
                     }
                 }
                 self.selectedTagButtons = tempButtons
-                self.tagSectionView.selectedTagsStackView.removeAllArrangedSubviews()
+                self.tagSectionView.removeButtonsFromStackView()
                 
                 self.showSelectedTagsView()
             }

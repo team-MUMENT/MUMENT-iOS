@@ -28,9 +28,21 @@ final class TagSectionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setLayout() {
+    func addTagButtonsToStackView(tagButtons: [TagButton]) {
+        tagButtons.forEach {
+            self.selectedTagsStackView.addArrangedSubview($0)
+            $0.snp.makeConstraints {
+                $0.height.equalTo(35)
+            }
+        }
+    }
+    
+    func removeButtonsFromStackView() {
+        self.selectedTagsStackView.removeAllArrangedSubviews()
+    }
+    
+    private func setLayout() {
         self.addSubview(selectedTagsStackView)
-                
         selectedTagsStackView.snp.makeConstraints{
             $0.leading.equalToSuperview().inset(10)
             $0.height.equalTo(35)
