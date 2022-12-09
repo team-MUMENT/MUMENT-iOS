@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class StorageVC: BaseVC {
+final class StorageVC: BaseVC {
     
     // MARK: - Components
     private let naviView = DefaultNavigationView().then {
@@ -130,7 +130,7 @@ class StorageVC: BaseVC {
     }
 }
 
-// MARK: - UIPageVC
+// MARK: - UIPageViewControllerDataSource
 extension StorageVC: UIPageViewControllerDataSource  {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -152,6 +152,7 @@ extension StorageVC: UIPageViewControllerDataSource  {
     }
 }
 
+// MARK: - UIPageViewControllerDelegate
 extension StorageVC: UIPageViewControllerDelegate {
     
     /// Paging 애니메이션이 끝났을 때 처리
@@ -166,9 +167,8 @@ extension StorageVC: UIPageViewControllerDelegate {
     }
 }
 
-// MARK: - Layout
+// MARK: - UI
 extension StorageVC {
-    
     private func setHeaderLayout() {
         view.addSubviews([naviView, profileButton])
         
