@@ -397,7 +397,7 @@ extension StorageMumentVC {
         
         emptyView.snp.makeConstraints {
             $0.directionalHorizontalEdges.bottom.equalToSuperview()
-            $0.top.equalTo(tagSectionView)
+            $0.top.equalTo(tagSectionView.snp.bottom)
         }
         
         emptyView.isHidden = true
