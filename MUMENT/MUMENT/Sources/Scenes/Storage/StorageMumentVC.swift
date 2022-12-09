@@ -22,21 +22,21 @@ class StorageMumentVC: BaseVC {
     private let tagSectionView = TagSectionView()
     private let storageMumentCV = StorageMumentCV()
     
-    var dateArray: [Int] = [1]
-    var dateDictionary : [Int : Int] = [:]
-    var numberOfSections = 0
+    private var dateArray: [Int] = [1]
+    private var dateDictionary : [Int : Int] = [:]
+    private var numberOfSections = 0
     
     // MARK: - Properties
     private let storageBottomSheet = StorageBottomSheet()
-    var tagsViewHeightConstant = 0    
-    var selectedTagsInt: [Int] = []
-    var cellCategory : CellCategory = .listCell {
+    private var tagsViewHeightConstant = 0
+    private var selectedTagsInt: [Int] = []
+    private var cellCategory : CellCategory = .listCell {
         didSet {
             self.storageMumentCV.reloadData()
         }
     }
     /// StorageBottomSheet에서 전달 받은 태그 버튼 배열
-    var selectedTagButtons = [TagButton]() {
+    private var selectedTagButtons = [TagButton]() {
         didSet {
             if self.selectedTagButtons.count == 0 {
                 filterSectionView.filterButton.isSelected = false
@@ -107,13 +107,13 @@ class StorageMumentVC: BaseVC {
     }
     
     /// Set 으로 중복값 제거하기.self
-    func removeDuplication(in array: [Int]) -> [Int]{
+    private func removeDuplication(in array: [Int]) -> [Int]{
         let set = Set(array)
         let duplicationRemovedArray = Array(set)
         return duplicationRemovedArray
     }
     
-    func setDateDictionary() {
+    private func setDateDictionary() {
         var dates: [Int] = []
         var date = 0
         
@@ -165,7 +165,7 @@ class StorageMumentVC: BaseVC {
 
 // MARK: - Protocol
 extension StorageMumentVC: storageBottomSheetDelegate {
-    func showSelectedTagsView() {
+    private func showSelectedTagsView() {
         if selectedTagButtons.count != 0 {
             self.tagsViewHeightConstant = 49
             
@@ -376,7 +376,7 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UI
 extension StorageMumentVC {
-    func setUILayout() {
+    private func setUILayout() {
         view.addSubViews([filterSectionView, tagSectionView, storageMumentCV, emptyView])
         
         filterSectionView.snp.makeConstraints {
