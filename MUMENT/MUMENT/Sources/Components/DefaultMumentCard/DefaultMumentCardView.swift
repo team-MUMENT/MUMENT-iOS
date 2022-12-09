@@ -82,7 +82,7 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
             }
         }
     }
-    func setData(_ cellData: GetMyMumentResponseModel.Mument){
+    func setDefaultData(_ cellData: StorageMumentModel){
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
         albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
@@ -95,7 +95,7 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         createdAtLabel.text = cellData.createdAt
         isLiked = cellData.isLiked
         mumentId = cellData.id
-        heartCount = cellData.likeCount
+        heartCount = cellData.likeCount ?? 0
         setCardTags(cellData.cardTag)
     }
 }
