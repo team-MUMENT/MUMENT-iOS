@@ -34,8 +34,9 @@ class SearchBottomSheetVC: BaseVC {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-        setLayout()
+        
+        self.setUI()
+        self.setLayout()
     }
     
     // MARK: - Functions
@@ -43,7 +44,7 @@ class SearchBottomSheetVC: BaseVC {
         super.touchesBegan(touches, with: event)
         if let touch = touches.first,
            touch.view == self.view {
-            hideBottomSheetWithAnimation()
+            self.hideBottomSheetWithAnimation()
         }
     }
     
@@ -82,17 +83,17 @@ extension SearchBottomSheetVC {
     }
     
     private func setLayout() {
-        view.addSubViews([containerView])
-        containerView.addSubviews([contentView])
+        self.view.addSubViews([containerView])
+        self.containerView.addSubviews([contentView])
         
-        containerHeight.constant = 0
-        containerView.snp.makeConstraints{
+        self.containerHeight.constant = 0
+        self.containerView.snp.makeConstraints{
             $0.height.equalTo(containerHeight.constant)
             $0.width.equalTo(view.frame.width)
             $0.left.right.bottom.equalToSuperview()
         }
         
-        contentView.snp.makeConstraints {
+        self.contentView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }

@@ -28,9 +28,9 @@ class RecentSearchTVC: UITableViewCell {
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setLayout()
-        setUI()
-        selectionStyle = .none
+        self.setLayout()
+        self.setUI()
+        self.selectionStyle = .none
     }
     
     @available(*, unavailable)
@@ -39,10 +39,10 @@ class RecentSearchTVC: UITableViewCell {
     }
     
     func setData(data: SearchResultResponseModelElement) {
-        albumImageView.setImageColor(color: .mGray5)
-        albumImageView.setImageUrl(data.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
-        titleLabel.text = data.name
-        artistLabel.text = data.artist
+        self.albumImageView.setImageColor(color: .mGray5)
+        self.albumImageView.setImageUrl(data.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        self.titleLabel.text = data.name
+        self.artistLabel.text = data.artist
     }
 }
 
@@ -51,26 +51,26 @@ extension RecentSearchTVC {
     private func setLayout() {
         self.contentView.addSubviews([albumImageView, titleLabel, artistLabel, removeButton])
         
-        albumImageView.snp.makeConstraints {
+        self.albumImageView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(10)
             $0.leading.equalToSuperview().inset(20)
             $0.width.equalTo(albumImageView.snp.height)
         }
         
-        titleLabel.snp.makeConstraints {
+        self.titleLabel.snp.makeConstraints {
             $0.top.equalTo(albumImageView.snp.top).inset(3)
             $0.leading.equalTo(albumImageView.snp.trailing).offset(10)
         }
         
-        artistLabel.snp.makeConstraints {
+        self.artistLabel.snp.makeConstraints {
             $0.bottom.equalTo(albumImageView.snp.bottom).inset(3)
             $0.leading.equalTo(titleLabel.snp.leading)
         }
         
-        removeButton.snp.makeConstraints {
+        self.removeButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(20)
             $0.centerY.equalTo(albumImageView)
-            $0.width.height.equalTo(24)
+            $0.width.height.equalTo(48)
         }
     }
     

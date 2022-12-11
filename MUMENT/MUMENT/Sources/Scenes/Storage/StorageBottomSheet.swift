@@ -20,7 +20,7 @@ class StorageBottomSheet: BaseVC {
     }
     private let containerHeight = NSLayoutConstraint()
     let dismissButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentDelete_48x48"), for: .normal)
+        $0.setImage(UIImage(named: "mumentDelete"), for: .normal)
         $0.contentMode = .scaleAspectFit
     }
     private let bottomSheetTitle = UILabel().then {
