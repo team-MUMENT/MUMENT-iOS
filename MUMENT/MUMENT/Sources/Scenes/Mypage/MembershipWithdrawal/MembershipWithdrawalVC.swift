@@ -18,6 +18,13 @@ final class MembershipWithdrawalVC: BaseVC {
         }
     }
     
+    private var isReasonMenuHidden: Bool = false{
+        didSet{
+            reasonSelectingMenuView.isHidden = isReasonMenuHidden
+        }
+    }
+    
+    
     // MARK: - Components
     private let naviView: DefaultNavigationBar = DefaultNavigationBar(naviType: .leftArrow).then {
         $0.setTitleLabel(title: "회원탈퇴")
@@ -49,16 +56,18 @@ final class MembershipWithdrawalVC: BaseVC {
     
     private let reasonSelectionButton: DropDownButton = DropDownButton(title: "이유 선택")
     
+    private let reasonSelectingMenuView: DropDownMenuView = DropDownMenuView()
+    
     private let checkBoxButton: UIButton = UIButton().then {
         $0.setBackgroundImage(UIImage(named: "mumentUnchecked"), for: .normal)
     }
     
-    private let reconfirmingLabel: UILabel = UILabel().then {
+    private let confirmingLabel: UILabel = UILabel().then {
         $0.text = "안내사항을 모두 확인했으며, 탈퇴를 신청합니다."
         $0.font = .mumentB8M12
     }
     
-    lazy var reconfirmingStackView: UIStackView = UIStackView(arrangedSubviews: [checkBoxButton, reconfirmingLabel]).then{
+    private lazy var confirmingStackView: UIStackView = UIStackView(arrangedSubviews: [checkBoxButton, confirmingLabel]).then{
         $0.axis = .horizontal
         $0.spacing = 5
     }
@@ -71,6 +80,14 @@ final class MembershipWithdrawalVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
+        setButtonActions()
+        reasonSelectingMenuView.setDelegate(delegate: self)
+    }
+    
+    func setButtonActions(){
+        reasonSelectionButton.press{
+            self.isReasonMenuHidden.toggle()
+        }
     }
 }
 
@@ -78,7 +95,7 @@ final class MembershipWithdrawalVC: BaseVC {
 extension MembershipWithdrawalVC {
     
     private func setLayout() {
-        view.addSubviews([naviView, imageView, headingLabel, noticeLabel, inquiryLabel, reasonSelectionButton, withdrawalButton, reconfirmingStackView])
+        view.addSubviews([naviView, imageView, headingLabel, noticeLabel, inquiryLabel, reasonSelectionButton, reasonSelectingMenuView, withdrawalButton, confirmingStackView])
         
         naviView.snp.makeConstraints {
             $0.left.top.right.equalTo(view.safeAreaLayoutGuide)
@@ -106,7 +123,15 @@ extension MembershipWithdrawalVC {
         
         reasonSelectionButton.snp.makeConstraints {
             $0.top.equalTo(inquiryLabel.snp.bottom).offset(13)
-            $0.leading.equalToSuperview().offset(20)
+            $0.left.equalToSuperview().offset(20)
+            $0.right.equalToSuperview().inset(20)
+        }
+        
+        reasonSelectingMenuView.snp.makeConstraints{
+            $0.top.equalTo(reasonSelectionButton.snp.bottom)
+            $0.left.equalToSuperview().offset(20)
+            $0.right.equalToSuperview().inset(20)
+            $0.height.equalTo(500)
         }
         
         withdrawalButton.snp.makeConstraints {
@@ -115,9 +140,16 @@ extension MembershipWithdrawalVC {
             $0.height.equalTo(47)
         }
         
-        reconfirmingStackView.snp.makeConstraints {
+        confirmingStackView.snp.makeConstraints {
             $0.bottom.equalTo(withdrawalButton.snp.top).offset(-30)
             $0.centerX.equalToSuperview()
         }
+    }
+}
+
+extension MembershipWithdrawalVC: DropDownMenuViewDelegate {
+    func handleTVCSelectedEvent(_ menuLabel: String) {
+        self.isReasonMenuHidden.toggle()
+        reasonSelectionButton.setTitleLabel(menuLabel)
     }
 }
