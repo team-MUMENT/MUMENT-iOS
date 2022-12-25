@@ -21,6 +21,11 @@ final class MembershipWithdrawalVC: BaseVC {
     private var isReasonMenuHidden: Bool = false{
         didSet{
             reasonSelectingMenuView.isHidden = isReasonMenuHidden
+            if isReasonMenuHidden {
+                reasonSelectionButton.setBackgroundImage(UIImage(named: "dropDownButton_unselected"), for: .normal)
+            }else{
+                reasonSelectionButton.setBackgroundImage(UIImage(named: "dropDownButton_selected"), for: .normal)
+            }
         }
     }
     
