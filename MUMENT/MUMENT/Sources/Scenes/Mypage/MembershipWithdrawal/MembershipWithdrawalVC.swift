@@ -29,6 +29,12 @@ final class MembershipWithdrawalVC: BaseVC {
         }
     }
     
+    private var isCheckBoxChecked: Bool = false{
+        didSet{
+            let image = isCheckBoxChecked ? UIImage(named: "mumentChecked") : UIImage(named: "mumentUnchecked")
+            checkBoxButton.setBackgroundImage(image, for: .normal)
+        }
+    }
     
     // MARK: - Components
     private let naviView: DefaultNavigationBar = DefaultNavigationBar(naviType: .leftArrow).then {
@@ -92,6 +98,10 @@ final class MembershipWithdrawalVC: BaseVC {
     func setButtonActions(){
         reasonSelectionButton.press{
             self.isReasonMenuHidden.toggle()
+        }
+        
+        checkBoxButton.press{
+            self.isCheckBoxChecked.toggle()
         }
     }
 }
