@@ -35,6 +35,10 @@ final class DropDownButton: UIButton {
     func setTitleLabel(_ labelText: String){
         buttonTitleLabel.text = labelText
     }
+    
+    func getTitleLabel()->String{
+        return buttonTitleLabel.text ?? "No Title Label"
+    }
 }
 
 // MARK: - UI

@@ -11,6 +11,15 @@ import Then
 
 final class DropDownMenuTVC: UITableViewCell {
     
+    //MARK: - Properties
+    private var isSelectedTVC: Bool = false {
+        didSet{
+            print("isSelectedTVC",isSelectedTVC)
+            radioButtonImage.image = isSelectedTVC ? UIImage(named: "reportBtnSelected") : UIImage(named: "reportBtnUnselected")
+        print("radioButtonImage.image",radioButtonImage.image)
+        }
+    }
+    
     private let titleLable = UILabel().then{
         $0.textColor = .mBlack1
         $0.font = .mumentB3M14
@@ -38,8 +47,12 @@ final class DropDownMenuTVC: UITableViewCell {
     }
     
     func getLabel() -> String{
-        print("******",titleLable.text)
+        print("******", titleLable.text)
         return titleLable.text ?? "레이블 오류"
+    }
+    
+    func toggleSelectedStatus(){
+        isSelectedTVC.toggle()
     }
 }
 
