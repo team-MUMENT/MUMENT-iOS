@@ -24,7 +24,7 @@ final class DropDownMenuView: UIView {
     
     // MARK: - Components
     private let dropDownMenuTV: UITableView = UITableView().then{
-        $0.rowHeight = 107
+//        $0.rowHeight = 67
         $0.estimatedRowHeight = UITableView.automaticDimension
     }
     
@@ -45,11 +45,13 @@ final class DropDownMenuView: UIView {
     // MARK: - Functions
     private func setTV() {
         dropDownMenuTV.do{
+            $0.backgroundColor = .mGray5
             $0.delegate = self
             $0.dataSource = self
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = true
             $0.register(DropDownMenuTVC.self, forCellReuseIdentifier: DropDownMenuTVC.className)
+            $0.isScrollEnabled = false
         }
     }
     
@@ -62,10 +64,11 @@ final class DropDownMenuView: UIView {
 extension DropDownMenuView {
     
     private func setLayout() {
+//        self.backgroundColor = .mGray5
         self.addSubviews([dropDownMenuTV])
         
         dropDownMenuTV.snp.makeConstraints {
-            $0.edges.equalTo(self.safeAreaLayoutGuide)
+            $0.edges.equalToSuperview()
         }
     }
 }
@@ -89,10 +92,28 @@ extension DropDownMenuView: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension DropDownMenuView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 44
+//    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = UIView()
+//            .then{
+//            $0.backgroundColor = .mGray5
+//        }
+        
+//        headerCell.snp.makeConstraints{
+//            $0.edges.equalTo(self.safeAreaLayoutGuide)
+//            $0.height.equalTo(20)
+//        }
+        return headerCell
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("~~~~~~~",indexPath,selectedTVCIndex)
         

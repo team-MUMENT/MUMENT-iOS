@@ -80,6 +80,8 @@ final class MembershipWithdrawalVC: BaseVC {
     
     private let reasonSelectingMenuView: DropDownMenuView = DropDownMenuView().then{
         $0.isHidden = true
+        $0.makeRounded(cornerRadius: 11)
+        $0.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     
     private let reasonTextView: UITextView = UITextView().then{
@@ -173,7 +175,7 @@ final class MembershipWithdrawalVC: BaseVC {
 extension MembershipWithdrawalVC {
     
     private func setLayout() {
-        view.addSubviews([naviView, imageView, headingLabel, noticeLabel, inquiryLabel, reasonSelectionButton, reasonSelectingMenuView, reasonTextView, reasonTextViewLabel, withdrawalButton, confirmingStackView])
+        view.addSubviews([naviView, imageView, headingLabel, noticeLabel, inquiryLabel,  reasonSelectingMenuView, reasonSelectionButton, reasonTextView, reasonTextViewLabel, withdrawalButton, confirmingStackView])
         
         naviView.snp.makeConstraints {
             $0.left.top.right.equalTo(view.safeAreaLayoutGuide)
@@ -218,10 +220,11 @@ extension MembershipWithdrawalVC {
         }
         
         reasonSelectingMenuView.snp.makeConstraints{
-            $0.top.equalTo(reasonSelectionButton.snp.bottom)
+            $0.top.equalTo(reasonSelectionButton.snp.bottom).inset(20)
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.height.equalTo(500)
+            $0.bottom.equalTo(confirmingStackView.snp.top).offset(-40)
+//            $0.height.equalTo(500)
         }
         
         withdrawalButton.snp.makeConstraints {
