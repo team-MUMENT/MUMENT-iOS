@@ -8,17 +8,21 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 final class MembershipWithdrawalVC: BaseVC {
     
     // MARK: Properties
+    private let disposeBag = DisposeBag()
+    
     private var userName: String = ""{
         didSet{
             noticeLabel.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. \(userName)님이 좋아하신 뮤멘트들도 더이상 모아볼 수 없게 됩니다."
         }
     }
     
-    private var isReasonMenuHidden: Bool = false{
+    private var isReasonMenuHidden: Bool = true {
         didSet{
             reasonSelectingMenuView.isHidden = isReasonMenuHidden
             if isReasonMenuHidden {
@@ -26,6 +30,13 @@ final class MembershipWithdrawalVC: BaseVC {
             }else{
                 reasonSelectionButton.setBackgroundImage(UIImage(named: "dropDownButton_selected"), for: .normal)
             }
+        }
+    }
+    
+    private var isTextViewHidden: Bool = true {
+        didSet{
+            reasonTextView.isHidden = isTextViewHidden
+            reasonTextViewLabel.isHidden = isTextViewHidden
         }
     }
     
@@ -67,7 +78,30 @@ final class MembershipWithdrawalVC: BaseVC {
     
     private let reasonSelectionButton: DropDownButton = DropDownButton(title: "이유 선택")
     
-    private let reasonSelectingMenuView: DropDownMenuView = DropDownMenuView()
+    private let reasonSelectingMenuView: DropDownMenuView = DropDownMenuView().then{
+        $0.isHidden = true
+    }
+    
+    private let reasonTextView: UITextView = UITextView().then{
+        $0.isHidden = true
+        $0.isScrollEnabled = false
+        $0.clipsToBounds = true
+        $0.makeRounded(cornerRadius: 7)
+        $0.backgroundColor = .mGray5
+        $0.textContainerInset = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
+        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        $0.font = .mumentB3M14
+        $0.autocapitalizationType = .none
+        $0.textColor = .mBlack2
+    }
+    
+    private let reasonTextViewLabel = UILabel().then {
+        $0.isHidden = true
+        $0.font = .mumentB6M13
+        $0.textColor = .mGray2
+        $0.text = "0/100"
+        $0.setColor(to: "0", with: .mPurple1)
+    }
     
     private let checkBoxButton: UIButton = UIButton().then {
         $0.setBackgroundImage(UIImage(named: "mumentUnchecked"), for: .normal)
@@ -92,17 +126,46 @@ final class MembershipWithdrawalVC: BaseVC {
         super.viewDidLoad()
         setLayout()
         setButtonActions()
+        setReasonTextView()
+        setReasonTextCounting()
         reasonSelectingMenuView.setDelegate(delegate: self)
     }
     
     func setButtonActions(){
-        reasonSelectionButton.press{
-            self.isReasonMenuHidden.toggle()
-        }
         
+        self.reasonSelectionButton.addTarget(self, action: #selector(self.reasonSelectionButtonClicked(_:)),for: .touchUpInside)
+
         checkBoxButton.press{
             self.isCheckBoxChecked.toggle()
         }
+    }
+    
+    @objc func reasonSelectionButtonClicked(_ sender:Any?) -> Void {
+        self.isReasonMenuHidden.toggle()
+        if !isTextViewHidden {isTextViewHidden.toggle()}
+        self.view.frame.origin.y = 0
+        self.dismissKeyboard()
+    }
+    
+    private func setReasonTextView() {
+        reasonTextView.delegate = self
+        reasonTextView.text = "계정을 삭제하는 이유를 알려주세요."
+        reasonTextView.textColor = .mGray1
+    }
+    
+    private func setReasonTextCounting() {
+        reasonTextView.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .subscribe(onNext: { changedText in
+                if self.reasonTextView.textColor == .mBlack2 {
+                    DispatchQueue.main.async {
+                        self.reasonTextViewLabel.text = "\(changedText.count)/100"
+                        self.reasonTextViewLabel.setColor(to: "\(changedText.count)", with: .mPurple1)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -110,7 +173,7 @@ final class MembershipWithdrawalVC: BaseVC {
 extension MembershipWithdrawalVC {
     
     private func setLayout() {
-        view.addSubviews([naviView, imageView, headingLabel, noticeLabel, inquiryLabel, reasonSelectionButton, reasonSelectingMenuView, withdrawalButton, confirmingStackView])
+        view.addSubviews([naviView, imageView, headingLabel, noticeLabel, inquiryLabel, reasonSelectionButton, reasonSelectingMenuView, reasonTextView, reasonTextViewLabel, withdrawalButton, confirmingStackView])
         
         naviView.snp.makeConstraints {
             $0.left.top.right.equalTo(view.safeAreaLayoutGuide)
@@ -142,6 +205,18 @@ extension MembershipWithdrawalVC {
             $0.right.equalToSuperview().inset(20)
         }
         
+        reasonTextView.snp.makeConstraints{
+            $0.top.equalTo(reasonSelectionButton.snp.bottom).offset(20)
+            $0.left.equalToSuperview().offset(20)
+            $0.right.equalToSuperview().inset(20)
+            $0.height.equalTo(134)
+        }
+        
+        reasonTextViewLabel.snp.makeConstraints{
+            $0.bottom.equalTo(reasonTextView).offset(-15)
+            $0.right.equalTo(reasonTextView).inset(11)
+        }
+        
         reasonSelectingMenuView.snp.makeConstraints{
             $0.top.equalTo(reasonSelectionButton.snp.bottom)
             $0.left.equalToSuperview().offset(20)
@@ -162,9 +237,42 @@ extension MembershipWithdrawalVC {
     }
 }
 
+// MARK: - DropDownMenuViewDelegate
 extension MembershipWithdrawalVC: DropDownMenuViewDelegate {
     func handleTVCSelectedEvent(_ menuLabel: String) {
         self.isReasonMenuHidden.toggle()
         reasonSelectionButton.setTitleLabel(menuLabel)
+        if menuLabel == "기타"{
+            isTextViewHidden = false
+        }
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension MembershipWithdrawalVC: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if reasonTextView.textColor == UIColor.mGray1 {
+            reasonTextView.text = ""
+            reasonTextView.textColor = .mBlack2
+        }
+        
+        self.view.frame.origin.y = -280
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if reasonTextView.text.isEmpty {
+            reasonTextView.text =  "계정을 삭제하는 이유를 알려주세요."
+            reasonTextView.textColor = .mGray1
+        }
+    
+        self.view.frame.origin.y = 0
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = reasonTextView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
+        return changedText.count <= 100
     }
 }

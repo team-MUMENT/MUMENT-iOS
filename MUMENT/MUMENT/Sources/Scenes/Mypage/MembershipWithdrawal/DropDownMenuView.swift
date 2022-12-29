@@ -16,10 +16,12 @@ protocol DropDownMenuViewDelegate{
 final class DropDownMenuView: UIView {
     
     // MARK: - Properties
-    private var dropDownMenuData: [String] = ["컨텐츠가 부족해요","원하는 곡이 없어요","뮤멘트 기록 방식이 불편해요","알람이 너무 자주와요","앱 장애가 많아요","기타"]
+    private var dropDownMenuData: [String] = ["컨텐츠가 부족해요", "원하는 곡이 없어요", "뮤멘트 기록 방식이 불편해요", "알람이 너무 자주와요", "앱 장애가 많아요", "기타"]
     
     private var delegate: DropDownMenuViewDelegate?
-
+    
+    private var selectedTVCIndex: Int = -1
+    
     // MARK: - Components
     private let dropDownMenuTV: UITableView = UITableView().then{
         $0.rowHeight = 107
@@ -38,7 +40,7 @@ final class DropDownMenuView: UIView {
         super.init(coder: aDecoder)!
         setLayout()
     }
-
+    
     
     // MARK: - Functions
     private func setTV() {
@@ -75,9 +77,7 @@ extension DropDownMenuView: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DropDownMenuTVC.className, for: indexPath) as? DropDownMenuTVC else {
             return UITableViewCell()
         }
-//        cell.dictionaryCard.setDelegate(delegate: self)
-//
-//        let data = dictionaryData[indexPath.row]
+        
         cell.setTitle(dropDownMenuData[indexPath.row])
         return cell
     }
@@ -94,22 +94,37 @@ extension DropDownMenuView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("~~~~~~~",indexPath.row)
+        print("~~~~~~~",indexPath,selectedTVCIndex)
         
-//        let cell = dropDownMenuTV.dequeueReusableCell(withIdentifier: DropDownMenuTVC.className, for: indexPath) as? DropDownMenuTVC
+        if selectedTVCIndex == -1{
+            print("<<<<<selectedTVCIndex",selectedTVCIndex)
+            //            dropDownMenuTV.cellForRow(at: <#T##IndexPath#>)
+            //            dropDownMenuTV.
+            let selectedCell = dropDownMenuTV.dequeueReusableCell(withIdentifier: DropDownMenuTVC.className, for: indexPath) as? DropDownMenuTVC
+            selectedCell?.toggleSelectedStatus()
+            selectedCell?.prepareForReuse()
+            selectedTVCIndex = indexPath.row
+            
+            dropDownMenuTV.reloadData()
+            print("<<<<<selectedTVCIndex",selectedTVCIndex)
+        }else if selectedTVCIndex != indexPath.row {
+            print(">>>>>selectedTVCIndex",selectedTVCIndex)
+            let selectedCell = dropDownMenuTV.dequeueReusableCell(withIdentifier: DropDownMenuTVC.className, for: indexPath) as? DropDownMenuTVC
+            selectedCell?.toggleSelectedStatus()
+            let newlySelectedCell = dropDownMenuTV.dequeueReusableCell(withIdentifier: DropDownMenuTVC.className, for: [0,selectedTVCIndex]) as? DropDownMenuTVC
+            newlySelectedCell?.toggleSelectedStatus()
+            selectedTVCIndex = indexPath.row
+            selectedCell?.prepareForReuse()
+            newlySelectedCell?.prepareForReuse()
+            dropDownMenuTV.reloadData()
+            print(">>>>selectedTVCIndex",selectedTVCIndex)
+
+        }
+        
         let menuLabel = dropDownMenuData[indexPath.row]
         print("!!!!!!!",menuLabel)
-//        cell.delegate = self
-//        cell.setData(carouselData)
-//        return cell
         
-        //        self.delegate?.carouselCVCSelected(data: increasedCarouselData[indexPath.row])
         
-        // Test Code
         self.delegate?.handleTVCSelectedEvent(menuLabel)
-        
     }
 }
-
-
-
