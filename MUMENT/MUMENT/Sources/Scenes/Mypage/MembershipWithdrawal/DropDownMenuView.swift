@@ -24,7 +24,6 @@ final class DropDownMenuView: UIView {
     
     // MARK: - Components
     private let dropDownMenuTV: UITableView = UITableView().then{
-//        $0.rowHeight = 67
         $0.estimatedRowHeight = UITableView.automaticDimension
     }
     
@@ -64,7 +63,6 @@ final class DropDownMenuView: UIView {
 extension DropDownMenuView {
     
     private func setLayout() {
-//        self.backgroundColor = .mGray5
         self.addSubviews([dropDownMenuTV])
         
         dropDownMenuTV.snp.makeConstraints {
@@ -100,54 +98,31 @@ extension DropDownMenuView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = UIView()
-//            .then{
-//            $0.backgroundColor = .mGray5
-//        }
-        
-//        headerCell.snp.makeConstraints{
-//            $0.edges.equalTo(self.safeAreaLayoutGuide)
-//            $0.height.equalTo(20)
-//        }
         return headerCell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
-
+        
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("~~~~~~~",indexPath,selectedTVCIndex)
         if selectedTVCIndex == -1 {
-            print("\n<<<<<selectedTVCIndex",selectedTVCIndex)
-            
             let selectedCell = dropDownMenuTV.cellForRow(at: indexPath)! as! DropDownMenuTVC
-//            let selectedCell = dropDownMenuTV.cellForRow(at: IndexPath(row: 0, section: 0))! as! DropDownMenuTVC
-
-            selectedCell.isSelectedTVC = true
-            selectedTVCIndex = indexPath.row
+            selectedCell.toggleSelectedStatus()
             
-//            dropDownMenuTV.reloadData()
-            print("<<<<<selectedTVCIndex, indexPath",selectedTVCIndex, indexPath)
+            selectedTVCIndex = indexPath.row
             
         } else if selectedTVCIndex != indexPath.row {
             let newlySelectedCell = dropDownMenuTV.cellForRow(at: indexPath)! as! DropDownMenuTVC
-
-            newlySelectedCell.isSelectedTVC = true
+            newlySelectedCell.toggleSelectedStatus()
             
             let selectedCell = dropDownMenuTV.cellForRow(at: IndexPath(row: selectedTVCIndex, section: 0))! as! DropDownMenuTVC
-            selectedCell.isSelectedTVC = false
+            selectedCell.toggleSelectedStatus()
             
             selectedTVCIndex = indexPath.row
-//            dropDownMenuTV.reloadData()
-            print(">>>>selectedTVCIndex, indexPath",selectedTVCIndex, indexPath)
-
         }
-        
         let menuLabel = dropDownMenuData[indexPath.row]
-        print("!!!!!!!",menuLabel)
-        
-        
         self.delegate?.handleTVCSelectedEvent(menuLabel)
     }
 }
