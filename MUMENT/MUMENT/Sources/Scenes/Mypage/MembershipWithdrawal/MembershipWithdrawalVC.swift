@@ -133,10 +133,11 @@ final class MembershipWithdrawalVC: BaseVC {
         reasonSelectingMenuView.setDelegate(delegate: self)
     }
     
+    // MARK: - Functions
     func setButtonActions(){
         
         self.reasonSelectionButton.addTarget(self, action: #selector(self.reasonSelectionButtonClicked(_:)),for: .touchUpInside)
-
+        
         checkBoxButton.press{
             self.isCheckBoxChecked.toggle()
         }
@@ -224,7 +225,6 @@ extension MembershipWithdrawalVC {
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().inset(20)
             $0.bottom.equalTo(confirmingStackView.snp.top).offset(-40)
-//            $0.height.equalTo(500)
         }
         
         withdrawalButton.snp.makeConstraints {
@@ -268,7 +268,7 @@ extension MembershipWithdrawalVC: UITextViewDelegate {
             reasonTextView.text =  "계정을 삭제하는 이유를 알려주세요."
             reasonTextView.textColor = .mGray1
         }
-    
+        
         self.view.frame.origin.y = 0
     }
     

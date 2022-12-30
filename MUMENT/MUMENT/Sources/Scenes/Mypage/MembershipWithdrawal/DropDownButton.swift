@@ -9,10 +9,6 @@ import UIKit
 import SnapKit
 import Then
 
-protocol DropDownButtonDelegate{
-//    func 
-}
-
 final class DropDownButton: UIButton {
     
     // MARK: - Components
@@ -32,6 +28,7 @@ final class DropDownButton: UIButton {
         super.init(coder: aDecoder)!
     }
     
+    // MARK: - Functions
     func setTitleLabel(_ labelText: String){
         buttonTitleLabel.text = labelText
     }

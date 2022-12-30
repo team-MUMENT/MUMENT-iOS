@@ -14,9 +14,7 @@ final class DropDownMenuTVC: UITableViewCell {
     //MARK: - Properties
     var isSelectedTVC: Bool = false {
         didSet{
-//            print("isSelectedTVC",isSelectedTVC)
             radioButtonImage.image = isSelectedTVC ? UIImage(named: "reportBtnSelected") : UIImage(named: "reportBtnUnselected")
-        print("radioButtonImage.image",radioButtonImage.image)
         }
     }
     
@@ -42,13 +40,9 @@ final class DropDownMenuTVC: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Functions
     func setTitle(_ title:String){
         titleLable.text = title
-    }
-    
-    func getLabel() -> String{
-        print("******", titleLable.text)
-        return titleLable.text ?? "레이블 오류"
     }
     
     func toggleSelectedStatus(){
