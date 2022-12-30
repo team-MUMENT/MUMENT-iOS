@@ -92,9 +92,11 @@ extension DropDownMenuView: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension DropDownMenuView: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 44
-//    }
+    
+    // ???: 이 메소드를 안 써주면 셀을 클릭해도 라디오 버튼 이미지가 안 변함
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = UIView()
@@ -115,30 +117,30 @@ extension DropDownMenuView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("~~~~~~~",indexPath,selectedTVCIndex)
-        
-        if selectedTVCIndex == -1{
-            print("<<<<<selectedTVCIndex",selectedTVCIndex)
-            //            dropDownMenuTV.cellForRow(at: <#T##IndexPath#>)
-            //            dropDownMenuTV.
-            let selectedCell = dropDownMenuTV.dequeueReusableCell(withIdentifier: DropDownMenuTVC.className, for: indexPath) as? DropDownMenuTVC
-            selectedCell?.toggleSelectedStatus()
-            selectedCell?.prepareForReuse()
+//        print("~~~~~~~",indexPath,selectedTVCIndex)
+        if selectedTVCIndex == -1 {
+            print("\n<<<<<selectedTVCIndex",selectedTVCIndex)
+            
+            let selectedCell = dropDownMenuTV.cellForRow(at: indexPath)! as! DropDownMenuTVC
+//            let selectedCell = dropDownMenuTV.cellForRow(at: IndexPath(row: 0, section: 0))! as! DropDownMenuTVC
+
+            selectedCell.isSelectedTVC = true
             selectedTVCIndex = indexPath.row
             
-            dropDownMenuTV.reloadData()
-            print("<<<<<selectedTVCIndex",selectedTVCIndex)
-        }else if selectedTVCIndex != indexPath.row {
-            print(">>>>>selectedTVCIndex",selectedTVCIndex)
-            let selectedCell = dropDownMenuTV.dequeueReusableCell(withIdentifier: DropDownMenuTVC.className, for: indexPath) as? DropDownMenuTVC
-            selectedCell?.toggleSelectedStatus()
-            let newlySelectedCell = dropDownMenuTV.dequeueReusableCell(withIdentifier: DropDownMenuTVC.className, for: [0,selectedTVCIndex]) as? DropDownMenuTVC
-            newlySelectedCell?.toggleSelectedStatus()
+//            dropDownMenuTV.reloadData()
+            print("<<<<<selectedTVCIndex, indexPath",selectedTVCIndex, indexPath)
+            
+        } else if selectedTVCIndex != indexPath.row {
+            let newlySelectedCell = dropDownMenuTV.cellForRow(at: indexPath)! as! DropDownMenuTVC
+
+            newlySelectedCell.isSelectedTVC = true
+            
+            let selectedCell = dropDownMenuTV.cellForRow(at: IndexPath(row: selectedTVCIndex, section: 0))! as! DropDownMenuTVC
+            selectedCell.isSelectedTVC = false
+            
             selectedTVCIndex = indexPath.row
-            selectedCell?.prepareForReuse()
-            newlySelectedCell?.prepareForReuse()
-            dropDownMenuTV.reloadData()
-            print(">>>>selectedTVCIndex",selectedTVCIndex)
+//            dropDownMenuTV.reloadData()
+            print(">>>>selectedTVCIndex, indexPath",selectedTVCIndex, indexPath)
 
         }
         

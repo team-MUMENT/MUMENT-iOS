@@ -12,9 +12,9 @@ import Then
 final class DropDownMenuTVC: UITableViewCell {
     
     //MARK: - Properties
-    private var isSelectedTVC: Bool = false {
+    var isSelectedTVC: Bool = false {
         didSet{
-            print("isSelectedTVC",isSelectedTVC)
+//            print("isSelectedTVC",isSelectedTVC)
             radioButtonImage.image = isSelectedTVC ? UIImage(named: "reportBtnSelected") : UIImage(named: "reportBtnUnselected")
         print("radioButtonImage.image",radioButtonImage.image)
         }
