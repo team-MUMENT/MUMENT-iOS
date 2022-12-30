@@ -44,6 +44,11 @@ final class MembershipWithdrawalVC: BaseVC {
         didSet{
             let image = isCheckBoxChecked ? UIImage(named: "mumentChecked") : UIImage(named: "mumentUnchecked")
             checkBoxButton.setBackgroundImage(image, for: .normal)
+            if isCheckBoxChecked && (reasonSelectionButton.getTitleLabel() != "이유 선택") {
+                withdrawalButton.isEnabled = true
+            }else{
+                withdrawalButton.isEnabled = false
+            }
         }
     }
     
