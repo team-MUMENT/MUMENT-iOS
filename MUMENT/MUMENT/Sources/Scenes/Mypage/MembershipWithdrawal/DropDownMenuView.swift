@@ -27,7 +27,6 @@ final class DropDownMenuView: UIView {
         $0.estimatedRowHeight = UITableView.automaticDimension
     }
     
-    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -39,7 +38,6 @@ final class DropDownMenuView: UIView {
         super.init(coder: aDecoder)!
         setLayout()
     }
-    
     
     // MARK: - Functions
     private func setTV() {

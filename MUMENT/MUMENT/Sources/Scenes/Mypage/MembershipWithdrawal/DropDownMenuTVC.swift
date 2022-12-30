@@ -18,6 +18,7 @@ final class DropDownMenuTVC: UITableViewCell {
         }
     }
     
+    // MARK: - Components
     private let titleLable = UILabel().then{
         $0.textColor = .mBlack1
         $0.font = .mumentB3M14
