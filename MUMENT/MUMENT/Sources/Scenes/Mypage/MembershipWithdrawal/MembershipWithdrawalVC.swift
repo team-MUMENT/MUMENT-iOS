@@ -13,45 +13,6 @@ import RxCocoa
 
 final class MembershipWithdrawalVC: BaseVC {
     
-    // MARK: Properties
-    private let disposeBag = DisposeBag()
-    
-    private var userName: String = ""{
-        didSet{
-            noticeLabel.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. \(userName)님이 좋아하신 뮤멘트들도 더이상 모아볼 수 없게 됩니다."
-        }
-    }
-    
-    private var isReasonMenuHidden: Bool = true {
-        didSet{
-            reasonSelectingMenuView.isHidden = isReasonMenuHidden
-            if isReasonMenuHidden {
-                reasonSelectionButton.setBackgroundImage(UIImage(named: "dropDownButton_unselected"), for: .normal)
-            }else{
-                reasonSelectionButton.setBackgroundImage(UIImage(named: "dropDownButton_selected"), for: .normal)
-            }
-        }
-    }
-    
-    private var isTextViewHidden: Bool = true {
-        didSet{
-            reasonTextView.isHidden = isTextViewHidden
-            reasonTextViewLabel.isHidden = isTextViewHidden
-        }
-    }
-    
-    private var isCheckBoxChecked: Bool = false{
-        didSet{
-            let image = isCheckBoxChecked ? UIImage(named: "mumentChecked") : UIImage(named: "mumentUnchecked")
-            checkBoxButton.setBackgroundImage(image, for: .normal)
-            if isCheckBoxChecked && (reasonSelectionButton.getTitleLabel() != "이유 선택") {
-                withdrawalButton.isEnabled = true
-            }else{
-                withdrawalButton.isEnabled = false
-            }
-        }
-    }
-    
     // MARK: - Components
     private let naviView: DefaultNavigationBar = DefaultNavigationBar(naviType: .leftArrow).then {
         $0.setTitleLabel(title: "회원탈퇴")
@@ -68,7 +29,7 @@ final class MembershipWithdrawalVC: BaseVC {
     }
     
     private let noticeLabel: UILabel = UILabel().then {
-        $0.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. 사용자 님이 좋아하신 뮤멘트들도 더이상 모아볼 수 없게 됩니다."
+        $0.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. 사용자 님이 좋아하신 뮤멘트들도 더 이상 모아볼 수 없게 됩니다."
         $0.font = .mumentB3M14
         $0.textColor = .mBlack2
         $0.numberOfLines = 3
@@ -126,6 +87,45 @@ final class MembershipWithdrawalVC: BaseVC {
     
     private let withdrawalButton: MumentCompleteButton = MumentCompleteButton(isEnabled: false).then {
         $0.setTitle("탈퇴하기", for: .normal)
+    }
+    
+    // MARK: Properties
+    private let disposeBag = DisposeBag()
+    
+    private var userName: String = "" {
+        didSet{
+            noticeLabel.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. \(userName)님이 좋아하신 뮤멘트들도 더 이상 모아볼 수 없게 됩니다."
+        }
+    }
+    
+    private var isReasonMenuHidden: Bool = true {
+        didSet{
+            reasonSelectingMenuView.isHidden = isReasonMenuHidden
+            if isReasonMenuHidden {
+                reasonSelectionButton.setBackgroundImage(UIImage(named: "dropDownButton_unselected"), for: .normal)
+            }else{
+                reasonSelectionButton.setBackgroundImage(UIImage(named: "dropDownButton_selected"), for: .normal)
+            }
+        }
+    }
+    
+    private var isTextViewHidden: Bool = true {
+        didSet{
+            reasonTextView.isHidden = isTextViewHidden
+            reasonTextViewLabel.isHidden = isTextViewHidden
+        }
+    }
+    
+    private var isCheckBoxChecked: Bool = false{
+        didSet{
+            let image = isCheckBoxChecked ? UIImage(named: "mumentChecked") : UIImage(named: "mumentUnchecked")
+            checkBoxButton.setBackgroundImage(image, for: .normal)
+            if isCheckBoxChecked && (reasonSelectionButton.getTitleLabel() != "이유 선택") {
+                withdrawalButton.isEnabled = true
+            }else{
+                withdrawalButton.isEnabled = false
+            }
+        }
     }
     
     // MARK: - View Life Cycle
