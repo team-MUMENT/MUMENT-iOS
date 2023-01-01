@@ -11,13 +11,6 @@ import Then
 
 final class DropDownMenuTVC: UITableViewCell {
     
-    //MARK: - Properties
-    var isSelectedTVC: Bool = false {
-        didSet{
-            radioButtonImage.image = isSelectedTVC ? UIImage(named: "reportBtnSelected") : UIImage(named: "reportBtnUnselected")
-        }
-    }
-    
     // MARK: - Components
     private let titleLable = UILabel().then{
         $0.textColor = .mBlack1
@@ -26,6 +19,13 @@ final class DropDownMenuTVC: UITableViewCell {
     
     private let radioButtonImage = UIImageView().then{
         $0.image = UIImage(named: "reportBtnUnselected")
+    }
+    
+    //MARK: - Properties
+    var isSelectedTVC: Bool = false {
+        didSet{
+            radioButtonImage.image = isSelectedTVC ? UIImage(named: "reportBtnSelected") : UIImage(named: "reportBtnUnselected")
+        }
     }
     
     // MARK: - Initialization

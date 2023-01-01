@@ -15,6 +15,16 @@ protocol DropDownMenuViewDelegate{
 
 final class DropDownMenuView: UIView {
     
+    // MARK: - Components
+    private let dropDownMenuTV: UITableView = UITableView().then{
+        $0.estimatedRowHeight = UITableView.automaticDimension
+        $0.backgroundColor = .mGray5
+        $0.separatorStyle = .none
+        $0.showsVerticalScrollIndicator = true
+        $0.isScrollEnabled = false
+        
+    }
+    
     // MARK: - Properties
     private var dropDownMenuData: [String] = ["컨텐츠가 부족해요", "원하는 곡이 없어요", "뮤멘트 기록 방식이 불편해요", "알람이 너무 자주와요", "앱 장애가 많아요", "기타"]
     
@@ -22,10 +32,6 @@ final class DropDownMenuView: UIView {
     
     private var selectedTVCIndex: Int = -1
     
-    // MARK: - Components
-    private let dropDownMenuTV: UITableView = UITableView().then{
-        $0.estimatedRowHeight = UITableView.automaticDimension
-    }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -42,13 +48,9 @@ final class DropDownMenuView: UIView {
     // MARK: - Functions
     private func setTV() {
         dropDownMenuTV.do{
-            $0.backgroundColor = .mGray5
             $0.delegate = self
             $0.dataSource = self
-            $0.separatorStyle = .none
-            $0.showsVerticalScrollIndicator = true
             $0.register(DropDownMenuTVC.self, forCellReuseIdentifier: DropDownMenuTVC.className)
-            $0.isScrollEnabled = false
         }
     }
     
