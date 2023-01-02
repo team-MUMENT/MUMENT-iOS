@@ -14,6 +14,7 @@ class SearchForWriteView: UIView {
     // MARK: - Properties
     private let searchBar = UISearchBar().then {
         $0.setImage(UIImage(named: "mumentSearch"), for: .search, state: .normal)
+        $0.setImage(UIImage(named: "mumentDelete2"), for: .clear, state: .normal)
         $0.barTintColor = .mGray5
         $0.makeRounded(cornerRadius: 11.adjustedH)
         $0.placeholder = " 곡, 아티스트"
@@ -42,10 +43,10 @@ class SearchForWriteView: UIView {
         didSet {
             switch searchTVType {
             case .recentSearch:
-                searchResultEmptyView.isHidden = true
+                self.searchResultEmptyView.isHidden = true
             case .searchResult:
-                recentSearchEmptyView.isHidden = true
-                titleLabel.snp.makeConstraints {
+                self.recentSearchEmptyView.isHidden = true
+                self.titleLabel.snp.makeConstraints {
                     $0.height.equalTo(0)
                 }
             }
@@ -55,38 +56,34 @@ class SearchForWriteView: UIView {
     var searchResultData: SearchResultResponseModel = []
     var recentSearchData: SearchResultResponseModel = [] {
         didSet {
-            recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
+            self.recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
         }
     }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        fetchSearchResultData()
-        setLayout()
-        setResultTV()
-        setRecentSearchEmptyView()
-        setSearchBar()
+        
+        self.fetchSearchResultData()
+        self.setLayout()
+        self.setResultTV()
+        self.setRecentSearchEmptyView()
+        self.setSearchBar()
     }
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-        fetchSearchResultData()
-        setLayout()
-        setResultTV()
-        setRecentSearchEmptyView()
-        setSearchBar()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Functions
     private func fetchSearchResultData() {
         if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
-            recentSearchData = localData
+            self.recentSearchData = localData
         } else {
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
-            fetchSearchResultData()
+            self.fetchSearchResultData()
         }
-        resultTV.reloadData()
+        self.resultTV.reloadData()
     }
     
     private func setResultTV() {
@@ -107,8 +104,8 @@ class SearchForWriteView: UIView {
     }
     
     private func setSearchResultEmptyView(keyword: String) {
-        searchResultEmptyView.setSearchKeyword(keyword: keyword)
-        searchResultEmptyView.isHidden = !(searchResultData.isEmpty)
+        self.searchResultEmptyView.setSearchKeyword(keyword: keyword)
+        self.searchResultEmptyView.isHidden = !(searchResultData.isEmpty)
     }
     
     private func openRecentSearchTitleView() {
@@ -193,21 +190,21 @@ extension SearchForWriteView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch searchTVType {
         case .recentSearch:
-            NotificationCenter.default.post(name: .sendSearchResult, object: recentSearchData.reversed()[indexPath.row])
-            recentSearchData.append(recentSearchData.reversed()[indexPath.row])
-            recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
-            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            NotificationCenter.default.post(name: .sendSearchResult, object: self.recentSearchData.reversed()[indexPath.row])
+            self.recentSearchData.append(self.recentSearchData.reversed()[indexPath.row])
+            self.recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
+            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             
         case .searchResult:
-            if recentSearchData.contains(searchResultData[indexPath.row]) {
-                recentSearchData.append(recentSearchData[indexPath.row])
-                recentSearchData.remove(at: indexPath.row)
-                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            if self.recentSearchData.contains(self.searchResultData[indexPath.row]) {
+                self.recentSearchData.append(self.recentSearchData[indexPath.row])
+                self.recentSearchData.remove(at: indexPath.row)
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             } else {
-                recentSearchData.append(searchResultData[indexPath.row])
-                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+                self.recentSearchData.append(self.searchResultData[indexPath.row])
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             }
-            NotificationCenter.default.post(name: .sendSearchResult, object: searchResultData[indexPath.row])
+            NotificationCenter.default.post(name: .sendSearchResult, object: self.searchResultData[indexPath.row])
         }
         print("\(indexPath.row) cell select")
     }
@@ -218,28 +215,28 @@ extension SearchForWriteView {
     private func setLayout() {
         self.addSubviews([searchBar, titleLabel, resultTV, recentSearchEmptyView, searchResultEmptyView])
         
-        searchBar.snp.makeConstraints {
+        self.searchBar.snp.makeConstraints {
             $0.top.equalToSuperview().inset(35.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(40)
         }
         
-        titleLabel.snp.makeConstraints {
+        self.titleLabel.snp.makeConstraints {
             $0.top.equalTo(searchBar.snp.bottom).offset(40.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        resultTV.snp.makeConstraints {
+        self.resultTV.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        recentSearchEmptyView.snp.makeConstraints {
+        self.recentSearchEmptyView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        searchResultEmptyView.snp.makeConstraints {
+        self.searchResultEmptyView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }

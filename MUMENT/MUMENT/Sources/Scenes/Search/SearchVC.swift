@@ -21,6 +21,7 @@ class SearchVC: BaseVC {
     }
     private let searchBar = UISearchBar().then {
         $0.setImage(UIImage(named: "mumentSearch"), for: .search, state: .normal)
+        $0.setImage(UIImage(named: "mumentDelete2"), for: .clear, state: .normal)
         $0.barTintColor = .mGray5
         $0.makeRounded(cornerRadius: 11.adjustedH)
         $0.placeholder = "곡, 아티스트"
@@ -74,29 +75,31 @@ class SearchVC: BaseVC {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchSearchResultData()
-        setLayout()
-        setAllClearButton()
-        setResultTV()
-        setRecentSearchEmptyView()
-        setSearchBar()
+        
+        self.fetchSearchResultData()
+        self.setLayout()
+        self.setAllClearButton()
+        self.setResultTV()
+        self.setRecentSearchEmptyView()
+        self.setSearchBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchSearchResultData()
+        
+        self.fetchSearchResultData()
     }
     
     // MARK: - Functions
     private func fetchSearchResultData() {
         if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
-            recentSearchData = localData
-            recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
+            self.recentSearchData = localData
+            self.recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
         } else {
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
-            fetchSearchResultData()
+            self.fetchSearchResultData()
         }
-        resultTV.reloadData()
+        self.resultTV.reloadData()
     }
     
     private func setAllClearButton() {
@@ -117,16 +120,16 @@ class SearchVC: BaseVC {
     }
     
     private func setResultTV() {
-        resultTV.delegate = self
-        resultTV.dataSource = self
-        resultTV.rowHeight = 65
-        resultTV.backgroundColor = .clear
-        resultTV.register(cell: RecentSearchTVC.self, forCellReuseIdentifier: RecentSearchTVC.className)
-        resultTV.register(cell: SearchTVC.self, forCellReuseIdentifier: SearchTVC.className)
+        self.resultTV.delegate = self
+        self.resultTV.dataSource = self
+        self.resultTV.rowHeight = 65
+        self.resultTV.backgroundColor = .clear
+        self.resultTV.register(cell: RecentSearchTVC.self, forCellReuseIdentifier: RecentSearchTVC.className)
+        self.resultTV.register(cell: SearchTVC.self, forCellReuseIdentifier: SearchTVC.className)
     }
     
     private func setSearchBar() {
-        searchBar.delegate = self
+        self.searchBar.delegate = self
     }
     
     private func setRecentSearchEmptyView() {
@@ -134,8 +137,8 @@ class SearchVC: BaseVC {
     }
     
     private func setSearchResultEmptyView(keyword: String) {
-        searchResultEmptyView.setSearchKeyword(keyword: keyword)
-        searchResultEmptyView.isHidden = !(searchResultData.isEmpty)
+        self.searchResultEmptyView.setSearchKeyword(keyword: keyword)
+        self.searchResultEmptyView.isHidden = !(self.searchResultData.isEmpty)
     }
     
     private func openRecentSearchTitleView() {
@@ -156,9 +159,9 @@ extension SearchVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch searchTVType {
         case .recentSearch:
-            return recentSearchData.count
+            return self.recentSearchData.count
         case .searchResult:
-            return searchResultData.count
+            return self.searchResultData.count
         }
     }
     
@@ -177,7 +180,7 @@ extension SearchVC: UITableViewDataSource {
             return cell
         case .searchResult:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTVC.className) as? SearchTVC else { return UITableViewCell()}
-            cell.setData(data: searchResultData[indexPath.row])
+            cell.setData(data: self.searchResultData[indexPath.row])
             return cell
         }
         
@@ -207,25 +210,30 @@ extension SearchVC: UITableViewDelegate {
         
         switch searchTVType {
         case .recentSearch:
-            songDetailVC.musicId = recentSearchData.reversed()[indexPath.row].id
-            songDetailVC.songInfoData = SongInfoResponseModel.Music(id: recentSearchData.reversed()[indexPath.row].id, name: recentSearchData.reversed()[indexPath.row].name, image: recentSearchData.reversed()[indexPath.row].image, artist: recentSearchData.reversed()[indexPath.row].artist)
-            songDetailVC.musicId = recentSearchData.reversed()[indexPath.row].id
-            recentSearchData.append(recentSearchData.reversed()[indexPath.row])
-            recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
-            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            songDetailVC.musicId = self.recentSearchData.reversed()[indexPath.row].id
+            songDetailVC.songInfoData = SongInfoResponseModel.Music(id: self.recentSearchData.reversed()[indexPath.row].id, name: self.recentSearchData.reversed()[indexPath.row].name, image: self.recentSearchData.reversed()[indexPath.row].image, artist: self.recentSearchData.reversed()[indexPath.row].artist)
+            songDetailVC.musicId = self.recentSearchData.reversed()[indexPath.row].id
+            self.recentSearchData.append(self.recentSearchData.reversed()[indexPath.row])
+            self.recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
+            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
         case .searchResult:
-            songDetailVC.musicId = searchResultData[indexPath.row].id
-            songDetailVC.songInfoData = SongInfoResponseModel.Music(id: searchResultData[indexPath.row].id, name: searchResultData[indexPath.row].name, image: searchResultData[indexPath.row].image, artist: searchResultData[indexPath.row].artist)
-            if recentSearchData.contains(searchResultData[indexPath.row]) {
-                recentSearchData.append(recentSearchData[indexPath.row])
-                recentSearchData.remove(at: indexPath.row)
-                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+            songDetailVC.musicId = self.searchResultData[indexPath.row].id
+            songDetailVC.songInfoData = SongInfoResponseModel.Music(
+                id: self.searchResultData[indexPath.row].id,
+                name: self.searchResultData[indexPath.row].name,
+                image: self.searchResultData[indexPath.row].image,
+                artist: searchResultData[indexPath.row].artist
+            )
+            if self.recentSearchData.contains(self.searchResultData[indexPath.row]) {
+                self.recentSearchData.append(self.recentSearchData[indexPath.row])
+                self.recentSearchData.remove(at: indexPath.row)
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             } else {
-                recentSearchData.append(searchResultData[indexPath.row])
-                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: recentSearchData, forKey: UserDefaults.Keys.recentSearch)
+                self.recentSearchData.append(searchResultData[indexPath.row])
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             }
         }
-        fetchSearchResultData()
+        self.fetchSearchResultData()
         
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
@@ -236,7 +244,7 @@ extension SearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.searchTextField.endEditing(true)
         
-        getSearchResult(keyword: searchBar.searchTextField.text ?? "") { result in
+        self.getSearchResult(keyword: searchBar.searchTextField.text ?? "") { result in
             self.searchResultData = result
             self.searchTVType = .searchResult
             self.resultTV.reloadData()
