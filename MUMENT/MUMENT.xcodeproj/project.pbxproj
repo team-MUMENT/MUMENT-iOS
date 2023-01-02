@@ -22,6 +22,9 @@
 		4D13A67A2889141900197D2A /* HistorySerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A6792889141900197D2A /* HistorySerivce.swift */; };
 		4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A67B2889163400197D2A /* HistoryResponseModel.swift */; };
 		4D2A6E642938E94F00B53C7A /* DropDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A6E632938E94F00B53C7A /* DropDownButton.swift */; };
+		4D1F144E29114EE90093D641 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1F144D29114EE90093D641 /* OnboardingVC.swift */; };
+		4D1F1450291153AD0093D641 /* OnboardingCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1F144F291153AD0093D641 /* OnboardingCVC.swift */; };
+		4D1F14522911548F0093D641 /* OnbordingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1F14512911548F0093D641 /* OnbordingModel.swift */; };
 		4D2BADCA2880334C004A7E00 /* MumentsByTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */; };
 		4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */; };
 		4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */; };
@@ -38,6 +41,7 @@
 		4D58547029175E69003F5DF9 /* AutoSignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */; };
 		4D585473291762B2003F5DF9 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D585472291762B2003F5DF9 /* Splash.storyboard */; };
 		4D5A2826292B64700001F8F9 /* MembershipWithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A2825292B64700001F8F9 /* MembershipWithdrawalVC.swift */; };
+		4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */; };
 		4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */; };
 		4D64A9EA287D885A00450FCA /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9E9287D885A00450FCA /* TagView.swift */; };
 		4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */; };
@@ -120,6 +124,21 @@
 		C74EC445287593BF0068EB46 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC444287593BF0068EB46 /* RxRelay */; };
 		C74EC447287593BF0068EB46 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC446287593BF0068EB46 /* RxSwift */; };
 		C74EC44C287594270068EB46 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C74EC44B287594270068EB46 /* Alamofire */; };
+		C7612D3B29361F30005F74B1 /* MypageMainSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D3A29361F30005F74B1 /* MypageMainSeparatorView.swift */; };
+		C7612D3D2936294B005F74B1 /* MypageMainFooterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D3C2936294B005F74B1 /* MypageMainFooterTVC.swift */; };
+		C7612D3F29365F4F005F74B1 /* MumentUnderLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D3E29365F4F005F74B1 /* MumentUnderLineButton.swift */; };
+		C7612D42293798AA005F74B1 /* MypageNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D41293798AA005F74B1 /* MypageNoticeVC.swift */; };
+		C7612D452937B493005F74B1 /* GetNoticeListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */; };
+		C7612D472937B778005F74B1 /* GetNoticeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */; };
+		C7612D4A2937B83D005F74B1 /* MypageNoticeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */; };
+		C7612D4C2937BBE5005F74B1 /* MypageNoticeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D4B2937BBE5005F74B1 /* MypageNoticeDetailVC.swift */; };
+		C7612D4E2937C816005F74B1 /* MypageNoticeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D4D2937C816005F74B1 /* MypageNoticeTitleView.swift */; };
+		C7612D512937D7C4005F74B1 /* SetNotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D502937D7C4005F74B1 /* SetNotificationVC.swift */; };
+		C7612D532938382F005F74B1 /* MumentToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D522938382F005F74B1 /* MumentToggleButton.swift */; };
+		C766F9C32935C25D00E08D5C /* MypageMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C22935C25D00E08D5C /* MypageMainVC.swift */; };
+		C766F9C62935E0F800E08D5C /* MypageMainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C52935E0F800E08D5C /* MypageMainHeaderView.swift */; };
+		C766F9C82935E69C00E08D5C /* MypageMainTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C72935E69C00E08D5C /* MypageMainTVC.swift */; };
+		C766F9CA2935ED7F00E08D5C /* MypageMainProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C92935ED7F00E08D5C /* MypageMainProfileTVC.swift */; };
 		C79CD44F2921BD4500DE4A47 /* SetProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */; };
 		C79CD4512921BF7200DE4A47 /* MumentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CD4502921BF7200DE4A47 /* MumentTextField.swift */; };
 		C7AE17D628872F3100A5E3FA /* StorageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D528872F3100A5E3FA /* StorageEmptyView.swift */; };
@@ -194,6 +213,9 @@
 		4D13A6792889141900197D2A /* HistorySerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySerivce.swift; sourceTree = "<group>"; };
 		4D13A67B2889163400197D2A /* HistoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponseModel.swift; sourceTree = "<group>"; };
 		4D2A6E632938E94F00B53C7A /* DropDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownButton.swift; sourceTree = "<group>"; };
+		4D1F144D29114EE90093D641 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
+		4D1F144F291153AD0093D641 /* OnboardingCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCVC.swift; sourceTree = "<group>"; };
+		4D1F14512911548F0093D641 /* OnbordingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbordingModel.swift; sourceTree = "<group>"; };
 		4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCVC.swift; sourceTree = "<group>"; };
 		4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagModel.swift; sourceTree = "<group>"; };
 		4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTitleModel.swift; sourceTree = "<group>"; };
@@ -210,6 +232,7 @@
 		4D58546F29175E69003F5DF9 /* AutoSignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSignInVC.swift; sourceTree = "<group>"; };
 		4D585472291762B2003F5DF9 /* Splash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		4D5A2825292B64700001F8F9 /* MembershipWithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipWithdrawalVC.swift; sourceTree = "<group>"; };
+		4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageControlOnboardingPageControl.swift; sourceTree = "<group>"; };
 		4D64A9E7287D810000450FCA /* MumentCardWithoutHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardWithoutHeartView.swift; sourceTree = "<group>"; };
 		4D64A9E9287D885A00450FCA /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4D64A9EC287DD95A00450FCA /* DefaultMumentCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMumentCardModel.swift; sourceTree = "<group>"; };
@@ -285,6 +308,21 @@
 		C74EC42728758D230068EB46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C74EC434287592750068EB46 /* Colorsets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colorsets.xcassets; sourceTree = "<group>"; };
 		C74EC437287593110068EB46 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		C7612D3A29361F30005F74B1 /* MypageMainSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainSeparatorView.swift; sourceTree = "<group>"; };
+		C7612D3C2936294B005F74B1 /* MypageMainFooterTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainFooterTVC.swift; sourceTree = "<group>"; };
+		C7612D3E29365F4F005F74B1 /* MumentUnderLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentUnderLineButton.swift; sourceTree = "<group>"; };
+		C7612D41293798AA005F74B1 /* MypageNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeVC.swift; sourceTree = "<group>"; };
+		C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeListResponseModel.swift; sourceTree = "<group>"; };
+		C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeResponseModel.swift; sourceTree = "<group>"; };
+		C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeTVC.swift; sourceTree = "<group>"; };
+		C7612D4B2937BBE5005F74B1 /* MypageNoticeDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeDetailVC.swift; sourceTree = "<group>"; };
+		C7612D4D2937C816005F74B1 /* MypageNoticeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeTitleView.swift; sourceTree = "<group>"; };
+		C7612D502937D7C4005F74B1 /* SetNotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNotificationVC.swift; sourceTree = "<group>"; };
+		C7612D522938382F005F74B1 /* MumentToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentToggleButton.swift; sourceTree = "<group>"; };
+		C766F9C22935C25D00E08D5C /* MypageMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainVC.swift; sourceTree = "<group>"; };
+		C766F9C52935E0F800E08D5C /* MypageMainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainHeaderView.swift; sourceTree = "<group>"; };
+		C766F9C72935E69C00E08D5C /* MypageMainTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainTVC.swift; sourceTree = "<group>"; };
+		C766F9C92935ED7F00E08D5C /* MypageMainProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainProfileTVC.swift; sourceTree = "<group>"; };
 		C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileVC.swift; sourceTree = "<group>"; };
 		C79CD4502921BF7200DE4A47 /* MumentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentTextField.swift; sourceTree = "<group>"; };
 		C7AE17D528872F3100A5E3FA /* StorageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageEmptyView.swift; sourceTree = "<group>"; };
@@ -398,6 +436,17 @@
 				4D7604652880C8ED0044F2A6 /* MumentDetailVCModel.swift */,
 			);
 			path = DummyDataModel;
+			sourceTree = "<group>";
+		};
+		4D1F144C29114EC60093D641 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				4D1F144D29114EE90093D641 /* OnboardingVC.swift */,
+				4D5A2822292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift */,
+				4D1F144F291153AD0093D641 /* OnboardingCVC.swift */,
+				4D1F14512911548F0093D641 /* OnbordingModel.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		4D585471291762B2003F5DF9 /* Splash */ = {
@@ -668,10 +717,72 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C7612D40293798A1005F74B1 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				C7612D482937B827005F74B1 /* Cell */,
+				C7612D432937B442005F74B1 /* Model */,
+				C7612D41293798AA005F74B1 /* MypageNoticeVC.swift */,
+				C7612D4B2937BBE5005F74B1 /* MypageNoticeDetailVC.swift */,
+				C7612D4D2937C816005F74B1 /* MypageNoticeTitleView.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
+		C7612D432937B442005F74B1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */,
+				C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C7612D482937B827005F74B1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		C7612D4F2937D7B7005F74B1 /* SetNotification */ = {
+			isa = PBXGroup;
+			children = (
+				C7612D502937D7C4005F74B1 /* SetNotificationVC.swift */,
+			);
+			path = SetNotification;
+			sourceTree = "<group>";
+		};
+		C766F9C12935C25300E08D5C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C766F9C42935E0BC00E08D5C /* Cell */,
+				C766F9C22935C25D00E08D5C /* MypageMainVC.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		C766F9C42935E0BC00E08D5C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C766F9C52935E0F800E08D5C /* MypageMainHeaderView.swift */,
+				C766F9C72935E69C00E08D5C /* MypageMainTVC.swift */,
+				C766F9C92935ED7F00E08D5C /* MypageMainProfileTVC.swift */,
+				C7612D3A29361F30005F74B1 /* MypageMainSeparatorView.swift */,
+				C7612D3C2936294B005F74B1 /* MypageMainFooterTVC.swift */,
+			);
+			name = Cell;
+			path = "ㅊ디ㅣ";
+			sourceTree = "<group>";
+		};
 		C79CD44C2921AB3300DE4A47 /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
 				4D5A2824292B63B00001F8F9 /* MembershipWithdrawal */,
+				C7612D4F2937D7B7005F74B1 /* SetNotification */,
+				C7612D40293798A1005F74B1 /* Notice */,
+				C766F9C12935C25300E08D5C /* Main */,
 				C79CD44D2921AB6200DE4A47 /* SetProfile */,
 			);
 			path = Mypage;
@@ -816,6 +927,8 @@
 				C79CD4502921BF7200DE4A47 /* MumentTextField.swift */,
 				C7394B0B29234E2700BF6AE1 /* MumentActionSheetVC.swift */,
 				C7394B0D292362EC00BF6AE1 /* MumentActionSheetTVC.swift */,
+				C7612D3E29365F4F005F74B1 /* MumentUnderLineButton.swift */,
+				C7612D522938382F005F74B1 /* MumentToggleButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -823,6 +936,7 @@
 		C7BC6B4F2876AD26008C75CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				4D1F144C29114EC60093D641 /* Onboarding */,
 				4D585471291762B2003F5DF9 /* Splash */,
 				C71B480F2886DD1C001A7CD6 /* SignIn */,
 				C71B47E528807B56001A7CD6 /* Search */,
@@ -976,6 +1090,7 @@
 				C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				4D5A2826292B64700001F8F9 /* MembershipWithdrawalVC.swift in Sources */,
 				C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */,
+				C766F9CA2935ED7F00E08D5C /* MypageMainProfileTVC.swift in Sources */,
 				4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */,
 				C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */,
 				C7BB53122875994500E0E889 /* UIViewController+.swift in Sources */,
@@ -987,12 +1102,14 @@
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */,
 				C7394B0C29234E2700BF6AE1 /* MumentActionSheetVC.swift in Sources */,
+				C7612D42293798AA005F74B1 /* MypageNoticeVC.swift in Sources */,
 				4DE75A8228CCBAE400BC3EC4 /* MumentsByTagCardView.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */,
 				C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */,
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
 				E781F2272882A77500484C28 /* SectionHeader.swift in Sources */,
+				C7612D4C2937BBE5005F74B1 /* MypageNoticeDetailVC.swift in Sources */,
 				4D76046A28814A9A0044F2A6 /* AllMumentsSectionHeader.swift in Sources */,
 				4D13A67628887A8000197D2A /* SongInfoResponseModel.swift in Sources */,
 				4D2BADCE2880459F004A7E00 /* MumentsByTagTitleModel.swift in Sources */,
@@ -1000,16 +1117,21 @@
 				C7BB53102875990700E0E889 /* BaseVC.swift in Sources */,
 				C71B47F72882A612001A7CD6 /* SearchTVType.swift in Sources */,
 				C74EC438287593110068EB46 /* UIColor+.swift in Sources */,
+				C7612D4A2937B83D005F74B1 /* MypageNoticeTVC.swift in Sources */,
 				C7BC6B562876ADCD008C75CE /* CarouselModel.swift in Sources */,
 				4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */,
 				4D696CEF287978360060CE41 /* MumentsOfRevisitedTVC.swift in Sources */,
 				4DAD075E2946CF3800567625 /* DropDownMenuView.swift in Sources */,
 				C7AE17D628872F3100A5E3FA /* StorageEmptyView.swift in Sources */,
 				C7BC6B6A287710D6008C75CE /* UIButton+.swift in Sources */,
+				C766F9C32935C25D00E08D5C /* MypageMainVC.swift in Sources */,
 				4D76045A2880AC840044F2A6 /* MumentDetailVC.swift in Sources */,
 				C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */,
+				C766F9C62935E0F800E08D5C /* MypageMainHeaderView.swift in Sources */,
+				C7612D4E2937C816005F74B1 /* MypageNoticeTitleView.swift in Sources */,
 				C79CD44F2921BD4500DE4A47 /* SetProfileVC.swift in Sources */,
 				E781F219288052DF00484C28 /* MyMumentVC.swift in Sources */,
+				C7612D3B29361F30005F74B1 /* MypageMainSeparatorView.swift in Sources */,
 				C71B47FC2884369C001A7CD6 /* MumentAlertWithButtons.swift in Sources */,
 				4D2BADD328806C08004A7E00 /* MumentCardBySongTVC.swift in Sources */,
 				E781F219288052DF00484C28 /* MyMumentVC.swift in Sources */,
@@ -1025,6 +1147,7 @@
 				C71B47EF2881A11E001A7CD6 /* UIImageView+.swift in Sources */,
 				C7AE17DA2887E4BE00A5E3FA /* WriteService.swift in Sources */,
 				4D2BADD528806C10004A7E00 /* MumentCardBySongModel.swift in Sources */,
+				4D1F14522911548F0093D641 /* OnbordingModel.swift in Sources */,
 				4D696CE9287975740060CE41 /* HomeTVHeader.swift in Sources */,
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
 				C7AE17E628882DE100A5E3FA /* SearchAPI.swift in Sources */,
@@ -1033,7 +1156,9 @@
 				C7AE17DC2887FEA700A5E3FA /* GetIsFirstResponseModel.swift in Sources */,
 				C7BC6B6428771042008C75CE /* UITableVIew+.swift in Sources */,
 				4D13A65B28829FF000197D2A /* MumentHistoryVC.swift in Sources */,
+				C7612D532938382F005F74B1 /* MumentToggleButton.swift in Sources */,
 				C7BC6B6C287710F9008C75CE /* String+.swift in Sources */,
+				C7612D3D2936294B005F74B1 /* MypageMainFooterTVC.swift in Sources */,
 				C7AE17E028880DEB00A5E3FA /* UserInfo.swift in Sources */,
 				4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */,
 				4D13A6682887FD8100197D2A /* SongDetailAPI.swift in Sources */,
@@ -1046,6 +1171,7 @@
 				C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */,
 				4D13A67A2889141900197D2A /* HistorySerivce.swift in Sources */,
 				C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */,
+				C7612D512937D7C4005F74B1 /* SetNotificationVC.swift in Sources */,
 				C7BB531628759BBD00E0E889 /* MumentTabBarController.swift in Sources */,
 				C7BC6B6228771020008C75CE /* UICollectionView+.swift in Sources */,
 				C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */,
@@ -1061,6 +1187,7 @@
 				4DEED415288B32E500C6337B /* DeleteService.swift in Sources */,
 				C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */,
 				E781F22D28892E2400484C28 /* StorageService.swift in Sources */,
+				4D1F144E29114EE90093D641 /* OnboardingVC.swift in Sources */,
 				4D13A6662887FD7700197D2A /* HomeAPI.swift in Sources */,
 				4D300669288B0DC7007FF4DB /* LikeResponseModel.swift in Sources */,
 				4D7604612880ADB60044F2A6 /* DetailSongInfoView.swift in Sources */,
@@ -1072,11 +1199,14 @@
 				C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */,
 				4D76045C2880ACB40044F2A6 /* DetailMumentCardView.swift in Sources */,
 				C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */,
+				C7612D452937B493005F74B1 /* GetNoticeListResponseModel.swift in Sources */,
 				4D64A9EA287D885A00450FCA /* TagView.swift in Sources */,
 				C71B47F12881A14F001A7CD6 /* ImageCacheManager.swift in Sources */,
+				C7612D472937B778005F74B1 /* GetNoticeResponseModel.swift in Sources */,
 				C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */,
 				C7AE17E228882D4100A5E3FA /* SearchResultResponseModel.swift in Sources */,
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
+				C766F9C82935E69C00E08D5C /* MypageMainTVC.swift in Sources */,
 				4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */,
 				C71B48142886DD8E001A7CD6 /* SignAPI.swift in Sources */,
 				C79CD4512921BF7200DE4A47 /* MumentTextField.swift in Sources */,
@@ -1087,6 +1217,7 @@
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
 				4D7604662880C8ED0044F2A6 /* MumentDetailVCModel.swift in Sources */,
 				4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */,
+				4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */,
 				C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */,
 				E781F23128892FCC00484C28 /* GetMyMumentResponseModel.swift in Sources */,
 				4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */,
@@ -1097,6 +1228,7 @@
 				C71B47F32881A44B001A7CD6 /* RecentSearchTVC.swift in Sources */,
 				4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */,
 				C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */,
+				4D1F1450291153AD0093D641 /* OnboardingCVC.swift in Sources */,
 				C71B48052885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift in Sources */,
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
 				4D9734F3287F3A41003EF546 /* Preview.swift in Sources */,
@@ -1109,6 +1241,7 @@
 				C7BC6B68287710BA008C75CE /* UIView+.swift in Sources */,
 				C7AE17E82888675600A5E3FA /* PostMumentBodyModel.swift in Sources */,
 				E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */,
+				C7612D3F29365F4F005F74B1 /* MumentUnderLineButton.swift in Sources */,
 				4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				4D300665288B0C0A007FF4DB /* LikeAPI.swift in Sources */,
