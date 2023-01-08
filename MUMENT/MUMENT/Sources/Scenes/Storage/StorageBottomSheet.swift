@@ -13,7 +13,7 @@ protocol storageBottomSheetDelegate: AnyObject {
     func sendButtonData(data:[TagButton])
 }
 
-class StorageBottomSheet: BaseVC {
+final class StorageBottomSheet: BaseVC {
 
     private let containerView = UIView().then {
         $0.backgroundColor = UIColor.mBgwhite

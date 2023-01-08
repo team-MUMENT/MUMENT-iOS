@@ -35,9 +35,9 @@ class ListCVC: UICollectionViewCell {
         }
     }
     
-    func setDefaultCardData(_ cellData:GetMyMumentResponseModel.Mument) {
+    func setDefaultCardData(_ cellData: StorageMumentModel) {
 //        defaultCardView.setData(defaultData[0])
-        defaultCardView.setData(cellData)
+        defaultCardView.setDefaultData(cellData)
     }
     
     func setWithoutHeartCardUI() {
@@ -54,8 +54,8 @@ class ListCVC: UICollectionViewCell {
         }
     }
     
-    func setWithoutHeartCardData(_ cellData: GetLikedMumentResponseModel.Mument) {
-        withoutHeartCardView.setData(cellData)
+    func setWithoutHeartCardData(_ cellData: StorageMumentModel) {
+        withoutHeartCardView.setWithoutHeartData(cellData)
     }
 }
 

@@ -48,33 +48,4 @@ struct GetMyMumentResponseModel: Codable {
       case content = "content"
     }
   }
-
-  // MARK: - Music
-  struct Music: Codable {
-    let id: String
-    let name: String
-    let image: String?
-    let artist: String
-
-    enum CodingKeys: String, CodingKey {
-      case id = "_id"
-      case name = "name"
-      case image = "image"
-      case artist = "artist"
-    }
-  }
-
-  // MARK: - User
-  struct User: Codable {
-    let id: String
-    let image: String?
-    let name: String
-
-    enum CodingKeys: String, CodingKey {
-      case id = "_id"
-      case image = "image"
-      case name = "name"
-    }
-  }
-
 }
