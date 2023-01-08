@@ -456,7 +456,7 @@ extension WriteVC {
     }
     
     private func setSelectedMusicView() {
-        view.addSubviews([selectedMusicView])
+        self.writeContentView.addSubview(selectedMusicView)
         
         selectedMusicView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
