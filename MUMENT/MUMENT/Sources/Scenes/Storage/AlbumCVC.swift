@@ -40,7 +40,7 @@ class AlbumCVC: UICollectionViewCell {
         mumentAlbumView.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
     }
     
-    func fetchData(_ cellData: GetMyMumentResponseModel.Mument) {
+    func fetchData(_ cellData: StorageMumentModel) {
         mumentAlbumView.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
     }
     
@@ -51,8 +51,8 @@ class AlbumCVC: UICollectionViewCell {
         }
     }
     
-    func setWithoutHeartCardData(_ cellData: GetLikedMumentResponseModel.Mument) {
-        withoutHeartCardView.setData(cellData)
+    func setWithoutHeartCardData(_ cellData: StorageMumentModel) {
+        withoutHeartCardView.setWithoutHeartData(cellData)
     }
     
     func setEmptyCardView() {
@@ -62,9 +62,9 @@ class AlbumCVC: UICollectionViewCell {
         }
     }
 
-    func setDefaultCardData(_ cellData:GetMyMumentResponseModel.Mument) {
+    func setDefaultCardData(_ cellData: StorageMumentModel) {
     //        defaultCardView.setData(defaultData[0])
-        defaultCardView.setData(cellData)
+        defaultCardView.setDefaultData(cellData)
     }
 }
 
