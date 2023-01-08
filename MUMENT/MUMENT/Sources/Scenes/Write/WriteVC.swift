@@ -115,10 +115,6 @@ class WriteVC: BaseVC {
         $0.textColor = .mGray1
         $0.sizeToFit()
     }
-    private let completeButton = MumentCompleteButton(isEnabled: true).then {
-        $0.setTitle("완료", for: .normal)
-        $0.isEnabled = false
-    }
     private var selectedMusicView = WriteMusicView()
     var clickedImpressionTag: [Int] = [] {
         didSet {
@@ -179,7 +175,7 @@ class WriteVC: BaseVC {
     }
     
     private func setCompleteButton() {
-        completeButton.press { [weak self] in
+        self.naviView.doneButton.press { [weak self] in
             self?.feelTagCV.indexPathsForSelectedItems?.forEach {
                 let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
                 self?.clickedFeelTag.append(cell.contentLabel.text?.tagInt() ?? 0)
@@ -196,7 +192,7 @@ class WriteVC: BaseVC {
     }
     
     private func setIsEnableCompleteButton(isEnabled: Bool) {
-        self.completeButton.isEnabled = isEnabled
+        self.naviView.doneButton.isEnabled = isEnabled
         self.firstListenButton.isEnabled = isEnabled
         self.againListenButton.isEnabled = isEnabled
     }
@@ -476,7 +472,7 @@ extension WriteVC {
     private func setLayout() {
         view.addSubviews([writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        writeContentView.addSubviews([naviView, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, countTextViewLabel])
         feelTagScrollView.addSubview(feelTagCV)
         
         writeScrollView.snp.makeConstraints {
@@ -573,18 +569,12 @@ extension WriteVC {
             $0.right.equalToSuperview().inset(20)
             $0.width.equalTo(49)
             $0.height.equalTo(28)
+            $0.bottom.equalToSuperview().inset(45)
         }
         
         privateLabel.snp.makeConstraints {
             $0.centerY.equalTo(isPrivateToggleButton)
             $0.right.equalToSuperview().inset(78.adjustedW)
-        }
-        
-        completeButton.snp.makeConstraints {
-            $0.top.equalTo(isPrivateToggleButton.snp.bottomMargin).offset(60)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(60)
-            $0.bottom.equalToSuperview().inset(45)
         }
     }
 }
