@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class StorageVC: BaseVC {
+final class StorageVC: BaseVC {
     
     // MARK: - Components
     private let naviView = DefaultNavigationView().then {
@@ -30,59 +30,8 @@ class StorageVC: BaseVC {
         $0.backgroundColor = .mPurple1
     }
         
-    private lazy var filterSectionContainerView = UIView().then {
-        $0.backgroundColor = .clear
-    }
-    
-    let filterButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentFilterOff"), for: .normal)
-        $0.setImage(UIImage(named: "mumentFilterOn"), for: .selected)
-        $0.contentMode = .scaleAspectFit
-    }
-        
-    private let buttonStackView = UIStackView().then {
-        $0.axis = .horizontal
-        $0.distribution = .fill
-        $0.spacing = 15
-    }
-    
-    private let albumButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentAlbumOff"), for: .normal)
-        $0.setImage(UIImage(named: "mumentAlbumOn"), for: .selected)
-        $0.contentMode = .scaleAspectFit
-    }
-    
-    private let listButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentListOff"), for: .normal)
-        $0.setImage(UIImage(named: "mumentListOn"), for: .selected)
-        $0.isSelected = true
-        $0.contentMode = .scaleAspectFit
-    }
-    
-    private let selectedTagsView = UIView().then {
-        $0.backgroundColor = UIColor.mGray5
-    }
-        
     private lazy var pagerContainerView = UIView().then {
         $0.backgroundColor = .clear
-    }
-    
-    /// StorageBottomSheet에서 전달 받은 태그 버튼 배열
-    var selectedTagButtons = [TagButton]() {
-        didSet {
-            if self.selectedTagButtons.count == 0 {
-                self.filterButton.isSelected = false
-            }else {
-                self.filterButton.isSelected = true
-            }
-        }
-    }
-    
-    private let selectedTagsStackView = UIStackView().then {
-        $0.backgroundColor = .clear
-        $0.spacing = 10
-        $0.axis = .horizontal
-        $0.distribution = .fillProportionally
     }
     
     private lazy var segmentControl = UISegmentedControl().then {
@@ -110,15 +59,12 @@ class StorageVC: BaseVC {
     
     // MARK: - Properties
     private var currentIndex: Int = 0
-    
-    var tagsViewHeightConstant = 0
-    
+        
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
-    private let myMumentVC = MyMumentVC()
-    private let likedMumentVC = LikedMumentVC()
-    private let storageBottomSheet = StorageBottomSheet()
-
+    private let myMumentVC = StorageMumentVC(type: .myMument)
+    private let likedMumentVC = StorageMumentVC(type: .likedMument)
+    
     private lazy var contents: [UIViewController] = [
         self.myMumentVC,
         self.likedMumentVC
@@ -129,12 +75,6 @@ class StorageVC: BaseVC {
         return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
     }()
     
-    private lazy var tagsViewHeight: NSLayoutConstraint = {
-        return selectedTagsView.heightAnchor.constraint(
-            equalToConstant: CGFloat(tagsViewHeightConstant)
-        )
-    }()
-    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,11 +82,7 @@ class StorageVC: BaseVC {
         setPageViewController()
         setHeaderLayout()
         setSegmentLaysout()
-        setFilterSectionLayout()
-        setTagsViewLayout()
         setPagerLayout()
-        setPressAction()
-        setBottomSheet()
     }
     
     // MARK: - Function
@@ -164,9 +100,6 @@ class StorageVC: BaseVC {
         }
     }
     
-    private func setBottomSheet() {
-        storageBottomSheet.delegate = self
-    }
 
     @objc private func changeUnderLinePosition() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
@@ -178,67 +111,6 @@ class StorageVC: BaseVC {
         })
     }
     
-    private func setPressAction() {
-        profileButton.press {
-            self.pushToMyPageMainVC()
-        }
-        
-        filterButton.press {
-            self.storageBottomSheet.modalPresentationStyle = .overFullScreen
-            self.present(self.storageBottomSheet, animated: false) {
-                self.storageBottomSheet.showBottomSheetWithAnimation()
-            }
-        }
-        
-        listButton.press {
-            self.listButton.isSelected = true
-            self.albumButton.isSelected = false
-
-            if self.segmentControl.selectedSegmentIndex == 0 {
-                self.myMumentVC.cellCategory = .listCell
-            }else {
-                self.likedMumentVC.cellCategory = .listCell
-            }
-            
-        }
-        
-        albumButton.press {
-            self.albumButton.isSelected = true
-            self.listButton.isSelected = false
-
-            if self.segmentControl.selectedSegmentIndex == 0 {
-                self.myMumentVC.cellCategory = .albumCell
-            }else {
-                self.likedMumentVC.cellCategory = .albumCell
-            }
-        }
-    }
-    
-    func showSelectedTagsView() {
-        if selectedTagButtons.count != 0 {
-            self.tagsViewHeightConstant = 49
-            
-            selectedTagButtons.forEach {
-                self.selectedTagsStackView.addArrangedSubview($0)
-                
-                $0.snp.makeConstraints {
-                    $0.height.equalTo(35)
-                }
-            }
-                        
-        }else {
-            self.tagsViewHeightConstant = 0
-        }
-        
-        self.selectedTagsView.snp.updateConstraints {
-            $0.height.equalTo(self.tagsViewHeightConstant)
-        }
-        
-        self.selectedTagsView.layoutIfNeeded()
-        
-        likedMumentVC.setTagsTitle(selectedTagButtons)
-        myMumentVC.setTagsTitle(selectedTagButtons)
-    }
     
     private func pushToMyPageMainVC() {
         let myPageVC = MypageMainVC()
@@ -249,41 +121,16 @@ class StorageVC: BaseVC {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
             
         if segmentIndex == 0 {
-            listButton.sendActions(for: .touchUpInside)
+            myMumentVC.filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[0]], direction: .reverse, animated: true)
         }else {
-            listButton.sendActions(for: .touchUpInside)
+            likedMumentVC.filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
     }
 }
-// MARK: - Protocol
-extension StorageVC: storageBottomSheetDelegate {
-    func sendButtonData(data: [TagButton]) {
-        
-        selectedTagButtons = data
 
-        selectedTagButtons.forEach { button in
-            button.press {
-                var tempButtons = [TagButton]()
-                
-                self.selectedTagButtons.forEach { thisButton in
-                    if thisButton == button {}
-                    else {
-                        tempButtons.append(thisButton)
-                    }
-                }
-                self.selectedTagButtons = tempButtons
-                self.selectedTagsStackView.removeAllArrangedSubviews()
-                
-                self.showSelectedTagsView()
-            }
-        }
-        showSelectedTagsView()
-    }
-}
-
-// MARK: - UIPageVC
+// MARK: - UIPageViewControllerDataSource
 extension StorageVC: UIPageViewControllerDataSource  {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -305,6 +152,7 @@ extension StorageVC: UIPageViewControllerDataSource  {
     }
 }
 
+// MARK: - UIPageViewControllerDelegate
 extension StorageVC: UIPageViewControllerDelegate {
     
     /// Paging 애니메이션이 끝났을 때 처리
@@ -319,9 +167,8 @@ extension StorageVC: UIPageViewControllerDelegate {
     }
 }
 
-// MARK: - Set Layout
+// MARK: - UI
 extension StorageVC {
-    
     private func setHeaderLayout() {
         view.addSubviews([naviView, profileButton])
         
@@ -358,60 +205,13 @@ extension StorageVC {
             $0.width.equalTo(segmentControl.snp.width).dividedBy(segmentControl.numberOfSegments)
             
         }
-        
-        NSLayoutConstraint.activate([leadingDistance])
-    }
-    
-    private func setFilterSectionLayout() {
-        view.addSubviews([filterSectionContainerView, selectedTagsView])
-        
-        filterSectionContainerView.snp.makeConstraints{
-            $0.top.equalTo(segmentContainerView.snp.bottom)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(44)
-        }
-        
-        filterSectionContainerView.addSubViews([filterButton, buttonStackView])
-        
-        filterButton.snp.makeConstraints{
-            $0.top.equalTo(filterSectionContainerView).inset(12)
-            $0.leading.equalTo(filterSectionContainerView).inset(20)
-            $0.bottom.equalTo(filterSectionContainerView).inset(12)
-        }
-        
-        [albumButton, listButton].forEach {
-            self.buttonStackView.addArrangedSubview($0)
-        }
-        
-        buttonStackView.snp.makeConstraints{
-            $0.top.bottom.equalTo(filterSectionContainerView).inset(12)
-            $0.trailing.equalTo(filterSectionContainerView).inset(20)
-            $0.width.equalTo(55)
-        }
-    }
-    
-    private func setTagsViewLayout() {
-        view.addSubviews([selectedTagsView])
-        selectedTagsView.snp.makeConstraints{
-            $0.top.equalTo(filterSectionContainerView.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(self.tagsViewHeightConstant)
-        }
-        
-        selectedTagsView.addSubviews([selectedTagsStackView])
-        
-        selectedTagsStackView.snp.makeConstraints{
-            $0.leading.equalToSuperview().inset(10)
-            $0.height.equalTo(35)
-            $0.centerY.equalTo(selectedTagsView)
-        }
         NSLayoutConstraint.activate([leadingDistance])
     }
     
     private func setPagerLayout() {
         view.addSubviews([pagerContainerView])
         pagerContainerView.snp.makeConstraints{
-            $0.top.equalTo(selectedTagsView.snp.bottom)
+            $0.top.equalTo(segmentContainerView.snp.bottom)
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)  
         }
     }
