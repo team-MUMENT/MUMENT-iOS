@@ -115,7 +115,9 @@ class WriteVC: BaseVC {
         $0.textColor = .mGray1
         $0.sizeToFit()
     }
-    private var selectedMusicView = WriteMusicView()
+    private var selectedMusicView = WriteMusicView().then {
+        $0.addShadow(offset: .zero, radius: 11)
+    }
     var clickedImpressionTag: [Int] = [] {
         didSet {
             postMumentData.impressionTag = clickedImpressionTag
