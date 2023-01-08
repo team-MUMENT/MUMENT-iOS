@@ -12,18 +12,18 @@ import Then
 final class DropDownMenuTVC: UITableViewCell {
     
     // MARK: - Components
-    private let titleLable = UILabel().then{
+    private let titleLabel = UILabel().then {
         $0.textColor = .mBlack1
         $0.font = .mumentB3M14
     }
     
-    private let radioButtonImage = UIImageView().then{
+    private let radioButtonImage = UIImageView().then {
         $0.image = UIImage(named: "reportBtnUnselected")
     }
     
     //MARK: - Properties
     var isSelectedTVC: Bool = false {
-        didSet{
+        didSet {
             radioButtonImage.image = isSelectedTVC ? UIImage(named: "reportBtnSelected") : UIImage(named: "reportBtnUnselected")
         }
     }
@@ -42,11 +42,11 @@ final class DropDownMenuTVC: UITableViewCell {
     }
     
     // MARK: - Functions
-    func setTitle(_ title:String){
-        titleLable.text = title
+    func setTitle(_ title:String) {
+        titleLabel.text = title
     }
     
-    func toggleSelectedStatus(){
+    func toggleSelectedStatus() {
         isSelectedTVC.toggle()
     }
 }
@@ -55,14 +55,14 @@ final class DropDownMenuTVC: UITableViewCell {
 extension DropDownMenuTVC {
     
     private func setLayout() {
-        self.addSubviews([titleLable, radioButtonImage])
+        self.addSubviews([titleLabel, radioButtonImage])
         
-        titleLable.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.centerY.equalToSuperview()
         }
         
-        radioButtonImage.snp.makeConstraints{
+        radioButtonImage.snp.makeConstraints {
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.centerY.equalToSuperview()
         }

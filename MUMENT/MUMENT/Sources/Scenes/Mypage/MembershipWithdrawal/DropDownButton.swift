@@ -12,8 +12,8 @@ import Then
 final class DropDownButton: UIButton {
     
     // MARK: - Components
-    private var buttonTitleLabel = UILabel().then{
-        $0.textColor =  .mGray1
+    private var buttonTitleLabel = UILabel().then {
+        $0.textColor = .mGray1
         $0.font = .mumentB3M14
     }
     
@@ -29,11 +29,11 @@ final class DropDownButton: UIButton {
     }
     
     // MARK: - Functions
-    func setTitleLabel(_ labelText: String){
+    func setTitleLabel(_ labelText: String) {
         buttonTitleLabel.text = labelText
     }
     
-    func getTitleLabel()->String{
+    func getTitleLabel() -> String {
         return buttonTitleLabel.text ?? "No Title Label"
     }
 }

@@ -9,20 +9,19 @@ import UIKit
 import SnapKit
 import Then
 
-protocol DropDownMenuViewDelegate{
+protocol DropDownMenuViewDelegate {
     func handleTVCSelectedEvent(_ menuLabel: String)
 }
 
 final class DropDownMenuView: UIView {
     
     // MARK: - Components
-    private let dropDownMenuTV: UITableView = UITableView().then{
+    private let dropDownMenuTV: UITableView = UITableView().then {
         $0.estimatedRowHeight = UITableView.automaticDimension
         $0.backgroundColor = .mGray5
         $0.separatorStyle = .none
         $0.showsVerticalScrollIndicator = true
         $0.isScrollEnabled = false
-        
     }
     
     // MARK: - Properties
@@ -47,14 +46,14 @@ final class DropDownMenuView: UIView {
     
     // MARK: - Functions
     private func setTV() {
-        dropDownMenuTV.do{
+        dropDownMenuTV.do {
             $0.delegate = self
             $0.dataSource = self
             $0.register(DropDownMenuTVC.self, forCellReuseIdentifier: DropDownMenuTVC.className)
         }
     }
     
-    func setDelegate(delegate: DropDownMenuViewDelegate){
+    func setDelegate(delegate: DropDownMenuViewDelegate) {
         self.delegate = delegate
     }
 }

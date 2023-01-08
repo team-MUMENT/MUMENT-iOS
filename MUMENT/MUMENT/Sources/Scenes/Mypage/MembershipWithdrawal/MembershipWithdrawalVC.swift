@@ -44,13 +44,13 @@ final class MembershipWithdrawalVC: BaseVC {
     
     private let reasonSelectionButton: DropDownButton = DropDownButton(title: "이유 선택")
     
-    private let reasonSelectingMenuView: DropDownMenuView = DropDownMenuView().then{
+    private let reasonSelectingMenuView: DropDownMenuView = DropDownMenuView().then {
         $0.isHidden = true
         $0.makeRounded(cornerRadius: 11)
         $0.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     
-    private let reasonTextView: UITextView = UITextView().then{
+    private let reasonTextView: UITextView = UITextView().then {
         $0.isHidden = true
         $0.isScrollEnabled = false
         $0.clipsToBounds = true
@@ -63,7 +63,7 @@ final class MembershipWithdrawalVC: BaseVC {
         $0.textColor = .mBlack2
     }
     
-    private let reasonTextViewLabel = UILabel().then {
+    private let reasonTextViewLabel: UILabel = UILabel().then {
         $0.isHidden = true
         $0.font = .mumentB6M13
         $0.textColor = .mGray2
@@ -80,7 +80,7 @@ final class MembershipWithdrawalVC: BaseVC {
         $0.font = .mumentB8M12
     }
     
-    private lazy var confirmingStackView: UIStackView = UIStackView(arrangedSubviews: [checkBoxButton, confirmingLabel]).then{
+    private lazy var confirmingStackView: UIStackView = UIStackView(arrangedSubviews: [checkBoxButton, confirmingLabel]).then {
         $0.axis = .horizontal
         $0.spacing = 5
     }
@@ -90,39 +90,39 @@ final class MembershipWithdrawalVC: BaseVC {
     }
     
     // MARK: Properties
-    private let disposeBag = DisposeBag()
+    private let disposeBag: DisposeBag = DisposeBag()
     
     private var userName: String = "" {
-        didSet{
+        didSet {
             noticeLabel.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. \(userName)님이 좋아하신 뮤멘트들도 더 이상 모아볼 수 없게 됩니다."
         }
     }
     
     private var isReasonMenuHidden: Bool = true {
-        didSet{
+        didSet {
             reasonSelectingMenuView.isHidden = isReasonMenuHidden
             if isReasonMenuHidden {
                 reasonSelectionButton.setBackgroundImage(UIImage(named: "dropDownButton_unselected"), for: .normal)
-            }else{
+            } else {
                 reasonSelectionButton.setBackgroundImage(UIImage(named: "dropDownButton_selected"), for: .normal)
             }
         }
     }
     
     private var isTextViewHidden: Bool = true {
-        didSet{
+        didSet {
             reasonTextView.isHidden = isTextViewHidden
             reasonTextViewLabel.isHidden = isTextViewHidden
         }
     }
     
-    private var isCheckBoxChecked: Bool = false{
-        didSet{
+    private var isCheckBoxChecked: Bool = false {
+        didSet {
             let image = isCheckBoxChecked ? UIImage(named: "mumentChecked") : UIImage(named: "mumentUnchecked")
             checkBoxButton.setBackgroundImage(image, for: .normal)
             if isCheckBoxChecked && (reasonSelectionButton.getTitleLabel() != "이유 선택") {
                 withdrawalButton.isEnabled = true
-            }else{
+            } else {
                 withdrawalButton.isEnabled = false
             }
         }
@@ -139,18 +139,18 @@ final class MembershipWithdrawalVC: BaseVC {
     }
     
     // MARK: - Functions
-    func setButtonActions(){
+    func setButtonActions() {
         
-        self.reasonSelectionButton.addTarget(self, action: #selector(self.reasonSelectionButtonClicked(_:)),for: .touchUpInside)
+        self.reasonSelectionButton.addTarget(self, action: #selector(self.reasonSelectionButtonClicked(_:)), for: .touchUpInside)
         
-        checkBoxButton.press{
+        checkBoxButton.press {
             self.isCheckBoxChecked.toggle()
         }
     }
     
     @objc func reasonSelectionButtonClicked(_ sender:Any?) -> Void {
         self.isReasonMenuHidden.toggle()
-        if !isTextViewHidden {isTextViewHidden.toggle()}
+        if !isTextViewHidden { isTextViewHidden.toggle() }
         self.view.frame.origin.y = 0
         self.dismissKeyboard()
     }
@@ -213,19 +213,19 @@ extension MembershipWithdrawalVC {
             $0.right.equalToSuperview().inset(20)
         }
         
-        reasonTextView.snp.makeConstraints{
+        reasonTextView.snp.makeConstraints {
             $0.top.equalTo(reasonSelectionButton.snp.bottom).offset(20)
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().inset(20)
             $0.height.equalTo(134)
         }
         
-        reasonTextViewLabel.snp.makeConstraints{
+        reasonTextViewLabel.snp.makeConstraints {
             $0.bottom.equalTo(reasonTextView).offset(-15)
             $0.right.equalTo(reasonTextView).inset(11)
         }
         
-        reasonSelectingMenuView.snp.makeConstraints{
+        reasonSelectingMenuView.snp.makeConstraints {
             $0.top.equalTo(reasonSelectionButton.snp.bottom).inset(20)
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().inset(20)
@@ -250,7 +250,7 @@ extension MembershipWithdrawalVC: DropDownMenuViewDelegate {
     func handleTVCSelectedEvent(_ menuLabel: String) {
         self.isReasonMenuHidden.toggle()
         reasonSelectionButton.setTitleLabel(menuLabel)
-        if menuLabel == "기타"{
+        if menuLabel == "기타" {
             isTextViewHidden = false
         }
     }
