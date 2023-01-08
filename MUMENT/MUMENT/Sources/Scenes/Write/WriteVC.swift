@@ -470,13 +470,19 @@ extension WriteVC {
     }
     
     private func setLayout() {
-        view.addSubviews([writeScrollView])
+        view.addSubviews([naviView, writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, countTextViewLabel])
+        writeContentView.addSubviews([selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, countTextViewLabel])
         feelTagScrollView.addSubview(feelTagCV)
         
+        naviView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(48)
+        }
+        
         writeScrollView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(naviView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         writeContentView.snp.makeConstraints {
@@ -484,13 +490,8 @@ extension WriteVC {
             $0.centerX.top.bottom.equalToSuperview()
         }
         
-        naviView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(48)
-        }
-        
         selectMusicLabel.snp.makeConstraints {
-            $0.top.equalTo(naviView.snp.bottom).offset(40)
+            $0.top.equalToSuperview().offset(40)
             $0.height.equalTo(20)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
