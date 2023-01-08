@@ -106,7 +106,7 @@ class MumentCardWithoutHeartView: UIView {
         setCardTags(cellData.todayMument.cardTag)
     }
     
-    func setData(_ cellData: GetLikedMumentResponseModel.Mument){
+    func setWithoutHeartData(_ cellData: StorageMumentModel){
         debugPrint("setdata")
         profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?v=4")
         writerNameLabel.text = cellData.user.name

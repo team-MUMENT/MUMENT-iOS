@@ -38,6 +38,10 @@ extension UIImageView {
                     DispatchQueue.main.async {
                         self.image = image
                     }
+                } else {
+                    DispatchQueue.main.async {
+                        self.setImageColor(color: UIColor.mGray3)
+                    }
                 }
             }.resume()
         }

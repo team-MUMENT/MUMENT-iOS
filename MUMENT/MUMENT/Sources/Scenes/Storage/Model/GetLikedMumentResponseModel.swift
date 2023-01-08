@@ -29,23 +29,5 @@ struct GetLikedMumentResponseModel: Codable {
         }
     }
 
-    // MARK: - Music
-    struct Music: Codable {
-        let name, artist: String
-        let image: String?
-    }
-
-    // MARK: - User
-    struct User: Codable {
-        let id: String
-        let image: String?
-        let name: String
-
-        enum CodingKeys: String, CodingKey {
-            case id = "_id"
-            case image, name
-        }
-    }
-
 }
 
