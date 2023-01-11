@@ -13,4 +13,9 @@ class UserInfo {
     private init() { }
     
     var userId: String?
+    
+    var accessToken: String?
+    var refreshToken: String?
+    
+    var getAccessToken: String { return self.accessToken ?? ContentType.tokenSerial.rawValue}
 }

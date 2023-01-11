@@ -178,7 +178,17 @@ extension SignInVC: ASAuthorizationControllerDelegate {
             print("email", email as Any)
             
             // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
-            
+            if let authorizationCode = appleIDCredential.authorizationCode,
+               let identityToken = appleIDCredential.identityToken,
+               let authString = String(data: authorizationCode, encoding: .utf8),
+               let tokenString = String(data: identityToken, encoding: .utf8) {
+                debugPrint("authorizationCode: \(authorizationCode)")
+                debugPrint("identityToken: \(identityToken)")
+                debugPrint("authString: \(authString)")
+                debugPrint("tokenString: \(tokenString)")
+                requestSignIn(data: SignInBodyModel(provider: "apple", authentication_code: tokenString))
+                
+            }
             // iCloud의 패스워드를 연동해 왔을 때
         case let passwordCredential as ASPasswordCredential:
             let username = passwordCredential.user
@@ -206,5 +216,23 @@ extension SignInVC: ASAuthorizationControllerPresentationContextProviding {
     /// 애플 로그인 UI를 어디에 띄울지 가장 적합한 뷰 앵커를 반환합니다.
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
+    }
+}
+
+// MARK: - Network
+extension SignInVC {
+    private func requestSignIn(data: SignInBodyModel) {
+        AuthAPI.shared.postSignIn(body: data) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? SignInResponseModel {
+                    UserInfo.shared.accessToken = res.accessToken
+                    UserInfo.shared.accessToken = res.refreshToken
+                    UserInfo.shared.userId = res.id
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }

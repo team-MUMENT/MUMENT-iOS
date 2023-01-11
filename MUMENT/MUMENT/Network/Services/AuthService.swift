@@ -12,11 +12,11 @@ import Alamofire
  TargetType을 채택해서 path, method, header, parameter를 각 라우터에 맞게 request를 만든다.
  */
 
-enum SignService {
+enum AuthService {
     case postSignIn(body: SignInBodyModel)
 }
 
-extension SignService: TargetType {
+extension AuthService: TargetType {
     var path: String {
         switch self {
         case .postSignIn:
@@ -41,7 +41,7 @@ extension SignService: TargetType {
     var parameters: RequestParams {
         switch self {
         case .postSignIn(let body):
-            return .requestBody(["profileId": body.profileId, "password": body.password])
+            return .requestBody(["provider": body.provider, "authentication_code": body.authentication_code])
         }
     }
 }

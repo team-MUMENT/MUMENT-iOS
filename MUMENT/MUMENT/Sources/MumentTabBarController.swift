@@ -22,7 +22,7 @@ final class MumentTabBarController: UITabBarController {
         self.setTabBarItemStyle()
         self.setTabBar()
         self.setTabBarUI()
-        self.requestSignIn()
+//        self.requestSignIn()
     }
     
     override func viewDidLayoutSubviews() {
@@ -115,17 +115,17 @@ extension MumentTabBarController: UITabBarControllerDelegate {
 }
 
 // MARK: - Network
-extension MumentTabBarController {
-    private func requestSignIn() {
-        SignAPI.shared.postSignIn(body: SignInBodyModel(profileId: "iangOS", password: "lovemument")) { networkResult in
-            switch networkResult {
-            case .success(let response):
-                if let result = response as? SignInDataModel {
-                    UserInfo.shared.userId = result.id
-                }
-            default:
-                self.makeAlert(title: MessageType.networkError.message)
-            }
-        }
-    }
-}
+//extension MumentTabBarController {
+//    private func requestSignIn() {
+//        SignAPI.shared.postSignIn(body: SignInBodyModel(profileId: "iangOS", password: "lovemument")) { networkResult in
+//            switch networkResult {
+//            case .success(let response):
+//                if let result = response as? SignInDataModel {
+//                    UserInfo.shared.userId = result.id
+//                }
+//            default:
+//                self.makeAlert(title: MessageType.networkError.message)
+//            }
+//        }
+//    }
+//}

@@ -95,9 +95,9 @@
 		C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */; };
 		C71B480D2885EB84001A7CD6 /* Notification+Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */; };
 		C71B48122886DD29001A7CD6 /* SignInBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */; };
-		C71B48142886DD8E001A7CD6 /* SignAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48132886DD8E001A7CD6 /* SignAPI.swift */; };
+		C71B48142886DD8E001A7CD6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48132886DD8E001A7CD6 /* AuthAPI.swift */; };
 		C71B48162886E5DF001A7CD6 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48152886E5DF001A7CD6 /* SignInVC.swift */; };
-		C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48172886E7BA001A7CD6 /* SignInDataModel.swift */; };
+		C71B48182886E7BA001A7CD6 /* SignInResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48172886E7BA001A7CD6 /* SignInResponseModel.swift */; };
 		C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B48192886F5FF001A7CD6 /* Int+.swift */; };
 		C7394B0C29234E2700BF6AE1 /* MumentActionSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7394B0B29234E2700BF6AE1 /* MumentActionSheetVC.swift */; };
 		C7394B0E292362EC00BF6AE1 /* MumentActionSheetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7394B0D292362EC00BF6AE1 /* MumentActionSheetTVC.swift */; };
@@ -108,7 +108,7 @@
 		C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C3287C19CD0017F2DA /* APIConstants.swift */; };
 		C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C5287C19D30017F2DA /* GenericResponse.swift */; };
 		C73FC9C8287C19DA0017F2DA /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C7287C19DA0017F2DA /* NetworkConstants.swift */; };
-		C73FC9CA287C19E60017F2DA /* SignService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C9287C19E60017F2DA /* SignService.swift */; };
+		C73FC9CA287C19E60017F2DA /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C9287C19E60017F2DA /* AuthService.swift */; };
 		C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */; };
 		C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CD287C19F40017F2DA /* EventLogger.swift */; };
 		C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */; };
@@ -290,9 +290,9 @@
 		C71B480A2885D6B3001A7CD6 /* WriteMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMusicView.swift; sourceTree = "<group>"; };
 		C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name+.swift"; sourceTree = "<group>"; };
 		C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBodyModel.swift; sourceTree = "<group>"; };
-		C71B48132886DD8E001A7CD6 /* SignAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAPI.swift; sourceTree = "<group>"; };
+		C71B48132886DD8E001A7CD6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		C71B48152886E5DF001A7CD6 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
-		C71B48172886E7BA001A7CD6 /* SignInDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDataModel.swift; sourceTree = "<group>"; };
+		C71B48172886E7BA001A7CD6 /* SignInResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInResponseModel.swift; sourceTree = "<group>"; };
 		C71B48192886F5FF001A7CD6 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		C7394B0B29234E2700BF6AE1 /* MumentActionSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentActionSheetVC.swift; sourceTree = "<group>"; };
 		C7394B0D292362EC00BF6AE1 /* MumentActionSheetTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentActionSheetTVC.swift; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 		C73FC9C3287C19CD0017F2DA /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		C73FC9C5287C19D30017F2DA /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
 		C73FC9C7287C19DA0017F2DA /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
-		C73FC9C9287C19E60017F2DA /* SignService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignService.swift; sourceTree = "<group>"; };
+		C73FC9C9287C19E60017F2DA /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
 		C73FC9CD287C19F40017F2DA /* EventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogger.swift; sourceTree = "<group>"; };
 		C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTagCVC.swift; sourceTree = "<group>"; };
@@ -599,7 +599,7 @@
 			isa = PBXGroup;
 			children = (
 				C71B48112886DD29001A7CD6 /* SignInBodyModel.swift */,
-				C71B48172886E7BA001A7CD6 /* SignInDataModel.swift */,
+				C71B48172886E7BA001A7CD6 /* SignInResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -630,7 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */,
-				C71B48132886DD8E001A7CD6 /* SignAPI.swift */,
+				C71B48132886DD8E001A7CD6 /* AuthAPI.swift */,
 				C7AE17D72887E44C00A5E3FA /* WriteAPI.swift */,
 				C7AE17E528882DE100A5E3FA /* SearchAPI.swift */,
 				4DEED412288B32B300C6337B /* DeleteAPI.swift */,
@@ -647,7 +647,7 @@
 		C73FC9BD287C19560017F2DA /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C73FC9C9287C19E60017F2DA /* SignService.swift */,
+				C73FC9C9287C19E60017F2DA /* AuthService.swift */,
 				C7AE17D92887E4BD00A5E3FA /* WriteService.swift */,
 				C7AE17E328882D6B00A5E3FA /* SearchService.swift */,
 				4D13A66D2888028400197D2A /* SongDetailService.swift */,
@@ -1231,7 +1231,7 @@
 				E781F235288AF55400484C28 /* Sequence+.swift in Sources */,
 				4D58547029175E69003F5DF9 /* AutoSignInVC.swift in Sources */,
 				4DEED415288B32E500C6337B /* DeleteService.swift in Sources */,
-				C71B48182886E7BA001A7CD6 /* SignInDataModel.swift in Sources */,
+				C71B48182886E7BA001A7CD6 /* SignInResponseModel.swift in Sources */,
 				E781F22D28892E2400484C28 /* StorageService.swift in Sources */,
 				4D1F144E29114EE90093D641 /* OnboardingVC.swift in Sources */,
 				4D13A6662887FD7700197D2A /* HomeAPI.swift in Sources */,
@@ -1253,7 +1253,7 @@
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
 				C766F9C82935E69C00E08D5C /* MypageMainTVC.swift in Sources */,
 				4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */,
-				C71B48142886DD8E001A7CD6 /* SignAPI.swift in Sources */,
+				C71B48142886DD8E001A7CD6 /* AuthAPI.swift in Sources */,
 				C79CD4512921BF7200DE4A47 /* MumentTextField.swift in Sources */,
 				E781F2332889ADE400484C28 /* GetLikedMumentResponseModel.swift in Sources */,
 				C7AE17EA28886B4F00A5E3FA /* PostMumentResponseModel.swift in Sources */,
@@ -1295,7 +1295,7 @@
 				4D13A65D2882A42000197D2A /* MumentHistoryTVHeader.swift in Sources */,
 				C7AE17EF2889322900A5E3FA /* MumentDetailService.swift in Sources */,
 				4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */,
-				C73FC9CA287C19E60017F2DA /* SignService.swift in Sources */,
+				C73FC9CA287C19E60017F2DA /* AuthService.swift in Sources */,
 				E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */,
 				4D300667288B0C8C007FF4DB /* LikeService.swift in Sources */,
 				4D76046828814A8A0044F2A6 /* MyMumentSectionHeader.swift in Sources */,
