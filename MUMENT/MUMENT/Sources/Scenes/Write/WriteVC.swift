@@ -297,9 +297,13 @@ class WriteVC: BaseVC {
     }
     
     private func setRemoveSelectedMusicButton() {
-        selectedMusicView.removeButton.press { [weak self] in
-            self?.removeSelectedMusicView()
-            self?.setIsEnableCompleteButton(isEnabled: false)
+        if isEdit {
+            selectedMusicView.removeButton.removeFromSuperview()
+        } else {
+            selectedMusicView.removeButton.press { [weak self] in
+                self?.removeSelectedMusicView()
+                self?.setIsEnableCompleteButton(isEnabled: false)
+            }
         }
     }
     
@@ -331,8 +335,10 @@ class WriteVC: BaseVC {
     }
     
     private func setSelectedMusicViewPressed() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSelectedMusicView(_:)))
-        selectedMusicView.addGestureRecognizer(tapGestureRecognizer)
+        if !isEdit {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSelectedMusicView(_:)))
+            selectedMusicView.addGestureRecognizer(tapGestureRecognizer)
+        }
     }
     
     @objc func didTapSelectedMusicView(_ sender: UITapGestureRecognizer) {
