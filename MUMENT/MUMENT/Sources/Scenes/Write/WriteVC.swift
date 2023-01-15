@@ -18,8 +18,8 @@ class WriteVC: BaseVC {
     private let writeContentView = UIView().then {
         $0.backgroundColor = .mBgwhite
     }
-    private let naviView = DefaultNavigationBar(naviType: .leftCloseRightDone).then {
-        $0.setTitleLabel(title: "기록하기")
+    private lazy var naviView = DefaultNavigationBar(naviType: .leftCloseRightDone).then {
+        $0.setTitleLabel(title: isEdit ? "수정하기" : "기록하기")
         $0.doneButton.isEnabled = false
     }
     private let selectMusicLabel = UILabel().then {
@@ -138,7 +138,19 @@ class WriteVC: BaseVC {
     var isFirstListenActivated = true
     var musicId = ""
     var postMumentData = PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false)
-
+    var isEdit = false
+    
+    init(isEdit: Bool = false) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.isEdit = isEdit
+        self.modalPresentationStyle = .overFullScreen
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
