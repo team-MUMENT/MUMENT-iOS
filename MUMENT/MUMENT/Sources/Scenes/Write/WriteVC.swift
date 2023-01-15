@@ -349,11 +349,22 @@ class WriteVC: BaseVC {
     }
     
     private func setNaviView() {
-        self.naviView.closeButton.press {
-            self.dismiss(animated: true)
+        self.naviView.closeButton.press { [weak self] in
+            let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel)
+            
+            if self?.isEdit == true {
+                mumentAlert.setTitleSubTitle(title: "수정을 취소하시겠어요?", subTitle: "확인 선택 시 변경사항이 저장되지 않습니다.")
+            } else {
+                mumentAlert.setTitleSubTitle(title: "뮤멘트 기록을 취소하시겠어요?", subTitle: "확인 선택 시, 작성 중인 내용이 삭제됩니다.")
+            }
+            
+            self?.present(mumentAlert, animated: true)
+            
+            mumentAlert.OKButton.press { [weak self] in
+                self?.dismiss(animated: true)
+            }
         }
         self.naviView.doneButton.press {
-            debugPrint("완료 버튼 누름")
             self.dismiss(animated: true)
         }
     }
@@ -428,9 +439,9 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
             sizingCell.setData(data: feelTagData[indexPath.row])
         default: break
         }
-
+        
         sizingCell.contentLabel.sizeToFit()
-
+        
         let cellWidth = sizingCell.contentLabel.frame.width + 26
         let cellHeight = tagCellHeight
         return CGSize(width: cellWidth, height: CGFloat(cellHeight))
