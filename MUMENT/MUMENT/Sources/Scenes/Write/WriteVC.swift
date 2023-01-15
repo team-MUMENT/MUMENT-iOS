@@ -139,14 +139,15 @@ class WriteVC: BaseVC {
     var musicId = ""
     var postMumentData = PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false)
     var isEdit = false
-    private var selectedMusicData: SearchResultResponseModelElement?
+    private var detailData: MumentDetailResponseModel?
     
-    init(isEdit: Bool = false, selectedMusicData: SearchResultResponseModelElement) {
+    // MARK: Initialization
+    init(isEdit: Bool = false, detailData: MumentDetailResponseModel) {
         super.init(nibName: nil, bundle: nil)
         
         self.isEdit = isEdit
         self.modalPresentationStyle = .overFullScreen
-        self.selectedMusicData = selectedMusicData
+        self.detailData = detailData
     }
     
     init(isEdit: Bool = false) {
@@ -181,8 +182,8 @@ class WriteVC: BaseVC {
         setCompleteButton()
         setIsEnableCompleteButton(isEnabled: false)
         if isEdit {
-            if let data = self.selectedMusicData {
-                self.setSelectedMusicViewForEdit(data: data)
+            if let data = self.detailData {
+                self.setEditView(data: data)
             }
         }
     }
@@ -202,12 +203,34 @@ class WriteVC: BaseVC {
         }
     }
     
-    private func setSelectedMusicViewForEdit(data: SearchResultResponseModelElement) {
+    private func setEditView(data: MumentDetailResponseModel) {
         self.setSelectedMusicView()
-        self.selectedMusicView.setData(data: data)
-        self.getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: data.id)
-        self.musicId = data.id
-        setIsEnableCompleteButton(isEnabled: true)
+        
+        let musicData = SearchResultResponseModelElement(id: data.music.id, name: data.music.name, artist: data.music.artist, image: data.music.image)
+        self.selectedMusicView.setData(data: musicData)
+        self.getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: data.music.id)
+        self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: data.isFirst)
+        self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: !(data.isFirst))
+        self.musicId = data.music.id
+        
+        // 기존의 태그를 선택하도록 설정
+        let feelingTags: [Int] = data.feelingTag
+        let impressionTags: [Int] = data.impressionTag
+        feelingTags.forEach { tag in
+            self.feelTagCV.selectItem(at: IndexPath(row: tag - 200, section: 0), animated: false, scrollPosition: .init())
+            self.collectionView(self.feelTagCV, didSelectItemAt: IndexPath(row: tag - 200, section: 0))
+        }
+        impressionTags.forEach { tag in
+            self.impressionTagCV.selectItem(at: IndexPath(row: tag - 100, section: 0), animated: false, scrollPosition: .init())
+            self.collectionView(self.impressionTagCV, didSelectItemAt: IndexPath(row: tag - 100, section: 0))
+        }
+        
+        self.contentTextView.text = data.content
+        self.contentTextView.textColor = .mBlack2
+        
+        self.isPrivateToggleButton.isSelected = data.isPrivate
+        
+        self.setIsEnableCompleteButton(isEnabled: true)
     }
     
     private func setCompleteButton() {
@@ -463,7 +486,6 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
         if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
             cell.isSelected = false
         }
-        debugPrint("cell Unclicked", "\(indexPath)")
     }
 }
 
