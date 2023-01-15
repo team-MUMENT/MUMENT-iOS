@@ -139,6 +139,15 @@ class WriteVC: BaseVC {
     var musicId = ""
     var postMumentData = PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false)
     var isEdit = false
+    private var selectedMusicData: SearchResultResponseModelElement?
+    
+    init(isEdit: Bool = false, selectedMusicData: SearchResultResponseModelElement) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.isEdit = isEdit
+        self.modalPresentationStyle = .overFullScreen
+        self.selectedMusicData = selectedMusicData
+    }
     
     init(isEdit: Bool = false) {
         super.init(nibName: nil, bundle: nil)
@@ -171,6 +180,11 @@ class WriteVC: BaseVC {
         setSelectedMusicViewPressed()
         setCompleteButton()
         setIsEnableCompleteButton(isEnabled: false)
+        if isEdit {
+            if let data = self.selectedMusicData {
+                self.setSelectedMusicViewForEdit(data: data)
+            }
+        }
     }
     
     // MARK: - Functions
@@ -186,6 +200,14 @@ class WriteVC: BaseVC {
             musicId = receivedData.id
             setIsEnableCompleteButton(isEnabled: true)
         }
+    }
+    
+    private func setSelectedMusicViewForEdit(data: SearchResultResponseModelElement) {
+        self.setSelectedMusicView()
+        self.selectedMusicView.setData(data: data)
+        self.getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: data.id)
+        self.musicId = data.id
+        setIsEnableCompleteButton(isEnabled: true)
     }
     
     private func setCompleteButton() {

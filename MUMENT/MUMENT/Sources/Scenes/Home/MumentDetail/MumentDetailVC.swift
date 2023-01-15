@@ -77,7 +77,8 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
-                let editVC = WriteVC(isEdit: true)
+                let selectedMusicData: SearchResultResponseModelElement = SearchResultResponseModelElement(id: self.dataSource?.music.id ?? "", name: self.dataSource?.music.name ?? "", artist: self.dataSource?.music.artist ?? "", image: self.dataSource?.music.image ?? "")
+                let editVC = WriteVC(isEdit: true, selectedMusicData: selectedMusicData)
                 self.present(editVC, animated: true)
             }
             
