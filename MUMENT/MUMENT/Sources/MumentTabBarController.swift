@@ -107,8 +107,7 @@ extension MumentTabBarController: UITabBarControllerDelegate {
         let writeIndex = 1
         if viewController.tabBarItem.tag != writeIndex { return true }
         
-        let writeVC = WriteVC()
-        writeVC.modalPresentationStyle = .overFullScreen
+        let writeVC = WriteVC(isEdit: false)
         viewController.present(writeVC, animated: true)
         return false
     }

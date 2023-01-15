@@ -77,7 +77,8 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
             let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
-                self.tabBarController?.selectedIndex = 1
+                let editVC = WriteVC(isEdit: true)
+                self.present(editVC, animated: true)
             }
 
             let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
