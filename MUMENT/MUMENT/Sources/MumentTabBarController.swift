@@ -47,7 +47,7 @@ final class MumentTabBarController: UITabBarController {
         let homeTab = makeTabVC(vc: BaseNC(rootViewController: HomeVC()), tabBarTitle: "홈", tabBarImg: "mumentIconHomeOff", tabBarSelectedImg: "mumentIconHomeOn")
         homeTab.tabBarItem.tag = 0
         
-        let writeTab = makeTabVC(vc: WriteVC(), tabBarTitle: "", tabBarImg: "mumentNavibarPlus", tabBarSelectedImg: "mumentNavibarPlus")
+        let writeTab = makeTabVC(vc: UIViewController(), tabBarTitle: "", tabBarImg: "mumentNavibarPlus", tabBarSelectedImg: "mumentNavibarPlus")
         writeTab.tabBarItem.tag = 1
         writeTab.tabBarItem.imageInsets = UIEdgeInsets(top: -7, left: 0, bottom: 9, right: 0)
         
