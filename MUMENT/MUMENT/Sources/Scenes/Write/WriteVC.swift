@@ -244,8 +244,8 @@ class WriteVC: BaseVC {
                 let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
                 self?.clickedImpressionTag.append(cell.contentLabel.text?.tagInt() ?? 0)
             }
-            
-            self?.postMumentData = PostMumentBodyModel(isFirst: self?.firstListenButton.isSelected ?? false, impressionTag: self?.clickedImpressionTag ?? [], feelingTag: self?.clickedFeelTag ?? [], content: self?.contentTextView.text ?? "", isPrivate: self?.isPrivateToggleButton.isSelected ?? false)
+            let contentText = self?.contentTextView.textColor == .mBlack2 ? self?.contentTextView.text : ""
+            self?.postMumentData = PostMumentBodyModel(isFirst: self?.firstListenButton.isSelected ?? false, impressionTag: self?.clickedImpressionTag ?? [], feelingTag: self?.clickedFeelTag ?? [], content: contentText ?? "", isPrivate: self?.isPrivateToggleButton.isSelected ?? false)
             self?.postMument(userId: UserInfo.shared.userId ?? "", musicId: self?.musicId ?? "", data: self?.postMumentData ?? PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false))
         }
     }
