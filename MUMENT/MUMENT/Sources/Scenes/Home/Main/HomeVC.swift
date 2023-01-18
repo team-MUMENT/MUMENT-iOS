@@ -55,6 +55,16 @@ class HomeVC: BaseVC {
             let searchVC = SearchVC()
             self.navigationController?.pushViewController(searchVC, animated: true)
         }
+        
+        headerView.logoButton.press {
+            self.requestGetCarouselData()
+        }
+        
+        headerView.notificationButton.press {
+            let notiVC = SetNotificationVC()
+            self.navigationController?.pushViewController(notiVC, animated: true)
+        }
+
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
