@@ -62,6 +62,12 @@ class HomeTVHeader: UIView {
             function()
         }
     }
+    
+    func setButtonAlpha(percentage: CGFloat) {
+        logoButton.alpha = percentage
+        notificationButton.alpha = percentage
+    }
+    
 }
 
 // MARK: - UI

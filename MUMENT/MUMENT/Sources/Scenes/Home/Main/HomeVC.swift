@@ -213,8 +213,8 @@ extension HomeVC: UITableViewDelegate {
         }
         let offset = -scrollView.contentOffset.y
         let percentage = (offset-50)/50
-        headerView.logoButton.alpha = percentage
-        headerView.notificationButton.alpha = percentage
+        
+        headerView.setButtonAlpha(percentage: percentage)
     }
 }
 
