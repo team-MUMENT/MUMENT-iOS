@@ -52,6 +52,7 @@ extension WriteMusicView {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.mWhite.cgColor
         self.makeRounded(cornerRadius: 11)
+        self.addShadow(offset: .zero, opacity: 0.1, radius: 11)
     }
     
     private func setLayout() {
