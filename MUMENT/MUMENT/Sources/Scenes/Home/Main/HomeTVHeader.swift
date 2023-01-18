@@ -12,15 +12,15 @@ import Then
 class HomeTVHeader: UIView {
     
     // MARK: - Properties
-    lazy var logoButton = UIButton().then{
+    private lazy var logoButton = UIButton().then{
         $0.setImage(UIImage(named: "mumentLogo"), for: .normal)
     }
     
-    lazy var notificationButton = UIButton().then{
+    private lazy var notificationButton = UIButton().then{
         $0.setImage(UIImage(named: "mumentNoti"), for: .normal)
     }
     
-    lazy var searchButton = UIButton().then{
+    private lazy var searchButton = UIButton().then{
         $0.setTitle("어떤 노래가 궁금하신가요?", for: .normal)
         $0.setTitleColor(.mGray1, for: .normal)
         $0.titleLabel?.font = .mumentB4M14
@@ -45,6 +45,29 @@ class HomeTVHeader: UIView {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
+    
+    // MARK: - Function
+    func setButtonAction(vc: UIViewController, function: @escaping ()->Void ) {
+        searchButton.press{
+            let searchVC = SearchVC()
+            vc.navigationController?.pushViewController(searchVC, animated: true)
+        }
+        
+        notificationButton.press {
+            let notiVC = SetNotificationVC()
+            vc.navigationController?.pushViewController(notiVC, animated: true)
+        }
+        
+        logoButton.press {
+            function()
+        }
+    }
+    
+    func setButtonAlpha(percentage: CGFloat) {
+        logoButton.alpha = percentage
+        notificationButton.alpha = percentage
+    }
+    
 }
 
 // MARK: - UI
@@ -71,7 +94,7 @@ extension HomeTVHeader {
         notificationButton.snp.makeConstraints{
             $0.width.height.equalTo(48)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(55)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(10)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
     }
 }
