@@ -71,7 +71,7 @@ extension HomeTVHeader {
         notificationButton.snp.makeConstraints{
             $0.width.height.equalTo(48)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(55)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(10)
+            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
     }
 }
