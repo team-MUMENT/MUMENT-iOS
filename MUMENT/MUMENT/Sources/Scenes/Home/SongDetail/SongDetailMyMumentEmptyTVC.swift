@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
-class SongDetailMyMumentEmptyTVC: UITableViewCell {
+final class SongDetailMyMumentEmptyTVC: UITableViewCell {
     
     // MARK: - Properties
     private let emptyContentView = UIView().then {

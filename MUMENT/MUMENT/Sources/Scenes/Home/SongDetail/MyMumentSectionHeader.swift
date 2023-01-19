@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MyMumentSectionHeader: UITableViewHeaderFooterView {
+final class MyMumentSectionHeader: UITableViewHeaderFooterView {
     
     // MARK: - Properties
     private let titleLabel = UILabel().then{
@@ -46,15 +46,13 @@ extension MyMumentSectionHeader {
         contentView.addSubviews([titleLabel,historyButton])
         
         titleLabel.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
-//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(15)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(5)
+            $0.leading.equalToSuperview().offset(20)
+            $0.top.equalToSuperview().offset(50)
         }
         
         historyButton.snp.makeConstraints{
-//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(10)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.centerY.equalTo(titleLabel)
+            $0.trailing.equalToSuperview().inset(20)
         }
     }
 }
