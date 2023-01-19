@@ -37,6 +37,11 @@ final class MyMumentSectionHeader: UITableViewHeaderFooterView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
+    // MARK: - Function
+    func removeHistoryButton() {
+        historyButton.removeFromSuperview()
+    }
 }
 
 // MARK: - UI
