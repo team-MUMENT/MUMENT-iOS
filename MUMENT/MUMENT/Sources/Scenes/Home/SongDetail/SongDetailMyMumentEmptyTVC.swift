@@ -10,14 +10,16 @@ import UIKit
 class SongDetailMyMumentEmptyTVC: UITableViewCell {
     
     // MARK: - Properties
+    private let emptyContentView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    
     private let titleLabel = UILabel().then {
-        $0.text = """
-아직 뮤멘트가 없어요.
-"""
+        $0.text = "아직 뮤멘트가 없어요."
         $0.font = .mumentH3B16
         $0.textColor = .mGray1
         $0.textAlignment = .center
-        $0.numberOfLines = 2
+        $0.numberOfLines = 1
     }
     private let subTitleLabel = UILabel().then {
         $0.text = "첫 뮤멘트를 남겨보세요."
@@ -31,6 +33,7 @@ class SongDetailMyMumentEmptyTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUI()
         setLayout()
+        self.isUserInteractionEnabled = false
     }
     
     required init?(coder: NSCoder) {
@@ -44,16 +47,22 @@ extension SongDetailMyMumentEmptyTVC {
     }
     
     private func setLayout() {
-        self.addSubviews([titleLabel, subTitleLabel])
+        self.addSubview(emptyContentView)
+        emptyContentView.addSubviews([titleLabel, subTitleLabel])
+        
+        emptyContentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.height.equalTo(249.adjustedH)
+        }
         
         titleLabel.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview().inset(5.adjustedH)
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(100.adjustedH)
         }
         
         subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4.adjustedH)
-            $0.leading.trailing.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8.adjustedH)
         }
     }
 }
