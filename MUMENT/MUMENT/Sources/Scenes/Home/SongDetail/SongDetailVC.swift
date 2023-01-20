@@ -177,7 +177,7 @@ extension SongDetailVC: UITableViewDataSource {
         switch section {
         case 1 :
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyMumentSectionHeader.className) as? MyMumentSectionHeader else { return nil }
-            if myMumentData == nil{
+            if myMumentData == nil {
                 headerCell.removeHistoryButton()
                 return headerCell
             }
