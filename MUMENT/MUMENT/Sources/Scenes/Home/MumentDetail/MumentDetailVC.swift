@@ -131,8 +131,7 @@ extension MumentDetailVC {
         }
         
         detailContentView.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+            $0.top.bottom.width.equalToSuperview()
         }
         
         mumentCardView.snp.makeConstraints {
