@@ -13,7 +13,7 @@ final class AllMumentEmptyTVC: UITableViewCell {
     
     // MARK: - Components
     private let emptyViewImage = UIImageView().then {
-        $0.image = UIImage(named: "allMumentEmptyImg")
+        $0.image = UIImage(named: "allMumentEmptyIcn")
     }
     
     private let titleLabel = UILabel().then {
