@@ -57,6 +57,16 @@ final class MumentTabBarController: UITabBarController {
         let tabs = [homeTab, writeTab, storageTab]
         self.setViewControllers(tabs, animated: false)
     }
+    
+    func hideTabbar() {
+        self.tabBar.isHidden = true
+        self.backgroundView.isHidden = true
+    }
+    
+    func showTabbar() {
+        self.tabBar.isHidden = false
+        self.backgroundView.isHidden = false
+    }
 }
 
 // MARK: - UI
