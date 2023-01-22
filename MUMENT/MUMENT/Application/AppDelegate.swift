@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 import KakaoSDKCommon
 import KakaoSDKAuth
 
@@ -17,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 네이티브 앱 키(카카오 디벨로퍼 계정에서 제공)를 사용해 iOS SDK를 초기화합니다.
         KakaoSDK.initSDK(appKey: "a03c85e89f6892684a4533911f5ab502")
         self.requestNotificationPermission()
+        
+        // Firebase SDK를 초기화합니다.
+        FirebaseApp.configure()
         return true
     }
     
