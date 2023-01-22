@@ -27,7 +27,7 @@ final class StorageMumentVC: BaseVC {
     private var numberOfSections = 0
     
     // MARK: - Properties
-    private let storageBottomSheet = StorageBottomSheet()
+    private let storageFilterVC = StorageFilterVC()
     private var tagsViewHeightConstant = 0
     private var selectedTagsInt: [Int] = []
     private var cellCategory : CellCategory = .listCell {
@@ -35,7 +35,7 @@ final class StorageMumentVC: BaseVC {
             self.storageMumentCV.reloadData()
         }
     }
-    /// StorageBottomSheet에서 전달 받은 태그 버튼 배열
+    /// storageFilterVC에서 전달 받은 태그 버튼 배열
     private var selectedTagButtons = [TagButton]() {
         didSet {
             if self.selectedTagButtons.count == 0 {
@@ -75,7 +75,7 @@ final class StorageMumentVC: BaseVC {
         getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
-    // MARK: - Function.self
+    // MARK: - Function
     private func setEmptyView() {
         switch tabType {
         case .myMument:
@@ -149,9 +149,11 @@ final class StorageMumentVC: BaseVC {
     
     private func setPressAction() {
         filterSectionView.filterButton.press {
-            self.storageBottomSheet.modalPresentationStyle = .overFullScreen
-            self.present(self.storageBottomSheet, animated: false) {
-                self.storageBottomSheet.showBottomSheetWithAnimation()
+            self.storageFilterVC.setTempTagButtons(tags: self.selectedTagButtons)
+            
+            self.storageFilterVC.modalPresentationStyle = .overFullScreen
+            self.present(self.storageFilterVC, animated: false) {
+                self.storageFilterVC.showBottomSheetWithAnimation()
             }
         }
         filterSectionView.listButton.press { [self] in
@@ -164,7 +166,7 @@ final class StorageMumentVC: BaseVC {
 }
 
 // MARK: - Protocol
-extension StorageMumentVC: storageBottomSheetDelegate {
+extension StorageMumentVC: storageFilterDelegate {
     private func showSelectedTagsView() {
         if selectedTagButtons.count != 0 {
             self.tagsViewHeightConstant = 49
@@ -177,13 +179,13 @@ extension StorageMumentVC: storageBottomSheetDelegate {
             $0.height.equalTo(self.tagsViewHeightConstant)
         }
         
-        tagSectionView.layoutIfNeeded()
-        
+//        tagSectionView.layoutIfNeeded()
+//
         self.setTagsTitle(selectedTagButtons)
     }
     
     private func setBottomSheet() {
-        storageBottomSheet.delegate = self
+        storageFilterVC.delegate = self
     }
     
     func sendButtonData(data: [TagButton]) {
