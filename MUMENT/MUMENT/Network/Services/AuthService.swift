@@ -41,7 +41,7 @@ extension AuthService: TargetType {
     var parameters: RequestParams {
         switch self {
         case .postSignIn(let body):
-            return .requestBody(["provider": body.provider, "authentication_code": body.authentication_code])
+            return .requestBody(["provider": body.provider, "authentication_code": body.authentication_code, "fcm_token": body.fcm_token])
         }
     }
 }

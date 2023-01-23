@@ -10,4 +10,5 @@ import Foundation
 struct SignInBodyModel: Codable {
     var provider: String
     var authentication_code: String
+    var fcm_token: String
 }
