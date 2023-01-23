@@ -13,7 +13,7 @@ protocol AllMumentsSectionHeaderDelegate : AnyObject{
     func sortingFilterButtonClicked(_ recentOnTop: Bool)
 }
 
-class AllMumentsSectionHeader: UITableViewHeaderFooterView {
+final class AllMumentsSectionHeader: UITableViewHeaderFooterView {
     
     // MARK: - Properties
     var delegate: AllMumentsSectionHeaderDelegate?
@@ -63,27 +63,20 @@ extension AllMumentsSectionHeader {
         self.addSubviews([titleLabel,mostLikedOrderingButton,latestOrderingButton])
         
         titleLabel.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
-//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(10)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(5)
+            $0.top.equalToSuperview().offset(40)
+            $0.leading.equalToSuperview().offset(20)
         }
         
         latestOrderingButton.snp.makeConstraints{
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(15)
-//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.trailing.equalToSuperview().inset(15)
+            $0.centerY.equalTo(titleLabel)
             $0.width.equalTo(45)
-//            $0.height.equalTo(14)
         }
         
         mostLikedOrderingButton.snp.makeConstraints{
             $0.trailing.equalTo(latestOrderingButton.snp.leading)
-//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(5)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.centerY.equalTo(titleLabel)
             $0.width.equalTo(55)
-//            $0.height.equalTo(14)
         }
-        
-       
     }
 }

@@ -14,5 +14,8 @@ extension UserDefaults {
 
         /// String
         static var recentSearch = "recentSearch"
+        
+        /// String
+        static var FCMTokenForDevice = "FCMTokenForDevice"
     }
 }

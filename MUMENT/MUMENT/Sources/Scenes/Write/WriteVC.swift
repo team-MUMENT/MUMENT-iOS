@@ -18,8 +18,8 @@ class WriteVC: BaseVC {
     private let writeContentView = UIView().then {
         $0.backgroundColor = .mBgwhite
     }
-    private let naviView = DefaultNavigationBar(naviType: .leftCloseRightDone).then {
-        $0.setTitleLabel(title: "기록하기")
+    private lazy var naviView = DefaultNavigationBar(naviType: .leftCloseRightDone).then {
+        $0.setTitleLabel(title: isEdit ? "수정하기" : "기록하기")
         $0.doneButton.isEnabled = false
     }
     private let selectMusicLabel = UILabel().then {
@@ -115,11 +115,8 @@ class WriteVC: BaseVC {
         $0.textColor = .mGray1
         $0.sizeToFit()
     }
-    private let completeButton = MumentCompleteButton(isEnabled: true).then {
-        $0.setTitle("완료", for: .normal)
-        $0.isEnabled = false
-    }
     private var selectedMusicView = WriteMusicView()
+    
     var clickedImpressionTag: [Int] = [] {
         didSet {
             postMumentData.impressionTag = clickedImpressionTag
@@ -140,7 +137,29 @@ class WriteVC: BaseVC {
     var isFirstListenActivated = true
     var musicId = ""
     var postMumentData = PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false)
-
+    var isEdit = false
+    private var detailData: MumentDetailResponseModel?
+    
+    // MARK: Initialization
+    init(isEdit: Bool = false, detailData: MumentDetailResponseModel) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.isEdit = isEdit
+        self.modalPresentationStyle = .overFullScreen
+        self.detailData = detailData
+    }
+    
+    init(isEdit: Bool = false) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.isEdit = isEdit
+        self.modalPresentationStyle = .overFullScreen
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,6 +180,11 @@ class WriteVC: BaseVC {
         setSelectedMusicViewPressed()
         setCompleteButton()
         setIsEnableCompleteButton(isEnabled: false)
+        if isEdit {
+            if let data = self.detailData {
+                self.setEditView(data: data)
+            }
+        }
     }
     
     // MARK: - Functions
@@ -178,8 +202,38 @@ class WriteVC: BaseVC {
         }
     }
     
+    private func setEditView(data: MumentDetailResponseModel) {
+        self.setSelectedMusicView()
+        
+        let musicData = SearchResultResponseModelElement(id: data.music.id, name: data.music.name, artist: data.music.artist, image: data.music.image)
+        self.selectedMusicView.setData(data: musicData)
+        self.getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: data.music.id)
+        self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: data.isFirst)
+        self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: !(data.isFirst))
+        self.musicId = data.music.id
+        
+        // 기존의 태그를 선택하도록 설정
+        let feelingTags: [Int] = data.feelingTag
+        let impressionTags: [Int] = data.impressionTag
+        feelingTags.forEach { tag in
+            self.feelTagCV.selectItem(at: IndexPath(row: tag - 200, section: 0), animated: false, scrollPosition: .init())
+            self.collectionView(self.feelTagCV, didSelectItemAt: IndexPath(row: tag - 200, section: 0))
+        }
+        impressionTags.forEach { tag in
+            self.impressionTagCV.selectItem(at: IndexPath(row: tag - 100, section: 0), animated: false, scrollPosition: .init())
+            self.collectionView(self.impressionTagCV, didSelectItemAt: IndexPath(row: tag - 100, section: 0))
+        }
+        
+        self.contentTextView.text = data.content
+        self.contentTextView.textColor = .mBlack2
+        
+        self.isPrivateToggleButton.isSelected = data.isPrivate
+        
+        self.setIsEnableCompleteButton(isEnabled: true)
+    }
+    
     private func setCompleteButton() {
-        completeButton.press { [weak self] in
+        self.naviView.doneButton.press { [weak self] in
             self?.feelTagCV.indexPathsForSelectedItems?.forEach {
                 let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
                 self?.clickedFeelTag.append(cell.contentLabel.text?.tagInt() ?? 0)
@@ -189,14 +243,14 @@ class WriteVC: BaseVC {
                 let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
                 self?.clickedImpressionTag.append(cell.contentLabel.text?.tagInt() ?? 0)
             }
-            
-            self?.postMumentData = PostMumentBodyModel(isFirst: self?.firstListenButton.isSelected ?? false, impressionTag: self?.clickedImpressionTag ?? [], feelingTag: self?.clickedFeelTag ?? [], content: self?.contentTextView.text ?? "", isPrivate: self?.isPrivateToggleButton.isSelected ?? false)
+            let contentText = self?.contentTextView.textColor == .mBlack2 ? self?.contentTextView.text : ""
+            self?.postMumentData = PostMumentBodyModel(isFirst: self?.firstListenButton.isSelected ?? false, impressionTag: self?.clickedImpressionTag ?? [], feelingTag: self?.clickedFeelTag ?? [], content: contentText ?? "", isPrivate: self?.isPrivateToggleButton.isSelected ?? false)
             self?.postMument(userId: UserInfo.shared.userId ?? "", musicId: self?.musicId ?? "", data: self?.postMumentData ?? PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false))
         }
     }
     
     private func setIsEnableCompleteButton(isEnabled: Bool) {
-        self.completeButton.isEnabled = isEnabled
+        self.naviView.doneButton.isEnabled = isEnabled
         self.firstListenButton.isEnabled = isEnabled
         self.againListenButton.isEnabled = isEnabled
     }
@@ -265,9 +319,13 @@ class WriteVC: BaseVC {
     }
     
     private func setRemoveSelectedMusicButton() {
-        selectedMusicView.removeButton.press { [weak self] in
-            self?.removeSelectedMusicView()
-            self?.setIsEnableCompleteButton(isEnabled: false)
+        if isEdit {
+            selectedMusicView.removeButton.removeFromSuperview()
+        } else {
+            selectedMusicView.removeButton.press { [weak self] in
+                self?.removeSelectedMusicView()
+                self?.setIsEnableCompleteButton(isEnabled: false)
+            }
         }
     }
     
@@ -299,8 +357,10 @@ class WriteVC: BaseVC {
     }
     
     private func setSelectedMusicViewPressed() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSelectedMusicView(_:)))
-        selectedMusicView.addGestureRecognizer(tapGestureRecognizer)
+        if !isEdit {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapSelectedMusicView(_:)))
+            selectedMusicView.addGestureRecognizer(tapGestureRecognizer)
+        }
     }
     
     @objc func didTapSelectedMusicView(_ sender: UITapGestureRecognizer) {
@@ -311,11 +371,22 @@ class WriteVC: BaseVC {
     }
     
     private func setNaviView() {
-        self.naviView.closeButton.press {
-            self.dismiss(animated: true)
+        self.naviView.closeButton.press { [weak self] in
+            let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel)
+            
+            if self?.isEdit == true {
+                mumentAlert.setTitleSubTitle(title: "수정을 취소하시겠어요?", subTitle: "확인 선택 시 변경사항이 저장되지 않습니다.")
+            } else {
+                mumentAlert.setTitleSubTitle(title: "뮤멘트 기록을 취소하시겠어요?", subTitle: "확인 선택 시, 작성 중인 내용이 삭제됩니다.")
+            }
+            
+            self?.present(mumentAlert, animated: true)
+            
+            mumentAlert.OKButton.press { [weak self] in
+                self?.dismiss(animated: true)
+            }
         }
         self.naviView.doneButton.press {
-            debugPrint("완료 버튼 누름")
             self.dismiss(animated: true)
         }
     }
@@ -390,9 +461,9 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
             sizingCell.setData(data: feelTagData[indexPath.row])
         default: break
         }
-
+        
         sizingCell.contentLabel.sizeToFit()
-
+        
         let cellWidth = sizingCell.contentLabel.frame.width + 26
         let cellHeight = tagCellHeight
         return CGSize(width: cellWidth, height: CGFloat(cellHeight))
@@ -414,7 +485,6 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
         if let cell = collectionView.cellForItem(at: indexPath) as? WriteTagCVC {
             cell.isSelected = false
         }
-        debugPrint("cell Unclicked", "\(indexPath)")
     }
 }
 
@@ -460,7 +530,7 @@ extension WriteVC {
     }
     
     private func setSelectedMusicView() {
-        view.addSubviews([selectedMusicView])
+        self.writeContentView.addSubview(selectedMusicView)
         
         selectedMusicView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
@@ -474,13 +544,19 @@ extension WriteVC {
     }
     
     private func setLayout() {
-        view.addSubviews([writeScrollView])
+        view.addSubviews([naviView, writeScrollView])
         writeScrollView.addSubviews([writeContentView])
-        writeContentView.addSubviews([naviView, selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, completeButton, countTextViewLabel])
+        writeContentView.addSubviews([selectMusicLabel, searchButton, firstTimeMusicLabel, firstListenButton, againListenButton, impressionLabel, impressionTagCV, feelLabel, feelTagScrollView, contentLabel, contentTextView, isPrivateToggleButton, privateLabel, countTextViewLabel])
         feelTagScrollView.addSubview(feelTagCV)
         
+        naviView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(48)
+        }
+        
         writeScrollView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(naviView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         writeContentView.snp.makeConstraints {
@@ -488,13 +564,8 @@ extension WriteVC {
             $0.centerX.top.bottom.equalToSuperview()
         }
         
-        naviView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(48)
-        }
-        
         selectMusicLabel.snp.makeConstraints {
-            $0.top.equalTo(naviView.snp.bottom).offset(40)
+            $0.top.equalToSuperview().offset(40)
             $0.height.equalTo(20)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
@@ -573,18 +644,12 @@ extension WriteVC {
             $0.right.equalToSuperview().inset(20)
             $0.width.equalTo(49)
             $0.height.equalTo(28)
+            $0.bottom.equalToSuperview().inset(45)
         }
         
         privateLabel.snp.makeConstraints {
             $0.centerY.equalTo(isPrivateToggleButton)
             $0.right.equalToSuperview().inset(78.adjustedW)
-        }
-        
-        completeButton.snp.makeConstraints {
-            $0.top.equalTo(isPrivateToggleButton.snp.bottomMargin).offset(60)
-            $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(60)
-            $0.bottom.equalToSuperview().inset(45)
         }
     }
 }

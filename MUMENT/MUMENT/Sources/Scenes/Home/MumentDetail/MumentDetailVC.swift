@@ -73,30 +73,31 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
         mumentCardView.menuIconButton.press{
-
+            
             let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
+            
             let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
-                self.tabBarController?.selectedIndex = 1
+                let editVC = WriteVC(isEdit: true, detailData: self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, music: MUMENT.MumentDetailResponseModel.Music(id: "", name: "", image: Optional(""), artist: " "), likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: "", image: Optional(""), name: "")))
+                self.present(editVC, animated: true)
             }
-
+            
             let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
                 let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
-                    mumentAlert.setTitle(title: "삭제하시겠어요?")
+                mumentAlert.setTitle(title: "삭제하시겠어요?")
                 self.present(mumentAlert, animated: true)
                 
                 mumentAlert.OKButton.press {
                     self.requestDeleteMument()
                     self.navigationController?.popViewController(animated: true)
-                            }
+                }
             }
-
+            
             let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel) { action -> Void in }
-
+            
             actionSheetController.addAction(updatingAction)
             actionSheetController.addAction(deletingAction)
             actionSheetController.addAction(cancelAction)
-
+            
             self.present(actionSheetController, animated: true) {
                 print("option menu presented")
             }
@@ -130,8 +131,7 @@ extension MumentDetailVC {
         }
         
         detailContentView.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+            $0.top.bottom.width.equalToSuperview()
         }
         
         mumentCardView.snp.makeConstraints {
@@ -153,28 +153,28 @@ extension MumentDetailVC {
 
 // MARK: - Network
 extension MumentDetailVC {
-  private func requestGetMumentDetail() {
-      MumentDetailAPI.shared.getMumentDetail(mumentId: mumentId ?? "", userId: UserInfo.shared.userId ?? "") { networkResult in
-          
-          switch networkResult {
-          case .success(let response):
-              if let result = response as? MumentDetailResponseModel {
-                  self.dataSource = result
-                  self.setData()
-                  self.mumentCardView.setData(result,mumentId: self.mumentId ?? "")
-              }
-              
-          default:
-              self.makeAlert(title: MessageType.networkError.message)
-          }
-      }
-  }
+    private func requestGetMumentDetail() {
+        MumentDetailAPI.shared.getMumentDetail(mumentId: mumentId ?? "", userId: UserInfo.shared.userId ?? "") { networkResult in
+            
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? MumentDetailResponseModel {
+                    self.dataSource = result
+                    self.setData()
+                    self.mumentCardView.setData(result,mumentId: self.mumentId ?? "")
+                }
+                
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
     
     private func requestDeleteMument() {
         DeleteAPI.shared.deleteMument(mumentId: mumentId ?? "") { networkResult in
             
             switch networkResult {
-            case .success(let response):
+            case .success(_):
                 return
             default:
                 self.makeAlert(title: MessageType.networkError.message)

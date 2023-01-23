@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class SongInfoTVC: UITableViewCell {
+final class SongInfoTVC: UITableViewCell {
     
     // MARK: - Properties
     private let albumImage = UIImageView().then{
@@ -28,19 +28,6 @@ class SongInfoTVC: UITableViewCell {
     private let artistLabel = UILabel().then{
         $0.textColor = .mGray1
         $0.font = .mumentB4M14
-    }
-    
-    let writeMumentButton = UIButton().then{
-        $0.makeRounded(cornerRadius: 11)
-        $0.backgroundColor = .mPurple1
-        $0.configuration = .plain()
-        $0.configuration?.image = UIImage(named: "logo")
-        $0.configuration?.imagePadding = 5
-        $0.layer.cornerRadius = 10
-        $0.setAttributedTitle(NSAttributedString(string: "뮤멘트 기록하기",attributes: [
-            .font: UIFont.mumentB7B12,
-            .foregroundColor: UIColor.mWhite
-        ]), for: .normal)
     }
 
     // MARK: - Initialization
@@ -73,27 +60,19 @@ class SongInfoTVC: UITableViewCell {
 extension SongInfoTVC {
     
     private func setLayout() {
-        self.addSubviews([albumImage,songInfoStackView,writeMumentButton])
+        self.addSubviews([albumImage,songInfoStackView])
         
         albumImage.snp.makeConstraints{
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(28)
+            $0.leading.equalToSuperview().offset(19)
+            $0.top.equalToSuperview().offset(27)
             $0.height.width.equalTo(114)
             
         }
         
         songInfoStackView.snp.makeConstraints{
             $0.leading.equalTo(albumImage.snp.trailing).offset(15)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(28)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
-        }
-        
-        writeMumentButton.snp.makeConstraints{
-            $0.height.equalTo(40)
-            $0.top.equalTo(albumImage.snp.bottom).offset(20)
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide).inset(20)
-            
+            $0.top.equalToSuperview().offset(27)
+            $0.trailing.equalToSuperview().inset(20)
         }
     }
 }

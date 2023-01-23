@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class SongDetailVC: BaseVC {
+final class SongDetailVC: BaseVC {
     
     // MARK: - Properties
     private let navigationBarView = DefaultNavigationBar()
@@ -30,7 +30,6 @@ class SongDetailVC: BaseVC {
         setButtonActions()
         requestGetSongInfo()
         requestGetAllMuments(true)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +48,7 @@ class SongDetailVC: BaseVC {
         mumentTV.register(MyMumentSectionHeader.self, forHeaderFooterViewReuseIdentifier: MyMumentSectionHeader.className)
         mumentTV.register(AllMumentsSectionHeader.self, forHeaderFooterViewReuseIdentifier: AllMumentsSectionHeader.className)
         mumentTV.register(cell: SongDetailMyMumentEmptyTVC.self, forCellReuseIdentifier: SongDetailMyMumentEmptyTVC.className)
+        mumentTV.register(cell: AllMumentEmptyTVC.self, forCellReuseIdentifier: AllMumentEmptyTVC.className)
         mumentTV.separatorStyle = .none
         mumentTV.showsVerticalScrollIndicator = false
     }
@@ -77,6 +77,13 @@ class SongDetailVC: BaseVC {
 extension SongDetailVC {
     
     private func setLayout() {
+        if #available(iOS 15, *) {
+            mumentTV.sectionHeaderTopPadding = 0
+        }
+        
+        mumentTV.tableFooterView = UIView(frame: .zero)
+        mumentTV.sectionFooterHeight = 0
+        
         view.addSubviews([navigationBarView,mumentTV])
         
         navigationBarView.snp.makeConstraints {
@@ -96,31 +103,21 @@ extension SongDetailVC {
 extension SongDetailVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        let nums = allMumentsData.count == 0 ? 2 : 3
+        return nums
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if myMumentData == nil && allMumentsData.count == 0 {
-            if section == 0 {
-                return 1
-            } else { return 0 }
-        } else {
-            switch section {
-            case 0 :
-                return 1
-            case 1 :
-                return 1
-//                if myMumentData == nil {
-//                    return 1
-//                } else {
-//                    return 1
-//                }
-            case 2:
-                return allMumentsData.count
-            default:
-                return 0
-            }
+        switch section {
+        case 0 :
+            return 1
+        case 1 :
+            return 1
+        case 2:
+            return allMumentsData.count
+        default:
+            return 0
         }
     }
     
@@ -132,13 +129,16 @@ extension SongDetailVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(songInfoData)
-            cell.writeMumentButton.press{
-                self.tabBarController?.selectedIndex = 1
-            }
             return cell
         case 1:
+            if allMumentsData.count == 0 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: AllMumentEmptyTVC.className, for: indexPath) as? AllMumentEmptyTVC
+                else { return UITableViewCell() }
+                return cell
+            }
             if myMumentData == nil {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: SongDetailMyMumentEmptyTVC.className, for: indexPath) as? SongDetailMyMumentEmptyTVC else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SongDetailMyMumentEmptyTVC.className, for: indexPath) as? SongDetailMyMumentEmptyTVC
+                else { return UITableViewCell() }
                 return cell
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
@@ -148,7 +148,6 @@ extension SongDetailVC: UITableViewDataSource {
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
                 cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
                 return cell
-                
             }
             
         case 2:
@@ -168,7 +167,6 @@ extension SongDetailVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
             let mumentDetailVC = MumentDetailVC()
-            print("이게머져",self.allMumentsData[indexPath.row])
             mumentDetailVC.mumentId = self.allMumentsData[indexPath.row].id
             self.navigationController?.pushViewController(mumentDetailVC, animated: true)
         }
@@ -179,6 +177,10 @@ extension SongDetailVC: UITableViewDataSource {
         switch section {
         case 1 :
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyMumentSectionHeader.className) as? MyMumentSectionHeader else { return nil }
+            if myMumentData == nil {
+                headerCell.removeHistoryButton()
+                return headerCell
+            }
             headerCell.historyButton.removeTarget(nil, action: nil, for: .allEvents)
             headerCell.historyButton.press {
                 let mumentHistoryVC = MumentHistoryVC()
@@ -196,11 +198,15 @@ extension SongDetailVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        if allMumentsData.count == 0 {
+            return 0
+        }
         switch section {
-        case 1 :
-            return 50
+        case 1:
+            return 83.adjustedH
         case 2:
-            return 40
+            return 73.adjustedH
         default:
             return 0
         }
@@ -214,7 +220,7 @@ extension SongDetailVC: UITableViewDelegate {
         var cellHeight: CGFloat
         switch indexPath.section {
         case 0:
-            cellHeight = 200
+            cellHeight = 141.adjustedH
         case 1,2:
             cellHeight = UITableView.automaticDimension
         default:
@@ -224,7 +230,7 @@ extension SongDetailVC: UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 0{
+        if scrollView.contentOffset.y > 30{
             navigationBarView.setTitle(songInfoData.name)
         } else {
             navigationBarView.setTitle("")
