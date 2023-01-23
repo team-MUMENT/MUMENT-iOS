@@ -67,7 +67,9 @@ final class SignInVC: BaseVC {
                         // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
                         _ = oauthToken
                         print(oauthToken)
-                        self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.idToken ?? ""))
+                        let fcmToken = UserDefaults.standard.object(forKey: UserDefaults.Keys.FCMTokenForDevice)
+                        
+                        self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.idToken ?? "", fcm_token: fcmToken as! String))
                     }
                 }
 //
@@ -199,7 +201,8 @@ extension SignInVC: ASAuthorizationControllerDelegate {
                 debugPrint("identityToken: \(identityToken)")
                 debugPrint("authString: \(authString)")
                 debugPrint("tokenString: \(tokenString)")
-                requestSignIn(data: SignInBodyModel(provider: "apple", authentication_code: tokenString))
+                let fcmToken = UserDefaults.standard.object(forKey: UserDefaults.Keys.FCMTokenForDevice)
+                requestSignIn(data: SignInBodyModel(provider: "apple", authentication_code: tokenString, fcm_token: fcmToken as! String))
                 
             }
             // iCloud의 패스워드를 연동해 왔을 때
