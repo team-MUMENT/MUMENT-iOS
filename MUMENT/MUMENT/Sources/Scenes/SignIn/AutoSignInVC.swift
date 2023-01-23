@@ -56,3 +56,58 @@ extension AutoSignInVC {
         }
     }
 }
+//
+//// MARK: - Network
+//extension AutoSignInVC {
+//
+//    private func requestSignIn() {
+//        let isAppleLogin = UserDefaultsManager.isAppleLogin
+//        let userID = UserDefaultsManager.userId ?? ""
+//
+////        let socialID = isAppleLogin ? "Apple@\(userID)" : "Kakao@\(userID)"
+////        let fcmToken = UserDefaultsManager.fcmToken ?? ""
+//
+//        AuthAPI(viewController: self).login(socialID: socialID, fcmToken: fcmToken) { response in
+//            switch response {
+//            case .success(let data):
+//                if let data = data as? Login {
+//                    if data.isNew {
+//                        // 회원가입을 하지 않은 사용자입니다.
+//                        self.presentToLoginVC()
+//                    } else {
+//                        // 회원 정보를 불러왔습니다.
+//                        UserDefaultsManager.accessToken = data.accesstoken
+//
+//                        self.presentToMainTBC()
+//                    }
+//                }
+//            case .requestErr(let message):
+//                print("doorBellWithAPI - requestErr: \(message)")
+//            case .pathErr:
+//                print("doorBellWithAPI - pathErr")
+//            case .serverErr:
+//                print("doorBellWithAPI - serverErr")
+//            case .networkFail:
+//                print("doorBellWithAPI - networkFail")
+//            }
+//        }
+//
+//        AuthAPI.shared.postSignIn(body: SignInBodyModel(provider: <#T##String#>, authentication_code: <#T##String#>)) { networkResult in
+//            switch networkResult {
+//            case .success(let response):
+//                if let res = response as? SignInResponseModel {
+////                    UserInfo.shared.accessToken = res.accessToken
+////                    UserInfo.shared.accessToken = res.refreshToken
+////                    UserInfo.shared.userId = res.id
+//
+//                    UserDefaultsManager.accessToken = res.accessToken
+//                    UserDefaultsManager.refreshToken = res.refreshToken
+//                    UserDefaultsManager.userId = res.id
+//                    UserDefaultsManager.isAppleLogin = data.provider == "apple" ? true : false
+//                }
+//            default:
+//                self.makeAlert(title: MessageType.networkError.message)
+//            }
+//        }
+//    }
+//}
