@@ -83,9 +83,16 @@ final class StorageVC: BaseVC {
         setHeaderLayout()
         setSegmentLaysout()
         setPagerLayout()
+        setPressAction()
     }
     
     // MARK: - Function
+    private func setPressAction() {
+        profileButton.press {
+            self.pushToMyPageMainVC()
+        }
+    }
+    
     private func setPageViewController() {
         self.addChild(pagerVC)
         pagerContainerView.frame = pagerVC.view.frame
@@ -99,7 +106,6 @@ final class StorageVC: BaseVC {
             pagerVC.setViewControllers([firstVC], direction: .forward, animated: true)
         }
     }
-    
 
     @objc private func changeUnderLinePosition() {
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
@@ -110,7 +116,6 @@ final class StorageVC: BaseVC {
             self?.view.layoutIfNeeded()
         })
     }
-    
     
     private func pushToMyPageMainVC() {
         let myPageVC = MypageMainVC()

@@ -19,6 +19,7 @@ struct MumentDetailResponseModel: Codable {
     let createdAt: String
     let feelingTag: [Int]
     let user: User
+    let isPrivate: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case isFirst = "isFirst"
@@ -31,6 +32,7 @@ struct MumentDetailResponseModel: Codable {
         case createdAt = "createdAt"
         case feelingTag = "feelingTag"
         case user = "user"
+        case isPrivate = "isPrivate"
     }
     
     // MARK: - Music
