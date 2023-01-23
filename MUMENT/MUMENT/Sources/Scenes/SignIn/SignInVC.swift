@@ -57,20 +57,33 @@ final class SignInVC: BaseVC {
         kakaoSignInButton.press{
             
             // 카카오톡 설치 여부 확인
-            if (UserApi.isKakaoTalkLoginAvailable()) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     if let error = error {
                         print(error)
                     }
                     else {
                         print("loginWithKakaoTalk() success.")
-                        
+
                         // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
                         _ = oauthToken
+                        print(oauthToken)
+                        self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.idToken ?? ""))
                     }
                 }
+//
+//            if (UserApi.isKakaoTalkLoginAvailable()) {
+//
+//                UserApi.shared.unlink {(error) in
+//                    if let error = error {
+//                        print(error)
+//                    }
+//                    else {
+//                        print("unlink() success.")
+//                    }
+//                }
+//            }
             }
-        }
+        
         
         appleSignInButton.press{
             let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -226,9 +239,14 @@ extension SignInVC {
             switch networkResult {
             case .success(let response):
                 if let res = response as? SignInResponseModel {
-                    UserInfo.shared.accessToken = res.accessToken
-                    UserInfo.shared.accessToken = res.refreshToken
-                    UserInfo.shared.userId = res.id
+//                    UserInfo.shared.accessToken = res.accessToken
+//                    UserInfo.shared.accessToken = res.refreshToken
+//                    UserInfo.shared.userId = res.id
+                    
+                    UserDefaultsManager.accessToken = res.accessToken
+                    UserDefaultsManager.refreshToken = res.refreshToken
+                    UserDefaultsManager.userId = res.id
+                    UserDefaultsManager.isAppleLogin = data.provider == "apple" ? true : false
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
