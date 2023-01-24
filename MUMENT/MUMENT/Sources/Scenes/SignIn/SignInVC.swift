@@ -242,13 +242,14 @@ extension SignInVC {
             switch networkResult {
             case .success(let response):
                 if let res = response as? SignInResponseModel {
-//                    UserInfo.shared.accessToken = res.accessToken
-//                    UserInfo.shared.accessToken = res.refreshToken
-//                    UserInfo.shared.userId = res.id
+                    UserInfo.shared.accessToken = res.accessToken
+                    UserInfo.shared.refreshToken = res.refreshToken
+                    UserInfo.shared.userId = res.id
                     
                     UserDefaultsManager.accessToken = res.accessToken
                     UserDefaultsManager.refreshToken = res.refreshToken
                     UserDefaultsManager.userId = res.id
+                    
                     UserDefaultsManager.isAppleLogin = data.provider == "apple" ? true : false
                 }
             default:

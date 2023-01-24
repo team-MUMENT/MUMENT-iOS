@@ -21,18 +21,30 @@ class AutoSignInVC: UIViewController {
         super.viewDidLoad()
         setBackgroundImage()
         setLayout()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
             
-            // TODO: - 자동 로그인 되었을 시 아래 코드 수행되도록
-            let tabBarControlller = MumentTabBarController()
-            tabBarControlller.modalPresentationStyle = .fullScreen
-            tabBarControlller.modalTransitionStyle = .crossDissolve
-            self.present(tabBarControlller, animated: true)
+            self.decideNextVC()
+//            let tabBarControlller = MumentTabBarController()
+//            tabBarControlller.modalPresentationStyle = .fullScreen
+//            tabBarControlller.modalTransitionStyle = .crossDissolve
+//            self.present(tabBarControlller, animated: true)
+        }
+    }
+    
+    private func decideNextVC() {
+        let refreshToken = UserDefaultsManager.refreshToken
+        print("REFRESH TOKEN", refreshToken)
+        if (refreshToken == nil) {
+            let onboardingVC = OnboardingVC()
+            onboardingVC.modalPresentationStyle = .fullScreen
+            onboardingVC.modalTransitionStyle = .crossDissolve
+            self.present(onboardingVC, animated: true)
+        } else {
+            
         }
     }
 }
