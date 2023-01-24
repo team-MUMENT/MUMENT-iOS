@@ -41,7 +41,7 @@ extension AuthService: TargetType {
         case .postSignIn:
             return .basic
         case .getRenewedToken:
-            return .auth
+            return .authRenewal
         }
     }
     

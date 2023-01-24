@@ -44,7 +44,7 @@ class AutoSignInVC: UIViewController {
             onboardingVC.modalTransitionStyle = .crossDissolve
             self.present(onboardingVC, animated: true)
         } else {
-            
+            requestTokenRenewal()
         }
     }
 }
