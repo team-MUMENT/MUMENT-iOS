@@ -14,6 +14,7 @@ import Alamofire
 
 enum AuthService {
     case postSignIn(body: SignInBodyModel)
+    case getRenewedToken
 }
 
 extension AuthService: TargetType {
@@ -21,6 +22,8 @@ extension AuthService: TargetType {
         switch self {
         case .postSignIn:
             return "/auth/login"
+        case .getRenewedToken:
+            return "/auth/token"
         }
     }
     
@@ -28,6 +31,8 @@ extension AuthService: TargetType {
         switch self {
         case .postSignIn:
             return .post
+        case .getRenewedToken:
+            return .get
         }
     }
     
@@ -35,6 +40,8 @@ extension AuthService: TargetType {
         switch self {
         case .postSignIn:
             return .basic
+        case .getRenewedToken:
+            return .auth
         }
     }
     
@@ -42,6 +49,8 @@ extension AuthService: TargetType {
         switch self {
         case .postSignIn(let body):
             return .requestBody(["provider": body.provider, "authentication_code": body.authentication_code, "fcm_token": body.fcm_token])
+        case .getRenewedToken:
+            return .requestPlain
         }
     }
 }

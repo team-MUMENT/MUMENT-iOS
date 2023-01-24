@@ -34,4 +34,19 @@ class AuthAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 토큰 재발급
+    func getRenewedToken(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(AuthService.getRenewedToken).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, TokenRenewalResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
