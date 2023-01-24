@@ -36,6 +36,7 @@ class AutoSignInVC: UIViewController {
     }
     
     private func decideNextVC() {
+//        UserDefaultsManager.refreshToken = nil
         let refreshToken = UserDefaultsManager.refreshToken
         print("REFRESH TOKEN", refreshToken)
         if (refreshToken == nil) {
@@ -76,16 +77,69 @@ extension AutoSignInVC {
             switch networkResult {
             case .success(let response):
                 if let res = response as? TokenRenewalResponseModel {
-                    print(res)
-//                    self.mumentForTodayData = res
-//                    self.requestGetMumentsOfRevisitedData()
+                    print("")
+                    UserInfo.shared.accessToken = res.accessToken
+                    UserInfo.shared.refreshToken = res.refreshToken
+                    
+                    UserDefaultsManager.accessToken = res.accessToken
+                    UserDefaultsManager.refreshToken = res.refreshToken
+                }
+//                self.requestIsProfileSet()
+                let tabBarController = MumentTabBarController()
+                tabBarController.modalPresentationStyle = .fullScreen
+                tabBarController.modalTransitionStyle = .crossDissolve
+                self.present(tabBarController, animated: true)
+                
+            case .requestErr(_, let message):
+                if (message as! String == "만료된 토큰 입니다.") {
+                    let signInVC = SignInVC()
+                    signInVC.modalPresentationStyle = .fullScreen
+                    signInVC.modalTransitionStyle = .crossDissolve
+                    self.present(signInVC, animated: true)
+                }
+                else if (message as! String == "프로필 설정이 완료되지 않은 유저입니다") {
+                    let setProfileVC = SetProfileVC()
+                    setProfileVC.modalPresentationStyle = .fullScreen
+                    setProfileVC.modalTransitionStyle = .crossDissolve
+                    self.present(setProfileVC, animated: true)
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
+    
+//    private func requestIsProfileSet() {
+//        
+//        AuthAPI.shared.getIsProfileSet() { networkResult in
+//            switch networkResult {
+//            case .success(let status):
+//                print("SUCCESS")
+//                if (status as! Int == 204) {
+//                    let tabBarController = MumentTabBarController()
+//                    tabBarController.modalPresentationStyle = .fullScreen
+//                    tabBarController.modalTransitionStyle = .crossDissolve
+//                    self.present(tabBarController, animated: true)
+//                }
+//            case .requestErr(let status, _):
+//                if (status as! Int == 401) {
+//                    print("REQUESTERR")
+//                    let setProfileVC = SetProfileVC()
+//                    setProfileVC.modalPresentationStyle = .fullScreen
+//                    setProfileVC.modalTransitionStyle = .crossDissolve
+//                    self.present(setProfileVC, animated: true)
+//                }
+//            default:
+//                self.makeAlert(title: MessageType.networkError.message)
+//            }
+//        }
+//    }
 }
+
+//enum TokenRenewalResult {
+//    case refreshTokenExpired
+//    case success
+//}
 //
 //// MARK: - Network
 //extension AutoSignInVC {
