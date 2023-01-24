@@ -49,4 +49,20 @@ class AuthAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 프로필 설정 유무 확인
+    func getIsProfileSet(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(AuthService.getIsProfileSet).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+//                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode)
+                print("NETWORKRESUKT",networkResult)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

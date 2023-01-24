@@ -250,7 +250,41 @@ extension SignInVC {
                     UserDefaultsManager.refreshToken = res.refreshToken
                     UserDefaultsManager.userId = res.id
                     
-                    UserDefaultsManager.isAppleLogin = data.provider == "apple" ? true : false
+                    if (res.type == "signUp") {
+                        let setProfileVC = SetProfileVC()
+                        setProfileVC.modalPresentationStyle = .fullScreen
+                        setProfileVC.modalTransitionStyle = .crossDissolve
+                        self.present(setProfileVC, animated: true)
+                    } else {
+                        self.requestIsProfileSet()
+                    }
+                    
+//                    UserDefaultsManager.isAppleLogin = data.provider == "apple" ? true : false
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func requestIsProfileSet() {
+        AuthAPI.shared.getIsProfileSet() { networkResult in
+            switch networkResult {
+            case .success(let status):
+                print("SUCCESS")
+                if (status as! Int == 204) {
+                    let tabBarController = MumentTabBarController()
+                    tabBarController.modalPresentationStyle = .fullScreen
+                    tabBarController.modalTransitionStyle = .crossDissolve
+                    self.present(tabBarController, animated: true)
+                }
+            case .requestErr(let status, _):
+                if (status as! Int == 400) {
+                    print("REQUESTERR")
+                    let setProfileVC = SetProfileVC()
+                    setProfileVC.modalPresentationStyle = .fullScreen
+                    setProfileVC.modalTransitionStyle = .crossDissolve
+                    self.present(setProfileVC, animated: true)
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
