@@ -10,14 +10,12 @@ import Foundation
 struct SignInResponseModel: Codable {
     let id: String
     let type: String
-    let email: String
-    let accessToken: String?
-    let refreshToken: String?
+    let accessToken: String
+    let refreshToken: String
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case type = "type"
-        case email = "email"
         case accessToken = "accessToken"
         case refreshToken = "refreshToken"
     }
