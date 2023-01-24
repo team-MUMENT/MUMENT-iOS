@@ -68,6 +68,24 @@ extension AutoSignInVC {
         }
     }
 }
+
+// MARK: - Network
+extension AutoSignInVC {
+    private func requestTokenRenewal() {
+        AuthAPI.shared.getRenewedToken() { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? TokenRenewalResponseModel {
+                    print(res)
+//                    self.mumentForTodayData = res
+//                    self.requestGetMumentsOfRevisitedData()
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+}
 //
 //// MARK: - Network
 //extension AutoSignInVC {
