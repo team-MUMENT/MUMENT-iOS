@@ -12,7 +12,7 @@ import Then
 class StorageFilterTagCVC: UICollectionViewCell {
     
     // MARK: - Properties
-    let contentLabel = UILabel().then {
+    private let contentLabel = UILabel().then {
         $0.textAlignment = .center
         $0.font = .mumentB4M14
         $0.textColor = .mGray1
@@ -64,6 +64,7 @@ class StorageFilterTagCVC: UICollectionViewCell {
     // MARK: - Functions
     func setData(data: String) {
         contentLabel.text = data
+        self.contentLabel.sizeToFit()
     }
 }
 
