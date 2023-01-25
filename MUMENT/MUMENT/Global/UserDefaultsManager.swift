@@ -8,15 +8,6 @@
 import Foundation
 
 struct UserDefaultsManager {
-    static var isAppleLogin: Bool {
-        get { return UserDefaults.standard.bool(forKey: "isAppleLogin") }
-        set { UserDefaults.standard.set(newValue, forKey: "isAppleLogin") }
-    }
-    
-    static var isOnboarding: String? {
-        get { return UserDefaults.standard.string(forKey: "isOnboarding") }
-        set { UserDefaults.standard.set(newValue, forKey: "isOnboarding") }
-    }
 
     static var userId: String? {
         get { return UserDefaults.standard.string(forKey: "userId") }
