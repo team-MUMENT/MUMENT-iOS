@@ -67,8 +67,7 @@ final class SignInVC: BaseVC {
                         // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
                         _ = oauthToken
                         print(oauthToken)
-                        let fcmToken = UserDefaults.standard.object(forKey: UserDefaults.Keys.FCMTokenForDevice)
-                        
+                        let fcmToken = UserDefaultsManager.fcmToken                        
                         self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.idToken ?? "", fcm_token: fcmToken as! String))
                     }
                 }
@@ -183,7 +182,7 @@ extension SignInVC: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
             
-            // 비밀번호 및 FaceID 인증 경우를 통해 왔을 때
+        // 비밀번호 및 FaceID 인증 경우를 통해 왔을 때 - 실기기로 실행 시 
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
@@ -192,7 +191,6 @@ extension SignInVC: ASAuthorizationControllerDelegate {
             print("fullName", fullName as Any)
             print("email", email as Any)
             
-            // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
             if let authorizationCode = appleIDCredential.authorizationCode,
                let identityToken = appleIDCredential.identityToken,
                let authString = String(data: authorizationCode, encoding: .utf8),
@@ -201,11 +199,11 @@ extension SignInVC: ASAuthorizationControllerDelegate {
                 debugPrint("identityToken: \(identityToken)")
                 debugPrint("authString: \(authString)")
                 debugPrint("tokenString: \(tokenString)")
-                let fcmToken = UserDefaults.standard.object(forKey: UserDefaults.Keys.FCMTokenForDevice)
-                requestSignIn(data: SignInBodyModel(provider: "apple", authentication_code: tokenString, fcm_token: fcmToken as! String))
-                
+                let fcmToken = UserDefaultsManager.fcmToken ?? ""
+                requestSignIn(data: SignInBodyModel(provider: "apple", authentication_code: tokenString, fcm_token: fcmToken))
             }
-            // iCloud의 패스워드를 연동해 왔을 때
+            
+        // iCloud의 패스워드를 연동해 왔을 때 - 시뮬레이터로 실행 시
         case let passwordCredential as ASPasswordCredential:
             let username = passwordCredential.user
             let password = passwordCredential.password
@@ -221,8 +219,6 @@ extension SignInVC: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("apple 로그인 사용자 인증 실패")
         print("error \(error)")
-        
-        // 필요 시 추가적인 에러 처리
     }
 }
 
@@ -259,7 +255,6 @@ extension SignInVC {
                         self.requestIsProfileSet()
                     }
                     
-//                    UserDefaultsManager.isAppleLogin = data.provider == "apple" ? true : false
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
