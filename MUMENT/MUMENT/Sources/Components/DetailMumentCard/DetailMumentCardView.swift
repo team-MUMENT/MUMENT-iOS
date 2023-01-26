@@ -9,9 +9,14 @@ import UIKit
 import SnapKit
 import Then
 
+protocol DetailMumentCardViewDelegate: AnyObject {
+    func shareButtonClicked()
+}
+
 class DetailMumentCardView: UIView {
     
     // MARK: - Properties
+    private var delegate: DetailMumentCardViewDelegate?
     lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then{
         $0.axis = .horizontal
         $0.spacing = 7
@@ -186,6 +191,14 @@ class DetailMumentCardView: UIView {
                 self.requestPostHeartLiked(mumentId: self.mumentId)
             }
         }
+        
+        shareButton.press {
+            self.delegate?.shareButtonClicked()
+        }
+    }
+    
+    func setDelegate(delegate: DetailMumentCardViewDelegate){
+        self.delegate = delegate
     }
 }
 

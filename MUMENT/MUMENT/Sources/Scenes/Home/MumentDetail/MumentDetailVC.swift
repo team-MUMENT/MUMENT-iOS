@@ -12,6 +12,7 @@ import Then
 class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     // MARK: - Properties
+    private let dummyData = MumentDetailVCModel(profileImageName:"image5", writerName: "이수지", albumImageName: "image4", isFirst:true, impressionTags: [100,101], feelingTags:[], songtitle:"하늘나라", artist:"혁오", contents:"추억과 쓸쓸함과 하나에 다하지 새겨지는 버리었습니다. 아스라히 별 이국 잔디가 있습니다. 애기 아직 이네들은 있습니다. 파란 다 그리워 강아지, 아직 헤일 말 나의 있습니다. 쓸쓸함과 가득 아침이 된 이웃 딴은 있습니다. 이름을 별 보고, 쓸쓸함과 벌써 버리었습니다. 언덕 나는 아무 하나에 말 위에 둘 별 듯합니다. 별 위에도 이름을 까닭이요, 거외다. 사랑과 파란 너무나 말 잔디가 릴케 봅니다. 없이 내일 이제 까닭입니다. 별 추억과 헤는 다 까닭이요, 가을로 듯합니다. 그러나 마디씩 속의 시인의 애기 것은 나는 있습니다. 가을로 어머니 시와 우는 이름과 강아지, 시인의 봅니다. 패, 시인의 가을로 별 어머니 봅니다. 책상을 시인의 당신은 가을로 내일 가득 있습니다. 하나에 별 사람들의 까닭입니다. 한 우는 어머님, 별 언덕 봅니다. 추억과 차 이름과, 나는 남은 마리아 당신은 봅니다.", createdAt:"1 Sep, 2020", isLiked:true, heartCount:15, mumentCount:5)
     private let navigationBarView = DefaultNavigationBar()
     
     private let detailScrollView = UIScrollView()
@@ -45,8 +46,9 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         super.viewDidLoad()
         setLayout()
         setClickEventHandlers()
-//        requestGetMumentDetail()
+        //        requestGetMumentDetail()
         setDummyData()
+        mumentCardView.setDelegate(delegate: self)
     }
     
     // MARK: - Functions
@@ -60,7 +62,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     private func setDummyData() {
         self.navigationBarView.setTitle("뮤멘트")
-        self.mumentCardView.setData(MumentDetailVCModel(profileImageName:"image5", writerName: "이수지", albumImageName: "image4", isFirst:true, impressionTags: [100,101], feelingTags:[], songtitle:"하늘나라",artist:"혁오",contents:"추억과 쓸쓸함과 하나에 다하지 새겨지는 버리었습니다. 아스라히 별 이국 잔디가 있습니다. 애기 아직 이네들은 있습니다. 파란 다 그리워 강아지, 아직 헤일 말 나의 있습니다. 쓸쓸함과 가득 아침이 된 이웃 딴은 있습니다. 이름을 별 보고, 쓸쓸함과 벌써 버리었습니다. 언덕 나는 아무 하나에 말 위에 둘 별 듯합니다. 별 위에도 이름을 까닭이요, 거외다. 사랑과 파란 너무나 말 잔디가 릴케 봅니다. 없이 내일 이제 까닭입니다. 별 추억과 헤는 다 까닭이요, 가을로 듯합니다. 그러나 마디씩 속의 시인의 애기 것은 나는 있습니다. 가을로 어머니 시와 우는 이름과 강아지, 시인의 봅니다. 패, 시인의 가을로 별 어머니 봅니다. 책상을 시인의 당신은 가을로 내일 가득 있습니다. 하나에 별 사람들의 까닭입니다. 한 우는 어머님, 별 언덕 봅니다. 추억과 차 이름과, 나는 남은 마리아 당신은 봅니다.",createdAt:"1 Sep, 2020",isLiked:true,heartCount:15,mumentCount:5))
+        self.mumentCardView.setData(dummyData)
         
         self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
     }
@@ -156,6 +158,42 @@ extension MumentDetailVC {
             $0.width.equalTo(335)
             $0.bottom.equalToSuperview().inset(20)
         }
+    }
+}
+
+// MARK: - DetailMumentCardViewDelegate
+extension MumentDetailVC: DetailMumentCardViewDelegate {
+    func shareButtonClicked() {
+        print("CLICKEd")
+        let instagramShareImageRendererVC = InstagramShareImageRendererVC()
+        instagramShareImageRendererVC.setDummyData(dummyData)
+        instagramShareImageRendererVC.modalPresentationStyle = .overCurrentContext
+        self.present(instagramShareImageRendererVC, animated: true)
+//        if let storiesUrl = URL(string: "instagram-stories://share") {
+//            if UIApplication.shared.canOpenURL(storiesUrl) {
+                // 위의 sharingImageView의 image를 image에 저장
+//                guard let image = sharingImageView.image else { return }
+                // 지원되는 형식에는 JPG,PNG 가 있다.
+//                guard let imageData = image.pngData() else { return }
+//                let pasteboardItems: [String: Any] = [
+//                    "com.instagram.sharedSticker.stickerImage": imageData,
+//                    // 배경 값 : 두 값이 다르면 그래디언트를 생성
+//                    "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
+//                    "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
+//                ]
+//                let pasteboardOptions = [
+//                    UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)
+//                ]
+//                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+//                UIApplication.shared.open(storiesUrl, options: [:], completionHandler: nil)
+//            } else {
+//                print("User doesn't have instagram on their device.")
+//                //앱 미설치시 앱스토어로 연결
+//                if let openStore = URL(string: "itms-apps://itunes.apple.com/app/AppleID"), UIApplication.shared.canOpenURL(openStore) {
+//                    UIApplication.shared.open(openStore, options: [:], completionHandler: nil)
+//                }
+//            }
+//        }
     }
 }
 
