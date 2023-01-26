@@ -116,6 +116,8 @@ class DetailMumentCardView: UIView {
         createdAtLabel.text = cellData.createdAt
         heartButton.setImage(cellData.heartImage, for: .normal)
         heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
+        
+        setTags()
     }
     
     func setData(_ cellData: MumentDetailResponseModel, mumentId: String){
