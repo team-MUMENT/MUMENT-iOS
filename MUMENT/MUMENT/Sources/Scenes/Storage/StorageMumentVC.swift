@@ -25,7 +25,7 @@ final class StorageMumentVC: BaseVC {
     private let selectedTagsCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .mGray3
         $0.showsHorizontalScrollIndicator = false
-        $0.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 0)
+        $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         $0.layer.borderColor = UIColor.clear.cgColor
         $0.layer.borderWidth = 0
         let layout = UICollectionViewFlowLayout()
@@ -393,16 +393,29 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        switch cellCategory {
-        case .listCell:
-            return 15
-        case .albumCell:
-            return 5
+        switch collectionView{
+        case selectedTagsCV:
+            return 0
+        case storageMumentCV:
+            switch cellCategory {
+            case .listCell:
+                return 15
+            case .albumCell:
+                return 5
+            }
+        default:
+            return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        switch collectionView {
+        case selectedTagsCV:
+            return 10
+        case storageMumentCV:
+            return 0
+        default: return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
