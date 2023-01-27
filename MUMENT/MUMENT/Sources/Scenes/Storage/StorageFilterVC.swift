@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 protocol storageFilterDelegate: AnyObject {
-    func sendButtonData(data:[TagButton])
+    func sendTagData(data:[String], tagIndex:[Int])
 }
 
 final class StorageFilterVC: BaseVC {
@@ -25,7 +25,7 @@ final class StorageFilterVC: BaseVC {
     private let underLineView = UIView().then {
         $0.backgroundColor = UIColor.mGray3
     }
-    let dismissButton = UIButton().then {
+    private let dismissButton = UIButton().then {
         $0.setImage(UIImage(named: "mumentDelete"), for: .normal)
         $0.contentMode = .scaleAspectFit
     }
@@ -41,7 +41,7 @@ final class StorageFilterVC: BaseVC {
     }
     private let selectedTagsCountLabel = UILabel()
     
-    var tagCount: String = " " {
+    private var tagCount: String = " " {
         didSet{
             let highlitedString = NSAttributedString(string: tagCount, attributes: [
                 .font: UIFont.mumentB4M14,
@@ -68,16 +68,7 @@ final class StorageFilterVC: BaseVC {
     private let allDeselecteButton = UIButton().then {
         $0.setImage(UIImage(named: "allDeselectedButton"), for: .normal)
     }
-    private let selectedTagsSection = UIView().then {
-        $0.backgroundColor = .mGray3
-    }
-    private let selectedTagsStackView = UIStackView().then {
-        $0.backgroundColor = .clear
-        $0.spacing = 10
-        $0.axis = .horizontal
-        $0.distribution = .fillProportionally
-    }
-    
+   
     private let selectedTagsCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .mGray3
         $0.showsHorizontalScrollIndicator = false
@@ -89,25 +80,18 @@ final class StorageFilterVC: BaseVC {
         layout.itemSize.height = 35
         $0.setCollectionViewLayout(layout, animated: false)
     }
+    private let impressionTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private let feelTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     // MARK: - Properties
     private let containerHeight = NSLayoutConstraint()
     private let impressionTagData = TagList().impressionTags
     private let feelTagData = TagList().feelTags
-    
-    private lazy var impressionTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    private lazy var feelTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
     private var selectedTagCount = 0
     private var bottomTagSectionHeight = 0
-    private var selectedTagButtons = [TagButton]()
-    private var tempSelectedTagButtons = [TagButton]()
-    private var selectedTagDictionay = [Int : Int]()
+    private var selectedTagData: [String] = []
     private var tagIndex = [Int]()
     weak var delegate: storageFilterDelegate?
-    
-    ///for SelectedTag
-    private var selectedTagData: [String] = []
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -129,7 +113,6 @@ final class StorageFilterVC: BaseVC {
     // MARK: - Function
     private func setDismissButtonAction() {
         dismissButton.press {
-            self.delegate?.sendButtonData(data: self.tempSelectedTagButtons)
             self.hideBottomSheetWithAnimation()
         }
     }
@@ -157,44 +140,54 @@ final class StorageFilterVC: BaseVC {
         feelTagCV.register(cell: StorageFilterTagCVC.self, forCellWithReuseIdentifier: StorageFilterTagCVC.className)
         selectedTagsCV.register(cell: SelectedTagCVC.self, forCellWithReuseIdentifier: SelectedTagCVC.className)
     }
-    
-    // TagButton 인스턴스 생성
-    /// selectedTagButtons 배열에 인스턴스 append
-    /// selectedTagButtons 배열 count번째의 버튼에
-    private func buttonAppend(_ count: Int, _ tagTitle: String) {
-        let filterTagButton = TagButton()
-        selectedTagButtons.append(filterTagButton)
-        //        selectedTagButtons[count].setTagButtonTitle(tagTitle)
+
+    private func resetSelectedTags() {
+        self.tagCount = "0"
+        self.selectedTagCount = 0
+        self.impressionTagCV.reloadData()
+        self.feelTagCV.reloadData()
+        self.selectedTagData = []
+        self.tagIndex = []
+        self.selectedTagsCV.reloadData()
+        
+        UIView.animate(withDuration: 0.3) {
+            self.selectedTagsCV.snp.updateConstraints {
+                $0.height.equalTo(0)
+            }
+        }
     }
     
     private func setAllDeselectAction() {
         allDeselecteButton.press {
-            self.selectedTagButtons = []
-            self.selectedTagDictionay = [:]
-            self.tagIndex = []
-            self.selectedTagsStackView.removeAllArrangedSubviews()
-            self.tagCount = "0"
-            self.selectedTagCount = 0
-            self.impressionTagCV.reloadData()
-            self.feelTagCV.reloadData()
-            
-            UIView.animate(withDuration: 0.3) {
-                self.selectedTagsSection.snp.updateConstraints {
-                    $0.height.equalTo(0)
-                }
-            }
+            self.resetSelectedTags()
         }
     }
     
     private func setFilterTagApplied() {
         tagAppliedButton.press {
-            self.delegate?.sendButtonData(data: self.selectedTagButtons)
+            self.delegate?.sendTagData(data: self.selectedTagData, tagIndex: self.tagIndex)
             self.hideBottomSheetWithAnimation()
         }
     }
-    
-    func setTempTagButtons(tags: [TagButton]) {
-        self.tempSelectedTagButtons = tags
+
+    func setAppliedTagData(tags: [String], tagIndex: [Int]) {
+        self.selectedTagData = tags
+        self.tagIndex = tagIndex
+        selectedTagCount = selectedTagData.count
+        tagCount = "\(selectedTagCount)"
+        
+        impressionTagCV.reloadData()
+        feelTagCV.reloadData()
+        
+        if tagIndex.count != 0 {
+            bottomTagSectionHeight = 70
+            UIView.animate(withDuration: 0.3) {
+                self.selectedTagsCV.snp.updateConstraints {
+                    $0.height.equalTo(self.bottomTagSectionHeight)
+                }
+            }
+            selectedTagsCV.reloadData()
+        }
     }
     
 }
@@ -202,26 +195,13 @@ final class StorageFilterVC: BaseVC {
 // MARK: - BottomSheet Animation
 extension StorageFilterVC {
     func showBottomSheetWithAnimation() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.4) {
             self.containerHeight.constant = UIScreen.main.bounds.height >= 670 ? 690.adjustedH : 750.adjustedH
             self.containerView.snp.updateConstraints {
                 $0.height.equalTo(self.containerHeight.constant)
             }
             self.view.layoutIfNeeded()
         }
-        //TODO: 바텀시트 하단 선택 태그 UI 업데이트
-        selectedTagButtons.forEach {
-            self.selectedTagsStackView.removeArrangedSubview($0)
-        }
-        
-        selectedTagButtons.forEach {
-            self.selectedTagsStackView.addArrangedSubview($0)
-            
-            $0.snp.makeConstraints {
-                $0.height.equalTo(35)
-            }
-        }
-        self.selectedTagsStackView.layoutIfNeeded()
     }
     
     func hideBottomSheetWithAnimation() {
@@ -233,6 +213,7 @@ extension StorageFilterVC {
             self.view.layoutIfNeeded()
         } completion: { _ in
             self.dismiss(animated: false)
+            self.resetSelectedTags()
         }
     }
 }
@@ -257,10 +238,22 @@ extension StorageFilterVC: UICollectionViewDataSource {
         case impressionTagCV:
             let filterTagCell = collectionView.dequeueReusableCell(withReuseIdentifier: StorageFilterTagCVC.className, for: indexPath) as! StorageFilterTagCVC
             filterTagCell.setData(data: impressionTagData[indexPath.row])
+            tagIndex.forEach {
+                if $0 == indexPath.item {
+                    collectionView.selectItem(at: indexPath, animated: false , scrollPosition: .init())
+                    filterTagCell.isSelected = true
+                }
+            }
             return filterTagCell
         case feelTagCV:
             let filterTagCell = collectionView.dequeueReusableCell(withReuseIdentifier: StorageFilterTagCVC.className, for: indexPath) as! StorageFilterTagCVC
             filterTagCell.setData(data: feelTagData[indexPath.row])
+            tagIndex.forEach {
+                if $0 == indexPath.item + 100 {
+                    collectionView.selectItem(at: indexPath, animated: false , scrollPosition: .init())
+                    filterTagCell.isSelected = true
+                }
+            }
             return filterTagCell
         case selectedTagsCV:
             let selectedTagCell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedTagCVC.className, for: indexPath) as! SelectedTagCVC
@@ -275,33 +268,24 @@ extension StorageFilterVC: UICollectionViewDataSource {
 extension StorageFilterVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
-        case impressionTagCV:
+        case impressionTagCV, feelTagCV:
             if selectedTagCount < 3 {
                 selectedTagCount += 1
                 tagCount = "\(selectedTagCount)"
-                
-                selectedTagData.append(impressionTagData[indexPath.row])
-                tagIndex.append(indexPath.row)
-            }else {
-                collectionView.deselectItem(at: indexPath, animated: false)
-                self.showToastMessage(message: "태그는 최대 3개까지 선택할 수 있어요.", color: .black)
-            }
-            
-        case feelTagCV:
-            if selectedTagCount < 3 {
-                selectedTagCount += 1
-                tagCount = "\(selectedTagCount)"
-                
-                selectedTagData.append(feelTagData[indexPath.row])
-                tagIndex.append(indexPath.row + 100)
-               
+                /// 해당 컬렉션뷰가 feelTagCV이면 indexPath.row + 100
+                let selectedIndex = collectionView == impressionTagCV ? indexPath.row : indexPath.row + 100
+                if selectedIndex < 100 {
+                    selectedTagData.append(impressionTagData[indexPath.row])
+                }else {
+                    selectedTagData.append(feelTagData[indexPath.row])
+                }
+                tagIndex.append(selectedIndex)
             }else {
                 collectionView.deselectItem(at: indexPath, animated: false)
                 self.showToastMessage(message: "태그는 최대 3개까지 선택할 수 있어요.", color: .black)
             }
             
         case selectedTagsCV:
-            
             var deselectedTagIndex = tagIndex[indexPath.row]
             var deselctedCV = impressionTagCV
             /// feelTagCV값이면 마이너스 100
@@ -327,6 +311,7 @@ extension StorageFilterVC: UICollectionViewDelegate {
                 }
             }
         }
+        /// 그냥 reloadData() 실행 시 numberOfItemsInSectionItems만 실행되고, sizeForItemAt과 cellForItemAt이 실행되지 않음
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(10)){
             self.selectedTagsCV.reloadData()
         }
@@ -342,20 +327,10 @@ extension StorageFilterVC: UICollectionViewDelegate {
 
         var indexOfArray = 0
         switch collectionView {
-        case impressionTagCV:
-            // TODO: 함수화 하기
+        case impressionTagCV, feelTagCV:
+            let selectedIndex = collectionView == impressionTagCV ? indexPath.row : indexPath.row + 100
             tagIndex.forEach {
-                if $0 == indexPath.row {
-                    indexOfArray = tagIndex.firstIndex(of: $0) ?? 0
-                    selectedTagData.remove(at: indexOfArray)
-                    tagIndex.remove(at: indexOfArray)
-                    
-                }
-            }
-            
-        case feelTagCV:
-            tagIndex.forEach {
-                if $0 == indexPath.row + 100 {
+                if $0 == selectedIndex {
                     indexOfArray = tagIndex.firstIndex(of: $0) ?? 0
                     selectedTagData.remove(at: indexOfArray)
                     tagIndex.remove(at: indexOfArray)
@@ -382,6 +357,9 @@ extension StorageFilterVC: UICollectionViewDelegate {
 
 extension StorageFilterVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if selectedTagData.isEmpty {
+            return CGSize()
+        }
         return CGSize(width: selectedTagData[indexPath.row].size(withAttributes: [NSAttributedString.Key.font : UIFont.mumentB2B14]).width + 45, height: 35)
     }
 }
