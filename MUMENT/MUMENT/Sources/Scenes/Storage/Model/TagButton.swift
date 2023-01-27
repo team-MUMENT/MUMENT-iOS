@@ -22,14 +22,7 @@ class TagButton: UIButton {
         self.configuration?.imagePadding = 5.adjustedH
         self.configuration?.imagePlacement = .trailing
         self.attributedTitle(for: .normal)
-    }
-    
-    func setTagButtonTitle(_ title: String) {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.mumentB2B14,
-            .foregroundColor: UIColor.mBlue1
-        ]
-        self.setAttributedTitle(NSAttributedString(string: title, attributes: attributes), for: .normal)
+        self.titleLabel?.textAlignment = .center
     }
     
     required init?(coder: NSCoder) {
