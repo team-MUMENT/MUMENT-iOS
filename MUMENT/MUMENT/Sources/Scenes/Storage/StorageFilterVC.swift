@@ -246,7 +246,6 @@ extension StorageFilterVC: UICollectionViewDataSource {
         case feelTagCV:
             return feelTagData.count
         case selectedTagsCV:
-            print("cellForItem", selectedTagData.count)
              return selectedTagData.count
         default: return 0
         }
@@ -266,9 +265,6 @@ extension StorageFilterVC: UICollectionViewDataSource {
         case selectedTagsCV:
             let selectedTagCell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedTagCVC.className, for: indexPath) as! SelectedTagCVC
             selectedTagCell.setTagButtonTitle(selectedTagData[indexPath.row])
-            print("cellForItem",selectedTagData)
-            print("cellForItemTItle ", selectedTagData[indexPath.row])
-            print("cellForItemTItle ", indexPath.row)
             return selectedTagCell
         default: return UICollectionViewCell()
         }
@@ -278,7 +274,6 @@ extension StorageFilterVC: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension StorageFilterVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("111")
         switch collectionView {
         case impressionTagCV:
             if selectedTagCount < 3 {
@@ -287,9 +282,6 @@ extension StorageFilterVC: UICollectionViewDelegate {
                 
                 selectedTagData.append(impressionTagData[indexPath.row])
                 tagIndex.append(indexPath.row)
-//                self.selectedTagsCV.reloadData()
-                print("DDtagData", selectedTagData)
-                print("DDindex", tagIndex)
             }else {
                 collectionView.deselectItem(at: indexPath, animated: false)
                 self.showToastMessage(message: "태그는 최대 3개까지 선택할 수 있어요.", color: .black)
@@ -318,8 +310,6 @@ extension StorageFilterVC: UICollectionViewDelegate {
                 deselctedCV = feelTagCV
             }
             let deselectedIndexPath = IndexPath(row: deselectedTagIndex, section: 0)
-            print("DDremoveTagData ", selectedTagData[indexPath.row])
-            print("DDremoveTagIndex ", tagIndex[indexPath.row])
             selectedTagData.remove(at: indexPath.row)
             tagIndex.remove(at: indexPath.row)
             
@@ -339,9 +329,7 @@ extension StorageFilterVC: UICollectionViewDelegate {
         }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(10)){
             self.selectedTagsCV.reloadData()
-            print("reload")
         }
-        print("selectedTagData",selectedTagData)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -389,13 +377,11 @@ extension StorageFilterVC: UICollectionViewDelegate {
             }
         }
         selectedTagsCV.reloadData()
-        print("selectedTagData",selectedTagData)
     }
 }
 
 extension StorageFilterVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print("cellForItemSize", CGSize(width: selectedTagData[indexPath.row].size(withAttributes: [NSAttributedString.Key.font : UIFont.mumentB2B14]).width + 45, height: 35) )
         return CGSize(width: selectedTagData[indexPath.row].size(withAttributes: [NSAttributedString.Key.font : UIFont.mumentB2B14]).width + 45, height: 35)
     }
 }
