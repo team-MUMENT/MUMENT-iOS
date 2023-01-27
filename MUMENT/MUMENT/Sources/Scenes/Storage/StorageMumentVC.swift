@@ -198,7 +198,6 @@ extension StorageMumentVC: storageFilterDelegate {
     func sendTagData(data: [String], tagIndex: [Int]) {
         selectedTagData = data
         selectedTagIndex = tagIndex
-        print("SelectedData", data)
         
         self.changeToTagInt(selectedTagData)
         
@@ -222,7 +221,6 @@ extension StorageMumentVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView{
         case selectedTagsCV:
-            print("selectedTagData.count", selectedTagData.count)
             return selectedTagData.count
         case storageMumentCV:
             return dateDictionary[ self.dateArray[section] ] ?? 1
@@ -248,7 +246,6 @@ extension StorageMumentVC: UICollectionViewDataSource{
         switch collectionView{
       
         case selectedTagsCV:
-            print("cellForItemAt")
             let selectedTagCell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectedTagCVC.className, for: indexPath) as! SelectedTagCVC
             selectedTagCell.setTagButtonTitle(selectedTagData[indexPath.row])
             return selectedTagCell
@@ -376,7 +373,6 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView{
         case selectedTagsCV:
-            print("sizeForItemAt")
             return CGSize(width: selectedTagData[indexPath.row].size(withAttributes: [NSAttributedString.Key.font : UIFont.mumentB2B14]).width + 45, height: 35)
         case storageMumentCV:
             switch cellCategory{
@@ -395,7 +391,7 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         switch collectionView{
         case selectedTagsCV:
-            return 0
+            return 10
         case storageMumentCV:
             switch cellCategory {
             case .listCell:
@@ -414,7 +410,7 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
             return 10
         case storageMumentCV:
             return 0
-        default: return 0
+        default: return 10
         }
     }
     
