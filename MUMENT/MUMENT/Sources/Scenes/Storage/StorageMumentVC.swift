@@ -149,7 +149,7 @@ final class StorageMumentVC: BaseVC {
     
     private func setPressAction() {
         filterSectionView.filterButton.press {
-            self.storageFilterVC.setTempTagButtons(tags: self.selectedTagButtons)
+//            self.storageFilterVC.setTempTagButtons(tags: self.selectedTagButtons)
             
             self.storageFilterVC.modalPresentationStyle = .overFullScreen
             self.present(self.storageFilterVC, animated: false) {
