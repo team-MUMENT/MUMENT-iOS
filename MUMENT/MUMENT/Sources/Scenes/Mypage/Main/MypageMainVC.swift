@@ -152,7 +152,9 @@ extension MypageMainVC: UITableViewDataSource {
                 }
                 
                 cell.setWithDrawAction { [weak self] in
-                    self?.requestWithDraw()
+                    let membershipWithdrawalVC = MembershipWithdrawalVC()
+                    membershipWithdrawalVC.setUserName("blueingreen")
+                    self?.navigationController?.pushViewController(membershipWithdrawalVC, animated: true)
                 }
                 
                 return cell
