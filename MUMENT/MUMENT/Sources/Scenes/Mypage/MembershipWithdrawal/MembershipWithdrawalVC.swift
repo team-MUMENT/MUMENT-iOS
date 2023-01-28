@@ -136,6 +136,13 @@ final class MembershipWithdrawalVC: BaseVC {
         setReasonTextView()
         setReasonTextCounting()
         reasonSelectingMenuView.setDelegate(delegate: self)
+        hideTabbar()
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        showTabbar()
     }
     
     // MARK: - Functions

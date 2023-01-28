@@ -39,10 +39,18 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate {
 extension BaseVC {
     func hideTabbar() {
         self.tabBarController?.tabBar.isHidden = true
+        guard let subviews = self.tabBarController?.view.subviews else { return }
+        let count = subviews.count
+        let subview = subviews[count - 2]
+        subview.isHidden.toggle()
     }
     
     func showTabbar() {
         self.tabBarController?.tabBar.isHidden = false
+        guard let subviews = self.tabBarController?.view.subviews else { return }
+        let count = subviews.count
+        let subview = subviews[count - 2]
+        subview.isHidden.toggle()
     }
     
     /// 화면 터치시 키보드 내리는 메서드
