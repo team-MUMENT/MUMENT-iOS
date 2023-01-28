@@ -272,10 +272,7 @@ extension SignInVC {
                     tabBarController.modalPresentationStyle = .fullScreen
                     tabBarController.modalTransitionStyle = .crossDissolve
                     self.present(tabBarController, animated: true)
-                }
-            case .requestErr(let status, _):
-                if (status as! Int == 400) {
-                    print("REQUESTERR")
+                } else if (status as! Int == 200) {
                     let setProfileVC = SetProfileVC()
                     setProfileVC.modalPresentationStyle = .fullScreen
                     setProfileVC.modalTransitionStyle = .crossDissolve

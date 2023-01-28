@@ -91,6 +91,16 @@ extension SplashVC {
                     self.present(signInVC, animated: true)
                 }
                 else if (message as! String == "프로필 설정이 완료되지 않은 유저입니다") {
+    private func requestIsProfileSet() {
+        AuthAPI.shared.getIsProfileSet() { networkResult in
+            switch networkResult {
+            case .success(let status):
+                if (status as! Int == 204) {
+                    let tabBarController = MumentTabBarController()
+                    tabBarController.modalPresentationStyle = .fullScreen
+                    tabBarController.modalTransitionStyle = .crossDissolve
+                    self.present(tabBarController, animated: true)
+                } else if (status as! Int == 200) {
                     let setProfileVC = SetProfileVC()
                     setProfileVC.modalPresentationStyle = .fullScreen
                     setProfileVC.modalTransitionStyle = .crossDissolve
