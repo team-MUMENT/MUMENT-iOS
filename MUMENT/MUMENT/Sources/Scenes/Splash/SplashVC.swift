@@ -32,6 +32,8 @@ class SplashVC: UIViewController {
     
     private func decideNextVC() {
 //        UserDefaultsManager.refreshToken = nil
+        UserDefaultsManager.refreshToken =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsInByb2ZpbGVJZCI6Iu2GoO2BsCDrp4zro4wg7YWM7Iqk7Yq4ISIsImltYWdlIjpudWxsLCJpYXQiOjE2NzM3MjE3ODQsImV4cCI6MTY3MzkwNTc4NCwiaXNzIjoiTXVtZW50In0.qthgxZav45JckbvFc9mw4LqtVhvP5MC2vTZ6Qu3qIIg"
+//        UserDefaultsManager.refreshToken = UserInfo.shared.refreshToken
         let refreshToken = UserDefaultsManager.refreshToken
         print("REFRESH TOKEN", refreshToken)
         if (refreshToken == nil) {
@@ -72,25 +74,28 @@ extension SplashVC {
             switch networkResult {
             case .success(let response):
                 if let res = response as? TokenRenewalResponseModel {
+                    print("!!!!!!11")
                     UserInfo.shared.accessToken = res.accessToken
                     UserInfo.shared.refreshToken = res.refreshToken
                     
                     UserDefaultsManager.accessToken = res.accessToken
                     UserDefaultsManager.refreshToken = res.refreshToken
                 }
-                let tabBarController = MumentTabBarController()
-                tabBarController.modalPresentationStyle = .fullScreen
-                tabBarController.modalTransitionStyle = .crossDissolve
-                self.present(tabBarController, animated: true)
+                self.requestIsProfileSet()
                 
             case .requestErr(_, let message):
-                if (message as! String == "만료된 토큰 입니다.") {
+                if (message as! String == "토큰이 만료되었습니다") {
                     let signInVC = SignInVC()
                     signInVC.modalPresentationStyle = .fullScreen
                     signInVC.modalTransitionStyle = .crossDissolve
                     self.present(signInVC, animated: true)
                 }
-                else if (message as! String == "프로필 설정이 완료되지 않은 유저입니다") {
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
     private func requestIsProfileSet() {
         AuthAPI.shared.getIsProfileSet() { networkResult in
             switch networkResult {
