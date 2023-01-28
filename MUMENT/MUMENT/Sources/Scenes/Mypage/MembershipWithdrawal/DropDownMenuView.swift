@@ -17,7 +17,6 @@ final class DropDownMenuView: UIView {
     
     // MARK: - Components
     private let dropDownMenuTV: UITableView = UITableView().then {
-        $0.estimatedRowHeight = UITableView.automaticDimension
         $0.backgroundColor = .mGray5
         $0.separatorStyle = .none
         $0.showsVerticalScrollIndicator = true
@@ -70,6 +69,7 @@ extension DropDownMenuView {
         
         dropDownMenuTV.snp.makeConstraints {
             $0.edges.equalToSuperview()
+            $0.height.equalTo(290)
         }
     }
 }
@@ -106,7 +106,6 @@ extension DropDownMenuView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

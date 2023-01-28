@@ -238,7 +238,6 @@ extension MembershipWithdrawalVC {
             $0.top.equalTo(reasonSelectionButton.snp.bottom).inset(20)
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.bottom.equalTo(confirmingStackView.snp.top).offset(-40)
         }
         
         withdrawalButton.snp.makeConstraints {
@@ -248,7 +247,7 @@ extension MembershipWithdrawalVC {
         }
         
         confirmingStackView.snp.makeConstraints {
-            $0.bottom.equalTo(withdrawalButton.snp.top).offset(-30)
+            $0.bottom.equalTo(withdrawalButton.snp.top).offset(-15)
             $0.centerX.equalToSuperview()
         }
     }
