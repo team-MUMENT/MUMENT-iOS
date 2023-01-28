@@ -58,8 +58,8 @@ extension SelectedTagCVC {
         
         tagDeleteImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.left.equalTo(contentLabel.snp.right).offset(5)
-            $0.width.height.equalTo(17)
+            $0.left.equalTo(contentLabel.snp.right).offset(2)
+            $0.width.height.equalTo(24)
         }
     }
 }
