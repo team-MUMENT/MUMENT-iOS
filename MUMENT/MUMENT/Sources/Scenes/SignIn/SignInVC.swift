@@ -67,8 +67,8 @@ final class SignInVC: BaseVC {
                         // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
                         _ = oauthToken
                         print(oauthToken)
-                        let fcmToken = UserDefaultsManager.fcmToken                        
-                        self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.idToken ?? "", fcm_token: fcmToken as! String))
+                        let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
+                        self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.refreshToken ?? "", fcm_token: fcmToken))
                     }
                 }
 //
