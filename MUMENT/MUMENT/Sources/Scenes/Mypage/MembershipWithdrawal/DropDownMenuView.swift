@@ -56,6 +56,10 @@ final class DropDownMenuView: UIView {
     func setDelegate(delegate: DropDownMenuViewDelegate) {
         self.delegate = delegate
     }
+    
+    func getSelectedMenuNumber() -> Int {
+        return selectedTVCIndex + 2
+    }
 }
 
 // MARK: - UI

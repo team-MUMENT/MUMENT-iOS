@@ -146,6 +146,15 @@ final class MembershipWithdrawalVC: BaseVC {
         checkBoxButton.press {
             self.isCheckBoxChecked.toggle()
         }
+        
+        withdrawalButton.press {
+            let leaveCategoryNum = self.reasonSelectingMenuView.getSelectedMenuNumber()
+            var reasonEtc = ""
+            if (leaveCategoryNum == 7) {
+                reasonEtc = self.reasonTextView.text
+            }
+            self.requestPostWithdrawalReason(data: WithdrawalReasonBodyModel(leaveCategoryId: leaveCategoryNum, reasonEtc: reasonEtc))
+        }
     }
     
     @objc func reasonSelectionButtonClicked(_ sender:Any?) -> Void {
@@ -282,5 +291,36 @@ extension MembershipWithdrawalVC: UITextViewDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
         return changedText.count <= 100
+    }
+}
+
+// MARK: - Network
+extension MembershipWithdrawalVC {
+    private func requestPostWithdrawalReason(data: WithdrawalReasonBodyModel) {
+        MyPageAPI.shared.postWithdrawalReason(body: data) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? WithdrawalReasonResponseModel {
+                    print("REASON RES", res)
+                    self.requestPostWithdrawalReason()
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func requestPostWithdrawalReason() {
+        MyPageAPI.shared.deleteMembership() { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? WithdrawalResponseModel {
+                    print("WITHDRAWAL RES", res)
+                    self.navigationController?.pushViewController(SignInVC(), animated: true)
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
