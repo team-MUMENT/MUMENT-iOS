@@ -273,6 +273,7 @@ extension MembershipWithdrawalVC: DropDownMenuViewDelegate {
     func handleTVCSelectedEvent(_ menuLabel: String) {
         self.isReasonMenuHidden.toggle()
         reasonSelectionButton.setTitleLabel(menuLabel)
+        withdrawalButton.isEnabled = isCheckBoxChecked
         if menuLabel == "기타" {
             isTextViewHidden = false
         }
