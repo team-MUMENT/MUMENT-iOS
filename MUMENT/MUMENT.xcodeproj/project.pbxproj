@@ -184,7 +184,6 @@
 		C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6F28771184008C75CE /* UIStackView+.swift */; };
 		C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B712877ECA0008C75CE /* CALayer+.swift */; };
 		C7DE6F54290ECE61002B9048 /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DE6F53290ECE61002B9048 /* MessageType.swift */; };
-		E7400C162941E9EF006F5963 /* SelectedTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C152941E9EF006F5963 /* SelectedTagsView.swift */; };
 		E7400C182941EF2A006F5963 /* StorageMumentCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C172941EF2A006F5963 /* StorageMumentCV.swift */; };
 		E7400C1C29425235006F5963 /* StorageMumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1B29425235006F5963 /* StorageMumentVC.swift */; };
 		E7400C1E2943235F006F5963 /* StorageMumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1D2943235F006F5963 /* StorageMumentModel.swift */; };
@@ -193,7 +192,6 @@
 		E781F2232881BC0800484C28 /* CellCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2222881BC0800484C28 /* CellCategory.swift */; };
 		E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2242881FB5A00484C28 /* AlbumCVC.swift */; };
 		E781F2272882A77500484C28 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2262882A77500484C28 /* SectionHeader.swift */; };
-		E781F22B2886EA7700484C28 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F22A2886EA7700484C28 /* TagButton.swift */; };
 		E781F22D28892E2400484C28 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F22C28892E2400484C28 /* StorageService.swift */; };
 		E781F22F28892EF400484C28 /* StorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F22E28892EF400484C28 /* StorageAPI.swift */; };
 		E781F23128892FCC00484C28 /* GetMyMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F23028892FCC00484C28 /* GetMyMumentResponseModel.swift */; };
@@ -378,7 +376,6 @@
 		C7BC6B6F28771184008C75CE /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		C7BC6B712877ECA0008C75CE /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		C7DE6F53290ECE61002B9048 /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
-		E7400C152941E9EF006F5963 /* SelectedTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTagsView.swift; sourceTree = "<group>"; };
 		E7400C172941EF2A006F5963 /* StorageMumentCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentCV.swift; sourceTree = "<group>"; };
 		E7400C1B29425235006F5963 /* StorageMumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentVC.swift; sourceTree = "<group>"; };
 		E7400C1D2943235F006F5963 /* StorageMumentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentModel.swift; sourceTree = "<group>"; };
@@ -387,7 +384,6 @@
 		E781F2222881BC0800484C28 /* CellCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCategory.swift; sourceTree = "<group>"; };
 		E781F2242881FB5A00484C28 /* AlbumCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCVC.swift; sourceTree = "<group>"; };
 		E781F2262882A77500484C28 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
-		E781F22A2886EA7700484C28 /* TagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
 		E781F22C28892E2400484C28 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		E781F22E28892EF400484C28 /* StorageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
 		E781F23028892FCC00484C28 /* GetMyMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyMumentResponseModel.swift; sourceTree = "<group>"; };
@@ -907,7 +903,6 @@
 			children = (
 				C7BC6B542876ADC8008C75CE /* Model */,
 				C7BB531D28759E6500E0E889 /* StorageVC.swift */,
-				E7400C152941E9EF006F5963 /* SelectedTagsView.swift */,
 				E781F2262882A77500484C28 /* SectionHeader.swift */,
 				E781F2222881BC0800484C28 /* CellCategory.swift */,
 				E7D60FFE287EC821000720D4 /* ListCVC.swift */,
@@ -1027,7 +1022,6 @@
 		C7BC6B542876ADC8008C75CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E781F22A2886EA7700484C28 /* TagButton.swift */,
 				E781F23028892FCC00484C28 /* GetMyMumentResponseModel.swift */,
 				E781F2322889ADE400484C28 /* GetLikedMumentResponseModel.swift */,
 			);
@@ -1146,7 +1140,6 @@
 				4D2BADD028806A75004A7E00 /* SongDetailVC.swift in Sources */,
 				C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				4D5A2826292B64700001F8F9 /* MembershipWithdrawalVC.swift in Sources */,
-				E7400C162941E9EF006F5963 /* SelectedTagsView.swift in Sources */,
 				C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */,
 				C766F9CA2935ED7F00E08D5C /* MypageMainProfileTVC.swift in Sources */,
 				4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */,
@@ -1243,7 +1236,6 @@
 				C7394B0E292362EC00BF6AE1 /* MumentActionSheetTVC.swift in Sources */,
 				4D90D15D28892E71008265E1 /* HomeService.swift in Sources */,
 				C767508229407F3100F2D985 /* BlockedUserTVC.swift in Sources */,
-				E781F22B2886EA7700484C28 /* TagButton.swift in Sources */,
 				E7978472297B705C00A0AE45 /* TagList.swift in Sources */,
 				C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */,
 				C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */,

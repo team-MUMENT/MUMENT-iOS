@@ -63,36 +63,3 @@ extension SelectedTagCVC {
         }
     }
 }
-
-//    private let selectedTagButton = TagButton()
-//
-//    // MARK: - Initialization
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        setLayout()
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//
-//    func setTagButtonTitle(_ title: String) {
-//        let attributes: [NSAttributedString.Key: Any] = [
-//            .font: UIFont.mumentB2B14,
-//            .foregroundColor: UIColor.mBlue1
-//        ]
-//        selectedTagButton.setAttributedTitle(NSAttributedString(string: title, attributes: attributes), for: .normal)
-//        selectedTagButton.titleLabel?.sizeToFit()
-//    }
-//}
-//
-//// MARK: - UI
-//extension SelectedTagCVC {
-//    private func setLayout() {
-//        contentView.addSubview(selectedTagButton)
-//
-//        selectedTagButton.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//        }
-//    }
-//}
