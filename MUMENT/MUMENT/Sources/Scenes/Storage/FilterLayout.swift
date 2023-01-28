@@ -54,9 +54,9 @@ final class FilterLayout: UICollectionViewCompositionalLayout {
         return section
     }()
         
-    init(layoutType: LayoutType){
+    init(layoutType: LayoutType) {
         switch layoutType {
-        case.impression:
+        case .impression:
             super .init(section: impressionCompositionalLayoutSection)
         case .feel:
             super .init(section: feelCompositionalLayoutSection)
