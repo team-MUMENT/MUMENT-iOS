@@ -57,20 +57,34 @@ final class SignInVC: BaseVC {
         kakaoSignInButton.press{
             
             // 카카오톡 설치 여부 확인
-            if (UserApi.isKakaoTalkLoginAvailable()) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     if let error = error {
                         print(error)
                     }
                     else {
                         print("loginWithKakaoTalk() success.")
-                        
+
                         // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
                         _ = oauthToken
+                        print(oauthToken)
+                        let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
+                        self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.refreshToken ?? "", fcm_token: fcmToken))
                     }
                 }
+//
+//            if (UserApi.isKakaoTalkLoginAvailable()) {
+//
+//                UserApi.shared.unlink {(error) in
+//                    if let error = error {
+//                        print(error)
+//                    }
+//                    else {
+//                        print("unlink() success.")
+//                    }
+//                }
+//            }
             }
-        }
+        
         
         appleSignInButton.press{
             let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -168,7 +182,7 @@ extension SignInVC: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
             
-            // 비밀번호 및 FaceID 인증 경우를 통해 왔을 때
+        // 비밀번호 및 FaceID 인증 경우를 통해 왔을 때 - 실기기로 실행 시 
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
@@ -177,9 +191,19 @@ extension SignInVC: ASAuthorizationControllerDelegate {
             print("fullName", fullName as Any)
             print("email", email as Any)
             
-            // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
+            if let authorizationCode = appleIDCredential.authorizationCode,
+               let identityToken = appleIDCredential.identityToken,
+               let authString = String(data: authorizationCode, encoding: .utf8),
+               let tokenString = String(data: identityToken, encoding: .utf8) {
+                debugPrint("authorizationCode: \(authorizationCode)")
+                debugPrint("identityToken: \(identityToken)")
+                debugPrint("authString: \(authString)")
+                debugPrint("tokenString: \(tokenString)")
+                let fcmToken = UserDefaultsManager.fcmToken ?? ""
+                requestSignIn(data: SignInBodyModel(provider: "apple", authentication_code: tokenString, fcm_token: fcmToken))
+            }
             
-            // iCloud의 패스워드를 연동해 왔을 때
+        // iCloud의 패스워드를 연동해 왔을 때 - 시뮬레이터로 실행 시
         case let passwordCredential as ASPasswordCredential:
             let username = passwordCredential.user
             let password = passwordCredential.password
@@ -195,8 +219,6 @@ extension SignInVC: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("apple 로그인 사용자 인증 실패")
         print("error \(error)")
-        
-        // 필요 시 추가적인 에러 처리
     }
 }
 
@@ -206,5 +228,59 @@ extension SignInVC: ASAuthorizationControllerPresentationContextProviding {
     /// 애플 로그인 UI를 어디에 띄울지 가장 적합한 뷰 앵커를 반환합니다.
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
+    }
+}
+
+// MARK: - Network
+extension SignInVC {
+    private func requestSignIn(data: SignInBodyModel) {
+        AuthAPI.shared.postSignIn(body: data) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? SignInResponseModel {
+                    UserInfo.shared.accessToken = res.accessToken
+                    UserInfo.shared.refreshToken = res.refreshToken
+                    UserInfo.shared.userId = res.id
+                    
+                    UserDefaultsManager.accessToken = res.accessToken
+                    UserDefaultsManager.refreshToken = res.refreshToken
+                    UserDefaultsManager.userId = res.id
+                    
+                    if (res.type == "signUp") {
+                        let setProfileVC = SetProfileVC()
+                        setProfileVC.modalPresentationStyle = .fullScreen
+                        setProfileVC.modalTransitionStyle = .crossDissolve
+                        self.present(setProfileVC, animated: true)
+                    } else {
+                        self.requestIsProfileSet()
+                    }
+                    
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func requestIsProfileSet() {
+        AuthAPI.shared.getIsProfileSet() { networkResult in
+            switch networkResult {
+            case .success(let status):
+                print("SUCCESS")
+                if (status as! Int == 204) {
+                    let tabBarController = MumentTabBarController()
+                    tabBarController.modalPresentationStyle = .fullScreen
+                    tabBarController.modalTransitionStyle = .crossDissolve
+                    self.present(tabBarController, animated: true)
+                } else if (status as! Int == 200) {
+                    let setProfileVC = SetProfileVC()
+                    setProfileVC.modalPresentationStyle = .fullScreen
+                    setProfileVC.modalTransitionStyle = .crossDissolve
+                    self.present(setProfileVC, animated: true)
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
