@@ -9,7 +9,9 @@ import UIKit
 import SnapKit
 import Then
 
-final class InstagramShareImageRendererVC: BaseVC {
+final class InstagramShareView:
+    UIView {
+//    UIViewController {
     
     // MARK: - Properties
     private var isFirst: Bool = false
@@ -20,10 +22,10 @@ final class InstagramShareImageRendererVC: BaseVC {
     private let mumentCardView: UIView = UIView().then {
         $0.backgroundColor = .mBgwhite
         $0.makeRounded(cornerRadius: 11)
-//        $0.layer.shadowRadius = 4
-//        $0.layer.shadowOffset = CGSize(width: 0, height: 4)
-//        $0.layer.shadowColor = UIColor.black.cgColor
-//        $0.layer.shadowOpacity = 0.25
+        //        $0.layer.shadowRadius = 4
+        //        $0.layer.shadowOffset = CGSize(width: 0, height: 4)
+        //        $0.layer.shadowColor = UIColor.black.cgColor
+        //        $0.layer.shadowOpacity = 0.25
     }
     private let writerProfileImageView: UIImageView = UIImageView().then {
         $0.makeRounded(cornerRadius: 12.5)
@@ -71,22 +73,46 @@ final class InstagramShareImageRendererVC: BaseVC {
     private let mumentLogoImageView: UIImageView = UIImageView().then {
         $0.image = UIImage(named: "mumentLogo")
     }
+    private let testImageView: UIImageView = UIImageView()
     
-//     MARK: - Initialization
-//    override init(frame: CGRect) {
-//        super.init(frame: .zero)
-//        setLayout()
-//    }
-//
-//    required init(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)!
-//    }
-    
-    // MARK: - View Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    //     MARK: - Initialization
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         setLayout()
+        self.backgroundColor = .clear
     }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+    }
+    
+    // 뷰가 푸시되어야 시작.
+    // MARK: - View Life Cycle
+//        override func viewDidLoad() {
+//            super.viewDidLoad()
+//            setLayout()
+//            print("SETLAYOUT")
+//        }
+    //    convenience init(){
+    //        self.init()
+    //        setLayout()
+    //    }
+    
+    // This allows you to initialise your custom UIViewController without a nib or bundle.
+    //    convenience init() {
+    //        self.init(nibName:nil, bundle:nil)
+    //    }
+    //
+    //    // This extends the superclass.
+    //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    //        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    //        setLayout()
+    //    }
+    //
+    //    // This is also necessary when extending the superclass.
+    //    required init?(coder aDecoder: NSCoder) {
+    //        fatalError("init(coder:) has not been implemented") // or see Roman Sausarnes's answer
+    //    }
     
     //MARK: - Functions
     func setDummyData(_ data: MumentDetailVCModel) {
@@ -104,7 +130,7 @@ final class InstagramShareImageRendererVC: BaseVC {
         setTags()
     }
     
-    func setTags(){
+    private func setTags(){
         
         tagStackView.removeAllArrangedSubviews()
         tagSubStackView.removeAllArrangedSubviews()
@@ -140,20 +166,47 @@ final class InstagramShareImageRendererVC: BaseVC {
             }
         }
     }
+    
+    func renderImage() -> UIImage {
+//        let renderer = UIGraphicsImageRenderer(bounds: mumentCardView.bounds)
+//        let renderedImage = renderer.image { _ in
+//            mumentCardView.layer.render(in: rendererContext.cgContext)
+//            mumentCardView.drawHierarchy(in: mumentCardView.bounds, afterScreenUpdates: true)
+//        }
+        //        return mumentCardView.asImage()
+        //        let renderedImage = mumentCardView.asImage()
+//                print("RENDERIMAGEFUNC", renderedImage.size)
+        //        return renderedImage
+        
+        
+
+//        let renderer = UIGraphicsImageRenderer(size: bounds.size)
+//        print("mumentCardView.frame.size",bounds.size)
+//        let image = renderer.image { ctx in
+//            mumentCardView.drawHierarchy(in: bounds, afterScreenUpdates: true)
+//        }
+        
+        let renderer = UIGraphicsImageRenderer(bounds: mumentCardView.bounds)
+        print("mumentCardView.frame.size",mumentCardView.bounds)
+                return renderer.image { rendererContext in
+                    self.layer.render(in: rendererContext.cgContext)
+                }
+//        return image
+    }
 }
 
 // MARK: - UI
-extension InstagramShareImageRendererVC {
+extension InstagramShareView {
     
     private func setLayout() {
-        view.backgroundColor = .mPurple1
-        view.addSubviews([mumentCardView])
+//        self.backgroundColor = .mPurple1
+        self.addSubviews([mumentCardView])
         mumentCardView.addSubviews([writerInfoStackView, separatorView, albumImageView, musicTitleLabel, artistNameLabel, tagStackView, tagSubStackView, contentsLabel, createdAtLabel, mumentLogoImageView])
         
         mumentCardView.snp.makeConstraints {
-            $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(87)
-            $0.left.equalTo(self.view.safeAreaLayoutGuide).offset(42)
-            $0.right.equalTo(self.view.safeAreaLayoutGuide).inset(42)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(87)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(42)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(42)
         }
         writerInfoStackView.snp.makeConstraints {
             $0.top.equalTo(mumentCardView.snp.top).offset(12)
@@ -207,5 +260,10 @@ extension InstagramShareImageRendererVC {
         writerProfileImageView.snp.makeConstraints {
             $0.width.height.equalTo(25)
         }
+        //
+        //        testImageView.snp.makeConstraints {
+        //            $0.centerX.equalToSuperview()
+        //            $0.centerY.equalToSuperview()
+        //        }
     }
 }

@@ -53,6 +53,7 @@ class DetailSongInfoView: UIView {
         titleLabel.text = cellData.songtitle
         artistLabel.text = cellData.artist
         titleLabel.sizeToFit()
+        print("ALBUMIMAGE",albumImage.image)
     }
     
     func setData(albumURL: String, songTitle: String, artist: String){

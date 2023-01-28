@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 class MumentDetailVC: BaseVC, UIActionSheetDelegate {
-    
+    let instagramShareView = InstagramShareView()
     // MARK: - Properties
     private let dummyData = MumentDetailVCModel(profileImageName:"image5", writerName: "이수지", albumImageName: "image4", isFirst:true, impressionTags: [100,101], feelingTags:[], songtitle:"하늘나라", artist:"혁오", contents:"추억과 쓸쓸함과 하나에 다하지 새겨지는 버리었습니다. 아스라히 별 이국 잔디가 있습니다. 애기 아직 이네들은 있습니다. 파란 다 그리워 강아지, 아직 헤일 말 나의 있습니다. 쓸쓸함과 가득 아침이 된 이웃 딴은 있습니다. 이름을 별 보고, 쓸쓸함과 벌써 버리었습니다. 언덕 나는 아무 하나에 말 위에 둘 별 듯합니다. 별 위에도 이름을 까닭이요, 거외다. 사랑과 파란 너무나 말 잔디가 릴케 봅니다. 없이 내일 이제 까닭입니다. 별 추억과 헤는 다 까닭이요, 가을로 듯합니다. 그러나 마디씩 속의 시인의 애기 것은 나는 있습니다. 가을로 어머니 시와 우는 이름과 강아지, 시인의 봅니다. 패, 시인의 가을로 별 어머니 봅니다. 책상을 시인의 당신은 가을로 내일 가득 있습니다. 하나에 별 사람들의 까닭입니다. 한 우는 어머님, 별 언덕 봅니다. 추억과 차 이름과, 나는 남은 마리아 당신은 봅니다.", createdAt:"1 Sep, 2020", isLiked:true, heartCount:15, mumentCount:5)
     private let navigationBarView = DefaultNavigationBar()
@@ -40,6 +40,7 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     }
     var mumentId: String?
     var dataSource: MumentDetailResponseModel?
+    private let testImageView: UIImageView = UIImageView()
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -127,9 +128,9 @@ class MumentDetailVC: BaseVC, UIActionSheetDelegate {
 extension MumentDetailVC {
     
     private func setLayout() {
-        view.addSubviews([navigationBarView,detailScrollView])
+        view.addSubviews([navigationBarView,detailScrollView, instagramShareView])
         detailScrollView.addSubviews([detailContentView])
-        detailContentView.addSubviews([mumentCardView,historyButton])
+        detailContentView.addSubviews([mumentCardView,historyButton, testImageView])
         
         navigationBarView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
@@ -158,42 +159,81 @@ extension MumentDetailVC {
             $0.width.equalTo(335)
             $0.bottom.equalToSuperview().inset(20)
         }
+        testImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.height.equalTo(600)
+            $0.width.equalTo(300)
+        }
+        
+        
+        
+        instagramShareView.snp.makeConstraints {
+            $0.height.width.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(-1000)
+        }
+        
     }
+   
 }
 
 // MARK: - DetailMumentCardViewDelegate
 extension MumentDetailVC: DetailMumentCardViewDelegate {
     func shareButtonClicked() {
         print("CLICKEd")
-        let instagramShareImageRendererVC = InstagramShareImageRendererVC()
-        instagramShareImageRendererVC.setDummyData(dummyData)
-        instagramShareImageRendererVC.modalPresentationStyle = .overCurrentContext
-        self.present(instagramShareImageRendererVC, animated: true)
-//        if let storiesUrl = URL(string: "instagram-stories://share") {
-//            if UIApplication.shared.canOpenURL(storiesUrl) {
-                // 위의 sharingImageView의 image를 image에 저장
-//                guard let image = sharingImageView.image else { return }
-                // 지원되는 형식에는 JPG,PNG 가 있다.
-//                guard let imageData = image.pngData() else { return }
-//                let pasteboardItems: [String: Any] = [
-//                    "com.instagram.sharedSticker.stickerImage": imageData,
-//                    // 배경 값 : 두 값이 다르면 그래디언트를 생성
-//                    "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
-//                    "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
-//                ]
-//                let pasteboardOptions = [
-//                    UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)
-//                ]
-//                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
-//                UIApplication.shared.open(storiesUrl, options: [:], completionHandler: nil)
-//            } else {
-//                print("User doesn't have instagram on their device.")
-//                //앱 미설치시 앱스토어로 연결
-//                if let openStore = URL(string: "itms-apps://itunes.apple.com/app/AppleID"), UIApplication.shared.canOpenURL(openStore) {
-//                    UIApplication.shared.open(openStore, options: [:], completionHandler: nil)
-//                }
-//            }
+       
+        instagramShareView.setDummyData(dummyData)
+//        let renderedImage = instagramShareView.renderImage()
+//        view.addSubview(instagramShareView)
+//        instagramShareView.snp.makeConstraints{
+//            $0.edges.equalToSuperview()
 //        }
+//        print("RENDEREDIMGAGE",renderedImage)
+//        print("BUTTON",historyButton)
+//        DispatchQueue.main.async {
+//            self.testImageView.image = renderedImage
+//        }
+        
+        //        instagramShareImageRendererVC.setDummyData(dummyData)
+//        instagramShareView.modalPresentationStyle = .overCurrentContext
+//                self.present(instagramShareView, animated: true)
+//        let renderedImage = instagramShareView.renderImage()
+        
+        let renderer = UIGraphicsImageRenderer(size: instagramShareView.bounds.size)
+        print("mumentCardView.frame.size",instagramShareView.bounds.size)
+        let image = renderer.image { ctx in
+            instagramShareView.drawHierarchy(in: instagramShareView.bounds, afterScreenUpdates: true)
+        }
+        
+        if let storiesUrl = URL(string: "instagram-stories://share") {
+            print("GotstoriesUrl")
+            if UIApplication.shared.canOpenURL(storiesUrl) {
+                print("CANOPENURL")
+//                let vc = UIActivityViewController(activityItems: [renderedImage], applicationActivities: nil)
+//                self.present(vc, animated: true)
+//                guard let imageData = UIImage(named: "image5")?.pngData() else { return }
+                guard let imageData = image.pngData() else { return }
+                print("GOTIMAGEDATA")
+                let pasteboardItems: [String: Any] = [
+                    "com.instagram.sharedSticker.stickerImage": imageData,
+                    // 배경 값 : 두 값이 다르면 그래디언트를 생성
+                    "com.instagram.sharedSticker.backgroundTopColor": "#b2bec3",
+                    "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
+                ]
+                let pasteboardOptions = [
+                    UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)
+                ]
+                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+                UIApplication.shared.open(storiesUrl, options: [:], completionHandler: nil)
+                print("OPENED")
+            } else {
+                print("User doesn't have instagram on their device.")
+                //앱 미설치시 앱스토어로 연결
+                if let openStore = URL(string: "itms-apps://itunes.apple.com/app/AppleID"), UIApplication.shared.canOpenURL(openStore) {
+                    UIApplication.shared.open(openStore, options: [:], completionHandler: nil)
+                }
+            }
+        }
     }
 }
 
