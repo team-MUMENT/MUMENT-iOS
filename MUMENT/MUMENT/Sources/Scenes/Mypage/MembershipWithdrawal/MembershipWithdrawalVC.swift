@@ -139,9 +139,13 @@ final class MembershipWithdrawalVC: BaseVC {
     }
     
     // MARK: - Functions
-    func setButtonActions() {
+    private func setButtonActions() {
         
-        self.reasonSelectionButton.addTarget(self, action: #selector(self.reasonSelectionButtonClicked(_:)), for: .touchUpInside)
+        self.naviView.setBackButtonAction {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        reasonSelectionButton.addTarget(self, action: #selector(self.reasonSelectionButtonClicked(_:)), for: .touchUpInside)
         
         checkBoxButton.press {
             self.isCheckBoxChecked.toggle()
@@ -157,7 +161,7 @@ final class MembershipWithdrawalVC: BaseVC {
         }
     }
     
-    @objc func reasonSelectionButtonClicked(_ sender:Any?) -> Void {
+    @objc private func reasonSelectionButtonClicked(_ sender:Any?) -> Void {
         self.isReasonMenuHidden.toggle()
         if !isTextViewHidden { isTextViewHidden.toggle() }
         self.view.frame.origin.y = 0
@@ -183,6 +187,10 @@ final class MembershipWithdrawalVC: BaseVC {
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    func setUserName(_ userName: String) {
+        self.userName = userName
     }
 }
 
