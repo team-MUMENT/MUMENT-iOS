@@ -14,19 +14,18 @@ import Alamofire
 
 enum HeaderType {
     case basic
+    case authRenewal
     case auth
     case multiPart
     case multiPartWithAuth
 }
 
 enum HTTPHeaderField: String {
-    case authentication = "Authorization"
     case contentType = "Content-Type"
-    case accesstoken = "accesstoken"
+    case authorization = "Authorization"
 }
 
 enum ContentType: String {
     case json = "Application/json"
-    case tokenSerial = ""
     case multiPart = "multipart/form-data"
 }

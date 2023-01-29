@@ -48,16 +48,20 @@ extension TargetType {
         case .basic:
             request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
             
+        case .authRenewal:
+            request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+            request.setValue(UserDefaultsManager.refreshToken ?? UserInfo.shared.refreshToken, forHTTPHeaderField: HTTPHeaderField.authorization.rawValue)
+            
         case .auth:
             request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
-            request.setValue(ContentType.tokenSerial.rawValue, forHTTPHeaderField: HTTPHeaderField.accesstoken.rawValue)
+            request.setValue(UserDefaultsManager.accessToken ?? UserInfo.shared.accessToken, forHTTPHeaderField: HTTPHeaderField.authorization.rawValue)
             
         case .multiPart:
             request.setValue(ContentType.multiPart.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
             
         case .multiPartWithAuth:
             request.setValue(ContentType.multiPart.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
-            request.setValue(ContentType.tokenSerial.rawValue, forHTTPHeaderField: HTTPHeaderField.accesstoken.rawValue)
+            request.setValue(UserDefaultsManager.accessToken ?? UserInfo.shared.accessToken, forHTTPHeaderField: HTTPHeaderField.authorization.rawValue)
         }
         
         return request
