@@ -75,6 +75,10 @@ class DefaultNavigationBar: UIView {
     func setTitle(_ title:String){
         titleLabel.text = title
     }
+    
+    func setBackButtonAction(_ closure: @escaping () -> Void) {
+        self.backButton.addAction( UIAction { _ in closure() }, for: .touchUpInside)
+    }
 }
 
 // MARK: - UI

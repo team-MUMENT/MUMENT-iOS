@@ -73,8 +73,13 @@
 		4DC4D84E2889BA100060D00F /* MumentsByTagResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */; };
 		4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */; };
 		4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
-		4DE0FAD929823523008F01E5 /* InstagramShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE0FAD829823522008F01E5 /* InstagramShareView.swift */; };
 		4DE0FACA29801D63008F01E5 /* TokenRenewalResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE0FAC929801D63008F01E5 /* TokenRenewalResponseModel.swift */; };
+		4DE0FACE29810AA1008F01E5 /* MyPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE0FACD29810AA1008F01E5 /* MyPageService.swift */; };
+		4DE0FAD129811BA9008F01E5 /* WithdrawalReasonBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE0FAD029811BA9008F01E5 /* WithdrawalReasonBodyModel.swift */; };
+		4DE0FAD329811CDA008F01E5 /* WithdrawalReasonResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE0FAD229811CDA008F01E5 /* WithdrawalReasonResponseModel.swift */; };
+		4DE0FAD529811CEA008F01E5 /* WithdrawalResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE0FAD429811CEA008F01E5 /* WithdrawalResponseModel.swift */; };
+		4DE0FAD729811DD6008F01E5 /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE0FAD629811DD6008F01E5 /* MyPageAPI.swift */; };
+		4DE0FAD929823523008F01E5 /* InstagramShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE0FAD829823522008F01E5 /* InstagramShareView.swift */; };
 		4DE75A8228CCBAE400BC3EC4 /* MumentsByTagCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE75A8128CCBAE400BC3EC4 /* MumentsByTagCardView.swift */; };
 		4DEED413288B32B300C6337B /* DeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED412288B32B300C6337B /* DeleteAPI.swift */; };
 		4DEED415288B32E500C6337B /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED414288B32E500C6337B /* DeleteService.swift */; };
@@ -298,6 +303,11 @@
 		4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagResponseModel.swift; sourceTree = "<group>"; };
 		4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedResponseModel.swift; sourceTree = "<group>"; };
 		4DE0FAC929801D63008F01E5 /* TokenRenewalResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRenewalResponseModel.swift; sourceTree = "<group>"; };
+		4DE0FACD29810AA1008F01E5 /* MyPageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageService.swift; sourceTree = "<group>"; };
+		4DE0FAD029811BA9008F01E5 /* WithdrawalReasonBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalReasonBodyModel.swift; sourceTree = "<group>"; };
+		4DE0FAD229811CDA008F01E5 /* WithdrawalReasonResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalReasonResponseModel.swift; sourceTree = "<group>"; };
+		4DE0FAD429811CEA008F01E5 /* WithdrawalResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalResponseModel.swift; sourceTree = "<group>"; };
+		4DE0FAD629811DD6008F01E5 /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
 		4DE0FAD829823522008F01E5 /* InstagramShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramShareView.swift; sourceTree = "<group>"; };
 		4DE75A8128CCBAE400BC3EC4 /* MumentsByTagCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagCardView.swift; sourceTree = "<group>"; };
 		4DE7693D2918DF0E00747F79 /* MUMENT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MUMENT.entitlements; sourceTree = "<group>"; };
@@ -608,6 +618,16 @@
 			path = MumentCardWithoutHeart;
 			sourceTree = "<group>";
 		};
+		4DE0FACF29811B9F008F01E5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4DE0FAD029811BA9008F01E5 /* WithdrawalReasonBodyModel.swift */,
+				4DE0FAD229811CDA008F01E5 /* WithdrawalReasonResponseModel.swift */,
+				4DE0FAD429811CEA008F01E5 /* WithdrawalResponseModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C71B47E528807B56001A7CD6 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,6 +723,7 @@
 				4D13A6692887FD9300197D2A /* MumentDetailAPI.swift */,
 				4D13A66B2887FDAC00197D2A /* HistoryAPI.swift */,
 				E781F22E28892EF400484C28 /* StorageAPI.swift */,
+				4DE0FAD629811DD6008F01E5 /* MyPageAPI.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -720,6 +741,7 @@
 				4DEED414288B32E500C6337B /* DeleteService.swift */,
 				E781F22C28892E2400484C28 /* StorageService.swift */,
 				4D90D15C28892E71008265E1 /* HomeService.swift */,
+				4DE0FACD29810AA1008F01E5 /* MyPageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -881,6 +903,7 @@
 		C79CD44C2921AB3300DE4A47 /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
+				4DE0FACF29811B9F008F01E5 /* Model */,
 				4D5A2824292B63B00001F8F9 /* MembershipWithdrawal */,
 				C767507D29407D7500F2D985 /* SetBlockedUser */,
 				C7612D4F2937D7B7005F74B1 /* SetNotification */,
@@ -1223,6 +1246,7 @@
 				4D2BADD028806A75004A7E00 /* SongDetailVC.swift in Sources */,
 				C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				4D5A2826292B64700001F8F9 /* MembershipWithdrawalVC.swift in Sources */,
+				4DE0FAD729811DD6008F01E5 /* MyPageAPI.swift in Sources */,
 				C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */,
 				C766F9CA2935ED7F00E08D5C /* MypageMainProfileTVC.swift in Sources */,
 				4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */,
@@ -1292,6 +1316,7 @@
 				C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */,
 				C7AE17E628882DE100A5E3FA /* SearchAPI.swift in Sources */,
 				C7AE17E428882D6B00A5E3FA /* SearchService.swift in Sources */,
+				4DE0FAD529811CEA008F01E5 /* WithdrawalResponseModel.swift in Sources */,
 				E74FBCAC293A73CE00CE241D /* FilterSectionView.swift in Sources */,
 				C7AE8F83297D948300B1603E /* NotificationInfo.swift in Sources */,
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
@@ -1331,6 +1356,7 @@
 				4DEED415288B32E500C6337B /* DeleteService.swift in Sources */,
 				C71B48182886E7BA001A7CD6 /* SignInResponseModel.swift in Sources */,
 				E781F22D28892E2400484C28 /* StorageService.swift in Sources */,
+				4DE0FACE29810AA1008F01E5 /* MyPageService.swift in Sources */,
 				4D1F144E29114EE90093D641 /* OnboardingVC.swift in Sources */,
 				4D13A6662887FD7700197D2A /* HomeAPI.swift in Sources */,
 				4D300669288B0DC7007FF4DB /* LikeResponseModel.swift in Sources */,
@@ -1348,6 +1374,7 @@
 				C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */,
 				C7AE17E228882D4100A5E3FA /* SearchResultResponseModel.swift in Sources */,
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
+				4DE0FAD329811CDA008F01E5 /* WithdrawalReasonResponseModel.swift in Sources */,
 				C766F9C82935E69C00E08D5C /* MypageMainTVC.swift in Sources */,
 				4D64A9EF287DEC1800450FCA /* DefaultMumentCardView.swift in Sources */,
 				C71B48142886DD8E001A7CD6 /* AuthAPI.swift in Sources */,
@@ -1366,6 +1393,7 @@
 				4D760454288093280044F2A6 /* DefaultNavigationBar.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
 				4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */,
+				4DE0FAD129811BA9008F01E5 /* WithdrawalReasonBodyModel.swift in Sources */,
 				C71B47ED28818B21001A7CD6 /* SearchTVC.swift in Sources */,
 				4DE0FACA29801D63008F01E5 /* TokenRenewalResponseModel.swift in Sources */,
 				C71B47F32881A44B001A7CD6 /* RecentSearchTVC.swift in Sources */,
@@ -1531,7 +1559,7 @@
 				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1564,7 +1592,7 @@
 				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
