@@ -9,25 +9,17 @@ import UIKit
 import SnapKit
 import Then
 
-class DetailSongInfoView: UIView {
+final class DetailSongInfoView: UIView {
     
-    // MARK: - Properties
+    // MARK: - Components
     private let albumImage = UIImageView().then{
         $0.makeRounded(cornerRadius: 7)
         $0.clipsToBounds = true
     }
-    
-//    lazy var titleStackView = UIStackView(arrangedSubviews: [titleLabel, rightArrowImage]).then{
-//        $0.axis = .horizontal
-//        $0.spacing = 6
-//        $0.distribution = .fillProportionally
-//        $0.alignment = .center
-//    }
     private let titleLabel = UILabel().then{
         $0.textColor = .mBlack1
         $0.font = .mumentB2B14
     }
-    
     private let rightArrowImage = UIImageView().then{
         $0.image = UIImage(named: "rightArrow")
     }
@@ -53,7 +45,6 @@ class DetailSongInfoView: UIView {
         titleLabel.text = cellData.songtitle
         artistLabel.text = cellData.artist
         titleLabel.sizeToFit()
-        print("ALBUMIMAGE",albumImage.image)
     }
     
     func setData(albumURL: String, songTitle: String, artist: String){
@@ -61,8 +52,6 @@ class DetailSongInfoView: UIView {
         titleLabel.text = songTitle
         artistLabel.text = artist
         titleLabel.sizeToFit()
-//        titleLabel.adjustsFontSizeToFitWidth = true
-//        titleLabel.
     }
     
     func setData(_ cellData: HistoryResponseModel.DataMusic){
@@ -77,41 +66,24 @@ class DetailSongInfoView: UIView {
 extension DetailSongInfoView {
     
     private func setLayout() {
-        self.addSubviews([albumImage,
-//                          titleStackView,
-                          titleLabel, rightArrowImage, artistLabel])
+        self.addSubviews([albumImage, titleLabel, rightArrowImage, artistLabel])
         
         albumImage.snp.makeConstraints{
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(10)
             $0.height.width.equalTo(55)
         }
-        
-//        titleStackView.snp.makeConstraints{
-//            $0.leading.equalTo(albumImage.snp.trailing).offset(10)
-//            $0.top.equalTo(self.safeAreaLayoutGuide).offset(19)
-//            $0.trailing.equalTo(self.safeAreaLayoutGuide)
-//        }
-//        titleLabel.setContentCompressionResistanceePriority(.init(rawValue: 998), for: .horizontal)
         titleLabel.snp.makeConstraints{
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
             $0.top.equalToSuperview().offset(19)
-            
-//            $0.trailing.greaterThanOrEqualToSuperview().inset(6).priority(888)
-            
         }
-//        rightArrowImage.setContentCompressionResistancePriority(.init(rawValue: 999), for: .horizontal)
         rightArrowImage.snp.makeConstraints{
-            
             $0.leading.equalTo(titleLabel.snp.trailing).offset(6)
             $0.trailing.greaterThanOrEqualToSuperview().priority(300)
-            
             $0.top.equalToSuperview().offset(25)
-//            $0.trailing.equalToSuperview()
             $0.height.equalTo(10)
             $0.width.equalTo(6)
         }
-        
         artistLabel.snp.makeConstraints{
             $0.top.equalTo(rightArrowImage.snp.bottom).offset(3)
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)

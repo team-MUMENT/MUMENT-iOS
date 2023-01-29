@@ -13,89 +13,80 @@ protocol DetailMumentCardViewDelegate: AnyObject {
     func shareButtonClicked()
 }
 
-class DetailMumentCardView: UIView {
+final class DetailMumentCardView: UIView {
     
-    // MARK: - Properties
-    private var delegate: DetailMumentCardViewDelegate?
-    lazy var writerInfoStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then{
+    // MARK: - Components
+    private lazy var writerInfoStackView: UIStackView = UIStackView(arrangedSubviews: [profileImage, writerNameLabel]).then{
         $0.axis = .horizontal
         $0.spacing = 7
     }
-    private let profileImage = UIImageView().then{
+    private let profileImage: UIImageView = UIImageView().then {
         $0.makeRounded(cornerRadius: 12.5)
     }
-    private let writerNameLabel = UILabel().then{
+    private let writerNameLabel: UILabel = UILabel().then {
         $0.textColor = .mBlack2
         $0.font = .mumentB6M13
     }
-    
-    let menuIconButton = UIButton().then{
+    let menuIconButton: UIButton = UIButton().then {
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "kebab")
     }
-    
-    private let separatorView = UIView().then{
+    private let separatorView: UIView = UIView().then {
         $0.backgroundColor = .mGray4
     }
-    
-    let songInfoView = DetailSongInfoView()
-    
-    var isFirst: Bool = false
-    var impressionTags: [Int] = []
-    var feelingTags: [Int] = []
-    var tagWidthSum: CGFloat = 0
-    let tagStackView = UIStackView().then{
+    let songInfoView: DetailSongInfoView = DetailSongInfoView()
+    private let tagStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
     }
-    let tagSubStackView = UIStackView().then{
+    private let tagSubStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
     }
-    private let contentsLabel = UILabel().then{
+    private let contentsLabel: UILabel = UILabel().then {
         $0.textColor = .mGray1
         $0.lineBreakMode = .byCharWrapping
         $0.numberOfLines = 100
         $0.font = .mumentB4M14
     }
-    private let createdAtLabel = UILabel().then{
+    private let createdAtLabel: UILabel = UILabel().then {
         $0.textColor = .mGray2
         $0.font = .mumentC1R12
     }
-    
-    lazy var heartStackView = UIStackView(arrangedSubviews: [heartButton, heartLabel]).then{
+    private lazy var heartStackView: UIStackView = UIStackView(arrangedSubviews: [heartButton, heartLabel]).then {
         $0.axis = .horizontal
     }
-    private let heartButton = UIButton().then{
+    private let heartButton: UIButton = UIButton().then {
         $0.configuration = .plain()
         $0.configuration?.buttonSize = .small
     }
-    
-    private let heartLabel = UILabel().then{
+    private let heartLabel: UILabel = UILabel().then {
         $0.font = .mumentC1R12
         $0.textColor = .mGray1
     }
     
-    var heartCount: Int = 0 {
+    // MARK: - Properties
+    private var delegate: DetailMumentCardViewDelegate?
+    private var isFirst: Bool = false
+    private var impressionTags: [Int] = []
+    private var feelingTags: [Int] = []
+    private var tagWidthSum: CGFloat = 0
+    private var heartCount: Int = 0 {
         didSet{
             heartLabel.text = "\(heartCount)명이 좋아합니다."
         }
     }
-    
-    private let shareButton = UIButton().then{
+    private let shareButton: UIButton = UIButton().then {
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "share")
     }
-    
-    var isLiked: Bool = false{
+    private var isLiked: Bool = false {
         didSet{
             heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         }
     }
-    
     var mumentId: String = ""
     var userId: String = ""
-    
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -142,7 +133,7 @@ class DetailMumentCardView: UIView {
         setTags()
     }
     
-    func setTags(){
+    private func setTags(){
         
         tagStackView.removeAllArrangedSubviews()
         tagSubStackView.removeAllArrangedSubviews()
@@ -179,7 +170,7 @@ class DetailMumentCardView: UIView {
         }
     }
     
-    func setButtonActions(){
+    private func setButtonActions(){
         heartButton.press {
             let previousState = self.isLiked
             self.isLiked.toggle()
@@ -205,13 +196,13 @@ class DetailMumentCardView: UIView {
 // MARK: - UI
 extension DetailMumentCardView {
     
-    func setUI(){
+    private func setUI(){
         self.backgroundColor = .mWhite
         self.makeRounded(cornerRadius: 11)
         self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 2.0)
     }
     
-    func setLayout() {
+    private func setLayout() {
         self.addSubviews([writerInfoStackView,menuIconButton,separatorView,songInfoView,tagStackView,tagSubStackView,contentsLabel,createdAtLabel,heartStackView,shareButton])
         
         writerInfoStackView.snp.makeConstraints {
@@ -308,6 +299,5 @@ extension DetailMumentCardView {
             }
         }
     }
-    
 }
 
