@@ -4,7 +4,6 @@
 //
 //  Created by 김지민 on 2022/07/21.
 //
-////
 import Foundation
 
 // MARK: - SongInfoResponseModel
@@ -13,11 +12,11 @@ struct SongInfoResponseModel: Codable {
     let myMument: MyMument?
 
     enum CodingKeys: String, CodingKey {
-        case music = "music"
-        case myMument = "myMument"
+        case music
+        case myMument
     }
     
-    // MARK: - SongInfoResponseModelMusic
+    // MARK: - Music
     struct Music: Codable {
         let id: String
         let name: String
@@ -26,12 +25,12 @@ struct SongInfoResponseModel: Codable {
 
         enum CodingKeys: String, CodingKey {
             case id = "_id"
-            case name = "name"
-            case image = "image"
-            case artist = "artist"
+            case name
+            case image
+            case artist
         }
     }
-
+    
     // MARK: - MyMument
     struct MyMument: Codable {
         let feelingTag: [Int]
@@ -41,33 +40,31 @@ struct SongInfoResponseModel: Codable {
         let likeCount: Int
         let impressionTag: [Int]
         let isDeleted: Bool
-        let isPrivate: Bool
         let cardTag: [Int]
+        let isPrivate: Bool
         let date: String
         let isFirst: Bool
         let isLiked: Bool
-        let v: Int
         let user: User
         let createdAt: String
         let content: String?
 
         enum CodingKeys: String, CodingKey {
-            case feelingTag = "feelingTag"
-            case updatedAt = "updatedAt"
-            case music = "music"
+            case feelingTag
+            case updatedAt
+            case music
             case id = "_id"
-            case likeCount = "likeCount"
-            case impressionTag = "impressionTag"
-            case isDeleted = "isDeleted"
-            case isPrivate = "isPrivate"
-            case cardTag = "cardTag"
-            case date = "date"
-            case isFirst = "isFirst"
-            case isLiked = "isLiked"
-            case v = "__v"
-            case user = "user"
-            case createdAt = "createdAt"
-            case content = "content"
+            case likeCount
+            case impressionTag
+            case isDeleted
+            case cardTag
+            case isPrivate
+            case date
+            case isFirst
+            case isLiked
+            case user
+            case createdAt
+            case content
         }
         
         // MARK: - MyMumentMusic
@@ -87,8 +84,8 @@ struct SongInfoResponseModel: Codable {
 
             enum CodingKeys: String, CodingKey {
                 case id = "_id"
-                case name = "name"
-                case image = "image"
+                case name
+                case image
             }
         }
     }

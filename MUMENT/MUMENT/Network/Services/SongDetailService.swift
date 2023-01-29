@@ -8,15 +8,15 @@
 import Alamofire
 
 enum SongDetailService {
-    case getSongInfo(musicId: String, userId: String)
+    case getSongInfo(musicId: String)
     case getAllMuments(musicId: String, userId: String, isOrderLiked: Bool)
 }
 
 extension SongDetailService: TargetType {
     var path: String {
         switch self {
-        case .getSongInfo(musicId: let musicId, userId: let userId):
-            return "/music/\(musicId)/\(userId)"
+        case .getSongInfo(musicId: let musicId):
+            return "/music/\(musicId)"
         case .getAllMuments(musicId: let musicId, userId: let userId, _):
             return "/music/\(musicId)/\(userId)/order"
         }
@@ -34,7 +34,7 @@ extension SongDetailService: TargetType {
     var header: HeaderType {
         switch self {
         case .getSongInfo:
-            return .basic
+            return .auth
         case .getAllMuments:
             return .basic
         }
