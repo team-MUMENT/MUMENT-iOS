@@ -56,7 +56,8 @@ final class InstagramShareView: UIView {
     }
     private let contentsLabel: UILabel = UILabel().then {
         $0.textColor = .mGray1
-        $0.lineBreakMode = .byCharWrapping
+        $0.lineBreakMode = .byTruncatingTail
+        $0.lineBreakStrategy = .pushOut
         $0.numberOfLines = 6
         $0.font = .mumentB4M14
     }
