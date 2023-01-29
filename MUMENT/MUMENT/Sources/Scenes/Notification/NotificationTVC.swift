@@ -11,6 +11,11 @@ import Then
 
 final class NotificationTVC: UITableViewCell {
     
+    enum NotificationType: String {
+        case like = "like"
+        case notice = "notice"
+    }
+    
     // MARK: Components
     private let iconImageView = UIImageView().then {
         $0.image = UIImage()
@@ -20,6 +25,7 @@ final class NotificationTVC: UITableViewCell {
     private let contentLabel = UILabel().then {
         $0.textColor = .mBlack1
         $0.font = .mumentB6M13
+        $0.numberOfLines = 3
     }
     
     private let dateLabel = UILabel().then {
@@ -28,7 +34,7 @@ final class NotificationTVC: UITableViewCell {
     }
     
     private let deleteButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "mumentDelete"), for: .normal)
+        $0.setImage(UIImage(named: "NotificationMumentDelete")?.withRenderingMode(.alwaysOriginal), for: .normal)
     }
     
     // MARK: Initialization
@@ -41,6 +47,43 @@ final class NotificationTVC: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Methods
+    func setData(data: GetNotificationListResponseModelElement) {
+        if let type = NotificationType(rawValue: data.type) {
+            switch type {
+            case .like:
+                self.iconImageView.image = UIImage(named: "heartSmall")
+                if let nickname = data.likeProfileID,
+                   let songTitle = data.likeMusicTitle {
+                    self.setLikeNotificationLabel(nickname: nickname, songTitle: songTitle)
+                }
+            case .notice:
+                self.iconImageView.image = UIImage(named: "mumentNotiSmall")
+                if let content = data.noticeTitle {
+                    self.setNoticeNotificationLabel(version: data.noticePoint, content: content)
+                }
+            }
+            
+            self.dateLabel.text = data.createdAt
+        }
+    }
+    
+    private func setLikeNotificationLabel(nickname: String, songTitle: String) {
+        self.contentLabel.text = "\(nickname)님이 \(songTitle)에 쓴 뮤멘트를 좋아합니다."
+        self.contentLabel.setFontColor(to: nickname, font: .mumentB6M13, color: .mBlue1)
+        self.contentLabel.setFontColor(to: songTitle, font: .mumentB5B13, color: .mBlack1)
+    }
+    
+    private func setNoticeNotificationLabel(version: String?, content: String) {
+        if version == nil {
+            self.contentLabel.text = "\(content)"
+        } else {
+            if let versionText = version {
+                self.contentLabel.text = "\(versionText) \(content)"
+            }
+        }
     }
 }
 
@@ -68,13 +111,14 @@ extension NotificationTVC {
         self.contentLabel.snp.makeConstraints { make in
             make.top.equalTo(self.iconImageView.snp.top)
             make.leading.equalTo(self.iconImageView.snp.trailing).offset(15)
-            make.trailing.equalTo(self.deleteButton.snp.leading).offset(15)
+            make.trailing.equalTo(self.deleteButton.snp.leading).offset(-15)
         }
         
         self.dateLabel.snp.makeConstraints { make in
             make.top.equalTo(self.contentLabel.snp.bottom).offset(5)
             make.leading.trailing.equalTo(self.contentLabel)
             make.height.equalTo(13)
+            make.bottom.equalToSuperview().inset(15)
         }
     }
 }
