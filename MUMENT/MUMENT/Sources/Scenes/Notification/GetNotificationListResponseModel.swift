@@ -10,18 +10,18 @@ import Foundation
 struct GetNotificationListResponseModelElement: Codable {
     var id: Int
     var type: String
-    var userID: Int
+    var userID: Int?
     var isDeleted, isRead: Bool
     var createdAt: String
     var linkID: Int
-    var noticeTitle, likeProfileID, likeMusicTitle: String?
+    var noticePoint, noticeTitle, likeProfileID, likeMusicTitle: String?
 
     enum CodingKeys: String, CodingKey {
         case id, type
         case userID = "userId"
         case isDeleted, isRead, createdAt
         case linkID = "linkId"
-        case noticeTitle
+        case noticePoint, noticeTitle
         case likeProfileID = "likeProfileId"
         case likeMusicTitle
     }
