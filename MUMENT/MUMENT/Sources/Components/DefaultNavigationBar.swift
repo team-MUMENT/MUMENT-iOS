@@ -111,7 +111,7 @@ extension DefaultNavigationBar {
         self.addSubviews([backButton, titleLabel, settingButton])
         self.setBackButtonLayout()
         self.setTitleLabelLayout()
-        self
+        self.setSettingButtonLayout()
     }
     
     private func setLeftCloseRightDone() {
@@ -151,9 +151,9 @@ extension DefaultNavigationBar {
     
     private func setSettingButtonLayout() {
         settingButton.snp.makeConstraints {
-            $0.top.bottom.equalTo(self.safeAreaLayoutGuide).offset(14)
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide).inset(14)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(18)
-            $0.width.equalTo(24)
+            $0.width.equalTo(self.settingButton.snp.height)
         }
     }
     
