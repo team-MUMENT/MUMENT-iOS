@@ -35,6 +35,7 @@ final class NotificationVC: BaseVC {
         self.setLayout()
         self.hideTabbar()
         self.setNotificationTV()
+        self.setBackButtonAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +63,12 @@ final class NotificationVC: BaseVC {
             if !noti.isRead {
                 self.unreadNotifiationIdList.append(noti.id)
             }
+        }
+    }
+    
+    private func setBackButtonAction() {
+        self.naviView.setBackButtonAction { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
         }
     }
 }
