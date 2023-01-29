@@ -14,7 +14,7 @@ import AuthenticationServices
 
 final class SignInVC: BaseVC {
     
-    // MARK: - Properties
+    // MARK: Components
     private let logoImageView = UIImageView().then{
         $0.image = UIImage(named: "mumentLogoLogin")
     }
@@ -57,33 +57,30 @@ final class SignInVC: BaseVC {
         kakaoSignInButton.press{
             
             // 카카오톡 설치 여부 확인
-                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                    if let error = error {
-                        print(error)
-                    }
-                    else {
-                        print("loginWithKakaoTalk() success.")
-
-                        // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
-                        _ = oauthToken
-                        print(oauthToken)
-                        let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
-                        self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.refreshToken ?? "", fcm_token: fcmToken))
-                    }
+            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                if let error = error {
+                    print(error)
                 }
-//
-//            if (UserApi.isKakaoTalkLoginAvailable()) {
-//
-//                UserApi.shared.unlink {(error) in
-//                    if let error = error {
-//                        print(error)
-//                    }
-//                    else {
-//                        print("unlink() success.")
-//                    }
-//                }
-//            }
+                else {
+                    print("loginWithKakaoTalk() success.")
+                    let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
+                    self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.refreshToken ?? "", fcm_token: fcmToken))
+                }
             }
+            
+            // 테스트용 카카오 로그인 탈퇴 코드
+            //            if (UserApi.isKakaoTalkLoginAvailable()) {
+            //
+            //                UserApi.shared.unlink {(error) in
+            //                    if let error = error {
+            //                        print(error)
+            //                    }
+            //                    else {
+            //                        print("unlink() success.")
+            //                    }
+            //                }
+            //            }
+        }
         
         
         appleSignInButton.press{
@@ -182,34 +179,18 @@ extension SignInVC: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
             
-        // 비밀번호 및 FaceID 인증 경우를 통해 왔을 때 - 실기기로 실행 시 
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
             let email = appleIDCredential.email
-            print("userIdentifier", userIdentifier)
-            print("fullName", fullName as Any)
-            print("email", email as Any)
             
             if let authorizationCode = appleIDCredential.authorizationCode,
                let identityToken = appleIDCredential.identityToken,
                let authString = String(data: authorizationCode, encoding: .utf8),
                let tokenString = String(data: identityToken, encoding: .utf8) {
-                debugPrint("authorizationCode: \(authorizationCode)")
-                debugPrint("identityToken: \(identityToken)")
-                debugPrint("authString: \(authString)")
-                debugPrint("tokenString: \(tokenString)")
                 let fcmToken = UserDefaultsManager.fcmToken ?? ""
                 requestSignIn(data: SignInBodyModel(provider: "apple", authentication_code: tokenString, fcm_token: fcmToken))
             }
-            
-        // iCloud의 패스워드를 연동해 왔을 때 - 시뮬레이터로 실행 시
-        case let passwordCredential as ASPasswordCredential:
-            let username = passwordCredential.user
-            let password = passwordCredential.password
-            print("username", username)
-            
-            // TODO: - 서버한테 보내서 jwt 토큰 발급 받기
         default:
             break
         }
