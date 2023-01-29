@@ -136,7 +136,7 @@ class WriteVC: BaseVC {
     var isFirstListen = false
     var isFirstListenActivated = true
     var musicId = ""
-    var postMumentData = PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false)
+    var postMumentData: PostMumentBodyModel = PostMumentBodyModel()
     var isEdit = false
     private var detailData: MumentDetailResponseModel?
     
@@ -243,9 +243,28 @@ class WriteVC: BaseVC {
                 let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
                 self?.clickedImpressionTag.append(cell.contentLabel.text?.tagInt() ?? 0)
             }
+            
             let contentText = self?.contentTextView.textColor == .mBlack2 ? self?.contentTextView.text : ""
-            self?.postMumentData = PostMumentBodyModel(isFirst: self?.firstListenButton.isSelected ?? false, impressionTag: self?.clickedImpressionTag ?? [], feelingTag: self?.clickedFeelTag ?? [], content: contentText ?? "", isPrivate: self?.isPrivateToggleButton.isSelected ?? false)
-            self?.postMument(userId: UserInfo.shared.userId ?? "", musicId: self?.musicId ?? "", data: self?.postMumentData ?? PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false))
+            
+            let selectedMusicData = self?.selectedMusicView.selectedMusicData()
+            
+            self?.postMumentData = PostMumentBodyModel(
+                isFirst: self?.firstListenButton.isSelected ?? false,
+                impressionTag: self?.clickedImpressionTag ?? [],
+                feelingTag: self?.clickedFeelTag ?? [],
+                content: contentText ?? "",
+                isPrivate: self?.isPrivateToggleButton.isSelected ?? false,
+                musicId: selectedMusicData?.id ?? "",
+                musicArtist: selectedMusicData?.artist ?? "",
+                musicImage: selectedMusicData?.image ?? "",
+                musicName: selectedMusicData?.name ?? ""
+            )
+            
+            self?.postMument(
+                userId: UserInfo.shared.userId ?? "",
+                musicId: self?.musicId ?? "",
+                data: self?.postMumentData ?? PostMumentBodyModel()
+            )
         }
     }
     
@@ -421,7 +440,7 @@ extension WriteVC: UICollectionViewDataSource {
 // MARK: - Network
 extension WriteVC {
     private func getIsFirst(userId: String, musicId: String) {
-        WriteAPI.shared.getIsFirst(userId: userId, musicId: musicId) { networkResult in
+        WriteAPI.shared.getIsFirst(musicId: musicId) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetIsFirstResponseModel {
@@ -436,7 +455,7 @@ extension WriteVC {
     }
     
     private func postMument(userId: String, musicId: String, data: PostMumentBodyModel) {
-        WriteAPI.shared.postMument(userId: userId, musicId: musicId, data: data) { networkResult in
+        WriteAPI.shared.postMument(musicId: musicId, data: data) { networkResult in
             switch networkResult {
             case .success(let response):
                 if response is PostMumentResponseModel {
