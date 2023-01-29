@@ -33,7 +33,7 @@ final class NotificationTVC: UITableViewCell {
         $0.font = .mumentC2R12
     }
     
-    private let deleteButton = UIButton(type: .system).then {
+    let deleteButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "NotificationMumentDelete")?.withRenderingMode(.alwaysOriginal), for: .normal)
     }
     

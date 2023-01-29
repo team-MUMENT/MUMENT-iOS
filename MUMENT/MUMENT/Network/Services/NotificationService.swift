@@ -10,6 +10,7 @@ import Alamofire
 
 enum NotificationService {
     case getNotificationList
+    case deleteNotification(newsId: Int)
 }
 
 extension NotificationService: TargetType {
@@ -17,6 +18,8 @@ extension NotificationService: TargetType {
         switch self {
         case .getNotificationList:
             return "/user/news"
+        case .deleteNotification(let newsId):
+            return "/user/news/\(newsId)"
         }
     }
     
@@ -24,19 +27,18 @@ extension NotificationService: TargetType {
         switch self {
         case .getNotificationList:
             return .get
+        case .deleteNotification:
+            return .patch
         }
     }
     
     var header: HeaderType {
-        switch self {
-        case .getNotificationList:
-            return .auth
-        }
+        return .auth
     }
     
     var parameters: RequestParams {
         switch self {
-        case .getNotificationList:
+        case .getNotificationList, .deleteNotification:
             return .requestPlain
         }
     }

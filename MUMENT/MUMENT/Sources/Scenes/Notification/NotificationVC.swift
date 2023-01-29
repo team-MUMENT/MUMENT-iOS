@@ -65,6 +65,10 @@ extension NotificationVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NotificationTVC.className) as? NotificationTVC else { return UITableViewCell() }
         cell.setData(data: self.notificationList[indexPath.row])
+        
+        cell.deleteButton.press { [weak self] in
+            self?.deleteNotification(id: self?.notificationList[indexPath.row].id ?? 0)
+        }
         return cell
     }
 }
@@ -101,6 +105,17 @@ extension NotificationVC {
                     self.notificationList = result
                     self.notificationTV.reloadData()
                 }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func deleteNotification(id: Int) {
+        NotificationAPI.shared.deleteNotifiction(id: id) { networkResult in
+            switch networkResult {
+            case .success:
+                self.getNotificationList()
             default:
                 self.makeAlert(title: MessageType.networkError.message)
             }
