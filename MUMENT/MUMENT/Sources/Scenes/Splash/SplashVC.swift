@@ -31,14 +31,6 @@ final class SplashVC: UIViewController {
     }
     
     private func decideNextVC() {
-        
-        // 앱 처음 사용하는 경우 테스트
-        //        UserDefaultsManager.refreshToken = nil
-        
-        // 리프레시 토큰 만료된 경우  테스트
-        //        UserDefaultsManager.refreshToken =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsInByb2ZpbGVJZCI6Iu2GoO2BsCDrp4zro4wg7YWM7Iqk7Yq4ISIsImltYWdlIjpudWxsLCJpYXQiOjE2NzM3MjE3ODQsImV4cCI6MTY3MzkwNTc4NCwiaXNzIjoiTXVtZW50In0.qthgxZav45JckbvFc9mw4LqtVhvP5MC2vTZ6Qu3qIIg"
-        let refreshToken = UserDefaultsManager.refreshToken
-        print("REFRESH TOKEN", refreshToken)
         if (refreshToken == nil) {
             let onboardingVC = OnboardingVC()
             onboardingVC.modalPresentationStyle = .fullScreen
@@ -77,7 +69,6 @@ extension SplashVC {
             switch networkResult {
             case .success(let response):
                 if let res = response as? TokenRenewalResponseModel {
-                    print("!!!!!!11")
                     UserInfo.shared.accessToken = res.accessToken
                     UserInfo.shared.refreshToken = res.refreshToken
                     

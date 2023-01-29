@@ -64,22 +64,22 @@ final class SignInVC: BaseVC {
                 else {
                     print("loginWithKakaoTalk() success.")
                     let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
-                    self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.refreshToken ?? "", fcm_token: fcmToken))
+                    self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.accessToken ?? "", fcm_token: fcmToken))
                 }
             }
             
             // 테스트용 카카오 로그인 탈퇴 코드
-            //            if (UserApi.isKakaoTalkLoginAvailable()) {
-            //
-            //                UserApi.shared.unlink {(error) in
-            //                    if let error = error {
-            //                        print(error)
-            //                    }
-            //                    else {
-            //                        print("unlink() success.")
-            //                    }
-            //                }
-            //            }
+//                        if (UserApi.isKakaoTalkLoginAvailable()) {
+//
+//                            UserApi.shared.unlink {(error) in
+//                                if let error = error {
+//                                    print(error)
+//                                }
+//                                else {
+//                                    print("unlink() success.")
+//                                }
+//                            }
+//                        }
         }
         
         
