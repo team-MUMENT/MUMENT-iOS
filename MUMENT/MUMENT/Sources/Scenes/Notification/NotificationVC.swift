@@ -44,12 +44,6 @@ final class NotificationVC: BaseVC {
         self.getNotificationList()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.showTabbar()
-    }
-    
     // MARK: Methods
     private func setNotificationTV() {
         self.notificationTV.delegate = self
