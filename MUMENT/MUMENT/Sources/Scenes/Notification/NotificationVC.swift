@@ -35,7 +35,7 @@ final class NotificationVC: BaseVC {
         self.setLayout()
         self.hideTabbar()
         self.setNotificationTV()
-        self.setBackButtonAction()
+        self.setNaviViewAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,9 +66,14 @@ final class NotificationVC: BaseVC {
         }
     }
     
-    private func setBackButtonAction() {
+    private func setNaviViewAction() {
         self.naviView.setBackButtonAction { [weak self] in
             self?.navigationController?.popViewController(animated: true)
+        }
+        
+        self.naviView.setSettingButtonAction { [weak self] in
+            let setNotificationVC = SetNotificationVC()
+            self?.navigationController?.pushViewController(setNotificationVC, animated: true)
         }
     }
 }
