@@ -9,7 +9,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaoa03c85e89f6892684a4533911f5ab502</string>
+				<string>kakaodcf1de7e11089f484ac873f0e833427d</string>
 			</array>
 		</dict>
 	</array>
@@ -17,6 +17,7 @@
 	<array>
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
+		<string>instagram-stories</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>
@@ -42,5 +43,10 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

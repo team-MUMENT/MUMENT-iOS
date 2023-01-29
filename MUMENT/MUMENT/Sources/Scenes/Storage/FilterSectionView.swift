@@ -36,9 +36,7 @@ final class FilterSectionView: UIView {
         $0.isSelected = true
         $0.contentMode = .scaleAspectFit
     }
-    
-    private let storageBottomSheet = StorageBottomSheet()
-    
+        
     // MARK: - View Life Cycle
     override init(frame: CGRect) {
         super.init(frame: .zero)

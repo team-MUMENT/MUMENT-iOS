@@ -136,19 +136,39 @@ final class MembershipWithdrawalVC: BaseVC {
         setReasonTextView()
         setReasonTextCounting()
         reasonSelectingMenuView.setDelegate(delegate: self)
+        hideTabbar()
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        showTabbar()
     }
     
     // MARK: - Functions
-    func setButtonActions() {
+    private func setButtonActions() {
         
-        self.reasonSelectionButton.addTarget(self, action: #selector(self.reasonSelectionButtonClicked(_:)), for: .touchUpInside)
+        self.naviView.setBackButtonAction {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        reasonSelectionButton.addTarget(self, action: #selector(self.reasonSelectionButtonClicked(_:)), for: .touchUpInside)
         
         checkBoxButton.press {
             self.isCheckBoxChecked.toggle()
         }
+        
+        withdrawalButton.press {
+            let leaveCategoryNum = self.reasonSelectingMenuView.getSelectedMenuNumber()
+            var reasonEtc = ""
+            if (leaveCategoryNum == 7) {
+                reasonEtc = self.reasonTextView.text
+            }
+            self.requestPostWithdrawalReason(data: WithdrawalReasonBodyModel(leaveCategoryId: leaveCategoryNum, reasonEtc: reasonEtc))
+        }
     }
     
-    @objc func reasonSelectionButtonClicked(_ sender:Any?) -> Void {
+    @objc private func reasonSelectionButtonClicked(_ sender:Any?) -> Void {
         self.isReasonMenuHidden.toggle()
         if !isTextViewHidden { isTextViewHidden.toggle() }
         self.view.frame.origin.y = 0
@@ -174,6 +194,10 @@ final class MembershipWithdrawalVC: BaseVC {
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    func setUserName(_ userName: String) {
+        self.userName = userName
     }
 }
 
@@ -229,7 +253,6 @@ extension MembershipWithdrawalVC {
             $0.top.equalTo(reasonSelectionButton.snp.bottom).inset(20)
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.bottom.equalTo(confirmingStackView.snp.top).offset(-40)
         }
         
         withdrawalButton.snp.makeConstraints {
@@ -239,7 +262,7 @@ extension MembershipWithdrawalVC {
         }
         
         confirmingStackView.snp.makeConstraints {
-            $0.bottom.equalTo(withdrawalButton.snp.top).offset(-30)
+            $0.bottom.equalTo(withdrawalButton.snp.top).offset(-15)
             $0.centerX.equalToSuperview()
         }
     }
@@ -250,6 +273,7 @@ extension MembershipWithdrawalVC: DropDownMenuViewDelegate {
     func handleTVCSelectedEvent(_ menuLabel: String) {
         self.isReasonMenuHidden.toggle()
         reasonSelectionButton.setTitleLabel(menuLabel)
+        withdrawalButton.isEnabled = isCheckBoxChecked
         if menuLabel == "기타" {
             isTextViewHidden = false
         }
@@ -282,5 +306,36 @@ extension MembershipWithdrawalVC: UITextViewDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
         return changedText.count <= 100
+    }
+}
+
+// MARK: - Network
+extension MembershipWithdrawalVC {
+    private func requestPostWithdrawalReason(data: WithdrawalReasonBodyModel) {
+        MyPageAPI.shared.postWithdrawalReason(body: data) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? WithdrawalReasonResponseModel {
+                    print("REASON RES", res)
+                    self.requestPostWithdrawalReason()
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func requestPostWithdrawalReason() {
+        MyPageAPI.shared.deleteMembership() { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? WithdrawalResponseModel {
+                    print("WITHDRAWAL RES", res)
+                    self.navigationController?.pushViewController(SignInVC(), animated: true)
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
