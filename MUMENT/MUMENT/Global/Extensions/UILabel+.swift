@@ -37,6 +37,24 @@ extension UILabel {
             attributedString.addAttribute(.font,
                                           value: font,
                                           range: (labelText as NSString).range(of: targetString))
+    /// 특정 문자열 컬러, 폰트 변경하는 메서드
+    func setFontColor(to targetString: String, font: UIFont, color: UIColor) {
+        if let labelText = self.text, labelText.count > 0 {
+            let attributedString = NSMutableAttributedString(
+                attributedString: self.attributedText ?? NSAttributedString(string: labelText)
+            )
+            
+            attributedString.addAttribute(
+                .font,
+                value: font,
+                range: (labelText as NSString).range(of: targetString)
+            )
+            
+            attributedString.addAttribute(
+                .foregroundColor,
+                value: color,
+                range: (labelText as NSString).range(of: targetString))
+            
             attributedText = attributedString
         }
     }
