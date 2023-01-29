@@ -27,4 +27,19 @@ class NotificationAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 소식창 리스트 조회
+    func deleteNotifiction(id: Int, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(NotificationService.deleteNotification(newsId: id)).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, String.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
