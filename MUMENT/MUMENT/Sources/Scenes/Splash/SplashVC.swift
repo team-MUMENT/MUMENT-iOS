@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Then
 
-class SplashVC: UIViewController {
+final class SplashVC: UIViewController {
     
-    // MARK: - Properties
+    // MARK: Components
     private let logoImageView = UIImageView().then{
         $0.image = UIImage(named: "mumentIcon")
     }
@@ -31,9 +31,12 @@ class SplashVC: UIViewController {
     }
     
     private func decideNextVC() {
-//        UserDefaultsManager.refreshToken = nil
-        UserDefaultsManager.refreshToken =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsInByb2ZpbGVJZCI6Iu2GoO2BsCDrp4zro4wg7YWM7Iqk7Yq4ISIsImltYWdlIjpudWxsLCJpYXQiOjE2NzM3MjE3ODQsImV4cCI6MTY3MzkwNTc4NCwiaXNzIjoiTXVtZW50In0.qthgxZav45JckbvFc9mw4LqtVhvP5MC2vTZ6Qu3qIIg"
-//        UserDefaultsManager.refreshToken = UserInfo.shared.refreshToken
+        
+        // 앱 처음 사용하는 경우 테스트
+        //        UserDefaultsManager.refreshToken = nil
+        
+        // 리프레시 토큰 만료된 경우  테스트
+        //        UserDefaultsManager.refreshToken =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsInByb2ZpbGVJZCI6Iu2GoO2BsCDrp4zro4wg7YWM7Iqk7Yq4ISIsImltYWdlIjpudWxsLCJpYXQiOjE2NzM3MjE3ODQsImV4cCI6MTY3MzkwNTc4NCwiaXNzIjoiTXVtZW50In0.qthgxZav45JckbvFc9mw4LqtVhvP5MC2vTZ6Qu3qIIg"
         let refreshToken = UserDefaultsManager.refreshToken
         print("REFRESH TOKEN", refreshToken)
         if (refreshToken == nil) {
