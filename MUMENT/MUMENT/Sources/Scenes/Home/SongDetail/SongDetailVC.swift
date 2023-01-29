@@ -29,13 +29,13 @@ final class SongDetailVC: BaseVC {
         setLayout()
         setButtonActions()
         requestGetSongInfo()
-//        requestGetAllMuments(true)
+        requestGetAllMuments(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         requestGetSongInfo()
-//        requestGetAllMuments(true)
+        requestGetAllMuments(true)
     }
     
     // MARK: - Functions
@@ -269,7 +269,7 @@ extension SongDetailVC {
     }
     
     private func requestGetAllMuments(_ isOrderLiked: Bool) {
-        SongDetailAPI.shared.getAllMuments(musicId: self.musicId ?? "", userId: UserInfo.shared.userId ?? "", isOrderLiked: isOrderLiked) { networkResult in
+        SongDetailAPI.shared.getAllMuments(musicId: self.musicId ?? "1622167332", isOrderLiked: isOrderLiked, limit: 10, offset: 0) { networkResult in
             switch networkResult {
                 
             case .success(let response):

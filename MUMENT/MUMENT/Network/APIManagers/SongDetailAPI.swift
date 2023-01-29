@@ -30,9 +30,9 @@ class SongDetailAPI: BaseAPI {
     }
     
     /// [GET] 모든 뮤멘트
-    func getAllMuments(musicId: String, userId: String, isOrderLiked: Bool,
+    func getAllMuments(musicId: String, isOrderLiked: Bool, limit: Int, offset: Int,
                     completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(SongDetailService.getAllMuments(musicId: musicId, userId: userId, isOrderLiked: isOrderLiked)).responseData { response in
+        AFmanager.request(SongDetailService.getAllMuments(musicId: musicId, isOrderLiked: isOrderLiked, limit: limit, offset: offset)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
