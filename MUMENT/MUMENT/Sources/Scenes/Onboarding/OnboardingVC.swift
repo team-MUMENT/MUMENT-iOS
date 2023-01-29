@@ -58,10 +58,10 @@ final class OnboardingVC: BaseVC {
     
     private func setButtonActions(){
         initiatingButton.press{
-            let tabBarController = MumentTabBarController()
-            tabBarController.modalPresentationStyle = .overFullScreen
-            tabBarController.modalTransitionStyle = .crossDissolve
-            self.present(tabBarController, animated: true)
+            let signInVC = SignInVC()
+            signInVC.modalPresentationStyle = .overFullScreen
+            signInVC.modalTransitionStyle = .crossDissolve
+            self.present(signInVC, animated: true)
         }
     }
 }
