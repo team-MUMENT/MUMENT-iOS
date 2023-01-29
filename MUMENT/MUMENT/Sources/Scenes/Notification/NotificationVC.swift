@@ -26,6 +26,7 @@ final class NotificationVC: BaseVC {
     
     // MARK: Properties
     private var notificationList: GetNotificationListResponseModel = []
+    private var unreadNotifiationIdList: [Int] = []
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -54,6 +55,15 @@ final class NotificationVC: BaseVC {
         self.notificationTV.dataSource = self
         self.notificationTV.register(cell: NotificationTVC.self)
     }
+    
+    private func setUnreadNotificationList() {
+        self.unreadNotifiationIdList = []
+        self.notificationList.forEach { noti in
+            if !noti.isRead {
+                self.unreadNotifiationIdList.append(noti.id)
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -75,7 +85,9 @@ extension NotificationVC: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension NotificationVC: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 // MARK: - UI
@@ -103,6 +115,8 @@ extension NotificationVC {
             case .success(let t):
                 if let result = t as? GetNotificationListResponseModel {
                     self.notificationList = result
+                    self.setUnreadNotificationList()
+                    self.readNotification(idList: self.unreadNotifiationIdList)
                     self.notificationTV.reloadData()
                 }
             default:
@@ -116,6 +130,16 @@ extension NotificationVC {
             switch networkResult {
             case .success:
                 self.getNotificationList()
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func readNotification(idList: [Int]) {
+        NotificationAPI.shared.readNotification(idList: idList) { networkResult in
+            switch networkResult {
+            case .success: break
             default:
                 self.makeAlert(title: MessageType.networkError.message)
             }
