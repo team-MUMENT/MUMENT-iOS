@@ -34,11 +34,6 @@ class BaseAPI {
             return .success(decodedData.data ?? "None-Data")
         case 202..<300:
             return .success(decodedData.status)
-//        case 400:
-//            return .authorizationErr(decodedData.status)
-//        case 401:
-//            return .authorizationErr(decodedData.status)
-//        case 402..<500:
         case 400..<500:
             return .requestErr(decodedData.status, decodedData.message)
         case 500:
@@ -52,11 +47,6 @@ class BaseAPI {
         switch statusCode {
         case 200..<300:
             return .success(statusCode)
-//        case 400:
-//            return .authorizationErr(decodedData.status)
-//        case 401:
-//            return .authorizationErr(decodedData.status)
-//        case 402..<500:
         case 400..<500:
             return .requestErr(statusCode, "")
         case 500:
