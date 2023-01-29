@@ -12,15 +12,21 @@ import Alamofire
  TargetType을 채택해서 path, method, header, parameter를 각 라우터에 맞게 request를 만든다.
  */
 
-enum SignService {
+enum AuthService {
     case postSignIn(body: SignInBodyModel)
+    case getRenewedToken
+    case getIsProfileSet
 }
 
-extension SignService: TargetType {
+extension AuthService: TargetType {
     var path: String {
         switch self {
         case .postSignIn:
             return "/auth/login"
+        case .getRenewedToken:
+            return "/auth/token"
+        case .getIsProfileSet:
+            return "/user/profile/check"
         }
     }
     
@@ -28,6 +34,10 @@ extension SignService: TargetType {
         switch self {
         case .postSignIn:
             return .post
+        case .getRenewedToken:
+            return .get
+        case .getIsProfileSet:
+            return .get
         }
     }
     
@@ -35,13 +45,21 @@ extension SignService: TargetType {
         switch self {
         case .postSignIn:
             return .basic
+        case .getRenewedToken:
+            return .authRenewal
+        case .getIsProfileSet:
+            return .auth
         }
     }
     
     var parameters: RequestParams {
         switch self {
         case .postSignIn(let body):
-            return .requestBody(["profileId": body.profileId, "password": body.password])
+            return .requestBody(["provider": body.provider, "authentication_code": body.authentication_code, "fcm_token": body.fcm_token])
+        case .getRenewedToken:
+            return .requestPlain
+        case .getIsProfileSet:
+            return .requestPlain
         }
     }
 }
