@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "mumentDelete4.png",
+      "filename" : "instagram.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "mumentDelete4@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "mumentDelete4@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

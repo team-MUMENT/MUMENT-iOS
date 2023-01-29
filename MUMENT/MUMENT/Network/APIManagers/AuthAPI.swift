@@ -56,9 +56,7 @@ class AuthAPI: BaseAPI {
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
-//                guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode)
-                print("NETWORKRESUKT",networkResult)
                 completion(networkResult)
             case .failure(let err):
                 print(err.localizedDescription)

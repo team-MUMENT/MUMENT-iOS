@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Then
 
-class SplashVC: UIViewController {
+final class SplashVC: UIViewController {
     
-    // MARK: - Properties
+    // MARK: Components
     private let logoImageView = UIImageView().then{
         $0.image = UIImage(named: "mumentIcon")
     }
@@ -31,9 +31,7 @@ class SplashVC: UIViewController {
     }
     
     private func decideNextVC() {
-//        UserDefaultsManager.refreshToken = nil
         let refreshToken = UserDefaultsManager.refreshToken
-        print("REFRESH TOKEN", refreshToken)
         if (refreshToken == nil) {
             let onboardingVC = OnboardingVC()
             onboardingVC.modalPresentationStyle = .fullScreen
@@ -78,19 +76,31 @@ extension SplashVC {
                     UserDefaultsManager.accessToken = res.accessToken
                     UserDefaultsManager.refreshToken = res.refreshToken
                 }
-                let tabBarController = MumentTabBarController()
-                tabBarController.modalPresentationStyle = .fullScreen
-                tabBarController.modalTransitionStyle = .crossDissolve
-                self.present(tabBarController, animated: true)
+                self.requestIsProfileSet()
                 
             case .requestErr(_, let message):
-                if (message as! String == "만료된 토큰 입니다.") {
+                if (message as! String == "토큰이 만료되었습니다") {
                     let signInVC = SignInVC()
                     signInVC.modalPresentationStyle = .fullScreen
                     signInVC.modalTransitionStyle = .crossDissolve
                     self.present(signInVC, animated: true)
                 }
-                else if (message as! String == "프로필 설정이 완료되지 않은 유저입니다") {
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func requestIsProfileSet() {
+        AuthAPI.shared.getIsProfileSet() { networkResult in
+            switch networkResult {
+            case .success(let status):
+                if (status as! Int == 204) {
+                    let tabBarController = MumentTabBarController()
+                    tabBarController.modalPresentationStyle = .fullScreen
+                    tabBarController.modalTransitionStyle = .crossDissolve
+                    self.present(tabBarController, animated: true)
+                } else if (status as! Int == 200) {
                     let setProfileVC = SetProfileVC()
                     setProfileVC.modalPresentationStyle = .fullScreen
                     setProfileVC.modalTransitionStyle = .crossDissolve
