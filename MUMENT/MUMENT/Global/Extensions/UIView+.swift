@@ -128,39 +128,6 @@ extension UIView {
         let generator = UIImpactFeedbackGenerator(style: degree)
         generator.impactOccurred()
     }
-    
-    func transfromToImage() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0.0)
-            defer {
-                UIGraphicsEndImageContext()
-            }
-            if let context = UIGraphicsGetCurrentContext() {
-                layer.render(in: context)
-                return UIGraphicsGetImageFromCurrentImageContext()
-            }
-            return nil
-        }
-    
-//    func snapshot() -> UIImage {
-//        let controller = UIHostingController(rootView: self.edgesIgnoringSafeArea(.all))
-//        let view = contorller.view
-//        let targetSize = controller.view?.intrinsicContentSize
-//        view?.bounds = CGRect(origin: .zero, size: targetSize)
-//        view?.backgroundColor = .clear
-//
-//        let render = UIGraphicsImageRenderer(size: targetSize)
-//
-//        return render.image {_ in
-//            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
-//        }
-//    }
-    func asImage() -> UIImage {
-            let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        print("BOUNDS",bounds)
-            return renderer.image { rendererContext in
-                layer.render(in: rendererContext.cgContext)
-            }
-        }
 }
 
 #if canImport(SwiftUI) && DEBUG
