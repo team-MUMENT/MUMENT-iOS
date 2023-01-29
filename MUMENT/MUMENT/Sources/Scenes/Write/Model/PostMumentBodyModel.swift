@@ -14,12 +14,24 @@ struct PostMumentBodyModel: Codable {
     var feelingTag: [Int]
     var content: String
     var isPrivate: Bool
-
-    enum CodingKeys: String, CodingKey {
-        case isFirst = "isFirst"
-        case impressionTag = "impressionTag"
-        case feelingTag = "feelingTag"
-        case content = "content"
-        case isPrivate = "isPrivate"
+    var musicId: String
+    var musicArtist: String
+    var musicImage: String
+    var musicName: String
+    
+    init(isFirst: Bool, impressionTag: [Int], feelingTag: [Int], content: String, isPrivate: Bool, musicId: String, musicArtist: String, musicImage: String, musicName: String) {
+        self.isFirst = isFirst
+        self.impressionTag = impressionTag
+        self.feelingTag = feelingTag
+        self.content = content
+        self.isPrivate = isPrivate
+        self.musicId = musicId
+        self.musicArtist = musicArtist
+        self.musicImage = musicImage
+        self.musicName = musicName
+    }
+    
+    init() {
+        self = PostMumentBodyModel(isFirst: false, impressionTag: [], feelingTag: [], content: "", isPrivate: false, musicId: "", musicArtist: "", musicImage: "", musicName: "")
     }
 }

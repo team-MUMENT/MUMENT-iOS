@@ -14,9 +14,9 @@ class WriteAPI: BaseAPI {
     private override init() { }
     
     /// [GET] 처음/다시 조회
-    func getIsFirst(userId: String, musicId: String,
+    func getIsFirst(musicId: String,
                     completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(WriteService.getIsFirst(userId: userId, musicId: musicId)).responseData { response in
+        AFmanager.request(WriteService.getIsFirst(musicId: musicId)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
@@ -30,9 +30,9 @@ class WriteAPI: BaseAPI {
     }
     
     /// [POST] 뮤멘트 기록하기
-    func postMument(userId: String, musicId: String, data: PostMumentBodyModel,
+    func postMument(musicId: String, data: PostMumentBodyModel,
                     completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(WriteService.postMument(userId: userId, musicId: musicId, data: data)).responseData { response in
+        AFmanager.request(WriteService.postMument(musicId: musicId, data: data)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
