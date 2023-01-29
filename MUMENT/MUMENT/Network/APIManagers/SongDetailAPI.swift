@@ -14,9 +14,9 @@ class SongDetailAPI: BaseAPI {
     private override init() { }
     
     /// [GET] 곡 정보, 내가 기록한 뮤멘트
-    func getSongInfo(musicId: String, userId: String,
+    func getSongInfo(musicId: String,
                     completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(SongDetailService.getSongInfo(musicId: musicId, userId: userId)).responseData { response in
+        AFmanager.request(SongDetailService.getSongInfo(musicId: musicId)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
