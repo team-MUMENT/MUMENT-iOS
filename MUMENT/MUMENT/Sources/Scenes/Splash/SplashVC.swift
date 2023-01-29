@@ -31,6 +31,7 @@ final class SplashVC: UIViewController {
     }
     
     private func decideNextVC() {
+        let refreshToken = UserDefaultsManager.refreshToken
         if (refreshToken == nil) {
             let onboardingVC = OnboardingVC()
             onboardingVC.modalPresentationStyle = .fullScreen
