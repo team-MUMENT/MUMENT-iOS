@@ -89,6 +89,10 @@ class DefaultNavigationBar: UIView {
     func setBackButtonAction(_ closure: @escaping () -> Void) {
         self.backButton.addAction( UIAction { _ in closure() }, for: .touchUpInside)
     }
+    
+    func setSettingButtonAction(_ closure: @escaping () -> Void) {
+        self.settingButton.addAction( UIAction { _ in closure() }, for: .touchUpInside)
+    }
 }
 
 // MARK: - UI
