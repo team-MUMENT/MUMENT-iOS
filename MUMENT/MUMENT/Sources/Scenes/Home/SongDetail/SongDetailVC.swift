@@ -59,14 +59,14 @@ final class SongDetailVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = self.myMumentData?.id
+        mumentDetailVC.setData(mumentId: self.myMumentData?.id ?? 0, musicData: musicData)
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
         print("mumentDetailVC")
     }
     
     @objc func didTapAllMumentView(_ sender: UITapGestureRecognizer, index: Int) {
         let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = self.allMumentsData[index].id
+        mumentDetailVC.setData(mumentId: self.allMumentsData[index].id, musicData: musicData)
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
