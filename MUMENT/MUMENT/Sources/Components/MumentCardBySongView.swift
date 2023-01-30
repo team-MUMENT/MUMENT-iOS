@@ -150,10 +150,10 @@ class MumentCardBySongView: UIView {
             self.isLiked.toggle()
             if previousState {
                 self.heartCount -= 1
-//                self.requestDeleteHeartLiked(mumentId: self.mumentId)
+                self.requestDeleteHeartLiked(mumentId: self.mumentId)
             }else{
                 self.heartCount += 1
-//                self.requestPostHeartLiked(mumentId: self.mumentId)
+                self.requestPostHeartLiked(mumentId: self.mumentId)
             }
         }
     }
@@ -213,32 +213,34 @@ extension MumentCardBySongView {
 }
 
 extension MumentCardBySongView {
-    private func requestPostHeartLiked(mumentId: String) {
-//        LikeAPI.shared.postHeartLiked(mumentId: mumentId, userId: UserInfo.shared.userId ?? "") { networkResult in
-//            switch networkResult {
-//            case .success(let response):
-//                if let res = response as? LikeResponseModel {
-//                }
-//
-//            default:
-//                print("LikeAPI.shared.postHeartLiked")
-//                return
-//            }
-//        }
+    private func requestPostHeartLiked(mumentId: Int) {
+        LikeAPI.shared.postHeartLiked(mumentId: mumentId) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? LikeResponseModel {
+                    print("Liked")
+                }
+
+            default:
+                print("LikeAPI.shared.postHeartLiked")
+                return
+            }
+        }
     }
     
-    private func requestDeleteHeartLiked(mumentId: String) {
-//        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId, userId: UserInfo.shared.userId ?? "") { networkResult in
-//            switch networkResult {
-//            case .success(let response):
-//                if let res = response as? LikeResponseModel {
-//                }
-//                
-//            default:
-//                print("LikeAPI.shared.deleteHeartLiked")
-//                return
-//            }
-//        }
+    private func requestDeleteHeartLiked(mumentId: Int) {
+        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? LikeCancelResponseModel {
+                    print("Like Canceled")
+                }
+                
+            default:
+                print("LikeAPI.shared.deleteHeartLiked")
+                return
+            }
+        }
     }
 }
 
