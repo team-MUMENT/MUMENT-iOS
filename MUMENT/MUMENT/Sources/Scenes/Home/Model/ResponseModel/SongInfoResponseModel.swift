@@ -36,7 +36,7 @@ struct SongInfoResponseModel: Codable {
         let feelingTag: [Int]
         let updatedAt: String
         let music: MyMumentMusic
-        let id: String
+        let id: Int
         let likeCount: Int
         let impressionTag: [Int]
         let isDeleted: Bool
@@ -78,7 +78,7 @@ struct SongInfoResponseModel: Codable {
 
         // MARK: - User
         struct User: Codable {
-            let id: String
+            let id: Int
             let name: String
             let image: String?
 
