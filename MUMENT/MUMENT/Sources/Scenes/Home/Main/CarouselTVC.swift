@@ -14,7 +14,7 @@ class CarouselTVC: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: CarouselCVCDelegate?
-    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), id: "", tagTitle: "", displayDate: "")]
+    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), tagTitle: "", displayDate: "")]
     
     // Test Code
     var dataSource: [CarouselModel] = CarouselModel.sampleData
@@ -30,9 +30,9 @@ class CarouselTVC: UITableViewCell {
     private lazy var carouselCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
     private var originalDataSourceCount: Int {
-//        carouselData.count
+        carouselData.count
         
-        dataSource.count
+//        dataSource.count
     }
     
     private var scrollToEnd: Bool = false
@@ -132,10 +132,10 @@ extension CarouselTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? CarouselCVC {
             cell.isSelected = true
         }
-        //        self.delegate?.carouselCVCSelected(data: increasedCarouselData[indexPath.row])
+                self.delegate?.carouselCVCSelected(data: increasedCarouselData[indexPath.row])
         
         // Test Code
-        self.delegate?.carouselCVCSelected()
+//        self.delegate?.carouselCVCSelected()
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
@@ -190,20 +190,20 @@ extension CarouselTVC: UICollectionViewDelegate{
 extension CarouselTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        return increasedCarouselData.count
+                return increasedCarouselData.count
         
         // Test Code
-        return increasedDataSource.count
+//        return increasedDataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCVC.className, for: indexPath)
         if let cell = cell as? CarouselCVC {
-            //            cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
+                        cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
             
             // Test Code
-            cell.setData(increasedDataSource[indexPath.row], index: indexPath.row%3+1)
+//            cell.setData(increasedDataSource[indexPath.row], index: indexPath.row%3+1)
         }
         
         return cell
