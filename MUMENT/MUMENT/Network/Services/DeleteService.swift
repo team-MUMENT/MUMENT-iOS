@@ -8,7 +8,7 @@
 import Alamofire
 
 enum DeleteSerivce {
-    case deleteMument(mumentId: String)
+    case deleteMument(mumentId: Int)
 }
 
 extension DeleteSerivce: TargetType {

@@ -100,7 +100,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             }
             
             let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
-                let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
+                let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "삭제")
                 mumentAlert.setTitle(title: "삭제하시겠어요?")
                 self.present(mumentAlert, animated: true)
                 
@@ -226,14 +226,13 @@ extension MumentDetailVC {
     }
     
     private func requestDeleteMument() {
-//        DeleteAPI.shared.deleteMument(mumentId: mumentId ?? 0) { networkResult in
-//
-//            switch networkResult {
-//            case .success(_):
-//                return
-//            default:
-//                self.makeAlert(title: MessageType.networkError.message)
-//            }
-//        }
+        DeleteAPI.shared.deleteMument(mumentId: mumentId ?? 0) { networkResult in
+            switch networkResult {
+            case .success(_):
+                return
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
