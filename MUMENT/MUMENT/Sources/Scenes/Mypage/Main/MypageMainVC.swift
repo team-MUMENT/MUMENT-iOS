@@ -148,8 +148,8 @@ extension MypageMainVC: UITableViewDataSource {
                 cell.setVersionLabel(version: "1.0")
                 
                 cell.setSignOutAction { [weak self] in
-                    let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
-                    mumentAlert.setOKButtonTitle(title: "로그아웃")
+                    let mumentAlert =  MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "로그아웃")
+//                    mumentAlert.setOKButtonTitle(title: "")
                     mumentAlert.setTitle(title: "로그아웃하시겠어요?")
                     self?.present(mumentAlert, animated: true)
                     mumentAlert.OKButton.press { [weak self] in

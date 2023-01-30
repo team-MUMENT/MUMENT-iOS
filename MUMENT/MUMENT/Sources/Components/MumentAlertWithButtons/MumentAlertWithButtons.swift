@@ -47,14 +47,15 @@ class MumentAlertWithButtons: BaseVC{
         $0.titleLabel?.font = .mumentB4M14
         $0.setTitleColor(.mBlack2, for: .normal)
     }
-    let OKButton = UIButton(type: .system).then {
-        $0.setTitle("확인", for: .normal)
+    lazy var OKButton = UIButton(type: .system).then {
+        $0.setTitle(okTitle ?? "확인", for: .normal)
         $0.titleLabel?.font = .mumentB4M14
         $0.setTitleColor(.mPurple1, for: .normal)
     }
     
     var titleType: MumentAlertTitleType?
     var alertHeight: CGFloat?
+    private var okTitle: String? = nil
     
     // MARK: - Initialization
     init(titleType: MumentAlertTitleType) {
@@ -62,6 +63,14 @@ class MumentAlertWithButtons: BaseVC{
         
         setPresentation()
         self.titleType = titleType
+    }
+    
+    init(titleType: MumentAlertTitleType, OKTitle: String) {
+        super.init(nibName: nil, bundle: nil)
+        
+        setPresentation()
+        self.titleType = titleType
+        okTitle = OKTitle
     }
     
     required init?(coder: NSCoder) {
@@ -110,10 +119,6 @@ class MumentAlertWithButtons: BaseVC{
         OKButton.press { [weak self] in
             self?.dismiss(animated: true)
         }
-    }
-    
-    func setOKButtonTitle(title : String) {
-        OKButton.setTitle(title, for: .normal)
     }
 }
 
