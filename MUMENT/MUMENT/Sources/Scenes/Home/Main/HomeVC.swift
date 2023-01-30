@@ -61,7 +61,7 @@ class HomeVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = mumentForTodayData.todayMument.mumentID
+//        mumentDetailVC.mumentId = mumentForTodayData.todayMument.mumentID
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
@@ -104,7 +104,7 @@ extension HomeVC: CarouselCVCDelegate {
 extension HomeVC: MumentsOfRevisitedCVCDelegate {
     func mumentsOfRevisitedCVCSelected(data: MumentsOfRevisitedResponseModel.AgainMument) {
         let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = data.mumentID
+//        mumentDetailVC.mumentId = data.mumentID
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
@@ -119,7 +119,7 @@ extension HomeVC: MumentsOfRevisitedCVCDelegate {
 extension HomeVC: MumentsByTagCVCDelegate {
     func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList) {
         let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = data.id
+//        mumentDetailVC.mumentId = data.id
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
