@@ -148,7 +148,16 @@ extension MypageMainVC: UITableViewDataSource {
                 cell.setVersionLabel(version: "1.0")
                 
                 cell.setSignOutAction { [weak self] in
-                    self?.requestSignOut()
+                    let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
+                    mumentAlert.setOKButtonTitle(title: "로그아웃")
+                    mumentAlert.setTitle(title: "로그아웃하시겠어요?")
+                    self?.present(mumentAlert, animated: true)
+                    mumentAlert.OKButton.press { [weak self] in
+                        
+                        self?.dismiss(animated: true)
+                        UserDefaultsManager.refreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsInByb2ZpbGVJZCI6Iu2GoO2BsCDrp4zro4wg7YWM7Iqk7Yq4ISIsImltYWdlIjpudWxsLCJpYXQiOjE2NzM3MjE3ODQsImV4cCI6MTY3MzkwNTc4NCwiaXNzIjoiTXVtZW50In0.qthgxZav45JckbvFc9mw4LqtVhvP5MC2vTZ6Qu3qIIg"
+                        self?.navigationController?.pushViewController(SignInVC(), animated: true)
+                    }
                 }
                 
                 cell.setWithDrawAction { [weak self] in

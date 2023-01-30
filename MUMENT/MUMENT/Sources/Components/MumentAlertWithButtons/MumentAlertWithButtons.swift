@@ -111,6 +111,10 @@ class MumentAlertWithButtons: BaseVC{
             self?.dismiss(animated: true)
         }
     }
+    
+    func setOKButtonTitle(title : String) {
+        OKButton.setTitle(title, for: .normal)
+    }
 }
 
 // MARK: - UI
