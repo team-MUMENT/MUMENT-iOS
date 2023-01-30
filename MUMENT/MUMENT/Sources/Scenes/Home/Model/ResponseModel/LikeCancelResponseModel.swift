@@ -1,21 +1,19 @@
 //
-//  LikeResponseModel.swift
+//  LikeCancelResponceModel.swift
 //  MUMENT
 //
-//  Created by 김지민 on 2022/07/23.
+//  Created by 김지민 on 2023/01/31.
 //
 
 import Foundation
 
 // MARK: - HistoryResponseModel
-struct LikeResponseModel: Codable {
+struct LikeCancelResponseModel: Codable {
     let mumentID: Int
     let likeCount: Int
-    let pushSuccess: Bool
 
     enum CodingKeys: String, CodingKey {
         case mumentID
         case likeCount
-        case pushSuccess
     }
 }

@@ -7,17 +7,17 @@
 import Alamofire
 
 enum LikeSerivce {
-    case postHeartLiked(mumentId: String, userId: String)
-    case deleteHeartLiked(mumentId: String, userId: String)
+    case postHeartLiked(mumentId: Int)
+    case deleteHeartLiked(mumentId: Int)
 }
 
 extension LikeSerivce: TargetType {
     var path: String {
         switch self {
-        case .postHeartLiked(mumentId: let mumentId, userId: let userId):
-            return "/mument/\(mumentId)/\(userId)/like"
-        case .deleteHeartLiked(mumentId: let mumentId, userId: let userId):
-            return "/mument/\(mumentId)/\(userId)/like"
+        case .postHeartLiked(mumentId: let mumentId):
+            return "/mument/\(mumentId)/like"
+        case .deleteHeartLiked(mumentId: let mumentId):
+            return "/mument/\(mumentId)/like"
         }
     }
     
@@ -31,20 +31,10 @@ extension LikeSerivce: TargetType {
     }
     
     var header: HeaderType {
-        switch self {
-        case .postHeartLiked:
-            return .basic
-        case .deleteHeartLiked:
-            return .basic
-        }
+        return .auth
     }
     
     var parameters: RequestParams {
-        switch self {
-        case .postHeartLiked:
-            return .requestPlain
-        case .deleteHeartLiked:
-            return .requestPlain
-        }
+        return .requestPlain
     }
 }
