@@ -9,8 +9,8 @@ import Foundation
 
 struct UserDefaultsManager {
 
-    static var userId: String? {
-        get { return UserDefaults.standard.string(forKey: "userId") }
+    static var userId: Int? {
+        get { return UserDefaults.standard.integer(forKey: "userId") }
         set { UserDefaults.standard.set(newValue, forKey: "userId") }
     }
     

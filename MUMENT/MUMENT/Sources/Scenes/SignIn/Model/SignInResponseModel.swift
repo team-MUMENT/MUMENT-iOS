@@ -8,7 +8,7 @@
 import Foundation
 
 struct SignInResponseModel: Codable {
-    let id: String
+    let id: Int
     let type: String
     let accessToken: String
     let refreshToken: String
