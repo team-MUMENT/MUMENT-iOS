@@ -9,12 +9,12 @@ import Foundation
 
 // MARK: - HistoryResponseModel
 struct LikeResponseModel: Codable {
-    let mumentID: Int
+    let mumentId: Int
     let likeCount: Int
     let pushSuccess: Bool
 
     enum CodingKeys: String, CodingKey {
-        case mumentID
+        case mumentId
         case likeCount
         case pushSuccess
     }
