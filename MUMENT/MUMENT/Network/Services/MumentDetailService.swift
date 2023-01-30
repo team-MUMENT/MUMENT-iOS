@@ -8,14 +8,14 @@
 import Alamofire
 
 enum MumentDetailService {
-    case getMumentDetail(mumentId: String, userId: String)
+    case getMumentDetail(mumentId: Int)
 }
 
 extension MumentDetailService: TargetType {
     var path: String {
         switch self {
-        case .getMumentDetail(mumentId: let mumentId, userId: let userId):
-            return "/mument/\(mumentId)/\(userId)"
+        case .getMumentDetail(mumentId: let mumentId):
+            return "/mument/\(mumentId)"
         
         }
     }
@@ -30,7 +30,7 @@ extension MumentDetailService: TargetType {
     var header: HeaderType {
         switch self {
         case .getMumentDetail:
-            return .basic
+            return .auth
         }
     }
     
