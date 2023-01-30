@@ -111,7 +111,7 @@ final class DetailMumentCardView: UIView {
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
         isLiked = cellData.isLiked
-        heartCount = cellData.count
+        heartCount = cellData.likeCount
         self.mumentId = mumentId
         songInfoView.setData(musicData)
         
