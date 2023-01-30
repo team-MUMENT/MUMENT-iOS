@@ -24,12 +24,17 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
-        requestGetCarouselData()
+        
         setLayout()
         setButtonActions()
         
         // Test Code
-        self.setTV()
+//        self.setTV()
+    }
+    
+    override func viewWillAppear(_ animate: Bool) {
+        super.viewWillAppear(animate)
+        requestGetCarouselData()
     }
     
     // MARK: - Functions
@@ -83,8 +88,8 @@ extension HomeVC {
 extension HomeVC: CarouselCVCDelegate {
     func carouselCVCSelected(data: CarouselResponseModel.BannerList) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.songInfoData = SongInfoResponseModel.Music(id: data.music.id, name: data.music.name, image: data.music.image, artist: data.music.artist)
-        songDetailVC.musicId = data.music.id
+        songDetailVC.musicData = MusicDto(musicId: data.music.id, musicTitle: data.music.name, artist: data.music.artist, albumUrl: data.music.image ?? "")
+//        songDetailVC.musicId = data.music.id
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
     
@@ -227,7 +232,9 @@ extension HomeVC {
             case .success(let response):
                 if let res = response as? CarouselResponseModel {
                     self.carouselData = res
-                    self.requestGetMumentForTodayData()
+//                    self.requestGetMumentForTodayData()
+                    self.setTV()
+                    self.homeTV.reloadData()
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
