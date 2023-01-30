@@ -55,11 +55,7 @@ class MumentHistoryTVHeader: UITableViewHeaderFooterView {
         }
     }
     
-    func setData(_ cellData: MumentDetailVCModel){
-        songInfoView.setData(cellData)
-    }
-    
-    func setData(_ cellData: HistoryResponseModel.DataMusic){
+    func setData(_ cellData: MusicDto){
         songInfoView.setData(cellData)
     }
 }
