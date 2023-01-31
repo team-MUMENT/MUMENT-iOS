@@ -43,7 +43,6 @@ final class StorageMumentVC: BaseVC {
     private var selectedTagData = [String]() {
         didSet {
             if selectedTagData.isEmpty {
-                print(selectedTagData)
                 selectedTagsCVHeight = 0
                 selectedTagsCV.snp.updateConstraints {
                     $0.height.equalTo(selectedTagsCVHeight)
