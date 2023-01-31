@@ -29,12 +29,13 @@ class HomeVC: BaseVC {
         setButtonActions()
         
         // Test Code
-//        self.setTV()
+        self.setTV()
     }
     
     override func viewWillAppear(_ animate: Bool) {
         super.viewWillAppear(animate)
         requestGetCarouselData()
+        self.showTabbar()
     }
     
     // MARK: - Functions

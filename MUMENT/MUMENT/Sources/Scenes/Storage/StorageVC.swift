@@ -86,6 +86,12 @@ final class StorageVC: BaseVC {
         setPressAction()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.showTabbar()
+    }
+    
     // MARK: - Function
     private func setPressAction() {
         profileButton.press {
