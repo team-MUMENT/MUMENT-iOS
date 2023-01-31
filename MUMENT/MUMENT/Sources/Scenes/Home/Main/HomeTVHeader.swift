@@ -54,8 +54,8 @@ class HomeTVHeader: UIView {
         }
         
         notificationButton.press {
-            let notiVC = SetNotificationVC()
-            vc.navigationController?.pushViewController(notiVC, animated: true)
+            let notificationVC = NotificationVC()
+            vc.navigationController?.pushViewController(notificationVC, animated: true)
         }
         
         logoButton.press {
