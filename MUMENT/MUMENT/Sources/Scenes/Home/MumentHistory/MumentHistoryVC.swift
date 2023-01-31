@@ -15,10 +15,10 @@ class MumentHistoryVC: BaseVC {
     private let navigationBarView = DefaultNavigationBar()
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
-    var musicInfoDataSource: [MumentDetailVCModel] = MumentDetailVCModel.sampleData
-    var mumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
+    var musicInfoDummyData: [MumentDetailResponseModel] = MumentDetailResponseModel.sampleData
+    var mumentDummyData: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
-    var musicInfoData: HistoryResponseModel.DataMusic = HistoryResponseModel.DataMusic(id: "", name: "", artist: "", image: "")
+    var musicInfoData: MusicDto = MusicDto(musicId: "", musicTitle: "", artist: "", albumUrl: "")
     var historyData: [HistoryResponseModel.MumentHistory] = []
     var musicId: String?
     var userId: String?
@@ -57,7 +57,7 @@ class MumentHistoryVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.musicId = self.musicId
+        songDetailVC.musicData.musicId = self.musicId ?? ""
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
@@ -140,7 +140,7 @@ extension MumentHistoryVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = historyData[indexPath.row].id
+//        mumentDetailVC.mumentId = historyData[indexPath.row].id
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
@@ -155,19 +155,19 @@ extension MumentHistoryVC :MumentHistoryTVHeaderDelegate {
 // MARK: - Network
 extension MumentHistoryVC {
     private func requestGetHistoryData(_ recentOnTop: Bool) {
-        HistoryAPI.shared.getMumentHistoryData(userId: userId ?? UserInfo.shared.userId ?? "", musicId: self.musicId ?? "", recentOnTop: recentOnTop) { networkResult in
-            switch networkResult {
-                
-            case .success(let response):
-                if let res = response as? HistoryResponseModel {
-                    self.musicInfoData = res.music
-                    self.historyData = res.mumentHistory
-                    self.mumentTV.reloadData()
-                }
-            default:
-                self.makeAlert(title: MessageType.networkError.message)
-            }
-        }
+//        HistoryAPI.shared.getMumentHistoryData(userId: userId ?? UserInfo.shared.userId ?? "", musicId: self.musicId ?? "", recentOnTop: recentOnTop) { networkResult in
+//            switch networkResult {
+//                
+//            case .success(let response):
+//                if let res = response as? HistoryResponseModel {
+////                    self.musicInfoData = res.music
+//                    self.historyData = res.mumentHistory
+//                    self.mumentTV.reloadData()
+//                }
+//            default:
+//                self.makeAlert(title: MessageType.networkError.message)
+//            }
+//        }
     }
     
 }
