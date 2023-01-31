@@ -32,6 +32,13 @@ class HomeVC: BaseVC {
         self.setTV()
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.showTabbar()
+    }
+    
     // MARK: - Functions
     private func setTV() {
         homeTV.delegate = self

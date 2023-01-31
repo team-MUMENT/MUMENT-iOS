@@ -164,6 +164,7 @@
 		C7AE17EA28886B4F00A5E3FA /* PostMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */; };
 		C7AE17EF2889322900A5E3FA /* MumentDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13A66F28882B1100197D2A /* MumentDetailService.swift */; };
 		C7AE17F3288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift */; };
+		C7AE8F52297BD3D900B1603E /* GetNotificationListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE8F51297BD3D900B1603E /* GetNotificationListResponseModel.swift */; };
 		C7AE8F54297D86BB00B1603E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7AE8F53297D86BB00B1603E /* GoogleService-Info.plist */; };
 		C7AE8F57297D8B5B00B1603E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C7AE8F56297D8B5B00B1603E /* FirebaseAnalytics */; };
 		C7AE8F59297D8B5B00B1603E /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = C7AE8F58297D8B5B00B1603E /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -215,7 +216,12 @@
 		C7BC6B6E28771152008C75CE /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6D28771152008C75CE /* UserDefaults+.swift */; };
 		C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6F28771184008C75CE /* UIStackView+.swift */; };
 		C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B712877ECA0008C75CE /* CALayer+.swift */; };
+		C7D6E2C329863A9B006F9AB8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */; };
+		C7D6E2C529864174006F9AB8 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */; };
 		C7DE6F54290ECE61002B9048 /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DE6F53290ECE61002B9048 /* MessageType.swift */; };
+		C7DF4A4A297BB6FC00E999DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DF4A49297BB6FC00E999DE /* NotificationVC.swift */; };
+		C7DF4A4C297BCAB600E999DE /* NotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DF4A4B297BCAB600E999DE /* NotificationTVC.swift */; };
+		E7400C162941E9EF006F5963 /* SelectedTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C152941E9EF006F5963 /* SelectedTagsView.swift */; };
 		E7400C182941EF2A006F5963 /* StorageMumentCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C172941EF2A006F5963 /* StorageMumentCV.swift */; };
 		E7400C1C29425235006F5963 /* StorageMumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1B29425235006F5963 /* StorageMumentVC.swift */; };
 		E7400C1E2943235F006F5963 /* StorageMumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1D2943235F006F5963 /* StorageMumentModel.swift */; };
@@ -388,6 +394,7 @@
 		C7AE17E72888675600A5E3FA /* PostMumentBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMumentBodyModel.swift; sourceTree = "<group>"; };
 		C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMumentResponseModel.swift; sourceTree = "<group>"; };
 		C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailMyMumentEmptyTVC.swift; sourceTree = "<group>"; };
+		C7AE8F51297BD3D900B1603E /* GetNotificationListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNotificationListResponseModel.swift; sourceTree = "<group>"; };
 		C7AE8F53297D86BB00B1603E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7AE8F82297D948300B1603E /* NotificationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInfo.swift; sourceTree = "<group>"; };
 		C7BB52FF2875960800E0E889 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
@@ -417,7 +424,12 @@
 		C7BC6B6D28771152008C75CE /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		C7BC6B6F28771184008C75CE /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		C7BC6B712877ECA0008C75CE /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
 		C7DE6F53290ECE61002B9048 /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
+		C7DF4A49297BB6FC00E999DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		C7DF4A4B297BCAB600E999DE /* NotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTVC.swift; sourceTree = "<group>"; };
+		E7400C152941E9EF006F5963 /* SelectedTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTagsView.swift; sourceTree = "<group>"; };
 		E7400C172941EF2A006F5963 /* StorageMumentCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentCV.swift; sourceTree = "<group>"; };
 		E7400C1B29425235006F5963 /* StorageMumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentVC.swift; sourceTree = "<group>"; };
 		E7400C1D2943235F006F5963 /* StorageMumentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentModel.swift; sourceTree = "<group>"; };
@@ -723,6 +735,7 @@
 				4D13A6692887FD9300197D2A /* MumentDetailAPI.swift */,
 				4D13A66B2887FDAC00197D2A /* HistoryAPI.swift */,
 				E781F22E28892EF400484C28 /* StorageAPI.swift */,
+				C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */,
 				4DE0FAD629811DD6008F01E5 /* MyPageAPI.swift */,
 			);
 			path = APIManagers;
@@ -733,6 +746,7 @@
 			children = (
 				C73FC9C9287C19E60017F2DA /* AuthService.swift */,
 				C7AE17D92887E4BD00A5E3FA /* WriteService.swift */,
+				C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */,
 				C7AE17E328882D6B00A5E3FA /* SearchService.swift */,
 				4D13A66D2888028400197D2A /* SongDetailService.swift */,
 				4D13A66F28882B1100197D2A /* MumentDetailService.swift */,
@@ -1070,6 +1084,7 @@
 		C7BC6B4F2876AD26008C75CE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				C7DF4A48297BB6EF00E999DE /* Notification */,
 				4D1F144C29114EC60093D641 /* Onboarding */,
 				4D585471291762B2003F5DF9 /* Splash */,
 				C71B480F2886DD1C001A7CD6 /* SignIn */,
@@ -1117,6 +1132,16 @@
 				C73CBCFB291549ED009E9A40 /* ToastMessageColorType.swift */,
 			);
 			path = Type;
+			sourceTree = "<group>";
+		};
+		C7DF4A48297BB6EF00E999DE /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				C7DF4A49297BB6FC00E999DE /* NotificationVC.swift */,
+				C7DF4A4B297BCAB600E999DE /* NotificationTVC.swift */,
+				C7AE8F51297BD3D900B1603E /* GetNotificationListResponseModel.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1239,9 +1264,12 @@
 			files = (
 				4DC4D84E2889BA100060D00F /* MumentsByTagResponseModel.swift in Sources */,
 				4D64A9F1287DEEC900450FCA /* MumentCardWithoutHeartModel.swift in Sources */,
+				C7D6E2C329863A9B006F9AB8 /* NotificationService.swift in Sources */,
 				4D13A66E2888028400197D2A /* SongDetailService.swift in Sources */,
 				C73FC9C8287C19DA0017F2DA /* NetworkConstants.swift in Sources */,
+				C7D6E2C529864174006F9AB8 /* NotificationAPI.swift in Sources */,
 				C71B480D2885EB84001A7CD6 /* Notification+Name+.swift in Sources */,
+				C7AE8F52297BD3D900B1603E /* GetNotificationListResponseModel.swift in Sources */,
 				C71B47FF288450FD001A7CD6 /* MumentAlertTitleType.swift in Sources */,
 				4D2BADD028806A75004A7E00 /* SongDetailVC.swift in Sources */,
 				C71B48012884951C001A7CD6 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
@@ -1330,6 +1358,7 @@
 				C7AE17E028880DEB00A5E3FA /* UserInfo.swift in Sources */,
 				4D64A9ED287DD95A00450FCA /* DefaultMumentCardModel.swift in Sources */,
 				4D13A6682887FD8100197D2A /* SongDetailAPI.swift in Sources */,
+				C7DF4A4A297BB6FC00E999DE /* NotificationVC.swift in Sources */,
 				C7AE17F3288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift in Sources */,
 				4DAD075C2946CBDD00567625 /* DropDownMenuTVC.swift in Sources */,
 				C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */,
@@ -1380,6 +1409,7 @@
 				C71B48142886DD8E001A7CD6 /* AuthAPI.swift in Sources */,
 				C79CD4512921BF7200DE4A47 /* MumentTextField.swift in Sources */,
 				E781F2332889ADE400484C28 /* GetLikedMumentResponseModel.swift in Sources */,
+				C7DF4A4C297BCAB600E999DE /* NotificationTVC.swift in Sources */,
 				C7AE17EA28886B4F00A5E3FA /* PostMumentResponseModel.swift in Sources */,
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
 				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
