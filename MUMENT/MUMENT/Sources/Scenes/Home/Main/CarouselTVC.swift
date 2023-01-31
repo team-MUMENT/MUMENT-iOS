@@ -17,41 +17,36 @@ class CarouselTVC: UITableViewCell {
     var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), id: "", tagTitle: "", displayDate: "")]
     
     // Test Code
-    var dataSource: [CarouselModel] = CarouselModel.sampleData
+    private var dataSource: [CarouselModel] = CarouselModel.sampleData
     private lazy var increasedDataSource: [CarouselModel] = {
         dataSource + dataSource + dataSource
     }()
-    /// 더미데이터 이용 테스트 코드로 했을 때는 다음 셀로 넘어가는 거 다른 셀로 넘어가지는 않음. 부자연스럽기는 함. API 연결 했을 때만 오류가 있는 것 같음. 
     
-    var nowPage: Int = 3
+    private var nowPage: Int = 3 {
+    /// 서버 연결할때 까지 페이지 확인용으로 남겨두겠습니다..
+        didSet {
+            print("nowPage",nowPage)
+        }
+    }
+    
+    private var index: Int = 0
     
     private var increasedCarouselData: [CarouselResponseModel.BannerList] = []
     
     private lazy var carouselCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
-    private var originalDataSourceCount: Int {
-//        carouselData.count
-        
-        dataSource.count
-    }
-    
-    private var scrollToEnd: Bool = false
-    private var scrollToBegin: Bool = false
-    
-    //    let beginOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount)
-    //    let endOffset = carouselCV.frame.width * CGFloat(originalDataSourceCount * 2 - 1)
-    //
+
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCV()
         setLayout()
         DispatchQueue.main.async {
-            self.carouselCV.scrollToItem(at: IndexPath(item: self.originalDataSourceCount,section: .zero),
+            self.carouselCV.scrollToItem(at: IndexPath(item: self.dataSource.count,section: .zero),
                                          at: .centeredHorizontally,
                                          animated: false)
         }
-        //        bannerTimer()
+        bannerTimer()
     }
     
     @available(*, unavailable)
@@ -78,26 +73,41 @@ class CarouselTVC: UITableViewCell {
         self.backgroundColor = .mBgwhite
     }
     
+    private var timer: Timer = Timer()
+    
     func bannerTimer() {
-        let _: Timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (Timer) in
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (Timer) in
             self.bannerMove()
+        }
+        
+        /// 현재 RunLoop에 timer를 common mode로 추가 함으로써 스크롤 시에도 타이머 작동 하도록 함
+        DispatchQueue.main.async {
+            RunLoop.current.add(self.timer, forMode: .common)
         }
     }
     
     func bannerMove() {
-        // 현재페이지가 마지막 페이지일 경우
-        if nowPage%3 == 0 {
-            // 맨 처음 페이지로 돌아감
-            carouselCV.scrollToItem(at: NSIndexPath(item: 3, section: 0) as IndexPath, at: .right, animated: false)
-            nowPage = 3
-            
+            // 현재페이지가 마지막 페이지일 경우
+            if nowPage == 6 {
+                // 맨 처음 페이지로 돌아감
+                nowPage = 3
+                carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath,
+                                        at: .centeredHorizontally,
+                                        animated: false)
+            }
+        /// 오른쪽 끝에서 타이머가 시작될 경우
+        if nowPage >= 8 {
+            nowPage = 2
+            carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath,
+                                        at: .centeredHorizontally,
+                                        animated: false)
         }
-        
-        // 다음 페이지로 전환
-        //        nowPage = Int(carouselCV.contentOffset.x) / Int(carouselCV.frame.width)
+            // 다음 페이지로 전환
         nowPage += 1
-        carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath, at: .right, animated: true)
-    }
+        carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath,
+                                    at: .centeredHorizontally,
+                                    animated: true)
+        }
     
     func setData(_ cellData: CarouselResponseModel) {
         carouselData = cellData.bannerList
@@ -132,29 +142,55 @@ extension CarouselTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? CarouselCVC {
             cell.isSelected = true
         }
-        //        self.delegate?.carouselCVCSelected(data: increasedCarouselData[indexPath.row])
-        
         // Test Code
         self.delegate?.carouselCVCSelected()
     }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        /// dragging 시 타이머 종료
+        timer.invalidate()
+        
+        /// 빠른 드래깅으로 index가 양쪽 끝으로 갔을때 다른 index로 바꿔치기
+        if index <= 0 {
+            index = 6
+            nowPage = index
+            self.carouselCV.scrollToItem(at: NSIndexPath(item: self.nowPage, section: 0) as IndexPath,
+                                    at: .centeredHorizontally,
+                                    animated: false)
+        }
+        if index >= 8 {
+            index = 2
+            nowPage = index
+            self.carouselCV.scrollToItem(at: NSIndexPath(item: self.nowPage, section: 0) as IndexPath,
+                                    at: .centeredHorizontally,
+                                    animated: false)
+        }
+        
+        let beginOffset = (carouselCV.frame.width - CVFlowLayout.minimumLineSpacing) * 2
+        let endOffset = (carouselCV.frame.width - CVFlowLayout.minimumLineSpacing) * 5
+        
+        if scrollView.contentOffset.x < beginOffset {
+            nowPage = 5
+            self.carouselCV.scrollToItem(at: NSIndexPath(item: self.nowPage, section: 0) as IndexPath,
+                                    at: .centeredHorizontally,
+                                    animated: false)
+        } else if scrollView.contentOffset.x > endOffset {
+            nowPage = 3
+            self.carouselCV.scrollToItem(at: NSIndexPath(item: self.nowPage, section: 0) as IndexPath,
+                                    at: .centeredHorizontally,
+                                    animated: false)
+        }
+    }
+    
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let beginOffset = (carouselCV.frame.width - CVFlowLayout.minimumLineSpacing) * 3
-        let endOffset = (carouselCV.frame.width - CVFlowLayout.minimumLineSpacing) * 6
-        
-        if scrollView.contentOffset.x < beginOffset && velocity.x < .zero {
-            scrollToEnd = true
-        } else if scrollView.contentOffset.x > endOffset && velocity.x > .zero {
-            scrollToBegin = true
-        }
-        
         let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
         let constantForCentering = (carouselCV.frame.width - CVFlowLayout.itemSize.width)/2
-        
+
         let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
-        let index: Int
+        
         if velocity.x > 0 {
             index = Int(ceil(estimatedIndex))
         } else if velocity.x < 0 {
@@ -162,26 +198,11 @@ extension CarouselTVC: UICollectionViewDelegate{
         } else {
             index = Int(round(estimatedIndex))
         }
-        nowPage = index
-        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing - constantForCentering, y: 0)
         
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollToBegin {
-            carouselCV.scrollToItem(at: IndexPath(item: 3, section: .zero),
-                                    at: .centeredHorizontally,
-                                    animated: false)
-            scrollToBegin.toggle()
-            return
-        }
-        if scrollToEnd {
-            carouselCV.scrollToItem(at: IndexPath(item: 5, section: .zero),
-                                    at: .centeredHorizontally,
-                                    animated: false)
-            scrollToEnd.toggle()
-            return
-        }
+        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing - constantForCentering, y: 0)
+        nowPage = index
+        /// 드래깅 종료시 타이머 다시 실행
+        bannerTimer()
     }
     
 }
@@ -190,8 +211,6 @@ extension CarouselTVC: UICollectionViewDelegate{
 extension CarouselTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        return increasedCarouselData.count
-        
         // Test Code
         return increasedDataSource.count
     }
@@ -200,8 +219,6 @@ extension CarouselTVC: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCVC.className, for: indexPath)
         if let cell = cell as? CarouselCVC {
-            //            cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
-            
             // Test Code
             cell.setData(increasedDataSource[indexPath.row], index: indexPath.row%3+1)
         }
