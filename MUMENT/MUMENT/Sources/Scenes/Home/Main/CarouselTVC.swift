@@ -14,7 +14,7 @@ class CarouselTVC: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: CarouselCVCDelegate?
-    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), id: "", tagTitle: "", displayDate: "")]
+    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), tagTitle: "", displayDate: "")]
     
     // Test Code
     private var dataSource: [CarouselModel] = CarouselModel.sampleData
@@ -87,14 +87,14 @@ class CarouselTVC: UITableViewCell {
     }
     
     func bannerMove() {
-            // 현재페이지가 마지막 페이지일 경우
-            if nowPage == 6 {
-                // 맨 처음 페이지로 돌아감
-                nowPage = 3
-                carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath,
-                                        at: .centeredHorizontally,
-                                        animated: false)
-            }
+        // 현재페이지가 마지막 페이지일 경우
+        if nowPage == 6 {
+            // 맨 처음 페이지로 돌아감
+            nowPage = 3
+            carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath,
+                                    at: .centeredHorizontally,
+                                    animated: false)
+        }
         /// 오른쪽 끝에서 타이머가 시작될 경우
         if nowPage >= 8 {
             nowPage = 2
@@ -142,8 +142,7 @@ extension CarouselTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? CarouselCVC {
             cell.isSelected = true
         }
-        // Test Code
-        self.delegate?.carouselCVCSelected()
+        self.delegate?.carouselCVCSelected(data: increasedCarouselData[indexPath.row])
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -211,7 +210,6 @@ extension CarouselTVC: UICollectionViewDelegate{
 extension CarouselTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // Test Code
         return increasedDataSource.count
     }
     
@@ -219,10 +217,8 @@ extension CarouselTVC: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCVC.className, for: indexPath)
         if let cell = cell as? CarouselCVC {
-            // Test Code
-            cell.setData(increasedDataSource[indexPath.row], index: indexPath.row%3+1)
+        cell.setData(increasedDataSource[indexPath.row],index:indexPath.row%3+1)
         }
-        
         return cell
     }
 }

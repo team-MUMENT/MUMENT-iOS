@@ -53,15 +53,14 @@
 		4D696CEF287978360060CE41 /* MumentsOfRevisitedTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CEE287978360060CE41 /* MumentsOfRevisitedTVC.swift */; };
 		4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */; };
 		4D696CF3287978630060CE41 /* MumentForTodayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */; };
-		4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */; };
 		4D760454288093280044F2A6 /* DefaultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D760453288093280044F2A6 /* DefaultNavigationBar.swift */; };
 		4D76045A2880AC840044F2A6 /* MumentDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7604592880AC840044F2A6 /* MumentDetailVC.swift */; };
 		4D76045C2880ACB40044F2A6 /* DetailMumentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D76045B2880ACB40044F2A6 /* DetailMumentCardView.swift */; };
 		4D7604612880ADB60044F2A6 /* DetailSongInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7604602880ADB60044F2A6 /* DetailSongInfoView.swift */; };
-		4D7604662880C8ED0044F2A6 /* MumentDetailVCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7604652880C8ED0044F2A6 /* MumentDetailVCModel.swift */; };
 		4D76046828814A8A0044F2A6 /* MyMumentSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D76046728814A8A0044F2A6 /* MyMumentSectionHeader.swift */; };
 		4D76046A28814A9A0044F2A6 /* AllMumentsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D76046928814A9A0044F2A6 /* AllMumentsSectionHeader.swift */; };
 		4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D76046D2881860C0044F2A6 /* MumentCardBySongView.swift */; };
+		4D8784742986F5D3001F446E /* MusicDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8784732986F5D3001F446E /* MusicDto.swift */; };
 		4D90D15D28892E71008265E1 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D90D15C28892E71008265E1 /* HomeService.swift */; };
 		4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */; };
 		4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */; };
@@ -291,15 +290,14 @@
 		4D696CEE287978360060CE41 /* MumentsOfRevisitedTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedTVC.swift; sourceTree = "<group>"; };
 		4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsByTagTVC.swift; sourceTree = "<group>"; };
 		4D696CF2287978630060CE41 /* MumentForTodayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayTVC.swift; sourceTree = "<group>"; };
-		4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailInfoModel.swift; sourceTree = "<group>"; };
 		4D760453288093280044F2A6 /* DefaultNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationBar.swift; sourceTree = "<group>"; };
 		4D7604592880AC840044F2A6 /* MumentDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentDetailVC.swift; sourceTree = "<group>"; };
 		4D76045B2880ACB40044F2A6 /* DetailMumentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMumentCardView.swift; sourceTree = "<group>"; };
 		4D7604602880ADB60044F2A6 /* DetailSongInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSongInfoView.swift; sourceTree = "<group>"; };
-		4D7604652880C8ED0044F2A6 /* MumentDetailVCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentDetailVCModel.swift; sourceTree = "<group>"; };
 		4D76046728814A8A0044F2A6 /* MyMumentSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMumentSectionHeader.swift; sourceTree = "<group>"; };
 		4D76046928814A9A0044F2A6 /* AllMumentsSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentsSectionHeader.swift; sourceTree = "<group>"; };
 		4D76046D2881860C0044F2A6 /* MumentCardBySongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCardBySongView.swift; sourceTree = "<group>"; };
+		4D8784732986F5D3001F446E /* MusicDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDto.swift; sourceTree = "<group>"; };
 		4D90D15C28892E71008265E1 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		4D9734EC287EB022003EF546 /* MumentsOfRevisitedCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedCVC.swift; sourceTree = "<group>"; };
 		4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentsOfRevisitedModel.swift; sourceTree = "<group>"; };
@@ -526,8 +524,6 @@
 				4D9734EE287EC748003EF546 /* MumentsOfRevisitedModel.swift */,
 				4D2BADCB288033E0004A7E00 /* MumentsByTagModel.swift */,
 				4D2BADCD2880459F004A7E00 /* MumentsByTagTitleModel.swift */,
-				4D76045128808CFA0044F2A6 /* SongDetailInfoModel.swift */,
-				4D7604652880C8ED0044F2A6 /* MumentDetailVCModel.swift */,
 			);
 			path = DummyDataModel;
 			sourceTree = "<group>";
@@ -610,6 +606,14 @@
 				4D7604602880ADB60044F2A6 /* DetailSongInfoView.swift */,
 			);
 			path = MumentDetail;
+			sourceTree = "<group>";
+		};
+		4D8784722986F59E001F446E /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				4D8784732986F5D3001F446E /* MusicDto.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		4D9734F0287ECE1B003EF546 /* DefaultMumentCard */ = {
@@ -1100,6 +1104,7 @@
 		C7BC6B522876ADC0008C75CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4D8784722986F59E001F446E /* DTO */,
 				4D13A6782888814C00197D2A /* DummyDataModel */,
 				4D13A6772888814500197D2A /* ResponseModel */,
 			);
@@ -1378,7 +1383,6 @@
 				E7978472297B705C00A0AE45 /* TagList.swift in Sources */,
 				C7BB531A28759DE500E0E889 /* HomeVC.swift in Sources */,
 				C71B480328854CD2001A7CD6 /* AlignmentLayout.swift in Sources */,
-				4D76045228808CFA0044F2A6 /* SongDetailInfoModel.swift in Sources */,
 				E781F235288AF55400484C28 /* Sequence+.swift in Sources */,
 				4D58547029175E69003F5DF9 /* SplashVC.swift in Sources */,
 				4D54DB57296F063C006D13C5 /* UserDefaultsManager.swift in Sources */,
@@ -1414,7 +1418,6 @@
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
 				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
-				4D7604662880C8ED0044F2A6 /* MumentDetailVCModel.swift in Sources */,
 				4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */,
 				4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */,
 				C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */,
@@ -1446,6 +1449,7 @@
 				E7978478297D887300A0AE45 /* StorageFilterTagCVC.swift in Sources */,
 				C7612D3F29365F4F005F74B1 /* MumentUnderLineButton.swift in Sources */,
 				4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */,
+				4D8784742986F5D3001F446E /* MusicDto.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				4D300665288B0C0A007FF4DB /* LikeAPI.swift in Sources */,
 				C7AE17D82887E44C00A5E3FA /* WriteAPI.swift in Sources */,
