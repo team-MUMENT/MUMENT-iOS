@@ -20,6 +20,10 @@ enum DefaultNavigationBarType {
     /// leftCloseRightDone: 좌측 Close 버튼 + 타이틀 + 우측 완료 버튼
     
     case leftCloseRightDone
+    
+    /// leftArrowRightSetting: 좌측 back 버튼 + 타이틀 + 우측 설정 버튼
+    
+    case leftArrowRightSetting
 }
 
 class DefaultNavigationBar: UIView {
@@ -46,6 +50,10 @@ class DefaultNavigationBar: UIView {
         $0.titleLabel?.font = .mumentH2B18
     }
     
+    let settingButton: UIButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "setttingIcon"), for: .normal)
+    }
+    
     var type: DefaultNavigationBarType = .leftArrow
     
     // MARK: - Initialization
@@ -63,6 +71,8 @@ class DefaultNavigationBar: UIView {
             setLeftArrowRightDoneLayout()
         case .leftCloseRightDone:
             setLeftCloseRightDone()
+        case .leftArrowRightSetting:
+            setLeftArrowRightSettingLayout()
         }
     }
     
@@ -78,6 +88,10 @@ class DefaultNavigationBar: UIView {
     
     func setBackButtonAction(_ closure: @escaping () -> Void) {
         self.backButton.addAction( UIAction { _ in closure() }, for: .touchUpInside)
+    }
+    
+    func setSettingButtonAction(_ closure: @escaping () -> Void) {
+        self.settingButton.addAction( UIAction { _ in closure() }, for: .touchUpInside)
     }
 }
 
@@ -95,6 +109,13 @@ extension DefaultNavigationBar {
         self.setBackButtonLayout()
         self.setTitleLabelLayout()
         self.setDoneButtonLayout()
+    }
+    
+    private func setLeftArrowRightSettingLayout() {
+        self.addSubviews([backButton, titleLabel, settingButton])
+        self.setBackButtonLayout()
+        self.setTitleLabelLayout()
+        self.setSettingButtonLayout()
     }
     
     private func setLeftCloseRightDone() {
@@ -129,6 +150,14 @@ extension DefaultNavigationBar {
             $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(20)
             $0.width.equalTo(50)
+        }
+    }
+    
+    private func setSettingButtonLayout() {
+        settingButton.snp.makeConstraints {
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide).inset(14)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(18)
+            $0.width.equalTo(self.settingButton.snp.height)
         }
     }
     
