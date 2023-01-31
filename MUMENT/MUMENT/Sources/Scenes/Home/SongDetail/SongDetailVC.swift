@@ -162,7 +162,7 @@ extension SongDetailVC: UITableViewDataSource {
             return UITableViewCell()
         }
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch section {
