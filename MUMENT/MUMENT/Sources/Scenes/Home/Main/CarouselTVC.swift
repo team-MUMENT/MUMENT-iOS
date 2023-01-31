@@ -217,7 +217,7 @@ extension CarouselTVC: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCVC.className, for: indexPath)
         if let cell = cell as? CarouselCVC {
-        cell.setData(increasedDataSource[indexPath.row],index:indexPath.row%3+1)
+        cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
         }
         return cell
     }
