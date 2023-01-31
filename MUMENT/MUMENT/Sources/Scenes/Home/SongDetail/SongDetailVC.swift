@@ -18,9 +18,8 @@ final class SongDetailVC: BaseVC {
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     var musicData: MusicDto = MusicDto(musicId: "", musicTitle: "", artist: "", albumUrl: "")
-    var myMumentData: SongInfoResponseModel.MyMument? = SongInfoResponseModel.MyMument(feelingTag: [], updatedAt: "", music: SongInfoResponseModel.MyMument.MyMumentMusic(id: ""), id: 0, likeCount: 0, impressionTag: [], isDeleted: true, cardTag: [], isPrivate: true, date: "", isFirst: true, isLiked: true, user: SongInfoResponseModel.MyMument.User(id: 0, name: "", image: ""), createdAt: "", content: "")
+    var myMumentData: SongInfoResponseModel.MyMument? = nil
     var allMumentsData: [AllMumentsResponseModel.MumentList] = []
-//    var musicId: String?
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -59,14 +58,14 @@ final class SongDetailVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = self.myMumentData?.id
+        mumentDetailVC.setData(mumentId: self.myMumentData?.id ?? 0, musicData: musicData)
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-        print("mumentDetailVC")
     }
     
-    @objc func didTapAllMumentView(_ sender: UITapGestureRecognizer, index: Int) {
+    @objc func didTapAllMumentView(_ sender: CardTapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.mumentId = self.allMumentsData[index].id
+        let index: Int = sender.index
+        mumentDetailVC.setData(mumentId: self.allMumentsData[index].id, musicData: musicData)
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
@@ -129,9 +128,7 @@ extension SongDetailVC: UITableViewDataSource {
             cell.setData(musicData)
             return cell
         case 1:
-            if allMumentsData.count == 0
-//                && myMumentData == nil
-            {
+            if allMumentsData.count == 0 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: AllMumentEmptyTVC.className, for: indexPath) as? AllMumentEmptyTVC
                 else { return UITableViewCell() }
                 return cell
@@ -144,7 +141,7 @@ extension SongDetailVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                     return UITableViewCell()
                 }
-                cell.setData(myMumentData ?? SongInfoResponseModel.MyMument(feelingTag: [], updatedAt: "", music: SongInfoResponseModel.MyMument.MyMumentMusic(id: ""), id: 0, likeCount: 0, impressionTag: [], isDeleted: true, cardTag: [], isPrivate: true, date: "", isFirst: true, isLiked: true, user: SongInfoResponseModel.MyMument.User(id: 0, name: "", image: ""), createdAt: "", content: ""))
+                cell.setData(myMumentData!)
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
                 cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
                 return cell
@@ -156,22 +153,16 @@ extension SongDetailVC: UITableViewDataSource {
             }
             cell.mumentCard.gestureRecognizers?.removeAll()
             cell.setData(allMumentsData[indexPath.row])
-//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapAllMumentView(.init(), index: indexPath.row)))
-//            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
+            let tapGestureRecognizer = CardTapGestureRecognizer(target: self, action: #selector(didTapAllMumentView(_:)))
+            tapGestureRecognizer.index = indexPath.row
+            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             return cell
             
         default:
             return UITableViewCell()
         }
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
-            let mumentDetailVC = MumentDetailVC()
-            mumentDetailVC.mumentId = self.allMumentsData[indexPath.row].id
-            self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-        }
-    }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch section {
@@ -199,9 +190,7 @@ extension SongDetailVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if allMumentsData.count == 0
-//            && myMumentData == nil
-        {
+        if allMumentsData.count == 0 {
             return 0
         }
         switch section {
@@ -255,7 +244,7 @@ extension SongDetailVC {
             case .success(let response):
                 if let res = response as? SongInfoResponseModel {
                     print("IN")
-//                    self.musicData = res.music
+                    //                    self.musicData = res.music
                     self.myMumentData = res.myMument
                     print("MYMUMENTDATA",self.myMumentData)
                     self.mumentTV.reloadSections(IndexSet(0...1), with: .automatic)
@@ -282,4 +271,8 @@ extension SongDetailVC {
             }
         }
     }
+}
+
+class CardTapGestureRecognizer: UITapGestureRecognizer {
+    var index: Int = 0
 }
