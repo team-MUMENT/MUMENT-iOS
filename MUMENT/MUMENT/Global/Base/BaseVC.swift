@@ -38,11 +38,15 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate {
 // MARK: - Custom Methods
 extension BaseVC {
     func hideTabbar() {
-        self.tabBarController?.tabBar.isHidden = true
+        if let tabBarController = self.tabBarController as? MumentTabBarController {
+            tabBarController.hideTabbar()
+        }
     }
     
     func showTabbar() {
-        self.tabBarController?.tabBar.isHidden = false
+        if let tabBarController = self.tabBarController as? MumentTabBarController {
+            tabBarController.showTabbar()
+        }
     }
     
     /// 화면 터치시 키보드 내리는 메서드

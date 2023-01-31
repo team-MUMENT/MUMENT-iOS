@@ -70,6 +70,7 @@ final class MypageMainVC: BaseVC {
         
         var rowVC: [UIViewController] {
             switch self {
+            case .profile: return [SetProfileVC()]
             case .setting: return [SetNotificationVC(), SetBlockedUserVC()]
             case .service: return [MypageNoticeVC(), UIViewController(), UIViewController()]
             case .info: return [UIViewController(), UIViewController()]
@@ -88,6 +89,7 @@ final class MypageMainVC: BaseVC {
         $0.backgroundColor = .mBgwhite
     }
     
+    // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,6 +97,12 @@ final class MypageMainVC: BaseVC {
         self.setLayout()
         self.setBackButton()
         self.setTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.hideTabbar()
     }
     
     // MARK: Methods
