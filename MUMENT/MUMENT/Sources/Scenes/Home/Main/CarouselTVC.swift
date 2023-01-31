@@ -95,9 +95,16 @@ class CarouselTVC: UITableViewCell {
                                         at: .centeredHorizontally,
                                         animated: false)
             }
-            // 다음 페이지로 전환
-            nowPage += 1
+        /// 오른쪽 끝에서 타이머가 시작될 경우
+        if nowPage >= 8 {
+            nowPage = 2
             carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath,
+                                        at: .centeredHorizontally,
+                                        animated: false)
+        }
+            // 다음 페이지로 전환
+        nowPage += 1
+        carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath,
                                     at: .centeredHorizontally,
                                     animated: true)
         }
