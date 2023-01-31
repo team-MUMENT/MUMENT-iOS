@@ -20,13 +20,11 @@ struct CarouselResponseModel: Codable {
     // MARK: - BannerList
     struct BannerList: Codable {
         let music: Music
-        let id: String
         let tagTitle: String
         let displayDate: String
 
         enum CodingKeys: String, CodingKey {
             case music = "music"
-            case id = "_id"
             case tagTitle = "tagTitle"
             case displayDate = "displayDate"
         }
@@ -40,9 +38,9 @@ struct CarouselResponseModel: Codable {
 
             enum CodingKeys: String, CodingKey {
                 case id = "_id"
-                case name = "name"
-                case artist = "artist"
-                case image = "image"
+                case name
+                case artist
+                case image
             }
         }
     }

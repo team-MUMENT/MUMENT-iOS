@@ -43,15 +43,9 @@ final class SongInfoTVC: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Functions
-    func setData(_ cellData: SongDetailInfoModel){
-        albumImage.image = cellData.albumImage
-        titleLabel.text = cellData.songtitle
-        artistLabel.text = cellData.artist
-    }
-    
-    func setData(_ cellData: SongInfoResponseModel.Music){
-        albumImage.setImageUrl(cellData.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
-        titleLabel.text = cellData.name
+    func setData(_ cellData: MusicDto){
+        albumImage.setImageUrl(cellData.albumUrl ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        titleLabel.text = cellData.musicTitle
         artistLabel.text = cellData.artist
     }
 }

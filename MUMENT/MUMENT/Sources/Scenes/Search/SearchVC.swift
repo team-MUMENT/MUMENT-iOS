@@ -210,19 +210,23 @@ extension SearchVC: UITableViewDelegate {
         
         switch searchTVType {
         case .recentSearch:
-            songDetailVC.musicId = self.recentSearchData.reversed()[indexPath.row].id
-            songDetailVC.songInfoData = SongInfoResponseModel.Music(id: self.recentSearchData.reversed()[indexPath.row].id, name: self.recentSearchData.reversed()[indexPath.row].name, image: self.recentSearchData.reversed()[indexPath.row].image, artist: self.recentSearchData.reversed()[indexPath.row].artist)
-            songDetailVC.musicId = self.recentSearchData.reversed()[indexPath.row].id
+//            songDetailVC.musicId = "3"
+            songDetailVC.musicData = MusicDto(
+                musicId: self.recentSearchData.reversed()[indexPath.row].id,
+                musicTitle: self.recentSearchData.reversed()[indexPath.row].name,
+                artist: self.recentSearchData.reversed()[indexPath.row].artist,
+                albumUrl: self.recentSearchData.reversed()[indexPath.row].image ?? ""
+            )
             self.recentSearchData.append(self.recentSearchData.reversed()[indexPath.row])
             self.recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
         case .searchResult:
-            songDetailVC.musicId = self.searchResultData[indexPath.row].id
-            songDetailVC.songInfoData = SongInfoResponseModel.Music(
-                id: self.searchResultData[indexPath.row].id,
-                name: self.searchResultData[indexPath.row].name,
-                image: self.searchResultData[indexPath.row].image,
-                artist: searchResultData[indexPath.row].artist
+//            songDetailVC.musicId = self.searchResultData[indexPath.row].id
+            songDetailVC.musicData = MusicDto(
+                musicId: self.searchResultData[indexPath.row].id,
+                musicTitle: self.searchResultData[indexPath.row].name,
+                artist: searchResultData[indexPath.row].artist,
+                albumUrl: self.searchResultData[indexPath.row].image ?? ""
             )
             if self.recentSearchData.contains(self.searchResultData[indexPath.row]) {
                 self.recentSearchData.append(self.recentSearchData[indexPath.row])
