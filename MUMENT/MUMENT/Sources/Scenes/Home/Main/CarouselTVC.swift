@@ -210,7 +210,7 @@ extension CarouselTVC: UICollectionViewDelegate{
 extension CarouselTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return increasedDataSource.count
+        return increasedCarouselData.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
