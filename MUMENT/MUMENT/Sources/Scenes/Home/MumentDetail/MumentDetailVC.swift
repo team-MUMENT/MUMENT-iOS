@@ -31,17 +31,15 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     // MARK: - Properties
     private let instagramShareView = InstagramShareView()
-    private let dummyData = MumentDetailVCModel(profileImageName: "image5", writerName: "이수지", albumImageName: "image4", isFirst: true, impressionTags: [100,101,102], feelingTags:[], songtitle:"하늘나라", artist:"혁오", contents:
-//                                                    ""
-//                                                    "추억과 쓸쓸함과 하나에 다하지 새겨지는 버리었습니다. 아스라히 별 이국 잔디가 있습니다. 애기 아직 이네들은 있습니다. 파란 다 그리워 강아지, 아직 헤일 말 나의 있습니다."
-                                                "추억과 쓸쓸함과 하나에 다하지 새겨지는 버리었습니다. 아스라히 별 이국 잔디가 있습니다. 애기 아직 이네들은 있습니다. 파란 다 그리워 강아지, 아직 헤일 말 나의 있습니다. 쓸쓸함과 가득 아침이 된 이웃 딴은 있습니다. 이름을 별 보고, 쓸쓸함과 벌써 버리었습니다. 언덕 나는 아무 하나에 말 위에 둘 별 듯합니다. 별 위에도 이름을 까닭이요, 거외다. 사랑과 파란 너무나 말 잔디가 릴케 봅니다. 없이 내일 이제 까닭입니다. 별 추억과 헤는 다 까닭이요, 가을로 듯합니다. 그러나 마디씩 속의 시인의 애기 것은 나는 있습니다. 가을로 어머니 시와 우는 이름과 강아지, 시인의 봅니다. 패, 시인의 가을로 별 어머니 봅니다. 책상을 시인의 당신은 가을로 내일 가득 있습니다. 하나에 별 사람들의 까닭입니다. 한 우는 어머님, 별 언덕 봅니다. 추억과 차 이름과, 나는 남은 마리아 당신은 봅니다."
-                                                , createdAt:"1 Sep, 2020", isLiked:true, heartCount:15, mumentCount:5)
+    private let dummyData = MumentDetailResponseModel.sampleData
+    private let musicDummyData = MusicDto.sampleData
     private var historyButtonText: String = "" {
         didSet{
             historyButton.setAttributedTitle(NSAttributedString(string: historyButtonText,attributes: attributes), for: .normal)
         }
     }
-    var mumentId: String?
+    var mumentId: Int?
+    private var musicData: MusicDto = MusicDto(musicId: "", musicTitle: "", artist: "", albumUrl: "")
     private var dataSource: MumentDetailResponseModel?
     
     // MARK: - View Life Cycle
@@ -49,25 +47,32 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         super.viewDidLoad()
         setLayout()
         setClickEventHandlers()
-        //        requestGetMumentDetail()
-        setDummyData()
         mumentCardView.setDelegate(delegate: self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestGetMumentDetail()
     }
     
     // MARK: - Functions
     func setData(){
         DispatchQueue.main.async {
             self.navigationBarView.setTitle("뮤멘트")
-            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, music: MUMENT.MumentDetailResponseModel.Music(id: "", name: "", image: Optional(""), artist: " "), likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: "", image: Optional(""), name: "")), mumentId: self.mumentId ?? "")
+            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")), self.musicData ?? MusicDto(musicId: "", musicTitle: "", artist: "", albumUrl: ""), self.mumentId ?? 0)
             self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
         }
     }
     
     private func setDummyData() {
         self.navigationBarView.setTitle("뮤멘트")
-        self.mumentCardView.setData(dummyData)
-        
+        self.mumentCardView.setData(dummyData[0], musicDummyData[0], 100)
         self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
+    }
+    
+    func setData(mumentId: Int, musicData: MusicDto) {
+        self.mumentId = mumentId
+        self.musicData = musicData
     }
     
     private func setClickEventHandlers(){
@@ -78,8 +83,8 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
-            mumentHistoryVC.musicId = self.dataSource?.music.id
-            mumentHistoryVC.userId = self.dataSource?.user.id
+            mumentHistoryVC.musicId = self.musicData.musicId
+//            mumentHistoryVC.userId = self.dataSource?.user.id
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
         }
         
@@ -90,7 +95,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
-                let editVC = WriteVC(isEdit: true, detailData: self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, music: MUMENT.MumentDetailResponseModel.Music(id: "", name: "", image: Optional(""), artist: " "), likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: "", image: Optional(""), name: "")))
+                let editVC = WriteVC(isEdit: true, detailData: self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")))
                 self.present(editVC, animated: true)
             }
             
@@ -120,8 +125,8 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     @objc private func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.musicId = dataSource?.music.id
-        songDetailVC.songInfoData = SongInfoResponseModel.Music(id: dataSource?.music.id ?? "", name: dataSource?.music.name ?? "", image: dataSource?.music.image ?? "", artist: dataSource?.music.artist ?? "")
+//        songDetailVC.musicId = musicData.musicId
+        songDetailVC.musicData = musicData
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
@@ -169,7 +174,9 @@ extension MumentDetailVC {
 // MARK: - DetailMumentCardViewDelegate
 extension MumentDetailVC: DetailMumentCardViewDelegate {
     func shareButtonClicked() {
-        instagramShareView.setDummyData(dummyData)
+        
+        guard let data = dataSource else {return }
+        instagramShareView.setData(data, musicData)
         
         let renderer = UIGraphicsImageRenderer(size: instagramShareView.bounds.size)
         let image = renderer.image { ctx in
@@ -202,14 +209,14 @@ extension MumentDetailVC: DetailMumentCardViewDelegate {
 // MARK: - Network
 extension MumentDetailVC {
     private func requestGetMumentDetail() {
-        MumentDetailAPI.shared.getMumentDetail(mumentId: mumentId ?? "", userId: UserInfo.shared.userId ?? "") { networkResult in
-            
+        MumentDetailAPI.shared.getMumentDetail(mumentId: mumentId ?? 0) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? MumentDetailResponseModel {
+                    print("INNNNNNNNNNNN")
                     self.dataSource = result
                     self.setData()
-                    self.mumentCardView.setData(result,mumentId: self.mumentId ?? "")
+                    self.mumentCardView.setData(result, self.musicData, self.mumentId ?? 0)
                 }
                 
             default:
@@ -219,14 +226,14 @@ extension MumentDetailVC {
     }
     
     private func requestDeleteMument() {
-        DeleteAPI.shared.deleteMument(mumentId: mumentId ?? "") { networkResult in
-            
-            switch networkResult {
-            case .success(_):
-                return
-            default:
-                self.makeAlert(title: MessageType.networkError.message)
-            }
-        }
+//        DeleteAPI.shared.deleteMument(mumentId: mumentId ?? 0) { networkResult in
+//
+//            switch networkResult {
+//            case .success(_):
+//                return
+//            default:
+//                self.makeAlert(title: MessageType.networkError.message)
+//            }
+//        }
     }
 }

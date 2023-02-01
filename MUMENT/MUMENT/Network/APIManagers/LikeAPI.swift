@@ -13,9 +13,9 @@ class LikeAPI: BaseAPI {
     private override init() { }
     
     /// [POST] 뮤멘트 좋아요
-    func postHeartLiked(mumentId: String, userId: String, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+    func postHeartLiked(mumentId: Int, completion: @escaping (NetworkResult<Any>) -> (Void)) {
 
-        AFmanager.request(LikeSerivce.postHeartLiked(mumentId: mumentId, userId: userId)).responseData { response in
+        AFmanager.request(LikeSerivce.postHeartLiked(mumentId: mumentId)).responseData { response in
             switch response.result {
                
             case .success:
@@ -30,13 +30,13 @@ class LikeAPI: BaseAPI {
     }
     
     /// [DELETE] 뮤멘트 좋아요 취소
-    func deleteHeartLiked(mumentId: String, userId: String, completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(LikeSerivce.deleteHeartLiked(mumentId: mumentId, userId: userId)).responseData { response in
+    func deleteHeartLiked(mumentId: Int, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(LikeSerivce.deleteHeartLiked(mumentId: mumentId)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
                 guard let data = response.data else { return }
-                let networkResult = self.judgeStatus(by: statusCode, data, LikeResponseModel.self)
+                let networkResult = self.judgeStatus(by: statusCode, data, LikeCancelResponseModel.self)
                 completion(networkResult)
             case .failure(let err):
                 print(err.localizedDescription)

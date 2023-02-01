@@ -43,7 +43,6 @@ final class StorageMumentVC: BaseVC {
     private var selectedTagData = [String]() {
         didSet {
             if selectedTagData.isEmpty {
-                print(selectedTagData)
                 selectedTagsCVHeight = 0
                 selectedTagsCV.snp.updateConstraints {
                     $0.height.equalTo(selectedTagsCVHeight)
@@ -88,8 +87,8 @@ final class StorageMumentVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
-        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+//        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+//        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
     // MARK: - Function
@@ -126,8 +125,8 @@ final class StorageMumentVC: BaseVC {
     }
     
     private func getMumentDataWithTagInt(_ selectedTagsInt: [Int]) {
-        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
-        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+//        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+//        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
     }
     
     /// Set 으로 중복값 제거하기.self
@@ -358,7 +357,7 @@ extension StorageMumentVC: UICollectionViewDelegate {
             selectedTagsCV.reloadData()
         case storageMumentCV:
             let mumentDetailVC = MumentDetailVC()
-            mumentDetailVC.mumentId = storageMumentData[indexPath.row].id
+//            mumentDetailVC.mumentId = storageMumentData[indexPath.row].id
             self.navigationController?.pushViewController(mumentDetailVC, animated: true)
         default: break
         }

@@ -81,17 +81,37 @@ final class InstagramShareView: UIView {
     }
     
     // MARK: - Functions
-    func setDummyData(_ data: MumentDetailVCModel) {
-        writerProfileImageView.image = data.profileImage
-        writerNameLabel.text = data.writerName
-        albumImageView.image = data.albumImage
-        musicTitleLabel.text = data.songtitle
-        artistNameLabel.text = data.artist
-        isFirst = data.isFirst
-        impressionTags = data.impressionTags
-        feelingTags = data.feelingTags
-        contentsLabel.text = data.contents.replaceNewLineKeyword()
-        createdAtLabel.text = data.createdAt
+//    func setDummyData(_ data: MumentDetailVCModel) {
+//        writerProfileImageView.image = data.profileImage
+//        writerNameLabel.text = data.writerName
+//        albumImageView.image = data.albumImage
+//        musicTitleLabel.text = data.songtitle
+//        artistNameLabel.text = data.artist
+//        isFirst = data.isFirst
+//        impressionTags = data.impressionTags
+//        feelingTags = data.feelingTags
+//        contentsLabel.text = data.contents.replaceNewLineKeyword()
+//        createdAtLabel.text = data.createdAt
+//
+//        setTags()
+//    }
+    func setData(_ cellData: MumentDetailResponseModel, _ musicData: MusicDto) {
+        print("들어왓나열?", cellData)
+        writerProfileImageView.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        writerNameLabel.text = cellData.user.name
+        isFirst = cellData.isFirst
+        impressionTags = cellData.impressionTag
+        feelingTags = cellData.feelingTag
+        contentsLabel.text = cellData.content?.replaceNewLineKeyword()
+        createdAtLabel.text = cellData.createdAt
+        albumImageView.setImageUrl(musicData.albumUrl)
+        musicTitleLabel.text = musicData.musicTitle
+        artistNameLabel.text = musicData.artist
+//                isFirst = cellData.isFirst
+//                impressionTags = cellData.impressionTag
+//                feelingTags = cellData.feelingTag
+//                contentsLabel.text = cellData.content.replaceNewLineKeyword()
+//                createdAtLabel.text = cellData.createdAt
         
         setTags()
     }
