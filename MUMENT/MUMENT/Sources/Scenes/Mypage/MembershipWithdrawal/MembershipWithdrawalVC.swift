@@ -140,11 +140,6 @@ final class MembershipWithdrawalVC: BaseVC {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        showTabbar()
-    }
-    
     // MARK: - Functions
     private func setButtonActions() {
         
