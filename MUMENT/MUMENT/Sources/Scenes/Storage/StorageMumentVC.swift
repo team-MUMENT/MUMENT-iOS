@@ -333,7 +333,9 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 
                 emptyView.isHidden = false
                 emptyView.writeButton.press {
-                    self.tabBarController?.selectedIndex = 1
+                    print("setPress")
+                    let writeVC = WriteVC(isEdit: false)
+                    self.present(writeVC, animated: true)
                 }
                 return header
             }
