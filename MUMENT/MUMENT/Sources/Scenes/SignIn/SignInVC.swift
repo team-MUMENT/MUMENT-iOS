@@ -220,13 +220,11 @@ extension SignInVC {
             case .success(let response):
                 if let res = response as? SignInResponseModel {
                     print("INNNNN")
-                    UserInfo.shared.accessToken = res.accessToken
-                    UserInfo.shared.refreshToken = res.refreshToken
-                    UserInfo.shared.userId = res.id
-                    
-                    UserDefaultsManager.accessToken = res.accessToken
-                    UserDefaultsManager.refreshToken = res.refreshToken
-                    UserDefaultsManager.userId = res.id
+                    self.setUserInfo(
+                        accessToken: res.accessToken,
+                        refreshToken: res.refreshToken,
+                        userId: res.id
+                    )
                     
                     if (res.type == "signUp") {
                         let setProfileVC = SetProfileVC()
