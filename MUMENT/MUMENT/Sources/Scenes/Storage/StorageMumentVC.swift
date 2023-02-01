@@ -87,8 +87,12 @@ final class StorageMumentVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
-//        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+        switch tabType {
+        case .myMument:
+            getMyMumentStorage(filterTags: selectedTagsInt)
+        case .likedMument:
+            getLikedMumentStorage(filterTags: selectedTagsInt)
+        }
     }
     
     // MARK: - Function
@@ -480,9 +484,10 @@ extension StorageMumentVC {
         self.storageMumentData = data.map {
             StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, allCardTag: $0.allCardTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: $0.likeCount)
         }
+        print("likeMument",self.storageMumentData)
     }
     
-    private func getMyMumentStorage(userId: String, filterTags: [Int]) {
+    private func getMyMumentStorage(filterTags: [Int]) {
         StorageAPI.shared.getMyMumentStorage(filterTags: filterTags) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -499,7 +504,7 @@ extension StorageMumentVC {
         }
     }
     
-    private func getLikedMumentStorage(userId: String, filterTags: [Int]) {
+    private func getLikedMumentStorage(filterTags: [Int]) {
         StorageAPI.shared.getLikedMumentStorage(filterTags: filterTags) { networkResult in
             switch networkResult {
             case .success(let response):
