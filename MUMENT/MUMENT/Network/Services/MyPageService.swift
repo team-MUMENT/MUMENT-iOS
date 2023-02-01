@@ -10,6 +10,7 @@ import Alamofire
 enum MyPageService {
     case postWithdrawalReason(body: WithdrawalReasonBodyModel)
     case deleteMembership
+    case checkDuplicatedNickname(nickname: String)
 }
 
 extension MyPageService: TargetType {
@@ -19,6 +20,8 @@ extension MyPageService: TargetType {
             return "/user/leave-category"
         case .deleteMembership:
             return "/user/"
+        case .checkDuplicatedNickname(let nickname):
+            return "/user/profile/check/\(nickname)"
         }
     }
     
@@ -28,14 +31,14 @@ extension MyPageService: TargetType {
             return .post
         case .deleteMembership:
             return .delete
+        case.checkDuplicatedNickname:
+            return .get
         }
     }
     
     var header: HeaderType {
         switch self {
-        case .postWithdrawalReason:
-            return .auth
-        case .deleteMembership:
+        case .postWithdrawalReason, .deleteMembership, .checkDuplicatedNickname:
             return .auth
         }
     }
@@ -43,8 +46,11 @@ extension MyPageService: TargetType {
     var parameters: RequestParams {
         switch self {
         case .postWithdrawalReason(let body):
-            return .requestBody(["leaveCategoryId": body.leaveCategoryId, "reasonEtc": body.reasonEtc])
-        case .deleteMembership:
+            return .requestBody([
+                "leaveCategoryId": body.leaveCategoryId,
+                "reasonEtc": body.reasonEtc
+            ])
+        case .deleteMembership, .checkDuplicatedNickname:
             return .requestPlain
         }
     }
