@@ -11,6 +11,7 @@ import Alamofire
 enum WriteService {
     case getIsFirst(musicId: String)
     case postMument(musicId: String, data: PostMumentBodyModel)
+    case editMument(mumentId: Int, data: PostMumentBodyModel)
 }
 
 extension WriteService: TargetType {
@@ -20,6 +21,8 @@ extension WriteService: TargetType {
             return "/mument/\(musicId)/is-first"
         case .postMument(let musicId, _):
             return "/mument/\(musicId)"
+        case .editMument(let mumentId, _):
+            return "/mument/\(mumentId)"
         }
     }
     
@@ -29,12 +32,14 @@ extension WriteService: TargetType {
             return .get
         case .postMument:
             return .post
+        case .editMument:
+            return .put
         }
     }
     
     var header: HeaderType {
         switch self {
-        case .getIsFirst, .postMument:
+        case .getIsFirst, .postMument, .editMument:
             return .auth
         }
     }
@@ -45,15 +50,23 @@ extension WriteService: TargetType {
             return .requestPlain
         case .postMument(_, let data):
             return .requestBody([
-                    "isFirst": data.isFirst,
-                    "impressionTag": data.impressionTag,
-                    "feelingTag": data.feelingTag,
-                    "content": data.content,
-                    "isPrivate": data.isPrivate,
-                    "musicId": data.musicId,
-                    "musicArtist": data.musicArtist,
-                    "musicImage": data.musicImage,
-                    "musicName": data.musicName
+                "isFirst": data.isFirst,
+                "impressionTag": data.impressionTag,
+                "feelingTag": data.feelingTag,
+                "content": data.content,
+                "isPrivate": data.isPrivate,
+                "musicId": data.musicId,
+                "musicArtist": data.musicArtist,
+                "musicImage": data.musicImage,
+                "musicName": data.musicName
+            ])
+        case .editMument(_, let data):
+            return .requestBody([
+                "isFirst": data.isFirst,
+                "impressionTag": data.impressionTag,
+                "feelingTag": data.feelingTag,
+                "content": data.content,
+                "isPrivate": data.isPrivate
             ])
         }
     }
