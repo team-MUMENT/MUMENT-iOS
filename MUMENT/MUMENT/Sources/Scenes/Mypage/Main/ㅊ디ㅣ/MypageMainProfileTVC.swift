@@ -92,5 +92,9 @@ extension MypageMainProfileTVC {
     
     private func setLayout() {
         self.backgroundColor = .mBgwhite
+        DispatchQueue.main.async {
+            self.profileImageView.layer.masksToBounds = true
+            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height / 2
+        }
     }
 }
