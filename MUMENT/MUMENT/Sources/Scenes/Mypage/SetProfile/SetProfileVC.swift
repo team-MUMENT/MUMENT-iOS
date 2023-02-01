@@ -158,7 +158,7 @@ final class SetProfileVC: BaseVC {
     /// 완료 버튼 액션 메서드
     private func setDoneButtonAction() {
         self.naviView.doneButton.press { [weak self] in
-            self?.showToastMessage(message: "중복된 닉네임이 존재합니다.", color: .red)
+            self?.checkDuplicatedNickname(nickname: self?.nickNameTextField.text ?? "")
         }
     }
     
@@ -166,6 +166,33 @@ final class SetProfileVC: BaseVC {
         self.naviView.backButton.press {
             self.dismiss(animated: true)
         }
+    }
+}
+
+// MARK: - Network
+extension SetProfileVC {
+    private func checkDuplicatedNickname(nickname: String) {
+        MyPageAPI.shared.checkDuplicatedNickname(nickname: nickname) { networkResult in
+            switch networkResult {
+            case .success(let status):
+                if let res = status as? Int {
+                    switch res {
+                    case 200:
+                        self.showToastMessage(message: "중복된 닉네임이 존재합니다.", color: .red)
+                    case 204:
+//                        self.requestSetProfile(data: <#T##SetProfileRequestModel#>)
+                    default:
+                        self.makeAlert(title: MessageType.networkError.message)
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func requestSetProfile(data: SetProfileRequestModel) {
+        
     }
 }
 
