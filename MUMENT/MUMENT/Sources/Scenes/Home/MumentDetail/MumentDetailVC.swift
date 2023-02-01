@@ -92,11 +92,27 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
         mumentCardView.menuIconButton.press{
             
+            let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
             if UserDefaultsManager.userId == self.dataSource?.user.id {
                 let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                 
                 let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
-                    let editVC = WriteVC(isEdit: true, detailData: self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")))
+                    let editVC = WriteVC(
+                        isEdit: true,
+                        mumentId: self.mumentId ?? 0,
+                        detailData: self.dataSource ?? MumentDetailResponseModel(
+                            isFirst: false,
+                            content: "",
+                            impressionTag: [],
+                            isLiked: false,
+                            count: 0,
+                            likeCount: 0,
+                            createdAt: "",
+                            feelingTag: [],
+                            user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")
+                        ),
+                        detailSongData: self.musicData)
                     self.present(editVC, animated: true)
                 }
                 
@@ -124,9 +140,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                 // 차단하기, 신고하기
                 print("Others")
             }
-            
         }
-        
     }
     
     @objc private func didTapView(_ sender: UITapGestureRecognizer) {

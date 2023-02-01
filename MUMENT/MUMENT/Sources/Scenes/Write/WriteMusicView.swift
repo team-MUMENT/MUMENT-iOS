@@ -32,6 +32,10 @@ class WriteMusicView: UIView {
         $0.setImage(UIImage(named: "mumentDelete2"), for: .normal)
     }
     
+    // MARK: Properties
+    private var musicId: String = ""
+    private var musicImageURL: String = ""
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -83,8 +87,20 @@ extension WriteMusicView {
     }
     
     func setData(data: SearchResultResponseModelElement) {
-        albumImageView.setImageUrl(data.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
-        titleLabel.text = data.name
-        artistLabel.text = data.artist
+        self.musicId = data.id
+        self.musicImageURL = data.image ?? ""
+        
+        self.albumImageView.setImageUrl(data.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        self.titleLabel.text = data.name
+        self.artistLabel.text = data.artist
+    }
+    
+    func selectedMusicData() -> SearchResultResponseModelElement {
+        return SearchResultResponseModelElement(
+            id: self.musicId,
+            name: self.titleLabel.text ?? "",
+            artist: self.artistLabel.text ?? "",
+            image: self.musicImageURL
+        )
     }
 }
