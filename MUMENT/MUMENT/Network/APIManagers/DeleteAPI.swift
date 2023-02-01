@@ -13,7 +13,7 @@ class DeleteAPI: BaseAPI {
     private override init() { }
     
     /// [GET] 검색 결과 조회
-    func deleteMument(mumentId: String,
+    func deleteMument(mumentId: Int,
                     completion: @escaping (NetworkResult<Any>) -> (Void)) {
         AFmanager.request(DeleteSerivce.deleteMument(mumentId: mumentId)).responseData { response in
             switch response.result {
