@@ -481,7 +481,7 @@ extension StorageMumentVC {
     }
     
     private func getMyMumentStorage(userId: String, filterTags: [Int]) {
-        StorageAPI.shared.getMyMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
+        StorageAPI.shared.getMyMumentStorage(filterTags: filterTags) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetMyMumentResponseModel {
@@ -498,7 +498,7 @@ extension StorageMumentVC {
     }
     
     private func getLikedMumentStorage(userId: String, filterTags: [Int]) {
-        StorageAPI.shared.getLikedMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
+        StorageAPI.shared.getLikedMumentStorage(filterTags: filterTags) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetLikedMumentResponseModel {

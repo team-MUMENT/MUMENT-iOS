@@ -14,8 +14,8 @@ class StorageAPI: BaseAPI {
     private override init() { }
     
     /// [GET] 내가 작성한 뮤멘트 리스트 with 필터
-    func getMyMumentStorage(userId: String, filterTags: [Int], completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(StorageService.getMyMumentStorage(userId: userId, filterTags: filterTags)).responseData { response in
+    func getMyMumentStorage(filterTags: [Int], completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(StorageService.getMyMumentStorage(filterTags: filterTags)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
@@ -29,8 +29,8 @@ class StorageAPI: BaseAPI {
     }
     
     /// [GET] 좋아요한 뮤멘트 리스트 with 필터
-    func getLikedMumentStorage(userId: String, filterTags: [Int], completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(StorageService.getLikedMumentStorage(userId: userId, filterTags: filterTags)).responseData { response in
+    func getLikedMumentStorage(filterTags: [Int], completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(StorageService.getLikedMumentStorage(filterTags: filterTags)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
