@@ -50,10 +50,12 @@ final class MypageMainFooterTVC: UITableViewCell {
     }
     
     func setSignOutAction(_ closure: @escaping () -> Void) {
+        self.signOutButton.removeTarget(nil, action: nil, for: .allEvents)
         self.signOutButton.addAction( UIAction { _ in closure() }, for: .touchUpInside)
     }
     
     func setWithDrawAction(_ closure: @escaping () -> Void) {
+        self.withDrawButton.removeTarget(nil, action: nil, for: .allEvents)
         self.withDrawButton.addAction( UIAction { _ in closure() }, for: .touchUpInside)
     }
 }
