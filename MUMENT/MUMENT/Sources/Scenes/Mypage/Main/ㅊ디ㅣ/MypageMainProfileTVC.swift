@@ -12,7 +12,9 @@ import Then
 final class MypageMainProfileTVC: UITableViewCell {
     
     // MARK: Components
-    private let profileImageView: UIImageView = UIImageView()
+    private let profileImageView: UIImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+    }
     private let profileStackView: UIStackView = UIStackView().then {
         $0.axis = .vertical
         $0.spacing = 8
