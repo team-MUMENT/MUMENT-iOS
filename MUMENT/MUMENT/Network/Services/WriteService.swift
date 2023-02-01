@@ -9,17 +9,20 @@ import Foundation
 import Alamofire
 
 enum WriteService {
-    case getIsFirst(userId: String, musicId: String)
-    case postMument(userId: String, musicId: String, data: PostMumentBodyModel)
+    case getIsFirst(musicId: String)
+    case postMument(musicId: String, data: PostMumentBodyModel)
+    case editMument(mumentId: Int, data: PostMumentBodyModel)
 }
 
 extension WriteService: TargetType {
     var path: String {
         switch self {
-        case .getIsFirst(let userId, let musicId):
-            return "/mument/\(userId)/\(musicId)/is-first"
-        case .postMument(let userId, let musicId, _):
-            return "/mument/\(userId)/\(musicId)"
+        case .getIsFirst(let musicId):
+            return "/mument/\(musicId)/is-first"
+        case .postMument(let musicId, _):
+            return "/mument/\(musicId)"
+        case .editMument(let mumentId, _):
+            return "/mument/\(mumentId)"
         }
     }
     
@@ -29,13 +32,15 @@ extension WriteService: TargetType {
             return .get
         case .postMument:
             return .post
+        case .editMument:
+            return .put
         }
     }
     
     var header: HeaderType {
         switch self {
-        case .getIsFirst, .postMument:
-            return .basic
+        case .getIsFirst, .postMument, .editMument:
+            return .auth
         }
     }
     
@@ -43,8 +48,26 @@ extension WriteService: TargetType {
         switch self {
         case .getIsFirst:
             return .requestPlain
-        case .postMument(_, _, let data):
-            return .requestBody(["isFirst": data.isFirst, "impressionTag": data.impressionTag, "feelingTag": data.feelingTag, "content": data.content, "isPrivate": data.isPrivate])
+        case .postMument(_, let data):
+            return .requestBody([
+                "isFirst": data.isFirst,
+                "impressionTag": data.impressionTag,
+                "feelingTag": data.feelingTag,
+                "content": data.content,
+                "isPrivate": data.isPrivate,
+                "musicId": data.musicId,
+                "musicArtist": data.musicArtist,
+                "musicImage": data.musicImage,
+                "musicName": data.musicName
+            ])
+        case .editMument(_, let data):
+            return .requestBody([
+                "isFirst": data.isFirst,
+                "impressionTag": data.impressionTag,
+                "feelingTag": data.feelingTag,
+                "content": data.content,
+                "isPrivate": data.isPrivate
+            ])
         }
     }
 }
