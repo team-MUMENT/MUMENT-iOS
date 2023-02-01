@@ -93,7 +93,7 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         createdAtLabel.text = cellData.createdAt
         isLiked = cellData.isLiked
 //        mumentId = cellData.id
-        heartCount = cellData.likeCount ?? 0
+        heartCount = cellData.likeCount
         setCardTags(cellData.cardTag)
         
         /// allCardTag 분기처림
