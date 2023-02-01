@@ -6,11 +6,13 @@
 //
 
 import Alamofire
+import UIKit
 
 enum MyPageService {
     case postWithdrawalReason(body: WithdrawalReasonBodyModel)
     case deleteMembership
     case checkDuplicatedNickname(nickname: String)
+    case setProfile(data: SetProfileRequestModel)
 }
 
 extension MyPageService: TargetType {
@@ -22,6 +24,8 @@ extension MyPageService: TargetType {
             return "/user/"
         case .checkDuplicatedNickname(let nickname):
             return "/user/profile/check/\(nickname)"
+        case .setProfile:
+            return "/user/profile"
         }
     }
     
@@ -33,6 +37,8 @@ extension MyPageService: TargetType {
             return .delete
         case.checkDuplicatedNickname:
             return .get
+        case .setProfile:
+            return .put
         }
     }
     
@@ -40,6 +46,8 @@ extension MyPageService: TargetType {
         switch self {
         case .postWithdrawalReason, .deleteMembership, .checkDuplicatedNickname:
             return .auth
+        case .setProfile:
+            return .multiPartWithAuth
         }
     }
     
@@ -52,6 +60,21 @@ extension MyPageService: TargetType {
             ])
         case .deleteMembership, .checkDuplicatedNickname:
             return .requestPlain
+        case .setProfile:
+            return .requestPlain
+        }
+    }
+    
+    var multipart: MultipartFormData {
+        switch self {
+        case .setProfile(let data):
+            let multiPartFormData = MultipartFormData()
+            multiPartFormData.append(data.image, withName: "image", fileName: "profileImageiOS.png")
+            multiPartFormData.append(data.nickname.data(using: .utf8) ?? Data(), withName: "profileId")
+            
+            return multiPartFormData
+        default:
+            return MultipartFormData()
         }
     }
 }

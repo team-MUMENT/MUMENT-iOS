@@ -158,13 +158,18 @@ final class SetProfileVC: BaseVC {
     /// 완료 버튼 액션 메서드
     private func setDoneButtonAction() {
         self.naviView.doneButton.press { [weak self] in
+            self?.view.endEditing(true)
             self?.checkDuplicatedNickname(nickname: self?.nickNameTextField.text ?? "")
         }
     }
     
     private func setBackButtonAction() {
         self.naviView.backButton.press {
-            self.dismiss(animated: true)
+            if let navigationController = self.navigationController {
+                navigationController.popViewController(animated: true)
+            } else {
+                self.dismiss(animated: true)
+            }
         }
     }
 }
@@ -175,12 +180,16 @@ extension SetProfileVC {
         MyPageAPI.shared.checkDuplicatedNickname(nickname: nickname) { networkResult in
             switch networkResult {
             case .success(let status):
-                if let res = status as? Int {
-                    switch res {
+                if let result = status as? Int {
+                    switch result {
                     case 200:
                         self.showToastMessage(message: "중복된 닉네임이 존재합니다.", color: .red)
                     case 204:
-//                        self.requestSetProfile(data: <#T##SetProfileRequestModel#>)
+                        let profileData = SetProfileRequestModel(
+                            image: self.loadImageButton.imageView?.resizeWithWidth(width: 500)?.pngData() ?? Data(),
+                            nickname: nickname
+                        )
+                        self.requestSetProfile(data: profileData)
                     default:
                         self.makeAlert(title: MessageType.networkError.message)
                     }
@@ -192,7 +201,26 @@ extension SetProfileVC {
     }
     
     private func requestSetProfile(data: SetProfileRequestModel) {
-        
+        MyPageAPI.shared.setProfile(data: data) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? SetProfileResponseModel {
+                    self.setUserInfo(
+                        accessToken: result.accessToken,
+                        refreshToken: result.refreshToken,
+                        userId: result.id
+                    )
+                    self.setUserProfile(nickname: result.nickname, profileImageURL: result.image)
+                    if let navigationController = self.navigationController {
+                        navigationController.popViewController(animated: true)
+                    } else {
+                        self.dismiss(animated: true)
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
 

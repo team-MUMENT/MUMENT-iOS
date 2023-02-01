@@ -57,4 +57,22 @@ class MyPageAPI: BaseAPI {
             }
         }
     }
+    
+    /// [PUT] 프로필 설정
+    func setProfile(data: SetProfileRequestModel, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.upload(
+            multipartFormData: MyPageService.setProfile(data: data).multipart,
+            with: MyPageService.setProfile(data: data)
+        ).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, SetProfileResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
