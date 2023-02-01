@@ -13,8 +13,10 @@ class MumentDetailAPI: BaseAPI {
     private override init() { }
     
     /// [GET] 곡 정보, 내가 기록한 뮤멘트
-    func getMumentDetail(mumentId: Int,
-                    completion: @escaping (NetworkResult<Any>) -> (Void)) {
+    func getMumentDetail(
+        mumentId: Int,
+        completion: @escaping (NetworkResult<Any>
+        ) -> (Void)) {
         AFmanager.request(MumentDetailService.getMumentDetail(mumentId: mumentId)).responseData { response in
             switch response.result {
             case .success:
