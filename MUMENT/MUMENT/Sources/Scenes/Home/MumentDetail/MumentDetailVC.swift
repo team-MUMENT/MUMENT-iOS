@@ -31,7 +31,6 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     // MARK: - Properties
     private let instagramShareView = InstagramShareView()
-    private let musicDummyData = MusicDto.sampleData
     private var historyButtonText: String = "" {
         didSet{
             historyButton.setAttributedTitle(NSAttributedString(string: historyButtonText,attributes: attributes), for: .normal)
