@@ -469,14 +469,14 @@ extension StorageMumentVC {
     private func mapMyMumentData(data: [GetMyMumentResponseModel.Mument]) {
         self.storageMumentData = []
         self.storageMumentData = data.map {
-            StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, impressionTag: $0.impressionTag, feelingTag: $0.feelingTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: $0.likeCount)
+            StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, allCardTag: $0.allCardTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: $0.likeCount)
         }
     }
     
     private func mapLikedMumentData(data: [GetLikedMumentResponseModel.Mument]) {
         self.storageMumentData = []
         self.storageMumentData = data.map {
-            StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, impressionTag: $0.impressionTag, feelingTag: $0.feelingTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: nil)
+            StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, allCardTag: $0.allCardTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: $0.likeCount)
         }
     }
     
