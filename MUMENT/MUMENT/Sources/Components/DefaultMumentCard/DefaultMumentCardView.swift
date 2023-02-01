@@ -87,8 +87,6 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         writerNameLabel.text = cellData.user.name
         albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         isFirst = cellData.isFirst
-        impressionTags = cellData.impressionTag
-        feelingTags = cellData.feelingTag
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
@@ -97,6 +95,17 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
 //        mumentId = cellData.id
         heartCount = cellData.likeCount ?? 0
         setCardTags(cellData.cardTag)
+        
+        /// allCardTag 분기처림
+       cellData.allCardTag.forEach {
+           if $0 <= 100 {
+               impressionTags = []
+               impressionTags.append($0)
+           }else {
+               feelingTags = []
+               feelingTags.append($0)
+           }
+       }
     }
 }
 

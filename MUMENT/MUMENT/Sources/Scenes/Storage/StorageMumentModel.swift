@@ -8,11 +8,11 @@
 import Foundation
 
 struct StorageMumentModel {
-    let id: String
+    let id: Int
     let user: User
     let music: Music
     let isFirst: Bool
-    let impressionTag, feelingTag, cardTag: [Int]
+    let allCardTag,cardTag: [Int]
     let content: String?
     let isPrivate, isLiked: Bool
     let createdAt: String
@@ -21,24 +21,9 @@ struct StorageMumentModel {
     
 }
 
-// MARK: - Music
-struct Music: Codable {
-  let id: String
-  let name: String
-  let image: String?
-  let artist: String
-
-  enum CodingKeys: String, CodingKey {
-    case id = "_id"
-    case name = "name"
-    case image = "image"
-    case artist = "artist"
-  }
-}
-
 // MARK: - User
 struct User: Codable {
-  let id: String
+  let id: Int
   let image: String?
   let name: String
 
@@ -48,3 +33,20 @@ struct User: Codable {
     case name = "name"
   }
 }
+
+// MARK: - Music
+struct Music: Codable {
+  let id: Int
+  let name: String
+  let artist: String
+  let image: String?
+
+
+    enum CodingKeys: String, CodingKey {
+      case id = "_id"
+      case name = "name"
+      case artist = "artist"
+      case image = "image"
+  }
+}
+
