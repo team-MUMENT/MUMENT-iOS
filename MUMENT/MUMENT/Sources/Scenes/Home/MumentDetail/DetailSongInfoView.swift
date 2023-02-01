@@ -40,26 +40,19 @@ final class DetailSongInfoView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentDetailVCModel){
-        albumImage.image = cellData.albumImage
-        titleLabel.text = cellData.songtitle
-        artistLabel.text = cellData.artist
+    func setData(_ data: MusicDto){
+        albumImage.setImageUrl(data.albumUrl)
+        titleLabel.text = data.musicTitle
+        artistLabel.text = data.artist
         titleLabel.sizeToFit()
     }
     
-    func setData(albumURL: String, songTitle: String, artist: String){
-        albumImage.setImageUrl(albumURL)
-        titleLabel.text = songTitle
-        artistLabel.text = artist
-        titleLabel.sizeToFit()
-    }
-    
-    func setData(_ cellData: HistoryResponseModel.DataMusic){
-        albumImage.setImageUrl(cellData.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
-        titleLabel.text = cellData.name
-        titleLabel.sizeToFit()
-        artistLabel.text = cellData.artist
-    }
+//    func setData(_ cellData: HistoryResponseModel.DataMusic){
+//        albumImage.setImageUrl(cellData.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+//        titleLabel.text = cellData.name
+//        titleLabel.sizeToFit()
+//        artistLabel.text = cellData.artist
+//    }
 }
 
 // MARK: - UI

@@ -219,6 +219,7 @@ extension SignInVC {
             switch networkResult {
             case .success(let response):
                 if let res = response as? SignInResponseModel {
+                    print("INNNNN")
                     UserInfo.shared.accessToken = res.accessToken
                     UserInfo.shared.refreshToken = res.refreshToken
                     UserInfo.shared.userId = res.id

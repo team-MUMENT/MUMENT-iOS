@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - HistoryResponseModel
 struct HistoryResponseModel: Codable {
-    let music: DataMusic
+//    let music: DataMusic
     let mumentHistory: [MumentHistory]
 
     enum CodingKeys: String, CodingKey {
-        case music = "music"
+//        case music = "music"
         case mumentHistory = "mumentHistory"
     }
     
@@ -80,18 +80,17 @@ struct HistoryResponseModel: Codable {
     }
 
     // MARK: - DataMusic
-    struct DataMusic: Codable {
-        let id: String
-        let name: String
-        let artist: String
-        let image: String?
-
-        enum CodingKeys: String, CodingKey {
-            case id = "_id"
-            case name = "name"
-            case artist = "artist"
-            case image = "image"
-        }
-    }
-
+//    struct DataMusic: Codable {
+//        let id: String
+//        let name: String
+//        let artist: String
+//        let image: String?
+//
+//        enum CodingKeys: String, CodingKey {
+//            case id = "_id"
+//            case name = "name"
+//            case artist = "artist"
+//            case image = "image"
+//        }
+//    }
 }

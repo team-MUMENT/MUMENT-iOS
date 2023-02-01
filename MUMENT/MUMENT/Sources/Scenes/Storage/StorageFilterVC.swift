@@ -43,7 +43,7 @@ final class StorageFilterVC: BaseVC {
     
     private var tagCount: String = " " {
         didSet{
-            let highlitedString = NSAttributedString(string: tagCount, attributes: [
+            let highlighttedString = NSAttributedString(string: tagCount, attributes: [
                 .font: UIFont.mumentB4M14,
                 .foregroundColor: UIColor.mBlue1
             ])
@@ -53,7 +53,7 @@ final class StorageFilterVC: BaseVC {
                 .foregroundColor: UIColor.mGray1
             ])
             
-            let title = highlitedString + normalString
+            let title = highlighttedString + normalString
             selectedTagsCountLabel.attributedText = title
         }
     }

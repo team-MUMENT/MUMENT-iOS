@@ -85,7 +85,7 @@ final class DetailMumentCardView: UIView {
             heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         }
     }
-    var mumentId: String = ""
+    var mumentId: Int = 0
     var userId: String = ""
     
     // MARK: - Initialization
@@ -101,34 +101,19 @@ final class DetailMumentCardView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentDetailVCModel) {
-        profileImage.image = cellData.profileImage
-        writerNameLabel.text = cellData.writerName
-        songInfoView.setData(cellData)
-        isFirst = cellData.isFirst
-        impressionTags = cellData.impressionTags
-        feelingTags = cellData.feelingTags
-        contentsLabel.text = cellData.contents.replaceNewLineKeyword()
-        createdAtLabel.text = cellData.createdAt
-        heartButton.setImage(cellData.heartImage, for: .normal)
-        heartLabel.text = "\(cellData.heartCount)명이 좋아합니다."
-        
-        setTags()
-    }
-    
-    func setData(_ cellData: MumentDetailResponseModel, mumentId: String) {
+    func setData(_ cellData: MumentDetailResponseModel, _ musicData: MusicDto, _ mumentId: Int) {
         print("들어왓나열?", cellData)
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
-        songInfoView.setData(albumURL: cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg", songTitle: cellData.music.name, artist: cellData.music.artist )
         isFirst = cellData.isFirst
         impressionTags = cellData.impressionTag
         feelingTags = cellData.feelingTag
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
         isLiked = cellData.isLiked
-        heartCount = cellData.count
+        heartCount = cellData.likeCount
         self.mumentId = mumentId
+        songInfoView.setData(musicData)
         
         setTags()
     }
@@ -265,13 +250,14 @@ extension DetailMumentCardView {
 }
 
 extension DetailMumentCardView {
-    private func requestPostHeartLiked(mumentId: String) {
-        LikeAPI.shared.postHeartLiked(mumentId: mumentId, userId: UserInfo.shared.userId ?? "") { networkResult in
+    private func requestPostHeartLiked(mumentId: Int) {
+        LikeAPI.shared.postHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
+                    print("Liked")
                 }
-                
+
             default:
                 print("LikeAPI.shared.postHeartLiked")
                 return
@@ -279,11 +265,12 @@ extension DetailMumentCardView {
         }
     }
     
-    private func requestDeleteHeartLiked(mumentId: String) {
-        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId, userId: UserInfo.shared.userId ?? "") { networkResult in
+    private func requestDeleteHeartLiked(mumentId: Int) {
+        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
             case .success(let response):
-                if let res = response as? LikeResponseModel {
+                if let res = response as? LikeCancelResponseModel {
+                    print("Like Canceled")
                 }
                 
             default:

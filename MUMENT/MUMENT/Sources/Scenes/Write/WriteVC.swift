@@ -139,6 +139,7 @@ class WriteVC: BaseVC {
     var postMumentData: PostMumentBodyModel = PostMumentBodyModel()
     var isEdit = false
     private var detailData: MumentDetailResponseModel?
+    private var detailSongData: MusicDto?
     
     // MARK: Initialization
     init(isEdit: Bool = false, detailData: MumentDetailResponseModel) {
@@ -181,8 +182,8 @@ class WriteVC: BaseVC {
         setCompleteButton()
         setIsEnableCompleteButton(isEnabled: false)
         if isEdit {
-            if let data = self.detailData {
-                self.setEditView(data: data)
+            if let data = self.detailData, let songData = self.detailSongData{
+                self.setEditView(data, songData)
             }
         }
     }
@@ -196,21 +197,21 @@ class WriteVC: BaseVC {
         self.setSelectedMusicView()
         if let receivedData = notification.object as? SearchResultResponseModelElement {
             self.selectedMusicView.setData(data: receivedData)
-            getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: receivedData.id)
+//            getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: receivedData.id)
             musicId = receivedData.id
             setIsEnableCompleteButton(isEnabled: true)
         }
     }
     
-    private func setEditView(data: MumentDetailResponseModel) {
+    private func setEditView(_ data: MumentDetailResponseModel,_ songData: MusicDto) {
         self.setSelectedMusicView()
         
-        let musicData = SearchResultResponseModelElement(id: data.music.id, name: data.music.name, artist: data.music.artist, image: data.music.image)
+        let musicData = SearchResultResponseModelElement(id: songData.musicId, name: songData.musicTitle, artist: songData.artist, image: songData.albumUrl)
         self.selectedMusicView.setData(data: musicData)
-        self.getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: data.music.id)
+//        self.getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: songData.musicId)
         self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: data.isFirst)
         self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: !(data.isFirst))
-        self.musicId = data.music.id
+        self.musicId = songData.musicId
         
         // 기존의 태그를 선택하도록 설정
         let feelingTags: [Int] = data.feelingTag
@@ -227,7 +228,7 @@ class WriteVC: BaseVC {
         self.contentTextView.text = data.content
         self.contentTextView.textColor = .mBlack2
         
-        self.isPrivateToggleButton.isSelected = data.isPrivate
+        self.isPrivateToggleButton.isSelected = false
         
         self.setIsEnableCompleteButton(isEnabled: true)
     }
@@ -261,7 +262,6 @@ class WriteVC: BaseVC {
             )
             
             self?.postMument(
-                userId: UserInfo.shared.userId ?? "",
                 musicId: self?.musicId ?? "",
                 data: self?.postMumentData ?? PostMumentBodyModel()
             )
@@ -439,7 +439,7 @@ extension WriteVC: UICollectionViewDataSource {
 
 // MARK: - Network
 extension WriteVC {
-    private func getIsFirst(userId: String, musicId: String) {
+    private func getIsFirst(musicId: String) {
         WriteAPI.shared.getIsFirst(musicId: musicId) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -454,7 +454,7 @@ extension WriteVC {
         }
     }
     
-    private func postMument(userId: String, musicId: String, data: PostMumentBodyModel) {
+    private func postMument(musicId: String, data: PostMumentBodyModel) {
         WriteAPI.shared.postMument(musicId: musicId, data: data) { networkResult in
             switch networkResult {
             case .success(let response):

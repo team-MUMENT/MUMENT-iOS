@@ -72,8 +72,8 @@ class MumentCardBySongView: UIView {
         }
     }
     
-    var mumentId: String = ""
-    var userId: String = ""
+    var mumentId: Int = 0
+    var userId: Int = 0
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -97,7 +97,7 @@ class MumentCardBySongView: UIView {
         heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
-        mumentId = cellData.id
+//        mumentId = cellData.id
         setTags()
     }
     
@@ -213,13 +213,14 @@ extension MumentCardBySongView {
 }
 
 extension MumentCardBySongView {
-    private func requestPostHeartLiked(mumentId: String) {
-        LikeAPI.shared.postHeartLiked(mumentId: mumentId, userId: UserInfo.shared.userId ?? "") { networkResult in
+    private func requestPostHeartLiked(mumentId: Int) {
+        LikeAPI.shared.postHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? LikeResponseModel {
+                    print("Liked")
                 }
-                
+
             default:
                 print("LikeAPI.shared.postHeartLiked")
                 return
@@ -227,11 +228,12 @@ extension MumentCardBySongView {
         }
     }
     
-    private func requestDeleteHeartLiked(mumentId: String) {
-        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId, userId: UserInfo.shared.userId ?? "") { networkResult in
+    private func requestDeleteHeartLiked(mumentId: Int) {
+        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
             case .success(let response):
-                if let res = response as? LikeResponseModel {
+                if let res = response as? LikeCancelResponseModel {
+                    print("Like Canceled")
                 }
                 
             default:

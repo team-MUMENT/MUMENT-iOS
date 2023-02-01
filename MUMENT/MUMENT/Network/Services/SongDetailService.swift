@@ -8,44 +8,35 @@
 import Alamofire
 
 enum SongDetailService {
-    case getSongInfo(musicId: String, userId: String)
-    case getAllMuments(musicId: String, userId: String, isOrderLiked: Bool)
+    case getSongInfo(musicId: String)
+    case getAllMuments(musicId: String, isOrderLiked: Bool, limit: Int, offset: Int)
 }
 
 extension SongDetailService: TargetType {
+    
     var path: String {
         switch self {
-        case .getSongInfo(musicId: let musicId, userId: let userId):
-            return "/music/\(musicId)/\(userId)"
-        case .getAllMuments(musicId: let musicId, userId: let userId, _):
-            return "/music/\(musicId)/\(userId)/order"
+        case .getSongInfo(musicId: let musicId):
+            return "/music/\(musicId)"
+        case .getAllMuments(musicId: let musicId, _, _, _):
+            return "/music/\(musicId)/order"
         }
     }
     
     var method: HTTPMethod {
-        switch self {
-        case .getSongInfo:
             return .get
-        case .getAllMuments:
-            return .get
-        }
     }
     
     var header: HeaderType {
-        switch self {
-        case .getSongInfo:
-            return .basic
-        case .getAllMuments:
-            return .basic
-        }
+        return .auth
     }
     
     var parameters: RequestParams {
         switch self {
         case .getSongInfo:
             return .requestPlain
-        case .getAllMuments(_, _, isOrderLiked: let isOrderLiked):
-            return .query(["default": isOrderLiked ? "Y" : "N"])
+        case .getAllMuments(_, isOrderLiked: let isOrderLiked, limit: let limit, offset: let offset):
+            return .query(["default": isOrderLiked ? "Y" : "N", "limit": limit, "offset": offset])
         }
     }
 }
