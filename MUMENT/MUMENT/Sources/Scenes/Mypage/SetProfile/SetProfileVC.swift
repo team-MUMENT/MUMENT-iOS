@@ -273,7 +273,10 @@ extension SetProfileVC {
                     if let navigationController = self.navigationController {
                         navigationController.popViewController(animated: true)
                     } else {
-                        self.dismiss(animated: true)
+                        let tabBarController = MumentTabBarController()
+                        tabBarController.modalPresentationStyle = .fullScreen
+                        tabBarController.modalTransitionStyle = .crossDissolve
+                        self.present(tabBarController, animated: true)
                     }
                 }
             default:

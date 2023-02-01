@@ -87,6 +87,13 @@ extension BaseVC {
         UserInfo.shared.profileImageURL = profileImageURL
     }
     
+    func removeUserInfo() {
+        UserDefaultsManager.accessToken = nil
+        UserDefaultsManager.refreshToken = nil
+        UserDefaultsManager.userId = nil
+        UserDefaultsManager.fcmToken = nil
+        UserInfo.shared = UserInfo.init()
+    }
 }
 
 // MARK: - Custom Methods(화면전환)
