@@ -17,8 +17,7 @@ struct StorageMumentModel {
     let isPrivate, isLiked: Bool
     let createdAt: String
     let year, month: Int
-    let likeCount: Int?
-    
+    let likeCount: Int
 }
 
 // MARK: - User
@@ -36,7 +35,7 @@ struct User: Codable {
 
 // MARK: - Music
 struct Music: Codable {
-  let id: Int
+  let id: String
   let name: String
   let artist: String
   let image: String?
