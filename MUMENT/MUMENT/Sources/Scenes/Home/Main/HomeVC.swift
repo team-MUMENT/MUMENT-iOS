@@ -29,7 +29,7 @@ class HomeVC: BaseVC {
         setButtonActions()
         
         // Test Code
-        self.setTV()
+//        self.setTV()
     }
     
     override func viewWillAppear(_ animate: Bool) {
