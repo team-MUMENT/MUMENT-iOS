@@ -79,12 +79,12 @@ extension SplashVC {
                 self.requestIsProfileSet()
                 
             case .requestErr(_, let message):
-                if (message as! String == "토큰이 만료되었습니다") {
+//                if (message as! String == "토큰이 만료되었습니다") {
                     let signInVC = SignInVC()
                     signInVC.modalPresentationStyle = .fullScreen
                     signInVC.modalTransitionStyle = .crossDissolve
                     self.present(signInVC, animated: true)
-                }
+//                }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
             }
