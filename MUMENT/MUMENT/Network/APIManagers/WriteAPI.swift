@@ -44,4 +44,20 @@ class WriteAPI: BaseAPI {
             }
         }
     }
+    
+    /// [PUT] 뮤멘트 수정하기
+    func editMument(mumentId: Int, data: PostMumentBodyModel,
+                    completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(WriteService.editMument(mumentId: mumentId, data: data)).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, EditMumentResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

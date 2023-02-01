@@ -84,6 +84,7 @@
 		4DEED413288B32B300C6337B /* DeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED412288B32B300C6337B /* DeleteAPI.swift */; };
 		4DEED415288B32E500C6337B /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED414288B32E500C6337B /* DeleteService.swift */; };
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
+		C71297662986F5880007AAE8 /* EditMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */; };
 		C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47E628807B64001A7CD6 /* SearchVC.swift */; };
 		C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */; };
 		C71B47ED28818B21001A7CD6 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EC28818B21001A7CD6 /* SearchTVC.swift */; };
@@ -221,7 +222,6 @@
 		C7DE6F54290ECE61002B9048 /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DE6F53290ECE61002B9048 /* MessageType.swift */; };
 		C7DF4A4A297BB6FC00E999DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DF4A49297BB6FC00E999DE /* NotificationVC.swift */; };
 		C7DF4A4C297BCAB600E999DE /* NotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DF4A4B297BCAB600E999DE /* NotificationTVC.swift */; };
-		E7400C162941E9EF006F5963 /* SelectedTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C152941E9EF006F5963 /* SelectedTagsView.swift */; };
 		E7400C182941EF2A006F5963 /* StorageMumentCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C172941EF2A006F5963 /* StorageMumentCV.swift */; };
 		E7400C1C29425235006F5963 /* StorageMumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1B29425235006F5963 /* StorageMumentVC.swift */; };
 		E7400C1E2943235F006F5963 /* StorageMumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1D2943235F006F5963 /* StorageMumentModel.swift */; };
@@ -320,6 +320,7 @@
 		4DEED412288B32B300C6337B /* DeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAPI.swift; sourceTree = "<group>"; };
 		4DEED414288B32E500C6337B /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMumentResponseModel.swift; sourceTree = "<group>"; };
 		C71B47E628807B64001A7CD6 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicForSearchModel.swift; sourceTree = "<group>"; };
 		C71B47EC28818B21001A7CD6 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
@@ -429,7 +430,6 @@
 		C7DE6F53290ECE61002B9048 /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
 		C7DF4A49297BB6FC00E999DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		C7DF4A4B297BCAB600E999DE /* NotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTVC.swift; sourceTree = "<group>"; };
-		E7400C152941E9EF006F5963 /* SelectedTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTagsView.swift; sourceTree = "<group>"; };
 		E7400C172941EF2A006F5963 /* StorageMumentCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentCV.swift; sourceTree = "<group>"; };
 		E7400C1B29425235006F5963 /* StorageMumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentVC.swift; sourceTree = "<group>"; };
 		E7400C1D2943235F006F5963 /* StorageMumentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentModel.swift; sourceTree = "<group>"; };
@@ -1120,6 +1120,7 @@
 				C7AE17DB2887FEA700A5E3FA /* GetIsFirstResponseModel.swift */,
 				C7AE17E72888675600A5E3FA /* PostMumentBodyModel.swift */,
 				C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */,
+				C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1428,6 +1429,7 @@
 				E781F23128892FCC00484C28 /* GetMyMumentResponseModel.swift in Sources */,
 				4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */,
 				4D760454288093280044F2A6 /* DefaultNavigationBar.swift in Sources */,
+				C71297662986F5880007AAE8 /* EditMumentResponseModel.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
 				4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */,
 				4DE0FAD129811BA9008F01E5 /* WithdrawalReasonBodyModel.swift in Sources */,

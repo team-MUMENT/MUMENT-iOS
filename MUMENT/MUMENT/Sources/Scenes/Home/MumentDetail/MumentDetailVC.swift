@@ -95,7 +95,21 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
-                let editVC = WriteVC(isEdit: true, detailData: self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")))
+                let editVC = WriteVC(
+                    isEdit: true,
+                    mumentId: self.mumentId ?? 0,
+                    detailData: self.dataSource ?? MumentDetailResponseModel(
+                        isFirst: false,
+                        content: "",
+                        impressionTag: [],
+                        isLiked: false,
+                        count: 0,
+                        likeCount: 0,
+                        createdAt: "",
+                        feelingTag: [],
+                        user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")
+                    ),
+                    detailSongData: self.musicData)
                 self.present(editVC, animated: true)
             }
             

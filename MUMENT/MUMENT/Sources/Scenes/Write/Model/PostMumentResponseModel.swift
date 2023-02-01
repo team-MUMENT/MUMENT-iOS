@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - PostMumentResponseModel
 struct PostMumentResponseModel: Codable {
-    let id: String
+    let id: Int
     let count: Int
 
     enum CodingKeys: String, CodingKey {

@@ -13,7 +13,7 @@ import RxCocoa
 
 class WriteVC: BaseVC {
     
-    // MARK: - Properties
+    // MARK: Components
     private let writeScrollView = UIScrollView()
     private let writeContentView = UIView().then {
         $0.backgroundColor = .mBgwhite
@@ -117,6 +117,7 @@ class WriteVC: BaseVC {
     }
     private var selectedMusicView = WriteMusicView()
     
+    // MARK: Properties
     var clickedImpressionTag: [Int] = [] {
         didSet {
             postMumentData.impressionTag = clickedImpressionTag
@@ -138,16 +139,19 @@ class WriteVC: BaseVC {
     var musicId = ""
     var postMumentData: PostMumentBodyModel = PostMumentBodyModel()
     var isEdit = false
+    private var mumentId: Int?
     private var detailData: MumentDetailResponseModel?
     private var detailSongData: MusicDto?
     
     // MARK: Initialization
-    init(isEdit: Bool = false, detailData: MumentDetailResponseModel) {
+    init(isEdit: Bool = false, mumentId: Int, detailData: MumentDetailResponseModel, detailSongData: MusicDto) {
         super.init(nibName: nil, bundle: nil)
         
         self.isEdit = isEdit
+        self.mumentId = mumentId
         self.modalPresentationStyle = .overFullScreen
         self.detailData = detailData
+        self.detailSongData = detailSongData
     }
     
     init(isEdit: Bool = false) {
@@ -197,7 +201,7 @@ class WriteVC: BaseVC {
         self.setSelectedMusicView()
         if let receivedData = notification.object as? SearchResultResponseModelElement {
             self.selectedMusicView.setData(data: receivedData)
-//            getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: receivedData.id)
+            self.getIsFirst(musicId: receivedData.id)
             musicId = receivedData.id
             setIsEnableCompleteButton(isEnabled: true)
         }
@@ -208,7 +212,7 @@ class WriteVC: BaseVC {
         
         let musicData = SearchResultResponseModelElement(id: songData.musicId, name: songData.musicTitle, artist: songData.artist, image: songData.albumUrl)
         self.selectedMusicView.setData(data: musicData)
-//        self.getIsFirst(userId: UserInfo.shared.userId ?? "", musicId: songData.musicId)
+        self.getIsFirst(musicId: songData.musicId)
         self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: data.isFirst)
         self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: !(data.isFirst))
         self.musicId = songData.musicId
@@ -248,7 +252,6 @@ class WriteVC: BaseVC {
             let contentText = self?.contentTextView.textColor == .mBlack2 ? self?.contentTextView.text : ""
             
             let selectedMusicData = self?.selectedMusicView.selectedMusicData()
-            
             self?.postMumentData = PostMumentBodyModel(
                 isFirst: self?.firstListenButton.isSelected ?? false,
                 impressionTag: self?.clickedImpressionTag ?? [],
@@ -260,11 +263,18 @@ class WriteVC: BaseVC {
                 musicImage: selectedMusicData?.image ?? "",
                 musicName: selectedMusicData?.name ?? ""
             )
-            
-            self?.postMument(
-                musicId: self?.musicId ?? "",
-                data: self?.postMumentData ?? PostMumentBodyModel()
-            )
+            guard let edit = self?.isEdit else { return }
+            if edit {
+                self?.editMument(
+                    mumentId: self?.mumentId ?? 0,
+                    data: self?.postMumentData ?? PostMumentBodyModel()
+                )
+            } else {
+                self?.postMument(
+                    musicId: self?.musicId ?? "",
+                    data: self?.postMumentData ?? PostMumentBodyModel()
+                )
+            }
         }
     }
     
@@ -405,9 +415,6 @@ class WriteVC: BaseVC {
                 self?.dismiss(animated: true)
             }
         }
-        self.naviView.doneButton.press {
-            self.dismiss(animated: true)
-        }
     }
 }
 
@@ -458,9 +465,48 @@ extension WriteVC {
         WriteAPI.shared.postMument(musicId: musicId, data: data) { networkResult in
             switch networkResult {
             case .success(let response):
-                if response is PostMumentResponseModel {
-                    self.setDefaultView()
-                    self.showToastMessage(message: "🎉 뮤멘트가 작성되었어요!", color: .black)
+                if let res = response as? PostMumentResponseModel {
+                    // TODO: 푸시알림 유도 팝업(1, 10, 20)
+                    guard let presentingVC = self.presentingViewController as? MumentTabBarController else { return }
+                    self.dismiss(animated: true) {
+                        let mumentDetailVC: MumentDetailVC = MumentDetailVC()
+                        mumentDetailVC.mumentId = res.id
+                        mumentDetailVC.setData(
+                            mumentId: res.id,
+                            musicData: MusicDto(
+                                musicId: self.selectedMusicView.selectedMusicData().id,
+                                musicTitle: self.selectedMusicView.selectedMusicData().name,
+                                artist: self.selectedMusicView.selectedMusicData().artist,
+                                albumUrl: self.selectedMusicView.selectedMusicData().image ?? ""
+                            )
+                        )
+                        mumentDetailVC.showToastMessage(message: "🎉 뮤멘트가 작성되었어요!", color: .black)
+                        if let navigationVC = presentingVC.selectedViewController as? BaseNC {
+                            navigationVC.pushViewController(mumentDetailVC, animated: true)
+                        } else {
+                            debugPrint("not navigtaion")
+                        }
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func editMument(mumentId: Int, data: PostMumentBodyModel) {
+        WriteAPI.shared.editMument(mumentId: mumentId, data: data) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if response is EditMumentResponseModel {
+                    guard let presentingVC = self.presentingViewController as? MumentTabBarController else { return }
+                    self.dismiss(animated: true)
+                    if let navigationVC = presentingVC.selectedViewController as? BaseNC, let topVC = navigationVC.topViewController as? BaseVC {
+                        topVC.showToastMessage(message: "뮤멘트가 수정되었어요.", color: .black)
+                        topVC.viewWillAppear(true)
+                    } else {
+                        debugPrint("not navigtaion")
+                    }
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
