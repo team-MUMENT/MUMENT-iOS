@@ -103,6 +103,7 @@ final class MypageMainVC: BaseVC {
         super.viewWillAppear(animated)
         
         self.hideTabbar()
+        self.tableView.reloadData()
     }
     
     // MARK: Methods
@@ -149,7 +150,8 @@ extension MypageMainVC: UITableViewDataSource {
             switch tableSection {
             case .profile:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainProfileTVC.className) as? MypageMainProfileTVC else { return UITableViewCell() }
-                cell.setNickname(text: "blueingreen")
+                cell.setNickname(text: UserInfo.shared.nickname)
+                cell.setProfileImage(imageURL: UserInfo.shared.profileImageURL)
                 return cell
             case .footer:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainFooterTVC.className) as? MypageMainFooterTVC else { return UITableViewCell() }

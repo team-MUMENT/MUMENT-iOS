@@ -25,14 +25,14 @@ final class SetProfileVC: BaseVC {
         return imageView
     }()
     
-    private let loadImageButton: UIButton = UIButton(type: .system).then {
-        $0.imageView?.contentMode = .scaleAspectFill
+    private lazy var loadImageButton: UIButton = UIButton(type: .system).then {
         $0.layer.cornerRadius = 131.adjustedH / 2
         $0.clipsToBounds = true
-        $0.setImage(UIImage(named: "mumentDefaultProfile"), for: .normal)
+        $0.setImage(self.defaultProfileImage, for: .normal)
         $0.imageView?.contentMode = .scaleAspectFill
     }
     private let nickNameTextField: MumentTextField = MumentTextField().then {
+        $0.text = UserInfo.shared.nickname
         $0.placeholder = "닉네임을 입력해주세요. (필수)"
     }
     private let infoLabel: UILabel = UILabel().then {
@@ -55,6 +55,8 @@ final class SetProfileVC: BaseVC {
         $0.sourceType = .photoLibrary
     }
     private let actionSheetVC = MumentActionSheetVC(actionName: ["라이브러리에서 선택", "프로필 사진 삭제"])
+    private let defaultProfileImage = UIImage(named: "mumentDefaultProfile")
+    private let defaultProfileImageName: [String] = ["mumentProfileLove60", "mumentProfileSleep60", "mumentProfileSmile60"].shuffled()
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -146,7 +148,7 @@ final class SetProfileVC: BaseVC {
                         case 0:
                             self?.openLibrary(presentingVC: self ?? BaseVC())
                         case 1:
-                            self?.loadImageButton.setImage(UIImage(named: "mumentDefaultProfile"), for: .normal)
+                            self?.loadImageButton.setImage(self?.defaultProfileImage, for: .normal)
                         default: break
                         }
                     }
@@ -172,6 +174,19 @@ final class SetProfileVC: BaseVC {
             }
         }
     }
+    
+    private func makeProfileImageData() -> Data {
+        if let imageView = self.loadImageButton.imageView {
+            if imageView.image == self.defaultProfileImage {
+                imageView.image = UIImage(named: self.defaultProfileImageName[0])
+                return imageView.resizeWithWidth(width: 500)?.pngData() ?? Data()
+            } else {
+                return imageView.resizeWithWidth(width: 500)?.pngData() ?? Data()
+            }
+        } else {
+            return Data()
+        }
+    }
 }
 
 // MARK: - Network
@@ -186,7 +201,7 @@ extension SetProfileVC {
                         self.showToastMessage(message: "중복된 닉네임이 존재합니다.", color: .red)
                     case 204:
                         let profileData = SetProfileRequestModel(
-                            image: self.loadImageButton.imageView?.resizeWithWidth(width: 500)?.pngData() ?? Data(),
+                            image: self.makeProfileImageData(),
                             nickname: nickname
                         )
                         self.requestSetProfile(data: profileData)
