@@ -102,6 +102,7 @@ extension SplashVC {
                     self.present(tabBarController, animated: true)
                 } else if (status as! Int == 200) {
                     let setProfileVC = SetProfileVC()
+                    setProfileVC.isFirst = true
                     setProfileVC.modalPresentationStyle = .fullScreen
                     setProfileVC.modalTransitionStyle = .crossDissolve
                     self.present(setProfileVC, animated: true)

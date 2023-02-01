@@ -57,6 +57,7 @@ final class SetProfileVC: BaseVC {
     private let actionSheetVC = MumentActionSheetVC(actionName: ["라이브러리에서 선택", "프로필 사진 삭제"])
     private let defaultProfileImage = UIImage(named: "mumentDefaultProfile")
     private let defaultProfileImageName: [String] = ["mumentProfileLove60", "mumentProfileSleep60", "mumentProfileSmile60"].shuffled()
+    var isFirst: Bool = false
     var isProfileImageChanged = false {
         didSet {
             if self.isFirst {
@@ -130,6 +131,7 @@ final class SetProfileVC: BaseVC {
                             }
                         }
                     }
+
                 } else {
                     self.naviView.doneButton.isEnabled = false
                     self.infoLabel.textColor = .mGray2
@@ -181,7 +183,10 @@ final class SetProfileVC: BaseVC {
                         case 0:
                             self?.openLibrary(presentingVC: self ?? BaseVC())
                         case 1:
-                            self?.loadImageButton.setImage(self?.defaultProfileImage, for: .normal)
+                            if self?.loadImageButton.imageView?.image != self?.defaultProfileImage {
+                                self?.loadImageButton.setImage(self?.defaultProfileImage, for: .normal)
+                                self?.isProfileImageChanged = true
+                            }
                         default: break
                         }
                     }
@@ -194,7 +199,12 @@ final class SetProfileVC: BaseVC {
     private func setDoneButtonAction() {
         self.naviView.doneButton.press { [weak self] in
             self?.view.endEditing(true)
-            self?.checkDuplicatedNickname(nickname: self?.nickNameTextField.text ?? "")
+            
+            if self?.nickNameTextField.text == UserInfo.shared.nickname {
+                self?.requestSetProfile(nickname: UserInfo.shared.nickname)
+            } else {
+                self?.checkDuplicatedNickname(nickname: self?.nickNameTextField.text ?? "")
+            }
         }
     }
     
@@ -233,11 +243,7 @@ extension SetProfileVC {
                     case 200:
                         self.showToastMessage(message: "중복된 닉네임이 존재합니다.", color: .red)
                     case 204:
-                        let profileData = SetProfileRequestModel(
-                            image: self.makeProfileImageData(),
-                            nickname: nickname
-                        )
-                        self.requestSetProfile(data: profileData)
+                        self.requestSetProfile(nickname: nickname)
                     default:
                         self.makeAlert(title: MessageType.networkError.message)
                     }
@@ -248,8 +254,13 @@ extension SetProfileVC {
         }
     }
     
-    private func requestSetProfile(data: SetProfileRequestModel) {
-        MyPageAPI.shared.setProfile(data: data) { networkResult in
+    private func requestSetProfile(nickname: String) {
+        let profileData = SetProfileRequestModel(
+            image: self.makeProfileImageData(),
+            nickname: nickname
+        )
+        
+        MyPageAPI.shared.setProfile(data: profileData) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? SetProfileResponseModel {
@@ -310,6 +321,7 @@ extension SetProfileVC: UIImagePickerControllerDelegate, UINavigationControllerD
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             DispatchQueue.main.async {
+                self.isProfileImageChanged = true
                 self.loadImageButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
             }
         }
