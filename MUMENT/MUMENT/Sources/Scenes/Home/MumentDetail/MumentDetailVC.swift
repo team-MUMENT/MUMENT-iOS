@@ -31,7 +31,6 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     // MARK: - Properties
     private let instagramShareView = InstagramShareView()
-    private let dummyData = MumentDetailResponseModel.sampleData
     private let musicDummyData = MusicDto.sampleData
     private var historyButtonText: String = "" {
         didSet{
@@ -59,15 +58,9 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     func setData(){
         DispatchQueue.main.async {
             self.navigationBarView.setTitle("뮤멘트")
-            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")), self.musicData ?? MusicDto(musicId: "", musicTitle: "", artist: "", albumUrl: ""), self.mumentId ?? 0)
+            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")), self.musicData, self.mumentId ?? 0)
             self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
         }
-    }
-    
-    private func setDummyData() {
-        self.navigationBarView.setTitle("뮤멘트")
-        self.mumentCardView.setData(dummyData[0], musicDummyData[0], 100)
-        self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
     }
     
     func setData(mumentId: Int, musicData: MusicDto) {
@@ -91,8 +84,6 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
         mumentCardView.menuIconButton.press{
-            
-            let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             if UserDefaultsManager.userId == self.dataSource?.user.id {
                 let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -133,9 +124,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                 actionSheetController.addAction(deletingAction)
                 actionSheetController.addAction(cancelAction)
                 
-                self.present(actionSheetController, animated: true) {
-                    print("option menu presented")
-                }
+                self.present(actionSheetController, animated: true)
             } else {
                 // 차단하기, 신고하기
                 print("Others")
@@ -194,7 +183,6 @@ extension MumentDetailVC {
 // MARK: - DetailMumentCardViewDelegate
 extension MumentDetailVC: DetailMumentCardViewDelegate {
     func shareButtonClicked() {
-        
         guard let data = dataSource else {return }
         instagramShareView.setData(data, musicData)
         
@@ -233,7 +221,6 @@ extension MumentDetailVC {
             switch networkResult {
             case .success(let response):
                 if let result = response as? MumentDetailResponseModel {
-                    print("INNNNNNNNNNNN")
                     self.dataSource = result
                     self.setData()
                     self.mumentCardView.setData(result, self.musicData, self.mumentId ?? 0)

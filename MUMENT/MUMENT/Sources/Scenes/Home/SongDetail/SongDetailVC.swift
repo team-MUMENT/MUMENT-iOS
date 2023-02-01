@@ -243,10 +243,7 @@ extension SongDetailVC {
             switch networkResult {
             case .success(let response):
                 if let res = response as? SongInfoResponseModel {
-                    print("IN")
-                    //                    self.musicData = res.music
                     self.myMumentData = res.myMument
-                    print("MYMUMENTDATA",self.myMumentData)
                     self.mumentTV.reloadSections(IndexSet(0...1), with: .automatic)
                 }
             default:
@@ -258,14 +255,11 @@ extension SongDetailVC {
     private func requestGetAllMuments(_ isOrderLiked: Bool) {
         SongDetailAPI.shared.getAllMuments(musicId: self.musicData.musicId , isOrderLiked: isOrderLiked, limit: 10, offset: 0) { networkResult in
             switch networkResult {
-                
             case .success(let response):
                 if let res = response as? AllMumentsResponseModel {
-                    print("INNNNNN")
                     self.allMumentsData = res.mumentList
                     self.mumentTV.reloadData()
                 }
-                
             default:
                 self.makeAlert(title: MessageType.networkError.message)
             }
