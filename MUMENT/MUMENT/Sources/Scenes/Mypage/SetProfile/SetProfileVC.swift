@@ -18,11 +18,19 @@ final class SetProfileVC: BaseVC {
         $0.setTitleLabel(title: "프로필 설정")
         $0.doneButton.isEnabled = false
     }
+    
+    private let loadImageView: UIImageView = {
+        let imageView: UIImageView = UIImageView(image: UIImage(named: "mumentDarkenCamera"))
+        imageView.isUserInteractionEnabled = false
+        return imageView
+    }()
+    
     private let loadImageButton: UIButton = UIButton(type: .system).then {
         $0.imageView?.contentMode = .scaleAspectFill
-        $0.setImage(UIImage(named: "mumentProfileCamera"), for: .normal)
         $0.layer.cornerRadius = 131.adjustedH / 2
         $0.clipsToBounds = true
+        $0.setImage(UIImage(named: "mumentDefaultProfile"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFill
     }
     private let nickNameTextField: MumentTextField = MumentTextField().then {
         $0.placeholder = "닉네임을 입력해주세요. (필수)"
@@ -138,7 +146,7 @@ final class SetProfileVC: BaseVC {
                         case 0:
                             self?.openLibrary(presentingVC: self ?? BaseVC())
                         case 1:
-                            self?.loadImageButton.setImage(UIImage(named: "mumentProfileCamera"), for: .normal)
+                            self?.loadImageButton.setImage(UIImage(named: "mumentDefaultProfile"), for: .normal)
                         default: break
                         }
                     }
@@ -164,7 +172,7 @@ final class SetProfileVC: BaseVC {
 // MARK: - UI
 extension SetProfileVC {
     private func setLayout() {
-        self.view.addSubviews([naviView, loadImageButton, nickNameTextField, infoLabel, nickNameCountLabel])
+        self.view.addSubviews([naviView, loadImageButton, loadImageView, nickNameTextField, infoLabel, nickNameCountLabel])
         
         naviView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
@@ -174,6 +182,9 @@ extension SetProfileVC {
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(131.adjustedH)
             $0.top.equalTo(naviView.snp.bottom).offset(79.adjustedH)
+        }
+        loadImageView.snp.makeConstraints {
+            $0.edges.equalTo(self.loadImageButton)
         }
         nickNameTextField.snp.makeConstraints {
             $0.top.equalTo(loadImageButton.snp.bottom).offset(64.adjustedH)
@@ -191,6 +202,7 @@ extension SetProfileVC {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension SetProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
