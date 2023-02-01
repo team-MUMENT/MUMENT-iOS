@@ -210,14 +210,14 @@ extension CarouselTVC: UICollectionViewDelegate{
 extension CarouselTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return increasedDataSource.count
+        return increasedCarouselData.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCVC.className, for: indexPath)
         if let cell = cell as? CarouselCVC {
-        cell.setData(increasedDataSource[indexPath.row],index:indexPath.row%3+1)
+        cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
         }
         return cell
     }

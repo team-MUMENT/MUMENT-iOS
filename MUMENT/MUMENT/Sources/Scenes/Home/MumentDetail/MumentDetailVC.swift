@@ -84,7 +84,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
             mumentHistoryVC.musicId = self.musicData.musicId
-//            mumentHistoryVC.userId = self.dataSource?.user.id
+            //            mumentHistoryVC.userId = self.dataSource?.user.id
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
         }
         
@@ -94,52 +94,58 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             
             let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
-            let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
-                let editVC = WriteVC(
-                    isEdit: true,
-                    mumentId: self.mumentId ?? 0,
-                    detailData: self.dataSource ?? MumentDetailResponseModel(
-                        isFirst: false,
-                        content: "",
-                        impressionTag: [],
-                        isLiked: false,
-                        count: 0,
-                        likeCount: 0,
-                        createdAt: "",
-                        feelingTag: [],
-                        user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")
-                    ),
-                    detailSongData: self.musicData)
-                self.present(editVC, animated: true)
-            }
-            
-            let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
-                let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel)
-                mumentAlert.setTitle(title: "삭제하시겠어요?")
-                self.present(mumentAlert, animated: true)
+            if UserDefaultsManager.userId == self.dataSource?.user.id {
+                let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                 
-                mumentAlert.OKButton.press {
-                    self.requestDeleteMument()
-                    self.navigationController?.popViewController(animated: true)
+                let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
+                    let editVC = WriteVC(
+                        isEdit: true,
+                        mumentId: self.mumentId ?? 0,
+                        detailData: self.dataSource ?? MumentDetailResponseModel(
+                            isFirst: false,
+                            content: "",
+                            impressionTag: [],
+                            isLiked: false,
+                            count: 0,
+                            likeCount: 0,
+                            createdAt: "",
+                            feelingTag: [],
+                            user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")
+                        ),
+                        detailSongData: self.musicData)
+                    self.present(editVC, animated: true)
                 }
-            }
-            
-            let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel) { action -> Void in }
-            
-            actionSheetController.addAction(updatingAction)
-            actionSheetController.addAction(deletingAction)
-            actionSheetController.addAction(cancelAction)
-            
-            self.present(actionSheetController, animated: true) {
-                print("option menu presented")
+                
+                let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
+                    let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "삭제")
+                    mumentAlert.setTitle(title: "삭제하시겠어요?")
+                    self.present(mumentAlert, animated: true)
+                    
+                    mumentAlert.OKButton.press {
+                        self.requestDeleteMument()
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                
+                let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel) { action -> Void in }
+                
+                actionSheetController.addAction(updatingAction)
+                actionSheetController.addAction(deletingAction)
+                actionSheetController.addAction(cancelAction)
+                
+                self.present(actionSheetController, animated: true) {
+                    print("option menu presented")
+                }
+            } else {
+                // 차단하기, 신고하기
+                print("Others")
             }
         }
-        
     }
     
     @objc private func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
-//        songDetailVC.musicId = musicData.musicId
+        //        songDetailVC.musicId = musicData.musicId
         songDetailVC.musicData = musicData
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
@@ -240,14 +246,13 @@ extension MumentDetailVC {
     }
     
     private func requestDeleteMument() {
-//        DeleteAPI.shared.deleteMument(mumentId: mumentId ?? 0) { networkResult in
-//
-//            switch networkResult {
-//            case .success(_):
-//                return
-//            default:
-//                self.makeAlert(title: MessageType.networkError.message)
-//            }
-//        }
+        DeleteAPI.shared.deleteMument(mumentId: mumentId ?? 0) { networkResult in
+            switch networkResult {
+            case .success(_):
+                return
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
