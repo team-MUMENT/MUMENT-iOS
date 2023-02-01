@@ -101,7 +101,7 @@ final class DetailMumentCardView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentDetailResponseModel, _ musicData: MusicDto, _ mumentId: Int) {
+    func setData(_ cellData: MumentDetailResponseModel, _ musicData: MusicDTO, _ mumentId: Int) {
         print("들어왓나열?", cellData)
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name

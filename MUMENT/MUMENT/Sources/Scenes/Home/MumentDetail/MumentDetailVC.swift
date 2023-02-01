@@ -37,7 +37,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         }
     }
     var mumentId: Int?
-    private var musicData: MusicDto = MusicDto(musicId: "", musicTitle: "", artist: "", albumUrl: "")
+    private var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     private var dataSource: MumentDetailResponseModel?
     
     // MARK: - View Life Cycle
@@ -62,7 +62,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         }
     }
     
-    func setData(mumentId: Int, musicData: MusicDto) {
+    func setData(mumentId: Int, musicData: MusicDTO) {
         self.mumentId = mumentId
         self.musicData = musicData
     }
@@ -75,7 +75,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
-            mumentHistoryVC.musicId = self.musicData.musicId
+            mumentHistoryVC.musicId = self.musicData.id
             //            mumentHistoryVC.userId = self.dataSource?.user.id
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
         }

@@ -40,9 +40,9 @@ final class DetailSongInfoView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ data: MusicDto){
+    func setData(_ data: MusicDTO){
         albumImage.setImageUrl(data.albumUrl)
-        titleLabel.text = data.musicTitle
+        titleLabel.text = data.title
         artistLabel.text = data.artist
         titleLabel.sizeToFit()
     }

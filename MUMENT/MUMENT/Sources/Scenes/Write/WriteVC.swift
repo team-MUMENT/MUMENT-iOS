@@ -141,10 +141,10 @@ class WriteVC: BaseVC {
     var isEdit = false
     private var mumentId: Int?
     private var detailData: MumentDetailResponseModel?
-    private var detailSongData: MusicDto?
+    private var detailSongData: MusicDTO?
     
     // MARK: Initialization
-    init(isEdit: Bool = false, mumentId: Int, detailData: MumentDetailResponseModel, detailSongData: MusicDto) {
+    init(isEdit: Bool = false, mumentId: Int, detailData: MumentDetailResponseModel, detailSongData: MusicDTO) {
         super.init(nibName: nil, bundle: nil)
         
         self.isEdit = isEdit
@@ -187,7 +187,7 @@ class WriteVC: BaseVC {
         setIsEnableCompleteButton(isEnabled: false)
         if isEdit {
             if let data = self.detailData, let songData = self.detailSongData{
-                self.setEditView(data, songData)
+                self.setEditView(mumentData: data, songData: songData)
             }
         }
     }
@@ -207,19 +207,19 @@ class WriteVC: BaseVC {
         }
     }
     
-    private func setEditView(_ data: MumentDetailResponseModel,_ songData: MusicDto) {
+    private func setEditView(mumentData: MumentDetailResponseModel, songData: MusicDTO) {
         self.setSelectedMusicView()
         
-        let musicData = SearchResultResponseModelElement(id: songData.musicId, name: songData.musicTitle, artist: songData.artist, image: songData.albumUrl)
+        let musicData = SearchResultResponseModelElement(id: songData.id, name: songData.title, artist: songData.artist, image: songData.albumUrl)
         self.selectedMusicView.setData(data: musicData)
-        self.getIsFirst(musicId: songData.musicId)
-        self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: data.isFirst)
-        self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: !(data.isFirst))
-        self.musicId = songData.musicId
+        self.getIsFirst(musicId: songData.id)
+        self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: mumentData.isFirst)
+        self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: !(mumentData.isFirst))
+        self.musicId = songData.id
         
         // 기존의 태그를 선택하도록 설정
-        let feelingTags: [Int] = data.feelingTag
-        let impressionTags: [Int] = data.impressionTag
+        let feelingTags: [Int] = mumentData.feelingTag
+        let impressionTags: [Int] = mumentData.impressionTag
         feelingTags.forEach { tag in
             self.feelTagCV.selectItem(at: IndexPath(row: tag - 200, section: 0), animated: false, scrollPosition: .init())
             self.collectionView(self.feelTagCV, didSelectItemAt: IndexPath(row: tag - 200, section: 0))
@@ -229,7 +229,7 @@ class WriteVC: BaseVC {
             self.collectionView(self.impressionTagCV, didSelectItemAt: IndexPath(row: tag - 100, section: 0))
         }
         
-        self.contentTextView.text = data.content
+        self.contentTextView.text = mumentData.content
         self.contentTextView.textColor = .mBlack2
         
         self.isPrivateToggleButton.isSelected = false
@@ -473,9 +473,9 @@ extension WriteVC {
                         mumentDetailVC.mumentId = res.id
                         mumentDetailVC.setData(
                             mumentId: res.id,
-                            musicData: MusicDto(
-                                musicId: self.selectedMusicView.selectedMusicData().id,
-                                musicTitle: self.selectedMusicView.selectedMusicData().name,
+                            musicData: MusicDTO(
+                                id: self.selectedMusicView.selectedMusicData().id,
+                                title: self.selectedMusicView.selectedMusicData().name,
                                 artist: self.selectedMusicView.selectedMusicData().artist,
                                 albumUrl: self.selectedMusicView.selectedMusicData().image ?? ""
                             )
