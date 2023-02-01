@@ -18,7 +18,7 @@ class MumentHistoryVC: BaseVC {
     var musicInfoDummyData: [MumentDetailResponseModel] = MumentDetailResponseModel.sampleData
     var mumentDummyData: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
-    var musicInfoData: MusicDto = MusicDto(musicId: "", musicTitle: "", artist: "", albumUrl: "")
+    var musicInfoData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     var historyData: [HistoryResponseModel.MumentHistory] = []
     var musicId: String?
     var userId: String?
@@ -57,7 +57,7 @@ class MumentHistoryVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.musicData.musicId = self.musicId ?? ""
+        songDetailVC.musicData.id = self.musicId ?? ""
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }

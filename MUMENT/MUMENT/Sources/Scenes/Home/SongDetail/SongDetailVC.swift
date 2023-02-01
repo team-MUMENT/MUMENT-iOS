@@ -17,7 +17,7 @@ final class SongDetailVC: BaseVC {
     
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
-    var musicData: MusicDto = MusicDto(musicId: "", musicTitle: "", artist: "", albumUrl: "")
+    var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     var myMumentData: SongInfoResponseModel.MyMument? = nil
     var allMumentsData: [AllMumentsResponseModel.MumentList] = []
     
@@ -175,7 +175,7 @@ extension SongDetailVC: UITableViewDataSource {
             headerCell.historyButton.removeTarget(nil, action: nil, for: .allEvents)
             headerCell.historyButton.press {
                 let mumentHistoryVC = MumentHistoryVC()
-                mumentHistoryVC.musicId = self.musicData.musicId
+                mumentHistoryVC.musicId = self.musicData.id
                 self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
             }
             return headerCell
@@ -222,7 +222,7 @@ extension SongDetailVC: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 30{
-            navigationBarView.setTitle(musicData.musicTitle)
+            navigationBarView.setTitle(musicData.title)
         } else {
             navigationBarView.setTitle("")
         }
@@ -239,7 +239,7 @@ extension SongDetailVC :AllMumentsSectionHeaderDelegate {
 // MARK: - Network
 extension SongDetailVC {
     private func requestGetSongInfo() {
-        SongDetailAPI.shared.getSongInfo(musicId: self.musicData.musicId ) { [self] networkResult in
+        SongDetailAPI.shared.getSongInfo(musicId: self.musicData.id ) { [self] networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? SongInfoResponseModel {
@@ -253,7 +253,7 @@ extension SongDetailVC {
     }
     
     private func requestGetAllMuments(_ isOrderLiked: Bool) {
-        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.musicId , isOrderLiked: isOrderLiked, limit: 10, offset: 0) { networkResult in
+        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id , isOrderLiked: isOrderLiked, limit: 10, offset: 0) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? AllMumentsResponseModel {

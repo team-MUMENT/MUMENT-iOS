@@ -95,7 +95,7 @@ final class InstagramShareView: UIView {
 //
 //        setTags()
 //    }
-    func setData(_ cellData: MumentDetailResponseModel, _ musicData: MusicDto) {
+    func setData(_ cellData: MumentDetailResponseModel, _ musicData: MusicDTO) {
         print("들어왓나열?", cellData)
         writerProfileImageView.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
@@ -105,7 +105,7 @@ final class InstagramShareView: UIView {
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
         albumImageView.setImageUrl(musicData.albumUrl)
-        musicTitleLabel.text = musicData.musicTitle
+        musicTitleLabel.text = musicData.title
         artistNameLabel.text = musicData.artist
 //                isFirst = cellData.isFirst
 //                impressionTags = cellData.impressionTag

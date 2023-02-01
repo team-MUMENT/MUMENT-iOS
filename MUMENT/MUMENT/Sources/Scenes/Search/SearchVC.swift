@@ -211,9 +211,9 @@ extension SearchVC: UITableViewDelegate {
         switch searchTVType {
         case .recentSearch:
 //            songDetailVC.musicId = "3"
-            songDetailVC.musicData = MusicDto(
-                musicId: self.recentSearchData.reversed()[indexPath.row].id,
-                musicTitle: self.recentSearchData.reversed()[indexPath.row].name,
+            songDetailVC.musicData = MusicDTO(
+                id: self.recentSearchData.reversed()[indexPath.row].id,
+                title: self.recentSearchData.reversed()[indexPath.row].name,
                 artist: self.recentSearchData.reversed()[indexPath.row].artist,
                 albumUrl: self.recentSearchData.reversed()[indexPath.row].image ?? ""
             )
@@ -222,9 +222,9 @@ extension SearchVC: UITableViewDelegate {
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
         case .searchResult:
 //            songDetailVC.musicId = self.searchResultData[indexPath.row].id
-            songDetailVC.musicData = MusicDto(
-                musicId: self.searchResultData[indexPath.row].id,
-                musicTitle: self.searchResultData[indexPath.row].name,
+            songDetailVC.musicData = MusicDTO(
+                id: self.searchResultData[indexPath.row].id,
+                title: self.searchResultData[indexPath.row].name,
                 artist: searchResultData[indexPath.row].artist,
                 albumUrl: self.searchResultData[indexPath.row].image ?? ""
             )
