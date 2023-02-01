@@ -57,6 +57,24 @@ final class SetProfileVC: BaseVC {
     private let actionSheetVC = MumentActionSheetVC(actionName: ["라이브러리에서 선택", "프로필 사진 삭제"])
     private let defaultProfileImage = UIImage(named: "mumentDefaultProfile")
     private let defaultProfileImageName: [String] = ["mumentProfileLove60", "mumentProfileSleep60", "mumentProfileSmile60"].shuffled()
+    var isProfileImageChanged = false {
+        didSet {
+            if self.isFirst {
+                self.naviView.doneButton.isEnabled = self.isNicknameChanged
+            } else {
+                self.naviView.doneButton.isEnabled = self.isProfileImageChanged || self.isNicknameChanged
+            }
+        }
+    }
+    var isNicknameChanged = false {
+        didSet {
+            if self.isFirst {
+                self.naviView.doneButton.isEnabled = self.isNicknameChanged
+            } else {
+                self.naviView.doneButton.isEnabled = self.isProfileImageChanged || self.isNicknameChanged
+            }
+        }
+    }
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -89,13 +107,28 @@ final class SetProfileVC: BaseVC {
             .distinctUntilChanged()
             .subscribe(onNext: { changedText in
                 if changedText.count > 0 {
-                    let regex = "[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9\\s]{0,}"
-                    if NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: changedText) && changedText.trimmingCharacters(in: .whitespaces).count >= 2 {
-                        self.naviView.doneButton.isEnabled = true
-                        self.infoLabel.textColor = .mGray2
+                    if self.isFirst {
+                        let regex = "[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9\\s]{0,}"
+                        if NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: changedText) && changedText.trimmingCharacters(in: .whitespaces).count >= 2 {
+                            self.isNicknameChanged = true
+                            self.infoLabel.textColor = .mGray2
+                        } else {
+                            self.naviView.doneButton.isEnabled = false
+                            self.infoLabel.textColor = .mRed
+                        }
                     } else {
-                        self.naviView.doneButton.isEnabled = false
-                        self.infoLabel.textColor = .mRed
+                        if changedText == UserInfo.shared.nickname {
+                            self.isNicknameChanged = false
+                        } else {
+                            let regex = "[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9\\s]{0,}"
+                            if NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: changedText) && changedText.trimmingCharacters(in: .whitespaces).count >= 2 {
+                                self.isNicknameChanged = true
+                                self.infoLabel.textColor = .mGray2
+                            } else {
+                                self.naviView.doneButton.isEnabled = false
+                                self.infoLabel.textColor = .mRed
+                            }
+                        }
                     }
                 } else {
                     self.naviView.doneButton.isEnabled = false
