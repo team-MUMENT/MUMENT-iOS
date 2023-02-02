@@ -97,7 +97,7 @@ class MumentCardBySongView: UIView {
         heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
-//        mumentId = cellData.id
+        mumentId = cellData.id
         setTags()
     }
     
