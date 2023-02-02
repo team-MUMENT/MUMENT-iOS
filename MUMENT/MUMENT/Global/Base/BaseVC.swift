@@ -94,6 +94,20 @@ extension BaseVC {
         UserDefaultsManager.fcmToken = nil
         UserInfo.shared = UserInfo.init()
     }
+    
+    func getUserProfile(completion: @escaping () -> (Void)) {
+        MyPageAPI.shared.getUserProfile { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetUserProfileResponseModel {
+                    self.setUserProfile(nickname: result.nickname, profileImageURL: result.image)
+                    completion()
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
 }
 
 // MARK: - Custom Methods(화면전환)

@@ -107,7 +107,9 @@ final class MypageMainVC: BaseVC {
         super.viewWillAppear(animated)
         
         self.hideTabbar()
-        self.tableView.reloadData()
+        self.getUserProfile {
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: Methods
