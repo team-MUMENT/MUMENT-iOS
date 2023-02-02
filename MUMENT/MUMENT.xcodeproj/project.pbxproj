@@ -85,6 +85,7 @@
 		4DEED415288B32E500C6337B /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED414288B32E500C6337B /* DeleteService.swift */; };
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
 		C71297662986F5880007AAE8 /* EditMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */; };
+		C7145D1A298C247D007B0F87 /* GetMypageUrlResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */; };
 		C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47E628807B64001A7CD6 /* SearchVC.swift */; };
 		C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */; };
 		C71B47ED28818B21001A7CD6 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EC28818B21001A7CD6 /* SearchTVC.swift */; };
@@ -323,6 +324,7 @@
 		4DEED414288B32E500C6337B /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMumentResponseModel.swift; sourceTree = "<group>"; };
+		C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMypageUrlResponseModel.swift; sourceTree = "<group>"; };
 		C71B47E628807B64001A7CD6 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicForSearchModel.swift; sourceTree = "<group>"; };
 		C71B47EC28818B21001A7CD6 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
@@ -647,6 +649,7 @@
 				4DE0FAD029811BA9008F01E5 /* WithdrawalReasonBodyModel.swift */,
 				4DE0FAD229811CDA008F01E5 /* WithdrawalReasonResponseModel.swift */,
 				4DE0FAD429811CEA008F01E5 /* WithdrawalResponseModel.swift */,
+				C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1471,6 +1474,7 @@
 				C7612D3F29365F4F005F74B1 /* MumentUnderLineButton.swift in Sources */,
 				4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */,
 				4D8784742986F5D3001F446E /* MusicDTO.swift in Sources */,
+				C7145D1A298C247D007B0F87 /* GetMypageUrlResponseModel.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				4D300665288B0C0A007FF4DB /* LikeAPI.swift in Sources */,
 				C7AE17D82887E44C00A5E3FA /* WriteAPI.swift in Sources */,

@@ -17,6 +17,7 @@ enum MyPageService {
     case deleteBlockedUser(userId: Int)
     case getNoticeList
     case getNoticeDetail(noticeId: Int)
+    case getMypageURL
 }
 
 extension MyPageService: TargetType {
@@ -38,6 +39,8 @@ extension MyPageService: TargetType {
             return "/mument/notice"
         case .getNoticeDetail(let noticeId):
             return "mument/notice/\(noticeId)"
+        case .getMypageURL:
+            return "/webview-link"
         }
     }
     
@@ -47,7 +50,7 @@ extension MyPageService: TargetType {
             return .post
         case .deleteMembership, .deleteBlockedUser:
             return .delete
-        case.checkDuplicatedNickname, .getBlockedUserList, .getNoticeList, .getNoticeDetail:
+        case.checkDuplicatedNickname, .getBlockedUserList, .getNoticeList, .getNoticeDetail, .getMypageURL:
             return .get
         case .setProfile:
             return .put
@@ -60,7 +63,7 @@ extension MyPageService: TargetType {
             return .auth
         case .setProfile:
             return .multiPartWithAuth
-        case .getNoticeList, .getNoticeDetail:
+        case .getNoticeList, .getNoticeDetail, .getMypageURL:
             return .basic
         }
     }
@@ -74,6 +77,8 @@ extension MyPageService: TargetType {
             ])
         case .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .setProfile, .deleteBlockedUser, .getNoticeList, .getNoticeDetail:
             return .requestPlain
+        case .getMypageURL:
+            return .query(["page": "mypage"])
         }
     }
     
