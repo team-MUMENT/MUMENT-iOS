@@ -12,13 +12,15 @@ import Then
 class MumentHistoryVC: BaseVC {
     
     // MARK: - Properties
-    private let navigationBarView = DefaultNavigationBar()
+    private let navigationBarView = DefaultNavigationBar().then {
+        $0.setTitle("뮤멘트 히스토리")
+    }
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
     var musicInfoDummyData: [MumentDetailResponseModel] = MumentDetailResponseModel.sampleData
     var mumentDummyData: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
-    var musicInfoData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
+    var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     var historyData: [HistoryResponseModel.MumentHistory] = []
     var musicId: String = ""
     var userId: Int = 0
@@ -27,7 +29,6 @@ class MumentHistoryVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
-        setData()
         setTV()
         setClickEventHandlers()
     }
@@ -48,8 +49,10 @@ class MumentHistoryVC: BaseVC {
         mumentTV.showsVerticalScrollIndicator = false
     }
     
-    func setData(){
-        navigationBarView.setTitle("뮤멘트 히스토리")
+    func setHistoryData(userId: Int, musicData: MusicDTO) {
+        self.userId = userId
+        self.musicData = musicData
+        self.musicId = musicData.id
     }
     
     func setClickEventHandlers(){
@@ -114,7 +117,7 @@ extension MumentHistoryVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MumentHistoryTVHeader.className) as? MumentHistoryTVHeader else { return nil }
-        headerCell.setData(musicInfoData)
+        headerCell.setData(musicData)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         headerCell.songInfoView.addGestureRecognizer(tapGestureRecognizer)
@@ -164,7 +167,6 @@ extension MumentHistoryVC {
                 
             case .success(let response):
                 if let res = response as? HistoryResponseModel {
-//                    self.musicInfoData = res.music
                     self.historyData = res.mumentHistory
                     self.mumentTV.reloadData()
                     debugPrint("result", res)
