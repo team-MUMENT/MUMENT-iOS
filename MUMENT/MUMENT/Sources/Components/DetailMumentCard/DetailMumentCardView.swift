@@ -124,8 +124,11 @@ final class DetailMumentCardView: UIView {
         
         //TODO: isPrivate 작업되면 수정
 //        if cellData.isPrivate {
-//            heartStackView.removeFromSuperview()
-//            replacePrivateLabel()
+//            heartStackView.removeAllArrangedSubviews()
+//            heartStackView.addArrangedSubview(privateLabel)
+//            heartStackView.snp.updateConstraints {
+//                $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+//            }
 //        }
         
         setTags()
@@ -189,15 +192,6 @@ final class DetailMumentCardView: UIView {
     func setDelegate(delegate: DetailMumentCardViewDelegate){
         self.delegate = delegate
     }
-    
-    func replacePrivateLabel() {
-        self.addSubView(privateLabel)
-        
-        privateLabel.snp.updateConstraints {
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
-        }
-    }
 }
 
 // MARK: - UI
@@ -210,7 +204,7 @@ extension DetailMumentCardView {
     }
     
     private func setLayout() {
-        self.addSubviews([writerInfoStackView, menuIconButton, separatorView, songInfoView, tagStackView, tagSubStackView, contentsLabel, createdAtLabel, heartStackView, shareButton])
+        self.addSubviews([writerInfoStackView, menuIconButton, separatorView, songInfoView, tagStackView, tagSubStackView, contentsLabel, createdAtLabel, shareButton, heartStackView])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
