@@ -13,6 +13,8 @@ enum MyPageService {
     case deleteMembership
     case checkDuplicatedNickname(nickname: String)
     case setProfile(data: SetProfileRequestModel)
+    case getBlockedUserList
+    case deleteBlockedUser(userId: Int)
 }
 
 extension MyPageService: TargetType {
@@ -26,6 +28,10 @@ extension MyPageService: TargetType {
             return "/user/profile/check/\(nickname)"
         case .setProfile:
             return "/user/profile"
+        case .getBlockedUserList:
+            return "/user/block"
+        case .deleteBlockedUser(let userId):
+            return "/user/block/\(userId)"
         }
     }
     
@@ -33,9 +39,9 @@ extension MyPageService: TargetType {
         switch self {
         case .postWithdrawalReason:
             return .post
-        case .deleteMembership:
+        case .deleteMembership, .deleteBlockedUser:
             return .delete
-        case.checkDuplicatedNickname:
+        case.checkDuplicatedNickname, .getBlockedUserList:
             return .get
         case .setProfile:
             return .put
@@ -44,7 +50,7 @@ extension MyPageService: TargetType {
     
     var header: HeaderType {
         switch self {
-        case .postWithdrawalReason, .deleteMembership, .checkDuplicatedNickname:
+        case .postWithdrawalReason, .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .deleteBlockedUser:
             return .auth
         case .setProfile:
             return .multiPartWithAuth
@@ -58,9 +64,7 @@ extension MyPageService: TargetType {
                 "leaveCategoryId": body.leaveCategoryId,
                 "reasonEtc": body.reasonEtc
             ])
-        case .deleteMembership, .checkDuplicatedNickname:
-            return .requestPlain
-        case .setProfile:
+        case .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .setProfile, .deleteBlockedUser:
             return .requestPlain
         }
     }
