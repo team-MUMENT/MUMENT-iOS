@@ -134,4 +134,19 @@ class MyPageAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 마이페이지 URL 조회
+    func getMypageURL(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(MyPageService.getMypageURL).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, GetMypageURLResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
