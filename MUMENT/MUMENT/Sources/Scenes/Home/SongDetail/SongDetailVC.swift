@@ -183,7 +183,6 @@ extension SongDetailVC: UITableViewDataSource {
             
             headerCell.historyButton.press {
                 let mumentHistoryVC = MumentHistoryVC()
-                print("히스토리", self.userId)
                 mumentHistoryVC.setHistoryData(userId: self.userId, musicData: self.musicData)
                 self.navigationController?.pushViewController(mumentHistoryVC, animated: true)            }
             return headerCell
