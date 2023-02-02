@@ -37,6 +37,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         }
     }
     var mumentId: Int?
+    private var userId = 0
     private var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     private var dataSource: MumentDetailResponseModel?
     
@@ -76,7 +77,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
             mumentHistoryVC.musicId = self.musicData.id
-            //            mumentHistoryVC.userId = self.dataSource?.user.id
+            mumentHistoryVC.userId = self.userId
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
         }
         
@@ -223,6 +224,7 @@ extension MumentDetailVC {
                     self.dataSource = result
                     self.setData()
                     self.mumentCardView.setData(result, self.musicData, self.mumentId ?? 0)
+                    self.userId = result.user.id
                 }
                 
             default:
