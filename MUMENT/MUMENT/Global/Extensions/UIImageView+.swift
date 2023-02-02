@@ -46,4 +46,20 @@ extension UIImageView {
             }.resume()
         }
     }
+    
+    func resizeWithWidth(width: CGFloat) -> UIImage? {
+        if let currentImage = self.image {
+            let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: width, height: CGFloat(ceil(width/currentImage.size.width * currentImage.size.height)))))
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = currentImage
+            UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, currentImage.scale)
+            guard let context = UIGraphicsGetCurrentContext() else { return nil }
+            imageView.layer.render(in: context)
+            guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+            UIGraphicsEndImageContext()
+            return result
+        } else {
+            return nil
+        }
+    }
 }

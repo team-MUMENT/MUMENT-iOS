@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class SplashVC: UIViewController {
+final class SplashVC: BaseVC {
     
     // MARK: Components
     private let logoImageView = UIImageView().then{
@@ -70,23 +70,14 @@ extension SplashVC {
             switch networkResult {
             case .success(let response):
                 if let res = response as? TokenRenewalResponseModel {
-                    UserInfo.shared.accessToken = res.accessToken
-                    UserInfo.shared.refreshToken = res.refreshToken
-                    
-                    UserDefaultsManager.accessToken = res.accessToken
-                    UserDefaultsManager.refreshToken = res.refreshToken
+                    self.setUserInfo(accessToken: res.accessToken, refreshToken: res.refreshToken, userId: res.id)
                 }
                 self.requestIsProfileSet()
-                
-            case .requestErr(_, let message):
-                if (message as! String == "토큰이 만료되었습니다") {
-                    let signInVC = SignInVC()
-                    signInVC.modalPresentationStyle = .fullScreen
-                    signInVC.modalTransitionStyle = .crossDissolve
-                    self.present(signInVC, animated: true)
-                }
             default:
-                self.makeAlert(title: MessageType.networkError.message)
+                let signInVC = SignInVC()
+                signInVC.modalPresentationStyle = .fullScreen
+                signInVC.modalTransitionStyle = .crossDissolve
+                self.present(signInVC, animated: true)
             }
         }
     }
@@ -102,6 +93,7 @@ extension SplashVC {
                     self.present(tabBarController, animated: true)
                 } else if (status as! Int == 200) {
                     let setProfileVC = SetProfileVC()
+                    setProfileVC.isFirst = true
                     setProfileVC.modalPresentationStyle = .fullScreen
                     setProfileVC.modalTransitionStyle = .crossDissolve
                     self.present(setProfileVC, animated: true)

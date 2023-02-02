@@ -18,13 +18,21 @@ final class SetProfileVC: BaseVC {
         $0.setTitleLabel(title: "프로필 설정")
         $0.doneButton.isEnabled = false
     }
-    private let loadImageButton: UIButton = UIButton(type: .system).then {
-        $0.imageView?.contentMode = .scaleAspectFill
-        $0.setImage(UIImage(named: "mumentProfileCamera"), for: .normal)
+    
+    private let loadImageView: UIImageView = {
+        let imageView: UIImageView = UIImageView(image: UIImage(named: "mumentDarkenCamera"))
+        imageView.isUserInteractionEnabled = false
+        return imageView
+    }()
+    
+    private lazy var loadImageButton: UIButton = UIButton(type: .system).then {
         $0.layer.cornerRadius = 131.adjustedH / 2
         $0.clipsToBounds = true
+        $0.setImage(self.defaultProfileImage, for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFill
     }
     private let nickNameTextField: MumentTextField = MumentTextField().then {
+        $0.text = UserInfo.shared.nickname
         $0.placeholder = "닉네임을 입력해주세요. (필수)"
     }
     private let infoLabel: UILabel = UILabel().then {
@@ -47,6 +55,27 @@ final class SetProfileVC: BaseVC {
         $0.sourceType = .photoLibrary
     }
     private let actionSheetVC = MumentActionSheetVC(actionName: ["라이브러리에서 선택", "프로필 사진 삭제"])
+    private let defaultProfileImage = UIImage(named: "mumentDefaultProfile")
+    private let defaultProfileImageName: [String] = ["mumentProfileLove60", "mumentProfileSleep60", "mumentProfileSmile60"].shuffled()
+    var isFirst: Bool = false
+    var isProfileImageChanged = false {
+        didSet {
+            if self.isFirst {
+                self.naviView.doneButton.isEnabled = self.isNicknameChanged
+            } else {
+                self.naviView.doneButton.isEnabled = self.isProfileImageChanged || self.isNicknameChanged
+            }
+        }
+    }
+    var isNicknameChanged = false {
+        didSet {
+            if self.isFirst {
+                self.naviView.doneButton.isEnabled = self.isNicknameChanged
+            } else {
+                self.naviView.doneButton.isEnabled = self.isProfileImageChanged || self.isNicknameChanged
+            }
+        }
+    }
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -79,14 +108,30 @@ final class SetProfileVC: BaseVC {
             .distinctUntilChanged()
             .subscribe(onNext: { changedText in
                 if changedText.count > 0 {
-                    let regex = "[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9\\s]{0,}"
-                    if NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: changedText) && changedText.trimmingCharacters(in: .whitespaces).count >= 2 {
-                        self.naviView.doneButton.isEnabled = true
-                        self.infoLabel.textColor = .mGray2
+                    if self.isFirst {
+                        let regex = "[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9\\s]{0,}"
+                        if NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: changedText) && changedText.trimmingCharacters(in: .whitespaces).count >= 2 {
+                            self.isNicknameChanged = true
+                            self.infoLabel.textColor = .mGray2
+                        } else {
+                            self.naviView.doneButton.isEnabled = false
+                            self.infoLabel.textColor = .mRed
+                        }
                     } else {
-                        self.naviView.doneButton.isEnabled = false
-                        self.infoLabel.textColor = .mRed
+                        if changedText == UserInfo.shared.nickname {
+                            self.isNicknameChanged = false
+                        } else {
+                            let regex = "[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9\\s]{0,}"
+                            if NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: changedText) && changedText.trimmingCharacters(in: .whitespaces).count >= 2 {
+                                self.isNicknameChanged = true
+                                self.infoLabel.textColor = .mGray2
+                            } else {
+                                self.naviView.doneButton.isEnabled = false
+                                self.infoLabel.textColor = .mRed
+                            }
+                        }
                     }
+
                 } else {
                     self.naviView.doneButton.isEnabled = false
                     self.infoLabel.textColor = .mGray2
@@ -138,7 +183,10 @@ final class SetProfileVC: BaseVC {
                         case 0:
                             self?.openLibrary(presentingVC: self ?? BaseVC())
                         case 1:
-                            self?.loadImageButton.setImage(UIImage(named: "mumentProfileCamera"), for: .normal)
+                            if self?.loadImageButton.imageView?.image != self?.defaultProfileImage {
+                                self?.loadImageButton.setImage(self?.defaultProfileImage, for: .normal)
+                                self?.isProfileImageChanged = true
+                            }
                         default: break
                         }
                     }
@@ -150,13 +198,90 @@ final class SetProfileVC: BaseVC {
     /// 완료 버튼 액션 메서드
     private func setDoneButtonAction() {
         self.naviView.doneButton.press { [weak self] in
-            self?.showToastMessage(message: "중복된 닉네임이 존재합니다.", color: .red)
+            self?.view.endEditing(true)
+            
+            if self?.nickNameTextField.text == UserInfo.shared.nickname {
+                self?.requestSetProfile(nickname: UserInfo.shared.nickname)
+            } else {
+                self?.checkDuplicatedNickname(nickname: self?.nickNameTextField.text ?? "")
+            }
         }
     }
     
     private func setBackButtonAction() {
         self.naviView.backButton.press {
-            self.dismiss(animated: true)
+            if let navigationController = self.navigationController {
+                navigationController.popViewController(animated: true)
+            } else {
+                self.dismiss(animated: true)
+            }
+        }
+    }
+    
+    private func makeProfileImageData() -> Data {
+        if let imageView = self.loadImageButton.imageView {
+            if imageView.image == self.defaultProfileImage {
+                imageView.image = UIImage(named: self.defaultProfileImageName[0])
+                return imageView.resizeWithWidth(width: 500)?.pngData() ?? Data()
+            } else {
+                return imageView.resizeWithWidth(width: 500)?.pngData() ?? Data()
+            }
+        } else {
+            return Data()
+        }
+    }
+}
+
+// MARK: - Network
+extension SetProfileVC {
+    private func checkDuplicatedNickname(nickname: String) {
+        MyPageAPI.shared.checkDuplicatedNickname(nickname: nickname) { networkResult in
+            switch networkResult {
+            case .success(let status):
+                if let result = status as? Int {
+                    switch result {
+                    case 200:
+                        self.showToastMessage(message: "중복된 닉네임이 존재합니다.", color: .red)
+                    case 204:
+                        self.requestSetProfile(nickname: nickname)
+                    default:
+                        self.makeAlert(title: MessageType.networkError.message)
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func requestSetProfile(nickname: String) {
+        let profileData = SetProfileRequestModel(
+            image: self.makeProfileImageData(),
+            nickname: nickname
+        )
+        
+        MyPageAPI.shared.setProfile(data: profileData) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? SetProfileResponseModel {
+                    self.setUserInfo(
+                        accessToken: result.accessToken,
+                        refreshToken: result.refreshToken,
+                        userId: result.id
+                    )
+                    self.setUserProfile(nickname: result.nickname, profileImageURL: result.image)
+                    if let navigationController = self.navigationController {
+                        navigationController.popViewController(animated: true)
+                    } else {
+                        let tabBarController = MumentTabBarController()
+                        tabBarController.modalPresentationStyle = .fullScreen
+                        tabBarController.modalTransitionStyle = .crossDissolve
+                        self.present(tabBarController, animated: true)
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
         }
     }
 }
@@ -164,7 +289,7 @@ final class SetProfileVC: BaseVC {
 // MARK: - UI
 extension SetProfileVC {
     private func setLayout() {
-        self.view.addSubviews([naviView, loadImageButton, nickNameTextField, infoLabel, nickNameCountLabel])
+        self.view.addSubviews([naviView, loadImageButton, loadImageView, nickNameTextField, infoLabel, nickNameCountLabel])
         
         naviView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
@@ -174,6 +299,9 @@ extension SetProfileVC {
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(131.adjustedH)
             $0.top.equalTo(naviView.snp.bottom).offset(79.adjustedH)
+        }
+        loadImageView.snp.makeConstraints {
+            $0.edges.equalTo(self.loadImageButton)
         }
         nickNameTextField.snp.makeConstraints {
             $0.top.equalTo(loadImageButton.snp.bottom).offset(64.adjustedH)
@@ -191,10 +319,12 @@ extension SetProfileVC {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension SetProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             DispatchQueue.main.async {
+                self.isProfileImageChanged = true
                 self.loadImageButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
             }
         }
