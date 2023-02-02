@@ -53,7 +53,7 @@ final class DetailMumentCardView: UIView {
         $0.textColor = .mGray2
         $0.font = .mumentC1R12
     }
-    private lazy var heartStackView: UIStackView = UIStackView(arrangedSubviews: [heartButton, heartLabel]).then {
+    private lazy var heartStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
     }
     private let heartButton: UIButton = UIButton().then {
@@ -85,6 +85,13 @@ final class DetailMumentCardView: UIView {
             heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         }
     }
+    
+    private let privateLabel = UILabel().then {
+        $0.font = .mumentC1R12
+        $0.text = "비밀글"
+        $0.textColor = .mGray1
+    }
+    
     var mumentId: Int = 0
     var userId: String = ""
     
@@ -114,6 +121,20 @@ final class DetailMumentCardView: UIView {
         heartCount = cellData.likeCount
         self.mumentId = mumentId
         songInfoView.setData(musicData)
+        
+        //TODO: isPrivate 작업되면 수정
+        if cellData.isPrivate {
+            heartStackView.addArrangedSubview(privateLabel)
+            heartStackView.snp.updateConstraints {
+                $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            }
+        }else {
+            heartStackView.addArrangedSubviews([heartButton, heartLabel])
+            
+            heartButton.snp.makeConstraints {
+                $0.height.width.equalTo(38)
+            }
+        }
         
         setTags()
     }
@@ -188,7 +209,7 @@ extension DetailMumentCardView {
     }
     
     private func setLayout() {
-        self.addSubviews([writerInfoStackView, menuIconButton, separatorView, songInfoView, tagStackView, tagSubStackView, contentsLabel, createdAtLabel, heartStackView, shareButton])
+        self.addSubviews([writerInfoStackView, menuIconButton, separatorView, songInfoView, tagStackView, tagSubStackView, contentsLabel, createdAtLabel, shareButton, heartStackView])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -243,9 +264,7 @@ extension DetailMumentCardView {
         profileImage.snp.makeConstraints {
             $0.height.width.equalTo(25)
         }
-        heartButton.snp.makeConstraints {
-            $0.height.width.equalTo(38)
-        }
+      
     }
 }
 

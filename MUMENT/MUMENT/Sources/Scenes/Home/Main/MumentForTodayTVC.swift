@@ -25,7 +25,7 @@ class MumentForTodayTVC: UITableViewCell {
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        fetchData()
+//        fetchData()
         setLayout()
         self.backgroundColor = .mBgwhite
     }
@@ -41,7 +41,7 @@ extension MumentForTodayTVC {
     
     private func setLayout() {
         self.addSubviews([titleLabel, mumentCardView])
-        selectionStyle = .none
+        selectionStyle = .none 
         
         titleLabel.snp.makeConstraints{
             $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(20)
@@ -55,11 +55,11 @@ extension MumentForTodayTVC {
 }
 
 extension MumentForTodayTVC {
-    private func fetchData() {
-        mumentCardView.setData(dataSource[0])
-    }
+//    private func fetchData() {
+//        mumentCardView.setData(dataSource[0])
+//    }
     
     func setData(_ cellData: MumentForTodayResponseModel) {
-        mumentCardView.setData(cellData)
+        mumentCardView.setMumentForTodayData(cellData)
     }
 }
