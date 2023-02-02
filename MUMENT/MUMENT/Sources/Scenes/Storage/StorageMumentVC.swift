@@ -336,7 +336,6 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 
                 emptyView.isHidden = false
                 emptyView.writeButton.press {
-                    print("setPress")
                     let writeVC = WriteVC(isEdit: false)
                     self.present(writeVC, animated: true)
                 }
@@ -485,7 +484,6 @@ extension StorageMumentVC {
         self.storageMumentData = data.map {
             StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, allCardTag: $0.allCardTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: $0.likeCount)
         }
-        print("likeMument",self.storageMumentData)
     }
     
     private func getMyMumentStorage(filterTags: [Int]) {

@@ -9,8 +9,6 @@ import Foundation
 import Alamofire
 
 enum StorageService {
-    //  case getIsFirst(userId: String, musicId: String)
-    //  case postMument(userId: String, musicId: String, data: PostMumentBodyModel)
     case getMyMumentStorage(filterTags: [Int])
     case getLikedMumentStorage(filterTags:[Int])
     
@@ -19,10 +17,10 @@ enum StorageService {
 extension StorageService: TargetType {
     var path: String {
         switch self {
-        case .getMyMumentStorage(filterTags: _):
+        case .getMyMumentStorage:
             return "/user/my/list"
             
-        case .getLikedMumentStorage(filterTags: _):
+        case .getLikedMumentStorage:
             return "/user/like/list"
         }
     }
@@ -37,20 +35,11 @@ extension StorageService: TargetType {
     }
     
     var header: HeaderType {
-        switch self {
-        case .getMyMumentStorage:
-            return .auth
-        case .getLikedMumentStorage:
-            return .auth
-        }
+        return .auth
     }
     
     var parameters: RequestParams {
         switch self {
-            //    case .getIsFirst:
-            //      return .requestPlain
-            //    case .postMument(_, _, let data):
-            //      return .requestBody(["isFirst": data.isFirst, "impressionTag": data.impressionTag, "feelingTag": data.feelingTag, "content": data.content, "isPrivate": data.isPrivate])
         case .getMyMumentStorage(let filterTags):
             if filterTags.count == 0 {
                 return .requestPlain
