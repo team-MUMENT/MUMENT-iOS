@@ -26,8 +26,19 @@ final class SetBlockedUserVC: BaseVC {
         $0.allowsSelection = false
     }
     
+    private let emptyLabel: UILabel = UILabel().then {
+        $0.text = "차단한 유저가 없어요."
+        $0.font = .mumentH3B16
+        $0.textColor = .mGray1
+        $0.sizeToFit()
+    }
+    
     // MARK: Properties
-    private var blockedUserList: GetBlockedUserListResponseModel = []
+    private var blockedUserList: GetBlockedUserListResponseModel = [] {
+        didSet {
+            self.emptyLabel.isHidden = !self.blockedUserList.isEmpty
+        }
+    }
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -111,7 +122,7 @@ extension SetBlockedUserVC {
 // MARK: - UI
 extension SetBlockedUserVC {
     private func setLayout() {
-        self.view.addSubviews([naviView, tableView])
+        self.view.addSubviews([naviView, tableView, emptyLabel])
         
         self.naviView.snp.makeConstraints { make in
             make.top.left.right.equalTo(self.view.safeAreaLayoutGuide)
@@ -121,6 +132,10 @@ extension SetBlockedUserVC {
         self.tableView.snp.makeConstraints { make in
             make.top.equalTo(self.naviView.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
+        }
+        
+        self.emptyLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
 }
