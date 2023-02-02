@@ -35,6 +35,7 @@ class MumentAlertWithButtons: BaseVC{
         $0.font = .mumentB8M12
         $0.textColor = .mBlack2
         $0.textAlignment = .center
+        $0.numberOfLines = 0
     }
     
     private let buttonStackView = UIStackView().then {
@@ -105,6 +106,7 @@ class MumentAlertWithButtons: BaseVC{
     func setTitleSubTitle(title: String, subTitle: String) {
         titleLabel.text = title
         subTitleLabel.text = subTitle
+        subTitleLabel.sizeToFit()
     }
     
     func setPresentation() {
@@ -162,9 +164,9 @@ extension MumentAlertWithButtons {
         contentStackView.addArrangedSubviews([titleLabel, subTitleLabel])
         
         contentStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset((alertHeight ?? 0) * 0.25)
+            $0.top.equalToSuperview().inset((alertHeight ?? 0) * 0.1)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo((alertHeight ?? 0) * 0.25)
+            $0.height.equalTo((alertHeight ?? 0) * 0.5)
         }
     }
     
