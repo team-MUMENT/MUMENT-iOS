@@ -53,7 +53,7 @@ final class DetailMumentCardView: UIView {
         $0.textColor = .mGray2
         $0.font = .mumentC1R12
     }
-    private lazy var heartStackView: UIStackView = UIStackView(arrangedSubviews: [heartButton, heartLabel]).then {
+    private lazy var heartStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
     }
     private let heartButton: UIButton = UIButton().then {
@@ -123,13 +123,19 @@ final class DetailMumentCardView: UIView {
         songInfoView.setData(musicData)
         
         //TODO: isPrivate 작업되면 수정
-//        if cellData.isPrivate {
-//            heartStackView.removeAllArrangedSubviews()
-//            heartStackView.addArrangedSubview(privateLabel)
-//            heartStackView.snp.updateConstraints {
-//                $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-//            }
-//        }
+        let isPrivate = true
+        if isPrivate {
+            heartStackView.addArrangedSubview(privateLabel)
+            heartStackView.snp.updateConstraints {
+                $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            }
+        }else {
+            heartStackView.addArrangedSubviews([heartButton, heartLabel])
+            
+            heartButton.snp.makeConstraints {
+                $0.height.width.equalTo(38)
+            }
+        }
         
         setTags()
     }
@@ -259,9 +265,7 @@ extension DetailMumentCardView {
         profileImage.snp.makeConstraints {
             $0.height.width.equalTo(25)
         }
-        heartButton.snp.makeConstraints {
-            $0.height.width.equalTo(38)
-        }
+      
     }
 }
 
