@@ -11,7 +11,6 @@ import Alamofire
 enum StorageService {
     case getMyMumentStorage(filterTags: [Int])
     case getLikedMumentStorage(filterTags:[Int])
-    
 }
 
 extension StorageService: TargetType {

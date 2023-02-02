@@ -38,7 +38,7 @@ struct Music: Codable {
   let id: String
   let name: String
   let artist: String
-  let image: String?
+  let image: String
 
 
     enum CodingKeys: String, CodingKey {

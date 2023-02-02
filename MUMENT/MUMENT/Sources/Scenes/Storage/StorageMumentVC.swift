@@ -362,8 +362,14 @@ extension StorageMumentVC: UICollectionViewDelegate {
             selectedTagsCV.reloadData()
             storageMumentCV.reloadData()
         case storageMumentCV:
+            let mumentData = storageMumentData[indexPath.row]
+            let mumentID = mumentData.id
+            let musicData = MusicDTO(id: mumentData.music.id,
+                                 title: mumentData.music.name,
+                                 artist: mumentData.music.artist,
+                                 albumUrl: mumentData.music.image)
             let mumentDetailVC = MumentDetailVC()
-            mumentDetailVC.mumentId = storageMumentData[indexPath.row].id
+            mumentDetailVC.setData(mumentId: mumentID, musicData: musicData)
             self.navigationController?.pushViewController(mumentDetailVC, animated: true)
         default: break
         }

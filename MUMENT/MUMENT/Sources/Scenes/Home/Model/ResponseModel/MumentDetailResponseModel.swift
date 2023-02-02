@@ -14,7 +14,6 @@ struct MumentDetailResponseModel: Codable {
     let impressionTag: [Int]
     let isLiked: Bool
     let count: Int
-//    let music: Music
     let likeCount: Int
     let createdAt: String
     let feelingTag: [Int]
@@ -27,28 +26,12 @@ struct MumentDetailResponseModel: Codable {
         case impressionTag
         case isLiked
         case count
-//        case music = "music"
         case likeCount
         case createdAt
         case feelingTag
         case user
 //        case isPrivate = "isPrivate"
     }
-    
-    // MARK: - Music
-//    struct Music: Codable {
-//        let id: String
-//        let name: String
-//        let image: String?
-//        let artist: String
-//
-//        enum CodingKeys: String, CodingKey {
-//            case id = "_id"
-//            case name = "name"
-//            case image = "image"
-//            case artist = "artist"
-//        }
-//    }
 
     // MARK: - User
     struct User: Codable {
