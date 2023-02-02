@@ -104,4 +104,19 @@ class MyPageAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 공지사항 리스트 조회
+    func getNoticeList(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(MyPageService.getNoticeList).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, GetNoticeListResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
