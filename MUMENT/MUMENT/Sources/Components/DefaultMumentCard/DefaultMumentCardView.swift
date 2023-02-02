@@ -48,7 +48,6 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setLayout()
         setButtonActions()
         self.backgroundColor = .mBgwhite
     }
@@ -85,9 +84,9 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         
         /// 다른 사람의 비밀글이 나한테 보여질 경우는 없으니 비밀글 이면 다 heartButton 제거
         if cellData.isPrivate {
-            self.heartButton.removeFromSuperview()
-            replacePrivateLabel()
+            setPrivateLabel()
         }else {
+            setHeartButton()
             isLiked = cellData.isLiked
             heartCount = cellData.likeCount
         }
@@ -96,21 +95,19 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
 
 // MARK: - UI
 extension DefaultMumentCardView {
-    func setLayout() {
+    func setHeartButton() {
         self.addSubview(heartButton)
-        
-        heartButton.snp.makeConstraints {
+        heartButton.snp.updateConstraints {
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
         }
     }
     
-    func replacePrivateLabel() {
+    func setPrivateLabel() {
         self.addSubView(privateLabel)
-        
         privateLabel.snp.updateConstraints {
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(15)
         }
     }
 }
