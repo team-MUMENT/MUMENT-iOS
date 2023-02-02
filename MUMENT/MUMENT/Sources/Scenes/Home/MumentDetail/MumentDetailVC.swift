@@ -58,7 +58,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     func setData(){
         DispatchQueue.main.async {
             self.navigationBarView.setTitle("뮤멘트")
-            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")), self.musicData, self.mumentId ?? 0)
+            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: ""), isPrivate: false), self.musicData, self.mumentId ?? 0)
             self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
         }
     }
@@ -100,7 +100,8 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                             likeCount: 0,
                             createdAt: "",
                             feelingTag: [],
-                            user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: "")
+                            user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: ""),
+                            isPrivate: false
                         ),
                         detailSongData: self.musicData)
                     self.present(editVC, animated: true)

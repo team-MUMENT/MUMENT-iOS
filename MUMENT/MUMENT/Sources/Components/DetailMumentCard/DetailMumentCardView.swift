@@ -122,8 +122,7 @@ final class DetailMumentCardView: UIView {
         songInfoView.setData(musicData)
         
         //TODO: isPrivate 작업되면 수정
-        let isPrivate = true
-        if isPrivate {
+        if cellData.isPrivate {
             heartStackView.addArrangedSubview(privateLabel)
             heartStackView.snp.updateConstraints {
                 $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
