@@ -76,8 +76,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         
         historyButton.press{
             let mumentHistoryVC = MumentHistoryVC()
-            mumentHistoryVC.musicId = self.musicData.id
-            mumentHistoryVC.userId = self.userId
+            mumentHistoryVC.setHistoryData(userId: self.userId, musicData: self.musicData)
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
         }
         
