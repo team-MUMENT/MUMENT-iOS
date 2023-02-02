@@ -19,6 +19,12 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         $0.configuration = configuration
     }
     
+    private let privateLabel = UILabel().then {
+        $0.font = .mumentC1R12
+        $0.text = "비밀글"
+        $0.textColor = .mGray1
+    }
+    
     let attributes: [NSAttributedString.Key: Any] = [
         .font: UIFont.mumentC1R12,
         .foregroundColor: UIColor.mGray1
@@ -38,7 +44,7 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
     
     var mumentId: Int = 0
     var userId: String = ""
-    
+
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -52,23 +58,6 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: DefaultMumentCardModel){
-        profileImage.image = cellData.profileImage
-        writerNameLabel.text = cellData.writerName
-        albumImage.image = cellData.albumImage
-        isFirst = cellData.isFirst
-        impressionTags = cellData.impressionTags
-        feelingTags = cellData.feelingTags
-        songTitleLabel.text = cellData.songTitle
-        artistLabel.text = cellData.artistName
-        contentsLabel.text = cellData.contents.replaceNewLineKeyword()
-        createdAtLabel.text = cellData.createdAt
-        heartButton.setImage(cellData.heartImage, for: .normal)
-        isLiked = cellData.isLiked
-        heartCount = cellData.heartCount
-        setTags()
-    }
-    
     func setButtonActions(){
         heartButton.press {
             let previousState = self.isLiked
@@ -85,27 +74,23 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
     func setDefaultData(_ cellData: StorageMumentModel){
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.user.name
-        albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        albumImage.setImageUrl(cellData.music.image)
         isFirst = cellData.isFirst
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
-        isLiked = cellData.isLiked
-//        mumentId = cellData.id
-        heartCount = cellData.likeCount
+        mumentId = cellData.id
         setCardTags(cellData.cardTag)
         
-        /// allCardTag 분기처림
-       cellData.allCardTag.forEach {
-           if $0 <= 100 {
-               impressionTags = []
-               impressionTags.append($0)
-           }else {
-               feelingTags = []
-               feelingTags.append($0)
-           }
-       }
+        /// 다른 사람의 비밀글이 나한테 보여질 경우는 없으니 비밀글 이면 다 heartButton 제거
+        if cellData.isPrivate {
+            self.heartButton.removeFromSuperview()
+            replacePrivateLabel()
+        }else {
+            isLiked = cellData.isLiked
+            heartCount = cellData.likeCount
+        }
     }
 }
 
@@ -118,7 +103,15 @@ extension DefaultMumentCardView {
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
         }
+    }
+    
+    func replacePrivateLabel() {
+        self.addSubView(privateLabel)
         
+        privateLabel.snp.updateConstraints {
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
+        }
     }
 }
 

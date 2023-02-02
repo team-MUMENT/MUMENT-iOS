@@ -7,12 +7,10 @@
 
 import UIKit
 
-class ListCVC: UICollectionViewCell {
+final class ListCVC: UICollectionViewCell {
     
     // MARK: - Properties
-    var defaultData: [DefaultMumentCardModel] = DefaultMumentCardModel.sampleData
-
-    var withoutHeartData: [MumentCardWithoutHeartModel] = MumentCardWithoutHeartModel.sampleData
+   var withoutHeartData: [MumentCardWithoutHeartModel] = MumentCardWithoutHeartModel.sampleData
     
     private let defaultCardView = DefaultMumentCardView()
     private let withoutHeartCardView = MumentCardWithoutHeartView()
@@ -36,7 +34,6 @@ class ListCVC: UICollectionViewCell {
     }
     
     func setDefaultCardData(_ cellData: StorageMumentModel) {
-//        defaultCardView.setData(defaultData[0])
         defaultCardView.setDefaultData(cellData)
     }
     
