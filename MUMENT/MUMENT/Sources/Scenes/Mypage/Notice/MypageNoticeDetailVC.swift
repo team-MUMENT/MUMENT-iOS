@@ -29,10 +29,10 @@ final class MypageNoticeDetailVC: BaseVC {
     
     // MARK: Properties
     private var noticeData: GetNoticeResponseModel = GetNoticeResponseModel(title: "게시물 이름 1", createdAt: "2022.10.18", content: String(repeating: "https://www.github.com ", count: 200))
-    private var noticeId: String = ""
+    private var noticeId: Int = 0
     
     // MARK: Initialization
-    init(noticeId: String) {
+    init(noticeId: Int) {
         super.init(nibName: nil, bundle: nil)
         
         self.noticeId = noticeId
@@ -65,7 +65,7 @@ final class MypageNoticeDetailVC: BaseVC {
     }
     
     private func setTitleView() {
-        self.titleView.setData(data: GetNoticeListResponseModelElement(id: self.noticeId, title: self.noticeData.title, createdAt: self.noticeData.createdAt))
+        self.titleView.setData(data: GetNoticeListResponseModelElement(id: self.noticeId, title: self.noticeData.title, content: self.noticeData.content, createdAt: self.noticeData.createdAt))
     }
     
     private func setContent() {
