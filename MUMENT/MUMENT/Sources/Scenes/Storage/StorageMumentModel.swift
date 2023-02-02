@@ -8,43 +8,44 @@
 import Foundation
 
 struct StorageMumentModel {
-    let id: String
+    let id: Int
     let user: User
     let music: Music
     let isFirst: Bool
-    let impressionTag, feelingTag, cardTag: [Int]
+    let allCardTag,cardTag: [Int]
     let content: String?
     let isPrivate, isLiked: Bool
     let createdAt: String
     let year, month: Int
-    let likeCount: Int?
-    
+    let likeCount: Int
+}
+
+// MARK: - User
+struct User: Codable {
+  let id: Int
+  let image: String?
+  let name: String
+
+  enum CodingKeys: String, CodingKey {
+    case id = "_id"
+    case image = "image"
+    case name = "name"
+  }
 }
 
 // MARK: - Music
 struct Music: Codable {
   let id: String
   let name: String
-  let image: String?
   let artist: String
-
-  enum CodingKeys: String, CodingKey {
-    case id = "_id"
-    case name = "name"
-    case image = "image"
-    case artist = "artist"
-  }
-}
-
-// MARK: - User
-struct User: Codable {
-  let id: String
   let image: String?
-  let name: String
 
-  enum CodingKeys: String, CodingKey {
-    case id = "_id"
-    case image = "image"
-    case name = "name"
+
+    enum CodingKeys: String, CodingKey {
+      case id = "_id"
+      case name = "name"
+      case artist = "artist"
+      case image = "image"
   }
 }
+

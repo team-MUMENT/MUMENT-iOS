@@ -107,7 +107,6 @@ class MumentCardWithoutHeartView: UIView {
     }
     
     func setWithoutHeartData(_ cellData: StorageMumentModel){
-        debugPrint("setdata")
         profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?v=4")
         writerNameLabel.text = cellData.user.name
         albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
