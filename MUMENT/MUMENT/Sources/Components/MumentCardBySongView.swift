@@ -99,8 +99,6 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.date
-        isLiked = cellData.isLiked
-        heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
@@ -124,11 +122,21 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.date
-        isLiked = cellData.isLiked
-        heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
+        
+        /// isPrivate = true 일때 HeartButton hidden
+        if cellData.isPrivate {
+            heartButton.isHidden = true
+            privateLabel.isHidden = false
+        }else {
+            privateLabel.isHidden = true
+            heartButton.isHidden = false
+            isLiked = cellData.isLiked
+            heartCount = cellData.likeCount
+        }
+        
         setTags()
     }
     
@@ -137,11 +145,21 @@ class MumentCardBySongView: UIView {
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.date
-        isLiked = cellData.isLiked
-        heartCount = cellData.likeCount
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
+        
+        /// isPrivate = true 일때 HeartButton hidden
+        if cellData.isPrivate {
+            heartButton.isHidden = true
+            privateLabel.isHidden = false
+        }else {
+            privateLabel.isHidden = true
+            heartButton.isHidden = false
+            isLiked = cellData.isLiked
+            heartCount = cellData.likeCount
+        }
+        
         setTags()
     }
     
