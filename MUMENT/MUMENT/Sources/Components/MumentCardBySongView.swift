@@ -66,6 +66,12 @@ class MumentCardBySongView: UIView {
         $0.font = .mumentC1R12
     }
     
+    private let privateLabel = UILabel().then {
+        $0.font = .mumentC1R12
+        $0.text = "비밀글"
+        $0.textColor = .mGray1
+    }
+    
     var isLiked: Bool = false{
         didSet{
             heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
@@ -98,6 +104,18 @@ class MumentCardBySongView: UIView {
         isFirst = cellData.isFirst
         cardTags = cellData.cardTag
         mumentId = cellData.id
+        
+        /// isPrivate = true 일때 HeartButton hidden
+        if cellData.isPrivate {
+            heartButton.isHidden = true
+            privateLabel.isHidden = false
+        }else {
+            privateLabel.isHidden = true
+            heartButton.isHidden = false
+            isLiked = cellData.isLiked
+            heartCount = cellData.likeCount
+        }
+        
         setTags()
     }
     
@@ -169,7 +187,7 @@ extension MumentCardBySongView {
     }
     
     func setLayout() {
-        self.addSubviews([writerInfoStackView,heartButton,separatorView,tagStackView,contentsLabel,createdAtLabel])
+        self.addSubviews([writerInfoStackView,heartButton,separatorView,tagStackView,contentsLabel,createdAtLabel, privateLabel])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -179,6 +197,11 @@ extension MumentCardBySongView {
         heartButton.snp.makeConstraints {
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
+        }
+        
+        privateLabel.snp.updateConstraints {
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(15)
         }
         
         separatorView.snp.makeConstraints{
