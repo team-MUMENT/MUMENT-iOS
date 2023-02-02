@@ -140,11 +140,6 @@ final class MembershipWithdrawalVC: BaseVC {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        showTabbar()
-    }
-    
     // MARK: - Functions
     private func setButtonActions() {
         
@@ -314,11 +309,8 @@ extension MembershipWithdrawalVC {
     private func requestPostWithdrawalReason(data: WithdrawalReasonBodyModel) {
         MyPageAPI.shared.postWithdrawalReason(body: data) { networkResult in
             switch networkResult {
-            case .success(let response):
-                if let res = response as? WithdrawalReasonResponseModel {
-                    print("REASON RES", res)
-                    self.requestPostWithdrawalReason()
-                }
+            case .success:
+                self.requestPostWithdrawalReason()
             default:
                 self.makeAlert(title: MessageType.networkError.message)
             }
@@ -328,11 +320,12 @@ extension MembershipWithdrawalVC {
     private func requestPostWithdrawalReason() {
         MyPageAPI.shared.deleteMembership() { networkResult in
             switch networkResult {
-            case .success(let response):
-                if let res = response as? WithdrawalResponseModel {
-                    print("WITHDRAWAL RES", res)
-                    self.navigationController?.pushViewController(SignInVC(), animated: true)
-                }
+            case .success:
+                self.removeUserInfo()
+                let onboardingVC = OnboardingVC()
+                onboardingVC.modalPresentationStyle = .fullScreen
+                onboardingVC.modalTransitionStyle = .crossDissolve
+                self.present(onboardingVC, animated: true)
             default:
                 self.makeAlert(title: MessageType.networkError.message)
             }

@@ -67,6 +67,33 @@ extension BaseVC {
         
         self.present(safariVC, animated: true)
     }
+    
+    func setUserInfo(
+        accessToken: String?,
+        refreshToken: String?,
+        userId: Int?
+    ) {
+        UserInfo.shared.accessToken = accessToken
+        UserInfo.shared.refreshToken = refreshToken
+        UserInfo.shared.userId = userId
+        
+        UserDefaultsManager.accessToken = accessToken
+        UserDefaultsManager.refreshToken = refreshToken
+        UserDefaultsManager.userId = userId
+    }
+    
+    func setUserProfile(nickname: String, profileImageURL: String) {
+        UserInfo.shared.nickname = nickname
+        UserInfo.shared.profileImageURL = profileImageURL
+    }
+    
+    func removeUserInfo() {
+        UserDefaultsManager.accessToken = nil
+        UserDefaultsManager.refreshToken = nil
+        UserDefaultsManager.userId = nil
+        UserDefaultsManager.fcmToken = nil
+        UserInfo.shared = UserInfo.init()
+    }
 }
 
 // MARK: - Custom Methods(화면전환)

@@ -12,7 +12,9 @@ import Then
 final class MypageMainProfileTVC: UITableViewCell {
     
     // MARK: Components
-    private let profileImageView: UIImageView = UIImageView()
+    private let profileImageView: UIImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+    }
     private let profileStackView: UIStackView = UIStackView().then {
         $0.axis = .vertical
         $0.spacing = 8
@@ -92,5 +94,9 @@ extension MypageMainProfileTVC {
     
     private func setLayout() {
         self.backgroundColor = .mBgwhite
+        DispatchQueue.main.async {
+            self.profileImageView.layer.masksToBounds = true
+            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height / 2
+        }
     }
 }

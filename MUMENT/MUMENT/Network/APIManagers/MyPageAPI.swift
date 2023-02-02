@@ -43,4 +43,36 @@ class MyPageAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 닉네임 중복 체크
+    func checkDuplicatedNickname(nickname: String, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(MyPageService.checkDuplicatedNickname(nickname: nickname)).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                let networkResult = self.judgeStatus(by: statusCode)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    /// [PUT] 프로필 설정
+    func setProfile(data: SetProfileRequestModel, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.upload(
+            multipartFormData: MyPageService.setProfile(data: data).multipart,
+            with: MyPageService.setProfile(data: data)
+        ).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, SetProfileResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

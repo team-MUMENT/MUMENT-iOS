@@ -103,6 +103,7 @@ final class MypageMainVC: BaseVC {
         super.viewWillAppear(animated)
         
         self.hideTabbar()
+        self.tableView.reloadData()
     }
     
     // MARK: Methods
@@ -149,7 +150,8 @@ extension MypageMainVC: UITableViewDataSource {
             switch tableSection {
             case .profile:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainProfileTVC.className) as? MypageMainProfileTVC else { return UITableViewCell() }
-                cell.setNickname(text: "blueingreen")
+                cell.setNickname(text: UserInfo.shared.nickname)
+                cell.setProfileImage(imageURL: UserInfo.shared.profileImageURL)
                 return cell
             case .footer:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainFooterTVC.className) as? MypageMainFooterTVC else { return UITableViewCell() }
@@ -157,20 +159,22 @@ extension MypageMainVC: UITableViewDataSource {
                 
                 cell.setSignOutAction { [weak self] in
                     let mumentAlert =  MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "로그아웃")
-//                    mumentAlert.setOKButtonTitle(title: "")
                     mumentAlert.setTitle(title: "로그아웃하시겠어요?")
                     self?.present(mumentAlert, animated: true)
                     mumentAlert.OKButton.press { [weak self] in
-                        
+                        self?.removeUserInfo()
                         self?.dismiss(animated: true)
-                        UserDefaultsManager.refreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsInByb2ZpbGVJZCI6Iu2GoO2BsCDrp4zro4wg7YWM7Iqk7Yq4ISIsImltYWdlIjpudWxsLCJpYXQiOjE2NzM3MjE3ODQsImV4cCI6MTY3MzkwNTc4NCwiaXNzIjoiTXVtZW50In0.qthgxZav45JckbvFc9mw4LqtVhvP5MC2vTZ6Qu3qIIg"
-                        self?.navigationController?.pushViewController(SignInVC(), animated: true)
+                        
+                        let onboardingVC = OnboardingVC()
+                        onboardingVC.modalPresentationStyle = .fullScreen
+                        onboardingVC.modalTransitionStyle = .crossDissolve
+                        self?.present(onboardingVC, animated: true)
                     }
                 }
                 
                 cell.setWithDrawAction { [weak self] in
                     let membershipWithdrawalVC = MembershipWithdrawalVC()
-                    membershipWithdrawalVC.setUserName("blueingreen")
+                    membershipWithdrawalVC.setUserName(UserInfo.shared.nickname)
                     self?.navigationController?.pushViewController(membershipWithdrawalVC, animated: true)
                 }
                 

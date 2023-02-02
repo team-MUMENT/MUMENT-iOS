@@ -150,6 +150,9 @@
 		C766F9CA2935ED7F00E08D5C /* MypageMainProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C92935ED7F00E08D5C /* MypageMainProfileTVC.swift */; };
 		C767507F29407D8300F2D985 /* SetBlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */; };
 		C767508229407F3100F2D985 /* BlockedUserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767508129407F3100F2D985 /* BlockedUserTVC.swift */; };
+		C77BB89C298AAC0700C69E72 /* SetProfileRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77BB89B298AAC0700C69E72 /* SetProfileRequestModel.swift */; };
+		C77BB8A1298AC4A000C69E72 /* SetProfileResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77BB8A0298AC4A000C69E72 /* SetProfileResponseModel.swift */; };
+		C77BB8A3298AF08B00C69E72 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77BB8A2298AF08B00C69E72 /* UIImage+.swift */; };
 		C78B10A029408892002D2E54 /* GetBlockedUserListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78B109F29408892002D2E54 /* GetBlockedUserListResponseModel.swift */; };
 		C79CD44F2921BD4500DE4A47 /* SetProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */; };
 		C79CD4512921BF7200DE4A47 /* MumentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CD4502921BF7200DE4A47 /* MumentTextField.swift */; };
@@ -381,6 +384,9 @@
 		C766F9C92935ED7F00E08D5C /* MypageMainProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainProfileTVC.swift; sourceTree = "<group>"; };
 		C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBlockedUserVC.swift; sourceTree = "<group>"; };
 		C767508129407F3100F2D985 /* BlockedUserTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserTVC.swift; sourceTree = "<group>"; };
+		C77BB89B298AAC0700C69E72 /* SetProfileRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileRequestModel.swift; sourceTree = "<group>"; };
+		C77BB8A0298AC4A000C69E72 /* SetProfileResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileResponseModel.swift; sourceTree = "<group>"; };
+		C77BB8A2298AF08B00C69E72 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		C78B109F29408892002D2E54 /* GetBlockedUserListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockedUserListResponseModel.swift; sourceTree = "<group>"; };
 		C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileVC.swift; sourceTree = "<group>"; };
 		C79CD4502921BF7200DE4A47 /* MumentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentTextField.swift; sourceTree = "<group>"; };
@@ -832,6 +838,7 @@
 				C71B480C2885EB84001A7CD6 /* Notification+Name+.swift */,
 				C71B48192886F5FF001A7CD6 /* Int+.swift */,
 				E781F234288AF55400484C28 /* Sequence+.swift */,
+				C77BB8A2298AF08B00C69E72 /* UIImage+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -913,6 +920,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		C77BB89D298AC0F500C69E72 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C77BB89B298AAC0700C69E72 /* SetProfileRequestModel.swift */,
+				C77BB8A0298AC4A000C69E72 /* SetProfileResponseModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C78B109E29408882002D2E54 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -938,6 +954,7 @@
 		C79CD44D2921AB6200DE4A47 /* SetProfile */ = {
 			isa = PBXGroup;
 			children = (
+				C77BB89D298AC0F500C69E72 /* Model */,
 				C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */,
 			);
 			path = SetProfile;
@@ -1285,6 +1302,7 @@
 				4D5A2826292B64700001F8F9 /* MembershipWithdrawalVC.swift in Sources */,
 				4DE0FAD729811DD6008F01E5 /* MyPageAPI.swift in Sources */,
 				C71B481A2886F5FF001A7CD6 /* Int+.swift in Sources */,
+				C77BB89C298AAC0700C69E72 /* SetProfileRequestModel.swift in Sources */,
 				C766F9CA2935ED7F00E08D5C /* MypageMainProfileTVC.swift in Sources */,
 				4D9734EF287EC748003EF546 /* MumentsOfRevisitedModel.swift in Sources */,
 				C71B480B2885D6B3001A7CD6 /* WriteMusicView.swift in Sources */,
@@ -1442,6 +1460,7 @@
 				4D1F1450291153AD0093D641 /* OnboardingCVC.swift in Sources */,
 				C71B48052885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift in Sources */,
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
+				C77BB8A1298AC4A000C69E72 /* SetProfileResponseModel.swift in Sources */,
 				4D9734F3287F3A41003EF546 /* Preview.swift in Sources */,
 				4D13A6742888735800197D2A /* MumentDetailResponseModel.swift in Sources */,
 				C73CBCFC291549ED009E9A40 /* ToastMessageColorType.swift in Sources */,
@@ -1464,6 +1483,7 @@
 				4D41D584288987E6000E1296 /* MumentForTodayResponseModel.swift in Sources */,
 				C73FC9CA287C19E60017F2DA /* AuthService.swift in Sources */,
 				E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */,
+				C77BB8A3298AF08B00C69E72 /* UIImage+.swift in Sources */,
 				4D300667288B0C8C007FF4DB /* LikeService.swift in Sources */,
 				4D76046828814A8A0044F2A6 /* MyMumentSectionHeader.swift in Sources */,
 			);
