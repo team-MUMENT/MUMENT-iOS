@@ -85,6 +85,13 @@ final class DetailMumentCardView: UIView {
             heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         }
     }
+    
+    private let privateLabel = UILabel().then {
+        $0.font = .mumentC1R12
+        $0.text = "비밀글"
+        $0.textColor = .mGray1
+    }
+    
     var mumentId: Int = 0
     var userId: String = ""
     
@@ -114,6 +121,12 @@ final class DetailMumentCardView: UIView {
         heartCount = cellData.likeCount
         self.mumentId = mumentId
         songInfoView.setData(musicData)
+        
+        //TODO: isPrivate 작업되면 수정
+//        if cellData.isPrivate {
+//            heartStackView.removeFromSuperview()
+//            replacePrivateLabel()
+//        }
         
         setTags()
     }
@@ -175,6 +188,15 @@ final class DetailMumentCardView: UIView {
     
     func setDelegate(delegate: DetailMumentCardViewDelegate){
         self.delegate = delegate
+    }
+    
+    func replacePrivateLabel() {
+        self.addSubView(privateLabel)
+        
+        privateLabel.snp.updateConstraints {
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
+        }
     }
 }
 

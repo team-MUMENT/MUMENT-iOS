@@ -7,10 +7,8 @@
 
 import UIKit
 
-class AlbumCVC: UICollectionViewCell {
+final class AlbumCVC: UICollectionViewCell {
     // MARK: - Properties
-    var dataSource: [DefaultMumentCardModel] = DefaultMumentCardModel.sampleData
-
     let mumentAlbumView = UIImageView()
     
     private let defaultCardView = DefaultMumentCardView()
@@ -63,7 +61,6 @@ class AlbumCVC: UICollectionViewCell {
     }
 
     func setDefaultCardData(_ cellData: StorageMumentModel) {
-    //        defaultCardView.setData(defaultData[0])
         defaultCardView.setDefaultData(cellData)
     }
 }

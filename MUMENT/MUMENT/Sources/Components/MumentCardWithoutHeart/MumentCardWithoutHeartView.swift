@@ -77,22 +77,21 @@ class MumentCardWithoutHeartView: UIView {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentCardWithoutHeartModel){
-        profileImage.image = cellData.profileImage
-        writerNameLabel.text = cellData.writerName
-        albumImage.image = cellData.albumImage
-        songTitleLabel.text = cellData.songTitle
-        artistLabel.text = cellData.artistName
-        contentsLabel.text = cellData.contentsLabel
-        createdAtLabel.text = cellData.createdAtLabel
-        isFirst = cellData.isFirst
-        impressionTags = cellData.impressionTags
-        feelingTags = cellData.feelingTags
-        setTags()
-        
-    }
+//    func setData(_ cellData: MumentCardWithoutHeartModel){
+//        profileImage.image = cellData.profileImage
+//        writerNameLabel.text = cellData.writerName
+//        albumImage.image = cellData.albumImage
+//        songTitleLabel.text = cellData.songTitle
+//        artistLabel.text = cellData.artistName
+//        contentsLabel.text = cellData.contentsLabel
+//        createdAtLabel.text = cellData.createdAtLabel
+//        isFirst = cellData.isFirst
+//        impressionTags = cellData.impressionTags
+//        feelingTags = cellData.feelingTags
+////        setTags()
+//    }
     
-    func setData(_ cellData: MumentForTodayResponseModel){
+    func setMumentForTodayData(_ cellData: MumentForTodayResponseModel){
         profileImage.setImageUrl(cellData.todayMument.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.todayMument.user.name
         albumImage.setImageUrl(cellData.todayMument.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
@@ -129,31 +128,6 @@ class MumentCardWithoutHeartView: UIView {
             for i in 0...indexs.count-1{
                 let tag = TagView()
                 tag.tagContent = indexs[i]
-                tagStackView.addArrangedSubview(tag)
-            }
-        }
-    }
-    
-    func setTags(){
-        tagStackView.removeAllArrangedSubviews()
-        
-        let tag = TagView()
-        tag.tagType = "isFirst"
-        tag.tagContentString = isFirst ? "처음" : "다시"
-        tagStackView.addArrangedSubview(tag)
-        
-        if impressionTags.count != 0{
-            for i in 0...impressionTags.count-1{
-                let tag = TagView()
-                tag.tagContent = impressionTags[i]
-                tagStackView.addArrangedSubview(tag)
-            }
-        }
-        
-        if feelingTags.count != 0{
-            for i in 0...feelingTags.count-1{
-                let tag = TagView()
-                tag.tagContent = feelingTags[i]
                 tagStackView.addArrangedSubview(tag)
             }
         }
