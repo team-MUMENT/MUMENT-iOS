@@ -134,8 +134,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     @objc private func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
-        //        songDetailVC.musicId = musicData.musicId
-        songDetailVC.musicData = musicData
+        songDetailVC.setDetailData(userId: self.userId, musicId: self.musicData.id)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }

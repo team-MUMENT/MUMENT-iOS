@@ -17,9 +17,11 @@ final class SongDetailVC: BaseVC {
     
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
-    var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     var myMumentData: SongInfoResponseModel.MyMument? = nil
     var allMumentsData: [AllMumentsResponseModel.MumentList] = []
+    
+    private var userId: Int = 0
+    var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -54,6 +56,11 @@ final class SongDetailVC: BaseVC {
         navigationBarView.backButton.press{
             self.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    func setDetailData(userId: Int, musicId: String) {
+        self.userId = userId
+        self.musicData.id = musicId
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
@@ -173,11 +180,12 @@ extension SongDetailVC: UITableViewDataSource {
                 return headerCell
             }
             headerCell.historyButton.removeTarget(nil, action: nil, for: .allEvents)
+            
             headerCell.historyButton.press {
                 let mumentHistoryVC = MumentHistoryVC()
-                mumentHistoryVC.musicId = self.musicData.id
-                self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
-            }
+                print("히스토리", self.userId)
+                mumentHistoryVC.setHistoryData(userId: self.userId, musicData: self.musicData)
+                self.navigationController?.pushViewController(mumentHistoryVC, animated: true)            }
             return headerCell
         case 2:
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
@@ -244,6 +252,9 @@ extension SongDetailVC {
             case .success(let response):
                 if let res = response as? SongInfoResponseModel {
                     self.myMumentData = res.myMument
+                    
+                    let music = res.music
+                    self.musicData = MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image)
                     self.mumentTV.reloadSections(IndexSet(0...1), with: .automatic)
                 }
             default:
