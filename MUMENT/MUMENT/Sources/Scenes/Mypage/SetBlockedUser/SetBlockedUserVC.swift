@@ -27,13 +27,7 @@ final class SetBlockedUserVC: BaseVC {
     }
     
     // MARK: Properties
-    private var blockedUserList: GetBlockedUserListResponseModel = [
-        GetBlockedUserListResponseModelElement(id: "1", image: "https://aws.com/85759_2018_031_0001.jpg", name: "나는 못된 사용자야 1"),
-        GetBlockedUserListResponseModelElement(id: "2", image: "https://aws.com/85759_2018_031_0001.jpg", name: "나는 못된 사용자야 2"),
-        GetBlockedUserListResponseModelElement(id: "3", image: "hws.com/85759_2018_031_0001.jpg", name: "나는 못된 사용자야 3"),
-        GetBlockedUserListResponseModelElement(id: "4", image: "https://aws.com/85759_2018_031_0001.jpg", name: "나는 못된 사용자야 4"),
-        GetBlockedUserListResponseModelElement(id: "5", image: "https://aws.com/85759_2018_031_0001.jpg", name: "나는 못된 사용자야 5")
-    ]
+    private var blockedUserList: GetBlockedUserListResponseModel = []
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -68,7 +62,19 @@ extension SetBlockedUserVC: UITableViewDataSource {
         cell.setData(data: self.blockedUserList[indexPath.row])
         cell.unblockButton.removeTarget(nil, action: nil, for: .allTouchEvents)
         cell.unblockButton.press { [weak self] in
-            self?.deleteBlockedUser()
+            let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel, OKTitle: "차단해제")
+            mumentAlert.setTitleSubTitle(
+                title: "차단해제하시겠습니까?",
+                subTitle: """
+해당 사용자의 뮤멘트를
+다시 볼 수 있습니다.
+"""
+            )
+            self?.present(mumentAlert, animated: true)
+            
+            mumentAlert.OKButton.press { [weak self] in
+                self?.deleteBlockedUser(userId: self?.blockedUserList[indexPath.row].id ?? 0)
+            }
         }
         return cell
     }
@@ -77,11 +83,28 @@ extension SetBlockedUserVC: UITableViewDataSource {
 // MARK: - Network
 extension SetBlockedUserVC {
     private func getBlockedUserList() {
-        debugPrint("getBlockedUserList")
+        MyPageAPI.shared.getBlockedUserList { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetBlockedUserListResponseModel {
+                    self.blockedUserList = result
+                    self.tableView.reloadData()
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
     
-    private func deleteBlockedUser() {
-        debugPrint("deleteBlockedUser")
+    private func deleteBlockedUser(userId: Int) {
+        MyPageAPI.shared.deleteBlockedUser(userId: userId) { networkResult in
+            switch networkResult {
+            case .success:
+                self.getBlockedUserList()
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
 
