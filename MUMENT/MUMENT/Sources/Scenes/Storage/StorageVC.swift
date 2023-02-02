@@ -84,11 +84,11 @@ final class StorageVC: BaseVC {
         setSegmentLaysout()
         setPagerLayout()
         setPressAction()
+        setNotificationCenter()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.showTabbar()
     }
     
@@ -227,4 +227,22 @@ extension StorageVC {
         }
     }
     
+}
+
+// MARK: - NotificationCenter
+extension StorageVC {
+    private func setNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setImageWithURL(_:)), name: .sendProfileImageURL, object: nil)
+    }
+    
+    @objc func setImageWithURL(_ notification: Notification){
+        if let imageURL = notification.object as? String {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(10)) {
+                let imageView = UIImageView()
+                imageView.setImageUrl(imageURL)
+                let image = imageView.image
+                self.profileButton.setImage(image, for: .normal)
+            }
+        }
+    }
 }
