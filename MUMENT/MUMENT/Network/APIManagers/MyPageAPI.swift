@@ -149,4 +149,19 @@ class MyPageAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 유저 프로필 조회
+    func getUserProfile(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(MyPageService.getUserProfile).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, GetUserProfileResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

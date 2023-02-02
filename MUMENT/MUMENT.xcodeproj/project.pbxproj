@@ -86,6 +86,7 @@
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
 		C71297662986F5880007AAE8 /* EditMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */; };
 		C7145D1A298C247D007B0F87 /* GetMypageUrlResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */; };
+		C7145D1C298C2B39007B0F87 /* GetUserProfileResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D1B298C2B39007B0F87 /* GetUserProfileResponseModel.swift */; };
 		C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47E628807B64001A7CD6 /* SearchVC.swift */; };
 		C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */; };
 		C71B47ED28818B21001A7CD6 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EC28818B21001A7CD6 /* SearchTVC.swift */; };
@@ -325,6 +326,7 @@
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMumentResponseModel.swift; sourceTree = "<group>"; };
 		C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMypageUrlResponseModel.swift; sourceTree = "<group>"; };
+		C7145D1B298C2B39007B0F87 /* GetUserProfileResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserProfileResponseModel.swift; sourceTree = "<group>"; };
 		C71B47E628807B64001A7CD6 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicForSearchModel.swift; sourceTree = "<group>"; };
 		C71B47EC28818B21001A7CD6 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				4DE0FAD229811CDA008F01E5 /* WithdrawalReasonResponseModel.swift */,
 				4DE0FAD429811CEA008F01E5 /* WithdrawalResponseModel.swift */,
 				C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */,
+				C7145D1B298C2B39007B0F87 /* GetUserProfileResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1449,6 +1452,7 @@
 				C71297662986F5880007AAE8 /* EditMumentResponseModel.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
 				4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */,
+				C7145D1C298C2B39007B0F87 /* GetUserProfileResponseModel.swift in Sources */,
 				4DE0FAD129811BA9008F01E5 /* WithdrawalReasonBodyModel.swift in Sources */,
 				C71B47ED28818B21001A7CD6 /* SearchTVC.swift in Sources */,
 				4DE0FACA29801D63008F01E5 /* TokenRenewalResponseModel.swift in Sources */,
