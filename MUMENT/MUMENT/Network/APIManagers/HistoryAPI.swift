@@ -14,9 +14,11 @@ class HistoryAPI: BaseAPI {
     private override init() { }
     
     /// [GET] 뮤멘트 히스토리
-    func getMumentHistoryData(userId: String, musicId: String, recentOnTop:Bool,
+    func getMumentHistoryData(userId: Int, musicId: String, recentOnTop:Bool, limit: Int, offset: Int,
                     completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(HistorySerivce.getMumentHistoryData(userId: userId, musicId: musicId, recentOnTop:recentOnTop)).responseData { response in
+        print("유저아이디", userId)
+        print("뮤직아이디", musicId)
+        AFmanager.request(HistorySerivce.getMumentHistoryData(userId: userId, musicId: musicId, recentOnTop: recentOnTop, limit: limit, offset: offset)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }

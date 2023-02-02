@@ -92,8 +92,7 @@ final class DetailMumentCardView: UIView {
         $0.textColor = .mGray1
     }
     
-    var mumentId: Int = 0
-    var userId: String = ""
+    private var mumentId: Int = 0
     
     // MARK: - Initialization
     override init(frame: CGRect) {
