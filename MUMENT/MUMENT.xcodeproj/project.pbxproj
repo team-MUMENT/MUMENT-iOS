@@ -138,7 +138,6 @@
 		C7612D3F29365F4F005F74B1 /* MumentUnderLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D3E29365F4F005F74B1 /* MumentUnderLineButton.swift */; };
 		C7612D42293798AA005F74B1 /* MypageNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D41293798AA005F74B1 /* MypageNoticeVC.swift */; };
 		C7612D452937B493005F74B1 /* GetNoticeListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */; };
-		C7612D472937B778005F74B1 /* GetNoticeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */; };
 		C7612D4A2937B83D005F74B1 /* MypageNoticeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */; };
 		C7612D4C2937BBE5005F74B1 /* MypageNoticeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D4B2937BBE5005F74B1 /* MypageNoticeDetailVC.swift */; };
 		C7612D4E2937C816005F74B1 /* MypageNoticeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7612D4D2937C816005F74B1 /* MypageNoticeTitleView.swift */; };
@@ -372,7 +371,6 @@
 		C7612D3E29365F4F005F74B1 /* MumentUnderLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentUnderLineButton.swift; sourceTree = "<group>"; };
 		C7612D41293798AA005F74B1 /* MypageNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeVC.swift; sourceTree = "<group>"; };
 		C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeListResponseModel.swift; sourceTree = "<group>"; };
-		C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeResponseModel.swift; sourceTree = "<group>"; };
 		C7612D492937B83D005F74B1 /* MypageNoticeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeTVC.swift; sourceTree = "<group>"; };
 		C7612D4B2937BBE5005F74B1 /* MypageNoticeDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeDetailVC.swift; sourceTree = "<group>"; };
 		C7612D4D2937C816005F74B1 /* MypageNoticeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNoticeTitleView.swift; sourceTree = "<group>"; };
@@ -859,7 +857,6 @@
 			isa = PBXGroup;
 			children = (
 				C7612D442937B493005F74B1 /* GetNoticeListResponseModel.swift */,
-				C7612D462937B778005F74B1 /* GetNoticeResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1426,7 +1423,6 @@
 				C7612D452937B493005F74B1 /* GetNoticeListResponseModel.swift in Sources */,
 				4D64A9EA287D885A00450FCA /* TagView.swift in Sources */,
 				C71B47F12881A14F001A7CD6 /* ImageCacheManager.swift in Sources */,
-				C7612D472937B778005F74B1 /* GetNoticeResponseModel.swift in Sources */,
 				C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */,
 				C7AE17E228882D4100A5E3FA /* SearchResultResponseModel.swift in Sources */,
 				C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */,
