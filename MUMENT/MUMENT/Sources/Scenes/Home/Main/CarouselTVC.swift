@@ -25,7 +25,7 @@ class CarouselTVC: UITableViewCell {
     private var nowPage: Int = 3 {
     /// 서버 연결할때 까지 페이지 확인용으로 남겨두겠습니다..
         didSet {
-            print("nowPage",nowPage)
+//            print("nowPage",nowPage)
         }
     }
     
@@ -46,7 +46,7 @@ class CarouselTVC: UITableViewCell {
                                          at: .centeredHorizontally,
                                          animated: false)
         }
-        bannerTimer()
+//        bannerTimer()
     }
     
     @available(*, unavailable)

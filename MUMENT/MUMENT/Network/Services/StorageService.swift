@@ -9,21 +9,19 @@ import Foundation
 import Alamofire
 
 enum StorageService {
-    //  case getIsFirst(userId: String, musicId: String)
-    //  case postMument(userId: String, musicId: String, data: PostMumentBodyModel)
-    case getMyMumentStorage(userId: String, filterTags: [Int])
-    case getLikedMumentStorage(userId: String, filterTags:[Int])
+    case getMyMumentStorage(filterTags: [Int])
+    case getLikedMumentStorage(filterTags:[Int])
     
 }
 
 extension StorageService: TargetType {
     var path: String {
         switch self {
-        case .getMyMumentStorage(userId: let userId, filterTags: _):
-            return "/user/my/\(userId)/list"
+        case .getMyMumentStorage:
+            return "/user/my/list"
             
-        case .getLikedMumentStorage(userId: let userId, filterTags: _):
-            return "/user/like/\(userId)/list"
+        case .getLikedMumentStorage:
+            return "/user/like/list"
         }
     }
     
@@ -37,21 +35,12 @@ extension StorageService: TargetType {
     }
     
     var header: HeaderType {
-        switch self {
-        case .getMyMumentStorage:
-            return .basic
-        case .getLikedMumentStorage:
-            return .basic
-        }
+        return .auth
     }
     
     var parameters: RequestParams {
         switch self {
-            //    case .getIsFirst:
-            //      return .requestPlain
-            //    case .postMument(_, _, let data):
-            //      return .requestBody(["isFirst": data.isFirst, "impressionTag": data.impressionTag, "feelingTag": data.feelingTag, "content": data.content, "isPrivate": data.isPrivate])
-        case .getMyMumentStorage(_, let filterTags):
+        case .getMyMumentStorage(let filterTags):
             if filterTags.count == 0 {
                 return .requestPlain
             } else if filterTags.count == 1 {
@@ -61,7 +50,7 @@ extension StorageService: TargetType {
             } else {
                 return .query(["tag1": filterTags[0], "tag2": filterTags[1], "tag3": filterTags[2]])
             }
-        case .getLikedMumentStorage(_, let filterTags):
+        case .getLikedMumentStorage(let filterTags):
             if filterTags.count == 0 {
                 return .requestPlain
             } else if filterTags.count == 1 {

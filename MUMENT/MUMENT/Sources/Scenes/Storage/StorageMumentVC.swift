@@ -87,8 +87,7 @@ final class StorageMumentVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
-//        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+        getMumentDataWithTagInt(selectedTagsInt)
     }
     
     // MARK: - Function
@@ -125,8 +124,12 @@ final class StorageMumentVC: BaseVC {
     }
     
     private func getMumentDataWithTagInt(_ selectedTagsInt: [Int]) {
-//        getMyMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
-//        getLikedMumentStorage(userId: UserInfo.shared.userId ?? "", filterTags: selectedTagsInt)
+        switch tabType {
+        case .myMument:
+            getMyMumentStorage(filterTags: selectedTagsInt)
+        case .likedMument:
+            getLikedMumentStorage(filterTags: selectedTagsInt)
+        }
     }
     
     /// Set 으로 중복값 제거하기.self
@@ -333,7 +336,8 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 
                 emptyView.isHidden = false
                 emptyView.writeButton.press {
-                    self.tabBarController?.selectedIndex = 1
+                    let writeVC = WriteVC(isEdit: false)
+                    self.present(writeVC, animated: true)
                 }
                 return header
             }
@@ -354,10 +358,12 @@ extension StorageMumentVC: UICollectionViewDelegate {
         case selectedTagsCV:
             selectedTagData.remove(at: indexPath.row)
             selectedTagIndex.remove(at: indexPath.row)
+            changeToTagInt(selectedTagData)
             selectedTagsCV.reloadData()
+            storageMumentCV.reloadData()
         case storageMumentCV:
             let mumentDetailVC = MumentDetailVC()
-//            mumentDetailVC.mumentId = storageMumentData[indexPath.row].id
+            mumentDetailVC.mumentId = storageMumentData[indexPath.row].id
             self.navigationController?.pushViewController(mumentDetailVC, animated: true)
         default: break
         }
@@ -469,19 +475,19 @@ extension StorageMumentVC {
     private func mapMyMumentData(data: [GetMyMumentResponseModel.Mument]) {
         self.storageMumentData = []
         self.storageMumentData = data.map {
-            StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, impressionTag: $0.impressionTag, feelingTag: $0.feelingTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: $0.likeCount)
+            StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, allCardTag: $0.allCardTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: $0.likeCount)
         }
     }
     
     private func mapLikedMumentData(data: [GetLikedMumentResponseModel.Mument]) {
         self.storageMumentData = []
         self.storageMumentData = data.map {
-            StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, impressionTag: $0.impressionTag, feelingTag: $0.feelingTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: nil)
+            StorageMumentModel(id: $0.id, user: $0.user, music: $0.music, isFirst: $0.isFirst, allCardTag: $0.allCardTag, cardTag: $0.cardTag, content: $0.content, isPrivate: $0.isPrivate, isLiked: $0.isLiked, createdAt: $0.createdAt, year: $0.year, month: $0.month, likeCount: $0.likeCount)
         }
     }
     
-    private func getMyMumentStorage(userId: String, filterTags: [Int]) {
-        StorageAPI.shared.getMyMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
+    private func getMyMumentStorage(filterTags: [Int]) {
+        StorageAPI.shared.getMyMumentStorage(filterTags: filterTags) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetMyMumentResponseModel {
@@ -497,8 +503,8 @@ extension StorageMumentVC {
         }
     }
     
-    private func getLikedMumentStorage(userId: String, filterTags: [Int]) {
-        StorageAPI.shared.getLikedMumentStorage(userId: userId, filterTags: filterTags) { networkResult in
+    private func getLikedMumentStorage(filterTags: [Int]) {
+        StorageAPI.shared.getLikedMumentStorage(filterTags: filterTags) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetLikedMumentResponseModel {
