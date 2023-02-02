@@ -63,7 +63,8 @@ class MumentHistoryVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.musicData.id = self.musicId
+        print("디테일", self.userId)
+        songDetailVC.setDetailData(userId: self.userId, musicId: self.musicId)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
@@ -146,7 +147,7 @@ extension MumentHistoryVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mumentDetailVC = MumentDetailVC()
-//        mumentDetailVC.mumentId = historyData[indexPath.row].id
+        mumentDetailVC.mumentId = historyData[indexPath.row].id
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
@@ -169,7 +170,6 @@ extension MumentHistoryVC {
                 if let res = response as? HistoryResponseModel {
                     self.historyData = res.mumentHistory
                     self.mumentTV.reloadData()
-                    debugPrint("result", res)
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
