@@ -15,6 +15,7 @@ enum MyPageService {
     case setProfile(data: SetProfileRequestModel)
     case getBlockedUserList
     case deleteBlockedUser(userId: Int)
+    case getNoticeList
 }
 
 extension MyPageService: TargetType {
@@ -32,6 +33,8 @@ extension MyPageService: TargetType {
             return "/user/block"
         case .deleteBlockedUser(let userId):
             return "/user/block/\(userId)"
+        case .getNoticeList:
+            return "/mument/notice"
         }
     }
     
@@ -41,7 +44,7 @@ extension MyPageService: TargetType {
             return .post
         case .deleteMembership, .deleteBlockedUser:
             return .delete
-        case.checkDuplicatedNickname, .getBlockedUserList:
+        case.checkDuplicatedNickname, .getBlockedUserList, .getNoticeList, .getNoticeDetail:
             return .get
         case .setProfile:
             return .put
@@ -54,6 +57,8 @@ extension MyPageService: TargetType {
             return .auth
         case .setProfile:
             return .multiPartWithAuth
+        case .getNoticeList, .getNoticeDetail:
+            return .basic
         }
     }
     
@@ -64,7 +69,7 @@ extension MyPageService: TargetType {
                 "leaveCategoryId": body.leaveCategoryId,
                 "reasonEtc": body.reasonEtc
             ])
-        case .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .setProfile, .deleteBlockedUser:
+        case .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .setProfile, .deleteBlockedUser, .getNoticeList, .getNoticeDetail:
             return .requestPlain
         }
     }
