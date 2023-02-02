@@ -119,4 +119,19 @@ class MyPageAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 공지사항 상세보기
+    func getNoticeDetail(noticeId: Int, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(MyPageService.getNoticeDetail(noticeId: noticeId)).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, GetNoticeListResponseModelElement.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

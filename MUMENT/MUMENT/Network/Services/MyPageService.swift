@@ -16,6 +16,7 @@ enum MyPageService {
     case getBlockedUserList
     case deleteBlockedUser(userId: Int)
     case getNoticeList
+    case getNoticeDetail(noticeId: Int)
 }
 
 extension MyPageService: TargetType {
@@ -35,6 +36,8 @@ extension MyPageService: TargetType {
             return "/user/block/\(userId)"
         case .getNoticeList:
             return "/mument/notice"
+        case .getNoticeDetail(let noticeId):
+            return "mument/notice/\(noticeId)"
         }
     }
     
