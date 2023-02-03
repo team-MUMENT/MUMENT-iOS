@@ -144,7 +144,6 @@ extension MumentUserPenaltyAlert {
         self.view.addSubviews([alertView])
         
         self.alertView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(244.adjustedH)
             make.leading.trailing.equalToSuperview().inset(53.adjustedW)
             make.center.equalToSuperview()
         }
@@ -154,7 +153,7 @@ extension MumentUserPenaltyAlert {
         self.alertView.addSubviews([titleLabel, contentLabel, reasonTitleLabel, reasonContentLabel, endDateTitleLabel, endDateContentLabel, OKButton])
         
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(30)
+            make.top.equalToSuperview().inset(30.adjustedH)
             make.leading.trailing.equalToSuperview().inset(15)
         }
         
