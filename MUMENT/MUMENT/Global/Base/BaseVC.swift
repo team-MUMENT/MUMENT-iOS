@@ -108,6 +108,9 @@ extension BaseVC {
             }
         }
     }
+    func presentUserPenaltyAlert(penaltyData: GetUserPenaltyResponseModel) {
+        self.present(MumentUserPenaltyAlert(penaltyData: penaltyData), animated: true)
+    }
 }
 
 // MARK: - Custom Methods(화면전환)
