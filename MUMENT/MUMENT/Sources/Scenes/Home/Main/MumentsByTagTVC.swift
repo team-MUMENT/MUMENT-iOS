@@ -89,10 +89,10 @@ extension MumentsByTagTVC: UICollectionViewDelegate{
         if let cell = collectionView.cellForItem(at: indexPath) as? MumentsByTagCVC {
             cell.isSelected = true
         }
-//        self.delegate?.mumentsByTagCVCSelected(data: mumentsByTagData[indexPath.row])
+        self.delegate?.mumentsByTagCVCSelected(data: mumentsByTagData[indexPath.row])
         
         // Test Code
-        self.delegate?.mumentsByTagCVCSelected()
+//        self.delegate?.mumentsByTagCVCSelected()
         
     }
 }
@@ -101,10 +101,10 @@ extension MumentsByTagTVC: UICollectionViewDelegate{
 extension MumentsByTagTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return mumentsByTagData.count
+        return mumentsByTagData.count
         
         // Test Code
-        return dataSource.count
+//        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -112,10 +112,10 @@ extension MumentsByTagTVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-//        cell.setData(mumentsByTagData[indexPath.row])
+        cell.setData(mumentsByTagData[indexPath.row])
         
         // Test Code
-        cell.setData(dataSource[indexPath.row])
+//        cell.setData(dataSource[indexPath.row])
         return cell
     }
 }
