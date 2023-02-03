@@ -29,42 +29,15 @@ extension HomeService: TargetType {
     }
     
     var method: HTTPMethod {
-        switch self {
-        case .getCarouselData:
-            return .get
-        case .getMumentForTodayData:
-            return .get
-        case .getMumentsOfRevisitedData:
-            return .get
-        case .getMumentsByTagData:
-            return .get
-        }
+        return .get
     }
     
     var header: HeaderType {
-        switch self {
-        case .getCarouselData:
-            return .basic
-        case .getMumentForTodayData:
-            return .basic
-        case .getMumentsOfRevisitedData:
-            return .basic
-        case .getMumentsByTagData:
-            return .basic
-        }
+        return .basic
     }
     
     var parameters: RequestParams {
-        switch self {
-        case .getCarouselData:
-            return .requestPlain
-        case .getMumentForTodayData:
-            return .requestPlain
-        case .getMumentsOfRevisitedData:
-            return .requestPlain
-        case .getMumentsByTagData:
-            return .requestPlain
-        }
+        return .requestPlain
     }
 }
 
