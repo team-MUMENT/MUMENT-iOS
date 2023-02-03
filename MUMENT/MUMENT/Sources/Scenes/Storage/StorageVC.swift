@@ -18,8 +18,6 @@ final class StorageVC: BaseVC {
     }
     
     private let profileButton = UIButton().then {
-//        $0.setBackgroundImage(UIImage(named: "mumentStorageProfile"), for: .normal)
-        $0.contentMode = .scaleAspectFill
         $0.makeRounded(cornerRadius: 30.adjustedH / 2)
     }
     
@@ -241,6 +239,7 @@ extension StorageVC {
             imageURL.getImage { image in
                 DispatchQueue.main.async {
                     self.profileButton.setImage(image, for: .normal)
+                    self.profileButton.imageView?.contentMode = .scaleAspectFill
                 }
             }
         }
