@@ -261,7 +261,6 @@ extension HomeVC {
     private func requestGetMumentsOfRevisitedData() {
         HomeAPI.shared.getMumentOfRevisitedData() { networkResult in
             switch networkResult {
-                
             case .success(let response):
                 if let res = response as? MumentsOfRevisitedResponseModel {
                     self.mumentsOfRevisitedData = res.againMument
@@ -277,7 +276,6 @@ extension HomeVC {
     private func requestGetMumentsByTagData() {
         HomeAPI.shared.getMumentsByTagData() { networkResult in
             switch networkResult {
-                
             case .success(let response):
                 if let res = response as? MumentsByTagResponseModel {
                     self.mumentsByTagData = res
