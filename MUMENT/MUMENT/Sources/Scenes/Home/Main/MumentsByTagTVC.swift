@@ -21,16 +21,11 @@ class MumentsByTagTVC: UITableViewCell {
     private lazy var mumentCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
     
-    // Test Code
-    var titleDataSource: MumentsByTagTitleModel = MumentsByTagTitleModel.sampleData
-    var dataSource: [MumentsByTagModel] = MumentsByTagModel.sampleData
-    
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCV()
         setLayout()
-        setData(titleDataSource)
         selectionStyle = .none
     }
     
@@ -49,10 +44,6 @@ class MumentsByTagTVC: UITableViewCell {
         CVFlowLayout.scrollDirection = .horizontal
         mumentCV.backgroundColor = .mBgwhite
         self.backgroundColor = .mBgwhite
-    }
-    
-    func setData(_ cellData: MumentsByTagTitleModel){
-        titleLabel.text = "\(cellData.title)을 느낀 순간"
     }
     
     func setData(_ cellData: MumentsByTagResponseModel){
@@ -90,10 +81,7 @@ extension MumentsByTagTVC: UICollectionViewDelegate{
             cell.isSelected = true
         }
         self.delegate?.mumentsByTagCVCSelected(data: mumentsByTagData[indexPath.row])
-        
-        // Test Code
-//        self.delegate?.mumentsByTagCVCSelected()
-        
+
     }
 }
 
@@ -102,20 +90,13 @@ extension MumentsByTagTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return mumentsByTagData.count
-        
-        // Test Code
-//        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MumentsByTagCVC.className, for: indexPath) as?  MumentsByTagCVC else {
             return UICollectionViewCell()
         }
-        
         cell.setData(mumentsByTagData[indexPath.row])
-        
-        // Test Code
-//        cell.setData(dataSource[indexPath.row])
         return cell
     }
 }

@@ -11,9 +11,6 @@ import Then
 
 protocol CarouselCVCDelegate : AnyObject{
     func carouselCVCSelected(data: CarouselResponseModel.BannerList)
-    
-    // Test Code
-//    func carouselCVCSelected()
 }
 
 class CarouselCVC: UICollectionViewCell {
@@ -83,15 +80,6 @@ class CarouselCVC: UICollectionViewCell {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: CarouselModel,index: Int){
-        backgroundImage.image = UIImage(named: "mumentBanner\(index)")
-        headerLable.text = cellData.headerTitle
-        albumImage.image = cellData.albumImage
-        songTitleLabel.text = cellData.songTitle
-        artistLabel.text = cellData.artistName
-        pageValue = "\(index)"
-    }
-    
     func setData(_ cellData: CarouselResponseModel.BannerList, index: Int){
         backgroundImage.image = UIImage(named: "mumentBanner\(index)")
         headerLable.text = cellData.tagTitle.replaceNewLineKeyword()

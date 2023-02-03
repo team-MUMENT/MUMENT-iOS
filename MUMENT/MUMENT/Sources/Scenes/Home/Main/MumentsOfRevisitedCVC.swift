@@ -11,9 +11,6 @@ import Then
 
 protocol MumentsOfRevisitedCVCDelegate : AnyObject{
     func mumentsOfRevisitedCVCSelected(data: MumentsOfRevisitedResponseModel.AgainMument)
-    
-    // Test Code
-    func mumentsOfRevisitedCVCSelected()
 }
 
 class MumentsOfRevisitedCVC: UICollectionViewCell {
