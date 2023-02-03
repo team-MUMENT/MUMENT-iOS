@@ -20,7 +20,7 @@ struct SongInfoResponseModel: Codable {
     struct Music: Codable {
         let id: String
         let name: String
-        let image: String?
+        let image: String
         let artist: String
 
         enum CodingKeys: String, CodingKey {

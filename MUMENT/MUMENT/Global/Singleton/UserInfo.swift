@@ -17,5 +17,4 @@ class UserInfo {
     var refreshToken: String? = ""
     var nickname: String = ""
     var profileImageURL: String = "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"
-    lazy var profileImage: UIImage = UIImage().setImageUrl(profileImageURL)
 }

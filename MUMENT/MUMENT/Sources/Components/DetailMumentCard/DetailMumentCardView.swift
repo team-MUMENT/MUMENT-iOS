@@ -22,6 +22,7 @@ final class DetailMumentCardView: UIView {
     }
     private let profileImage: UIImageView = UIImageView().then {
         $0.makeRounded(cornerRadius: 12.5)
+        $0.contentMode = .scaleAspectFill
     }
     private let writerNameLabel: UILabel = UILabel().then {
         $0.textColor = .mBlack2
@@ -92,8 +93,7 @@ final class DetailMumentCardView: UIView {
         $0.textColor = .mGray1
     }
     
-    var mumentId: Int = 0
-    var userId: String = ""
+    private var mumentId: Int = 0
     
     // MARK: - Initialization
     override init(frame: CGRect) {
