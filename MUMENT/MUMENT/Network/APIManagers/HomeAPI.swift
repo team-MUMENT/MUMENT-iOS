@@ -15,10 +15,8 @@ class HomeAPI: BaseAPI {
     
     /// [GET] Carousel
     func getCarouselData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
-
         AFmanager.request(HomeService.getCarouselData).responseData { response in
             switch response.result {
-               
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
                 guard let data = response.data else { return }
