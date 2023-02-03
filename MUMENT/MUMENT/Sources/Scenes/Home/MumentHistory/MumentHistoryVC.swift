@@ -17,13 +17,20 @@ class MumentHistoryVC: BaseVC {
     }
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
+    var musicId: String = ""
+    var userId: Int = 0
+    
     var musicInfoDummyData: [MumentDetailResponseModel] = MumentDetailResponseModel.sampleData
     var mumentDummyData: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
     var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
-    var historyData: [HistoryResponseModel.MumentHistory] = []
-    var musicId: String = ""
-    var userId: Int = 0
+    private var historyData: [HistoryResponseModel.MumentHistory] = []
+    private var newHistoryDataCount: Int = 0
+    private var filterFlag: Bool = true
+    private var fetchMoreFlag: Bool = true
+    
+    private var pageLimit: Int = 10
+    private var pageOffset: Int = 0
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -34,6 +41,7 @@ class MumentHistoryVC: BaseVC {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        /// 처음 fetchData
         requestGetHistoryData(recentOnTop: true, limit: 10, offset: 0)
     }
     
@@ -151,11 +159,32 @@ extension MumentHistoryVC: UITableViewDelegate {
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (mumentTV.contentSize.height - scrollView.frame.size.height) {
+            if fetchMoreFlag {
+                fetchMoreData()
+            }
+        }
+    }
+    
+    private func fetchMoreData() {
+        fetchMoreFlag = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(100), execute: {
+            self.pageOffset += self.pageLimit
+            self.appendMoreHistoryData(recentOnTop: self.filterFlag, limit: self.pageLimit, offset: self.pageOffset)
+            self.mumentTV.reloadData()
+        })
+    }
 }
 
-extension MumentHistoryVC :MumentHistoryTVHeaderDelegate {
+extension MumentHistoryVC: MumentHistoryTVHeaderDelegate {
     func sortingFilterButtonClicked(_ recentOnTop: Bool) {
-        requestGetHistoryData(recentOnTop: recentOnTop, limit: 10, offset: 0)
+        filterFlag = recentOnTop
+        historyData = []
+        fetchMoreFlag = true
+        pageOffset = 0
+        requestGetHistoryData(recentOnTop: filterFlag, limit: 10, offset: 0)
     }
 }
 
@@ -169,7 +198,10 @@ extension MumentHistoryVC {
             case .success(let response):
                 if let res = response as? HistoryResponseModel {
                     self.historyData = res.mumentHistory
-                    self.mumentTV.reloadData()
+                    self.newHistoryDataCount = res.mumentHistory.count
+                    DispatchQueue.main.async {
+                        self.mumentTV.reloadData()
+                    }
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
@@ -177,4 +209,25 @@ extension MumentHistoryVC {
         }
     }
     
+    
+    private func appendMoreHistoryData(recentOnTop: Bool, limit: Int, offset: Int) {
+        HistoryAPI.shared.getMumentHistoryData(userId: self.userId, musicId: self.musicId, recentOnTop: recentOnTop, limit: limit, offset: offset) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? HistoryResponseModel {
+                    self.historyData.append(contentsOf: res.mumentHistory)
+                    self.newHistoryDataCount = res.mumentHistory.count
+                    /// 새로 받아온 데이터의 수가 0인 경우 다시 - offset
+                    if self.newHistoryDataCount == 0 {
+                        self.pageOffset -= self.pageLimit
+                        self.fetchMoreFlag = false
+                    }else {
+                        self.fetchMoreFlag = true
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
 }
