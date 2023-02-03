@@ -128,7 +128,7 @@ class WriteVC: BaseVC {
             postMumentData.feelingTag = clickedFeelTag
         }
     }
-    let impressionTagData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
+    let impressionTagData = ["🎙 음색", "🥁 비트", "🖋 가사", "🎶 멜로디",  "🎸 베이스", "🛫 도입부"]
     let feelTagData = ["🎡 벅참", "😄 신남", "💐 설렘", "😚 행복", "🙌 자신감", "🍀 여유로움", "🍁 센치함", "😔 우울", "🕰 그리움", "🛌 외로움", "🌋 스트레스", "⌛️ 아련함", "💭 회상", " 👥 위로", "🌅 낭만", "☕️ 차분"]
     
     private let tagCellHeight = 35
@@ -245,7 +245,7 @@ class WriteVC: BaseVC {
             }
             
             self?.impressionTagCV.indexPathsForSelectedItems?.forEach {
-                let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
+                let cell =  self?.impressionTagCV.cellForItem(at: $0) as! WriteTagCVC
                 self?.clickedImpressionTag.append(cell.contentLabel.text?.tagInt() ?? 0)
             }
             
@@ -416,6 +416,14 @@ class WriteVC: BaseVC {
             }
         }
     }
+    
+    private func checkNotificationStatus(completion: @escaping (Bool) -> (Void)) {
+        var currentNotificationStatus: Bool = true
+        UNUserNotificationCenter.current().getNotificationSettings { setting in
+            currentNotificationStatus = setting.alertSetting == .enabled
+            completion(currentNotificationStatus)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -483,6 +491,13 @@ extension WriteVC {
                         mumentDetailVC.showToastMessage(message: "🎉 뮤멘트가 작성되었어요!", color: .black)
                         if let navigationVC = presentingVC.selectedViewController as? BaseNC {
                             navigationVC.pushViewController(mumentDetailVC, animated: true)
+                            self.checkNotificationStatus(completion: { alertSettingEnabled in
+                                if !alertSettingEnabled && (res.count == 1 || res.count == 10 || res.count == 20) {
+                                    DispatchQueue.main.async {
+                                        mumentDetailVC.present(NotificationOnBottomVC(), animated: true)
+                                    }
+                                }
+                            })
                         } else {
                             debugPrint("not navigtaion")
                         }
