@@ -245,7 +245,7 @@ class WriteVC: BaseVC {
             }
             
             self?.impressionTagCV.indexPathsForSelectedItems?.forEach {
-                let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
+                let cell =  self?.impressionTagCV.cellForItem(at: $0) as! WriteTagCVC
                 self?.clickedImpressionTag.append(cell.contentLabel.text?.tagInt() ?? 0)
             }
             
