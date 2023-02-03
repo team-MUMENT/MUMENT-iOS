@@ -108,8 +108,31 @@ extension BaseVC {
             }
         }
     }
-    func presentUserPenaltyAlert(penaltyData: GetUserPenaltyResponseModel) {
-        self.present(MumentUserPenaltyAlert(penaltyData: penaltyData), animated: true)
+    
+    private func getUserPenalty(completion: @escaping (GetUserPenaltyResponseModel) -> (Void)) {
+        HomeAPI.shared.getUserPenalty { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetUserPenaltyResponseModel {
+                    completion(result)
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    func checkUserPenalty() {
+        self.getUserPenalty { responsePenaltyData in
+            if responsePenaltyData.restricted {
+                self.present(MumentUserPenaltyAlert(penaltyData: responsePenaltyData), animated: true)
+                UserInfo.shared.isPenaltyUser = responsePenaltyData.restricted
+            }
+        }
+    }
+    
+    func isPenaltyUser() -> Bool {
+        return UserInfo.shared.isPenaltyUser
     }
 }
 
