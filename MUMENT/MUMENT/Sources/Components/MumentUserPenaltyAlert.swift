@@ -53,7 +53,15 @@ final class MumentUserPenaltyAlert: BaseVC {
         let label: UILabel = UILabel()
         label.font = .mumentB8M12 // TODO: 디자인 확인 필요
         label.textColor = .mBlack2
-        label.numberOfLines = 2
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let reasonMusicLabel: UILabel = {
+        let label: UILabel = UILabel()
+        label.font = .mumentB8M12 // TODO: 디자인 확인 필요
+        label.textColor = .mBlack2
         label.lineBreakMode = .byTruncatingTail
         label.textAlignment = .center
         return label
@@ -104,6 +112,7 @@ final class MumentUserPenaltyAlert: BaseVC {
         
         self.setData()
         self.setLayout()
+        self.setOKButtonAction()
     }
     
     // MARK: Methods
@@ -111,11 +120,13 @@ final class MumentUserPenaltyAlert: BaseVC {
         if let data: GetUserPenaltyResponseModel = self.penaltyData {
             let reasonMusicString: String = "\(data.musicArtist ?? "") - \(data.musicTitle ?? "")"
             
-            self.reasonContentLabel.text = "\(data.reason ?? "")\n\(reasonMusicString)"
-            self.reasonContentLabel.setFontColor(to: reasonMusicString, font: .mumentB7B12, color: .mPurple1) // TODO: font, color 디자인 확인 필요
-            self.endDateContentLabel.text = "\(data.endDate ?? "")까지 \(data.period ?? "")"
+            self.reasonContentLabel.text = "\(data.reason ?? "")"
+            self.reasonMusicLabel.text = "\(reasonMusicString)"
+            self.reasonMusicLabel.setFontColor(to: reasonMusicString, font: .mumentB7B12, color: .mPurple1) // TODO: font, color 디자인 확인 필요
+            self.endDateContentLabel.text = "\(data.endDate ?? "")까지 (\(data.period ?? ""))"
             
             self.reasonContentLabel.sizeToFit()
+            self.reasonMusicLabel.sizeToFit()
             self.endDateContentLabel.sizeToFit()
         }
     }
@@ -150,7 +161,7 @@ extension MumentUserPenaltyAlert {
     }
     
     private func setContentLayout() {
-        self.alertView.addSubviews([titleLabel, contentLabel, reasonTitleLabel, reasonContentLabel, endDateTitleLabel, endDateContentLabel, OKButton])
+        self.alertView.addSubviews([titleLabel, contentLabel, reasonTitleLabel, reasonContentLabel, reasonMusicLabel, endDateTitleLabel, endDateContentLabel, OKButton])
         
         self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(30.adjustedH)
@@ -172,8 +183,13 @@ extension MumentUserPenaltyAlert {
             make.leading.trailing.equalTo(self.titleLabel)
         }
         
+        self.reasonMusicLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.reasonContentLabel.snp.bottom).offset(2)
+            make.leading.trailing.equalTo(self.titleLabel)
+        }
+        
         self.endDateTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.reasonContentLabel.snp.bottom).offset(10)
+            make.top.equalTo(self.reasonMusicLabel.snp.bottom).offset(10)
             make.leading.trailing.equalTo(self.titleLabel)
         }
         
