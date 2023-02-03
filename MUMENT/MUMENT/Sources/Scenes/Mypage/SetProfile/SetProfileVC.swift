@@ -195,10 +195,12 @@ final class SetProfileVC: BaseVC {
     }
     
     private func setDefaultButtonImage() {
-        self.loadImageButton.setImage(
-            self.isFirst ?
-            self.defaultProfileImage : UIImage().setImageUrl(UserInfo.shared.profileImageURL),
-            for: .normal)
+        UserInfo.shared.profileImageURL.getImage { image in
+            DispatchQueue.main.async {
+                self.loadImageButton.setImage(self.isFirst ? self.defaultProfileImage : image,
+                    for: .normal)
+            }
+        }
         self.loadImageButton.imageView?.contentMode = .scaleAspectFill
     }
     
