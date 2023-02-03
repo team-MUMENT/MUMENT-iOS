@@ -9,13 +9,14 @@ import Foundation
 
 // MARK: - GetBlockedUserListResponseModelElement
 struct GetBlockedUserListResponseModelElement: Codable {
-    var id: String
+    var id: Int
     var image: String
-    var name: String
+    var nickname: String
     
     enum CodingKeys: String, CodingKey {
-        case id = "_id"
-        case image, name
+        case id = "id"
+        case nickname = "profile_id"
+        case image
     }
 }
 

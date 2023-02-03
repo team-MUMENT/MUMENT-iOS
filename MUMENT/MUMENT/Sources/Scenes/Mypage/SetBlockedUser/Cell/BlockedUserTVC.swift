@@ -46,9 +46,8 @@ final class BlockedUserTVC: UITableViewCell {
     
     // MARK: Methods
     func setData(data: GetBlockedUserListResponseModelElement) {
-//        self.profileImageView.setImageUrl(data.image)
-        self.profileImageView.image = UIImage(named: "mumentProfileLove60")
-        self.nicknameLabel.text = data.name
+        self.profileImageView.setImageUrl(data.image)
+        self.nicknameLabel.text = data.nickname
     }
 }
 
@@ -71,7 +70,7 @@ extension BlockedUserTVC {
         
         self.nicknameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(self.profileImageView.snp.trailing).offset(10)
+            make.leading.equalTo(self.profileImageView.snp.trailing).offset(15)
             make.trailing.equalTo(self.unblockButton.snp.leading).offset(-10)
         }
     }

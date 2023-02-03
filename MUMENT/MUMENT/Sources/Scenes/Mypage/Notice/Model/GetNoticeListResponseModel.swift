@@ -9,11 +9,12 @@ import Foundation
 
 // MARK: - GetNoticeListResponseModelElement
 struct GetNoticeListResponseModelElement: Codable {
-    var id, title, createdAt: String
+    var id: Int
+    var title, content, createdAt: String
 
     enum CodingKeys: String, CodingKey {
-        case id = "_id"
-        case title, createdAt
+        case id, title, content
+        case createdAt = "created_at"
     }
 }
 

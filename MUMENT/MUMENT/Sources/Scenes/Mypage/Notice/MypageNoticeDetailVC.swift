@@ -28,11 +28,11 @@ final class MypageNoticeDetailVC: BaseVC {
     }
     
     // MARK: Properties
-    private var noticeData: GetNoticeResponseModel = GetNoticeResponseModel(title: "게시물 이름 1", createdAt: "2022.10.18", content: String(repeating: "https://www.github.com ", count: 200))
-    private var noticeId: String = ""
+    private var noticeData: GetNoticeListResponseModelElement = GetNoticeListResponseModelElement(id: 0, title: "", content: "", createdAt: "")
+    private var noticeId: Int = 0
     
     // MARK: Initialization
-    init(noticeId: String) {
+    init(noticeId: Int) {
         super.init(nibName: nil, bundle: nil)
         
         self.noticeId = noticeId
@@ -53,6 +53,12 @@ final class MypageNoticeDetailVC: BaseVC {
         self.setContent()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.getNoticeDetail(noticeId: self.noticeId)
+    }
+    
     // MARK: Methods
     private func setBackButton() {
         self.naviView.backButton.press { [weak self] in
@@ -65,11 +71,29 @@ final class MypageNoticeDetailVC: BaseVC {
     }
     
     private func setTitleView() {
-        self.titleView.setData(data: GetNoticeListResponseModelElement(id: self.noticeId, title: self.noticeData.title, createdAt: self.noticeData.createdAt))
+        self.titleView.setData(data: GetNoticeListResponseModelElement(id: self.noticeId, title: self.noticeData.title, content: self.noticeData.content, createdAt: self.noticeData.createdAt))
     }
     
     private func setContent() {
         self.contentTextView.text = self.noticeData.content
+    }
+}
+
+// MARK: - Network
+extension MypageNoticeDetailVC {
+    private func getNoticeDetail(noticeId: Int) {
+        MyPageAPI.shared.getNoticeDetail(noticeId: noticeId) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetNoticeListResponseModelElement {
+                    self.noticeData = result
+                    self.setTitleView()
+                    self.setContent()
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
 
