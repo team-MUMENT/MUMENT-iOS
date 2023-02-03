@@ -128,7 +128,7 @@ class WriteVC: BaseVC {
             postMumentData.feelingTag = clickedFeelTag
         }
     }
-    let impressionTagData = ["🎙 음색", "🎶 멜로디", "🥁 비트", "🎸 베이스", "🖋 가사", "🛫 도입부"]
+    let impressionTagData = ["🎙 음색", "🥁 비트", "🖋 가사", "🎶 멜로디",  "🎸 베이스", "🛫 도입부"]
     let feelTagData = ["🎡 벅참", "😄 신남", "💐 설렘", "😚 행복", "🙌 자신감", "🍀 여유로움", "🍁 센치함", "😔 우울", "🕰 그리움", "🛌 외로움", "🌋 스트레스", "⌛️ 아련함", "💭 회상", " 👥 위로", "🌅 낭만", "☕️ 차분"]
     
     private let tagCellHeight = 35
