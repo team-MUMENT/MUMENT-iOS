@@ -416,6 +416,14 @@ class WriteVC: BaseVC {
             }
         }
     }
+    
+    private func checkNotificationStatus(completion: @escaping (Bool) -> (Void)) {
+        var currentNotificationStatus: Bool = true
+        UNUserNotificationCenter.current().getNotificationSettings { setting in
+            currentNotificationStatus = setting.alertSetting == .enabled
+            completion(currentNotificationStatus)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -483,6 +491,13 @@ extension WriteVC {
                         mumentDetailVC.showToastMessage(message: "🎉 뮤멘트가 작성되었어요!", color: .black)
                         if let navigationVC = presentingVC.selectedViewController as? BaseNC {
                             navigationVC.pushViewController(mumentDetailVC, animated: true)
+                            self.checkNotificationStatus(completion: { alertSettingEnabled in
+                                if !alertSettingEnabled && (res.count == 1 || res.count == 10 || res.count == 20) {
+                                    DispatchQueue.main.async {
+                                        mumentDetailVC.present(NotificationOnBottomVC(), animated: true)
+                                    }
+                                }
+                            })
                         } else {
                             debugPrint("not navigtaion")
                         }
