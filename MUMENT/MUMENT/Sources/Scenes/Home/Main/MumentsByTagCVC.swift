@@ -11,10 +11,6 @@ import Then
 
 protocol MumentsByTagCVCDelegate : AnyObject{
     func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList)
-    
-    // Test Code
-    func mumentsByTagCVCSelected()
-    
 }
 
 class MumentsByTagCVC: UICollectionViewCell {
@@ -26,7 +22,6 @@ class MumentsByTagCVC: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
-        setUI()
     }
     
     @available(*, unavailable)
@@ -38,20 +33,10 @@ class MumentsByTagCVC: UICollectionViewCell {
     func setData(_ cellData: MumentsByTagResponseModel.MumentList){
         mumentsByTagCardView.setData(cellData)
     }
-    
-    // Test Code
-    func setData(_ cellData: MumentsByTagModel){
-        mumentsByTagCardView.setData(cellData)
-    }
-    
 }
 
 // MARK: - UI
 extension MumentsByTagCVC {
-    private func setUI(){
-        
-    }
-    
     private func setLayout() {
         self.addSubviews([mumentsByTagCardView])
         

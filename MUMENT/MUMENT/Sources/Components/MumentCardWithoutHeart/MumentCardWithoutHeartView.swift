@@ -95,7 +95,7 @@ class MumentCardWithoutHeartView: UIView {
     func setMumentForTodayData(_ cellData: MumentForTodayResponseModel){
         profileImage.setImageUrl(cellData.todayMument.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         writerNameLabel.text = cellData.todayMument.user.name
-        albumImage.setImageUrl(cellData.todayMument.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        albumImage.setImageUrl(cellData.todayMument.music.image)
         songTitleLabel.text = cellData.todayMument.music.name
         artistLabel.text = cellData.todayMument.music.artist
         contentsLabel.text = cellData.todayMument.content.replaceNewLineKeyword()
@@ -109,7 +109,7 @@ class MumentCardWithoutHeartView: UIView {
     func setWithoutHeartData(_ cellData: StorageMumentModel){
         profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?v=4")
         writerNameLabel.text = cellData.user.name
-        albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        albumImage.setImageUrl(cellData.music.image)
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()

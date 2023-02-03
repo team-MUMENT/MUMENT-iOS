@@ -14,13 +14,6 @@ class CarouselTVC: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: CarouselCVCDelegate?
-    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), tagTitle: "", displayDate: "")]
-    
-    // Test Code
-    private var dataSource: [CarouselModel] = CarouselModel.sampleData
-    private lazy var increasedDataSource: [CarouselModel] = {
-        dataSource + dataSource + dataSource
-    }()
     
     private var nowPage: Int = 3 {
     /// 서버 연결할때 까지 페이지 확인용으로 남겨두겠습니다..
@@ -30,6 +23,8 @@ class CarouselTVC: UITableViewCell {
     }
     
     private var index: Int = 0
+    
+    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), tagTitle: "", displayDate: "")]
     
     private var increasedCarouselData: [CarouselResponseModel.BannerList] = []
     
@@ -42,7 +37,7 @@ class CarouselTVC: UITableViewCell {
         setCV()
         setLayout()
         DispatchQueue.main.async {
-            self.carouselCV.scrollToItem(at: IndexPath(item: self.dataSource.count,section: .zero),
+            self.carouselCV.scrollToItem(at: IndexPath(item: self.carouselData.count,section: .zero),
                                          at: .centeredHorizontally,
                                          animated: false)
         }
