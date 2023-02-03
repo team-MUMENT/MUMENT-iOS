@@ -67,10 +67,6 @@ final class NotificationOnBottomVC: BaseVC {
         return button
     }()
     
-    // MARK: Properties
-    weak var delegate: SendSelectedProjectDelegate?
-    
-    
     // MARK: Initialization
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
