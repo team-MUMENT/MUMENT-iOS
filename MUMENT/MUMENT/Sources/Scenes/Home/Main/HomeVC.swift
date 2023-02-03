@@ -15,7 +15,7 @@ class HomeVC: BaseVC {
     private let headerViewMaxHeight: CGFloat = 107.0
     private let headerViewMinHeight: CGFloat = 50.0
     var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", bannerList: [])
-    var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(todayDate: "", todayMument: MumentForTodayResponseModel.TodayMument(music: MumentForTodayResponseModel.TodayMument.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.TodayMument.User(id: "", name: "", image: ""), id: "", mumentID: "", isFirst: true, impressionTag: [], feelingTag: [], content: "", cardTag: [], createdAt: "", date: "", displayDate: ""))
+    var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(todayDate: "", todayMument: MumentForTodayResponseModel.TodayMument(music: MumentForTodayResponseModel.TodayMument.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.TodayMument.User(id: 0, name: "", image: ""), mumentId: 0, isFirst: true, impressionTag: [], feelingTag: [], content: "", cardTag: [], createdAt: "", date: "", displayDate: ""))
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     var mumentsByTagData: MumentsByTagResponseModel = MumentsByTagResponseModel(title: "", mumentList: [])
     
@@ -233,7 +233,7 @@ extension HomeVC {
             case .success(let response):
                 if let res = response as? CarouselResponseModel {
                     self.carouselData = res
-//                    self.requestGetMumentForTodayData()
+                    self.requestGetMumentForTodayData()
                     self.setTV()
                     self.homeTV.reloadData()
                 }
@@ -246,11 +246,10 @@ extension HomeVC {
     private func requestGetMumentForTodayData() {
         HomeAPI.shared.getMumentForTodayData() { networkResult in
             switch networkResult {
-                
             case .success(let response):
                 if let res = response as? MumentForTodayResponseModel {
-                    print(res)
                     self.mumentForTodayData = res
+                    self.homeTV.reloadData()
                     self.requestGetMumentsOfRevisitedData()
                 }
             default:
