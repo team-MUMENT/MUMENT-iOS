@@ -122,11 +122,11 @@ extension BaseVC {
         }
     }
     
-    func checkUserPenalty() {
+    func checkUserPenalty(_ targetVC: UIViewController) {
         self.getUserPenalty { responsePenaltyData in
-            if responsePenaltyData.restricted {
-                self.present(MumentUserPenaltyAlert(penaltyData: responsePenaltyData), animated: true)
-                UserInfo.shared.isPenaltyUser = responsePenaltyData.restricted
+            UserInfo.shared.isPenaltyUser = responsePenaltyData.restricted
+            if self.isPenaltyUser() {
+                targetVC.present(MumentUserPenaltyAlert(penaltyData: responsePenaltyData), animated: true)
             }
         }
     }

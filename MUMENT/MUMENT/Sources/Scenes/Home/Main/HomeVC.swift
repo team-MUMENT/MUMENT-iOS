@@ -27,7 +27,7 @@ class HomeVC: BaseVC {
         
         setLayout()
         setButtonActions()
-        self.checkUserPenalty()
+        self.checkUserPenalty(self)
     }
     
     override func viewWillAppear(_ animate: Bool) {
