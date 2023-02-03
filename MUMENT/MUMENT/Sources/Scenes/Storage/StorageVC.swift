@@ -238,12 +238,7 @@ extension StorageVC {
     
     @objc func setImageWithURL(_ notification: Notification){
         if let imageURL = notification.object as? String {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(10)) {
-                let imageView = UIImageView()
-                imageView.setImageUrl(imageURL)
-                let image = imageView.image
-                self.profileButton.setBackgroundImage(image, for: .normal)
-            }
+            self.profileButton.setImage(UIImage().setImageUrl(imageURL), for: .normal)
         }
     }
 }
