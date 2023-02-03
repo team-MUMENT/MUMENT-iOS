@@ -18,8 +18,9 @@ final class StorageVC: BaseVC {
     }
     
     private let profileButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentStorageProfile"), for: .normal)
-        $0.contentMode = .scaleAspectFit
+        $0.setBackgroundImage(UIImage(named: "mumentStorageProfile"), for: .normal)
+        $0.contentMode = .scaleAspectFill
+        $0.layer.cornerRadius = 40
     }
     
     private lazy var segmentContainerView = UIView().then {
@@ -241,7 +242,7 @@ extension StorageVC {
                 let imageView = UIImageView()
                 imageView.setImageUrl(imageURL)
                 let image = imageView.image
-                self.profileButton.setImage(image, for: .normal)
+                self.profileButton.setBackgroundImage(image, for: .normal)
             }
         }
     }
