@@ -83,7 +83,7 @@ final class StorageVC: BaseVC {
         setSegmentLaysout()
         setPagerLayout()
         setPressAction()
-        setNotificationCenter()
+        setProfile()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -136,6 +136,17 @@ final class StorageVC: BaseVC {
         }else {
             likedMumentVC.filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
+        }
+    }
+    
+    private func setProfile() {
+        self.getUserProfile {
+            UserInfo.shared.profileImageURL.getImage { image in
+                DispatchQueue.main.async {
+                    self.profileButton.setImage(image, for: .normal)
+                    self.profileButton.imageView?.contentMode = .scaleAspectFill
+                }
+            }
         }
     }
 }
@@ -226,22 +237,4 @@ extension StorageVC {
         }
     }
     
-}
-
-// MARK: - NotificationCenter
-extension StorageVC {
-    private func setNotificationCenter() {
-        NotificationCenter.default.addObserver(self, selector: #selector(setImageWithURL(_:)), name: .sendProfileImageURL, object: nil)
-    }
-    
-    @objc func setImageWithURL(_ notification: Notification){
-        if let imageURL = notification.object as? String {
-            imageURL.getImage { image in
-                DispatchQueue.main.async {
-                    self.profileButton.setImage(image, for: .normal)
-                    self.profileButton.imageView?.contentMode = .scaleAspectFill
-                }
-            }
-        }
-    }
 }
