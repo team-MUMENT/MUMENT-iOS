@@ -18,10 +18,17 @@ final class SongDetailVC: BaseVC {
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     var myMumentData: SongInfoResponseModel.MyMument? = nil
-    var allMumentsData: [AllMumentsResponseModel.MumentList] = []
     
     private var userId: Int = 0
     var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
+    
+    var allMumentsData: [AllMumentsResponseModel.MumentList] = []
+    private var newAllMumentDataCount: Int = 0
+    private var filterFlag: Bool = true
+    private var fetchMoreFlag: Bool = true
+    
+    private var pageLimit: Int = 10
+    private var pageOffset: Int = 0
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -34,7 +41,7 @@ final class SongDetailVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         requestGetSongInfo()
-        requestGetAllMuments(true)
+        requestGetAllMuments(isOrderLiked: true, limit: 10, offset: 0)
     }
     
     // MARK: - Functions
@@ -233,12 +240,32 @@ extension SongDetailVC: UITableViewDelegate {
         } else {
             navigationBarView.setTitle("")
         }
+        
+        let position = scrollView.contentOffset.y
+        if position > (mumentTV.contentSize.height - scrollView.frame.size.height) {
+            if fetchMoreFlag {
+                fetchMoreData()
+            }
+        }
+    }
+    
+    private func fetchMoreData() {
+        fetchMoreFlag = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(100), execute: {
+            self.pageOffset += self.pageLimit
+            self.appendMoreAllMuments(isOrderLiked: self.filterFlag, limit: self.pageLimit, offset: self.pageOffset)
+            self.mumentTV.reloadData()
+        })
     }
 }
 
 extension SongDetailVC :AllMumentsSectionHeaderDelegate {
-    func sortingFilterButtonClicked(_ recentOnTop: Bool) {
-        requestGetAllMuments(recentOnTop)
+    func sortingFilterButtonClicked(isOrderLiked: Bool) {
+        filterFlag = isOrderLiked
+        allMumentsData = []
+        fetchMoreFlag = true
+        pageOffset = 0
+        requestGetAllMuments(isOrderLiked: isOrderLiked, limit: 10, offset: 0)
     }
 }
 
@@ -262,13 +289,36 @@ extension SongDetailVC {
         }
     }
     
-    private func requestGetAllMuments(_ isOrderLiked: Bool) {
-        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id , isOrderLiked: isOrderLiked, limit: 10, offset: 0) { networkResult in
+    private func requestGetAllMuments(isOrderLiked: Bool, limit: Int, offset: Int) {
+        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id , isOrderLiked: isOrderLiked, limit: limit, offset: offset) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? AllMumentsResponseModel {
                     self.allMumentsData = res.mumentList
-                    self.mumentTV.reloadData()
+                    DispatchQueue.main.async {
+                        self.mumentTV.reloadData()
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func appendMoreAllMuments(isOrderLiked: Bool, limit: Int, offset: Int) {
+        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id , isOrderLiked: isOrderLiked, limit: limit, offset: offset) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? AllMumentsResponseModel {
+                    self.allMumentsData.append(contentsOf: res.mumentList)
+                    self.newAllMumentDataCount = res.mumentList.count
+                    /// 새로 받아온 데이터의 수가 0인 경우 다시 - offset
+                    if self.newAllMumentDataCount == 0 {
+                        self.pageOffset -= self.pageLimit
+                        self.fetchMoreFlag = false
+                    }else {
+                        self.fetchMoreFlag = true
+                    }
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)

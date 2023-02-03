@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 protocol AllMumentsSectionHeaderDelegate : AnyObject{
-    func sortingFilterButtonClicked(_ recentOnTop: Bool)
+    func sortingFilterButtonClicked(isOrderLiked: Bool)
 }
 
 final class AllMumentsSectionHeader: UITableViewHeaderFooterView {
@@ -46,12 +46,12 @@ final class AllMumentsSectionHeader: UITableViewHeaderFooterView {
         mostLikedOrderingButton.press {
             self.mostLikedOrderingButton.isSelected = true
             self.latestOrderingButton.isSelected = false
-            self.delegate?.sortingFilterButtonClicked(true)
+            self.delegate?.sortingFilterButtonClicked(isOrderLiked: true)
         }
         latestOrderingButton.press {
             self.latestOrderingButton.isSelected = true
             self.mostLikedOrderingButton.isSelected = false
-            self.delegate?.sortingFilterButtonClicked(false)
+            self.delegate?.sortingFilterButtonClicked(isOrderLiked: false)
         }
     }
 }
