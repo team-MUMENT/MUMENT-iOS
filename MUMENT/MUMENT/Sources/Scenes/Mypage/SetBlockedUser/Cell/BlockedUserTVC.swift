@@ -14,6 +14,7 @@ final class BlockedUserTVC: UITableViewCell {
     private let profileImageView: UIImageView = {
         let profileImageView: UIImageView = UIImageView()
         profileImageView.makeRounded(cornerRadius: 30)
+        profileImageView.contentMode = .scaleAspectFill
         return profileImageView
     }()
     

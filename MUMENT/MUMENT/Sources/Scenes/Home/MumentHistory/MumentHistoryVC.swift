@@ -12,25 +12,39 @@ import Then
 class MumentHistoryVC: BaseVC {
     
     // MARK: - Properties
-    private let navigationBarView = DefaultNavigationBar()
+    private let navigationBarView = DefaultNavigationBar().then {
+        $0.setTitle("뮤멘트 히스토리")
+    }
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
+    
+    var musicId: String = ""
+    var userId: Int = 0
     
     var musicInfoDummyData: [MumentDetailResponseModel] = MumentDetailResponseModel.sampleData
     var mumentDummyData: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     
-    var musicInfoData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
-    var historyData: [HistoryResponseModel.MumentHistory] = []
-    var musicId: String?
-    var userId: String?
+    var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
+    private var historyData: [HistoryResponseModel.MumentHistory] = []
+    private var newHistoryDataCount: Int = 0
+    private var filterFlag: Bool = true
+    private var fetchMoreFlag: Bool = true
+    
+    private var pageLimit: Int = 10
+    private var pageOffset: Int = 0
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
-        setData()
         setTV()
         setClickEventHandlers()
-        requestGetHistoryData(true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        /// flag 프로퍼티 초기화
+        resetProperty()
+        /// 처음 fetchData
+        requestGetHistoryData(recentOnTop: true, limit: 10, offset: 0)
     }
     
     // MARK: - Functions
@@ -45,8 +59,10 @@ class MumentHistoryVC: BaseVC {
         mumentTV.showsVerticalScrollIndicator = false
     }
     
-    func setData(){
-        navigationBarView.setTitle("뮤멘트 히스토리")
+    func setHistoryData(userId: Int, musicData: MusicDTO) {
+        self.userId = userId
+        self.musicData = musicData
+        self.musicId = musicData.id
     }
     
     func setClickEventHandlers(){
@@ -57,8 +73,14 @@ class MumentHistoryVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.musicData.id = self.musicId ?? ""
+        songDetailVC.setDetailData(userId: self.userId, musicId: self.musicId)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
+    }
+    
+    private func resetProperty(filterFlag: Bool = true) {
+        self.filterFlag = filterFlag
+        fetchMoreFlag = true
+        pageOffset = 0
     }
 }
 
@@ -111,7 +133,7 @@ extension MumentHistoryVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: MumentHistoryTVHeader.className) as? MumentHistoryTVHeader else { return nil }
-        headerCell.setData(musicInfoData)
+        headerCell.setData(musicData)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         headerCell.songInfoView.addGestureRecognizer(tapGestureRecognizer)
@@ -140,34 +162,77 @@ extension MumentHistoryVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mumentDetailVC = MumentDetailVC()
-//        mumentDetailVC.mumentId = historyData[indexPath.row].id
+        mumentDetailVC.setData(mumentId: historyData[indexPath.row].id, musicData: self.musicData)
+        mumentDetailVC.mumentId = historyData[indexPath.row].id
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (mumentTV.contentSize.height - scrollView.frame.size.height) {
+            if fetchMoreFlag {
+                fetchMoreData()
+            }
+        }
+    }
+    
+    private func fetchMoreData() {
+        fetchMoreFlag = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(100), execute: {
+            self.pageOffset += self.pageLimit
+            self.appendMoreHistoryData(recentOnTop: self.filterFlag, limit: self.pageLimit, offset: self.pageOffset)
+            self.mumentTV.reloadData()
+        })
+    }
 }
 
-extension MumentHistoryVC :MumentHistoryTVHeaderDelegate {
+extension MumentHistoryVC: MumentHistoryTVHeaderDelegate {
     func sortingFilterButtonClicked(_ recentOnTop: Bool) {
-        requestGetHistoryData(recentOnTop)
+        resetProperty(filterFlag: recentOnTop)
+        requestGetHistoryData(recentOnTop: filterFlag, limit: 10, offset: 0)
     }
 }
 
 // MARK: - Network
 extension MumentHistoryVC {
-    private func requestGetHistoryData(_ recentOnTop: Bool) {
-//        HistoryAPI.shared.getMumentHistoryData(userId: userId ?? UserInfo.shared.userId ?? "", musicId: self.musicId ?? "", recentOnTop: recentOnTop) { networkResult in
-//            switch networkResult {
-//                
-//            case .success(let response):
-//                if let res = response as? HistoryResponseModel {
-////                    self.musicInfoData = res.music
-//                    self.historyData = res.mumentHistory
-//                    self.mumentTV.reloadData()
-//                }
-//            default:
-//                self.makeAlert(title: MessageType.networkError.message)
-//            }
-//        }
+    private func requestGetHistoryData(recentOnTop: Bool, limit: Int, offset: Int) {
+        
+        HistoryAPI.shared.getMumentHistoryData(userId: self.userId, musicId: self.musicId, recentOnTop: recentOnTop, limit: limit, offset: offset) { networkResult in
+            switch networkResult {
+                
+            case .success(let response):
+                if let res = response as? HistoryResponseModel {
+                    self.historyData = res.mumentHistory
+                    self.newHistoryDataCount = res.mumentHistory.count
+                    DispatchQueue.main.async {
+                        self.mumentTV.reloadData()
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
     
+    
+    private func appendMoreHistoryData(recentOnTop: Bool, limit: Int, offset: Int) {
+        HistoryAPI.shared.getMumentHistoryData(userId: self.userId, musicId: self.musicId, recentOnTop: recentOnTop, limit: limit, offset: offset) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? HistoryResponseModel {
+                    self.historyData.append(contentsOf: res.mumentHistory)
+                    self.newHistoryDataCount = res.mumentHistory.count
+                    /// 새로 받아온 데이터의 수가 0인 경우 다시 - offset
+                    if self.newHistoryDataCount == 0 {
+                        self.pageOffset -= self.pageLimit
+                        self.fetchMoreFlag = false
+                    }else {
+                        self.fetchMoreFlag = true
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
 }

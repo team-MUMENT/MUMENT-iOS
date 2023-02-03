@@ -18,8 +18,7 @@ final class StorageVC: BaseVC {
     }
     
     private let profileButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentStorageProfile"), for: .normal)
-        $0.contentMode = .scaleAspectFit
+        $0.makeRounded(cornerRadius: 30.adjustedH / 2)
     }
     
     private lazy var segmentContainerView = UIView().then {
@@ -84,11 +83,11 @@ final class StorageVC: BaseVC {
         setSegmentLaysout()
         setPagerLayout()
         setPressAction()
+        setNotificationCenter()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.showTabbar()
     }
     
@@ -227,4 +226,22 @@ extension StorageVC {
         }
     }
     
+}
+
+// MARK: - NotificationCenter
+extension StorageVC {
+    private func setNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setImageWithURL(_:)), name: .sendProfileImageURL, object: nil)
+    }
+    
+    @objc func setImageWithURL(_ notification: Notification){
+        if let imageURL = notification.object as? String {
+            imageURL.getImage { image in
+                DispatchQueue.main.async {
+                    self.profileButton.setImage(image, for: .normal)
+                    self.profileButton.imageView?.contentMode = .scaleAspectFill
+                }
+            }
+        }
+    }
 }
