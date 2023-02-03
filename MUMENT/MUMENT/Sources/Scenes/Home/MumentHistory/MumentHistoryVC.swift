@@ -41,6 +41,8 @@ class MumentHistoryVC: BaseVC {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        /// flag 프로퍼티 초기화
+        resetProperty()
         /// 처음 fetchData
         requestGetHistoryData(recentOnTop: true, limit: 10, offset: 0)
     }
@@ -73,6 +75,12 @@ class MumentHistoryVC: BaseVC {
         let songDetailVC = SongDetailVC()
         songDetailVC.setDetailData(userId: self.userId, musicId: self.musicId)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
+    }
+    
+    private func resetProperty(filterFlag: Bool = true) {
+        self.filterFlag = filterFlag
+        fetchMoreFlag = true
+        pageOffset = 0
     }
 }
 
@@ -180,10 +188,7 @@ extension MumentHistoryVC: UITableViewDelegate {
 
 extension MumentHistoryVC: MumentHistoryTVHeaderDelegate {
     func sortingFilterButtonClicked(_ recentOnTop: Bool) {
-        filterFlag = recentOnTop
-        historyData = []
-        fetchMoreFlag = true
-        pageOffset = 0
+        resetProperty(filterFlag: recentOnTop)
         requestGetHistoryData(recentOnTop: filterFlag, limit: 10, offset: 0)
     }
 }

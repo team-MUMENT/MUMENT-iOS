@@ -41,6 +41,8 @@ final class SongDetailVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         requestGetSongInfo()
+        /// flag 프로퍼티 초기화
+        resetProperty()
         requestGetAllMuments(isOrderLiked: true, limit: 10, offset: 0)
     }
     
@@ -81,6 +83,12 @@ final class SongDetailVC: BaseVC {
         let index: Int = sender.index
         mumentDetailVC.setData(mumentId: self.allMumentsData[index].id, musicData: musicData)
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+    }
+
+    private func resetProperty(isOrderLiked: Bool = true) {
+        filterFlag = isOrderLiked
+        fetchMoreFlag = true
+        pageOffset = 0
     }
 }
 
@@ -261,10 +269,7 @@ extension SongDetailVC: UITableViewDelegate {
 
 extension SongDetailVC :AllMumentsSectionHeaderDelegate {
     func sortingFilterButtonClicked(isOrderLiked: Bool) {
-        filterFlag = isOrderLiked
-        allMumentsData = []
-        fetchMoreFlag = true
-        pageOffset = 0
+        resetProperty(isOrderLiked: isOrderLiked)
         requestGetAllMuments(isOrderLiked: isOrderLiked, limit: 10, offset: 0)
     }
 }
