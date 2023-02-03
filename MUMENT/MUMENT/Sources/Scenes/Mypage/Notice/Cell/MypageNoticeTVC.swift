@@ -54,19 +54,19 @@ final class MypageNoticeTVC: UITableViewCell {
 // MARK: - UI
 extension MypageNoticeTVC {
     private func setLayout() {
-        self.addSubviews([labelStackView, rightArrowImageView])
+        self.addSubviews([rightArrowImageView, labelStackView])
         self.labelStackView.addArrangedSubviews([titleLabel, createdAtLabel])
+        
+        self.rightArrowImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(12)
+            $0.width.height.equalTo(24)
+        }
         
         self.labelStackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(20)
-            $0.width.equalTo(283)
-        }
-        
-        self.rightArrowImageView.snp.makeConstraints {
-            $0.centerY.equalTo(self.labelStackView)
-            $0.trailing.equalToSuperview().inset(12)
-            $0.width.height.equalTo(24)
+            $0.trailing.equalTo(self.rightArrowImageView.snp.leading).offset(-12)
         }
     }
     

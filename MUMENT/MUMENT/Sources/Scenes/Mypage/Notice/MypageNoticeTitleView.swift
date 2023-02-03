@@ -20,6 +20,8 @@ final class MypageNoticeTitleView: UIView {
     private let titleLabel: UILabel = UILabel().then {
         $0.font = .mumentH4M16
         $0.textColor = .mBlack1
+        $0.numberOfLines = 0
+        $0.lineBreakMode = .byCharWrapping
     }
     
     private let createdAtLabel: UILabel = UILabel().then {
@@ -61,8 +63,7 @@ extension MypageNoticeTitleView {
         
         self.labelStackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().inset(20)
-            $0.width.equalTo(283)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         self.separator.snp.makeConstraints {

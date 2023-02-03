@@ -13,6 +13,12 @@ enum MyPageService {
     case deleteMembership
     case checkDuplicatedNickname(nickname: String)
     case setProfile(data: SetProfileRequestModel)
+    case getBlockedUserList
+    case deleteBlockedUser(userId: Int)
+    case getNoticeList
+    case getNoticeDetail(noticeId: Int)
+    case getMypageURL
+    case getUserProfile
 }
 
 extension MyPageService: TargetType {
@@ -26,6 +32,18 @@ extension MyPageService: TargetType {
             return "/user/profile/check/\(nickname)"
         case .setProfile:
             return "/user/profile"
+        case .getBlockedUserList:
+            return "/user/block"
+        case .deleteBlockedUser(let userId):
+            return "/user/block/\(userId)"
+        case .getNoticeList:
+            return "/mument/notice"
+        case .getNoticeDetail(let noticeId):
+            return "mument/notice/\(noticeId)"
+        case .getMypageURL:
+            return "/webview-link"
+        case .getUserProfile:
+            return "/user/profile"
         }
     }
     
@@ -33,9 +51,9 @@ extension MyPageService: TargetType {
         switch self {
         case .postWithdrawalReason:
             return .post
-        case .deleteMembership:
+        case .deleteMembership, .deleteBlockedUser:
             return .delete
-        case.checkDuplicatedNickname:
+        case.checkDuplicatedNickname, .getBlockedUserList, .getNoticeList, .getNoticeDetail, .getMypageURL, .getUserProfile:
             return .get
         case .setProfile:
             return .put
@@ -44,10 +62,12 @@ extension MyPageService: TargetType {
     
     var header: HeaderType {
         switch self {
-        case .postWithdrawalReason, .deleteMembership, .checkDuplicatedNickname:
+        case .postWithdrawalReason, .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .deleteBlockedUser, .getUserProfile:
             return .auth
         case .setProfile:
             return .multiPartWithAuth
+        case .getNoticeList, .getNoticeDetail, .getMypageURL:
+            return .basic
         }
     }
     
@@ -58,10 +78,10 @@ extension MyPageService: TargetType {
                 "leaveCategoryId": body.leaveCategoryId,
                 "reasonEtc": body.reasonEtc
             ])
-        case .deleteMembership, .checkDuplicatedNickname:
+        case .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .setProfile, .deleteBlockedUser, .getNoticeList, .getNoticeDetail, .getUserProfile:
             return .requestPlain
-        case .setProfile:
-            return .requestPlain
+        case .getMypageURL:
+            return .query(["page": "mypage"])
         }
     }
     

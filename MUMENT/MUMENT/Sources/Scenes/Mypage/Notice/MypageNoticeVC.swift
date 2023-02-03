@@ -23,15 +23,7 @@ final class MypageNoticeVC: BaseVC {
     }
     
     // MARK: Properties
-    private var noticeList: GetNoticeListResponseModel = [
-        GetNoticeListResponseModelElement(id: "123", title: "게시물 이름 1", createdAt: "2022. 10. 18"),
-        GetNoticeListResponseModelElement(id: "123", title: "게시물 이름 1", createdAt: "2022. 10. 18"),
-        GetNoticeListResponseModelElement(id: "123", title: "게시물 이름 1", createdAt: "2022. 10. 18"),
-        GetNoticeListResponseModelElement(id: "123", title: "게시물 이름 1", createdAt: "2022. 10. 18"),
-        GetNoticeListResponseModelElement(id: "123", title: "게시물 이름 1", createdAt: "2022. 10. 18"),
-        GetNoticeListResponseModelElement(id: "123", title: "게시물 이름 1", createdAt: "2022. 10. 18"),
-        GetNoticeListResponseModelElement(id: "123", title: "게시물 이름 1", createdAt: "2022. 10. 18"),
-    ]
+    private var noticeList: GetNoticeListResponseModel = []
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -40,6 +32,12 @@ final class MypageNoticeVC: BaseVC {
         self.setLayout()
         self.setBackButton()
         self.setTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.getNoticeList()
     }
     
     // MARK: Methods
@@ -77,6 +75,23 @@ extension MypageNoticeVC: UITableViewDelegate {
         
         let detailVC = MypageNoticeDetailVC(noticeId: self.noticeList[indexPath.row].id)
         self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+}
+
+// MARK: - Network
+extension MypageNoticeVC {
+    private func getNoticeList() {
+        MyPageAPI.shared.getNoticeList { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetNoticeListResponseModel {
+                    self.noticeList = result
+                    self.tableView.reloadData()
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
 

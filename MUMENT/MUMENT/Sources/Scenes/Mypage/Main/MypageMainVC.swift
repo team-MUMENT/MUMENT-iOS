@@ -89,6 +89,9 @@ final class MypageMainVC: BaseVC {
         $0.backgroundColor = .mBgwhite
     }
     
+    // MARK: Properties
+    private var mypageURL: GetMypageURLResponseModel = GetMypageURLResponseModel()
+    
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,13 +100,16 @@ final class MypageMainVC: BaseVC {
         self.setLayout()
         self.setBackButton()
         self.setTableView()
+        self.getMypageURL()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.hideTabbar()
-        self.tableView.reloadData()
+        self.getUserProfile {
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: Methods
@@ -192,9 +198,37 @@ extension MypageMainVC: UITableViewDataSource {
 extension MypageMainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         if let tableSection = Section(rawValue: indexPath.section) {
-            self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+            switch tableSection {
+            case .service:
+                switch indexPath.row {
+                case 1:
+                    if let url = URL(string: self.mypageURL.faq) {
+                        self.openSafariVC(url: url)
+                    }
+                case 2:
+                    if let url = URL(string: self.mypageURL.contact) {
+                        self.openSafariVC(url: url)
+                    }
+                default:
+                    self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+                }
+            case .info:
+                switch indexPath.row {
+                case 0:
+                    if let url = URL(string: self.mypageURL.appInfo) {
+                        self.openSafariVC(url: url)
+                    }
+                case 1:
+                    if let url = URL(string: self.mypageURL.introduction) {
+                        self.openSafariVC(url: url)
+                    }
+                default:
+                    self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+                }
+            default:
+                self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+            }
         }
     }
     
@@ -223,6 +257,22 @@ extension MypageMainVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return MypageMainSeparatorView(type: Section(rawValue: section) ?? .profile)
+    }
+}
+
+// MARK: - Network
+extension MypageMainVC {
+    private func getMypageURL() {
+        MyPageAPI.shared.getMypageURL { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetMypageURLResponseModel {
+                    self.mypageURL = result
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
 

@@ -25,11 +25,9 @@ final class SetProfileVC: BaseVC {
         return imageView
     }()
     
-    private lazy var loadImageButton: UIButton = UIButton(type: .system).then {
+    private lazy var loadImageButton: UIButton = UIButton(type: .custom).then {
         $0.layer.cornerRadius = 131.adjustedH / 2
         $0.clipsToBounds = true
-        $0.setImage(self.defaultProfileImage, for: .normal)
-        $0.imageView?.contentMode = .scaleAspectFill
     }
     private let nickNameTextField: MumentTextField = MumentTextField().then {
         $0.text = UserInfo.shared.nickname
@@ -88,6 +86,7 @@ final class SetProfileVC: BaseVC {
         self.setNickNameCountLabel()
         self.checkEnterNickNameLimit()
         self.setLoadImageButtonAction()
+        self.setDefaultButtonImage()
         self.setDoneButtonAction()
         self.setBackButtonAction()
     }
@@ -97,6 +96,7 @@ final class SetProfileVC: BaseVC {
         nickNameTextField.clearButton.press { [weak self] in
             self?.naviView.doneButton.isEnabled = false
             self?.infoLabel.textColor = .mGray2
+            self?.setNickNameCountLabel()
         }
     }
     
@@ -144,7 +144,6 @@ final class SetProfileVC: BaseVC {
     private func setNickNameCountLabel() {
         nickNameTextField.rx.text
             .orEmpty
-            .skip(1)
             .subscribe(onNext: { changedText in
                 DispatchQueue.main.async {
                     let countString = "\(changedText.count)"
@@ -193,6 +192,14 @@ final class SetProfileVC: BaseVC {
                 }).disposed(by: self?.actionSheetVC.disposeBag ?? DisposeBag())
             self?.present(self?.actionSheetVC ?? BaseVC(), animated: true)
         }
+    }
+    
+    private func setDefaultButtonImage() {
+        self.loadImageButton.setImage(
+            self.isFirst ?
+            self.defaultProfileImage : UIImage().setImageUrl(UserInfo.shared.profileImageURL),
+            for: .normal)
+        self.loadImageButton.imageView?.contentMode = .scaleAspectFill
     }
     
     /// 완료 버튼 액션 메서드
