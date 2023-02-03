@@ -62,7 +62,8 @@ class HomeVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
-//        mumentDetailVC.mumentId = mumentForTodayData.todayMument.mumentID
+        let todayMusic = mumentForTodayData.todayMument.music
+        mumentDetailVC.setData(mumentId: mumentForTodayData.todayMument.mumentId, musicData: MusicDTO(id: todayMusic.id, title: todayMusic.name, artist: todayMusic.artist, albumUrl: todayMusic.image))
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
@@ -89,8 +90,7 @@ extension HomeVC {
 extension HomeVC: CarouselCVCDelegate {
     func carouselCVCSelected(data: CarouselResponseModel.BannerList) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.musicData = MusicDTO(id: data.music.id, title: data.music.name, artist: data.music.artist, albumUrl: data.music.image ?? "")
-//        songDetailVC.musicId = data.music.id
+        songDetailVC.setDetailData(userId: 0, musicId: data.music.id)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
@@ -99,7 +99,8 @@ extension HomeVC: CarouselCVCDelegate {
 extension HomeVC: MumentsOfRevisitedCVCDelegate {
     func mumentsOfRevisitedCVCSelected(data: MumentsOfRevisitedResponseModel.AgainMument) {
         let mumentDetailVC = MumentDetailVC()
-//        mumentDetailVC.mumentId = data.mumentID
+        let music = data.music
+        mumentDetailVC.setData(mumentId: data.mumentId, musicData: MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image))
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
@@ -108,7 +109,8 @@ extension HomeVC: MumentsOfRevisitedCVCDelegate {
 extension HomeVC: MumentsByTagCVCDelegate {
     func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList) {
         let mumentDetailVC = MumentDetailVC()
-//        mumentDetailVC.mumentId = data.id
+        let music = data.music
+//        mumentDetailVC.setData(mumentId: data.mumentId, musicData: MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image))
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
