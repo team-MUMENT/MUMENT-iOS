@@ -23,6 +23,7 @@ final class InstagramShareView: UIView {
     }
     private let writerProfileImageView: UIImageView = UIImageView().then {
         $0.makeRounded(cornerRadius: 12.5)
+        $0.contentMode = .scaleAspectFill
     }
     private let writerNameLabel: UILabel = UILabel().then {
         $0.textColor = .mBlack2

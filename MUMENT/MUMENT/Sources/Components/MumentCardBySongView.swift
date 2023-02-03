@@ -18,6 +18,7 @@ class MumentCardBySongView: UIView {
     }
     let profileImage = UIImageView().then{
         $0.makeRounded(cornerRadius: 12.5)
+        $0.contentMode = .scaleAspectFill
     }
     let writerNameLabel = UILabel().then{
         $0.textColor = .mBlack2
