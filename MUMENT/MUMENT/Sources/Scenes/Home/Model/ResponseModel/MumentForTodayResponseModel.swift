@@ -21,8 +21,7 @@ struct MumentForTodayResponseModel: Codable {
     struct TodayMument: Codable {
         let music: Music
         let user: User
-        let id: String
-        let mumentID: String
+        let mumentId: Int
         let isFirst: Bool
         let impressionTag: [Int]
         let feelingTag: [Int]
@@ -35,8 +34,7 @@ struct MumentForTodayResponseModel: Codable {
         enum CodingKeys: String, CodingKey {
             case music = "music"
             case user = "user"
-            case id = "_id"
-            case mumentID = "mumentId"
+            case mumentId = "mumentId"
             case isFirst = "isFirst"
             case impressionTag = "impressionTag"
             case feelingTag = "feelingTag"
@@ -52,7 +50,7 @@ struct MumentForTodayResponseModel: Codable {
             let id: String
             let name: String
             let artist: String
-            let image: String?
+            let image: String
 
             enum CodingKeys: String, CodingKey {
                 case id = "_id"
@@ -64,7 +62,7 @@ struct MumentForTodayResponseModel: Codable {
 
         // MARK: - User
         struct User: Codable {
-            let id: String
+            let id: Int
             let name: String
             let image: String?
 
