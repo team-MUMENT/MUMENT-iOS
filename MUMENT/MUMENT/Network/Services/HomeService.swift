@@ -33,7 +33,12 @@ extension HomeService: TargetType {
     }
     
     var header: HeaderType {
-        return .basic
+        switch self {
+        case.getCarouselData:
+            return .auth
+        default:
+            return .basic
+        }
     }
     
     var parameters: RequestParams {
