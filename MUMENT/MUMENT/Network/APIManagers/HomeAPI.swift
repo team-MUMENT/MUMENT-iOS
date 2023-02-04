@@ -74,4 +74,19 @@ class HomeAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 유저 제재 알럿 유무 조회
+    func getUserPenalty(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(HomeService.getUserPenalty).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, GetUserPenaltyResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
