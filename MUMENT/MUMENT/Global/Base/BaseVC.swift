@@ -108,6 +108,32 @@ extension BaseVC {
             }
         }
     }
+    
+    private func getUserPenalty(completion: @escaping (GetUserPenaltyResponseModel) -> (Void)) {
+        HomeAPI.shared.getUserPenalty { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetUserPenaltyResponseModel {
+                    completion(result)
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    func checkUserPenalty(_ targetVC: UIViewController) {
+        self.getUserPenalty { responsePenaltyData in
+            UserInfo.shared.isPenaltyUser = responsePenaltyData.restricted
+            if self.isPenaltyUser() {
+                targetVC.present(MumentUserPenaltyAlert(penaltyData: responsePenaltyData), animated: true)
+            }
+        }
+    }
+    
+    func isPenaltyUser() -> Bool {
+        return UserInfo.shared.isPenaltyUser
+    }
 }
 
 // MARK: - Custom Methods(화면전환)

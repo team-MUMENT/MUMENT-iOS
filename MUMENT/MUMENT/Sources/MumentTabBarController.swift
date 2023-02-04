@@ -116,8 +116,16 @@ extension MumentTabBarController: UITabBarControllerDelegate {
         let writeIndex = 1
         if viewController.tabBarItem.tag != writeIndex { return true }
         
-        let writeVC = WriteVC(isEdit: false)
-        viewController.present(writeVC, animated: true)
+        if let navigationVC = self.selectedViewController as? BaseNC, let topVC = navigationVC.topViewController as? BaseVC {
+            if topVC.isPenaltyUser() {
+                topVC.checkUserPenalty(topVC)
+            } else {
+                let writeVC = WriteVC(isEdit: false)
+                viewController.present(writeVC, animated: true)
+            }
+        } else {
+            debugPrint("not navigtaion")
+        }
         return false
     }
 }
