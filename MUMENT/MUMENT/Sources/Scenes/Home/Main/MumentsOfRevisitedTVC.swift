@@ -13,8 +13,7 @@ class MumentsOfRevisitedTVC: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: MumentsOfRevisitedCVCDelegate?
-    
-    var dataSource: [MumentsOfRevisitedModel] = MumentsOfRevisitedModel.sampleData
+
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     
     lazy var titleLabel = UILabel().then{
@@ -24,7 +23,6 @@ class MumentsOfRevisitedTVC: UITableViewCell {
     }
     private lazy var mumentCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
-    
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -85,9 +83,6 @@ extension MumentsOfRevisitedTVC: UICollectionViewDelegate{
             cell.isSelected = true
         }
         self.delegate?.mumentsOfRevisitedCVCSelected(data: mumentsOfRevisitedData[indexPath.row])
-        
-        // Test Code
-//        self.delegate?.mumentsOfRevisitedCVCSelected()
     }
 }
 
@@ -96,9 +91,6 @@ extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return mumentsOfRevisitedData.count
-        
-        // Test Code
-//        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -106,9 +98,6 @@ extension MumentsOfRevisitedTVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.setData(mumentsOfRevisitedData[indexPath.row])
-        
-        // Test Code
-//        cell.setData(dataSource[indexPath.row])
         return cell
     }
 }

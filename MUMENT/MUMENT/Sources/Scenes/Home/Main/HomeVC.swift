@@ -14,7 +14,7 @@ class HomeVC: BaseVC {
     private lazy var homeTV = UITableView()
     private let headerViewMaxHeight: CGFloat = 107.0
     private let headerViewMinHeight: CGFloat = 50.0
-    var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", bannerList: [])
+    var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", userId: 0, bannerList: [])
     var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(todayDate: "", todayMument: MumentForTodayResponseModel.TodayMument(music: MumentForTodayResponseModel.TodayMument.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.TodayMument.User(id: 0, name: "", image: ""), mumentId: 0, isFirst: true, impressionTag: [], feelingTag: [], content: "", cardTag: [], createdAt: "", date: "", displayDate: ""))
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     var mumentsByTagData: MumentsByTagResponseModel = MumentsByTagResponseModel(title: "", mumentList: [])
@@ -24,12 +24,8 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
-        
         setLayout()
         setButtonActions()
-        
-        // Test Code
-//        self.setTV()
     }
     
     override func viewWillAppear(_ animate: Bool) {
@@ -110,7 +106,7 @@ extension HomeVC: MumentsByTagCVCDelegate {
     func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList) {
         let mumentDetailVC = MumentDetailVC()
         let music = data.music
-//        mumentDetailVC.setData(mumentId: data.mumentId, musicData: MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image))
+        mumentDetailVC.setData(mumentId: data.id, musicData: MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image))
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
@@ -219,7 +215,6 @@ extension HomeVC {
                     self.carouselData = res
                     self.requestGetMumentForTodayData()
                     self.setTV()
-                    self.homeTV.reloadData()
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
@@ -233,7 +228,6 @@ extension HomeVC {
             case .success(let response):
                 if let res = response as? MumentForTodayResponseModel {
                     self.mumentForTodayData = res
-                    self.homeTV.reloadData()
                     self.requestGetMumentsOfRevisitedData()
                 }
             default:
@@ -248,7 +242,6 @@ extension HomeVC {
             case .success(let response):
                 if let res = response as? MumentsOfRevisitedResponseModel {
                     self.mumentsOfRevisitedData = res.againMument
-                    self.homeTV.reloadData()
                     self.requestGetMumentsByTagData()
                 }
             default:
@@ -263,7 +256,9 @@ extension HomeVC {
             case .success(let response):
                 if let res = response as? MumentsByTagResponseModel {
                     self.mumentsByTagData = res
-                    self.homeTV.reloadData()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
+                        self.homeTV.reloadData()
+                    }
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)

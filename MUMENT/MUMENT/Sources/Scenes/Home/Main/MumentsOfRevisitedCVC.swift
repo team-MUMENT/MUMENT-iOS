@@ -68,16 +68,8 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
     }
     
     //MARK: - Functions
-    func setData(_ cellData: MumentsOfRevisitedModel){
-        albumImage.image = cellData.albumImage
-        titleLabel.text = cellData.title
-        contentsLabel.text = cellData.contents
-        profileImage.image = cellData.profileImage
-        writerNameLabel.text = cellData.writerName
-    }
-    
     func setData(_ cellData: MumentsOfRevisitedResponseModel.AgainMument){
-        albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        albumImage.setImageUrl(cellData.music.image)
         titleLabel.text = "\(cellData.music.name) - \(cellData.music.artist)"
         contentsLabel.text = cellData.content
         profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
