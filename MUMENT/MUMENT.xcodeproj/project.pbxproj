@@ -197,6 +197,7 @@
 		C7AE8F7F297D8B5B00B1603E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C7AE8F7E297D8B5B00B1603E /* FirebaseStorage */; };
 		C7AE8F81297D8B5B00B1603E /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C7AE8F80297D8B5B00B1603E /* FirebaseStorageCombine-Community */; };
 		C7AE8F83297D948300B1603E /* NotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE8F82297D948300B1603E /* NotificationInfo.swift */; };
+		C7B2829C298FD51A001833FD /* MumentSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B2829B298FD51A001833FD /* MumentSearchTextField.swift */; };
 		C7BB53002875960800E0E889 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB52FF2875960800E0E889 /* UIFont+.swift */; };
 		C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */; };
 		C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */; };
@@ -412,6 +413,7 @@
 		C7AE8F51297BD3D900B1603E /* GetNotificationListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNotificationListResponseModel.swift; sourceTree = "<group>"; };
 		C7AE8F53297D86BB00B1603E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7AE8F82297D948300B1603E /* NotificationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInfo.swift; sourceTree = "<group>"; };
+		C7B2829B298FD51A001833FD /* MumentSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentSearchTextField.swift; sourceTree = "<group>"; };
 		C7BB52FF2875960800E0E889 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		C7BB53042875973800E0E889 /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		C7BB53052875973800E0E889 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -1113,6 +1115,7 @@
 				E7978471297B705C00A0AE45 /* TagList.swift */,
 				C7145D1D298D0A57007B0F87 /* NotificationOnBottomVC.swift */,
 				C7145D1F298D5C08007B0F87 /* MumentUserPenaltyAlert.swift */,
+				C7B2829B298FD51A001833FD /* MumentSearchTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1372,6 +1375,7 @@
 				4DEED413288B32B300C6337B /* DeleteAPI.swift in Sources */,
 				C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */,
 				C7BC6B6028770FB6008C75CE /* UILabel+.swift in Sources */,
+				C7B2829C298FD51A001833FD /* MumentSearchTextField.swift in Sources */,
 				C71B48162886E5DF001A7CD6 /* SignInVC.swift in Sources */,
 				C71B47F52881A7C6001A7CD6 /* RecentSearchEmptyView.swift in Sources */,
 				4D2BADCC288033E0004A7E00 /* MumentsByTagModel.swift in Sources */,
