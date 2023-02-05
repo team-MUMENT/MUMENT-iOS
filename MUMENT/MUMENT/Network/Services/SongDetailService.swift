@@ -24,7 +24,12 @@ extension SongDetailService: TargetType {
     }
     
     var method: HTTPMethod {
+        switch self {
+        case .getSongInfo:
+            return .post
+        case .getAllMuments:
             return .get
+        }
     }
     
     var header: HeaderType {
