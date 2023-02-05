@@ -73,7 +73,7 @@ class MumentHistoryVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.setDetailData(userId: self.userId, musicId: self.musicId)
+        songDetailVC.setDetailData(userId: self.userId, musicData: self.musicData)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
     
