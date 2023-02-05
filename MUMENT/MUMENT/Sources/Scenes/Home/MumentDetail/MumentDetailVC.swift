@@ -43,6 +43,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     private var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     private var dataSource: MumentDetailResponseModel?
     private let myMumentActionSheetVC = MumentActionSheetVC(actionName: ["수정하기", "삭제하기"])
+    private let othersMumentActionSheetVC = MumentActionSheetVC(actionName: ["뮤멘트 신고하기", "유저 차단하기"])
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -51,6 +52,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         setClickEventHandlers()
         mumentCardView.setDelegate(delegate: self)
         self.setMyMumentMenuActionSheet()
+        self.setOthersMumentActionSheet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,8 +92,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             if UserDefaultsManager.userId == self?.dataSource?.user.id {
                 self?.present(self?.myMumentActionSheetVC ?? BaseVC(), animated: true)
             } else {
-                // 차단하기, 신고하기
-                print("Others")
+                self?.present(self?.othersMumentActionSheetVC ?? BaseVC(), animated: true)
             }
         }
     }
@@ -143,6 +144,24 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             .disposed(by: self.myMumentActionSheetVC.disposeBag )
     }
     
+    private func setOthersMumentActionSheet() {
+        self.othersMumentActionSheetVC.actionTableView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                self.othersMumentActionSheetVC.actionTableView.deselectRow(at: indexPath, animated: true)
+                self.othersMumentActionSheetVC.dismiss(animated: true) {
+                    switch indexPath.row {
+                    case 0:
+                        // TODO: 뮤멘트 신고하기 구현
+                        debugPrint("신고")
+                    case 1:
+                        // TODO: 유저 차단하기 구현
+                        debugPrint("차단")
+                    default: break
+                    }
+                }
+            })
+            .disposed(by: self.othersMumentActionSheetVC.disposeBag )
+    }
 }
 
 // MARK: - UI
