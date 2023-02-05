@@ -484,7 +484,6 @@ extension WriteVC {
                     guard let presentingVC = self.presentingViewController as? MumentTabBarController else { return }
                     self.dismiss(animated: true) {
                         let mumentDetailVC: MumentDetailVC = MumentDetailVC()
-                        mumentDetailVC.mumentId = res.id
                         mumentDetailVC.setData(
                             mumentId: res.id,
                             musicData: MusicDTO(
