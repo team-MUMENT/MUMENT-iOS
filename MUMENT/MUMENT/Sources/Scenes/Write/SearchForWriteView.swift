@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxCocoa
+import RxSwift
 
 class SearchForWriteView: UIView {
     
@@ -29,26 +31,25 @@ class SearchForWriteView: UIView {
         $0.isHidden = true
     }
     
-    var searchTVType: SearchTVType = .recentSearch {
+    // MARK: Properties
+    private var searchTVType: SearchTVType = .recentSearch {
         didSet {
             switch searchTVType {
             case .recentSearch:
-                self.searchResultEmptyView.isHidden = true
+                self.openRecentSearchTitleView()
             case .searchResult:
-                self.recentSearchEmptyView.isHidden = true
-                self.titleLabel.snp.makeConstraints {
-                    $0.height.equalTo(0)
-                }
+                self.closeRecentSearchTitleView()
             }
         }
     }
     
-    var searchResultData: SearchResultResponseModel = []
-    var recentSearchData: SearchResultResponseModel = [] {
+    private var searchResultData: SearchResultResponseModel = []
+    private var recentSearchData: SearchResultResponseModel = [] {
         didSet {
             self.recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
         }
     }
+    private var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -58,14 +59,14 @@ class SearchForWriteView: UIView {
         self.setLayout()
         self.setResultTV()
         self.setRecentSearchEmptyView()
-        self.setSearchBar()
+        self.setSearchTextField()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Functions
+    // MARK: Methods
     private func fetchSearchResultData() {
         if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
             self.recentSearchData = localData
@@ -85,8 +86,15 @@ class SearchForWriteView: UIView {
         resultTV.register(cell: SearchTVC.self, forCellReuseIdentifier: SearchTVC.className)
     }
     
-    private func setSearchBar() {
+    private func setSearchTextField() {
         searchTextField.delegate = self
+        self.searchTextField.clearButton.rx.tap
+            .bind {
+                self.searchTVType = .recentSearch
+                self.resultTV.reloadData()
+                self.openRecentSearchTitleView()
+            }
+            .disposed(by: self.disposeBag)
     }
     
     private func setRecentSearchEmptyView() {
@@ -102,11 +110,17 @@ class SearchForWriteView: UIView {
         DispatchQueue.main.async {
             self.titleLabel.isHidden = false
         }
+        self.titleLabel.snp.updateConstraints { make in
+            make.height.equalTo(20)
+        }
     }
     
     private func closeRecentSearchTitleView() {
         DispatchQueue.main.async {
             self.titleLabel.isHidden = true
+        }
+        self.titleLabel.snp.updateConstraints { make in
+            make.height.equalTo(0)
         }
     }
 }
