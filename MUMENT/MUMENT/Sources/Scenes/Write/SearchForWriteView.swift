@@ -93,6 +93,8 @@ class SearchForWriteView: UIView {
                 self.searchTVType = .recentSearch
                 self.resultTV.reloadData()
                 self.openRecentSearchTitleView()
+                self.searchResultEmptyView.isHidden = true
+                self.recentSearchEmptyView.isHidden = !self.recentSearchData.isEmpty
             }
             .disposed(by: self.disposeBag)
     }
@@ -107,11 +109,13 @@ class SearchForWriteView: UIView {
     }
     
     private func openRecentSearchTitleView() {
-        DispatchQueue.main.async {
-            self.titleLabel.isHidden = false
-        }
-        self.titleLabel.snp.updateConstraints { make in
-            make.height.equalTo(20)
+        if !self.recentSearchData.isEmpty {
+            DispatchQueue.main.async {
+                self.titleLabel.isHidden = false
+            }
+            self.titleLabel.snp.updateConstraints { make in
+                make.height.equalTo(20)
+            }
         }
     }
     
@@ -136,6 +140,7 @@ extension SearchForWriteView: UITextFieldDelegate {
             self.resultTV.reloadData()
             self.setSearchResultEmptyView(keyword: self.searchTextField.text ?? "")
             self.closeRecentSearchTitleView()
+            self.recentSearchEmptyView.isHidden = true
         }
         
         return true

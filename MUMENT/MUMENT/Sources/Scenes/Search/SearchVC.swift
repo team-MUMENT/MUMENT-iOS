@@ -126,6 +126,8 @@ class SearchVC: BaseVC {
                 self.searchTVType = .recentSearch
                 self.resultTV.reloadData()
                 self.openRecentSearchTitleView()
+                self.searchResultEmptyView.isHidden = true
+                self.recentSearchEmptyView.isHidden = !self.recentSearchData.isEmpty
             }
             .disposed(by: self.disposeBag)
     }
@@ -140,11 +142,13 @@ class SearchVC: BaseVC {
     }
     
     private func openRecentSearchTitleView() {
-        DispatchQueue.main.async {
-            self.recentSearchTitleView.isHidden = false
-        }
-        self.recentSearchTitleView.snp.updateConstraints { make in
-            make.height.equalTo(45)
+        if !self.recentSearchData.isEmpty {
+            DispatchQueue.main.async {
+                self.recentSearchTitleView.isHidden = false
+            }
+            self.recentSearchTitleView.snp.updateConstraints { make in
+                make.height.equalTo(45)
+            }
         }
     }
     
@@ -256,6 +260,7 @@ extension SearchVC: UITextFieldDelegate {
             self.resultTV.reloadData()
             self.setSearchResultEmptyView(keyword: self.searchTextField.text ?? "")
             self.closeRecentSearchTitleView()
+            self.recentSearchEmptyView.isHidden = true
         }
         
         return true
