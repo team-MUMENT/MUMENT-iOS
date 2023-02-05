@@ -125,8 +125,17 @@ extension MumentTabBarController: UITabBarControllerDelegate {
         }else {
             self.isFromHomeTab = false
         }
-        let writeVC = WriteVC(isEdit: false, isFromHomeTab: self.isFromHomeTab)
-        viewController.present(writeVC, animated: true)
+        
+        if let navigationVC = self.selectedViewController as? BaseNC, let topVC = navigationVC.topViewController as? BaseVC {
+            if topVC.isPenaltyUser() {
+                topVC.checkUserPenalty(topVC)
+            } else {
+                let writeVC = WriteVC(isEdit: false, isFromHomeTab: self.isFromHomeTab)
+                viewController.present(writeVC, animated: true)
+            }
+        } else {
+            debugPrint("not navigtaion")
+        }
         return false
     }
     

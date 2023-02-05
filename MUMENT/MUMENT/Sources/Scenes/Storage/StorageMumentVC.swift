@@ -500,9 +500,6 @@ extension StorageMumentVC {
                     self.mapMyMumentData(data: result.muments)
                     self.setDateDictionary()
                     self.storageMumentCV.reloadData()
-                    
-                    NotificationCenter.default.post(name: .sendProfileImageURL, object: result.muments[0].user.image)
-                    
                 } else {
                     debugPrint(MessageType.modelErrorForDebug.message)
                 }

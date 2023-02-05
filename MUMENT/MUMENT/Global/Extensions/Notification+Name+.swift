@@ -10,6 +10,5 @@ import Foundation
 extension Notification.Name {
     static let sendSearchResult = Notification.Name("sendSearchResult")
     static let pushNotificationClicked = Notification.Name("pushNotificationClicked")
-    static let sendProfileImageURL = Notification.Name("sendProfileImageURL")
     static let sendViewState = Notification.Name("sendViewState")
 }
