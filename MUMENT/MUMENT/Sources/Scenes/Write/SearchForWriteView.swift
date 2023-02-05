@@ -44,11 +44,7 @@ class SearchForWriteView: UIView {
     }
     
     private var searchResultData: SearchResultResponseModel = []
-    private var recentSearchData: SearchResultResponseModel = [] {
-        didSet {
-            self.recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
-        }
-    }
+    private var recentSearchData: SearchResultResponseModel = []
     private var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - Initialization

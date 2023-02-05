@@ -56,11 +56,7 @@ class SearchVC: BaseVC {
     
     // MARK: Properties
     private var searchResultData: SearchResultResponseModel = []
-    private var recentSearchData: SearchResultResponseModel = [] {
-        didSet {
-            recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
-        }
-    }
+    private var recentSearchData: SearchResultResponseModel = []
     private var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - View Life Cycle
