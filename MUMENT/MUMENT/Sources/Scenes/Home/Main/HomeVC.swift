@@ -96,7 +96,7 @@ extension HomeVC {
 extension HomeVC: CarouselCVCDelegate {
     func carouselCVCSelected(data: CarouselResponseModel.BannerList) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.setDetailData(userId: 0, musicId: data.music.id)
+        songDetailVC.setDetailData(userId: carouselData.userId, musicId: data.music.id)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
