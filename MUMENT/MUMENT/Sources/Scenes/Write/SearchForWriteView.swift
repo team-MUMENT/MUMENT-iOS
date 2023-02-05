@@ -233,6 +233,7 @@ extension SearchForWriteView {
         self.titleLabel.snp.makeConstraints {
             $0.top.equalTo(searchTextField.snp.bottom).offset(40.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(20)
         }
         
         self.resultTV.snp.makeConstraints {
