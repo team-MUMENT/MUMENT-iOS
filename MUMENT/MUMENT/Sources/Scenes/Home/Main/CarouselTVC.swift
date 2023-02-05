@@ -14,39 +14,26 @@ class CarouselTVC: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: CarouselCVCDelegate?
-    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), tagTitle: "", displayDate: "")]
     
-    // Test Code
-    private var dataSource: [CarouselModel] = CarouselModel.sampleData
-    private lazy var increasedDataSource: [CarouselModel] = {
-        dataSource + dataSource + dataSource
-    }()
-    
-    private var nowPage: Int = 3 {
-    /// 서버 연결할때 까지 페이지 확인용으로 남겨두겠습니다..
-        didSet {
-//            print("nowPage",nowPage)
-        }
-    }
+    private var nowPage: Int = 3
     
     private var index: Int = 0
+    
+    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), tagTitle: "", displayDate: "")]
     
     private var increasedCarouselData: [CarouselResponseModel.BannerList] = []
     
     private lazy var carouselCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
 
+    private var timer: Timer = Timer()
+    
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCV()
         setLayout()
-        DispatchQueue.main.async {
-            self.carouselCV.scrollToItem(at: IndexPath(item: self.dataSource.count,section: .zero),
-                                         at: .centeredHorizontally,
-                                         animated: false)
-        }
-//        bannerTimer()
+        setNotificationCenter()
     }
     
     @available(*, unavailable)
@@ -73,10 +60,18 @@ class CarouselTVC: UITableViewCell {
         self.backgroundColor = .mBgwhite
     }
     
-    private var timer: Timer = Timer()
+    private func setScrollToFirst() {
+        nowPage = self.carouselData.count
+        DispatchQueue.main.async {
+            self.carouselCV.scrollToItem(at: IndexPath(item: self.nowPage, section: .zero),
+                                         at: .centeredHorizontally,
+                                         animated: false)
+        }
+    }
     
-    func bannerTimer() {
+    private func bannerTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (Timer) in
+            self.timer.tolerance = 0.3
             self.bannerMove()
         }
         
@@ -86,7 +81,11 @@ class CarouselTVC: UITableViewCell {
         }
     }
     
-    func bannerMove() {
+    private func bannerTimerInvalidate() {
+        self.timer.invalidate()
+    }
+    
+    private func bannerMove() {
         // 현재페이지가 마지막 페이지일 경우
         if nowPage == 6 {
             // 맨 처음 페이지로 돌아감
@@ -115,7 +114,7 @@ class CarouselTVC: UITableViewCell {
         carouselCV.reloadData()
     }
     
-    func setIncreasedCarouselData() {
+  private func setIncreasedCarouselData() {
         increasedCarouselData = carouselData + carouselData + carouselData
     }
 }
@@ -220,5 +219,22 @@ extension CarouselTVC: UICollectionViewDataSource {
         cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
         }
         return cell
+    }
+}
+
+extension CarouselTVC {
+    private func setNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setTimer(_:)), name: .sendViewState, object: nil)
+    }
+    
+    @objc func setTimer(_ notification: Notification){
+            setScrollToFirst()
+        if let shouldTimerEnable = notification.object as? Bool {
+            if shouldTimerEnable {
+                bannerTimer()
+            }else {
+                bannerTimerInvalidate()
+            }
+        }
     }
 }

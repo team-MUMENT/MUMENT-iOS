@@ -14,8 +14,8 @@ class HomeVC: BaseVC {
     private lazy var homeTV = UITableView()
     private let headerViewMaxHeight: CGFloat = 107.0
     private let headerViewMinHeight: CGFloat = 50.0
-    var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", bannerList: [])
-    var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(todayDate: "", todayMument: MumentForTodayResponseModel.TodayMument(music: MumentForTodayResponseModel.TodayMument.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.TodayMument.User(id: "", name: "", image: ""), id: "", mumentID: "", isFirst: true, impressionTag: [], feelingTag: [], content: "", cardTag: [], createdAt: "", date: "", displayDate: ""))
+    var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", userId: 0, bannerList: [])
+    var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(todayDate: "", todayMument: MumentForTodayResponseModel.TodayMument(music: MumentForTodayResponseModel.TodayMument.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.TodayMument.User(id: 0, name: "", image: ""), mumentId: 0, isFirst: true, impressionTag: [], feelingTag: [], content: "", cardTag: [], createdAt: "", date: "", displayDate: ""))
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     var mumentsByTagData: MumentsByTagResponseModel = MumentsByTagResponseModel(title: "", mumentList: [])
     
@@ -24,7 +24,6 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
-        
         setLayout()
         setButtonActions()
         self.checkUserPenalty(self)
@@ -34,6 +33,15 @@ class HomeVC: BaseVC {
         super.viewWillAppear(animate)
         requestGetCarouselData()
         self.showTabbar()
+    }
+    
+    /// timer를 View가 뜨기전에 시작해버리면 첫번째 배너가 이미 넘어가 버림
+    override func viewDidAppear(_ animated: Bool) {
+        NotificationCenter.default.post(name: .sendViewState, object: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(name: .sendViewState, object: false)
     }
     
     // MARK: - Functions
@@ -60,7 +68,8 @@ class HomeVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
-//        mumentDetailVC.mumentId = mumentForTodayData.todayMument.mumentID
+        let todayMusic = mumentForTodayData.todayMument.music
+        mumentDetailVC.setData(mumentId: mumentForTodayData.todayMument.mumentId, musicData: MusicDTO(id: todayMusic.id, title: todayMusic.name, artist: todayMusic.artist, albumUrl: todayMusic.image))
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
@@ -87,14 +96,7 @@ extension HomeVC {
 extension HomeVC: CarouselCVCDelegate {
     func carouselCVCSelected(data: CarouselResponseModel.BannerList) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.musicData = MusicDTO(id: data.music.id, title: data.music.name, artist: data.music.artist, albumUrl: data.music.image ?? "")
-//        songDetailVC.musicId = data.music.id
-        self.navigationController?.pushViewController(songDetailVC, animated: true)
-    }
-    
-    // Test Code
-    func carouselCVCSelected() {
-        let songDetailVC = SongDetailVC()
+        songDetailVC.setDetailData(userId: carouselData.userId, musicId: data.music.id)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
@@ -103,13 +105,8 @@ extension HomeVC: CarouselCVCDelegate {
 extension HomeVC: MumentsOfRevisitedCVCDelegate {
     func mumentsOfRevisitedCVCSelected(data: MumentsOfRevisitedResponseModel.AgainMument) {
         let mumentDetailVC = MumentDetailVC()
-//        mumentDetailVC.mumentId = data.mumentID
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-    }
-    
-    // Test Code
-    func mumentsOfRevisitedCVCSelected() {
-        let mumentDetailVC = MumentDetailVC()
+        let music = data.music
+        mumentDetailVC.setData(mumentId: data.mumentId, musicData: MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image))
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
@@ -118,13 +115,8 @@ extension HomeVC: MumentsOfRevisitedCVCDelegate {
 extension HomeVC: MumentsByTagCVCDelegate {
     func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList) {
         let mumentDetailVC = MumentDetailVC()
-//        mumentDetailVC.mumentId = data.id
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-    }
-    
-    // Test Code
-    func mumentsByTagCVCSelected() {
-        let mumentDetailVC = MumentDetailVC()
+        let music = data.music
+        mumentDetailVC.setData(mumentId: data.id, musicData: MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image))
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
@@ -231,9 +223,8 @@ extension HomeVC {
             case .success(let response):
                 if let res = response as? CarouselResponseModel {
                     self.carouselData = res
-//                    self.requestGetMumentForTodayData()
+                    self.requestGetMumentForTodayData()
                     self.setTV()
-                    self.homeTV.reloadData()
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
@@ -244,10 +235,8 @@ extension HomeVC {
     private func requestGetMumentForTodayData() {
         HomeAPI.shared.getMumentForTodayData() { networkResult in
             switch networkResult {
-                
             case .success(let response):
                 if let res = response as? MumentForTodayResponseModel {
-                    print(res)
                     self.mumentForTodayData = res
                     self.requestGetMumentsOfRevisitedData()
                 }
@@ -260,17 +249,13 @@ extension HomeVC {
     private func requestGetMumentsOfRevisitedData() {
         HomeAPI.shared.getMumentOfRevisitedData() { networkResult in
             switch networkResult {
-                
             case .success(let response):
                 if let res = response as? MumentsOfRevisitedResponseModel {
                     self.mumentsOfRevisitedData = res.againMument
                     self.requestGetMumentsByTagData()
                 }
             default:
-                self.makeAlert(title: """
- 네트워크 오류로 인해 연결에 실패했어요! 🥲
- 잠시 후에 다시 시도해 주세요.
- """)
+                self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
@@ -278,12 +263,12 @@ extension HomeVC {
     private func requestGetMumentsByTagData() {
         HomeAPI.shared.getMumentsByTagData() { networkResult in
             switch networkResult {
-                
             case .success(let response):
                 if let res = response as? MumentsByTagResponseModel {
                     self.mumentsByTagData = res
-                    self.setTV()
-                    self.homeTV.reloadData()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
+                        self.homeTV.reloadData()
+                    }
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)

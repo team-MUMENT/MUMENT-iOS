@@ -9,11 +9,9 @@ import Foundation
 
 // MARK: - MumentsOfRevisitedResponseModel
 struct MumentsOfRevisitedResponseModel: Codable {
-    let todayDate: String
     let againMument: [AgainMument]
 
     enum CodingKeys: String, CodingKey {
-        case todayDate = "todayDate"
         case againMument = "againMument"
     }
     
@@ -21,22 +19,16 @@ struct MumentsOfRevisitedResponseModel: Codable {
     struct AgainMument: Codable {
         let music: Music
         let user: User
-        let id: String
-        let mumentID: String
-        let isFirst: Bool?
+        let mumentId: Int
         let content: String
         let createdAt: String
-        let displayDate: String
 
         enum CodingKeys: String, CodingKey {
             case music = "music"
             case user = "user"
-            case id = "_id"
-            case mumentID = "mumentId"
-            case isFirst = "isFirst"
+            case mumentId = "mumentId"
             case content = "content"
             case createdAt = "createdAt"
-            case displayDate = "displayDate"
         }
         
         // MARK: - Music
@@ -44,7 +36,7 @@ struct MumentsOfRevisitedResponseModel: Codable {
             let id: String
             let name: String
             let artist: String
-            let image: String?
+            let image: String
 
             enum CodingKeys: String, CodingKey {
                 case id = "_id"
@@ -56,7 +48,7 @@ struct MumentsOfRevisitedResponseModel: Codable {
 
         // MARK: - User
         struct User: Codable {
-            let id: String
+            let id: Int
             let name: String
             let image: String?
 

@@ -18,32 +18,32 @@ struct MumentsByTagResponseModel: Codable {
     
     // MARK: - MumentList
     struct MumentList: Codable {
-        let id: String
+        let id: Int
         let content: String
-        let impressionTag: [Int]
         let music: Music
         let createdAt: String
-        let feelingTag: [Int]
         let user: User
 
         enum CodingKeys: String, CodingKey {
             case id = "_id"
             case content = "content"
-            case impressionTag = "impressionTag"
             case music = "music"
             case createdAt = "createdAt"
-            case feelingTag = "feelingTag"
             case user = "user"
         }
         
         // MARK: - Music
         struct Music: Codable {
+            let id: String
             let name: String
             let artist: String
+            let image: String
 
             enum CodingKeys: String, CodingKey {
+                case id = "_id"
                 case name = "name"
                 case artist = "artist"
+                case image = "image"
             }
         }
 
