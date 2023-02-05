@@ -8,7 +8,7 @@
 import Alamofire
 
 enum SongDetailService {
-    case getSongInfo(musicId: String)
+    case getSongInfo(musicData: MusicDTO)
     case getAllMuments(musicId: String, isOrderLiked: Bool, limit: Int, offset: Int)
 }
 
@@ -16,8 +16,8 @@ extension SongDetailService: TargetType {
     
     var path: String {
         switch self {
-        case .getSongInfo(musicId: let musicId):
-            return "/music/\(musicId)"
+        case .getSongInfo(musicData: let musicData):
+            return "/music/\(musicData.id)"
         case .getAllMuments(musicId: let musicId, _, _, _):
             return "/music/\(musicId)/order"
         }
@@ -33,8 +33,13 @@ extension SongDetailService: TargetType {
     
     var parameters: RequestParams {
         switch self {
-        case .getSongInfo:
-            return .requestPlain
+        case .getSongInfo(let musicData):
+            return .requestBody([
+                "musicId": musicData.id,
+                "musicArtist": musicData.artist,
+                "musicImage": musicData.albumUrl,
+                "musicName": musicData.title
+            ])
         case .getAllMuments(_, isOrderLiked: let isOrderLiked, limit: let limit, offset: let offset):
             return .query(["default": isOrderLiked ? "Y" : "N", "limit": limit, "offset": offset])
         }
