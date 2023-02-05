@@ -40,7 +40,7 @@ final class SongDetailVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestGetSongInfo()
+        requestGetSongInfo(musicData: self.musicData)
         /// flag 프로퍼티 초기화
         resetProperty()
         requestGetAllMuments(isOrderLiked: true, limit: 10, offset: 0)
@@ -67,9 +67,9 @@ final class SongDetailVC: BaseVC {
         }
     }
     
-    func setDetailData(userId: Int, musicId: String) {
+    func setDetailData(userId: Int, musicData: MusicDTO) {
         self.userId = userId
-        self.musicData.id = musicId
+        self.musicData = musicData
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
@@ -277,8 +277,8 @@ extension SongDetailVC :AllMumentsSectionHeaderDelegate {
 
 // MARK: - Network
 extension SongDetailVC {
-    private func requestGetSongInfo() {
-        SongDetailAPI.shared.getSongInfo(musicId: self.musicData.id ) { [self] networkResult in
+    private func requestGetSongInfo(musicData: MusicDTO) {
+        SongDetailAPI.shared.getSongInfo(musicData: musicData) { [self] networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? SongInfoResponseModel {
