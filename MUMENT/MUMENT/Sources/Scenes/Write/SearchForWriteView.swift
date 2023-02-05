@@ -12,17 +12,7 @@ import Then
 class SearchForWriteView: UIView {
     
     // MARK: - Properties
-    private let searchBar = UISearchBar().then {
-        $0.setImage(UIImage(named: "mumentSearch"), for: .search, state: .normal)
-        $0.setImage(UIImage(named: "mumentDelete2"), for: .clear, state: .normal)
-        $0.barTintColor = .mGray5
-        $0.makeRounded(cornerRadius: 11.adjustedH)
-        $0.placeholder = " 곡, 아티스트"
-        $0.searchTextField.font = .mumentB4M14
-        $0.searchTextField.backgroundColor = .clear
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.mBgwhite.cgColor
-    }
+    private let searchTextField = MumentSearchTextField()
     private let titleLabel = UILabel().then {
         $0.font = .mumentH2B18
         $0.textColor = .mBlack1
@@ -96,7 +86,7 @@ class SearchForWriteView: UIView {
     }
     
     private func setSearchBar() {
-        searchBar.delegate = self
+        searchTextField.delegate = self
     }
     
     private func setRecentSearchEmptyView() {
@@ -121,18 +111,20 @@ class SearchForWriteView: UIView {
     }
 }
 
-// MARK: - UISearchBarDelegate
-extension SearchForWriteView: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.searchTextField.endEditing(true)
+// MARK: - UITextFieldDelegate
+extension SearchForWriteView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         
-        getSearchResult(keyword: searchBar.searchTextField.text ?? "") { result in
+        self.getSearchResult(keyword: self.searchTextField.text ?? "") { result in
             self.searchResultData = result
             self.searchTVType = .searchResult
             self.resultTV.reloadData()
-            self.setSearchResultEmptyView(keyword: searchBar.searchTextField.text ?? "")
+            self.setSearchResultEmptyView(keyword: self.searchTextField.text ?? "")
             self.closeRecentSearchTitleView()
         }
+        
+        return true
     }
 }
 
@@ -213,16 +205,16 @@ extension SearchForWriteView: UITableViewDelegate {
 // MARK: - UI
 extension SearchForWriteView {
     private func setLayout() {
-        self.addSubviews([searchBar, titleLabel, resultTV, recentSearchEmptyView, searchResultEmptyView])
+        self.addSubviews([searchTextField, titleLabel, resultTV, recentSearchEmptyView, searchResultEmptyView])
         
-        self.searchBar.snp.makeConstraints {
+        self.searchTextField.snp.makeConstraints {
             $0.top.equalToSuperview().inset(35.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(40)
         }
         
         self.titleLabel.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(40.adjustedH)
+            $0.top.equalTo(searchTextField.snp.bottom).offset(40.adjustedH)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         

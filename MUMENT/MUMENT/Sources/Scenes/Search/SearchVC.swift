@@ -19,17 +19,7 @@ class SearchVC: BaseVC {
             self.navigationController?.popViewController(animated: true)
         }
     }
-    private let searchBar = UISearchBar().then {
-        $0.setImage(UIImage(named: "mumentSearch"), for: .search, state: .normal)
-        $0.setImage(UIImage(named: "mumentDelete2"), for: .clear, state: .normal)
-        $0.barTintColor = .mGray5
-        $0.makeRounded(cornerRadius: 11.adjustedH)
-        $0.placeholder = "곡, 아티스트"
-        $0.searchTextField.font = .mumentB4M14
-        $0.searchTextField.backgroundColor = .clear
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.mBgwhite.cgColor
-    }
+    private let searchTextField: MumentSearchTextField = MumentSearchTextField()
     private let recentSearchTitleView = UIView()
     private let recentSearchLabel = UILabel().then {
         $0.text = "최근 검색한 곡"
@@ -241,10 +231,9 @@ extension SearchVC: UITableViewDelegate {
     }
 }
 
-// MARK: - UISearchBarDelegate
-extension SearchVC: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.searchTextField.endEditing(true)
+// MARK: - UITextFieldDelegate
+extension SearchVC: UITextFieldDelegate {
+        textField.resignFirstResponder()
         
         self.getSearchResult(keyword: searchBar.searchTextField.text ?? "") { result in
             self.searchResultData = result
