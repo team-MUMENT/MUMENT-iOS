@@ -9,6 +9,7 @@ import Alamofire
 enum LikeSerivce {
     case postHeartLiked(mumentId: Int)
     case deleteHeartLiked(mumentId: Int)
+    case getLikedUsetList(mumentId: Int, limit: Int, offset: Int)
 }
 
 extension LikeSerivce: TargetType {
@@ -17,6 +18,8 @@ extension LikeSerivce: TargetType {
         case .postHeartLiked(mumentId: let mumentId):
             return "/mument/\(mumentId)/like"
         case .deleteHeartLiked(mumentId: let mumentId):
+            return "/mument/\(mumentId)/like"
+        case .getLikedUsetList(mumentId: let mumentId, _, _):
             return "/mument/\(mumentId)/like"
         }
     }
@@ -27,6 +30,8 @@ extension LikeSerivce: TargetType {
             return .post
         case .deleteHeartLiked:
             return .delete
+        case .getLikedUsetList:
+            return .get
         }
     }
     
@@ -35,6 +40,11 @@ extension LikeSerivce: TargetType {
     }
     
     var parameters: RequestParams {
-        return .requestPlain
+        switch self {
+        case .postHeartLiked, .deleteHeartLiked:
+            return .requestPlain
+        case .getLikedUsetList(_, limit: let limit, offset: let offset):
+            return .query(["limit": limit, "offset": offset])
+        }
     }
 }
