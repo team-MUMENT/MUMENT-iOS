@@ -136,8 +136,8 @@ class MyPageAPI: BaseAPI {
     }
     
     /// [GET] 마이페이지 URL 조회
-    func getMypageURL(completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(MyPageService.getMypageURL).responseData { response in
+    func getMypageURL(isFromSignIn: Bool, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(MyPageService.getMypageURL(isFromSignIn: isFromSignIn)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
