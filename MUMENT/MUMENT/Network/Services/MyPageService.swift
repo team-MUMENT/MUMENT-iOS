@@ -39,9 +39,9 @@ extension MyPageService: TargetType {
         case .getNoticeList:
             return "/mument/notice"
         case .getNoticeDetail(let noticeId):
-            return "mument/notice/\(noticeId)"
+            return "/mument/notice/\(noticeId)"
         case .getMypageURL:
-            return "/webview-link"
+            return "/user/webview-link"
         case .getUserProfile:
             return "/user/profile"
         }
