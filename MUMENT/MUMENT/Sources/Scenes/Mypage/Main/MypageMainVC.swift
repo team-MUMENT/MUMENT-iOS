@@ -162,7 +162,7 @@ extension MypageMainVC: UITableViewDataSource {
             case .footer:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainFooterTVC.className) as? MypageMainFooterTVC else { return UITableViewCell() }
                 cell.setVersionLabel(version: "1.0")
-                
+                cell.selectionStyle = .none
                 cell.setSignOutAction { [weak self] in
                     let mumentAlert =  MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "로그아웃")
                     mumentAlert.setTitle(title: "로그아웃하시겠어요?")
@@ -223,11 +223,11 @@ extension MypageMainVC: UITableViewDelegate {
                     if let url = URL(string: self.mypageURL.introduction) {
                         self.openSafariVC(url: url)
                     }
-                default:
-                    self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+                default: break
                 }
             default:
-                self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+                if !(indexPath.section == 4) { self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+                }
             }
         }
     }
