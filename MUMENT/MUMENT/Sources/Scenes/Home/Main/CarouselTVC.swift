@@ -217,3 +217,20 @@ extension CarouselTVC: UICollectionViewDataSource {
         return cell
     }
 }
+
+extension CarouselTVC {
+    private func setNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setTimer(_:)), name: .sendViewState, object: nil)
+    }
+    
+    @objc func setTimer(_ notification: Notification){
+            setScrollToFirst()
+        if let shouldTimerEnable = notification.object as? Bool {
+            if shouldTimerEnable {
+                bannerTimer()
+            }else {
+                bannerTimerInvalidate()
+            }
+        }
+    }
+}
