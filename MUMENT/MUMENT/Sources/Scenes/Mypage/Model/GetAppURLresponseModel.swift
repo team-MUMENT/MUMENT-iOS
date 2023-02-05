@@ -1,5 +1,5 @@
 //
-//  GetMypageUrlResponseModel.swift
+//  GetAppURLresponseModel.swift
 //  MUMENT
 //
 //  Created by madilyn on 2023/02/03.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - GetMypageURLResponseModel
-struct GetMypageURLResponseModel: Codable {
+// MARK: - GetAppURLresponseModel
+struct GetAppURLresponseModel: Codable {
     var faq, contact, appInfo, introduction, tos, privacy: String?
     
     init() {

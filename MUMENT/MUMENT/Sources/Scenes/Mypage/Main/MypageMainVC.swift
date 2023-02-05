@@ -90,7 +90,7 @@ final class MypageMainVC: BaseVC {
     }
     
     // MARK: Properties
-    private var mypageURL: GetMypageURLResponseModel = GetMypageURLResponseModel()
+    private var mypageURL: GetAppURLresponseModel = GetAppURLresponseModel()
     private let currentVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     
     // MARK: View Life Cycle
@@ -267,7 +267,7 @@ extension MypageMainVC {
         MyPageAPI.shared.getMypageURL(isFromSignIn: false) { networkResult in
             switch networkResult {
             case .success(let response):
-                if let result = response as? GetMypageURLResponseModel {
+                if let result = response as? GetAppURLresponseModel {
                     self.mypageURL = result
                 }
             default:
