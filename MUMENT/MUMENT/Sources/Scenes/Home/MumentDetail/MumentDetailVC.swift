@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
@@ -40,6 +42,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     private var userId = 0
     private var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     private var dataSource: MumentDetailResponseModel?
+    private let myMumentActionSheetVC = MumentActionSheetVC(actionName: ["수정하기", "삭제하기"])
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -47,6 +50,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         setLayout()
         setClickEventHandlers()
         mumentCardView.setDelegate(delegate: self)
+        self.setMyMumentMenuActionSheet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,49 +86,9 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         mumentCardView.songInfoView.addGestureRecognizer(tapGestureRecognizer)
-        mumentCardView.menuIconButton.press{
-            
-            if UserDefaultsManager.userId == self.dataSource?.user.id {
-                let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                
-                let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
-                    let editVC = WriteVC(
-                        isEdit: true,
-                        mumentId: self.mumentId,
-                        detailData: self.dataSource ?? MumentDetailResponseModel(
-                            isFirst: false,
-                            content: "",
-                            impressionTag: [],
-                            isLiked: false,
-                            count: 0,
-                            likeCount: 0,
-                            createdAt: "",
-                            feelingTag: [],
-                            user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: ""),
-                            isPrivate: false
-                        ),
-                        detailSongData: self.musicData)
-                    self.present(editVC, animated: true)
-                }
-                
-                let deletingAction: UIAlertAction = UIAlertAction(title: "삭제하기", style: .default) { action -> Void in
-                    let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "삭제")
-                    mumentAlert.setTitle(title: "삭제하시겠어요?")
-                    self.present(mumentAlert, animated: true)
-                    
-                    mumentAlert.OKButton.press {
-                        self.requestDeleteMument()
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                }
-                
-                let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel) { action -> Void in }
-                
-                actionSheetController.addAction(updatingAction)
-                actionSheetController.addAction(deletingAction)
-                actionSheetController.addAction(cancelAction)
-                
-                self.present(actionSheetController, animated: true)
+        mumentCardView.menuIconButton.press { [weak self] in
+            if UserDefaultsManager.userId == self?.dataSource?.user.id {
+                self?.present(self?.myMumentActionSheetVC ?? BaseVC(), animated: true)
             } else {
                 // 차단하기, 신고하기
                 print("Others")
@@ -135,9 +99,50 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     @objc private func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
         songDetailVC.setDetailData(userId: self.userId,
-musicData: self.musicData)
+                                   musicData: self.musicData)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
+    
+    private func setMyMumentMenuActionSheet() {
+        self.myMumentActionSheetVC.actionTableView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                self.myMumentActionSheetVC.actionTableView.deselectRow(at: indexPath, animated: true)
+                self.myMumentActionSheetVC.dismiss(animated: true) {
+                    switch indexPath.row {
+                    case 0:
+                        let editVC = WriteVC(
+                            isEdit: true,
+                            mumentId: self.mumentId,
+                            detailData: self.dataSource ?? MumentDetailResponseModel(
+                                isFirst: false,
+                                content: "",
+                                impressionTag: [],
+                                isLiked: false,
+                                count: 0,
+                                likeCount: 0,
+                                createdAt: "",
+                                feelingTag: [],
+                                user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: ""),
+                                isPrivate: false
+                            ),
+                            detailSongData: self.musicData)
+                        self.present(editVC, animated: true)
+                    case 1:
+                        let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "삭제")
+                        mumentAlert.setTitle(title: "삭제하시겠어요?")
+                        self.present(mumentAlert, animated: true)
+                        
+                        mumentAlert.OKButton.press {
+                            self.requestDeleteMument()
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    default: break
+                    }
+                }
+            })
+            .disposed(by: self.myMumentActionSheetVC.disposeBag )
+    }
+    
 }
 
 // MARK: - UI
