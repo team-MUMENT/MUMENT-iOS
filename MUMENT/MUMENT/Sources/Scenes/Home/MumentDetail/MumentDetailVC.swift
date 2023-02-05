@@ -36,7 +36,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
             historyButton.setAttributedTitle(NSAttributedString(string: historyButtonText,attributes: attributes), for: .normal)
         }
     }
-    var mumentId: Int?
+    private var mumentId = 0
     private var userId = 0
     private var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     private var dataSource: MumentDetailResponseModel?
@@ -58,7 +58,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     func setData(){
         DispatchQueue.main.async {
             self.navigationBarView.setTitle("뮤멘트")
-            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: ""), isPrivate: false), self.musicData, self.mumentId ?? 0)
+            self.mumentCardView.setData(self.dataSource ?? MumentDetailResponseModel(isFirst: false, content: "", impressionTag: [], isLiked: false, count: 0, likeCount: 0, createdAt: "", feelingTag: [], user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: ""), isPrivate: false), self.musicData, self.mumentId)
             self.historyButtonText = "     \(self.dataSource?.count ?? 0)개의 뮤멘트가 있는 히스토리 보러가기"
         }
     }
@@ -90,7 +90,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                 let updatingAction: UIAlertAction = UIAlertAction(title: "수정하기", style: .default) { action -> Void in
                     let editVC = WriteVC(
                         isEdit: true,
-                        mumentId: self.mumentId ?? 0,
+                        mumentId: self.mumentId,
                         detailData: self.dataSource ?? MumentDetailResponseModel(
                             isFirst: false,
                             content: "",
@@ -134,7 +134,8 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     @objc private func didTapView(_ sender: UITapGestureRecognizer) {
         let songDetailVC = SongDetailVC()
-        songDetailVC.setDetailData(userId: self.userId, musicId: self.musicData.id)
+        songDetailVC.setDetailData(userId: self.userId,
+musicData: self.musicData)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
@@ -216,13 +217,13 @@ extension MumentDetailVC: DetailMumentCardViewDelegate {
 // MARK: - Network
 extension MumentDetailVC {
     private func requestGetMumentDetail() {
-        MumentDetailAPI.shared.getMumentDetail(mumentId: mumentId ?? 0) { networkResult in
+        MumentDetailAPI.shared.getMumentDetail(mumentId: mumentId) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? MumentDetailResponseModel {
                     self.dataSource = result
                     self.setData()
-                    self.mumentCardView.setData(result, self.musicData, self.mumentId ?? 0)
+                    self.mumentCardView.setData(result, self.musicData, self.mumentId)
                     self.userId = result.user.id
                 }
                 
@@ -233,7 +234,7 @@ extension MumentDetailVC {
     }
     
     private func requestDeleteMument() {
-        DeleteAPI.shared.deleteMument(mumentId: mumentId ?? 0) { networkResult in
+        DeleteAPI.shared.deleteMument(mumentId: mumentId) { networkResult in
             switch networkResult {
             case .success(_):
                 return
