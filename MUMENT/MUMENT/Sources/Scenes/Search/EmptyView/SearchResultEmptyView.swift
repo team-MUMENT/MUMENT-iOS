@@ -44,10 +44,12 @@ class SearchResultEmptyView: UIView {
     }
     
     func setSearchKeyword(keyword: String) {
-        titleLabel.text = """
-\(keyword)에 대한
+        let markedKeyword: String = "'\(keyword)'"
+        self.titleLabel.text = """
+\(markedKeyword)에 대한
 검색 결과가 없어요.
 """
+        self.titleLabel.setColor(to: markedKeyword, with: .mBlack2)
     }
 }
 
