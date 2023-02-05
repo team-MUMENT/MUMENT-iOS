@@ -16,6 +16,9 @@ final class MumentTabBarController: UITabBarController {
         $0.image = UIImage(named: "mumentTabBarBG")
     }
     
+    private var previousTabBarItemTag = 0
+    private var isFromHomeTab = false
+    
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,9 +118,19 @@ extension MumentTabBarController: UITabBarControllerDelegate {
         
         let writeIndex = 1
         if viewController.tabBarItem.tag != writeIndex { return true }
-        
-        let writeVC = WriteVC(isEdit: false)
+        /// 이전 탭이 홈 일때 기록하기로 넘어가기전 타이머 종료 post
+        if previousTabBarItemTag == 0 {
+            self.isFromHomeTab = true
+            NotificationCenter.default.post(name: .sendViewState, object: false)
+        }else {
+            self.isFromHomeTab = false
+        }
+        let writeVC = WriteVC(isEdit: false, isFromHomeTab: self.isFromHomeTab)
         viewController.present(writeVC, animated: true)
         return false
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        previousTabBarItemTag = viewController.tabBarItem.tag
     }
 }

@@ -139,6 +139,7 @@ class WriteVC: BaseVC {
     var musicId = ""
     var postMumentData: PostMumentBodyModel = PostMumentBodyModel()
     var isEdit = false
+    var isFromHomeTab = false
     private var mumentId: Int?
     private var detailData: MumentDetailResponseModel?
     private var detailSongData: MusicDTO?
@@ -154,11 +155,11 @@ class WriteVC: BaseVC {
         self.detailSongData = detailSongData
     }
     
-    init(isEdit: Bool = false) {
+    init(isEdit: Bool = false, isFromHomeTab: Bool = false) {
         super.init(nibName: nil, bundle: nil)
-        
         self.isEdit = isEdit
         self.modalPresentationStyle = .overFullScreen
+        self.isFromHomeTab = isFromHomeTab
     }
     
     required init?(coder: NSCoder) {
@@ -412,6 +413,11 @@ class WriteVC: BaseVC {
             self?.present(mumentAlert, animated: true)
             
             mumentAlert.OKButton.press { [weak self] in
+                if let writeVC = self {
+                    if writeVC.isFromHomeTab {
+                        NotificationCenter.default.post(name: .sendViewState, object: true)
+                    }
+                }
                 self?.dismiss(animated: true)
             }
         }
