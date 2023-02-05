@@ -43,5 +43,20 @@ class LikeAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 뮤멘트 좋아요한 이용자 리스트
+    func getLikedUsetList(mumentId: Int, limit: Int, offset: Int, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(LikeSerivce.getLikedUsetList(mumentId: mumentId, limit: limit, offset: offset)).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, [LikedUserListResponseModel].self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 
 }
