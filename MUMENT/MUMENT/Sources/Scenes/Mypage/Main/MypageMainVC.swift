@@ -91,6 +91,7 @@ final class MypageMainVC: BaseVC {
     
     // MARK: Properties
     private var mypageURL: GetMypageURLResponseModel = GetMypageURLResponseModel()
+    private let currentVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -161,7 +162,7 @@ extension MypageMainVC: UITableViewDataSource {
                 return cell
             case .footer:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainFooterTVC.className) as? MypageMainFooterTVC else { return UITableViewCell() }
-                cell.setVersionLabel(version: "1.0")
+                cell.setVersionLabel(version: self.currentVersion)
                 cell.selectionStyle = .none
                 cell.setSignOutAction { [weak self] in
                     let mumentAlert =  MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "로그아웃")
