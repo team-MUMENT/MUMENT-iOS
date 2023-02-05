@@ -130,14 +130,6 @@ final class MypageMainVC: BaseVC {
             $0.register(cell: MypageMainFooterTVC.self)
         })
     }
-    
-    private func requestSignOut() {
-        // TODO: ..
-    }
-    
-    private func requestWithDraw() {
-        // TODO: ..
-    }
 }
 
 // MARK: - UITableViewDataSource
