@@ -204,11 +204,11 @@ extension MypageMainVC: UITableViewDelegate {
             case .service:
                 switch indexPath.row {
                 case 1:
-                    if let url = URL(string: self.mypageURL.faq) {
+                    if let url = URL(string: self.mypageURL.faq ?? "") {
                         self.openSafariVC(url: url)
                     }
                 case 2:
-                    if let url = URL(string: self.mypageURL.contact) {
+                    if let url = URL(string: self.mypageURL.contact ?? "") {
                         self.openSafariVC(url: url)
                     }
                 default:
@@ -217,11 +217,11 @@ extension MypageMainVC: UITableViewDelegate {
             case .info:
                 switch indexPath.row {
                 case 0:
-                    if let url = URL(string: self.mypageURL.appInfo) {
+                    if let url = URL(string: self.mypageURL.appInfo ?? "") {
                         self.openSafariVC(url: url)
                     }
                 case 1:
-                    if let url = URL(string: self.mypageURL.introduction) {
+                    if let url = URL(string: self.mypageURL.introduction ?? "") {
                         self.openSafariVC(url: url)
                     }
                 default: break
@@ -264,7 +264,7 @@ extension MypageMainVC: UITableViewDelegate {
 // MARK: - Network
 extension MypageMainVC {
     private func getMypageURL() {
-        MyPageAPI.shared.getMypageURL { networkResult in
+        MyPageAPI.shared.getMypageURL(isFromSignIn: false) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetMypageURLResponseModel {
