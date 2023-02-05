@@ -182,6 +182,12 @@ extension MumentDetailVC {
 
 // MARK: - DetailMumentCardViewDelegate
 extension MumentDetailVC: DetailMumentCardViewDelegate {
+    func pushToLikedUserListVC() {
+        let likedUserListVC = LikedUserListVC()
+        likedUserListVC.setMumentId(mumentId: self.mumentId)
+        self.navigationController?.pushViewController(likedUserListVC, animated: true)
+    }
+    
     func shareButtonClicked() {
         guard let data = dataSource else {return }
         instagramShareView.setData(data, musicData)

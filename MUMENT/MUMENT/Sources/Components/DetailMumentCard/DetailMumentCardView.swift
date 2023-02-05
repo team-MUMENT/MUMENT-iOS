@@ -11,6 +11,7 @@ import Then
 
 protocol DetailMumentCardViewDelegate: AnyObject {
     func shareButtonClicked()
+    func pushToLikedUserListVC()
 }
 
 final class DetailMumentCardView: UIView {
@@ -61,10 +62,7 @@ final class DetailMumentCardView: UIView {
         $0.configuration = .plain()
         $0.configuration?.buttonSize = .small
     }
-    private let heartLabel: UILabel = UILabel().then {
-        $0.font = .mumentC1R12
-        $0.textColor = .mGray1
-    }
+    private let likedUserButton: UIButton = UIButton()
     
     // MARK: - Properties
     private var delegate: DetailMumentCardViewDelegate?
@@ -73,8 +71,8 @@ final class DetailMumentCardView: UIView {
     private var feelingTags: [Int] = []
     private var tagWidthSum: CGFloat = 0
     private var heartCount: Int = 0 {
-        didSet{
-            heartLabel.text = "\(heartCount)명이 좋아합니다."
+        didSet {
+            likedUserButton.setTitleWithCustom("\(heartCount)명이 좋아합니다.", font: .mumentC1R12, color: .mGray1, for: .normal)
         }
     }
     private let shareButton: UIButton = UIButton().then {
@@ -102,7 +100,7 @@ final class DetailMumentCardView: UIView {
         setLayout()
         setButtonActions()
     }
-    
+     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
@@ -129,7 +127,7 @@ final class DetailMumentCardView: UIView {
                 $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             }
         }else {
-            heartStackView.addArrangedSubviews([heartButton, heartLabel])
+            heartStackView.addArrangedSubviews([heartButton, likedUserButton])
             
             heartButton.snp.makeConstraints {
                 $0.height.width.equalTo(38)
@@ -140,7 +138,6 @@ final class DetailMumentCardView: UIView {
     }
     
     private func setTags() {
-        
         tagStackView.removeAllArrangedSubviews()
         tagSubStackView.removeAllArrangedSubviews()
         
@@ -186,6 +183,12 @@ final class DetailMumentCardView: UIView {
             }else{
                 self.heartCount += 1
                 self.requestPostHeartLiked(mumentId: self.mumentId)
+            }
+        }
+
+        likedUserButton.press {
+            if self.heartCount != 0 {
+                self.delegate?.pushToLikedUserListVC()
             }
         }
         
