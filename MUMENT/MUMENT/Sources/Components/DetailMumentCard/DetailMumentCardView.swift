@@ -187,7 +187,7 @@ final class DetailMumentCardView: UIView {
         }
 
         likedUserButton.press {
-            if self.heartCount != 0 {
+            if self.heartCount > 0 {
                 self.delegate?.pushToLikedUserListVC()
             }
         }
