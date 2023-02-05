@@ -83,14 +83,16 @@ class SearchVC: BaseVC {
     
     // MARK: - Functions
     private func fetchSearchResultData() {
-        if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
-            self.recentSearchData = localData
-            self.recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
-        } else {
-            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
-            self.fetchSearchResultData()
+        if self.searchTVType == .recentSearch {
+            if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
+                self.recentSearchData = localData
+                self.recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
+            } else {
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
+                self.fetchSearchResultData()
+            }
+            self.resultTV.reloadData()
         }
-        self.resultTV.reloadData()
     }
     
     private func setAllClearButton() {
