@@ -10,10 +10,12 @@ import Foundation
 // MARK: - CarouselResponseModel
 struct CarouselResponseModel: Codable {
     let todayDate: String
+    let userId: Int
     let bannerList: [BannerList]
 
     enum CodingKeys: String, CodingKey {
         case todayDate = "todayDate"
+        case userId = "userId"
         case bannerList = "bannerList"
     }
     

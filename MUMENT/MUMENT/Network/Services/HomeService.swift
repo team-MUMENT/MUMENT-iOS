@@ -40,32 +40,15 @@ extension HomeService: TargetType {
     
     var header: HeaderType {
         switch self {
-        case .getCarouselData:
+        case .getMumentForTodayData, .getMumentsOfRevisitedData, .getMumentsByTagData:
             return .basic
-        case .getMumentForTodayData:
-            return .basic
-        case .getMumentsOfRevisitedData:
-            return .basic
-        case .getMumentsByTagData:
-            return .basic
-        case .getUserPenalty:
+        case .getCarouselData, .getUserPenalty:
             return .auth
         }
     }
     
     var parameters: RequestParams {
-        switch self {
-        case .getCarouselData:
-            return .requestPlain
-        case .getMumentForTodayData:
-            return .requestPlain
-        case .getMumentsOfRevisitedData:
-            return .requestPlain
-        case .getMumentsByTagData:
-            return .requestPlain
-        case .getUserPenalty:
-            return .requestPlain
-        }
+        return .requestPlain
     }
 }
 

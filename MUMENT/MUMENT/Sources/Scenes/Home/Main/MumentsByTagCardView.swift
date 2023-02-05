@@ -61,14 +61,6 @@ class MumentsByTagCardView: UIView {
         super.init(coder: aDecoder)!
     }
     
-    // Test Code
-    func setData(_ cellData: MumentsByTagModel){
-        titleAndArtistLabel.text = "\(cellData.title) - \(cellData.artist)"
-        contentsLabel.text = cellData.contents
-        profileImage.image = cellData.profileImage
-        writerNameLabel.text = cellData.writerName
-    }
-    
     func setData(_ cellData: MumentsByTagResponseModel.MumentList){
         titleAndArtistLabel.text = "\(cellData.music.name) - \(cellData.music.artist)"
         contentsLabel.text = cellData.content
