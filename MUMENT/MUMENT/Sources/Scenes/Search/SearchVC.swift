@@ -210,7 +210,6 @@ extension SearchVC: UITableViewDelegate {
         
         switch searchTVType {
         case .recentSearch:
-//            songDetailVC.musicId = "3"
             songDetailVC.musicData = MusicDTO(
                 id: self.recentSearchData.reversed()[indexPath.row].id,
                 title: self.recentSearchData.reversed()[indexPath.row].name,
@@ -221,7 +220,6 @@ extension SearchVC: UITableViewDelegate {
             self.recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
         case .searchResult:
-//            songDetailVC.musicId = self.searchResultData[indexPath.row].id
             songDetailVC.musicData = MusicDTO(
                 id: self.searchResultData[indexPath.row].id,
                 title: self.searchResultData[indexPath.row].name,
