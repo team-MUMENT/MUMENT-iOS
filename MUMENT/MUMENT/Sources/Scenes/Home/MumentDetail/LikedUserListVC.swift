@@ -143,10 +143,8 @@ extension LikedUserListVC {
                     /// 새로 받아온 데이터의 수가 0인 경우 다시 - offset
                     if self.newLikedUserDataCount == 0 {
                         self.pageOffset -= self.pageLimit
-                        self.fetchMoreFlag = false
-                    }else {
-                        self.fetchMoreFlag = true
                     }
+                    self.fetchMoreFlag = !self.newLikedUserDataCount == 0
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
