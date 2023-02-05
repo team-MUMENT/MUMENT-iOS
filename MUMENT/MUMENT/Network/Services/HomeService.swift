@@ -12,6 +12,7 @@ enum HomeService {
     case getMumentForTodayData
     case getMumentsOfRevisitedData
     case getMumentsByTagData
+    case getUserPenalty
 }
 
 extension HomeService: TargetType {
@@ -25,19 +26,24 @@ extension HomeService: TargetType {
             return "/mument/again"
         case .getMumentsByTagData:
             return "/mument/random"
+        case .getUserPenalty:
+            return "/user/report/restrict"
         }
     }
     
     var method: HTTPMethod {
-        return .get
+        switch self {
+        case .getCarouselData, .getMumentForTodayData, .getMumentsOfRevisitedData, .getMumentsByTagData, .getUserPenalty:
+            return .get
+        }
     }
     
     var header: HeaderType {
         switch self {
-        case.getCarouselData:
-            return .auth
-        default:
+        case .getMumentForTodayData, .getMumentsOfRevisitedData, .getMumentsByTagData:
             return .basic
+        case .getCarouselData, .getUserPenalty:
+            return .auth
         }
     }
     

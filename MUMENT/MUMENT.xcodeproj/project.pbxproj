@@ -87,6 +87,9 @@
 		C71297662986F5880007AAE8 /* EditMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */; };
 		C7145D1A298C247D007B0F87 /* GetMypageUrlResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */; };
 		C7145D1C298C2B39007B0F87 /* GetUserProfileResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D1B298C2B39007B0F87 /* GetUserProfileResponseModel.swift */; };
+		C7145D1E298D0A57007B0F87 /* NotificationOnBottomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D1D298D0A57007B0F87 /* NotificationOnBottomVC.swift */; };
+		C7145D20298D5C08007B0F87 /* MumentUserPenaltyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D1F298D5C08007B0F87 /* MumentUserPenaltyAlert.swift */; };
+		C7145D22298D65F7007B0F87 /* GetUserPenaltyResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D21298D65F7007B0F87 /* GetUserPenaltyResponseModel.swift */; };
 		C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47E628807B64001A7CD6 /* SearchVC.swift */; };
 		C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */; };
 		C71B47ED28818B21001A7CD6 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B47EC28818B21001A7CD6 /* SearchTVC.swift */; };
@@ -327,6 +330,9 @@
 		C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMumentResponseModel.swift; sourceTree = "<group>"; };
 		C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMypageUrlResponseModel.swift; sourceTree = "<group>"; };
 		C7145D1B298C2B39007B0F87 /* GetUserProfileResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserProfileResponseModel.swift; sourceTree = "<group>"; };
+		C7145D1D298D0A57007B0F87 /* NotificationOnBottomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOnBottomVC.swift; sourceTree = "<group>"; };
+		C7145D1F298D5C08007B0F87 /* MumentUserPenaltyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentUserPenaltyAlert.swift; sourceTree = "<group>"; };
+		C7145D21298D65F7007B0F87 /* GetUserPenaltyResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPenaltyResponseModel.swift; sourceTree = "<group>"; };
 		C71B47E628807B64001A7CD6 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		C71B47EA288164CA001A7CD6 /* MusicForSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicForSearchModel.swift; sourceTree = "<group>"; };
 		C71B47EC28818B21001A7CD6 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
@@ -523,6 +529,7 @@
 				4DC4D84F2889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift */,
 				4DC4D84D2889BA100060D00F /* MumentsByTagResponseModel.swift */,
 				4D13A67B2889163400197D2A /* HistoryResponseModel.swift */,
+				C7145D21298D65F7007B0F87 /* GetUserPenaltyResponseModel.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -1104,6 +1111,8 @@
 				C7612D3E29365F4F005F74B1 /* MumentUnderLineButton.swift */,
 				C7612D522938382F005F74B1 /* MumentToggleButton.swift */,
 				E7978471297B705C00A0AE45 /* TagList.swift */,
+				C7145D1D298D0A57007B0F87 /* NotificationOnBottomVC.swift */,
+				C7145D1F298D5C08007B0F87 /* MumentUserPenaltyAlert.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1324,7 +1333,9 @@
 				C7612D42293798AA005F74B1 /* MypageNoticeVC.swift in Sources */,
 				4DE75A8228CCBAE400BC3EC4 /* MumentsByTagCardView.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
+				C7145D20298D5C08007B0F87 /* MumentUserPenaltyAlert.swift in Sources */,
 				C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */,
+				C7145D22298D65F7007B0F87 /* GetUserPenaltyResponseModel.swift in Sources */,
 				C71B47E728807B64001A7CD6 /* SearchVC.swift in Sources */,
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
 				E781F2272882A77500484C28 /* SectionHeader.swift in Sources */,
@@ -1452,6 +1463,7 @@
 				C71297662986F5880007AAE8 /* EditMumentResponseModel.swift in Sources */,
 				C7BC6B6628771056008C75CE /* UITextField+.swift in Sources */,
 				4D4C8658287BCD3D00D972AF /* CarouselCVC.swift in Sources */,
+				C7145D1E298D0A57007B0F87 /* NotificationOnBottomVC.swift in Sources */,
 				C7145D1C298C2B39007B0F87 /* GetUserProfileResponseModel.swift in Sources */,
 				4DE0FAD129811BA9008F01E5 /* WithdrawalReasonBodyModel.swift in Sources */,
 				C71B47ED28818B21001A7CD6 /* SearchTVC.swift in Sources */,

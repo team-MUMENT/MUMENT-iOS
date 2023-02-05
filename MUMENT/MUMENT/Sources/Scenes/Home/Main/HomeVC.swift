@@ -26,6 +26,7 @@ class HomeVC: BaseVC {
         self.navigationController?.navigationBar.isHidden = true
         setLayout()
         setButtonActions()
+        self.checkUserPenalty(self)
     }
     
     override func viewWillAppear(_ animate: Bool) {
