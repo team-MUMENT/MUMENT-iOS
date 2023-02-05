@@ -44,7 +44,7 @@ final class SignInVC: BaseVC {
     }
     
     // MARK: Properties
-    private var termsAndPolicyURL: GetMypageURLResponseModel = GetMypageURLResponseModel()
+    private var termsAndPolicyURL: GetAppURLresponseModel = GetAppURLresponseModel()
     
     // MARK: - Initialization
     override func viewDidLoad() {
@@ -273,7 +273,7 @@ extension SignInVC {
         MyPageAPI.shared.getMypageURL(isFromSignIn: true) { networkResult in
             switch networkResult {
             case .success(let response):
-                if let result = response as? GetMypageURLResponseModel {
+                if let result = response as? GetAppURLresponseModel {
                     self.termsAndPolicyURL = result
                 }
             default:

@@ -85,7 +85,7 @@
 		4DEED415288B32E500C6337B /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEED414288B32E500C6337B /* DeleteService.swift */; };
 		4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */; };
 		C71297662986F5880007AAE8 /* EditMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */; };
-		C7145D1A298C247D007B0F87 /* GetMypageUrlResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */; };
+		C7145D1A298C247D007B0F87 /* GetAppURLresponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D19298C247D007B0F87 /* GetAppURLresponseModel.swift */; };
 		C7145D1C298C2B39007B0F87 /* GetUserProfileResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D1B298C2B39007B0F87 /* GetUserProfileResponseModel.swift */; };
 		C7145D1E298D0A57007B0F87 /* NotificationOnBottomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D1D298D0A57007B0F87 /* NotificationOnBottomVC.swift */; };
 		C7145D20298D5C08007B0F87 /* MumentUserPenaltyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7145D1F298D5C08007B0F87 /* MumentUserPenaltyAlert.swift */; };
@@ -332,7 +332,7 @@
 		4DEED414288B32E500C6337B /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		4DF61684287C43CC00ECC421 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		C71297652986F5880007AAE8 /* EditMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMumentResponseModel.swift; sourceTree = "<group>"; };
-		C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMypageUrlResponseModel.swift; sourceTree = "<group>"; };
+		C7145D19298C247D007B0F87 /* GetAppURLresponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppURLresponseModel.swift; sourceTree = "<group>"; };
 		C7145D1B298C2B39007B0F87 /* GetUserProfileResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserProfileResponseModel.swift; sourceTree = "<group>"; };
 		C7145D1D298D0A57007B0F87 /* NotificationOnBottomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOnBottomVC.swift; sourceTree = "<group>"; };
 		C7145D1F298D5C08007B0F87 /* MumentUserPenaltyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentUserPenaltyAlert.swift; sourceTree = "<group>"; };
@@ -669,7 +669,7 @@
 				4DE0FAD029811BA9008F01E5 /* WithdrawalReasonBodyModel.swift */,
 				4DE0FAD229811CDA008F01E5 /* WithdrawalReasonResponseModel.swift */,
 				4DE0FAD429811CEA008F01E5 /* WithdrawalResponseModel.swift */,
-				C7145D19298C247D007B0F87 /* GetMypageUrlResponseModel.swift */,
+				C7145D19298C247D007B0F87 /* GetAppURLresponseModel.swift */,
 				C7145D1B298C2B39007B0F87 /* GetUserProfileResponseModel.swift */,
 			);
 			path = Model;
@@ -1504,7 +1504,7 @@
 				C7612D3F29365F4F005F74B1 /* MumentUnderLineButton.swift in Sources */,
 				4DCD2844288942DE0012AF49 /* MumentDetailService.swift in Sources */,
 				4D8784742986F5D3001F446E /* MusicDTO.swift in Sources */,
-				C7145D1A298C247D007B0F87 /* GetMypageUrlResponseModel.swift in Sources */,
+				C7145D1A298C247D007B0F87 /* GetAppURLresponseModel.swift in Sources */,
 				E72A0661298FD44000A42378 /* LikedUserListVC.swift in Sources */,
 				C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */,
 				4D300665288B0C0A007FF4DB /* LikeAPI.swift in Sources */,
