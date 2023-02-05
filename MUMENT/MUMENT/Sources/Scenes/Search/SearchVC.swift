@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxCocoa
+import RxSwift
 
 class SearchVC: BaseVC {
     
@@ -41,26 +43,25 @@ class SearchVC: BaseVC {
         $0.isHidden = true
     }
     
-    var searchTVType: SearchTVType = .recentSearch {
+    private var searchTVType: SearchTVType = .recentSearch {
         didSet {
             switch searchTVType {
             case .recentSearch:
-                searchResultEmptyView.isHidden = true
+                self.openRecentSearchTitleView()
             case .searchResult:
-                recentSearchEmptyView.isHidden = true
-                self.allClearButton.isHidden = true
-                recentSearchTitleView.snp.updateConstraints {
-                    $0.height.equalTo(0)
-                }
+                self.closeRecentSearchTitleView()
             }
         }
     }
-    var searchResultData: SearchResultResponseModel = []
-    var recentSearchData: SearchResultResponseModel = [] {
+    
+    // MARK: Properties
+    private var searchResultData: SearchResultResponseModel = []
+    private var recentSearchData: SearchResultResponseModel = [] {
         didSet {
             recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
         }
     }
+    private var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -71,7 +72,7 @@ class SearchVC: BaseVC {
         self.setAllClearButton()
         self.setResultTV()
         self.setRecentSearchEmptyView()
-        self.setSearchBar()
+        self.setSearchTextField()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,8 +119,15 @@ class SearchVC: BaseVC {
         self.resultTV.register(cell: SearchTVC.self, forCellReuseIdentifier: SearchTVC.className)
     }
     
-    private func setSearchBar() {
-        self.searchBar.delegate = self
+    private func setSearchTextField() {
+        self.searchTextField.delegate = self
+        self.searchTextField.clearButton.rx.tap
+            .bind {
+                self.searchTVType = .recentSearch
+                self.resultTV.reloadData()
+                self.openRecentSearchTitleView()
+            }
+            .disposed(by: self.disposeBag)
     }
     
     private func setRecentSearchEmptyView() {
@@ -135,11 +143,17 @@ class SearchVC: BaseVC {
         DispatchQueue.main.async {
             self.recentSearchTitleView.isHidden = false
         }
+        self.recentSearchTitleView.snp.updateConstraints { make in
+            make.height.equalTo(45)
+        }
     }
     
     private func closeRecentSearchTitleView() {
         DispatchQueue.main.async {
             self.recentSearchTitleView.isHidden = true
+        }
+        self.recentSearchTitleView.snp.updateConstraints { make in
+            make.height.equalTo(0)
         }
     }
 }
@@ -187,7 +201,7 @@ extension SearchVC {
                     completion(result)
                 }
             default:
-                print("네트워크 연결 실패")
+                self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
@@ -233,15 +247,18 @@ extension SearchVC: UITableViewDelegate {
 
 // MARK: - UITextFieldDelegate
 extension SearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
-        self.getSearchResult(keyword: searchBar.searchTextField.text ?? "") { result in
+        self.getSearchResult(keyword: self.searchTextField.text ?? "") { result in
             self.searchResultData = result
             self.searchTVType = .searchResult
             self.resultTV.reloadData()
-            self.setSearchResultEmptyView(keyword: searchBar.searchTextField.text ?? "")
+            self.setSearchResultEmptyView(keyword: self.searchTextField.text ?? "")
             self.closeRecentSearchTitleView()
         }
+        
+        return true
     }
 }
 
@@ -281,7 +298,7 @@ extension SearchVC {
     }
     
     private func setNaviViewLayout() {
-        naviView.addSubviews([backButton, searchBar])
+        naviView.addSubviews([backButton, searchTextField])
         
         backButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -290,7 +307,7 @@ extension SearchVC {
             $0.height.equalTo(24)
         }
         
-        searchBar.snp.makeConstraints {
+        searchTextField.snp.makeConstraints {
             $0.leading.equalTo(backButton.snp.trailing).offset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.top.bottom.equalToSuperview()
