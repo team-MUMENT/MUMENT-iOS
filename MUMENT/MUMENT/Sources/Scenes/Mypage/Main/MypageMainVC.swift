@@ -281,7 +281,8 @@ extension MypageMainVC {
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(naviView.snp.bottom)
-            $0.horizontalEdges.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalTo(self.view.safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
         }
     }
 }
