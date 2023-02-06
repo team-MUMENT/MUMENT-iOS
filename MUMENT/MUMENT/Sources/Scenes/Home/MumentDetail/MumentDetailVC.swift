@@ -288,18 +288,27 @@ extension MumentDetailVC {
     private func postUserBlock() {
         MumentDetailAPI.shared.postUserBlock(mumentId: mumentId) { networkResult in
             switch networkResult {
-            case .success(let statusCode):
-                /// TODO:  차단 성공은 되는데 토스트 메시지가 안뜸
-                if let statusCode = statusCode as? Int {
-                    debugPrint("block",statusCode)
+            case .success:
+                if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+                        previousVC.showToastMessage(message: "차단이 완료되었습니다.", color: .black)
+                    }
+                    navigationController.popViewController(animated: true)
+                    previousVC.viewWillAppear(true)
                 }
-                guard let presentingVC = self.presentingViewController as? MumentTabBarController else { return }
-                self.dismiss(animated: true)
-                if let navigationVC = presentingVC.selectedViewController as? BaseNC, let topVC = navigationVC.topViewController as? BaseVC {
-                    topVC.showToastMessage(message: "차단이 완료되었습니다.", color: .black)
-                    topVC.viewWillAppear(true)
-                } else {
-                    debugPrint("not navigtaion")
+            case .requestErr(let statusCode, _):
+                if let statusCode = statusCode as? Int {
+                    if statusCode == 400 {
+                        if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                            
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+                                previousVC.showToastMessage(message: "이미 차단한 유저입니다.", color: .black)
+                            }
+                            navigationController.popViewController(animated: true)
+                            previousVC.viewWillAppear(true)
+                        }
+                    }
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
