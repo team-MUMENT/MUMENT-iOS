@@ -45,6 +45,8 @@ final class ReportMumentVC: BaseVC {
             reportDoneButton.isEnabled = !selectedCategoryList.isEmpty || isBlockChecked
         }
     }
+    
+    private var blockReason: String = ""
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -65,6 +67,8 @@ final class ReportMumentVC: BaseVC {
         if #available(iOS 15, *) {
             reportMumentTV.sectionHeaderTopPadding = 0
         }
+        /// 키보드 처리 
+        self.hideKeyboardWhenTappedAround()
     }
 }
 
@@ -110,7 +114,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0 {
             guard let footerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: ReportMumentFooter.className) as? ReportMumentFooter else { return nil }
-            footerCell.setTextViewDelegate(vc: self)
+            footerCell.delegate = self
             return footerCell
         }else {
             return nil
@@ -160,16 +164,22 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-// MARK: - NameUITextViewDelegate
-extension ReportMumentVC: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        self.reportMumentTV.frame.origin.y = -66
+// MARK: - SendTextViewDelegate
+extension ReportMumentVC: sendTextViewDelegate {
+    func sendReportContent(content: String) {
+        blockReason = content
+        print(blockReason)
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        self.reportMumentTV.frame.origin.y = 0
+    func sendTextViewState(isEditing: Bool) {
+        if isEditing {
+            self.reportMumentTV.frame.origin.y = 0
+        }else{
+            self.reportMumentTV.frame.origin.y = -100
+        }
     }
 }
+
 
 // MARK: - UI
 extension ReportMumentVC {

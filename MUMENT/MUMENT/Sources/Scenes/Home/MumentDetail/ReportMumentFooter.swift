@@ -9,6 +9,11 @@ import UIKit
 import SnapKit
 import Then
 
+protocol sendTextViewDelegate: AnyObject {
+    func sendTextViewState(isEditing: Bool)
+    func sendReportContent(content: String)
+}
+
 final class ReportMumentFooter: UITableViewHeaderFooterView {
     
     // MARK: - Components
@@ -16,26 +21,46 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
         $0.isScrollEnabled = false
         $0.clipsToBounds = true
         $0.backgroundColor = .mGray5
-        $0.font = .mumentB3M14
+        $0.font = .mumentB6M13
         $0.text = "계정을 삭제하는 이유를 알려주세요."
-        $0.textColor = .mBlack2
+        $0.textColor = .mGray1
         $0.textContainerInset = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
         $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         $0.autocapitalizationType = .none
     }
+    
+    private let placeholder = "계정을 삭제하는 이유를 알려주세요."
+    
     private let countTextViewLabel = UILabel().then {
         $0.font = .mumentB6M13
         $0.textColor = .mGray2
         $0.text = "0/100"
     }
     
+    private var textCount: String = " " {
+        didSet {
+            let highlighttedString = NSAttributedString(string: textCount, attributes: [
+                .font: UIFont.mumentB6M13,
+                .foregroundColor: UIColor.mPurple1
+            ])
+            
+            let normalString = NSAttributedString(string: " / 100", attributes: [
+                .font: UIFont.mumentB6M13,
+                .foregroundColor: UIColor.mGray2
+            ])
+            
+            let title = highlighttedString + normalString
+            countTextViewLabel.attributedText = title
+        }
+    }
+    
+    weak var delegate: sendTextViewDelegate?
     
     // MARK: - Initialization
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setLayout()
-        contentTextView.makeRounded(cornerRadius: 7)
-
+        setTextView()
     }
     
     required init?(coder: NSCoder) {
@@ -43,6 +68,11 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
     }
     
     // MARK: - Function
+    private func setTextView() {
+        contentTextView.makeRounded(cornerRadius: 7)
+        contentTextView.delegate = self
+    }
+    
     private func setLayout() {
         self.addSubviews([contentTextView, countTextViewLabel])
         
@@ -57,30 +87,47 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
             $0.right.equalTo(contentTextView).inset(11)
         }
     }
-    
-    func setTextViewDelegate(vc: UIViewController) {
-        contentTextView.delegate = vc as? any UITextViewDelegate
-    }
-    
 }
 
-//extension ReportMumentFooter: UITextViewDelegate {
-//
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        if contentTextView.textColor == UIColor.mGray1 {
-//            contentTextView.text = ""
-//            contentTextView.textColor = .mBlack2
-//        }
-////    TODO: 델리게이트로 알려주기
-////        self.view.frame.origin.y = -280
-//    }
-//
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        if contentTextView.text.isEmpty {
-//            contentTextView.text =  "계정을 삭제하는 이유를 알려주세요."
-//            contentTextView.textColor = .mGray1
-//        }
-//
-////        self.view.frame.origin.y = 0
-//    }
-//}
+extension ReportMumentFooter: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.delegate?.sendTextViewState(isEditing: true)
+        print("textViewDidBeginEditing")
+        /// 플레이스홀더
+        if contentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            contentTextView.textColor = .mGray1
+            contentTextView.text = placeholder
+        } else if textView.text == placeholder {
+            contentTextView.textColor = .mBlack1
+            contentTextView.text = nil
+        }
+    }
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        print("textViewShouldEndEditing")
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.delegate?.sendTextViewState(isEditing: false)
+        print("textViewDidEndEditing")
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        print("textViewDidChange")
+        /// 글자 수 제한
+        if contentTextView.text.count > 100 {
+            contentTextView.deleteBackward()
+        }
+        
+        textCount = "\(contentTextView.text.count)"
+        
+        // 플레이스홀더
+        if contentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || textView.text == placeholder {
+            contentTextView.textColor = .mGray1
+            contentTextView.text = placeholder
+            countTextViewLabel.text = "0/100"
+        }
+        
+        sendReportContent(content: contentTextView.text)
+    }
+}
