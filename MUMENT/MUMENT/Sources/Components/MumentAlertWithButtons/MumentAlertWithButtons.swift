@@ -101,11 +101,13 @@ class MumentAlertWithButtons: BaseVC{
     // MARK: - Functions
     func setTitle(title: String) {
         titleLabel.text = title
+        titleLabel.sizeToFit()
     }
     
     func setTitleSubTitle(title: String, subTitle: String) {
         titleLabel.text = title
         subTitleLabel.text = subTitle
+        titleLabel.sizeToFit()
         subTitleLabel.sizeToFit()
     }
     
@@ -135,8 +137,9 @@ extension MumentAlertWithButtons {
         view.addSubviews([alertView])
         
         alertView.snp.makeConstraints {
-            $0.width.equalTo(screenWidth * 0.717333)
-            $0.height.equalTo(alertHeight ?? 0.0)
+            $0.leading.trailing.equalToSuperview().inset(53.adjustedW)
+//            $0.width.equalTo(screenWidth * 0.717333)
+//            $0.height.equalTo(alertHeight ?? 0.0)
             $0.center.equalToSuperview()
         }
     }
@@ -145,7 +148,7 @@ extension MumentAlertWithButtons {
         alertView.addSubviews([contentStackView, buttonStackView])
         
         buttonStackView.snp.makeConstraints {
-            $0.height.equalTo((self.alertHeight ?? 0) * 0.35)
+            $0.height.equalTo(60)
             $0.left.right.bottom.equalToSuperview()
         }
     }
@@ -154,9 +157,9 @@ extension MumentAlertWithButtons {
         contentStackView.addArrangedSubviews([titleLabel])
         
         contentStackView.snp.makeConstraints {
-            print(alertView.frame.height)
-            $0.top.left.right.equalToSuperview()
-            $0.bottom.equalTo(buttonStackView.snp.top)
+            $0.top.equalToSuperview().inset(50)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalTo(buttonStackView.snp.top).offset(-28)
         }
     }
     
@@ -164,9 +167,9 @@ extension MumentAlertWithButtons {
         contentStackView.addArrangedSubviews([titleLabel, subTitleLabel])
         
         contentStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset((alertHeight ?? 0) * 0.1)
+            $0.top.equalToSuperview().inset(45)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo((alertHeight ?? 0) * 0.5)
+            $0.bottom.equalTo(buttonStackView.snp.top).offset(-23)
         }
     }
     
