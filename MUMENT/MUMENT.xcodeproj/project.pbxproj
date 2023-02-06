@@ -237,6 +237,7 @@
 		E72A066B2990D14400A42378 /* ReportMumentTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72A066A2990D14400A42378 /* ReportMumentTVC.swift */; };
 		E72A066D2990E10000A42378 /* ReportMumentFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72A066C2990E10000A42378 /* ReportMumentFooter.swift */; };
 		E72A066F2990FC4800A42378 /* ReportMumentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72A066E2990FC4800A42378 /* ReportMumentHeader.swift */; };
+		E72A067129915DC000A42378 /* UserBlockResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72A067029915DC000A42378 /* UserBlockResponseModel.swift */; };
 		E7400C182941EF2A006F5963 /* StorageMumentCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C172941EF2A006F5963 /* StorageMumentCV.swift */; };
 		E7400C1C29425235006F5963 /* StorageMumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1B29425235006F5963 /* StorageMumentVC.swift */; };
 		E7400C1E2943235F006F5963 /* StorageMumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1D2943235F006F5963 /* StorageMumentModel.swift */; };
@@ -460,6 +461,7 @@
 		E72A066A2990D14400A42378 /* ReportMumentTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMumentTVC.swift; sourceTree = "<group>"; };
 		E72A066C2990E10000A42378 /* ReportMumentFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMumentFooter.swift; sourceTree = "<group>"; };
 		E72A066E2990FC4800A42378 /* ReportMumentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMumentHeader.swift; sourceTree = "<group>"; };
+		E72A067029915DC000A42378 /* UserBlockResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBlockResponseModel.swift; sourceTree = "<group>"; };
 		E7400C172941EF2A006F5963 /* StorageMumentCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentCV.swift; sourceTree = "<group>"; };
 		E7400C1B29425235006F5963 /* StorageMumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentVC.swift; sourceTree = "<group>"; };
 		E7400C1D2943235F006F5963 /* StorageMumentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentModel.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				4D13A67B2889163400197D2A /* HistoryResponseModel.swift */,
 				C7145D21298D65F7007B0F87 /* GetUserPenaltyResponseModel.swift */,
 				E72A0664298FE73400A42378 /* LikedUserListResponseModel.swift */,
+				E72A067029915DC000A42378 /* UserBlockResponseModel.swift */,
 			);
 			path = ResponseModel;
 			sourceTree = "<group>";
@@ -1388,6 +1391,7 @@
 				C7612D4E2937C816005F74B1 /* MypageNoticeTitleView.swift in Sources */,
 				C79CD44F2921BD4500DE4A47 /* SetProfileVC.swift in Sources */,
 				C7612D3B29361F30005F74B1 /* MypageMainSeparatorView.swift in Sources */,
+				E72A067129915DC000A42378 /* UserBlockResponseModel.swift in Sources */,
 				C78B10A029408892002D2E54 /* GetBlockedUserListResponseModel.swift in Sources */,
 				C71B47FC2884369C001A7CD6 /* MumentAlertWithButtons.swift in Sources */,
 				E72A06672990C98B00A42378 /* ReportMumentVC.swift in Sources */,
