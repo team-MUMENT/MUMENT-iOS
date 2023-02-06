@@ -144,7 +144,7 @@ extension LikedUserListVC {
                     if self.newLikedUserDataCount == 0 {
                         self.pageOffset -= self.pageLimit
                     }
-                    self.fetchMoreFlag = !self.newLikedUserDataCount == 0
+                    self.fetchMoreFlag = !(self.newLikedUserDataCount == 0)
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)

@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxCocoa
+import RxSwift
 
 class SearchVC: BaseVC {
     
@@ -19,17 +21,7 @@ class SearchVC: BaseVC {
             self.navigationController?.popViewController(animated: true)
         }
     }
-    private let searchBar = UISearchBar().then {
-        $0.setImage(UIImage(named: "mumentSearch"), for: .search, state: .normal)
-        $0.setImage(UIImage(named: "mumentDelete2"), for: .clear, state: .normal)
-        $0.barTintColor = .mGray5
-        $0.makeRounded(cornerRadius: 11.adjustedH)
-        $0.placeholder = "곡, 아티스트"
-        $0.searchTextField.font = .mumentB4M14
-        $0.searchTextField.backgroundColor = .clear
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.mBgwhite.cgColor
-    }
+    private let searchTextField: MumentSearchTextField = MumentSearchTextField()
     private let recentSearchTitleView = UIView()
     private let recentSearchLabel = UILabel().then {
         $0.text = "최근 검색한 곡"
@@ -51,26 +43,21 @@ class SearchVC: BaseVC {
         $0.isHidden = true
     }
     
-    var searchTVType: SearchTVType = .recentSearch {
+    private var searchTVType: SearchTVType = .recentSearch {
         didSet {
             switch searchTVType {
             case .recentSearch:
-                searchResultEmptyView.isHidden = true
+                self.openRecentSearchTitleView()
             case .searchResult:
-                recentSearchEmptyView.isHidden = true
-                self.allClearButton.isHidden = true
-                recentSearchTitleView.snp.updateConstraints {
-                    $0.height.equalTo(0)
-                }
+                self.closeRecentSearchTitleView()
             }
         }
     }
-    var searchResultData: SearchResultResponseModel = []
-    var recentSearchData: SearchResultResponseModel = [] {
-        didSet {
-            recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
-        }
-    }
+    
+    // MARK: Properties
+    private var searchResultData: SearchResultResponseModel = []
+    private var recentSearchData: SearchResultResponseModel = []
+    private var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -81,7 +68,7 @@ class SearchVC: BaseVC {
         self.setAllClearButton()
         self.setResultTV()
         self.setRecentSearchEmptyView()
-        self.setSearchBar()
+        self.setSearchTextField()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,14 +79,16 @@ class SearchVC: BaseVC {
     
     // MARK: - Functions
     private func fetchSearchResultData() {
-        if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
-            self.recentSearchData = localData
-            self.recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
-        } else {
-            SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
-            self.fetchSearchResultData()
+        if self.searchTVType == .recentSearch {
+            if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
+                self.recentSearchData = localData
+                self.recentSearchData.isEmpty ? closeRecentSearchTitleView() : openRecentSearchTitleView()
+            } else {
+                SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
+                self.fetchSearchResultData()
+            }
+            self.resultTV.reloadData()
         }
-        self.resultTV.reloadData()
     }
     
     private func setAllClearButton() {
@@ -128,8 +117,17 @@ class SearchVC: BaseVC {
         self.resultTV.register(cell: SearchTVC.self, forCellReuseIdentifier: SearchTVC.className)
     }
     
-    private func setSearchBar() {
-        self.searchBar.delegate = self
+    private func setSearchTextField() {
+        self.searchTextField.delegate = self
+        self.searchTextField.clearButton.rx.tap
+            .bind {
+                self.searchTVType = .recentSearch
+                self.resultTV.reloadData()
+                self.openRecentSearchTitleView()
+                self.searchResultEmptyView.isHidden = true
+                self.recentSearchEmptyView.isHidden = !self.recentSearchData.isEmpty
+            }
+            .disposed(by: self.disposeBag)
     }
     
     private func setRecentSearchEmptyView() {
@@ -142,14 +140,22 @@ class SearchVC: BaseVC {
     }
     
     private func openRecentSearchTitleView() {
-        DispatchQueue.main.async {
-            self.recentSearchTitleView.isHidden = false
+        if !self.recentSearchData.isEmpty {
+            DispatchQueue.main.async {
+                self.recentSearchTitleView.isHidden = false
+            }
+            self.recentSearchTitleView.snp.updateConstraints { make in
+                make.height.equalTo(45)
+            }
         }
     }
     
     private func closeRecentSearchTitleView() {
         DispatchQueue.main.async {
             self.recentSearchTitleView.isHidden = true
+        }
+        self.recentSearchTitleView.snp.updateConstraints { make in
+            make.height.equalTo(0)
         }
     }
 }
@@ -197,7 +203,7 @@ extension SearchVC {
                     completion(result)
                 }
             default:
-                print("네트워크 연결 실패")
+                self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
@@ -210,7 +216,6 @@ extension SearchVC: UITableViewDelegate {
         
         switch searchTVType {
         case .recentSearch:
-//            songDetailVC.musicId = "3"
             songDetailVC.musicData = MusicDTO(
                 id: self.recentSearchData.reversed()[indexPath.row].id,
                 title: self.recentSearchData.reversed()[indexPath.row].name,
@@ -221,7 +226,6 @@ extension SearchVC: UITableViewDelegate {
             self.recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 2)
             SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
         case .searchResult:
-//            songDetailVC.musicId = self.searchResultData[indexPath.row].id
             songDetailVC.musicData = MusicDTO(
                 id: self.searchResultData[indexPath.row].id,
                 title: self.searchResultData[indexPath.row].name,
@@ -243,18 +247,21 @@ extension SearchVC: UITableViewDelegate {
     }
 }
 
-// MARK: - UISearchBarDelegate
-extension SearchVC: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.searchTextField.endEditing(true)
+// MARK: - UITextFieldDelegate
+extension SearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         
-        self.getSearchResult(keyword: searchBar.searchTextField.text ?? "") { result in
+        self.getSearchResult(keyword: self.searchTextField.text ?? "") { result in
             self.searchResultData = result
             self.searchTVType = .searchResult
             self.resultTV.reloadData()
-            self.setSearchResultEmptyView(keyword: searchBar.searchTextField.text ?? "")
+            self.setSearchResultEmptyView(keyword: self.searchTextField.text ?? "")
             self.closeRecentSearchTitleView()
+            self.recentSearchEmptyView.isHidden = true
         }
+        
+        return true
     }
 }
 
@@ -294,7 +301,7 @@ extension SearchVC {
     }
     
     private func setNaviViewLayout() {
-        naviView.addSubviews([backButton, searchBar])
+        naviView.addSubviews([backButton, searchTextField])
         
         backButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -303,7 +310,7 @@ extension SearchVC {
             $0.height.equalTo(24)
         }
         
-        searchBar.snp.makeConstraints {
+        searchTextField.snp.makeConstraints {
             $0.leading.equalTo(backButton.snp.trailing).offset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.top.bottom.equalToSuperview()
