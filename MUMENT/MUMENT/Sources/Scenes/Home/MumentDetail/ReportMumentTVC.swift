@@ -15,6 +15,7 @@ final class ReportMumentTVC: UITableViewCell {
     private let checkButton = UIButton().then {
         $0.setImage(UIImage(named: "mumentReportSelectedBtn"), for: .disabled)
         $0.setImage(UIImage(named: "mumentReportUnselectedBtn"), for: .normal)
+        $0.isUserInteractionEnabled = false
     }
     
     private let categoryTitleLabel = UILabel().then {
@@ -31,7 +32,7 @@ final class ReportMumentTVC: UITableViewCell {
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setUI()
+        configure()
         setLayout()
     }
     
@@ -40,7 +41,13 @@ final class ReportMumentTVC: UITableViewCell {
     }
     
     // MARK: - Function
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    private func configure() {
+        self.backgroundColor = .mBgwhite
+        self.isSelected = false
+        self.checkButton.isEnabled = true
+    }
+    
+    func setData() {
         self.checkButton.isEnabled.toggle()
     }
     
@@ -65,15 +72,6 @@ final class ReportMumentTVC: UITableViewCell {
         }
     }
 
-    func setButtonSelect() {
-        self.checkButton.isEnabled.toggle()
-    }
-
-    private func setUI() {
-        self.backgroundColor = .mBgwhite
-        self.isSelected = false
-    }
-            
     private func setLayout() {
         self.addSubviews([checkButton, categoryTitleLabel])
         
