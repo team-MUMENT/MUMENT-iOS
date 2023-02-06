@@ -44,15 +44,11 @@ final class ReportMumentVC: BaseVC {
     
     private var selectedCategoryList: [Int] = [] {
         didSet {
-            reportDoneButton.isEnabled = !selectedCategoryList.isEmpty || isBlockChecked
+            reportDoneButton.isEnabled = !selectedCategoryList.isEmpty
         }
     }
     
-    private var isBlockChecked: Bool = false {
-        didSet {
-            reportDoneButton.isEnabled = !selectedCategoryList.isEmpty || isBlockChecked
-        }
-    }
+    private var isBlockChecked: Bool = false
     
     private var blockReason: String = ""
     
@@ -78,7 +74,6 @@ final class ReportMumentVC: BaseVC {
     private func setPressAction() {
         self.reportDoneButton.press { [weak self] in
             self?.postReportMument()
-            self?.dismiss(animated: true)
         }
     }
     
@@ -246,10 +241,43 @@ extension ReportMumentVC {
             switch networkResult {
             case .success(let statusCode):
                 if let statusCode = statusCode as? Int {
+                    debugPrint("report",statusCode)
+                }
+                if self.isBlockChecked {
+                    print("블락체크", self.isBlockChecked)
+                    self.postUserBlock()
+                }else {
+                    self.navigationController?.popViewController(animated: true)
+                    if let naviVC = self.navigationController {
+                        naviVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
+                        naviVC.viewWillAppear(true)
+                    }
+                }
+                default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func postUserBlock() {
+        MumentDetailAPI.shared.postUserBlock(mumentId: mumentId) { networkResult in
+            switch networkResult {
+            case .success(let statusCode):
+                if let statusCode = statusCode as? Int {
+                    debugPrint("block",statusCode)
                 }
                 
+                self.navigationController?.popViewController(animated: true)
+                if let naviVC = self.navigationController {
+                    naviVC.showToastMessage(message: "신고 및 차단이 완료되었습니다.", color: .black)
+                    naviVC.viewWillAppear(true)
+                }
             default:
-                self.makeAlert(title: MessageType.networkError.message)
+                self.navigationController?.popViewController(animated: true)
+                if let naviVC = self.navigationController {
+                    naviVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
+                    naviVC.viewWillAppear(true)
+                }
             }
         }
     }

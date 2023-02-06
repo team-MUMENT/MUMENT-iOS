@@ -153,14 +153,19 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                 self.othersMumentActionSheetVC.dismiss(animated: true) {
                     switch indexPath.row {
                     case 0:
-                        // TODO: 뮤멘트 신고하기 구현
                         let reportMumentVC = ReportMumentVC()
                         reportMumentVC.setMumentId(mumentId: self.mumentId)
                         self.hideTabbar()
                         self.navigationController?.pushViewController(reportMumentVC, animated: true)
                         debugPrint("신고")
                     case 1:
-                        // TODO: 유저 차단하기 구현
+                        let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel, OKTitle: "차단하기")
+                        mumentAlert.setTitleSubTitle(title: "이 유저를 차단하시겠어요?", subTitle: "이 유저의 뮤멘트가 목록에서\n더는 보이지 않아요.")
+                        self.present(mumentAlert, animated: true)
+                        mumentAlert.setButtonAction()
+                        mumentAlert.OKButton.press { [weak self] in
+                            self?.postUserBlock()
+                        }
                         debugPrint("차단")
                     default: break
                     }
@@ -274,6 +279,28 @@ extension MumentDetailVC {
             switch networkResult {
             case .success(_):
                 return
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func postUserBlock() {
+        MumentDetailAPI.shared.postUserBlock(mumentId: mumentId) { networkResult in
+            switch networkResult {
+            case .success(let statusCode):
+                /// TODO:  차단 성공은 되는데 토스트 메시지가 안뜸
+                if let statusCode = statusCode as? Int {
+                    debugPrint("block",statusCode)
+                }
+                guard let presentingVC = self.presentingViewController as? MumentTabBarController else { return }
+                self.dismiss(animated: true)
+                if let navigationVC = presentingVC.selectedViewController as? BaseNC, let topVC = navigationVC.topViewController as? BaseVC {
+                    topVC.showToastMessage(message: "차단이 완료되었습니다.", color: .black)
+                    topVC.viewWillAppear(true)
+                } else {
+                    debugPrint("not navigtaion")
+                }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
             }
