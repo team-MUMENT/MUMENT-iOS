@@ -35,11 +35,11 @@ final class AlbumCVC: UICollectionViewCell {
     }
     
     func fetchData(_ cellData: GetLikedMumentResponseModel.Mument) {
-        mumentAlbumView.setImageUrl(cellData.music.image ?? APIConstants.defaultProfileImageURL)
+        mumentAlbumView.setImageUrl(cellData.music.image)
     }
     
     func fetchData(_ cellData: StorageMumentModel) {
-        mumentAlbumView.setImageUrl(cellData.music.image ?? APIConstants.defaultProfileImageURL)
+        mumentAlbumView.setImageUrl(cellData.music.image)
     }
     
     func setWithoutHeartCardUI() {
