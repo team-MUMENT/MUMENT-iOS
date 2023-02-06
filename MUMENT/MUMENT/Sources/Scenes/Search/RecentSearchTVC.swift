@@ -40,7 +40,7 @@ class RecentSearchTVC: UITableViewCell {
     
     func setData(data: SearchResultResponseModelElement) {
         self.albumImageView.setImageColor(color: .mGray5)
-        self.albumImageView.setImageUrl(data.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        self.albumImageView.setImageUrl(data.image ?? APIConstants.defaultProfileImageURL)
         self.titleLabel.text = data.name
         self.artistLabel.text = data.artist
     }

@@ -72,7 +72,7 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         }
     }
     func setDefaultData(_ cellData: StorageMumentModel){
-        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
         albumImage.setImageUrl(cellData.music.image)
         isFirst = cellData.isFirst

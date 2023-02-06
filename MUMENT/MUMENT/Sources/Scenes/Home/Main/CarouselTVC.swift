@@ -19,7 +19,7 @@ class CarouselTVC: UITableViewCell {
     
     private var index: Int = 0
     
-    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"), tagTitle: "", displayDate: "")]
+    var carouselData: [CarouselResponseModel.BannerList] = [CarouselResponseModel.BannerList(music: CarouselResponseModel.BannerList.Music(id: "", name: "", artist: "", image: APIConstants.defaultProfileImageURL), tagTitle: "", displayDate: "")]
     
     private var increasedCarouselData: [CarouselResponseModel.BannerList] = []
     
