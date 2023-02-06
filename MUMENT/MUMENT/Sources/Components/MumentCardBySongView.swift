@@ -258,11 +258,7 @@ extension MumentCardBySongView {
     private func requestPostHeartLiked(mumentId: Int) {
         LikeAPI.shared.postHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
-            case .success(let response):
-                if let res = response as? LikeResponseModel {
-                    print("Liked")
-                }
-
+            case .success: break
             default:
                 print("LikeAPI.shared.postHeartLiked")
                 return
@@ -273,11 +269,7 @@ extension MumentCardBySongView {
     private func requestDeleteHeartLiked(mumentId: Int) {
         LikeAPI.shared.deleteHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
-            case .success(let response):
-                if let res = response as? LikeCancelResponseModel {
-                    print("Like Canceled")
-                }
-                
+            case .success: break
             default:
                 print("LikeAPI.shared.deleteHeartLiked")
                 return
