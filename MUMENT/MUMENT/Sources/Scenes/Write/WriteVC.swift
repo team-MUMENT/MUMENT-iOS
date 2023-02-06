@@ -27,18 +27,7 @@ class WriteVC: BaseVC {
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
-    private let searchButton = UIButton(type: .system).then {
-        $0.backgroundColor = .mGray5
-        $0.layer.cornerRadius = 10
-        $0.configuration = .plain()
-        $0.configuration?.image = UIImage(named: "mumentSearch")
-        $0.configuration?.imagePadding = 10
-        $0.setAttributedTitle(NSAttributedString(string: "곡, 아티스트",attributes: [
-            .font: UIFont.mumentB4M14,
-            .foregroundColor: UIColor.mGray1
-        ]), for: .normal)
-        $0.contentHorizontalAlignment = .left
-    }
+    private let searchButton: MumentSearchBarButton = MumentSearchBarButton(type: .system)
     private let firstTimeMusicLabel = UILabel().then {
         $0.text = "처음 들은 곡인가요?"
         $0.font = .mumentB1B15
@@ -658,7 +647,7 @@ extension WriteVC {
         searchButton.snp.makeConstraints {
             $0.top.equalTo(selectMusicLabel.snp.bottom).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(20)
-            $0.height.equalTo(40.adjustedH)
+            $0.height.equalTo(40)
         }
         
         firstTimeMusicLabel.snp.makeConstraints {

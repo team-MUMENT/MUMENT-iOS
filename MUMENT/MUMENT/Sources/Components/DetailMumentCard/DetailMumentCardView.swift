@@ -107,8 +107,7 @@ final class DetailMumentCardView: UIView {
     
     //MARK: - Functions
     func setData(_ cellData: MumentDetailResponseModel, _ musicData: MusicDTO, _ mumentId: Int) {
-        print("들어왓나열?", cellData)
-        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
         isFirst = cellData.isFirst
         impressionTags = cellData.impressionTag
@@ -275,11 +274,7 @@ extension DetailMumentCardView {
     private func requestPostHeartLiked(mumentId: Int) {
         LikeAPI.shared.postHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
-            case .success(let response):
-                if let res = response as? LikeResponseModel {
-                    print("Liked")
-                }
-
+            case .success: break
             default:
                 print("LikeAPI.shared.postHeartLiked")
                 return
@@ -290,11 +285,7 @@ extension DetailMumentCardView {
     private func requestDeleteHeartLiked(mumentId: Int) {
         LikeAPI.shared.deleteHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
-            case .success(let response):
-                if let res = response as? LikeCancelResponseModel {
-                    print("Like Canceled")
-                }
-                
+            case .success: break
             default:
                 print("LikeAPI.shared.deleteHeartLiked")
                 return

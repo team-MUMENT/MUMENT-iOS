@@ -102,6 +102,8 @@ open class AlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
             default:
                 break
             }
+        @unknown default:
+            fatalError()
         }
 
         // It's safe to force-unwrap as `.leading` and `.trailing` are covered

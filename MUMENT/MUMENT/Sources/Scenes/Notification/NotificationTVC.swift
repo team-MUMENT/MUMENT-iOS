@@ -55,14 +55,14 @@ final class NotificationTVC: UITableViewCell {
             switch type {
             case .like:
                 self.iconImageView.image = UIImage(named: "heartSmall")
-                if let nickname = data.likeProfileID,
-                   let songTitle = data.likeMusicTitle {
+                if let nickname = data.like.userName,
+                   let songTitle = data.like.music.name {
                     self.setLikeNotificationLabel(nickname: nickname, songTitle: songTitle)
                 }
             case .notice:
                 self.iconImageView.image = UIImage(named: "mumentNotiSmall")
-                if let content = data.noticeTitle {
-                    self.setNoticeNotificationLabel(version: data.noticePoint, content: content)
+                if let content = data.notice.title {
+                    self.setNoticeNotificationLabel(version: data.notice.point, content: content)
                 }
             }
             

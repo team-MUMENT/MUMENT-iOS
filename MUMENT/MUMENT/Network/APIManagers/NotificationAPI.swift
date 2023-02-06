@@ -57,4 +57,19 @@ class NotificationAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 새로운 알림 유무 조회
+    func getIsNewNotification(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(NotificationService.getIsNewNotification).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, GetIsNewNotificationResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

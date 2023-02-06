@@ -40,7 +40,7 @@ extension MyPageService: TargetType {
             return "/mument/notice"
         case .getNoticeDetail(let noticeId):
             return "/mument/notice/\(noticeId)"
-        case .getMypageURL(let isFromSignIn):
+        case .getMypageURL:
             return "/user/webview-link"
         case .getUserProfile:
             return "/user/profile"
@@ -90,7 +90,7 @@ extension MyPageService: TargetType {
         case .setProfile(let data):
             let multiPartFormData = MultipartFormData()
             multiPartFormData.append(data.image, withName: "image", fileName: "profileImageiOS.png")
-            multiPartFormData.append(data.nickname.data(using: .utf8) ?? Data(), withName: "profileId")
+            multiPartFormData.append(data.nickname.data(using: .utf8) ?? Data(), withName: "userName")
             
             return multiPartFormData
         default:
