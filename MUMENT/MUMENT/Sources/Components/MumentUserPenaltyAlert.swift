@@ -30,7 +30,7 @@ final class MumentUserPenaltyAlert: BaseVC {
     
     private let contentLabel: UILabel = {
         let label: UILabel = UILabel()
-        label.text = "서비스 운영정책 위반으로\n뮤멘트 작성이 제한되었습니다.\n\n자세한 내용은 고객 센터에 문의해주세요.\n[마이페이지]-[문의하기]"
+        label.text = "서비스 운영정책 위반으로\n뮤멘트 작성이 제한되었습니다.\n\n자세한 내용은 고객 센터에 문의해주세요.\n[마이페이지] - [문의하기]"
         label.numberOfLines = 5
         label.font = .mumentB8M12
         label.textColor = .mBlack2
@@ -42,7 +42,7 @@ final class MumentUserPenaltyAlert: BaseVC {
     private let reasonTitleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.text = "제재이유"
-        label.font = .mumentB7B12 // TODO: 디자인 확인 필요
+        label.font = .mumentB7B12
         label.textColor = .mBlack2
         label.textAlignment = .center
         label.sizeToFit()
@@ -51,7 +51,7 @@ final class MumentUserPenaltyAlert: BaseVC {
     
     private let reasonContentLabel: UILabel = {
         let label: UILabel = UILabel()
-        label.font = .mumentB8M12 // TODO: 디자인 확인 필요
+        label.font = .mumentB8M12
         label.textColor = .mBlack2
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -60,8 +60,8 @@ final class MumentUserPenaltyAlert: BaseVC {
     
     private let reasonMusicLabel: UILabel = {
         let label: UILabel = UILabel()
-        label.font = .mumentB8M12 // TODO: 디자인 확인 필요
-        label.textColor = .mBlack2
+        label.font = .mumentB8M12
+        label.textColor = .mGray1
         label.lineBreakMode = .byTruncatingTail
         label.textAlignment = .center
         return label
@@ -70,7 +70,7 @@ final class MumentUserPenaltyAlert: BaseVC {
     private let endDateTitleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.text = "제재기간"
-        label.font = .mumentB7B12 // TODO: 디자인 확인 필요
+        label.font = .mumentB7B12
         label.textColor = .mBlack2
         label.textAlignment = .center
         label.sizeToFit()
@@ -79,7 +79,7 @@ final class MumentUserPenaltyAlert: BaseVC {
     
     private let endDateContentLabel: UILabel = {
         let label: UILabel = UILabel()
-        label.font = .mumentB8M12 // TODO: 디자인 확인 필요
+        label.font = .mumentB8M12
         label.textColor = .mBlack2
         label.textAlignment = .center
         return label
@@ -122,7 +122,6 @@ final class MumentUserPenaltyAlert: BaseVC {
             
             self.reasonContentLabel.text = "\(data.reason ?? "")"
             self.reasonMusicLabel.text = "\(reasonMusicString)"
-            self.reasonMusicLabel.setFontColor(to: reasonMusicString, font: .mumentB7B12, color: .mPurple1) // TODO: font, color 디자인 확인 필요
             self.endDateContentLabel.text = "\(data.endDate ?? "")까지 (\(data.period ?? ""))"
             
             self.reasonContentLabel.sizeToFit()
