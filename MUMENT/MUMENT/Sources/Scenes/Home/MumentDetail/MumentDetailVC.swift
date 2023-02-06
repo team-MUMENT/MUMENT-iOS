@@ -111,23 +111,27 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                 self.myMumentActionSheetVC.dismiss(animated: true) {
                     switch indexPath.row {
                     case 0:
-                        let editVC = WriteVC(
-                            isEdit: true,
-                            mumentId: self.mumentId,
-                            detailData: self.dataSource ?? MumentDetailResponseModel(
-                                isFirst: false,
-                                content: "",
-                                impressionTag: [],
-                                isLiked: false,
-                                count: 0,
-                                likeCount: 0,
-                                createdAt: "",
-                                feelingTag: [],
-                                user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: ""),
-                                isPrivate: false
-                            ),
-                            detailSongData: self.musicData)
-                        self.present(editVC, animated: true)
+                        if self.isPenaltyUser() {
+                            self.checkUserPenalty(self)
+                        } else {
+                            let editVC = WriteVC(
+                                isEdit: true,
+                                mumentId: self.mumentId,
+                                detailData: self.dataSource ?? MumentDetailResponseModel(
+                                    isFirst: false,
+                                    content: "",
+                                    impressionTag: [],
+                                    isLiked: false,
+                                    count: 0,
+                                    likeCount: 0,
+                                    createdAt: "",
+                                    feelingTag: [],
+                                    user: MUMENT.MumentDetailResponseModel.User(id: 0, image: Optional(""), name: ""),
+                                    isPrivate: false
+                                ),
+                                detailSongData: self.musicData)
+                            self.present(editVC, animated: true)
+                        }
                     case 1:
                         let mumentAlert = MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "삭제")
                         mumentAlert.setTitle(title: "삭제하시겠어요?")
