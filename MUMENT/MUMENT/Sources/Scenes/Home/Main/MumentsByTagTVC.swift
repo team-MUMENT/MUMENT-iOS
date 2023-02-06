@@ -82,7 +82,7 @@ extension MumentsByTagTVC: UICollectionViewDelegate{
             cell.isSelected = true
         }
         self.delegate?.mumentsByTagCVCSelected(data: mumentsByTagData[indexPath.row])
-
+        
     }
 }
 
@@ -113,7 +113,6 @@ extension MumentsByTagTVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
-        }
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
+    }
 }
-
