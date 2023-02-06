@@ -90,7 +90,7 @@ extension MyPageService: TargetType {
         case .setProfile(let data):
             let multiPartFormData = MultipartFormData()
             multiPartFormData.append(data.image, withName: "image", fileName: "profileImageiOS.png")
-            multiPartFormData.append(data.nickname.data(using: .utf8) ?? Data(), withName: "profileId")
+            multiPartFormData.append(data.nickname.data(using: .utf8) ?? Data(), withName: "userName")
             
             return multiPartFormData
         default:
