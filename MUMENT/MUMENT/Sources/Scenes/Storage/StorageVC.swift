@@ -83,12 +83,12 @@ final class StorageVC: BaseVC {
         setSegmentLaysout()
         setPagerLayout()
         setPressAction()
-        setProfile()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showTabbar()
+        self.setProfile()
     }
     
     // MARK: - Function
