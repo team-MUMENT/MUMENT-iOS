@@ -10,7 +10,7 @@ import Foundation
 // MARK: - GetBlockedUserListResponseModelElement
 struct GetBlockedUserListResponseModelElement: Codable {
     var id: Int
-    var image: String
+    var image: String?
     var nickname: String
     
     enum CodingKeys: String, CodingKey {
