@@ -35,7 +35,7 @@ final class LikedUserListTVC: UITableViewCell {
     
     func setLikedUserData(userData: LikedUserListResponseModel) {
         self.profileImageView.setImageUrl(userData.image ?? "")
-        self.userNickNameLabel.text = userData.profileId
+        self.userNickNameLabel.text = userData.userName
     }
 }
 

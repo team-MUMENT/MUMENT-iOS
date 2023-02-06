@@ -93,7 +93,7 @@ class MumentCardWithoutHeartView: UIView {
 //    }
     
     func setMumentForTodayData(_ cellData: MumentForTodayResponseModel){
-        profileImage.setImageUrl(cellData.todayMument.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        profileImage.setImageUrl(cellData.todayMument.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.todayMument.user.name
         albumImage.setImageUrl(cellData.todayMument.music.image)
         songTitleLabel.text = cellData.todayMument.music.name
@@ -107,7 +107,7 @@ class MumentCardWithoutHeartView: UIView {
     }
     
     func setWithoutHeartData(_ cellData: StorageMumentModel){
-        profileImage.setImageUrl(cellData.user.image ?? "https://avatars.githubusercontent.com/u/25932970?v=4")
+        profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
         albumImage.setImageUrl(cellData.music.image)
         songTitleLabel.text = cellData.music.name

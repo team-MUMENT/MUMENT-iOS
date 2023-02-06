@@ -40,7 +40,7 @@ final class MypageMainFooterTVC: UITableViewCell {
     
     // MARK: Methods
     func setVersionLabel(version: String) {
-        self.versionLabel.text = "버전 정보 \(version) v"
+        self.versionLabel.text = "버전 정보 v\(version)"
         self.sizeToFit()
     }
     

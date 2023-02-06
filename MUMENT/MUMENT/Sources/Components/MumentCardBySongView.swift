@@ -96,7 +96,7 @@ class MumentCardBySongView: UIView {
     
     //MARK: - Functions
     func setData(_ cellData: HistoryResponseModel.MumentHistory){
-        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.date
@@ -119,7 +119,7 @@ class MumentCardBySongView: UIView {
     }
     
     func setData(_ cellData: AllMumentsResponseModel.MumentList){
-        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.date
@@ -142,7 +142,7 @@ class MumentCardBySongView: UIView {
     }
     
     func setData(_ cellData: SongInfoResponseModel.MyMument){
-        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.date
@@ -258,11 +258,7 @@ extension MumentCardBySongView {
     private func requestPostHeartLiked(mumentId: Int) {
         LikeAPI.shared.postHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
-            case .success(let response):
-                if let res = response as? LikeResponseModel {
-                    print("Liked")
-                }
-
+            case .success: break
             default:
                 print("LikeAPI.shared.postHeartLiked")
                 return
@@ -273,11 +269,7 @@ extension MumentCardBySongView {
     private func requestDeleteHeartLiked(mumentId: Int) {
         LikeAPI.shared.deleteHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
-            case .success(let response):
-                if let res = response as? LikeCancelResponseModel {
-                    print("Like Canceled")
-                }
-                
+            case .success: break
             default:
                 print("LikeAPI.shared.deleteHeartLiked")
                 return

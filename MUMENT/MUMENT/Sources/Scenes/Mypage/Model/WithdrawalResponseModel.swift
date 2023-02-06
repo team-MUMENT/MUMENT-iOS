@@ -9,13 +9,13 @@ import Foundation
 
 struct WithdrawalResponseModel: Codable {
     let id: String
-    let profileId: String
+    let userName: String
     let isDeleted: Bool
     let updatedAt: String
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
-        case profileId = "profileId"
+        case userName = "userName"
         case isDeleted = "isDeleted"
         case updatedAt = "updatedAt"
     }

@@ -278,7 +278,7 @@ extension SetProfileVC {
                         refreshToken: result.refreshToken,
                         userId: result.id
                     )
-                    self.setUserProfile(nickname: result.nickname, profileImageURL: result.image)
+                    self.setUserProfile(nickname: result.userName, profileImageURL: result.image)
                     if let navigationController = self.navigationController {
                         navigationController.popViewController(animated: true)
                     } else {
