@@ -138,8 +138,6 @@ extension MumentAlertWithButtons {
         
         alertView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(53.adjustedW)
-//            $0.width.equalTo(screenWidth * 0.717333)
-//            $0.height.equalTo(alertHeight ?? 0.0)
             $0.center.equalToSuperview()
         }
     }
