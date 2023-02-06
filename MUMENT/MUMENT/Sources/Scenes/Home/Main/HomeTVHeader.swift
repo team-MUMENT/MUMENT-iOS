@@ -20,17 +20,7 @@ class HomeTVHeader: UIView {
         $0.setImage(UIImage(named: "mumentNoti"), for: .normal)
     }
     
-    private lazy var searchButton = UIButton().then{
-        $0.setTitle("어떤 노래가 궁금하신가요?", for: .normal)
-        $0.setTitleColor(.mGray1, for: .normal)
-        $0.titleLabel?.font = .mumentB4M14
-        $0.backgroundColor = .mGray5
-        $0.layer.cornerRadius = 10
-        $0.configuration = .plain()
-        $0.configuration?.image = UIImage(named: "mumentSearch")
-        $0.configuration?.imagePadding = 10
-        $0.contentHorizontalAlignment = .left
-    }
+    private lazy var searchButton = MumentSearchBarButton(type: .system)
     
     private let headerCoverView = UIView().then{
         $0.backgroundColor = .mBgwhite
