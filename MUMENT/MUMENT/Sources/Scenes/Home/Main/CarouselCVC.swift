@@ -40,7 +40,7 @@ class CarouselCVC: UICollectionViewCell {
         $0.layer.opacity = 0.7
     }
     
-    private let headerLable = UILabel().then{
+    private let headerLabel = UILabel().then{
         $0.textColor = .mWhite
         $0.font = .mumentH1B25
         $0.lineBreakMode = .byWordWrapping
@@ -82,7 +82,7 @@ class CarouselCVC: UICollectionViewCell {
     //MARK: - Functions
     func setData(_ cellData: CarouselResponseModel.BannerList, index: Int){
         backgroundImage.image = UIImage(named: "mumentBanner\(index)")
-        headerLable.text = cellData.tagTitle.replaceNewLineKeyword()
+        headerLabel.text = cellData.tagTitle.replaceNewLineKeyword()
         albumImage.setImageUrl(cellData.music.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
         songTitleLabel.text = cellData.music.name
         artistLabel.text = cellData.music.artist
@@ -95,7 +95,7 @@ extension CarouselCVC {
     
     private func setLayout() {
         self.backgroundView = backgroundImage
-        self.addSubviews([pageButton,headerLable,albumImage,songTitleLabel,artistLabel])
+        self.addSubviews([pageButton,headerLabel,albumImage,songTitleLabel,artistLabel])
         
         pageButton.snp.makeConstraints {
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -104,7 +104,7 @@ extension CarouselCVC {
             $0.height.equalTo(24)
         }
         
-        headerLable.snp.makeConstraints{
+        headerLabel.snp.makeConstraints{
             $0.top.equalTo(pageButton.snp.bottom).offset(15)
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.trailing.equalTo(self.safeAreaLayoutGuide)
@@ -112,12 +112,12 @@ extension CarouselCVC {
         
         albumImage.snp.makeConstraints{
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.top.equalTo(headerLable.snp.bottom).offset(70)
+            $0.top.equalTo(headerLabel.snp.bottom).offset(70)
             $0.width.height.equalTo(40)
         }
         
         songTitleLabel.snp.makeConstraints{
-            $0.top.equalTo(headerLable.snp.bottom).offset(70)
+            $0.top.equalTo(headerLabel.snp.bottom).offset(70)
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
         }
         
@@ -127,4 +127,3 @@ extension CarouselCVC {
         }
     }
 }
-
