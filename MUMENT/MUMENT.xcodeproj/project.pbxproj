@@ -154,6 +154,7 @@
 		C766F9CA2935ED7F00E08D5C /* MypageMainProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C92935ED7F00E08D5C /* MypageMainProfileTVC.swift */; };
 		C767507F29407D8300F2D985 /* SetBlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */; };
 		C767508229407F3100F2D985 /* BlockedUserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767508129407F3100F2D985 /* BlockedUserTVC.swift */; };
+		C76D29BE2991852900760A99 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29BD2991852900760A99 /* UINavigationController+.swift */; };
 		C77BB89C298AAC0700C69E72 /* SetProfileRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77BB89B298AAC0700C69E72 /* SetProfileRequestModel.swift */; };
 		C77BB8A1298AC4A000C69E72 /* SetProfileResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77BB8A0298AC4A000C69E72 /* SetProfileResponseModel.swift */; };
 		C77BB8A3298AF08B00C69E72 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77BB8A2298AF08B00C69E72 /* UIImage+.swift */; };
@@ -401,6 +402,7 @@
 		C766F9C92935ED7F00E08D5C /* MypageMainProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainProfileTVC.swift; sourceTree = "<group>"; };
 		C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBlockedUserVC.swift; sourceTree = "<group>"; };
 		C767508129407F3100F2D985 /* BlockedUserTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserTVC.swift; sourceTree = "<group>"; };
+		C76D29BD2991852900760A99 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		C77BB89B298AAC0700C69E72 /* SetProfileRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileRequestModel.swift; sourceTree = "<group>"; };
 		C77BB8A0298AC4A000C69E72 /* SetProfileResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileResponseModel.swift; sourceTree = "<group>"; };
 		C77BB8A2298AF08B00C69E72 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -876,6 +878,7 @@
 				C71B48192886F5FF001A7CD6 /* Int+.swift */,
 				E781F234288AF55400484C28 /* Sequence+.swift */,
 				C77BB8A2298AF08B00C69E72 /* UIImage+.swift */,
+				C76D29BD2991852900760A99 /* UINavigationController+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1392,6 +1395,7 @@
 				C79CD44F2921BD4500DE4A47 /* SetProfileVC.swift in Sources */,
 				C7612D3B29361F30005F74B1 /* MypageMainSeparatorView.swift in Sources */,
 				E72A067129915DC000A42378 /* UserBlockResponseModel.swift in Sources */,
+				C76D29BE2991852900760A99 /* UINavigationController+.swift in Sources */,
 				C78B10A029408892002D2E54 /* GetBlockedUserListResponseModel.swift in Sources */,
 				C71B47FC2884369C001A7CD6 /* MumentAlertWithButtons.swift in Sources */,
 				E72A06672990C98B00A42378 /* ReportMumentVC.swift in Sources */,
