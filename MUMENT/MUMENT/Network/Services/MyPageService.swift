@@ -17,7 +17,7 @@ enum MyPageService {
     case deleteBlockedUser(userId: Int)
     case getNoticeList
     case getNoticeDetail(noticeId: Int)
-    case getMypageURL
+    case getMypageURL(isFromSignIn: Bool = false)
     case getUserProfile
 }
 
@@ -39,9 +39,9 @@ extension MyPageService: TargetType {
         case .getNoticeList:
             return "/mument/notice"
         case .getNoticeDetail(let noticeId):
-            return "mument/notice/\(noticeId)"
-        case .getMypageURL:
-            return "/webview-link"
+            return "/mument/notice/\(noticeId)"
+        case .getMypageURL(let isFromSignIn):
+            return "/user/webview-link"
         case .getUserProfile:
             return "/user/profile"
         }
@@ -80,8 +80,8 @@ extension MyPageService: TargetType {
             ])
         case .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .setProfile, .deleteBlockedUser, .getNoticeList, .getNoticeDetail, .getUserProfile:
             return .requestPlain
-        case .getMypageURL:
-            return .query(["page": "mypage"])
+        case .getMypageURL(let isFromSignIn):
+            return .query(["page": isFromSignIn ? "login" : "mypage"])
         }
     }
     

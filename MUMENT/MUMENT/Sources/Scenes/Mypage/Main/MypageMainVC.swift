@@ -90,7 +90,8 @@ final class MypageMainVC: BaseVC {
     }
     
     // MARK: Properties
-    private var mypageURL: GetMypageURLResponseModel = GetMypageURLResponseModel()
+    private var mypageURL: GetAppURLresponseModel = GetAppURLresponseModel()
+    private let currentVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -129,14 +130,6 @@ final class MypageMainVC: BaseVC {
             $0.register(cell: MypageMainFooterTVC.self)
         })
     }
-    
-    private func requestSignOut() {
-        // TODO: ..
-    }
-    
-    private func requestWithDraw() {
-        // TODO: ..
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -161,8 +154,8 @@ extension MypageMainVC: UITableViewDataSource {
                 return cell
             case .footer:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainFooterTVC.className) as? MypageMainFooterTVC else { return UITableViewCell() }
-                cell.setVersionLabel(version: "1.0")
-                
+                cell.setVersionLabel(version: self.currentVersion)
+                cell.selectionStyle = .none
                 cell.setSignOutAction { [weak self] in
                     let mumentAlert =  MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "로그아웃")
                     mumentAlert.setTitle(title: "로그아웃하시겠어요?")
@@ -203,11 +196,11 @@ extension MypageMainVC: UITableViewDelegate {
             case .service:
                 switch indexPath.row {
                 case 1:
-                    if let url = URL(string: self.mypageURL.faq) {
+                    if let url = URL(string: self.mypageURL.faq ?? "") {
                         self.openSafariVC(url: url)
                     }
                 case 2:
-                    if let url = URL(string: self.mypageURL.contact) {
+                    if let url = URL(string: self.mypageURL.contact ?? "") {
                         self.openSafariVC(url: url)
                     }
                 default:
@@ -216,18 +209,18 @@ extension MypageMainVC: UITableViewDelegate {
             case .info:
                 switch indexPath.row {
                 case 0:
-                    if let url = URL(string: self.mypageURL.appInfo) {
+                    if let url = URL(string: self.mypageURL.appInfo ?? "") {
                         self.openSafariVC(url: url)
                     }
                 case 1:
-                    if let url = URL(string: self.mypageURL.introduction) {
+                    if let url = URL(string: self.mypageURL.introduction ?? "") {
                         self.openSafariVC(url: url)
                     }
-                default:
-                    self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+                default: break
                 }
             default:
-                self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+                if !(indexPath.section == 4) { self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
+                }
             }
         }
     }
@@ -263,10 +256,10 @@ extension MypageMainVC: UITableViewDelegate {
 // MARK: - Network
 extension MypageMainVC {
     private func getMypageURL() {
-        MyPageAPI.shared.getMypageURL { networkResult in
+        MyPageAPI.shared.getMypageURL(isFromSignIn: false) { networkResult in
             switch networkResult {
             case .success(let response):
-                if let result = response as? GetMypageURLResponseModel {
+                if let result = response as? GetAppURLresponseModel {
                     self.mypageURL = result
                 }
             default:
@@ -288,7 +281,8 @@ extension MypageMainVC {
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(naviView.snp.bottom)
-            $0.horizontalEdges.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalTo(self.view.safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
         }
     }
 }
