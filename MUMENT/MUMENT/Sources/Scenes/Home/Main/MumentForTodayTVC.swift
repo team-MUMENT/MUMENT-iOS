@@ -44,7 +44,8 @@ extension MumentForTodayTVC {
         selectionStyle = .none 
         
         titleLabel.snp.makeConstraints{
-            $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(30)
         }
         
         mumentCardView.snp.makeConstraints{
