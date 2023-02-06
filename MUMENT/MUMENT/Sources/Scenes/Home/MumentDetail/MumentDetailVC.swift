@@ -44,6 +44,8 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     private var dataSource: MumentDetailResponseModel?
     private let myMumentActionSheetVC = MumentActionSheetVC(actionName: ["수정하기", "삭제하기"])
     private let othersMumentActionSheetVC = MumentActionSheetVC(actionName: ["뮤멘트 신고하기", "유저 차단하기"])
+    private var reportCategory: [Int] = [3, 4]
+    private var reportContent: String = ""
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -152,6 +154,9 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                     switch indexPath.row {
                     case 0:
                         // TODO: 뮤멘트 신고하기 구현
+                        let reportMumentVC = ReportMumentVC()
+                        self.hideTabbar()
+                        self.navigationController?.pushViewController(reportMumentVC, animated: true)
                         debugPrint("신고")
                     case 1:
                         // TODO: 유저 차단하기 구현
@@ -268,6 +273,20 @@ extension MumentDetailVC {
             switch networkResult {
             case .success(_):
                 return
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func postReportMument() {
+        MumentDetailAPI.shared.postReportMument(mumentId: mumentId, reportCategory: reportCategory, content: reportContent) { networkResult in
+            switch networkResult {
+            case .success(let statusCode):
+                if let statusCode = statusCode as? Int {
+                    print("스테이터스 코드", statusCode)
+                }
+                
             default:
                 self.makeAlert(title: MessageType.networkError.message)
             }

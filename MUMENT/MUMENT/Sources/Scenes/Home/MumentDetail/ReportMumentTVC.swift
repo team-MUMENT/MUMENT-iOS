@@ -13,7 +13,7 @@ final class ReportMumentTVC: UITableViewCell {
     
     // MARK: - Components
     private let checkButton = UIButton().then {
-        $0.setImage(UIImage(named: "mumentReportSelectedBtn"), for: .selected)
+        $0.setImage(UIImage(named: "mumentReportSelectedBtn"), for: .disabled)
         $0.setImage(UIImage(named: "mumentReportUnselectedBtn"), for: .normal)
     }
     
@@ -40,12 +40,16 @@ final class ReportMumentTVC: UITableViewCell {
     }
     
     // MARK: - Function
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        self.checkButton.isEnabled.toggle()
+    }
+    
     func setCategoryTitle(title: String) {
         self.categoryTitleLabel.text = title
     }
     
     func setBlockCell() {
-        self.checkButton.setImage(UIImage(named: "mumentChecked"), for: .selected)
+        self.checkButton.setImage(UIImage(named: "mumentChecked"), for: .disabled)
         self.checkButton.setImage(UIImage(named: "mumentUnchecked"), for: .normal)
         self.categoryTitleLabel.text = "차단하기"
         
@@ -60,11 +64,16 @@ final class ReportMumentTVC: UITableViewCell {
             $0.top.equalTo(categoryTitleLabel.snp.bottom).offset(3)
         }
     }
-    
+
+    func setButtonSelect() {
+        self.checkButton.isEnabled.toggle()
+    }
+
     private func setUI() {
         self.backgroundColor = .mBgwhite
+        self.isSelected = false
     }
-        
+            
     private func setLayout() {
         self.addSubviews([checkButton, categoryTitleLabel])
         
