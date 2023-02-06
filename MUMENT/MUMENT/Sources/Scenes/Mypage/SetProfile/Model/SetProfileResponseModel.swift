@@ -10,11 +10,9 @@ import Foundation
 // MARK: - SetProfileResponseModel
 struct SetProfileResponseModel: Codable {
     var id: Int
-    var accessToken, refreshToken, nickname, image: String
+    var accessToken, refreshToken, userName, image: String
     
     enum CodingKeys: String, CodingKey {
-        case id, accessToken, refreshToken
-        case nickname = "profileId"
-        case image
+        case id, accessToken, refreshToken, userName, image
     }
 }
