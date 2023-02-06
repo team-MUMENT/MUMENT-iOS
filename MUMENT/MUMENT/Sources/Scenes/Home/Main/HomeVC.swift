@@ -33,6 +33,7 @@ class HomeVC: BaseVC {
         super.viewWillAppear(animate)
         requestGetCarouselData()
         self.showTabbar()
+        self.getIsNewNotification()
     }
     
     /// timer를 View가 뜨기전에 시작해버리면 첫번째 배너가 이미 넘어가 버림
@@ -276,6 +277,19 @@ extension HomeVC {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
                         self.homeTV.reloadData()
                     }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func getIsNewNotification() {
+        NotificationAPI.shared.getIsNewNotification { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result: GetIsNewNotificationResponseModel = response as? GetIsNewNotificationResponseModel {
+                    self.headerView.setNotificationButtonIcon(isNew: result.exist)
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)

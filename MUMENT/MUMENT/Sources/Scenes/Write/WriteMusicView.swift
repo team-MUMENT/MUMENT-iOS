@@ -90,7 +90,7 @@ extension WriteMusicView {
         self.musicId = data.id
         self.musicImageURL = data.image ?? ""
         
-        self.albumImageView.setImageUrl(data.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        self.albumImageView.setImageUrl(data.image ?? APIConstants.defaultProfileImageURL)
         self.titleLabel.text = data.name
         self.artistLabel.text = data.artist
     }

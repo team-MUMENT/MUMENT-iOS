@@ -11,6 +11,11 @@ import Then
 
 final class NotificationVC: BaseVC {
     
+    enum NotificationType: String {
+        case like = "like"
+        case notice = "notice"
+    }
+    
     // MARK: Components
     private let naviView = DefaultNavigationBar(naviType: .leftArrowRightSetting).then {
         $0.setTitleLabel(title: "소식")
@@ -70,6 +75,17 @@ final class NotificationVC: BaseVC {
             self?.navigationController?.pushViewController(setNotificationVC, animated: true)
         }
     }
+    
+    private func pushMumentDetailVC(mumentId: Int, musicData: MusicDTO) {
+        let mumentDetailVC = MumentDetailVC()
+        mumentDetailVC.setData(mumentId: mumentId, musicData: musicData)
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+    }
+    
+    private func pushNoticeDetailVC(noticeId: Int) {
+        let detailVC = MypageNoticeDetailVC(noticeId: noticeId)
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -93,6 +109,22 @@ extension NotificationVC: UITableViewDataSource {
 extension NotificationVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let data: GetNotificationListResponseModelElement = self.notificationList[indexPath.row]
+        if let type: NotificationType = NotificationType(rawValue: data.type) {
+            switch type {
+            case .like:
+                let musicData: MusicDTO = MusicDTO(
+                    id: data.like.music.id ?? "",
+                    title: data.like.music.name ?? "",
+                    artist: data.like.music.artist ?? "",
+                    albumUrl: data.like.music.image ?? ""
+                )
+                self.pushMumentDetailVC(mumentId: data.linkID, musicData: musicData)
+            case .notice:
+                self.pushNoticeDetailVC(noticeId: data.linkID)
+            }
+        }
     }
 }
 

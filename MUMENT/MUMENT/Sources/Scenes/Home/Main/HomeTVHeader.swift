@@ -58,6 +58,9 @@ class HomeTVHeader: UIView {
         notificationButton.alpha = percentage
     }
     
+    func setNotificationButtonIcon(isNew: Bool) {
+        self.notificationButton.setImage(UIImage(named: isNew ? "mumentNotiRed" : "mumentNoti"), for: .normal)
+    }
 }
 
 // MARK: - UI

@@ -12,6 +12,7 @@ enum NotificationService {
     case getNotificationList
     case deleteNotification(newsId: Int)
     case readNotification(newsIdList: [Int])
+    case getIsNewNotification
 }
 
 extension NotificationService: TargetType {
@@ -23,12 +24,14 @@ extension NotificationService: TargetType {
             return "/user/news/\(newsId)"
         case .readNotification:
             return "/user/news/read"
+        case .getIsNewNotification:
+            return "/user/news/exist"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getNotificationList:
+        case .getNotificationList, .getIsNewNotification:
             return .get
         case .deleteNotification, .readNotification:
             return .patch
@@ -41,7 +44,7 @@ extension NotificationService: TargetType {
     
     var parameters: RequestParams {
         switch self {
-        case .getNotificationList, .deleteNotification:
+        case .getNotificationList, .deleteNotification, .getIsNewNotification:
             return .requestPlain
         case .readNotification(let newsIdList):
             return .requestBody(["unreadNews": newsIdList])
