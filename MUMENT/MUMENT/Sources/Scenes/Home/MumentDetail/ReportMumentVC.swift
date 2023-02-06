@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol reportMumentDelegate: AnyObject {
+    func sendIsEtcSelected(isSelected: Bool)
+}
+
 final class ReportMumentVC: BaseVC {
     
     // MARK: - Components
@@ -32,6 +36,8 @@ final class ReportMumentVC: BaseVC {
     }
     
     // MARK: - Properties
+    weak var delegate: reportMumentDelegate?
+    
     private var mumentId = 0
     
     private var reportCategoryList: [String] = ["관련 없는 내용이에요.", "개인정보가 노출될 위험이 있어요.", "욕설, 혐오, 차별 등 부적절한 내용이 있어요.", "음란적, 선정적인 유해한 콘텐츠를 포함하고 있어요.", "같은 내용을 도배하고 있어요.", "부적절한 홍보 또는 광고가 포함되어 있어요.", "기타"]
@@ -49,17 +55,31 @@ final class ReportMumentVC: BaseVC {
     }
     
     private var blockReason: String = ""
+    
+    private var isEtcChecked = false
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         setTV()
+        setPressAction()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        isBlockChecked = false
     }
     
     // MARK: - Function
     func setMumentId(mumentId: Int) {
         self.mumentId = mumentId
+    }
+    
+    private func setPressAction() {
+        self.reportDoneButton.press { [weak self] in
+            self?.postReportMument()
+            self?.dismiss(animated: true)
+        }
     }
     
     private func setTV() {
@@ -105,6 +125,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
             cell.setBlockCell()
         default: break
         }
+        
         return cell
     }
     
@@ -121,6 +142,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             guard let footerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: ReportMumentFooter.className) as? ReportMumentFooter else { return nil }
             footerCell.delegate = self
+            self.delegate = footerCell as? any reportMumentDelegate
             return footerCell
         }else {
             return nil
@@ -152,13 +174,19 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         tableView.deselectRow(at: indexPath, animated: false)
+        let selectedCell = reportMumentTV.cellForRow(at: indexPath)! as! ReportMumentTVC
         
+        selectedCell.setData()
         /// 차단하기 선택시
         if indexPath.section == 1 {
             isBlockChecked.toggle()
             return
+        }
+        
+        if indexPath.row == 6 {
+            isEtcChecked.toggle()
+            self.delegate?.sendIsEtcSelected(isSelected: isEtcChecked)
         }
         
         /// 배열에 같은 값이 있으면 선택 취소한 것이므로 해당 원소 제거
@@ -174,14 +202,13 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
 extension ReportMumentVC: sendTextViewDelegate {
     func sendReportContent(content: String) {
         blockReason = content
-        print(blockReason)
     }
     
     func sendTextViewState(isEditing: Bool) {
         if isEditing {
-            self.reportMumentTV.frame.origin.y = 0
+            self.reportMumentTV.frame.origin.y = -120
         }else{
-            self.reportMumentTV.frame.origin.y = -100
+            self.reportMumentTV.frame.origin.y = 100
         }
     }
 }
@@ -219,7 +246,6 @@ extension ReportMumentVC {
             switch networkResult {
             case .success(let statusCode):
                 if let statusCode = statusCode as? Int {
-                    print("스테이터스 코드", statusCode)
                 }
                 
             default:

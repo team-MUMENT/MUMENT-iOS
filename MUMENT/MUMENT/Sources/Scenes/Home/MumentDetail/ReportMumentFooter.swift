@@ -71,6 +71,7 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
     private func setTextView() {
         contentTextView.makeRounded(cornerRadius: 7)
         contentTextView.delegate = self
+        contentTextView.isEditable = false
     }
     
     private func setLayout() {
@@ -92,7 +93,7 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
 extension ReportMumentFooter: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.delegate?.sendTextViewState(isEditing: true)
-        print("textViewDidBeginEditing")
+        
         /// 플레이스홀더
         if contentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             contentTextView.textColor = .mGray1
@@ -102,24 +103,9 @@ extension ReportMumentFooter: UITextViewDelegate {
             contentTextView.text = nil
         }
     }
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        print("textViewShouldEndEditing")
-        return true
-    }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         self.delegate?.sendTextViewState(isEditing: false)
-        print("textViewDidEndEditing")
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        print("textViewDidChange")
-        /// 글자 수 제한
-        if contentTextView.text.count > 100 {
-            contentTextView.deleteBackward()
-        }
-        
-        textCount = "\(contentTextView.text.count)"
         
         // 플레이스홀더
         if contentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || textView.text == placeholder {
@@ -128,6 +114,21 @@ extension ReportMumentFooter: UITextViewDelegate {
             countTextViewLabel.text = "0/100"
         }
         
-        sendReportContent(content: contentTextView.text)
+        self.delegate?.sendReportContent(content: contentTextView.text)
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        /// 글자 수 제한
+        if contentTextView.text.count > 100 {
+            contentTextView.deleteBackward()
+        }
+        
+        textCount = "\(contentTextView.text.count)"
+    }
+}
+
+extension ReportMumentFooter: reportMumentDelegate {
+    func sendIsEtcSelected(isSelected: Bool) {
+        self.contentTextView.isEditable = isSelected
     }
 }
