@@ -192,13 +192,13 @@ extension HomeVC: UITableViewDelegate {
         var cellHeight: CGFloat
         switch indexPath.section {
         case 0:
-            cellHeight = 300
+            cellHeight = 280
         case 1:
             cellHeight = 300
         case 2:
             cellHeight = 350
         case 3:
-            cellHeight = 280
+            cellHeight = 300
         default:
             cellHeight = 0
         }

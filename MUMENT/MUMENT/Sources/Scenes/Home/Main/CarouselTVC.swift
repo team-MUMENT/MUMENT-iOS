@@ -25,7 +25,7 @@ class CarouselTVC: UITableViewCell {
     
     private lazy var carouselCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
-
+    
     private var timer: Timer = Timer()
     
     // MARK: - Initialization
@@ -98,15 +98,15 @@ class CarouselTVC: UITableViewCell {
         if nowPage >= 8 {
             nowPage = 2
             carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath,
-                                        at: .centeredHorizontally,
-                                        animated: false)
+                                    at: .centeredHorizontally,
+                                    animated: false)
         }
-            // 다음 페이지로 전환
+        // 다음 페이지로 전환
         nowPage += 1
         carouselCV.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath,
-                                    at: .centeredHorizontally,
-                                    animated: true)
-        }
+                                at: .centeredHorizontally,
+                                animated: true)
+    }
     
     func setData(_ cellData: CarouselResponseModel) {
         carouselData = cellData.bannerList
@@ -114,7 +114,7 @@ class CarouselTVC: UITableViewCell {
         carouselCV.reloadData()
     }
     
-  private func setIncreasedCarouselData() {
+    private func setIncreasedCarouselData() {
         increasedCarouselData = carouselData + carouselData + carouselData
     }
 }
@@ -153,15 +153,15 @@ extension CarouselTVC: UICollectionViewDelegate{
             index = 6
             nowPage = index
             self.carouselCV.scrollToItem(at: NSIndexPath(item: self.nowPage, section: 0) as IndexPath,
-                                    at: .centeredHorizontally,
-                                    animated: false)
+                                         at: .centeredHorizontally,
+                                         animated: false)
         }
         if index >= 8 {
             index = 2
             nowPage = index
             self.carouselCV.scrollToItem(at: NSIndexPath(item: self.nowPage, section: 0) as IndexPath,
-                                    at: .centeredHorizontally,
-                                    animated: false)
+                                         at: .centeredHorizontally,
+                                         animated: false)
         }
         
         let beginOffset = (carouselCV.frame.width - CVFlowLayout.minimumLineSpacing) * 2
@@ -170,13 +170,13 @@ extension CarouselTVC: UICollectionViewDelegate{
         if scrollView.contentOffset.x < beginOffset {
             nowPage = 5
             self.carouselCV.scrollToItem(at: NSIndexPath(item: self.nowPage, section: 0) as IndexPath,
-                                    at: .centeredHorizontally,
-                                    animated: false)
+                                         at: .centeredHorizontally,
+                                         animated: false)
         } else if scrollView.contentOffset.x > endOffset {
             nowPage = 3
             self.carouselCV.scrollToItem(at: NSIndexPath(item: self.nowPage, section: 0) as IndexPath,
-                                    at: .centeredHorizontally,
-                                    animated: false)
+                                         at: .centeredHorizontally,
+                                         animated: false)
         }
     }
     
@@ -186,7 +186,7 @@ extension CarouselTVC: UICollectionViewDelegate{
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let cellWidthIncludingSpacing = CVFlowLayout.itemSize.width + CVFlowLayout.minimumLineSpacing
         let constantForCentering = (carouselCV.frame.width - CVFlowLayout.itemSize.width)/2
-
+        
         let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
         
         if velocity.x > 0 {
@@ -216,7 +216,7 @@ extension CarouselTVC: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCVC.className, for: indexPath)
         if let cell = cell as? CarouselCVC {
-        cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
+            cell.setData(increasedCarouselData[indexPath.row],index:indexPath.row%3+1)
         }
         return cell
     }
@@ -228,7 +228,7 @@ extension CarouselTVC {
     }
     
     @objc func setTimer(_ notification: Notification){
-            setScrollToFirst()
+        setScrollToFirst()
         if let shouldTimerEnable = notification.object as? Bool {
             if shouldTimerEnable {
                 bannerTimer()
