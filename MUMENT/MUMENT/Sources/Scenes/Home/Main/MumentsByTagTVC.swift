@@ -61,11 +61,12 @@ extension MumentsByTagTVC {
         self.addSubviews([titleLabel,mumentCV])
         
         titleLabel.snp.makeConstraints{
-            $0.leading.top.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(20)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(30)
         }
         
         mumentCV.snp.makeConstraints{
-            $0.top.equalTo(titleLabel.snp.bottom).offset(18)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.leading.equalTo(self.safeAreaLayoutGuide).offset(15)
         }
