@@ -100,7 +100,7 @@ extension BaseVC {
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetUserProfileResponseModel {
-                    self.setUserProfile(nickname: result.nickname, profileImageURL: result.image)
+                    self.setUserProfile(nickname: result.userName, profileImageURL: result.image)
                     completion()
                 }
             default:

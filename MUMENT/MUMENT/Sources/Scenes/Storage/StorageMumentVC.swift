@@ -335,9 +335,14 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 header.resetHeader()
                 
                 emptyView.isHidden = false
+                emptyView.writeButton.removeTarget(nil, action: nil, for: .allEvents)
                 emptyView.writeButton.press {
-                    let writeVC = WriteVC(isEdit: false)
-                    self.present(writeVC, animated: true)
+                    if self.isPenaltyUser() {
+                        self.checkUserPenalty(self)
+                    } else {
+                        let writeVC = WriteVC(isEdit: false)
+                        self.present(writeVC, animated: true)
+                    }
                 }
                 return header
             }

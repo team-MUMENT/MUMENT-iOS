@@ -47,7 +47,7 @@ final class BlockedUserTVC: UITableViewCell {
     
     // MARK: Methods
     func setData(data: GetBlockedUserListResponseModelElement) {
-        self.profileImageView.setImageUrl(data.image)
+        self.profileImageView.setImageUrl(data.image ?? APIConstants.defaultProfileImageURL)
         self.nicknameLabel.text = data.nickname
     }
 }

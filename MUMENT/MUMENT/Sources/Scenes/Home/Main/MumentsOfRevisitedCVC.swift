@@ -72,7 +72,7 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
         albumImage.setImageUrl(cellData.music.image)
         titleLabel.text = "\(cellData.music.name) - \(cellData.music.artist)"
         contentsLabel.text = cellData.content
-        profileImage.setImageUrl(cellData.user.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
+        profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
     }
 }

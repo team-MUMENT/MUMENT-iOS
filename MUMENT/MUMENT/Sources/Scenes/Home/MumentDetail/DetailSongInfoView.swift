@@ -46,13 +46,6 @@ final class DetailSongInfoView: UIView {
         artistLabel.text = data.artist
         titleLabel.sizeToFit()
     }
-    
-//    func setData(_ cellData: HistoryResponseModel.DataMusic){
-//        albumImage.setImageUrl(cellData.image ?? "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg")
-//        titleLabel.text = cellData.name
-//        titleLabel.sizeToFit()
-//        artistLabel.text = cellData.artist
-//    }
 }
 
 // MARK: - UI

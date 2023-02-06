@@ -16,6 +16,6 @@ class UserInfo {
     var accessToken: String? = ""
     var refreshToken: String? = ""
     var nickname: String = ""
-    var profileImageURL: String = "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"
+    var profileImageURL: String = APIConstants.defaultProfileImageURL
     var isPenaltyUser: Bool = false
 }
