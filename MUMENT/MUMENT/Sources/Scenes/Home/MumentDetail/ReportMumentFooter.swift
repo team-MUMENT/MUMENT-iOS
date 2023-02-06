@@ -47,7 +47,8 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
         self.addSubviews([contentTextView, countTextViewLabel])
         
         contentTextView.snp.makeConstraints {
-            $0.horizontalEdges.top.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().offset(-13)
         }
         

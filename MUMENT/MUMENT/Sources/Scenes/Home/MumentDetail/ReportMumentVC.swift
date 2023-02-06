@@ -20,9 +20,10 @@ final class ReportMumentVC: BaseVC {
     }
     
     private let reportMumentTV = UITableView( frame: CGRect.zero, style: .grouped).then {
-        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 86, right: 0)
         $0.separatorStyle = .none
         $0.backgroundColor = .mBgwhite
+        $0.showsVerticalScrollIndicator = false
         $0.allowsMultipleSelection = true
     }
     
@@ -32,6 +33,18 @@ final class ReportMumentVC: BaseVC {
     
     // MARK: - Properties
     private var reportCategoryList: [String] = ["관련 없는 내용이에요.", "개인정보가 노출될 위험이 있어요.", "욕설, 혐오, 차별 등 부적절한 내용이 있어요.", "음란적, 선정적인 유해한 콘텐츠를 포함하고 있어요.", "같은 내용을 도배하고 있어요.", "부적절한 홍보 또는 광고가 포함되어 있어요.", "기타"]
+    
+    private var selectedCategoryList: [Int] = [] {
+        didSet {
+            reportDoneButton.isEnabled = !selectedCategoryList.isEmpty || isBlockChecked
+        }
+    }
+    
+    private var isBlockChecked: Bool = false {
+        didSet {
+            reportDoneButton.isEnabled = !selectedCategoryList.isEmpty || isBlockChecked
+        }
+    }
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -47,6 +60,7 @@ final class ReportMumentVC: BaseVC {
         self.reportMumentTV.register(cell: ReportMumentTVC.self)
         self.reportMumentTV.register(ReportMumentHeader.self, forHeaderFooterViewReuseIdentifier: ReportMumentHeader.className)
         self.reportMumentTV.register(ReportMumentFooter.self, forHeaderFooterViewReuseIdentifier: ReportMumentFooter.className)
+        
         reportMumentTV.contentInsetAdjustmentBehavior = .automatic
         if #available(iOS 15, *) {
             reportMumentTV.sectionHeaderTopPadding = 0
@@ -54,6 +68,7 @@ final class ReportMumentVC: BaseVC {
     }
 }
 
+// MARK: - UITableViewDataSource, UITableViewDelegate
 extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -121,16 +136,38 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
             return 148
         case 1:
             return 58
-        default: return 0
+        default:
+            return .leastNormalMagnitude
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        /// 차단하기 선택시
+        if indexPath.section == 1 {
+            isBlockChecked.toggle()
+            return
+        }
+        
+        /// 배열에 같은 값이 있으면 선택 취소한 것이므로 해당 원소 제거
+        if let index = selectedCategoryList.firstIndex(of: indexPath.row + 1) {
+            selectedCategoryList.remove(at: index)
+        }else {
+            selectedCategoryList.append(indexPath.row + 1)
+        }
+    }
 }
 
 // MARK: - NameUITextViewDelegate
 extension ReportMumentVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        print("됨")
+        self.reportMumentTV.frame.origin.y = -66
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.reportMumentTV.frame.origin.y = 0
     }
 }
 
@@ -148,7 +185,7 @@ extension ReportMumentVC {
         reportMumentTV.snp.makeConstraints {
             $0.top.equalTo(navigationBarView.snp.bottom)
             $0.width.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(reportDoneButton.snp.top)
+            $0.bottom.equalToSuperview()
         }
         
         reportDoneButton.snp.makeConstraints {
