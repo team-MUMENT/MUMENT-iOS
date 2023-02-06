@@ -335,6 +335,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 header.resetHeader()
                 
                 emptyView.isHidden = false
+                emptyView.writeButton.removeTarget(nil, action: nil, for: .allEvents)
                 emptyView.writeButton.press {
                     if self.isPenaltyUser() {
                         self.checkUserPenalty(self)
