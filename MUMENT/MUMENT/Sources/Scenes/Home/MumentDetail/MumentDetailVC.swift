@@ -155,6 +155,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                     case 0:
                         // TODO: 뮤멘트 신고하기 구현
                         let reportMumentVC = ReportMumentVC()
+                        reportMumentVC.setMumentId(mumentId: self.mumentId)
                         self.hideTabbar()
                         self.navigationController?.pushViewController(reportMumentVC, animated: true)
                         debugPrint("신고")
@@ -279,17 +280,4 @@ extension MumentDetailVC {
         }
     }
     
-    private func postReportMument() {
-        MumentDetailAPI.shared.postReportMument(mumentId: mumentId, reportCategory: reportCategory, content: reportContent) { networkResult in
-            switch networkResult {
-            case .success(let statusCode):
-                if let statusCode = statusCode as? Int {
-                    print("스테이터스 코드", statusCode)
-                }
-                
-            default:
-                self.makeAlert(title: MessageType.networkError.message)
-            }
-        }
-    }
 }

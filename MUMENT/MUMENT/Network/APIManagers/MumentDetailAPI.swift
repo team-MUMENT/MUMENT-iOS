@@ -30,5 +30,22 @@ class MumentDetailAPI: BaseAPI {
         }
     }
     
+    /// [POST] 뮤멘트 신고하기
+    func postReportMument(
+        mumentId: Int, reportCategory: [Int], content: String,
+        completion: @escaping (NetworkResult<Any>
+        ) -> (Void)) {
+        AFmanager.request(MumentDetailService.postReportMument(mumentId: mumentId, reportCategory: reportCategory, content: content)).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                let networkResult = self.judgeStatus(by: statusCode)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
 }
 

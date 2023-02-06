@@ -32,6 +32,8 @@ final class ReportMumentVC: BaseVC {
     }
     
     // MARK: - Properties
+    private var mumentId = 0
+    
     private var reportCategoryList: [String] = ["관련 없는 내용이에요.", "개인정보가 노출될 위험이 있어요.", "욕설, 혐오, 차별 등 부적절한 내용이 있어요.", "음란적, 선정적인 유해한 콘텐츠를 포함하고 있어요.", "같은 내용을 도배하고 있어요.", "부적절한 홍보 또는 광고가 포함되어 있어요.", "기타"]
     
     private var selectedCategoryList: [Int] = [] {
@@ -56,6 +58,10 @@ final class ReportMumentVC: BaseVC {
     }
     
     // MARK: - Function
+    func setMumentId(mumentId: Int) {
+        self.mumentId = mumentId
+    }
+    
     private func setTV() {
         self.reportMumentTV.dataSource = self
         self.reportMumentTV.delegate = self
@@ -202,6 +208,23 @@ extension ReportMumentVC {
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.bottom.equalToSuperview().offset(-39)
             $0.height.equalTo(47)
+        }
+    }
+}
+
+// MARK: - NetWork
+extension ReportMumentVC {
+    private func postReportMument() {
+        MumentDetailAPI.shared.postReportMument(mumentId: mumentId, reportCategory: selectedCategoryList, content: blockReason) { networkResult in
+            switch networkResult {
+            case .success(let statusCode):
+                if let statusCode = statusCode as? Int {
+                    print("스테이터스 코드", statusCode)
+                }
+                
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
         }
     }
 }
