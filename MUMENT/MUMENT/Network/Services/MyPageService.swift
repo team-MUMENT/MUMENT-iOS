@@ -40,7 +40,7 @@ extension MyPageService: TargetType {
             return "/mument/notice"
         case .getNoticeDetail(let noticeId):
             return "/mument/notice/\(noticeId)"
-        case .getMypageURL(let isFromSignIn):
+        case .getMypageURL:
             return "/user/webview-link"
         case .getUserProfile:
             return "/user/profile"
