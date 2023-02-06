@@ -43,6 +43,9 @@ final class SignInVC: BaseVC {
         $0.setHyperlinkedStyle(to: ["이용약관", "개인정보처리방침"], with: .mumentB7B12)
     }
     
+    // MARK: Properties
+    private var termsAndPolicyURL: GetAppURLresponseModel = GetAppURLresponseModel()
+    
     // MARK: - Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +53,7 @@ final class SignInVC: BaseVC {
         setLayout()
         setButtonActions()
         setPrivacyPolicyLabelTapRecognizer()
+        self.getTermsAndPrivacyURL()
     }
     
     // MARK: - Functions
@@ -114,14 +118,14 @@ final class SignInVC: BaseVC {
         if let calaulatedTermsRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관") {
             let actualTermsRect = CGRect(x: calaulatedTermsRect.origin.x + 40, y: calaulatedTermsRect.origin.y, width: calaulatedTermsRect.width - 10, height: calaulatedTermsRect.height)
             if actualTermsRect.contains(point) {
-                present(url: "https://www.google.com")
+                present(url: self.termsAndPolicyURL.tos ?? "")
             }
         }
         
         // privacyPolicyLabel 내에서 문자열 '개인정보처리방침'이 차지하는 CGRect값을 구해, 그 안에 point가 포함되는지를 판단합니다.
         if let personalInfoPolicyRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "개인정보처리방침"),
            personalInfoPolicyRect.contains(point) {
-            present(url: "https://www.github.com")
+            present(url: self.termsAndPolicyURL.privacy ?? "")
         }
     }
     
@@ -258,6 +262,19 @@ extension SignInVC {
                     setProfileVC.modalPresentationStyle = .fullScreen
                     setProfileVC.modalTransitionStyle = .crossDissolve
                     self.present(setProfileVC, animated: true)
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func getTermsAndPrivacyURL() {
+        MyPageAPI.shared.getMypageURL(isFromSignIn: true) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetAppURLresponseModel {
+                    self.termsAndPolicyURL = result
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
