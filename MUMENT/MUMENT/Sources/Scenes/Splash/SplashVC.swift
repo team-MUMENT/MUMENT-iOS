@@ -46,7 +46,7 @@ extension SplashVC {
         self.view.addSubview(backgroundImageView)
         
         backgroundImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalToSuperview().inset(-3)
         }
     }
 }
