@@ -16,6 +16,7 @@ enum AuthService {
     case postSignIn(body: SignInBodyModel)
     case getRenewedToken
     case getIsProfileSet
+    case requestSignOut
 }
 
 extension AuthService: TargetType {
@@ -27,12 +28,14 @@ extension AuthService: TargetType {
             return "/auth/token"
         case .getIsProfileSet:
             return "/user/profile/check"
+        case .requestSignOut:
+            return "/auth/logout"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .postSignIn:
+        case .postSignIn, .requestSignOut:
             return .post
         case .getRenewedToken:
             return .get
@@ -47,7 +50,7 @@ extension AuthService: TargetType {
             return .basic
         case .getRenewedToken:
             return .authRenewal
-        case .getIsProfileSet:
+        case .getIsProfileSet, .requestSignOut:
             return .auth
         }
     }
@@ -56,9 +59,7 @@ extension AuthService: TargetType {
         switch self {
         case .postSignIn(let body):
             return .requestBody(["provider": body.provider, "authentication_code": body.authentication_code, "fcm_token": body.fcm_token])
-        case .getRenewedToken:
-            return .requestPlain
-        case .getIsProfileSet:
+        case .getRenewedToken, .getIsProfileSet, .requestSignOut:
             return .requestPlain
         }
     }

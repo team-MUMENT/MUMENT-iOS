@@ -161,13 +161,15 @@ extension MypageMainVC: UITableViewDataSource {
                     mumentAlert.setTitle(title: "로그아웃하시겠어요?")
                     self?.present(mumentAlert, animated: true)
                     mumentAlert.OKButton.press { [weak self] in
-                        self?.removeUserInfo()
-                        self?.dismiss(animated: true)
-                        
-                        let onboardingVC = OnboardingVC()
-                        onboardingVC.modalPresentationStyle = .fullScreen
-                        onboardingVC.modalTransitionStyle = .crossDissolve
-                        self?.present(onboardingVC, animated: true)
+                        self?.requestSignOut {
+                            self?.removeUserInfo()
+                            self?.dismiss(animated: true)
+                            
+                            let onboardingVC = OnboardingVC()
+                            onboardingVC.modalPresentationStyle = .fullScreen
+                            onboardingVC.modalTransitionStyle = .crossDissolve
+                            self?.present(onboardingVC, animated: true)
+                        }
                     }
                 }
                 
@@ -260,6 +262,21 @@ extension MypageMainVC {
             case .success(let response):
                 if let result = response as? GetAppURLresponseModel {
                     self.mypageURL = result
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func requestSignOut(completion: @escaping () -> ()) {
+        AuthAPI.shared.requestSignOut { networkResult in
+            switch networkResult {
+            case .success(let statusCode):
+                if let status = statusCode as? Int {
+                    if status == 204 {
+                        completion()
+                    }
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
