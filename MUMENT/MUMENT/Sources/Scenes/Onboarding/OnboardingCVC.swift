@@ -37,9 +37,6 @@ final class OnboardingCVC: UICollectionViewCell {
         $0.textAlignment = .center
         
     }
-    private var backgroundImageView: UIImageView = UIImageView().then{
-        $0.contentMode = .scaleAspectFit
-    }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -67,7 +64,7 @@ extension OnboardingCVC {
     private func setBackgroundImage(){
         let backgroundImageView = UIImageView(frame: frame)
         backgroundImageView.image = UIImage(named: backgroundImageTitle)
-        backgroundImageView.contentMode = .scaleAspectFit
+        backgroundImageView.contentMode = .scaleAspectFill
         self.backgroundView = backgroundImageView
     }
     

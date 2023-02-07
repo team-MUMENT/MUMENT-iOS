@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,21 +20,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashBackground" translatesAutoresizingMaskIntoConstraints="NO" id="smG-YF-BmR">
-                                <rect key="frame" x="-0.66666666666665719" y="0.0" width="390.66666666666663" height="844"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mumentIcon" translatesAutoresizingMaskIntoConstraints="NO" id="BZh-Fr-va1">
-                                <rect key="frame" x="144.33333333333334" y="342" width="101.33333333333334" height="111"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashImage" translatesAutoresizingMaskIntoConstraints="NO" id="iaS-HR-Iqd">
+                                <rect key="frame" x="-3" y="-3" width="396" height="850"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="mPurple1"/>
                         <constraints>
-                            <constraint firstItem="BZh-Fr-va1" firstAttribute="top" secondItem="f3Z-Gt-UMc" secondAttribute="bottom" constant="295" id="7xD-ax-9Qy"/>
-                            <constraint firstAttribute="bottom" secondItem="smG-YF-BmR" secondAttribute="bottom" id="IiE-Wt-nmy"/>
-                            <constraint firstItem="smG-YF-BmR" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Xxx-QR-LcX"/>
-                            <constraint firstAttribute="trailing" secondItem="smG-YF-BmR" secondAttribute="trailing" id="Z4o-zU-Mbm"/>
-                            <constraint firstItem="smG-YF-BmR" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-0.5" id="hNh-3y-tSN"/>
-                            <constraint firstItem="BZh-Fr-va1" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="te6-mu-pzi"/>
+                            <constraint firstItem="iaS-HR-Iqd" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="-3" id="Ioz-4c-GXK"/>
+                            <constraint firstItem="iaS-HR-Iqd" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-3" id="Nea-k4-L1s"/>
+                            <constraint firstAttribute="bottom" secondItem="iaS-HR-Iqd" secondAttribute="bottom" constant="-3" id="khK-Im-tfX"/>
+                            <constraint firstAttribute="trailing" secondItem="iaS-HR-Iqd" secondAttribute="trailing" constant="-3" id="seZ-rW-7se"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -43,7 +39,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="mumentIcon" width="101.33333587646484" height="111"/>
-        <image name="splashBackground" width="375.33334350585938" height="812"/>
+        <image name="splashImage" width="375.33334350585938" height="812"/>
+        <namedColor name="mPurple1">
+            <color red="0.52899998426437378" green="0.17299999296665192" blue="0.99599999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
