@@ -77,7 +77,7 @@ extension OnboardingVC {
         }
         
         pageControl.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(46)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(46.adjustedH)
             $0.centerX.equalToSuperview()
         }
         
