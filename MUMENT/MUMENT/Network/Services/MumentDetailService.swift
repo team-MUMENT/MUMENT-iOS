@@ -9,6 +9,8 @@ import Alamofire
 
 enum MumentDetailService {
     case getMumentDetail(mumentId: Int)
+    case postReportMument(mumentId: Int, reportCategory: [Int], content: String)
+    case postUserBlock(mumentId: Int)
 }
 
 extension MumentDetailService: TargetType {
@@ -16,7 +18,10 @@ extension MumentDetailService: TargetType {
         switch self {
         case .getMumentDetail(mumentId: let mumentId):
             return "/mument/\(mumentId)"
-        
+        case .postReportMument(mumentId: let mumentId, _, _):
+            return "/mument/report/\(mumentId)"
+        case .postUserBlock(mumentId: let mumentId):
+            return "/user/block/\(mumentId)"
         }
     }
     
@@ -24,20 +29,24 @@ extension MumentDetailService: TargetType {
         switch self {
         case .getMumentDetail:
             return .get
+        case .postReportMument, .postUserBlock:
+            return .post
         }
     }
     
     var header: HeaderType {
-        switch self {
-        case .getMumentDetail:
-            return .auth
-        }
+        return .auth
     }
     
     var parameters: RequestParams {
         switch self {
-        case .getMumentDetail:
+        case .getMumentDetail, .postUserBlock:
             return .requestPlain
+        case .postReportMument(_, let reportCategory, let content):
+            return .requestBody([
+                "reportCategory": reportCategory,
+                "etcContent": content
+            ])
         }
     }
 }
