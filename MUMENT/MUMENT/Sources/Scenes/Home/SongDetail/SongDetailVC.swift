@@ -11,10 +11,11 @@ import Then
 
 final class SongDetailVC: BaseVC {
     
-    // MARK: - Properties
+    // MARK: - Components
     private let navigationBarView = DefaultNavigationBar()
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
+    // MARK: - Properties
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     var myMumentData: SongInfoResponseModel.MyMument? = nil
@@ -215,6 +216,7 @@ extension SongDetailVC: UITableViewDataSource {
             return headerCell
         case 2:
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
+            headerCell.resetOrderingButton()
             headerCell.delegate=self
             return headerCell
         default:
