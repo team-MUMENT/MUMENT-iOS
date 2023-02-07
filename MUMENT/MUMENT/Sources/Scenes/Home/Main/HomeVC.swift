@@ -23,7 +23,7 @@ class HomeVC: BaseVC {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+        
         setLayout()
         setButtonActions()
         self.checkUserPenalty(self)
