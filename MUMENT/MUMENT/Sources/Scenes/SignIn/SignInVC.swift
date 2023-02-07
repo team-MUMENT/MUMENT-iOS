@@ -142,7 +142,7 @@ extension SignInVC {
     private func setBackgroundImage(){
         let backgroundImageView = UIImageView(frame: self.view.frame)
         backgroundImageView.image = UIImage(named: "signInBackground")
-        backgroundImageView.contentMode = .scaleAspectFit
+        backgroundImageView.contentMode = .scaleAspectFill
         self.view.addSubview(backgroundImageView)
     }
     
