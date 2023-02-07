@@ -164,7 +164,10 @@ extension SongDetailVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                     return UITableViewCell()
                 }
-                cell.setData(myMumentData!)
+                guard let myMument = myMumentData else { return UITableViewCell() }
+                cell.setData(myMument)
+                cell.mumentCard.setNotificationCenter()
+
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
                 cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
                 return cell
@@ -174,11 +177,17 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
+            
             cell.mumentCard.gestureRecognizers?.removeAll()
             cell.setData(allMumentsData[indexPath.row])
             let tapGestureRecognizer = CardTapGestureRecognizer(target: self, action: #selector(didTapAllMumentView(_:)))
             tapGestureRecognizer.index = indexPath.row
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
+            
+            guard let myMument = myMumentData else { return UITableViewCell() }
+            if myMument.id == allMumentsData[indexPath.row].id {
+                cell.setNotificationCenter()
+            }
             return cell
             
         default:
