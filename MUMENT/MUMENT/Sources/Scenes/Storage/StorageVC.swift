@@ -77,7 +77,7 @@ final class StorageVC: BaseVC {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+        
         setPageViewController()
         setHeaderLayout()
         setSegmentLaysout()
