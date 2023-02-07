@@ -230,6 +230,7 @@ extension SignInVC {
                         let setProfileVC = SetProfileVC()
                         setProfileVC.modalPresentationStyle = .fullScreen
                         setProfileVC.modalTransitionStyle = .crossDissolve
+                        setProfileVC.isFirst = true
                         self.present(setProfileVC, animated: true)
                     } else {
                         self.requestIsProfileSet()
