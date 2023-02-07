@@ -55,9 +55,9 @@ final class AllMumentsSectionHeader: UITableViewHeaderFooterView {
         }
     }
     
-    func resetOrderingButton() {
-        mostLikedOrderingButton.isSelected = true
-        latestOrderingButton.isSelected = false
+    func resetOrderingButton(isOrderLiked: Bool) {
+        mostLikedOrderingButton.isSelected = isOrderLiked
+        latestOrderingButton.isSelected = !isOrderLiked
     }
 }
 

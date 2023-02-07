@@ -42,9 +42,9 @@ final class SongDetailVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showTabbar()
-        requestGetSongInfo(musicData: self.musicData)
         /// flag 프로퍼티 초기화
         resetProperty()
+        requestGetSongInfo(musicData: self.musicData)
     }
     
     // MARK: - Functions
@@ -219,7 +219,7 @@ extension SongDetailVC: UITableViewDataSource {
             return headerCell
         case 2:
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
-            headerCell.resetOrderingButton()
+            headerCell.resetOrderingButton(isOrderLiked: self.filterFlag)
             headerCell.delegate=self
             return headerCell
         default:
