@@ -96,6 +96,10 @@ class MumentCardBySongView: UIView {
         super.init(coder: aDecoder)!
     }
     
+    deinit {
+        removeNotificationCenter()
+    }
+    
     //MARK: - Functions
     func setData(_ cellData: HistoryResponseModel.MumentHistory){
         profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
@@ -308,7 +312,6 @@ extension MumentCardBySongView {
     }
     
     @objc func setLiked(_ notification: Notification) {
-        
         /// isMyPost 변수로 같은 뷰 내에서는 수신 안되게 함
         if isMyPost { return }
         if let notimodel = notification.object as? MumentSongViewNotiModel {
