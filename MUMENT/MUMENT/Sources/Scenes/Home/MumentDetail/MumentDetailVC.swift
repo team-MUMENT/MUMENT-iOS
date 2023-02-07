@@ -44,6 +44,8 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     private var dataSource: MumentDetailResponseModel?
     private let myMumentActionSheetVC = MumentActionSheetVC(actionName: ["수정하기", "삭제하기"])
     private let othersMumentActionSheetVC = MumentActionSheetVC(actionName: ["뮤멘트 신고하기", "유저 차단하기"])
+    private var reportCategory: [Int] = [3, 4]
+    private var reportContent: String = ""
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -155,10 +157,19 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                 self.othersMumentActionSheetVC.dismiss(animated: true) {
                     switch indexPath.row {
                     case 0:
-                        // TODO: 뮤멘트 신고하기 구현
+                        let reportMumentVC = ReportMumentVC()
+                        reportMumentVC.setMumentId(mumentId: self.mumentId)
+                        self.hideTabbar()
+                        self.navigationController?.pushViewController(reportMumentVC, animated: true)
                         debugPrint("신고")
                     case 1:
-                        // TODO: 유저 차단하기 구현
+                        let mumentAlert = MumentAlertWithButtons(titleType: .containedSubTitleLabel, OKTitle: "차단하기")
+                        mumentAlert.setTitleSubTitle(title: "이 유저를 차단하시겠어요?", subTitle: "이 유저의 뮤멘트가 목록에서\n더는 보이지 않아요.")
+                        self.present(mumentAlert, animated: true)
+                        mumentAlert.setButtonAction()
+                        mumentAlert.OKButton.press { [weak self] in
+                            self?.postUserBlock()
+                        }
                         debugPrint("차단")
                     default: break
                     }
@@ -277,4 +288,36 @@ extension MumentDetailVC {
             }
         }
     }
+    
+    private func postUserBlock() {
+        MumentDetailAPI.shared.postUserBlock(mumentId: mumentId) { networkResult in
+            switch networkResult {
+            case .success:
+                if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+                        previousVC.showToastMessage(message: "차단이 완료되었습니다.", color: .black)
+                    }
+                    navigationController.popViewController(animated: true)
+                    previousVC.viewWillAppear(true)
+                }
+            case .requestErr(let statusCode, _):
+                if let statusCode = statusCode as? Int {
+                    if statusCode == 400 {
+                        if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                            
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+                                previousVC.showToastMessage(message: "이미 차단한 유저입니다.", color: .black)
+                            }
+                            navigationController.popViewController(animated: true)
+                            previousVC.viewWillAppear(true)
+                        }
+                    }
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
 }
