@@ -173,7 +173,6 @@ extension MypageMainVC: UITableViewDataSource {
                 
                 cell.setWithDrawAction { [weak self] in
                     let membershipWithdrawalVC = MembershipWithdrawalVC()
-                    membershipWithdrawalVC.setUserName(UserInfo.shared.nickname)
                     self?.navigationController?.pushViewController(membershipWithdrawalVC, animated: true)
                 }
                 
