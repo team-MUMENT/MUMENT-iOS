@@ -44,7 +44,6 @@ final class SongDetailVC: BaseVC {
         requestGetSongInfo(musicData: self.musicData)
         /// flag 프로퍼티 초기화
         resetProperty()
-        requestGetAllMuments(isOrderLiked: true, limit: 10, offset: 0)
     }
     
     // MARK: - Functions
@@ -300,6 +299,8 @@ extension SongDetailVC {
                     let music = res.music
                     self.musicData = MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image)
                     self.mumentTV.reloadSections(IndexSet(0...1), with: .automatic)
+                    requestGetAllMuments(isOrderLiked: true, limit: 10, offset: 0)
+
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
