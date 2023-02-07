@@ -25,6 +25,10 @@ final class MumentTabBarController: UITabBarController {
         self.setTabBarItemStyle()
         self.setTabBar()
         self.setTabBarUI()
+        self.addPushObserver()
+        if NotificationInfo.shared.isPushComes {
+            self.pushNotificationVC(Notification(name: .isPushComes))
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -68,6 +72,19 @@ final class MumentTabBarController: UITabBarController {
     func showTabbar() {
         self.tabBar.isHidden = false
         self.backgroundView.isHidden = false
+    }
+    
+    private func addPushObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pushNotificationVC(_:)), name: NSNotification.Name.isPushComes, object: nil)
+    }
+    
+    @objc private func pushNotificationVC(_ notification: Notification) {
+        self.selectedIndex = 0
+        if let nc = self.selectedViewController as? BaseNC {
+            if !(nc.topViewController is NotificationVC) {
+                nc.pushViewController(NotificationVC(), animated: true)
+            }
+        }
     }
 }
 
