@@ -215,7 +215,7 @@
 		C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB531D28759E6500E0E889 /* StorageVC.swift */; };
 		C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */; };
 		C7BC6B562876ADCD008C75CE /* CarouselModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B552876ADCD008C75CE /* CarouselModel.swift */; };
-		C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B5B287708D1008C75CE /* BaseNVC.swift */; };
+		C7BC6B5C287708D1008C75CE /* BaseNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B5B287708D1008C75CE /* BaseNC.swift */; };
 		C7BC6B5E28770902008C75CE /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B5D28770902008C75CE /* NSObject+.swift */; };
 		C7BC6B6028770FB6008C75CE /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B5F28770FB6008C75CE /* UILabel+.swift */; };
 		C7BC6B6228771020008C75CE /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6128771020008C75CE /* UICollectionView+.swift */; };
@@ -443,7 +443,7 @@
 		C7BB531D28759E6500E0E889 /* StorageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageVC.swift; sourceTree = "<group>"; };
 		C7BC6B502876AD8C008C75CE /* DefaultNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationView.swift; sourceTree = "<group>"; };
 		C7BC6B552876ADCD008C75CE /* CarouselModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselModel.swift; sourceTree = "<group>"; };
-		C7BC6B5B287708D1008C75CE /* BaseNVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNVC.swift; sourceTree = "<group>"; };
+		C7BC6B5B287708D1008C75CE /* BaseNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNC.swift; sourceTree = "<group>"; };
 		C7BC6B5D28770902008C75CE /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		C7BC6B5F28770FB6008C75CE /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		C7BC6B6128771020008C75CE /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
@@ -1037,7 +1037,7 @@
 			isa = PBXGroup;
 			children = (
 				C7BB530F2875990700E0E889 /* BaseVC.swift */,
-				C7BC6B5B287708D1008C75CE /* BaseNVC.swift */,
+				C7BC6B5B287708D1008C75CE /* BaseNC.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1509,7 +1509,7 @@
 				C7DF4A4C297BCAB600E999DE /* NotificationTVC.swift in Sources */,
 				C7AE17EA28886B4F00A5E3FA /* PostMumentResponseModel.swift in Sources */,
 				4D696CEB287975800060CE41 /* CarouselTVC.swift in Sources */,
-				C7BC6B5C287708D1008C75CE /* BaseNVC.swift in Sources */,
+				C7BC6B5C287708D1008C75CE /* BaseNC.swift in Sources */,
 				4D76046E2881860C0044F2A6 /* MumentCardBySongView.swift in Sources */,
 				4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */,
 				4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */,
