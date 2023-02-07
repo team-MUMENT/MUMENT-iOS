@@ -11,16 +11,10 @@ import Then
 
 final class SplashVC: BaseVC {
     
-    // MARK: Components
-    private let logoImageView = UIImageView().then{
-        $0.image = UIImage(named: "mumentIcon")
-    }
-    
     // MARK: - Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
         setBackgroundImage()
-        setLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,20 +39,14 @@ final class SplashVC: BaseVC {
 
 // MARK: - UI
 extension SplashVC {
-    
     private func setBackgroundImage(){
-        let backgroundImageView = UIImageView(frame: self.view.frame)
-        backgroundImageView.image = UIImage(named: "splashBackground")
-        backgroundImageView.contentMode = .scaleAspectFit
+        let backgroundImageView = UIImageView()
+        backgroundImageView.image = UIImage(named: "splashImage")
+        backgroundImageView.contentMode = .scaleAspectFill
         self.view.addSubview(backgroundImageView)
-    }
-    
-    private func setLayout() {
-        view.addSubviews([logoImageView])
         
-        logoImageView.snp.makeConstraints{
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(295)
-            $0.centerX.equalToSuperview()
+        backgroundImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }
