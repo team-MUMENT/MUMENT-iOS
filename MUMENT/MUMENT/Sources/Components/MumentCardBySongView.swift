@@ -78,7 +78,7 @@ class MumentCardBySongView: UIView {
             heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         }
     }
-    
+    private var previousLike = false
     var mumentId: Int = 0
     var userId: Int = 0
     
@@ -185,19 +185,12 @@ class MumentCardBySongView: UIView {
     
     func setButtonActions(){
         heartButton.press {
-            let previousState = self.isLiked
-            self.isLiked.toggle()
+            self.previousLike = self.isLiked
+            self.isLiked = !self.previousLike
             
-            /// isMyPost 변수로 같은 뷰 내에서는 수신 안되게 함
-            self.isMyPost = true
-            NotificationCenter.default.post(name: .sendLikedClicked, object: previousState)
-            self.isMyPost = false
-            
-            if previousState {
-                self.heartCount -= 1
+            if self.previousLike {
                 self.requestDeleteHeartLiked(mumentId: self.mumentId)
             }else{
-                self.heartCount += 1
                 self.requestPostHeartLiked(mumentId: self.mumentId)
             }
         }
@@ -266,7 +259,16 @@ extension MumentCardBySongView {
     private func requestPostHeartLiked(mumentId: Int) {
         LikeAPI.shared.postHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
-            case .success: break
+            case .success(let response):
+                if let res = response as? LikeResponseModel {
+                    self.heartCount = res.likeCount
+                    /// isMyPost 변수로 같은 뷰 내에서는 수신 안되게 함
+                    let notiModel = MumentSongViewNotiModel(previousState: self.previousLike, likeCount: self.heartCount)
+                    
+                    self.isMyPost = true
+                    NotificationCenter.default.post(name: .sendLikedClicked, object: notiModel)
+                    self.isMyPost = false
+                }
             default:
                 print("LikeAPI.shared.postHeartLiked")
                 return
@@ -277,7 +279,16 @@ extension MumentCardBySongView {
     private func requestDeleteHeartLiked(mumentId: Int) {
         LikeAPI.shared.deleteHeartLiked(mumentId: mumentId) { networkResult in
             switch networkResult {
-            case .success: break
+            case .success(let response):
+                if let res = response as? LikeCancelResponseModel {
+                    self.heartCount = res.likeCount
+                    /// isMyPost 변수로 같은 뷰 내에서는 수신 안되게 함
+                    let notiModel = MumentSongViewNotiModel(previousState: self.previousLike, likeCount: self.heartCount)
+                    
+                    self.isMyPost = true
+                    NotificationCenter.default.post(name: .sendLikedClicked, object: notiModel)
+                    self.isMyPost = false
+                }
             default:
                 print("LikeAPI.shared.deleteHeartLiked")
                 return
@@ -292,17 +303,17 @@ extension MumentCardBySongView {
         NotificationCenter.default.addObserver(self, selector: #selector(setLiked(_:)), name: .sendLikedClicked, object: nil)
     }
     
+    func removeNotificationCenter() {
+        NotificationCenter.default.removeObserver(self, name: .sendLikedClicked, object: nil)
+    }
+    
     @objc func setLiked(_ notification: Notification) {
         
         /// isMyPost 변수로 같은 뷰 내에서는 수신 안되게 함
         if isMyPost { return }
-        if let previousLiked = notification.object as? Bool {
-            self.isLiked.toggle()
-            if previousLiked {
-                self.heartCount -= 1
-            }else{
-                self.heartCount += 1
-            }
+        if let notimodel = notification.object as? MumentSongViewNotiModel {
+            self.isLiked = !notimodel.previousState
+            self.heartCount = notimodel.likeCount
         }
     }
 }
