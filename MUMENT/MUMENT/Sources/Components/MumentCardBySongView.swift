@@ -300,10 +300,8 @@ extension MumentCardBySongView {
             self.isLiked.toggle()
             if previousLiked {
                 self.heartCount -= 1
-                self.requestDeleteHeartLiked(mumentId: self.mumentId)
             }else{
                 self.heartCount += 1
-                self.requestPostHeartLiked(mumentId: self.mumentId)
             }
         }
     }
