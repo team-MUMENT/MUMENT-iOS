@@ -29,8 +29,20 @@ final class NotificationVC: BaseVC {
         $0.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
+    private let emptyLabel: UILabel = UILabel().then {
+        $0.text = "받은 소식이 없습니다."
+        $0.font = .mumentH3B16
+        $0.textColor = .mGray1
+        $0.sizeToFit()
+    }
+    
     // MARK: Properties
-    private var notificationList: GetNotificationListResponseModel = []
+    private var notificationList: GetNotificationListResponseModel = [] {
+        didSet {
+            self.emptyLabel.isHidden = !self.notificationList.isEmpty
+        }
+    }
+    
     private var unreadNotifiationIdList: [Int] = []
     
     // MARK: - View Life Cycle
@@ -98,6 +110,7 @@ extension NotificationVC: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NotificationTVC.className) as? NotificationTVC else { return UITableViewCell() }
         cell.setData(data: self.notificationList[indexPath.row])
         
+        cell.deleteButton.removeTarget(nil, action: nil, for: .allTouchEvents)
         cell.deleteButton.press { [weak self] in
             self?.deleteNotification(id: self?.notificationList[indexPath.row].id ?? 0)
         }
@@ -131,7 +144,7 @@ extension NotificationVC: UITableViewDelegate {
 // MARK: - UI
 extension NotificationVC {
     private func setLayout() {
-        view.addSubviews([naviView, notificationTV])
+        view.addSubviews([naviView, notificationTV, emptyLabel])
         
         self.naviView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -141,6 +154,10 @@ extension NotificationVC {
         self.notificationTV.snp.makeConstraints { make in
             make.top.equalTo(self.naviView.snp.bottom).offset(13)
             make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        self.emptyLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
 }
