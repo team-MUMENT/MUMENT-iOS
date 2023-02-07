@@ -82,6 +82,8 @@ class MumentCardBySongView: UIView {
     var mumentId: Int = 0
     var userId: Int = 0
     
+    private var isMyPost = false
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -185,6 +187,12 @@ class MumentCardBySongView: UIView {
         heartButton.press {
             let previousState = self.isLiked
             self.isLiked.toggle()
+            
+            /// isMyPost 변수로 같은 뷰 내에서는 수신 안되게 함
+            self.isMyPost = true
+            NotificationCenter.default.post(name: .sendLikedClicked, object: previousState)
+            self.isMyPost = false
+            
             if previousState {
                 self.heartCount -= 1
                 self.requestDeleteHeartLiked(mumentId: self.mumentId)
@@ -278,3 +286,25 @@ extension MumentCardBySongView {
     }
 }
 
+// MARK: - NotificationCenter
+extension MumentCardBySongView {
+    func setNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setLiked(_:)), name: .sendLikedClicked, object: nil)
+    }
+    
+    @objc func setLiked(_ notification: Notification) {
+        
+        /// isMyPost 변수로 같은 뷰 내에서는 수신 안되게 함
+        if isMyPost { return }
+        if let previousLiked = notification.object as? Bool {
+            self.isLiked.toggle()
+            if previousLiked {
+                self.heartCount -= 1
+                self.requestDeleteHeartLiked(mumentId: self.mumentId)
+            }else{
+                self.heartCount += 1
+                self.requestPostHeartLiked(mumentId: self.mumentId)
+            }
+        }
+    }
+}

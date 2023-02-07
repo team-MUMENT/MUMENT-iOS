@@ -40,6 +40,10 @@ class MumentCardBySongTVC: UITableViewCell {
     func setData(_ cellData: SongInfoResponseModel.MyMument){
         mumentCard.setData(cellData)
     }
+    
+    func setNotificationCenter() {
+        mumentCard.setNotificationCenter()
+    }
 }
 
 // MARK: - UI
