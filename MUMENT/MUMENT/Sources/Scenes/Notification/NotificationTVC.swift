@@ -25,6 +25,7 @@ final class NotificationTVC: UITableViewCell {
     private let contentLabel = UILabel().then {
         $0.textColor = .mBlack1
         $0.font = .mumentB6M13
+        $0.lineBreakMode = .byCharWrapping
         $0.numberOfLines = 3
     }
     
