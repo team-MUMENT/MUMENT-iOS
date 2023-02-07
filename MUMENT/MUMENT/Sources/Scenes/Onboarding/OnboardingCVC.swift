@@ -18,11 +18,11 @@ final class OnboardingCVC: UICollectionViewCell {
         }
     }
     
-    private var backgroundImageTitle: String = "" {
-        didSet{
-            setBackgroundImage()
-        }
-    }
+    private let imageView: UIImageView = {
+        let imageView: UIImageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     
     // MARK: - Components
     private let headingLabel: UILabel = UILabel().then{
@@ -41,20 +41,22 @@ final class OnboardingCVC: UICollectionViewCell {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUI()
+        self.setUI()
+        self.setBackgroundImage()
     }
     
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError()
+        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Functions
     func setData(_ cellData: OnboardingModel){
-        headingLabel.text = cellData.heading
-        highlightedHeadingText = cellData.highlightedHeading
-        subHeadingLabel.text = cellData.subHeading
-        backgroundImageTitle = cellData.backgroundImageTitle
+        self.headingLabel.text = cellData.heading
+        self.highlightedHeadingText = cellData.highlightedHeading
+        self.subHeadingLabel.text = cellData.subHeading
+        self.imageView.image = cellData.image
+        
+
     }
 }
 
@@ -63,22 +65,29 @@ extension OnboardingCVC {
     
     private func setBackgroundImage(){
         let backgroundImageView = UIImageView(frame: frame)
-        backgroundImageView.image = UIImage(named: backgroundImageTitle)
-        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.image = UIImage(named: "onboarding_background")
+        backgroundImageView.contentMode = .scaleToFill
         self.backgroundView = backgroundImageView
     }
     
     private func setUI() {
-        self.addSubviews([headingLabel, subHeadingLabel])
+        self.addSubviews([headingLabel, subHeadingLabel, imageView])
         
-        headingLabel.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(115)
+        self.headingLabel.snp.makeConstraints {
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(115.adjustedH)
             $0.centerX.equalToSuperview()
         }
         
-        subHeadingLabel.snp.makeConstraints {
-            $0.top.equalTo(headingLabel.snp.bottom).offset(17)
+        self.subHeadingLabel.snp.makeConstraints {
+            $0.top.equalTo(headingLabel.snp.bottom).offset(17.adjustedH)
             $0.centerX.equalToSuperview()
+        }
+        
+        self.imageView.snp.makeConstraints { make in
+            make.top.equalTo(self.subHeadingLabel.snp.bottom).offset(90.adjustedH)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(350.adjustedH)
+            make.height.equalTo( 350.adjustedH * 320.adjustedH / 350.adjustedH)
         }
     }
 }
