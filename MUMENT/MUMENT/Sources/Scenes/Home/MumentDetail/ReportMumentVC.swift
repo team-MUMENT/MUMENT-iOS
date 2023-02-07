@@ -244,13 +244,15 @@ extension ReportMumentVC {
                     debugPrint("report",statusCode)
                 }
                 if self.isBlockChecked {
-                    print("블락체크", self.isBlockChecked)
                     self.postUserBlock()
                 }else {
-                    self.navigationController?.popViewController(animated: true)
-                    if let naviVC = self.navigationController {
-                        naviVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
-                        naviVC.viewWillAppear(true)
+                    if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+                            previousVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
+                        }
+                        navigationController.popViewController(animated: true)
+                        previousVC.viewWillAppear(true)
                     }
                 }
                 default:
@@ -266,17 +268,22 @@ extension ReportMumentVC {
                 if let statusCode = statusCode as? Int {
                     debugPrint("block",statusCode)
                 }
-                
-                self.navigationController?.popViewController(animated: true)
-                if let naviVC = self.navigationController {
-                    naviVC.showToastMessage(message: "신고 및 차단이 완료되었습니다.", color: .black)
-                    naviVC.viewWillAppear(true)
+                if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+                        previousVC.showToastMessage(message: "신고 및 차단이 완료되었습니다.", color: .black)
+                    }
+                    navigationController.popViewController(animated: true)
+                    previousVC.viewWillAppear(true)
                 }
             default:
-                self.navigationController?.popViewController(animated: true)
-                if let naviVC = self.navigationController {
-                    naviVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
-                    naviVC.viewWillAppear(true)
+                if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+                        previousVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
+                    }
+                    navigationController.popViewController(animated: true)
+                    previousVC.viewWillAppear(true)
                 }
             }
         }
