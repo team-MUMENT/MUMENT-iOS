@@ -41,11 +41,13 @@ class MumentHistoryVC: BaseVC {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.hideTabbar()
         /// flag 프로퍼티 초기화
         resetProperty()
         /// 처음 fetchData
         requestGetHistoryData(recentOnTop: true, limit: 10, offset: 0)
     }
+    
     
     // MARK: - Functions
     private func setTV() {

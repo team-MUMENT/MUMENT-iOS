@@ -73,7 +73,7 @@ class SearchVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.hideTabbar()
         self.fetchSearchResultData()
     }
     

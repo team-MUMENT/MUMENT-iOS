@@ -59,6 +59,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.showTabbar()
         requestGetMumentDetail()
     }
     
