@@ -40,6 +40,7 @@ final class SongDetailVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.showTabbar()
         requestGetSongInfo(musicData: self.musicData)
         /// flag 프로퍼티 초기화
         resetProperty()
