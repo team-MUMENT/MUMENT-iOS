@@ -158,12 +158,13 @@ final class StorageMumentVC: BaseVC {
                 dateArray = [1]
             }
             
-            for i in 0...dateArray.count-1 {
+            for i in 0...dateArray.count - 1 {
                 storageMumentData.forEach {
                     let mdate = $0.year * 100 + $0.month
                     /// 뮤멘트 데이터의 날짜가 미리 정렬해놓은 날짜 배열의 값과 일치 할때
                     if mdate == dateArray[i] {
-                        dateDictionary[mdate]! += 1
+                        guard let numOfMuments = dateDictionary[mdate] else { return }
+                        dateDictionary[mdate] = numOfMuments + 1
                     }
                 }
             }
@@ -266,7 +267,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 case .myMument:
                     listCell.setDefaultCardUI()
                     if indexPath.section == 0 {
-                        if indexPath.row > storageMumentData.count - 1{
+                        if indexPath.row > storageMumentData.count - 1 {
                             listCell.setEmptyCardView()
                             storageMumentCV.reloadData()
                             return listCell
@@ -275,15 +276,17 @@ extension StorageMumentVC: UICollectionViewDataSource{
                         return listCell
                     }
                     var mData = 0
-                    for i in 0...indexPath.section-1{
-                        mData += (dateDictionary[dateArray[i]])!
+                    for i in 0...indexPath.section - 1 {
+                        if let numOfMuments = dateDictionary[dateArray[i]] {
+                            mData += numOfMuments
+                        }
                     }
                     listCell.setDefaultCardData(storageMumentData[mData + indexPath.row])
                     return listCell
                     
                 case .likedMument:
                     if indexPath.section == 0 {
-                        if indexPath.row > storageMumentData.count - 1{
+                        if indexPath.row > storageMumentData.count - 1 {
                             listCell.setEmptyCardView()
                             storageMumentCV.reloadData()
                             return listCell
@@ -293,7 +296,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
                         return listCell
                     }
                     var mData = 0
-                    for i in 0...indexPath.section-1{
+                    for i in 0...indexPath.section - 1 {
                         mData += (dateDictionary[dateArray[i]])!
                     }
                     listCell.setWithoutHeartCardUI()
@@ -303,7 +306,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 
             case .albumCell:
                 if indexPath.section == 0 {
-                    if indexPath.row > storageMumentData.count - 1{
+                    if indexPath.row > storageMumentData.count - 1 {
                         albumCell.setEmptyCardView()
                         storageMumentCV.reloadData()
                         return albumCell
@@ -312,8 +315,10 @@ extension StorageMumentVC: UICollectionViewDataSource{
                     return albumCell
                 }
                 var mData = 0
-                for i in 0...indexPath.section-1{
-                    mData += (dateDictionary[dateArray[i]])!
+                for i in 0...indexPath.section - 1 {
+                    if let numOfMuments = dateDictionary[dateArray[i]] {
+                        mData += numOfMuments
+                    }
                 }
                 albumCell.fetchData(storageMumentData[mData + indexPath.row])
                 return albumCell
@@ -367,7 +372,15 @@ extension StorageMumentVC: UICollectionViewDelegate {
             selectedTagsCV.reloadData()
             storageMumentCV.reloadData()
         case storageMumentCV:
-            let mumentData = storageMumentData[indexPath.row]
+            var mData = 0
+            if indexPath.section != 0 {
+                for i in 0...indexPath.section - 1 {
+                    if let numOfMuments = dateDictionary[dateArray[i]] {
+                        mData += numOfMuments
+                    }
+                }
+            }
+            let mumentData = storageMumentData[mData + indexPath.row]
             let mumentID = mumentData.id
             let musicData = MusicDTO(id: mumentData.music.id,
                                  title: mumentData.music.name,
