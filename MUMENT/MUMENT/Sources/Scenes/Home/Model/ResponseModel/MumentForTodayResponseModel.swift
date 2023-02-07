@@ -7,71 +7,51 @@
 
 import Foundation
 
-// MARK: - HistoryResponseModel
+// MARK: - MumentForTodayResponseModel
 struct MumentForTodayResponseModel: Codable {
-    let todayDate: String
     let todayMument: TodayMument
-
-    enum CodingKeys: String, CodingKey {
-        case todayDate = "todayDate"
-        case todayMument = "todayMument"
-    }
+    let todayDate: String
     
     // MARK: - TodayMument
     struct TodayMument: Codable {
-        let music: Music
-        let user: User
-        let mumentId: Int
         let isFirst: Bool
-        let impressionTag: [Int]
-        let feelingTag: [Int]
         let content: String
-        let cardTag: [Int]
+        let mumentID: Int
+        let cardTag, impressionTag: [Int]
+        let displayDate, date: String
+        let music: Music
         let createdAt: String
-        let date: String
-        let displayDate: String
+        let feelingTag: [Int]
+        let user: User
 
         enum CodingKeys: String, CodingKey {
-            case music = "music"
-            case user = "user"
-            case mumentId = "mumentId"
-            case isFirst = "isFirst"
-            case impressionTag = "impressionTag"
-            case feelingTag = "feelingTag"
-            case content = "content"
-            case cardTag = "cardTag"
-            case createdAt = "createdAt"
-            case date = "date"
-            case displayDate = "displayDate"
+            case isFirst, content
+            case mumentID = "mumentId"
+            case cardTag, impressionTag, displayDate, date, music, createdAt, feelingTag, user
         }
-        
-        // MARK: - Music
-        struct Music: Codable {
-            let id: String
-            let name: String
-            let artist: String
-            let image: String
+    }
 
-            enum CodingKeys: String, CodingKey {
-                case id = "_id"
-                case name = "name"
-                case artist = "artist"
-                case image = "image"
-            }
+    // MARK: - Music
+    struct Music: Codable {
+        let id, name: String
+        let image: String
+        let artist: String
+
+        enum CodingKeys: String, CodingKey {
+            case id = "_id"
+            case name, image, artist
         }
+    }
 
-        // MARK: - User
-        struct User: Codable {
-            let id: Int
-            let name: String
-            let image: String?
+    // MARK: - User
+    struct User: Codable {
+        let id: Int
+        let name: String
+        let image: String
 
-            enum CodingKeys: String, CodingKey {
-                case id = "_id"
-                case name = "name"
-                case image = "image"
-            }
+        enum CodingKeys: String, CodingKey {
+            case id = "_id"
+            case name, image
         }
     }
 }
-
