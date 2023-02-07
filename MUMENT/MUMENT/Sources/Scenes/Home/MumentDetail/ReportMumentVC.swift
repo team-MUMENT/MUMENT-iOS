@@ -247,12 +247,16 @@ extension ReportMumentVC {
                     self.postUserBlock()
                 }else {
                     if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                        navigationController.popViewController(animated: false)
                         
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
-                            previousVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
+                        if let previousNC = previousVC.navigationController as? BaseNC, let beforePreviousVC = previousNC.previousViewController as? BaseVC {
+                            previousNC.popViewController(animated: true)
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100)) {
+                                beforePreviousVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
+                            }
+                            beforePreviousVC.viewWillAppear(true)
                         }
-                        navigationController.popViewController(animated: true)
-                        previousVC.viewWillAppear(true)
+                        
                     }
                 }
                 default:
@@ -269,21 +273,29 @@ extension ReportMumentVC {
                     debugPrint("block",statusCode)
                 }
                 if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                    navigationController.popViewController(animated: false)
                     
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
-                        previousVC.showToastMessage(message: "신고 및 차단이 완료되었습니다.", color: .black)
+                    if let previousNC = previousVC.navigationController as? BaseNC, let beforePreviousVC = previousNC.previousViewController as? BaseVC {
+                        previousNC.popViewController(animated: true)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+                            beforePreviousVC.showToastMessage(message: "신고 및 차단이 완료되었습니다.", color: .black)
+                        }
+                        beforePreviousVC.viewWillAppear(true)
                     }
-                    navigationController.popViewController(animated: true)
-                    previousVC.viewWillAppear(true)
+                    
                 }
             default:
                 if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                    navigationController.popViewController(animated: false)
                     
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
-                        previousVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
+                    if let previousNC = previousVC.navigationController as? BaseNC, let beforePreviousVC = previousNC.previousViewController as? BaseVC {
+                        previousNC.popViewController(animated: true)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100)) {
+                            beforePreviousVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
+                        }
+                        beforePreviousVC.viewWillAppear(true)
                     }
-                    navigationController.popViewController(animated: true)
-                    previousVC.viewWillAppear(true)
+                    
                 }
             }
         }
