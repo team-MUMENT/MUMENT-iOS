@@ -26,20 +26,23 @@ final class MembershipWithdrawalVC: BaseVC {
         $0.text = "정말 떠나시는 건가요?"
         $0.font = .mumentH2B18
         $0.textColor = .mBlack1
+        $0.sizeToFit()
     }
     
     private let noticeLabel: UILabel = UILabel().then {
-        $0.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. 사용자 님이 좋아하신 뮤멘트들도 더 이상 모아볼 수 없게 됩니다."
+        $0.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. \(UserInfo.shared.nickname)님이 좋아하신 뮤멘트들도 더 이상 모아볼 수 없게 됩니다."
         $0.font = .mumentB3M14
         $0.textColor = .mBlack2
         $0.numberOfLines = 3
         $0.lineBreakMode = .byCharWrapping
+        $0.sizeToFit()
     }
     
     private let inquiryLabel: UILabel = UILabel().then {
         $0.text = "탈퇴하시려는 이유가 궁금해요."
         $0.font = .mumentB4M14
         $0.textColor = .mBlack1
+        $0.sizeToFit()
     }
     
     private let reasonSelectionButton: DropDownButton = DropDownButton(title: "이유 선택")
@@ -92,11 +95,6 @@ final class MembershipWithdrawalVC: BaseVC {
     // MARK: Properties
     private let disposeBag: DisposeBag = DisposeBag()
     
-    private var userName: String = "" {
-        didSet {
-            noticeLabel.text = "지금 당장 뮤멘트를 떠나시면 곡에 담긴 추억이 모두 사라지게 돼요. \(userName)님이 좋아하신 뮤멘트들도 더 이상 모아볼 수 없게 됩니다."
-        }
-    }
     
     private var isReasonMenuHidden: Bool = true {
         didSet {
@@ -131,13 +129,25 @@ final class MembershipWithdrawalVC: BaseVC {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setLayout()
         setButtonActions()
         setReasonTextView()
         setReasonTextCounting()
         reasonSelectingMenuView.setDelegate(delegate: self)
         hideTabbar()
-        
+        setLayout()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.reasonSelectingMenuView.frame.height > 44 * 6 + 20{
+            reasonSelectingMenuView.snp.remakeConstraints { make in
+                make.top.equalTo(reasonSelectionButton.snp.bottom).inset(20)
+                make.left.equalToSuperview().offset(20)
+                make.right.equalToSuperview().inset(20)
+                make.height.equalTo(44 * 6 + 20)
+            }
+            
+        }
     }
     
     // MARK: - Functions
@@ -190,10 +200,6 @@ final class MembershipWithdrawalVC: BaseVC {
             })
             .disposed(by: disposeBag)
     }
-    
-    func setUserName(_ userName: String) {
-        self.userName = userName
-    }
 }
 
 // MARK: - UI
@@ -208,28 +214,33 @@ extension MembershipWithdrawalVC {
         
         imageView.snp.makeConstraints {
             $0.top.equalTo(naviView.snp.bottom).offset(22)
+            $0.width.height.equalTo(60)
             $0.centerX.equalToSuperview()
         }
         
         headingLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
+            $0.height.equalTo(25)
         }
         
         noticeLabel.snp.makeConstraints {
             $0.top.equalTo(headingLabel.snp.bottom).offset(10)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(noticeLabel.font.lineHeight * CGFloat(noticeLabel.numberOfLines) + 5)
         }
         
         inquiryLabel.snp.makeConstraints {
             $0.top.equalTo(noticeLabel.snp.bottom).offset(25)
             $0.leading.equalToSuperview().offset(20)
+            $0.height.equalTo(inquiryLabel.font.lineHeight + 4)
         }
         
         reasonSelectionButton.snp.makeConstraints {
             $0.top.equalTo(inquiryLabel.snp.bottom).offset(13)
             $0.left.equalToSuperview().offset(20)
             $0.right.equalToSuperview().inset(20)
+            $0.height.equalTo(44)
         }
         
         reasonTextView.snp.makeConstraints {
@@ -244,12 +255,6 @@ extension MembershipWithdrawalVC {
             $0.right.equalTo(reasonTextView).inset(11)
         }
         
-        reasonSelectingMenuView.snp.makeConstraints {
-            $0.top.equalTo(reasonSelectionButton.snp.bottom).inset(20)
-            $0.left.equalToSuperview().offset(20)
-            $0.right.equalToSuperview().inset(20)
-        }
-        
         withdrawalButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(39)
             $0.horizontalEdges.equalToSuperview().inset(20)
@@ -257,9 +262,22 @@ extension MembershipWithdrawalVC {
         }
         
         confirmingStackView.snp.makeConstraints {
+            $0.height.equalTo(20)
             $0.bottom.equalTo(withdrawalButton.snp.top).offset(-15)
             $0.centerX.equalToSuperview()
         }
+        
+        reasonSelectingMenuView.snp.makeConstraints {
+            $0.top.equalTo(reasonSelectionButton.snp.bottom).inset(20)
+            $0.left.equalToSuperview().offset(20)
+            $0.right.equalToSuperview().inset(20)
+            $0.bottom.equalTo(confirmingStackView.snp.top).offset(-18)
+        }
+        
+        self.checkBoxButton.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+        }
+        
     }
 }
 

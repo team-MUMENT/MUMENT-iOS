@@ -20,7 +20,6 @@ final class DropDownMenuView: UIView {
         $0.backgroundColor = .mGray5
         $0.separatorStyle = .none
         $0.showsVerticalScrollIndicator = true
-        $0.isScrollEnabled = false
     }
     
     // MARK: - Properties
