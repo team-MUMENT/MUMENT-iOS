@@ -97,7 +97,6 @@ final class MypageMainVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isHidden = true
         self.setLayout()
         self.setBackButton()
         self.setTableView()
