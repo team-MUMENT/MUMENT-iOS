@@ -11,10 +11,11 @@ import Then
 
 final class SongDetailVC: BaseVC {
     
-    // MARK: - Properties
+    // MARK: - Components
     private let navigationBarView = DefaultNavigationBar()
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
     
+    // MARK: - Properties
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
     var allMumentsDataSource: [MumentCardBySongModel] = MumentCardBySongModel.allMumentsSampleData
     var myMumentData: SongInfoResponseModel.MyMument? = nil
@@ -41,10 +42,9 @@ final class SongDetailVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showTabbar()
-        requestGetSongInfo(musicData: self.musicData)
         /// flag 프로퍼티 초기화
         resetProperty()
-        requestGetAllMuments(isOrderLiked: true, limit: 10, offset: 0)
+        requestGetSongInfo(musicData: self.musicData)
     }
     
     // MARK: - Functions
@@ -164,7 +164,10 @@ extension SongDetailVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                     return UITableViewCell()
                 }
-                cell.setData(myMumentData!)
+                guard let myMument = myMumentData else { return UITableViewCell() }
+                cell.setData(myMument)
+                cell.mumentCard.setNotificationCenter()
+
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
                 cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
                 return cell
@@ -174,11 +177,22 @@ extension SongDetailVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
+            
             cell.mumentCard.gestureRecognizers?.removeAll()
             cell.setData(allMumentsData[indexPath.row])
             let tapGestureRecognizer = CardTapGestureRecognizer(target: self, action: #selector(didTapAllMumentView(_:)))
             tapGestureRecognizer.index = indexPath.row
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
+            
+            if myMumentData != nil {
+                guard let myMument = myMumentData else { return UITableViewCell() }
+                if myMument.id == allMumentsData[indexPath.row].id {
+                    cell.setNotificationCenter()
+                    return cell
+                }
+            }
+            
+            cell.removeNotificationCenter()
             return cell
             
         default:
@@ -200,10 +214,12 @@ extension SongDetailVC: UITableViewDataSource {
             headerCell.historyButton.press {
                 let mumentHistoryVC = MumentHistoryVC()
                 mumentHistoryVC.setHistoryData(userId: self.userId, musicData: self.musicData)
-                self.navigationController?.pushViewController(mumentHistoryVC, animated: true)            }
+                self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
+            }
             return headerCell
         case 2:
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
+            headerCell.resetOrderingButton(isOrderLiked: self.filterFlag)
             headerCell.delegate=self
             return headerCell
         default:
@@ -287,7 +303,10 @@ extension SongDetailVC {
                     
                     let music = res.music
                     self.musicData = MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image)
-                    self.mumentTV.reloadSections(IndexSet(0...1), with: .automatic)
+                    self.allMumentsData = []
+                    self.mumentTV.reloadData()
+                    requestGetAllMuments(isOrderLiked: true, limit: 10, offset: 0)
+
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
@@ -301,7 +320,7 @@ extension SongDetailVC {
             case .success(let response):
                 if let res = response as? AllMumentsResponseModel {
                     self.allMumentsData = res.mumentList
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(10)) {
                         self.mumentTV.reloadData()
                     }
                 }

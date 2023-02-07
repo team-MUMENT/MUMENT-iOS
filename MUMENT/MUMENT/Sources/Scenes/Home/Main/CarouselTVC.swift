@@ -41,6 +41,10 @@ class CarouselTVC: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        removeNotificationCenter()
+    }
+    
     // MARK: - Functions
     private func setCV() {
         setIncreasedCarouselData()
@@ -221,7 +225,7 @@ extension CarouselTVC: UICollectionViewDataSource {
         return cell
     }
 }
-
+// MARK: - NotificationCenter
 extension CarouselTVC {
     private func setNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(setTimer(_:)), name: .sendViewState, object: nil)
@@ -236,5 +240,9 @@ extension CarouselTVC {
                 bannerTimerInvalidate()
             }
         }
+    }
+    
+    private func removeNotificationCenter() {
+        NotificationCenter.default.removeObserver(self, name: .sendViewState, object: nil)
     }
 }
