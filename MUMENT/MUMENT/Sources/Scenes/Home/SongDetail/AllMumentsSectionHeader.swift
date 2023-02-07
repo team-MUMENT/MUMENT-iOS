@@ -54,6 +54,11 @@ final class AllMumentsSectionHeader: UITableViewHeaderFooterView {
             self.delegate?.sortingFilterButtonClicked(isOrderLiked: false)
         }
     }
+    
+    func resetOrderingButton() {
+        mostLikedOrderingButton.isSelected = true
+        latestOrderingButton.isSelected = false
+    }
 }
 
 // MARK: - UI
