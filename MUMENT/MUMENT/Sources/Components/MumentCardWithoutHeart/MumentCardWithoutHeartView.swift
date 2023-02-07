@@ -77,23 +77,9 @@ class MumentCardWithoutHeartView: UIView {
         super.init(coder: aDecoder)!
     }
     
-    //MARK: - Functions
-//    func setData(_ cellData: MumentCardWithoutHeartModel){
-//        profileImage.image = cellData.profileImage
-//        writerNameLabel.text = cellData.writerName
-//        albumImage.image = cellData.albumImage
-//        songTitleLabel.text = cellData.songTitle
-//        artistLabel.text = cellData.artistName
-//        contentsLabel.text = cellData.contentsLabel
-//        createdAtLabel.text = cellData.createdAtLabel
-//        isFirst = cellData.isFirst
-//        impressionTags = cellData.impressionTags
-//        feelingTags = cellData.feelingTags
-////        setTags()
-//    }
-    
+    // MARK: Methods
     func setMumentForTodayData(_ cellData: MumentForTodayResponseModel){
-        profileImage.setImageUrl(cellData.todayMument.user.image ?? APIConstants.defaultProfileImageURL)
+        profileImage.setImageUrl(cellData.todayMument.user.image)
         writerNameLabel.text = cellData.todayMument.user.name
         albumImage.setImageUrl(cellData.todayMument.music.image)
         songTitleLabel.text = cellData.todayMument.music.name
