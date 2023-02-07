@@ -63,4 +63,18 @@ class AuthAPI: BaseAPI {
             }
         }
     }
+    
+    /// [POST] 로그아웃 요청
+    func requestSignOut(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(AuthService.requestSignOut).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                let networkResult = self.judgeStatus(by: statusCode)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
