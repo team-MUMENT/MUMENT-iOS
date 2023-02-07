@@ -184,10 +184,12 @@ extension SongDetailVC: UITableViewDataSource {
             tapGestureRecognizer.index = indexPath.row
             cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             
-            guard let myMument = myMumentData else { return UITableViewCell() }
-            if myMument.id == allMumentsData[indexPath.row].id {
-                cell.setNotificationCenter()
-                return cell
+            if myMumentData != nil {
+                guard let myMument = myMumentData else { return UITableViewCell() }
+                if myMument.id == allMumentsData[indexPath.row].id {
+                    cell.setNotificationCenter()
+                    return cell
+                }
             }
             
             cell.removeNotificationCenter()
@@ -212,7 +214,8 @@ extension SongDetailVC: UITableViewDataSource {
             headerCell.historyButton.press {
                 let mumentHistoryVC = MumentHistoryVC()
                 mumentHistoryVC.setHistoryData(userId: self.userId, musicData: self.musicData)
-                self.navigationController?.pushViewController(mumentHistoryVC, animated: true)            }
+                self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
+            }
             return headerCell
         case 2:
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
@@ -316,7 +319,7 @@ extension SongDetailVC {
             case .success(let response):
                 if let res = response as? AllMumentsResponseModel {
                     self.allMumentsData = res.mumentList
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(10)) {
                         self.mumentTV.reloadData()
                     }
                 }
