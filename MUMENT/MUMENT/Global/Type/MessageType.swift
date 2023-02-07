@@ -10,6 +10,7 @@ import Foundation
 enum MessageType {
     case networkError
     case modelErrorForDebug
+    case reportUserBlockError
 }
 
 extension MessageType {
@@ -22,6 +23,9 @@ extension MessageType {
 """
         case .modelErrorForDebug:
             return "🚨당신 모델이 이상해열~🚨"
+            
+        case .reportUserBlockError:
+            return "신고가 정상적으로 완료되었으나,\n일시적인 네트워크 오류로 인해 차단을 실패했습니다.\n\n잠시 후 다시 시도해주시기 바랍니다."
         }
     }
 }
