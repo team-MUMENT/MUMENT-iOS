@@ -110,7 +110,6 @@ extension OnboardingVC: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCVC.className, for: indexPath) as? OnboardingCVC else {
             return UICollectionViewCell()
-            
         }
         cell.setData(dataSource[indexPath.row])
         return cell
