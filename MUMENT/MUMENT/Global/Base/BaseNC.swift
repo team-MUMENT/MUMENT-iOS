@@ -1,5 +1,5 @@
 //
-//  BaseNVC.swift
+//  BaseNC.swift
 //  MUMENT
 //
 //  Created by madilyn on 2022/07/07.
