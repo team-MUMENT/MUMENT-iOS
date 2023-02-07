@@ -137,7 +137,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             guard let footerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: ReportMumentFooter.className) as? ReportMumentFooter else { return nil }
             footerCell.delegate = self
-            self.delegate = footerCell as? any reportMumentDelegate
+            self.delegate = footerCell
             return footerCell
         }else {
             return nil
@@ -277,7 +277,7 @@ extension ReportMumentVC {
                     
                     if let previousNC = previousVC.navigationController as? BaseNC, let beforePreviousVC = previousNC.previousViewController as? BaseVC {
                         previousNC.popViewController(animated: true)
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100)) {
                             beforePreviousVC.showToastMessage(message: "신고 및 차단이 완료되었습니다.", color: .black)
                         }
                         beforePreviousVC.viewWillAppear(true)
@@ -291,7 +291,7 @@ extension ReportMumentVC {
                     if let previousNC = previousVC.navigationController as? BaseNC, let beforePreviousVC = previousNC.previousViewController as? BaseVC {
                         previousNC.popViewController(animated: true)
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100)) {
-                            beforePreviousVC.showToastMessage(message: "신고가 접수되었습니다.", color: .black)
+                            beforePreviousVC.makeAlert(title: MessageType.reportUserBlockError.message)
                         }
                         beforePreviousVC.viewWillAppear(true)
                     }
