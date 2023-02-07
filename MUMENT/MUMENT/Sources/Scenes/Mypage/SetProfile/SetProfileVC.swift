@@ -20,25 +20,32 @@ final class SetProfileVC: BaseVC {
     }
     
     private let loadImageView: UIImageView = {
-        let imageView: UIImageView = UIImageView(image: UIImage(named: "mumentDarkenCamera"))
+        let imageView: UIImageView = UIImageView(image: UIImage(named: "mumentDefaultProfile"))
         imageView.isUserInteractionEnabled = false
+        imageView.layer.cornerRadius = 131.adjustedH / 2
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     private lazy var loadImageButton: UIButton = UIButton(type: .custom).then {
+        $0.setBackgroundImage(UIImage(named: "mumentDarkenCamera"), for: .normal)
         $0.layer.cornerRadius = 131.adjustedH / 2
         $0.clipsToBounds = true
     }
+    
     private let nickNameTextField: MumentTextField = MumentTextField().then {
         $0.text = UserInfo.shared.nickname
         $0.placeholder = "닉네임을 입력해주세요. (필수)"
     }
+    
     private let infoLabel: UILabel = UILabel().then {
         $0.text = "특수문자 제외 2-15자"
         $0.font = .mumentB8M12
         $0.textColor = .mGray2
         $0.sizeToFit()
     }
+    
     private let nickNameCountLabel: UILabel = UILabel().then {
         $0.text = "0/15"
         $0.textColor = .mGray1
@@ -86,11 +93,12 @@ final class SetProfileVC: BaseVC {
         self.setNickNameCountLabel()
         self.checkEnterNickNameLimit()
         self.setLoadImageButtonAction()
-        self.setDefaultButtonImage()
+        self.setDefaultImageView()
         self.setDoneButtonAction()
         self.setBackButtonAction()
     }
     
+    // MARK: Methods
     /// 클리어 버튼 탭할 경우, 완료 버튼 비활성화하는 메서드
     private func setClearButtonTapAction() {
         nickNameTextField.clearButton.press { [weak self] in
@@ -182,8 +190,8 @@ final class SetProfileVC: BaseVC {
                         case 0:
                             self?.openLibrary(presentingVC: self ?? BaseVC())
                         case 1:
-                            if self?.loadImageButton.imageView?.image != self?.defaultProfileImage {
-                                self?.loadImageButton.setImage(self?.defaultProfileImage, for: .normal)
+                            if self?.loadImageView.image != self?.defaultProfileImage {
+                                self?.loadImageView.image = self?.defaultProfileImage
                                 self?.isProfileImageChanged = true
                             }
                         default: break
@@ -194,14 +202,12 @@ final class SetProfileVC: BaseVC {
         }
     }
     
-    private func setDefaultButtonImage() {
+    private func setDefaultImageView() {
         UserInfo.shared.profileImageURL.getImage { image in
             DispatchQueue.main.async {
-                self.loadImageButton.setImage(self.isFirst ? self.defaultProfileImage : image,
-                    for: .normal)
+                self.loadImageView.image = self.isFirst ? self.defaultProfileImage : image
             }
         }
-        self.loadImageButton.imageView?.contentMode = .scaleAspectFill
     }
     
     /// 완료 버튼 액션 메서드
@@ -228,12 +234,12 @@ final class SetProfileVC: BaseVC {
     }
     
     private func makeProfileImageData() -> Data {
-        if let imageView = self.loadImageButton.imageView {
-            if imageView.image == self.defaultProfileImage {
-                imageView.image = UIImage(named: self.defaultProfileImageName[0])
+        if let image = self.loadImageView.image {
+            if image == self.defaultProfileImage {
+                let imageView = UIImageView(image: UIImage(named: self.defaultProfileImageName[0]))
                 return imageView.resizeWithWidth(width: 500)?.pngData() ?? Data()
             } else {
-                return imageView.resizeWithWidth(width: 500)?.pngData() ?? Data()
+                return self.loadImageView.resizeWithWidth(width: 500)?.pngData() ?? Data()
             }
         } else {
             return Data()
@@ -298,29 +304,34 @@ extension SetProfileVC {
 // MARK: - UI
 extension SetProfileVC {
     private func setLayout() {
-        self.view.addSubviews([naviView, loadImageButton, loadImageView, nickNameTextField, infoLabel, nickNameCountLabel])
+        self.view.addSubviews([naviView, loadImageView, loadImageButton, nickNameTextField, infoLabel, nickNameCountLabel])
         
         naviView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(48)
         }
-        loadImageButton.snp.makeConstraints {
+        
+        loadImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(131.adjustedH)
             $0.top.equalTo(naviView.snp.bottom).offset(79.adjustedH)
         }
-        loadImageView.snp.makeConstraints {
-            $0.edges.equalTo(self.loadImageButton)
+        
+        loadImageButton.snp.makeConstraints {
+            $0.edges.equalTo(self.loadImageView)
         }
+        
         nickNameTextField.snp.makeConstraints {
             $0.top.equalTo(loadImageButton.snp.bottom).offset(64.adjustedH)
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(50)
         }
+        
         infoLabel.snp.makeConstraints {
             $0.top.equalTo(nickNameTextField.snp.bottom).offset(14)
             $0.left.equalTo(nickNameTextField)
         }
+        
         nickNameCountLabel.snp.makeConstraints {
             $0.centerY.equalTo(infoLabel)
             $0.right.equalTo(nickNameTextField)
@@ -334,7 +345,7 @@ extension SetProfileVC: UIImagePickerControllerDelegate, UINavigationControllerD
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             DispatchQueue.main.async {
                 self.isProfileImageChanged = true
-                self.loadImageButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+                self.loadImageView.image = image
             }
         }
         self.imagePickerController.dismiss(animated: true)
