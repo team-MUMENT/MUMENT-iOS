@@ -112,6 +112,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         /// 푸시알림을 통해서 앱에 진입함을 싱글톤 객체에 알림
         NotificationInfo.shared.isPushComes = true
+        NotificationCenter.default.post(name: NSNotification.Name.isPushComes, object: nil)
+        
         completionHandler()
     }
 }
