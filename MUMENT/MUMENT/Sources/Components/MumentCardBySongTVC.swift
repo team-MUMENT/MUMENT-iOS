@@ -44,6 +44,10 @@ class MumentCardBySongTVC: UITableViewCell {
     func setNotificationCenter() {
         mumentCard.setNotificationCenter()
     }
+    
+    func removeNotificationCenter() {
+        mumentCard.removeNotificationCenter()
+    }
 }
 
 // MARK: - UI

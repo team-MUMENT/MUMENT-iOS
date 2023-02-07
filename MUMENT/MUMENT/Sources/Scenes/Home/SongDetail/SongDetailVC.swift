@@ -187,7 +187,10 @@ extension SongDetailVC: UITableViewDataSource {
             guard let myMument = myMumentData else { return UITableViewCell() }
             if myMument.id == allMumentsData[indexPath.row].id {
                 cell.setNotificationCenter()
+                return cell
             }
+            
+            cell.removeNotificationCenter()
             return cell
             
         default:
