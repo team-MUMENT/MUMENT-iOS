@@ -91,7 +91,6 @@ extension BaseVC {
         UserDefaultsManager.accessToken = nil
         UserDefaultsManager.refreshToken = nil
         UserDefaultsManager.userId = nil
-        UserDefaultsManager.fcmToken = nil
         UserInfo.shared = UserInfo.init()
     }
     
