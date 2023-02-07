@@ -367,7 +367,13 @@ extension StorageMumentVC: UICollectionViewDelegate {
             selectedTagsCV.reloadData()
             storageMumentCV.reloadData()
         case storageMumentCV:
-            let mumentData = storageMumentData[indexPath.row]
+            var mData = 0
+            if indexPath.section != 0 {
+                for i in 0...indexPath.section-1{
+                    mData += (dateDictionary[dateArray[i]])!
+                }
+            }
+            let mumentData = storageMumentData[mData + indexPath.row]
             let mumentID = mumentData.id
             let musicData = MusicDTO(id: mumentData.music.id,
                                  title: mumentData.music.name,
