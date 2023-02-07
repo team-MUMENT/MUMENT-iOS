@@ -15,7 +15,7 @@ class HomeVC: BaseVC {
     private let headerViewMaxHeight: CGFloat = 107.0
     private let headerViewMinHeight: CGFloat = 50.0
     var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", userId: 0, bannerList: [])
-    var mumentForTodayData: MumentForTodayResponseModel = MumentForTodayResponseModel(todayDate: "", todayMument: MumentForTodayResponseModel.TodayMument(music: MumentForTodayResponseModel.TodayMument.Music(id: "", name: "", artist: "", image: ""), user: MumentForTodayResponseModel.TodayMument.User(id: 0, name: "", image: ""), mumentId: 0, isFirst: true, impressionTag: [], feelingTag: [], content: "", cardTag: [], createdAt: "", date: "", displayDate: ""))
+    var mumentForTodayData: MumentForTodayResponseModel?
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     var mumentsByTagData: MumentsByTagResponseModel = MumentsByTagResponseModel(title: "", mumentList: [])
     
@@ -69,8 +69,19 @@ class HomeVC: BaseVC {
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let mumentDetailVC = MumentDetailVC()
-        let todayMusic = mumentForTodayData.todayMument.music
-        mumentDetailVC.setData(mumentId: mumentForTodayData.todayMument.mumentId, musicData: MusicDTO(id: todayMusic.id, title: todayMusic.name, artist: todayMusic.artist, albumUrl: todayMusic.image))
+        if let todayMument = self.mumentForTodayData?.todayMument {
+            mumentDetailVC.setData(
+                mumentId: todayMument.mumentID,
+                musicData: MusicDTO(
+                    id: todayMument.music.id,
+                    title: todayMument.music.name,
+                    artist: todayMument.music.artist,
+                    albumUrl: todayMument.music.image
+                )
+            )
+        }
+//        let todayMusic = mumentForTodayData.todayMument.music
+
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     
@@ -161,7 +172,9 @@ extension HomeVC: UITableViewDataSource {
             }
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
             cell.mumentCardView.addGestureRecognizer(tapGestureRecognizer)
-            cell.setData(mumentForTodayData)
+            if let todayMument = mumentForTodayData {
+                cell.setData(todayMument)
+            }
             return cell
             
         case 2:
