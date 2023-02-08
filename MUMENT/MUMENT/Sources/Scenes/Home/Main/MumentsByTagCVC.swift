@@ -47,6 +47,4 @@ extension MumentsByTagCVC {
             $0.top.equalTo(self.safeAreaLayoutGuide)
         }
     }
-    
 }
-

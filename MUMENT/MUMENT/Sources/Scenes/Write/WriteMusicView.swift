@@ -71,12 +71,13 @@ extension WriteMusicView {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(albumImageView.snp.top).inset(8)
             $0.leading.equalTo(albumImageView.snp.trailing).offset(10)
-            $0.right.equalTo(removeButton.snp.left).offset(10)
+            $0.right.equalTo(removeButton.snp.left).offset(-8)
         }
         
         artistLabel.snp.makeConstraints {
             $0.bottom.equalTo(albumImageView.snp.bottom).inset(8)
             $0.leading.equalTo(titleLabel.snp.leading)
+            $0.right.equalTo(removeButton.snp.left).offset(-8)
         }
         
         removeButton.snp.makeConstraints {

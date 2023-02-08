@@ -78,7 +78,7 @@ extension MumentSearchTextField {
         self.leftViewMode = .always
         self.tintColor = .mPurple1
         self.returnKeyType = .search
-        self.addRightPadding(20)
+        self.addRightPadding(37)
     }
     
     private func setLayout() {

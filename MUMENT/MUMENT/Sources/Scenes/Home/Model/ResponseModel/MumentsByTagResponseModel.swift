@@ -19,7 +19,7 @@ struct MumentsByTagResponseModel: Codable {
     // MARK: - MumentList
     struct MumentList: Codable {
         let id: Int
-        let content: String
+        let content: String?
         let music: Music
         let createdAt: String
         let user: User
