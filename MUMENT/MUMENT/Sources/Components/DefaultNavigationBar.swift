@@ -37,6 +37,7 @@ class DefaultNavigationBar: UIView {
     private let titleLabel = UILabel().then {
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
+        $0.lineBreakMode = .byTruncatingTail
     }
     
     let closeButton: UIButton = UIButton(type: .system).then {
@@ -141,7 +142,8 @@ extension DefaultNavigationBar {
     
     private func setTitleLabelLayout() {
         titleLabel.snp.makeConstraints{
-            $0.centerX.centerY.equalTo(self.safeAreaLayoutGuide)
+            $0.centerY.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview().inset(55)
         }
     }
     
