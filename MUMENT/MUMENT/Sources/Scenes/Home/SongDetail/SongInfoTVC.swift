@@ -54,7 +54,7 @@ final class SongInfoTVC: UITableViewCell {
 extension SongInfoTVC {
     
     private func setLayout() {
-        self.addSubviews([albumImage,songInfoStackView])
+        self.addSubviews([albumImage, songInfoStackView])
         
         albumImage.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(19)
