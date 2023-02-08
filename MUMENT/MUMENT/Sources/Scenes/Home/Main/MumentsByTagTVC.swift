@@ -24,9 +24,10 @@ class MumentsByTagTVC: UITableViewCell {
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setCV()
-        setLayout()
-        selectionStyle = .none
+        
+        self.setCV()
+        self.setLayout()
+        self.setUI()
     }
     
     @available(*, unavailable)
@@ -36,27 +37,32 @@ class MumentsByTagTVC: UITableViewCell {
     
     // MARK: - Functions
     private func setCV() {
-        mumentCV.delegate = self
-        mumentCV.dataSource = self
-        mumentCV.register(MumentsByTagCVC.self, forCellWithReuseIdentifier: MumentsByTagCVC.className)
+        self.mumentCV.delegate = self
+        self.mumentCV.dataSource = self
+        self.mumentCV.register(MumentsByTagCVC.self, forCellWithReuseIdentifier: MumentsByTagCVC.className)
         
-        mumentCV.showsHorizontalScrollIndicator = false
-        CVFlowLayout.scrollDirection = .horizontal
-        mumentCV.backgroundColor = .mBgwhite
-        self.backgroundColor = .mBgwhite
+        self.mumentCV.showsHorizontalScrollIndicator = false
+        self.CVFlowLayout.scrollDirection = .horizontal
+        self.mumentCV.backgroundColor = .mBgwhite
+        
         self.mumentCV.contentInset.left = 15
         self.mumentCV.contentInset.right = 20
     }
     
     func setData(_ cellData: MumentsByTagResponseModel){
-        titleLabel.text = cellData.title
-        mumentsByTagData = cellData.mumentList
-        mumentCV.reloadData()
+        self.titleLabel.text = cellData.title
+        self.mumentsByTagData = cellData.mumentList
+        self.mumentCV.reloadData()
     }
 }
 
 // MARK: - UI
 extension MumentsByTagTVC {
+    
+    private func setUI() {
+        self.backgroundColor = .mBgwhite
+        self.selectionStyle = .none
+    }
     
     private func setLayout() {
         

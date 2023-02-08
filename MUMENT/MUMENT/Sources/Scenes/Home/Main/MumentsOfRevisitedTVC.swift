@@ -13,7 +13,7 @@ class MumentsOfRevisitedTVC: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: MumentsOfRevisitedCVCDelegate?
-
+    
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     
     lazy var titleLabel = UILabel().then{
@@ -27,9 +27,10 @@ class MumentsOfRevisitedTVC: UITableViewCell {
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setCV()
-        setLayout()
-        selectionStyle = .none
+        
+        self.setCV()
+        self.setLayout()
+        self.setUI()
     }
     
     @available(*, unavailable)
@@ -39,26 +40,32 @@ class MumentsOfRevisitedTVC: UITableViewCell {
     
     // MARK: - Functions
     private func setCV() {
-        mumentCV.delegate = self
-        mumentCV.dataSource = self
-        mumentCV.register(MumentsOfRevisitedCVC.self, forCellWithReuseIdentifier: MumentsOfRevisitedCVC.className)
+        self.mumentCV.delegate = self
+        self.mumentCV.dataSource = self
         
-        mumentCV.showsHorizontalScrollIndicator = false
-        CVFlowLayout.scrollDirection = .horizontal
-        mumentCV.backgroundColor = .mBgwhite
-        self.backgroundColor = .mBgwhite
+        self.mumentCV.register(MumentsOfRevisitedCVC.self, forCellWithReuseIdentifier: MumentsOfRevisitedCVC.className)
+        
+        self.mumentCV.showsHorizontalScrollIndicator = false
+        self.CVFlowLayout.scrollDirection = .horizontal
+        self.mumentCV.backgroundColor = .mBgwhite
+        
         self.mumentCV.contentInset.left = 15
         self.mumentCV.contentInset.right = 15
     }
     
     func setData(_ cellData: [MumentsOfRevisitedResponseModel.AgainMument]){
-        mumentsOfRevisitedData = cellData
-        mumentCV.reloadData()
+        self.mumentsOfRevisitedData = cellData
+        self.mumentCV.reloadData()
     }
 }
 
 // MARK: - UI
 extension MumentsOfRevisitedTVC {
+    
+    private func setUI() {
+        self.backgroundColor = .mBgwhite
+        self.selectionStyle = .none
+    }
     
     private func setLayout() {
         
