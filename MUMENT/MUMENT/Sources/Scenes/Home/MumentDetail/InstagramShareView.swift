@@ -42,10 +42,12 @@ final class InstagramShareView: UIView {
     private let musicTitleLabel: UILabel = UILabel().then {
         $0.textColor = .mBlack2
         $0.font = .mumentB2B14
+        $0.textAlignment = .center
     }
     private let artistNameLabel: UILabel = UILabel().then {
         $0.textColor = .mGray1
         $0.font = .mumentB6M13
+        $0.textAlignment = .center
     }
     private let tagStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -82,31 +84,17 @@ final class InstagramShareView: UIView {
     }
     
     // MARK: - Functions
-//    func setDummyData(_ data: MumentDetailVCModel) {
-//        writerProfileImageView.image = data.profileImage
-//        writerNameLabel.text = data.writerName
-//        albumImageView.image = data.albumImage
-//        musicTitleLabel.text = data.songtitle
-//        artistNameLabel.text = data.artist
-//        isFirst = data.isFirst
-//        impressionTags = data.impressionTags
-//        feelingTags = data.feelingTags
-//        contentsLabel.text = data.contents.replaceNewLineKeyword()
-//        createdAtLabel.text = data.createdAt
-//
-//        setTags()
-//    }
     func setData(_ cellData: MumentDetailResponseModel, _ musicData: MusicDTO) {
         writerProfileImageView.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
         isFirst = cellData.isFirst
         impressionTags = cellData.impressionTag
         feelingTags = cellData.feelingTag
-        contentsLabel.text = cellData.content?.replaceNewLineKeyword()
+        contentsLabel.text = "대학교 2학년 때, 동아리 사람들과 엠티를 갔었는데 다들 신나서 이 곡을 떼창한 기억이 있다. 그 이후로 여름이 될 때마다 이 노래를 찾아 듣고 그 때 생각을 하는데, 그때 우리가 가지고 있던 별거 아닌 고민들은 다 옛날일이 되어버렸지만, 같이 노래를 부르면서 위로했던대학교 2학년 때, 동아리 사람들과 엠티를 갔었는데 다들 신나서 이 곡을 떼창한 기억이 있다. 그 이후로 여름이 될 때마다 이 노래를 찾아 듣고 그 때 생각을 하는데, 그때 우리가 가지고 있던 별거 아닌 고민들은 다 옛날일이 되어버렸지만, 같이 노래를 부르면서 위로했던"
         createdAtLabel.text = cellData.createdAt
         albumImageView.setImageUrl(musicData.albumUrl)
-        musicTitleLabel.text = musicData.title
-        artistNameLabel.text = musicData.artist
+        musicTitleLabel.text = "대학교 2학년 때, 동아리 사람들과 엠티를 갔었는데 다들 신나서 이 곡을 떼창한 기억이 있다. 그 이후로 여름이 될 때마다 이 노래를 찾아 듣고 그 때 생각을 하는데, 그때 우리가 가지고 있던 별거 아닌 고민들은 다 옛날일이 되어버렸지만, 같이 노래를 부르면서 위로했던"
+        artistNameLabel.text = "대학교 2학년 때, 동아리 사람들과 엠티를 갔었는데 다들 신나서 이 곡을 떼창한 기억이 있다. 그 이후로 여름이 될 때마다 이 노래를 찾아 듣고 그 때 생각을 하는데, 그때 우리가 가지고 있던 별거 아닌 고민들은 다 옛날일이 되어버렸지만, 같이 노래를 부르면서 위로했던"
         
         setTags()
     }
@@ -178,11 +166,11 @@ extension InstagramShareView {
         }
         musicTitleLabel.snp.makeConstraints {
             $0.top.equalTo(albumImageView.snp.bottom).offset(10)
-            $0.centerX.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(48)
         }
         artistNameLabel.snp.makeConstraints {
             $0.top.equalTo(musicTitleLabel.snp.bottom).offset(2)
-            $0.centerX.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(48)
         }
         tagStackView.snp.makeConstraints {
             $0.top.equalTo(artistNameLabel.snp.bottom).offset(15)
