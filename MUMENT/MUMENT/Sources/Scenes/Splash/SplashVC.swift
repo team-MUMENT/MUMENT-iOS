@@ -61,11 +61,13 @@ extension SplashVC {
                     self.setUserInfo(accessToken: res.accessToken, refreshToken: res.refreshToken, userId: res.id)
                 }
                 self.requestIsProfileSet()
-            default:
+            case .requestErr, .serverErr:
                 let signInVC = SignInVC()
                 signInVC.modalPresentationStyle = .fullScreen
                 signInVC.modalTransitionStyle = .crossDissolve
                 self.present(signInVC, animated: true)
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
