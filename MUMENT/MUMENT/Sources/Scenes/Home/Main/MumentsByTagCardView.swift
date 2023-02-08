@@ -63,7 +63,7 @@ class MumentsByTagCardView: UIView {
     
     func setData(_ cellData: MumentsByTagResponseModel.MumentList){
         titleAndArtistLabel.text = "\(cellData.music.name) - \(cellData.music.artist)"
-        contentsLabel.text = cellData.content
+        contentsLabel.text = cellData.content ?? ""
         profileImage.setImageUrl(cellData.user.image ?? "")
         writerNameLabel.text = cellData.user.name
     }
