@@ -112,6 +112,5 @@ extension MumentsByTagCardView {
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(24)
         }
-        
     }
 }
