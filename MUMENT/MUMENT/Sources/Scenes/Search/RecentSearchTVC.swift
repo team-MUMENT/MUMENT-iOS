@@ -57,20 +57,22 @@ extension RecentSearchTVC {
             $0.width.equalTo(albumImageView.snp.height)
         }
         
+        self.removeButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(8)
+            $0.centerY.equalTo(albumImageView)
+            $0.width.height.equalTo(48)
+        }
+        
         self.titleLabel.snp.makeConstraints {
             $0.top.equalTo(albumImageView.snp.top).inset(3)
             $0.leading.equalTo(albumImageView.snp.trailing).offset(10)
+            $0.trailing.equalTo(self.removeButton.snp.leading)
         }
         
         self.artistLabel.snp.makeConstraints {
             $0.bottom.equalTo(albumImageView.snp.bottom).inset(3)
             $0.leading.equalTo(titleLabel.snp.leading)
-        }
-        
-        self.removeButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(20)
-            $0.centerY.equalTo(albumImageView)
-            $0.width.height.equalTo(48)
+            $0.trailing.equalTo(self.removeButton.snp.leading)
         }
     }
     
