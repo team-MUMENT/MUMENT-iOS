@@ -47,6 +47,8 @@ class MumentsOfRevisitedTVC: UITableViewCell {
         CVFlowLayout.scrollDirection = .horizontal
         mumentCV.backgroundColor = .mBgwhite
         self.backgroundColor = .mBgwhite
+        self.mumentCV.contentInset.left = 15
+        self.mumentCV.contentInset.right = 15
     }
     
     func setData(_ cellData: [MumentsOfRevisitedResponseModel.AgainMument]){
@@ -69,7 +71,7 @@ extension MumentsOfRevisitedTVC {
         mumentCV.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(18)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
-            $0.leading.equalTo(self.safeAreaLayoutGuide).offset(15)
+            $0.leading.equalTo(self.safeAreaLayoutGuide)
         }
         
     }
@@ -110,9 +112,5 @@ extension MumentsOfRevisitedTVC: UICollectionViewDelegateFlowLayout {
         let cellHeight = 275
         
         return CGSize(width: cellWidth, height: cellHeight)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 15)
     }
 }
