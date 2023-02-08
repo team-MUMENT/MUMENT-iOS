@@ -90,11 +90,11 @@ final class InstagramShareView: UIView {
         isFirst = cellData.isFirst
         impressionTags = cellData.impressionTag
         feelingTags = cellData.feelingTag
-        contentsLabel.text = "대학교 2학년 때, 동아리 사람들과 엠티를 갔었는데 다들 신나서 이 곡을 떼창한 기억이 있다. 그 이후로 여름이 될 때마다 이 노래를 찾아 듣고 그 때 생각을 하는데, 그때 우리가 가지고 있던 별거 아닌 고민들은 다 옛날일이 되어버렸지만, 같이 노래를 부르면서 위로했던대학교 2학년 때, 동아리 사람들과 엠티를 갔었는데 다들 신나서 이 곡을 떼창한 기억이 있다. 그 이후로 여름이 될 때마다 이 노래를 찾아 듣고 그 때 생각을 하는데, 그때 우리가 가지고 있던 별거 아닌 고민들은 다 옛날일이 되어버렸지만, 같이 노래를 부르면서 위로했던"
+        contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
         albumImageView.setImageUrl(musicData.albumUrl)
-        musicTitleLabel.text = "대학교 2학년 때, 동아리 사람들과 엠티를 갔었는데 다들 신나서 이 곡을 떼창한 기억이 있다. 그 이후로 여름이 될 때마다 이 노래를 찾아 듣고 그 때 생각을 하는데, 그때 우리가 가지고 있던 별거 아닌 고민들은 다 옛날일이 되어버렸지만, 같이 노래를 부르면서 위로했던"
-        artistNameLabel.text = "대학교 2학년 때, 동아리 사람들과 엠티를 갔었는데 다들 신나서 이 곡을 떼창한 기억이 있다. 그 이후로 여름이 될 때마다 이 노래를 찾아 듣고 그 때 생각을 하는데, 그때 우리가 가지고 있던 별거 아닌 고민들은 다 옛날일이 되어버렸지만, 같이 노래를 부르면서 위로했던"
+        musicTitleLabel.text = musicData.title
+        artistNameLabel.text = musicData.artist
         
         setTags()
     }
