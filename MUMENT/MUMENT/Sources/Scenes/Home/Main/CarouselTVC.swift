@@ -26,8 +26,8 @@ class CarouselTVC: UITableViewCell {
     private lazy var carouselCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
     
-    private var timer: Timer = Timer()
-    
+    private var timer: Timer?
+
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,19 +74,26 @@ class CarouselTVC: UITableViewCell {
     }
     
     private func bannerTimer() {
+        //기존에 타이머 동작중이면 중지 처리
+        if timer != nil && timer!.isValid {
+            if let bannerTimer = timer {
+                bannerTimer.invalidate()
+            }
+        }
+        
         timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (Timer) in
-            self.timer.tolerance = 0.3
+            self.timer?.tolerance = 0.3
             self.bannerMove()
         }
         
         /// 현재 RunLoop에 timer를 common mode로 추가 함으로써 스크롤 시에도 타이머 작동 하도록 함
         DispatchQueue.main.async {
-            RunLoop.current.add(self.timer, forMode: .common)
+            RunLoop.current.add(self.timer ?? Timer(), forMode: .common)
         }
     }
     
     private func bannerTimerInvalidate() {
-        self.timer.invalidate()
+        self.timer?.invalidate()
     }
     
     private func bannerMove() {
@@ -150,7 +157,7 @@ extension CarouselTVC: UICollectionViewDelegate{
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         /// dragging 시 타이머 종료
-        timer.invalidate()
+        timer?.invalidate()
         
         /// 빠른 드래깅으로 index가 양쪽 끝으로 갔을때 다른 index로 바꿔치기
         if index <= 0 {
