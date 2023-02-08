@@ -59,20 +59,24 @@ extension DetailSongInfoView {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(10)
             $0.height.width.equalTo(55)
         }
+        
         titleLabel.snp.makeConstraints{
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
             $0.top.equalToSuperview().offset(19)
+            $0.trailing.lessThanOrEqualToSuperview().inset(16)
         }
+        
         rightArrowImage.snp.makeConstraints{
-            $0.leading.equalTo(titleLabel.snp.trailing).offset(6)
-            $0.trailing.greaterThanOrEqualToSuperview().priority(300)
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(10)
             $0.top.equalToSuperview().offset(25)
             $0.height.equalTo(10)
             $0.width.equalTo(6)
         }
+        
         artistLabel.snp.makeConstraints{
             $0.top.equalTo(rightArrowImage.snp.bottom).offset(3)
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
+            $0.trailing.equalToSuperview().inset(16)
         }
     }
 }
