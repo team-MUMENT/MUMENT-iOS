@@ -184,9 +184,9 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
 extension MumentDetailVC {
     
     private func setLayout() {
-        view.addSubviews([navigationBarView,detailScrollView, instagramShareView])
+        view.addSubviews([navigationBarView, detailScrollView, instagramShareView])
         detailScrollView.addSubviews([detailContentView])
-        detailContentView.addSubviews([mumentCardView,historyButton])
+        detailContentView.addSubviews([mumentCardView, historyButton])
         
         navigationBarView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
