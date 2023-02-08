@@ -104,7 +104,7 @@ extension SongDetailVC {
         mumentTV.tableFooterView = UIView(frame: .zero)
         mumentTV.sectionFooterHeight = 0
         
-        view.addSubviews([navigationBarView,mumentTV])
+        view.addSubviews([navigationBarView, mumentTV])
         
         navigationBarView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
