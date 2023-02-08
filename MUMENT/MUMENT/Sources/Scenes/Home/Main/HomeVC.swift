@@ -80,8 +80,6 @@ class HomeVC: BaseVC {
                 )
             )
         }
-//        let todayMusic = mumentForTodayData.todayMument.music
-
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
     

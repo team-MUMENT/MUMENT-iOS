@@ -161,7 +161,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 148
+            return 148.adjustedH
         case 1:
             return 58
         default:
@@ -202,9 +202,7 @@ extension ReportMumentVC: sendTextViewDelegate {
     
     func sendTextViewState(isEditing: Bool) {
         if isEditing {
-            self.reportMumentTV.frame.origin.y = self.navigationBarView.frame.origin.y - 270.adjustedH
-        }else{
-            self.reportMumentTV.frame.origin.y = self.navigationBarView.frame.origin.y + 100.adjustedH
+            self.reportMumentTV.bounds.origin.y = self.reportMumentTV.frame.origin.y + 240.adjustedH
         }
     }
 }
