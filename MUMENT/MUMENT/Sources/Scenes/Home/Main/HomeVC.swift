@@ -24,14 +24,16 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setLayout()
-        setButtonActions()
+        self.setUI()
+        self.setLayout()
+        self.setButtonActions()
         self.checkUserPenalty(self)
     }
     
     override func viewWillAppear(_ animate: Bool) {
         super.viewWillAppear(animate)
-        requestGetCarouselData()
+        
+        self.requestGetCarouselData()
         self.showTabbar()
         self.getIsNewNotification()
     }
@@ -99,6 +101,11 @@ extension HomeVC {
         homeTV.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    private func setUI() {
+        self.view.backgroundColor = .mBgwhite
+        self.homeTV.backgroundColor = .mBgwhite
     }
 }
 
