@@ -125,16 +125,24 @@ final class MembershipWithdrawalVC: BaseVC {
             }
         }
     }
+    private var keyboardHeight: CGFloat = 0
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setButtonActions()
         setReasonTextView()
         setReasonTextCounting()
         reasonSelectingMenuView.setDelegate(delegate: self)
         hideTabbar()
         setLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.addKeyboardObserver()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -148,6 +156,12 @@ final class MembershipWithdrawalVC: BaseVC {
             }
             
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.removeKeyboardObserver()
     }
     
     // MARK: - Functions
@@ -199,6 +213,31 @@ final class MembershipWithdrawalVC: BaseVC {
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+    }
+    
+    private func removeKeyboardObserver() {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillShowNotification,
+            object: nibName
+        )
+    }
+    
+    @objc
+    func keyboardWillShow(_ notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            self.keyboardHeight = keyboardRectangle.height
+        }
     }
 }
 
@@ -302,7 +341,11 @@ extension MembershipWithdrawalVC: UITextViewDelegate {
             reasonTextView.textColor = .mBlack2
         }
         
-        self.view.frame.origin.y = -280
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5) {
+                self.view.frame.origin.y = -self.keyboardHeight
+            }
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -311,7 +354,11 @@ extension MembershipWithdrawalVC: UITextViewDelegate {
             reasonTextView.textColor = .mGray1
         }
         
-        self.view.frame.origin.y = 0
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.1) {
+                self.view.frame.origin.y = 0
+            }
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
