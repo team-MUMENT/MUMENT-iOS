@@ -119,11 +119,13 @@ extension CarouselCVC {
         songTitleLabel.snp.makeConstraints{
             $0.top.equalTo(headerLabel.snp.bottom).offset(70)
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
+            $0.trailing.equalToSuperview().inset(70)
         }
         
         artistLabel.snp.makeConstraints{
             $0.top.equalTo(songTitleLabel.snp.bottom).offset(3)
             $0.leading.equalTo(albumImage.snp.trailing).offset(10)
+            $0.trailing.equalToSuperview().inset(70)
         }
     }
 }
