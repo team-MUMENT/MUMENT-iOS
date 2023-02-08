@@ -90,6 +90,11 @@ final class StorageMumentVC: BaseVC {
         getMumentDataWithTagInt(selectedTagsInt)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        storageMumentCV.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 45, right: 0)
+    }
+    
     // MARK: - Function
     private func setEmptyView() {
         switch tabType {
@@ -448,6 +453,9 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
         case selectedTagsCV:
             return .zero
         case storageMumentCV:
+            if section == 0 {
+                return CGSize(width: view.frame.size.width, height: 47.adjustedH)
+            }
             return CGSize(width: view.frame.size.width, height: 87.adjustedH)
         default:
             return .zero
