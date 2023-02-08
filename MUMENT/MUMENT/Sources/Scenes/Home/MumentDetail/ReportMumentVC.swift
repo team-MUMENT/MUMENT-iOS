@@ -18,6 +18,7 @@ final class ReportMumentVC: BaseVC {
     // MARK: - Components
     private lazy var navigationBarView = DefaultNavigationBar(naviType: .leftArrow).then {
         $0.setTitleLabel(title: "신고하기")
+        $0.backgroundColor = .mBgwhite
         $0.backButton.press { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }
@@ -151,7 +152,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 95
+            return 98
         default:
             return .leastNormalMagnitude
         }
@@ -160,7 +161,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 148
+            return 148.adjustedH
         case 1:
             return 58
         default:
@@ -201,9 +202,7 @@ extension ReportMumentVC: sendTextViewDelegate {
     
     func sendTextViewState(isEditing: Bool) {
         if isEditing {
-            self.reportMumentTV.frame.origin.y = -120
-        }else{
-            self.reportMumentTV.frame.origin.y = 100
+            self.reportMumentTV.bounds.origin.y = self.reportMumentTV.frame.origin.y + 240.adjustedH
         }
     }
 }
@@ -212,16 +211,16 @@ extension ReportMumentVC: sendTextViewDelegate {
 // MARK: - UI
 extension ReportMumentVC {
     private func setLayout() {
-        self.view.addSubviews([navigationBarView, reportMumentTV, reportDoneButton])
+        self.view.addSubviews([reportMumentTV, navigationBarView, reportDoneButton])
         
         navigationBarView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalToSuperview()
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(48)
+            $0.height.equalTo(100.adjustedH)
         }
         
         reportMumentTV.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom)
+            $0.top.equalTo(navigationBarView.snp.bottom).priority(999)
             $0.width.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalToSuperview()
         }

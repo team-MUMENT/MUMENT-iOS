@@ -448,7 +448,7 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
         case selectedTagsCV:
             return .zero
         case storageMumentCV:
-            return CGSize(width: view.frame.size.width, height: 52)
+            return CGSize(width: view.frame.size.width, height: 87.adjustedH)
         default:
             return .zero
         }
