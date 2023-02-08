@@ -152,7 +152,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 95
+            return 98
         default:
             return .leastNormalMagnitude
         }
