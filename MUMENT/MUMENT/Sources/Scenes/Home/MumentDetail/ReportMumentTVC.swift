@@ -34,6 +34,7 @@ final class ReportMumentTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
         setLayout()
+        
     }
     
     required init?(coder: NSCoder) {
