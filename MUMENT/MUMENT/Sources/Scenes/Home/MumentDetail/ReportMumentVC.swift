@@ -18,6 +18,7 @@ final class ReportMumentVC: BaseVC {
     // MARK: - Components
     private lazy var navigationBarView = DefaultNavigationBar(naviType: .leftArrow).then {
         $0.setTitleLabel(title: "신고하기")
+        $0.backgroundColor = .mBgwhite
         $0.backButton.press { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }
@@ -201,9 +202,9 @@ extension ReportMumentVC: sendTextViewDelegate {
     
     func sendTextViewState(isEditing: Bool) {
         if isEditing {
-            self.reportMumentTV.frame.origin.y = -120
+            self.reportMumentTV.frame.origin.y = self.navigationBarView.frame.origin.y - 270.adjustedH
         }else{
-            self.reportMumentTV.frame.origin.y = 100
+            self.reportMumentTV.frame.origin.y = self.navigationBarView.frame.origin.y + 100.adjustedH
         }
     }
 }
@@ -212,16 +213,16 @@ extension ReportMumentVC: sendTextViewDelegate {
 // MARK: - UI
 extension ReportMumentVC {
     private func setLayout() {
-        self.view.addSubviews([navigationBarView, reportMumentTV, reportDoneButton])
+        self.view.addSubviews([reportMumentTV, navigationBarView, reportDoneButton])
         
         navigationBarView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalToSuperview()
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(48)
+            $0.height.equalTo(100.adjustedH)
         }
         
         reportMumentTV.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom)
+            $0.top.equalTo(navigationBarView.snp.bottom).priority(999)
             $0.width.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalToSuperview()
         }
