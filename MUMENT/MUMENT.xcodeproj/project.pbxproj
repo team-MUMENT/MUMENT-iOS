@@ -1700,6 +1700,7 @@
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MUMENT;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
@@ -1733,6 +1734,7 @@
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MUMENT;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
