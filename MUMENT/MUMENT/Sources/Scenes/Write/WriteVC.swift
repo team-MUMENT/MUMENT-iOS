@@ -132,6 +132,7 @@ class WriteVC: BaseVC {
     private var mumentId: Int?
     private var detailData: MumentDetailResponseModel?
     private var detailSongData: MusicDTO?
+    private var keyboardHeight: CGFloat = 0
     
     // MARK: Initialization
     init(isEdit: Bool = false, mumentId: Int, detailData: MumentDetailResponseModel, detailSongData: MusicDTO) {
@@ -182,7 +183,19 @@ class WriteVC: BaseVC {
         }
     }
     
-    // MARK: - Functions
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.addKeyboardObserver()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.removeKeyboardObserver()
+    }
+    
+    // MARK: Methods
     private func setNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(setSelectedMusicViewForReceived(_:)), name: .sendSearchResult, object: nil)
     }
@@ -419,6 +432,31 @@ class WriteVC: BaseVC {
             completion(currentNotificationStatus)
         }
     }
+    
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+    }
+    
+    private func removeKeyboardObserver() {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillShowNotification,
+            object: nibName
+        )
+    }
+    
+    @objc
+    func keyboardWillShow(_ notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            self.keyboardHeight = keyboardRectangle.height
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -565,21 +603,31 @@ extension WriteVC: UICollectionViewDelegateFlowLayout {
 // MARK: - UITextViewDelegate
 extension WriteVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if contentTextView.textColor == UIColor.mGray1 {
-            contentTextView.text = nil
-            contentTextView.textColor = .mBlack2
+        if self.contentTextView.textColor == .mGray1 {
+            self.contentTextView.text = nil
+            self.contentTextView.textColor = .mBlack2
         }
         
-        writeScrollView.setContentOffset(CGPoint(x: 0, y: contentLabel.frame.midY - 20.adjustedH), animated: true)
+        self.writeScrollView.setContentOffset(CGPoint(x: 0, y: contentLabel.frame.midY - 20.adjustedH), animated: true)
+        
+        self.writeScrollView.snp.updateConstraints { make in
+            make.bottom.equalToSuperview().inset(self.keyboardHeight)
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if contentTextView.text.isEmpty {
-            contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
-            contentTextView.textColor = .mGray1
+        textView.endEditing(true)
+        
+        if self.contentTextView.text.isEmpty {
+            self.contentTextView.text =  "글을 쓰지 않아도 뮤멘트를 저장할 수 있어요."
+            self.contentTextView.textColor = .mGray1
         }
         
-        writeScrollView.setContentOffset(CGPoint(x: 0, y: writeScrollView.contentSize.height - writeScrollView.bounds.height), animated: true)
+        self.writeScrollView.snp.updateConstraints { make in
+            make.bottom.equalToSuperview()
+        }
+        
+        self.writeScrollView.setContentOffset(CGPoint(x: 0, y: writeScrollView.contentSize.height - writeScrollView.bounds.height), animated: true)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -630,7 +678,7 @@ extension WriteVC {
         
         writeScrollView.snp.makeConstraints {
             $0.top.equalTo(naviView.snp.bottom)
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         writeContentView.snp.makeConstraints {
