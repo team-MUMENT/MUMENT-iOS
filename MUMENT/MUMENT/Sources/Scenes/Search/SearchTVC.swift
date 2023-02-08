@@ -57,11 +57,13 @@ extension SearchTVC {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(albumImageView.snp.top).inset(3)
             $0.leading.equalTo(albumImageView.snp.trailing).offset(10)
+            $0.trailing.equalToSuperview().inset(20)
         }
         
         artistLabel.snp.makeConstraints {
             $0.bottom.equalTo(albumImageView.snp.bottom).inset(3)
             $0.leading.equalTo(titleLabel.snp.leading)
+            $0.trailing.equalToSuperview().inset(20)
         }
     }
     
