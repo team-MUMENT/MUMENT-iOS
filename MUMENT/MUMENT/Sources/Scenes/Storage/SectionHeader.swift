@@ -12,15 +12,9 @@ import SnapKit
 class SectionHeader: UICollectionReusableView {
     
     // MARK: - Properties
-    
-    // 날짜표시 위한 임시 변수
-//    private let year = 2022
-//    private let month = 7
-    
     private let headerTitle = UILabel().then {
         $0.backgroundColor = .clear
     }
-    
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -42,7 +36,8 @@ extension SectionHeader {
         
         headerTitle.snp.makeConstraints {
             $0.left.equalToSuperview().inset(20)
-            $0.right.top.bottom.equalToSuperview()
+            $0.right.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-15.adjustedH)
         }
     }
     
