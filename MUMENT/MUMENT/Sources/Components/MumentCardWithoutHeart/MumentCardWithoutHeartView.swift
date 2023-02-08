@@ -56,8 +56,9 @@ class MumentCardWithoutHeartView: UIView {
     }
     let contentsLabel = UILabel().then{
         $0.textColor = .mBlack2
-        $0.lineBreakMode = .byCharWrapping
-        $0.numberOfLines = 2
+        $0.lineBreakMode = .byTruncatingTail
+        $0.lineBreakStrategy = .pushOut
+        $0.numberOfLines = 3
         $0.font = .mumentB6M13
     }
     
