@@ -51,9 +51,11 @@ final class StorageMumentVC: BaseVC {
                     $0.height.equalTo(selectedTagsCVHeight)
                 }
                 filterSectionView.filterButton.isSelected = false
+                filteredEmptyView.isHidden = !storageMumentData.isEmpty
                 
             }else {
                 filterSectionView.filterButton.isSelected = true
+                filteredEmptyView.isHidden = !storageMumentData.isEmpty
             }
         }
     }
@@ -230,8 +232,6 @@ extension StorageMumentVC: storageFilterDelegate {
 // MARK: - UICollectionViewDataSource
 extension StorageMumentVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        emptyView.isHidden = storageMumentData.isEmpty
-        filteredEmptyView.isHidden = selectedTagData.isEmpty
         switch collectionView{
         case selectedTagsCV:
             return selectedTagData.count
@@ -253,7 +253,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
             return 0
         }
     }
-    
+    // MARK: - CellForItemAt
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch collectionView{
@@ -293,11 +293,11 @@ extension StorageMumentVC: UICollectionViewDataSource{
                     return listCell
                     
                 case .likedMument:
+                    listCell.setWithoutHeartCardUI()
                     if indexPath.section == 0 {
                         if storageMumentData.isEmpty {
                             return listCell
                         }
-                        listCell.setWithoutHeartCardUI()
                         listCell.setWithoutHeartCardData(storageMumentData[indexPath.row])
                         return listCell
                     }
@@ -305,7 +305,6 @@ extension StorageMumentVC: UICollectionViewDataSource{
                     for i in 0...indexPath.section - 1 {
                         mData += (dateDictionary[dateArray[i]])!
                     }
-                    listCell.setWithoutHeartCardUI()
                     listCell.setWithoutHeartCardData(storageMumentData[mData + indexPath.row])
                     return listCell
                 }
@@ -342,11 +341,13 @@ extension StorageMumentVC: UICollectionViewDataSource{
             }
             if storageMumentData.count == 0 {
                 header.resetHeader()
+                emptyView.isHidden = false
                 return header
             }
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] - (100 * year)
             header.setHeader(year, month)
+            emptyView.isHidden = true
             return header
         }
         return UICollectionReusableView()
@@ -489,6 +490,9 @@ extension StorageMumentVC {
             $0.directionalHorizontalEdges.bottom.equalToSuperview()
             $0.top.equalTo(selectedTagsCV.snp.bottom)
         }
+        
+        emptyView.isHidden = true
+        filteredEmptyView.isHidden = true
     }
 }
 
