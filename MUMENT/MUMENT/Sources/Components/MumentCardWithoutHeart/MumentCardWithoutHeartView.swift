@@ -91,6 +91,8 @@ class MumentCardWithoutHeartView: UIView {
         impressionTags = cellData.todayMument.impressionTag
         feelingTags = cellData.todayMument.feelingTag
         setCardTags(cellData.todayMument.cardTag)
+        
+        self.contentsLabel.sizeToFit()
     }
     
     func setWithoutHeartData(_ cellData: StorageMumentModel){
@@ -103,6 +105,8 @@ class MumentCardWithoutHeartView: UIView {
         createdAtLabel.text = cellData.createdAt
         isFirst = cellData.isFirst
         setCardTags(cellData.cardTag)
+        
+        self.contentsLabel.sizeToFit()
     }
     
     func setCardTags(_ indexs: [Int]) {
@@ -170,9 +174,10 @@ extension MumentCardWithoutHeartView {
         }
         
         createdAtLabel.snp.makeConstraints{
-            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.left.right.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(contentsLabel.snp.bottom).offset(8)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
+            $0.height.equalTo(15)
         }
         
         
