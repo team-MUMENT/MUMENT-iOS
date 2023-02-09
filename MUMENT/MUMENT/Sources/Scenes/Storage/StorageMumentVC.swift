@@ -277,9 +277,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 case .myMument:
                     listCell.setDefaultCardUI()
                     if indexPath.section == 0 {
-                        if indexPath.row > storageMumentData.count - 1 {
-                            listCell.setEmptyCardView()
-                            storageMumentCV.reloadData()
+                        if storageMumentData.isEmpty {
                             return listCell
                         }
                         listCell.setDefaultCardData(storageMumentData[indexPath.row])
@@ -296,9 +294,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
                     
                 case .likedMument:
                     if indexPath.section == 0 {
-                        if indexPath.row > storageMumentData.count - 1 {
-                            listCell.setEmptyCardView()
-                            storageMumentCV.reloadData()
+                        if storageMumentData.isEmpty {
                             return listCell
                         }
                         listCell.setWithoutHeartCardUI()
@@ -316,9 +312,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 
             case .albumCell:
                 if indexPath.section == 0 {
-                    if indexPath.row > storageMumentData.count - 1 {
-                        albumCell.setEmptyCardView()
-                        storageMumentCV.reloadData()
+                    if storageMumentData.isEmpty {
                         return albumCell
                     }
                     albumCell.fetchData(storageMumentData[indexPath.row])
