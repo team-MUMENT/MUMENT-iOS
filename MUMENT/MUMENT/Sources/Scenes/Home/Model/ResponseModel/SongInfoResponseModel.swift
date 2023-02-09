@@ -37,14 +37,14 @@ struct SongInfoResponseModel: Codable {
         let updatedAt: String
         let music: MyMumentMusic
         let id: Int
-        let likeCount: Int
+        var likeCount: Int
         let impressionTag: [Int]
         let isDeleted: Bool
         let cardTag: [Int]
         let isPrivate: Bool
         let date: String
         let isFirst: Bool
-        let isLiked: Bool
+        var isLiked: Bool
         let user: User
         let createdAt: String
         let content: String?
