@@ -126,6 +126,31 @@ extension MumentHistoryVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(historyData[indexPath.row])
+            
+            cell.mumentCard.heartButton.removeTarget(nil, action: nil, for: .allTouchEvents)
+            cell.mumentCard.heartButton.press { [weak self] in
+                if let isLiked = self?.historyData[indexPath.row].isLiked {
+                    if isLiked {
+                        self?.requestDeleteHeartLiked(mumentId: self?.historyData[indexPath.row].id ?? 0, completion: { result in
+                            self?.historyData[indexPath.row].isLiked = false
+                            self?.historyData[indexPath.row].likeCount = result.likeCount
+                            
+                            cell.mumentCard.isLiked = false
+                            cell.mumentCard.heartCount = result.likeCount
+                            
+                        })
+                    } else {
+                        self?.requestPostHeartLiked(mumentId: self?.historyData[indexPath.row].id ?? 0, completion: { result in
+                            self?.historyData[indexPath.row].isLiked = true
+                            self?.historyData[indexPath.row].likeCount = result.likeCount
+                            
+                            cell.mumentCard.isLiked = true
+                            cell.mumentCard.heartCount = result.likeCount
+                            
+                        })
+                    }
+                }
+            }
             return cell
             
         default:

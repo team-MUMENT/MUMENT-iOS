@@ -25,11 +25,12 @@ final class SongDetailVC: BaseVC {
     
     var allMumentsData: [AllMumentsResponseModel.MumentList] = []
     private var newAllMumentDataCount: Int = 0
-    private var filterFlag: Bool = true
     private var fetchMoreFlag: Bool = true
     
     private var pageLimit: Int = 10
     private var pageOffset: Int = 0
+    
+    private var isOrderLiked: Bool = true
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -42,9 +43,10 @@ final class SongDetailVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showTabbar()
-        /// flag 프로퍼티 초기화
-        resetProperty()
-        requestGetSongInfo(musicData: self.musicData)
+        
+        self.requestGetSongInfo(musicData: self.musicData) { [weak self] in
+            self?.reloadAllMuments()
+        }
     }
     
     // MARK: - Functions
@@ -73,23 +75,15 @@ final class SongDetailVC: BaseVC {
         self.musicData = musicData
     }
     
-    @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        let mumentDetailVC = MumentDetailVC()
-        mumentDetailVC.setData(mumentId: self.myMumentData?.id ?? 0, musicData: musicData)
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-    }
-    
-    @objc func didTapAllMumentView(_ sender: CardTapGestureRecognizer) {
-        let mumentDetailVC = MumentDetailVC()
-        let index: Int = sender.index
-        mumentDetailVC.setData(mumentId: self.allMumentsData[index].id, musicData: musicData)
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
-    }
-
-    private func resetProperty(isOrderLiked: Bool = true) {
-        filterFlag = isOrderLiked
+    private func resetProperty() {
         fetchMoreFlag = true
         pageOffset = 0
+    }
+    
+    private func reloadAllMuments() {
+        self.resetProperty()
+        self.allMumentsData = []
+        self.requestGetAllMuments(isOrderLiked: self.isOrderLiked, limit: 10, offset: 0)
     }
 }
 
@@ -115,7 +109,6 @@ extension SongDetailVC {
             $0.top.equalTo(navigationBarView.snp.bottom)
             $0.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
         }
-        
     }
 }
 
@@ -151,48 +144,100 @@ extension SongDetailVC: UITableViewDataSource {
             cell.setData(musicData)
             return cell
         case 1:
-            if allMumentsData.count == 0 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: AllMumentEmptyTVC.className, for: indexPath) as? AllMumentEmptyTVC
-                else { return UITableViewCell() }
-                return cell
-            }
+
             if myMumentData == nil {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SongDetailMyMumentEmptyTVC.className, for: indexPath) as? SongDetailMyMumentEmptyTVC
                 else { return UITableViewCell() }
                 return cell
             } else {
+                /// 셀 선언
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                     return UITableViewCell()
                 }
-                guard let myMument = myMumentData else { return UITableViewCell() }
-                cell.setData(myMument)
-                cell.mumentCard.setNotificationCenter()
-
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-                cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
+                
+                if let myMument = self.myMumentData {
+                    cell.setData(myMument)
+                }
+                
+                /// heart button press
+                cell.mumentCard.heartButton.removeTarget(nil, action: nil, for: .allTouchEvents)
+                cell.mumentCard.heartButton.press { [weak self] in
+                    if let myMument = self?.myMumentData {
+                        if myMument.isLiked {
+                            self?.requestDeleteHeartLiked(mumentId: myMument.id, completion: { result in
+                                self?.myMumentData?.isLiked = false
+                                self?.myMumentData?.likeCount = result.likeCount
+                                
+                                cell.mumentCard.isLiked = false
+                                cell.mumentCard.heartCount = result.likeCount
+                                
+                                self?.reloadAllMuments()
+                            })
+                        } else {
+                            self?.requestPostHeartLiked(mumentId: myMument.id, completion: { result in
+                                self?.myMumentData?.isLiked = true
+                                self?.myMumentData?.likeCount = result.likeCount
+                                
+                                cell.mumentCard.isLiked = true
+                                cell.mumentCard.heartCount = result.likeCount
+                                
+                                self?.reloadAllMuments()
+                            })
+                        }
+                    }
+                }
                 return cell
             }
             
         case 2:
+            
+            if allMumentsData.count == 0 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: AllMumentEmptyTVC.className, for: indexPath) as? AllMumentEmptyTVC
+                else { return UITableViewCell() }
+                return cell
+            }
+            
+            /// 셀 선언
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
             
-            cell.mumentCard.gestureRecognizers?.removeAll()
             cell.setData(allMumentsData[indexPath.row])
-            let tapGestureRecognizer = CardTapGestureRecognizer(target: self, action: #selector(didTapAllMumentView(_:)))
-            tapGestureRecognizer.index = indexPath.row
-            cell.mumentCard.addGestureRecognizer(tapGestureRecognizer)
             
-            if myMumentData != nil {
-                guard let myMument = myMumentData else { return UITableViewCell() }
-                if myMument.id == allMumentsData[indexPath.row].id {
-                    cell.setNotificationCenter()
-                    return cell
+            cell.mumentCard.heartButton.removeTarget(nil, action: nil, for: .allTouchEvents)
+            cell.mumentCard.heartButton.press { [weak self] in
+                if let isLiked = self?.allMumentsData[indexPath.row].isLiked {
+                    if isLiked {
+                        self?.requestDeleteHeartLiked(mumentId: self?.allMumentsData[indexPath.row].id ?? 0, completion: { result in
+                            self?.allMumentsData[indexPath.row].isLiked = false
+                            self?.allMumentsData[indexPath.row].likeCount = result.likeCount
+                            cell.mumentCard.isLiked = false
+                            cell.mumentCard.heartCount = result.likeCount
+                            
+                            if self?.myMumentData?.id == self?.allMumentsData[indexPath.row].id {
+                                self?.myMumentData?.isLiked = false
+                                self?.myMumentData?.likeCount = result.likeCount
+                                
+                                self?.mumentTV.reloadSections(IndexSet(1...1), with: .none)
+                            }
+                        })
+                    } else {
+                        self?.requestPostHeartLiked(mumentId: self?.allMumentsData[indexPath.row].id ?? 0, completion: { result in
+                            self?.allMumentsData[indexPath.row].isLiked = true
+                            self?.allMumentsData[indexPath.row].likeCount = result.likeCount
+                            cell.mumentCard.isLiked = true
+                            cell.mumentCard.heartCount = result.likeCount
+                            
+                            if self?.myMumentData?.id == self?.allMumentsData[indexPath.row].id {
+                                self?.myMumentData?.isLiked = true
+                                self?.myMumentData?.likeCount = result.likeCount
+                                
+                                self?.mumentTV.reloadSections(IndexSet(1...1), with: .none)
+                            }
+                        })
+                    }
                 }
             }
-            
-            cell.removeNotificationCenter()
             return cell
             
         default:
@@ -219,7 +264,7 @@ extension SongDetailVC: UITableViewDataSource {
             return headerCell
         case 2:
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllMumentsSectionHeader.className) as? AllMumentsSectionHeader else { return nil }
-            headerCell.resetOrderingButton(isOrderLiked: self.filterFlag)
+            headerCell.resetOrderingButton(isOrderLiked: self.isOrderLiked)
             headerCell.delegate=self
             return headerCell
         default:
@@ -241,11 +286,32 @@ extension SongDetailVC: UITableViewDataSource {
             return 0
         }
     }
-    
 }
 
 // MARK: - UITableViewDelegate
 extension SongDetailVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className) != nil {
+            let mumentDetailVC = MumentDetailVC()
+            
+            switch indexPath.section {
+            case 1:
+                mumentDetailVC.setData(
+                    mumentId: self.myMumentData?.id ?? 0,
+                    musicData: self.musicData
+                )
+                self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+            case 2:
+                mumentDetailVC.setData(
+                    mumentId: self.allMumentsData[indexPath.row].id,
+                    musicData: self.musicData
+                )
+                self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+            default: return
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var cellHeight: CGFloat
         switch indexPath.section {
@@ -278,7 +344,7 @@ extension SongDetailVC: UITableViewDelegate {
         fetchMoreFlag = false
         DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(100), execute: {
             self.pageOffset += self.pageLimit
-            self.appendMoreAllMuments(isOrderLiked: self.filterFlag, limit: self.pageLimit, offset: self.pageOffset)
+            self.appendMoreAllMuments(isOrderLiked: self.isOrderLiked, limit: self.pageLimit, offset: self.pageOffset)
             self.mumentTV.reloadData()
         })
     }
@@ -286,15 +352,15 @@ extension SongDetailVC: UITableViewDelegate {
 
 extension SongDetailVC :AllMumentsSectionHeaderDelegate {
     func sortingFilterButtonClicked(isOrderLiked: Bool) {
-        resetProperty(isOrderLiked: isOrderLiked)
-        requestGetAllMuments(isOrderLiked: isOrderLiked, limit: 10, offset: 0)
+        self.isOrderLiked = isOrderLiked
+        self.resetProperty()
+        self.requestGetAllMuments(isOrderLiked: self.isOrderLiked, limit: 10, offset: 0)
     }
 }
 
-
 // MARK: - Network
 extension SongDetailVC {
-    private func requestGetSongInfo(musicData: MusicDTO) {
+    private func requestGetSongInfo(musicData: MusicDTO, completion: @escaping () -> ()) {
         SongDetailAPI.shared.getSongInfo(musicData: musicData) { [self] networkResult in
             switch networkResult {
             case .success(let response):
@@ -303,10 +369,8 @@ extension SongDetailVC {
                     
                     let music = res.music
                     self.musicData = MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image)
-                    self.allMumentsData = []
-                    self.mumentTV.reloadData()
-                    requestGetAllMuments(isOrderLiked: true, limit: 10, offset: 0)
-
+                    self.mumentTV.reloadSections(IndexSet(1...1), with: .none)
+                    completion()
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
@@ -350,8 +414,4 @@ extension SongDetailVC {
             }
         }
     }
-}
-
-class CardTapGestureRecognizer: UITapGestureRecognizer {
-    var index: Int = 0
 }
