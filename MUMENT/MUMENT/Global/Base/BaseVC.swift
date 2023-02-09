@@ -146,3 +146,32 @@ extension BaseVC {
         }
     }
 }
+
+// MARK: - Network
+extension BaseVC {
+    func requestPostHeartLiked(mumentId: Int, completion: @escaping (LikeResponseModel) -> ()) {
+        LikeAPI.shared.postHeartLiked(mumentId: mumentId) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? LikeResponseModel {
+                    completion(result)
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    func requestDeleteHeartLiked(mumentId: Int, completion: @escaping (LikeCancelResponseModel) -> ()) {
+        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? LikeCancelResponseModel {
+                    completion(result)
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+}
