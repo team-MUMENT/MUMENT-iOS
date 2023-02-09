@@ -25,10 +25,10 @@ struct HistoryResponseModel: Codable {
         let impressionTag, feelingTag, cardTag: [Int]
         let content: String?
         let isPrivate: Bool
-        let likeCount: Int
+        var likeCount: Int
         let isDeleted: Bool
         let createdAt, updatedAt, date: String
-        let isLiked: Bool
+        var isLiked: Bool
         
         enum CodingKeys: String, CodingKey {
             case id = "_id"
