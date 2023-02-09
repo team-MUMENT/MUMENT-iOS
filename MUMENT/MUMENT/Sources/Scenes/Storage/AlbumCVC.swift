@@ -13,7 +13,6 @@ final class AlbumCVC: UICollectionViewCell {
     
     private let defaultCardView = DefaultMumentCardView()
     private let withoutHeartCardView = MumentCardWithoutHeartView()
-    private let storageEmptyView = StorageEmptyView()
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -51,13 +50,6 @@ final class AlbumCVC: UICollectionViewCell {
     
     func setWithoutHeartCardData(_ cellData: StorageMumentModel) {
         withoutHeartCardView.setWithoutHeartData(cellData)
-    }
-    
-    func setEmptyCardView() {
-        self.addSubviews([storageEmptyView])
-        storageEmptyView.snp.makeConstraints{
-            $0.edges.equalToSuperview()
-        }
     }
 
     func setDefaultCardData(_ cellData: StorageMumentModel) {
