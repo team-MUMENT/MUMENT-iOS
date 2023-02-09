@@ -21,6 +21,9 @@ final class StorageMumentVC: BaseVC {
     lazy var filterSectionView = FilterSectionView()
     private let storageMumentCV = StorageMumentCV()
     private var emptyView = StorageEmptyView()
+    private let filteredEmptyView = StorageEmptyView().then {
+        $0.setFilteredLayout()
+    }
    
     private let selectedTagsCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .mGray3
@@ -227,6 +230,8 @@ extension StorageMumentVC: storageFilterDelegate {
 // MARK: - UICollectionViewDataSource
 extension StorageMumentVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        emptyView.isHidden = storageMumentData.isEmpty
+        filteredEmptyView.isHidden = selectedTagData.isEmpty
         switch collectionView{
         case selectedTagsCV:
             return selectedTagData.count
@@ -475,7 +480,7 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
 // MARK: - UI
 extension StorageMumentVC {
     private func setUILayout() {
-        view.addSubViews([filterSectionView, selectedTagsCV, storageMumentCV, emptyView])
+        view.addSubViews([filterSectionView, selectedTagsCV, storageMumentCV, emptyView, filteredEmptyView])
         
         filterSectionView.snp.makeConstraints {
             $0.directionalHorizontalEdges.top.equalToSuperview()
@@ -498,7 +503,10 @@ extension StorageMumentVC {
             $0.top.equalTo(selectedTagsCV.snp.bottom)
         }
         
-        emptyView.isHidden = true
+        filteredEmptyView.snp.makeConstraints {
+            $0.directionalHorizontalEdges.bottom.equalToSuperview()
+            $0.top.equalTo(selectedTagsCV.snp.bottom)
+        }
     }
 }
 
