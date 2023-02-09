@@ -342,20 +342,8 @@ extension StorageMumentVC: UICollectionViewDataSource{
             }
             if storageMumentData.count == 0 {
                 header.resetHeader()
-                
-                emptyView.isHidden = false
-                emptyView.writeButton.removeTarget(nil, action: nil, for: .allEvents)
-                emptyView.writeButton.press {
-                    if self.isPenaltyUser() {
-                        self.checkUserPenalty(self)
-                    } else {
-                        let writeVC = WriteVC(isEdit: false)
-                        self.present(writeVC, animated: true)
-                    }
-                }
                 return header
             }
-            emptyView.isHidden = true
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] - (100 * year)
             header.setHeader(year, month)

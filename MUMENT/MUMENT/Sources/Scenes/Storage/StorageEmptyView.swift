@@ -30,9 +30,6 @@ class StorageEmptyView: UIView {
         $0.textColor = .mGray2
         $0.textAlignment = .center
     }
-    let writeButton = UIButton().then {
-        $0.setImage(UIImage(named: "recordBtn2"), for: .normal)
-    }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
