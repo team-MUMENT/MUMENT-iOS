@@ -74,7 +74,7 @@ extension MumentsByTagTVC {
         }
         
         mumentCV.snp.makeConstraints{
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.leading.equalTo(self.safeAreaLayoutGuide)
         }

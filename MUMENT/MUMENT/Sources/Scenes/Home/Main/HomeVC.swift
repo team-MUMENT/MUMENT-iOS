@@ -63,7 +63,7 @@ class HomeVC: BaseVC {
         homeTV.separatorStyle = .none
         homeTV.showsVerticalScrollIndicator = false
         
-        homeTV.contentInset = UIEdgeInsets(top: headerViewMaxHeight, left: 0, bottom: 32, right: 0)
+        homeTV.contentInset = UIEdgeInsets(top: headerViewMaxHeight, left: 0, bottom: 42, right: 0)
     }
     
     private func setButtonActions(){
@@ -219,7 +219,7 @@ extension HomeVC: UITableViewDelegate {
         case 2:
             cellHeight = 350
         case 3:
-            cellHeight = 300
+            cellHeight = 280
         default:
             cellHeight = 0
         }
