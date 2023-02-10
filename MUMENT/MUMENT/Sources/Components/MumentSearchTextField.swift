@@ -64,6 +64,10 @@ class MumentSearchTextField: UITextField {
             })
             .disposed(by: self.disposeBag)
     }
+    
+    private func setPlaceholderWithColor(placeholder: String) {
+        self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.mGray1])
+    }
 }
 
 // MARK: - UI
@@ -71,7 +75,7 @@ extension MumentSearchTextField {
     private func setUI() {
         self.backgroundColor = .mGray5
         self.makeRounded(cornerRadius: 11.adjustedH)
-        self.placeholder = "곡, 아티스트"
+        self.setPlaceholderWithColor(placeholder: Text.placeholder.rawValue)
         self.font = .mumentB4M14
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.mBgwhite.cgColor
