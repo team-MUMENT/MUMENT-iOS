@@ -9,17 +9,17 @@ import UIKit
 
 class HomeVC: BaseVC {
     
-    // MARK: - Properties
+    // MARK: - Components
     private let headerView = HomeTVHeader()
     private lazy var homeTV = UITableView()
     private let viewForHeight = MumentForTodayCardView()
+    // MARK: - Properties
     private let headerViewMaxHeight: CGFloat = 107.0
     private let headerViewMinHeight: CGFloat = 50.0
     var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", userId: 0, bannerList: [])
     var mumentForTodayData: MumentForTodayResponseModel?
     var mumentsOfRevisitedData: [MumentsOfRevisitedResponseModel.AgainMument] = []
     var mumentsByTagData: MumentsByTagResponseModel = MumentsByTagResponseModel(title: "", mumentList: [])
-    
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -63,7 +63,7 @@ class HomeVC: BaseVC {
         homeTV.separatorStyle = .none
         homeTV.showsVerticalScrollIndicator = false
         
-        homeTV.contentInset = UIEdgeInsets(top: headerViewMaxHeight, left: 0, bottom: 0, right: 0)
+        homeTV.contentInset = UIEdgeInsets(top: headerViewMaxHeight, left: 0, bottom: 32, right: 0)
     }
     
     private func setButtonActions(){
@@ -215,7 +215,6 @@ extension HomeVC: UITableViewDelegate {
         case 1:
             guard let content = mumentForTodayData?.todayMument.content else { return 300 }
             let height = viewForHeight.getContentSize(content: content).height
-            print("높이", height)
             cellHeight = 275 + height
         case 2:
             cellHeight = 350
@@ -226,7 +225,6 @@ extension HomeVC: UITableViewDelegate {
         }
         return cellHeight
     }
-    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y < 0{
