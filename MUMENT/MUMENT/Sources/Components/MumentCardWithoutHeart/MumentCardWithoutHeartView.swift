@@ -34,7 +34,7 @@ class MumentCardWithoutHeartView: UIView {
     
     lazy var songInfoStackView = UIStackView(arrangedSubviews: [songTitleLabel, artistLabel]).then{
         $0.axis = .vertical
-        $0.spacing = 3
+        $0.spacing = 2
     }
     let songTitleLabel = UILabel().then{
         $0.textColor = .mBlack1
@@ -91,7 +91,7 @@ class MumentCardWithoutHeartView: UIView {
         impressionTags = cellData.todayMument.impressionTag
         feelingTags = cellData.todayMument.feelingTag
         setCardTags(cellData.todayMument.cardTag)
-        
+
         self.contentsLabel.sizeToFit()
     }
     
@@ -171,8 +171,7 @@ extension MumentCardWithoutHeartView {
         albumImage.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(separatorView.snp.bottom).offset(15)
-            $0.height.equalTo(70).priority(990)
-            $0.width.equalTo(70)
+            $0.width.height.equalTo(70)
         }
         
         songInfoStackView.snp.makeConstraints{
@@ -187,17 +186,17 @@ extension MumentCardWithoutHeartView {
             $0.height.equalTo(26)
         }
         
-        contentsLabel.snp.makeConstraints{
-            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.top.equalTo(albumImage.snp.bottom).offset(10)
-        }
-        
         createdAtLabel.snp.makeConstraints{
             $0.left.right.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-12)
             $0.height.equalTo(9)
+        }
+        
+        contentsLabel.snp.makeConstraints{
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.bottom.equalTo(createdAtLabel.snp.top).offset(-12)
         }
         
         profileImage.snp.makeConstraints{
