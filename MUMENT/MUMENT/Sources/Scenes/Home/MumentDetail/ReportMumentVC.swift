@@ -54,6 +54,8 @@ final class ReportMumentVC: BaseVC {
     private var blockReason: String = ""
     
     private var isEtcChecked = false
+    
+    private var heightOfKeyBoard: CGFloat = 0
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -63,8 +65,13 @@ final class ReportMumentVC: BaseVC {
         setPressAction()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        self.addKeyboardObserver()
         isBlockChecked = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.removeKeyboardObserver()
     }
     
     // MARK: - Function
@@ -172,7 +179,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let selectedCell = reportMumentTV.cellForRow(at: indexPath)! as! ReportMumentTVC
-        
+        print("인덱스",indexPath.row)
         selectedCell.setData()
         /// 차단하기 선택시
         if indexPath.section == 1 {
@@ -202,7 +209,42 @@ extension ReportMumentVC: sendTextViewDelegate {
     
     func sendTextViewState(isEditing: Bool) {
         if isEditing {
-            self.reportMumentTV.bounds.origin.y = self.reportMumentTV.frame.origin.y + 240.adjustedH
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                UIView.animate(withDuration: 0.3) {
+                    self.view.frame.origin.y = -self.heightOfKeyBoard
+                }
+            }
+        }else {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3) {
+                    self.view.frame.origin.y = 0
+                }
+            }
+        }
+    }
+    
+    private func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+    }
+    
+    private func removeKeyboardObserver() {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillShowNotification,
+            object: nibName
+        )
+    }
+    
+    @objc
+    func keyboardWillShow(_ notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            self.heightOfKeyBoard = keyboardRectangle.height
         }
     }
 }
