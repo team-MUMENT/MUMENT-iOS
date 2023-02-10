@@ -235,7 +235,8 @@ class WriteVC: BaseVC {
         self.contentTextView.text = mumentData.content
         self.contentTextView.textColor = .mBlack2
         
-        self.isPrivateToggleButton.isSelected = false
+        self.isPrivateToggleButton.isSelected = mumentData.isPrivate
+        self.privateLabel.text = self.isPrivateToggleButton.isSelected ? "비밀글" : "공개글"
         
         self.setIsEnableCompleteButton(isEnabled: true)
     }
