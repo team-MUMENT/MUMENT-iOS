@@ -22,19 +22,11 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    lazy var contentsStackView = UIStackView(arrangedSubviews: [mumentInfoStackView, writerInfoStackView]).then{
-        $0.axis = .vertical
-        $0.spacing = 12
-    }
-    
-    lazy var mumentInfoStackView = UIStackView(arrangedSubviews: [titleLabel, contentsLabel]).then{
-        $0.axis = .vertical
-        $0.spacing = 5
-    }
     private let titleLabel = UILabel().then{
         $0.textColor = .mBlack2
         $0.font = .mumentB5B13
     }
+    
     private let contentsLabel = UILabel().then{
         $0.textColor = .mGray1
         $0.font = .mumentB6M13
@@ -74,6 +66,8 @@ class MumentsOfRevisitedCVC: UICollectionViewCell {
         contentsLabel.text = cellData.content
         profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
+        
+        contentsLabel.sizeToFit()
     }
 }
 
@@ -88,22 +82,31 @@ extension MumentsOfRevisitedCVC {
     
     private func setLayout() {
         
-        self.addSubviews([albumImage,contentsStackView])
+        self.addSubviews([albumImage, titleLabel, contentsLabel, writerInfoStackView])
         
         albumImage.snp.makeConstraints{
             $0.leading.top.trailing.equalTo(self.safeAreaLayoutGuide)
             $0.width.height.equalTo(160)
         }
         
-        contentsStackView.snp.makeConstraints{
-            $0.top.equalTo(albumImage.snp.bottom).offset(10)
-            $0.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(13)
-            $0.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).inset(13)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(11)
+        self.titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.albumImage.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(self.safeAreaLayoutGuide).inset(13)
+            make.height.equalTo(18)
         }
         
-        profileImage.snp.makeConstraints{
+        self.contentsLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
+            make.leading.trailing.equalTo(self.titleLabel)
+        }
+        
+        self.profileImage.snp.makeConstraints{
             $0.height.width.equalTo(19)
+        }
+        
+        self.writerInfoStackView.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(self.safeAreaLayoutGuide).inset(13)
+            make.bottom.equalTo(self.safeAreaLayoutGuide).inset(11)
         }
     }
 }
