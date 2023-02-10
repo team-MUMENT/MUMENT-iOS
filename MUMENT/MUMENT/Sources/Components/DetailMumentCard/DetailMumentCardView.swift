@@ -134,6 +134,7 @@ final class DetailMumentCardView: UIView {
         }
         
         setTags()
+        self.updateContentLayout(content: cellData.content)
     }
     
     private func setTags() {
@@ -163,9 +164,9 @@ final class DetailMumentCardView: UIView {
                 let tag = TagView()
                 tag.tagContent = feelingTags[i]
                 
-                if  tagStackView.subviews.count < 4 {
+                if tagStackView.subviews.count < 4 {
                     tagStackView.addArrangedSubview(tag)
-                }else{
+                } else {
                     tagSubStackView.addArrangedSubview(tag)
                 }
             }
@@ -198,6 +199,18 @@ final class DetailMumentCardView: UIView {
     
     func setDelegate(delegate: DetailMumentCardViewDelegate){
         self.delegate = delegate
+    }
+    
+    private func updateContentLayout(content: String?) {
+        if content == "" || content == nil {
+            self.contentsLabel.snp.updateConstraints {
+                $0.top.equalTo(tagSubStackView.snp.bottom).offset(0)
+            }
+            
+            self.createdAtLabel.snp.updateConstraints {
+                $0.top.equalTo(contentsLabel.snp.bottom).offset(22)
+            }
+        }
     }
 }
 
@@ -244,7 +257,7 @@ extension DetailMumentCardView {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
         }
         contentsLabel.snp.makeConstraints {
-            $0.top.equalTo(tagSubStackView.snp.bottom).offset(22)
+            $0.top.equalTo(tagSubStackView.snp.bottom).offset(14)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
@@ -293,4 +306,3 @@ extension DetailMumentCardView {
         }
     }
 }
-
