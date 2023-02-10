@@ -108,6 +108,17 @@ class MumentForTodayCardView: UIView {
             }
         }
     }
+    
+    func getContentSize(content: String) -> CGSize {
+        let label = self.contentsLabel
+        label.text = content
+        label.sizeToFit()
+        self.layoutIfNeeded()
+        
+        let targetSize = CGSize(width: 309.adjustedW, height: UIView.layoutFittingCompressedSize.height)
+        
+        return self.contentsLabel.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+    }
 }
 
 // MARK: - UI
