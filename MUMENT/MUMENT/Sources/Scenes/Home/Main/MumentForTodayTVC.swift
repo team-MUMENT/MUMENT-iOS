@@ -17,7 +17,7 @@ class MumentForTodayTVC: UITableViewCell {
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
-    let mumentCardView = MumentCardWithoutHeartView()
+    let mumentCardView = MumentForTodayCardView()
     
     // Test Code
     var dataSource: [MumentCardWithoutHeartModel] = MumentCardWithoutHeartModel.sampleData
@@ -56,9 +56,6 @@ extension MumentForTodayTVC {
 }
 
 extension MumentForTodayTVC {
-//    private func fetchData() {
-//        mumentCardView.setData(dataSource[0])
-//    }
     
     func setData(_ cellData: MumentForTodayResponseModel) {
         mumentCardView.setMumentForTodayData(cellData)

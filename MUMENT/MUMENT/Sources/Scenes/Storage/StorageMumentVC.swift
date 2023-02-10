@@ -21,6 +21,9 @@ final class StorageMumentVC: BaseVC {
     lazy var filterSectionView = FilterSectionView()
     private let storageMumentCV = StorageMumentCV()
     private var emptyView = StorageEmptyView()
+    private let filteredEmptyView = StorageEmptyView().then {
+        $0.setFilteredLayout()
+    }
    
     private let selectedTagsCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .mGray3
@@ -48,7 +51,6 @@ final class StorageMumentVC: BaseVC {
                     $0.height.equalTo(selectedTagsCVHeight)
                 }
                 filterSectionView.filterButton.isSelected = false
-                
             }else {
                 filterSectionView.filterButton.isSelected = true
             }
@@ -62,9 +64,23 @@ final class StorageMumentVC: BaseVC {
             self.storageMumentCV.reloadData()
         }
     }
-    private var storageMumentData: [StorageMumentModel] = []
+    private var storageMumentData: [StorageMumentModel] = [] {
+        didSet {
+            if storageMumentData.isEmpty && selectedTagData.isEmpty {
+                filteredEmptyView.isHidden = true
+                emptyView.isHidden = false
+            }else if storageMumentData.isEmpty && !selectedTagData.isEmpty {
+                filteredEmptyView.isHidden = false
+                emptyView.isHidden = true
+            }else {
+                filteredEmptyView.isHidden = true
+                emptyView.isHidden = true
+            }
+        }
+    }
     private var tabType: TabType = .myMument
-    
+    private let viewForHeight = MumentCardWithoutHeartView()
+    private var contentHeight: CGFloat = 0 
     // MARK: - Initialization
     init(type: TabType) {
         super.init(nibName: nil, bundle: nil)
@@ -248,7 +264,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
             return 0
         }
     }
-    
+    // MARK: - CellForItemAt
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch collectionView{
@@ -272,9 +288,7 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 case .myMument:
                     listCell.setDefaultCardUI()
                     if indexPath.section == 0 {
-                        if indexPath.row > storageMumentData.count - 1 {
-                            listCell.setEmptyCardView()
-                            storageMumentCV.reloadData()
+                        if storageMumentData.isEmpty {
                             return listCell
                         }
                         listCell.setDefaultCardData(storageMumentData[indexPath.row])
@@ -290,13 +304,11 @@ extension StorageMumentVC: UICollectionViewDataSource{
                     return listCell
                     
                 case .likedMument:
+                    listCell.setWithoutHeartCardUI()
                     if indexPath.section == 0 {
-                        if indexPath.row > storageMumentData.count - 1 {
-                            listCell.setEmptyCardView()
-                            storageMumentCV.reloadData()
+                        if storageMumentData.isEmpty {
                             return listCell
                         }
-                        listCell.setWithoutHeartCardUI()
                         listCell.setWithoutHeartCardData(storageMumentData[indexPath.row])
                         return listCell
                     }
@@ -304,16 +316,13 @@ extension StorageMumentVC: UICollectionViewDataSource{
                     for i in 0...indexPath.section - 1 {
                         mData += (dateDictionary[dateArray[i]])!
                     }
-                    listCell.setWithoutHeartCardUI()
                     listCell.setWithoutHeartCardData(storageMumentData[mData + indexPath.row])
                     return listCell
                 }
                 
             case .albumCell:
                 if indexPath.section == 0 {
-                    if indexPath.row > storageMumentData.count - 1 {
-                        albumCell.setEmptyCardView()
-                        storageMumentCV.reloadData()
+                    if storageMumentData.isEmpty {
                         return albumCell
                     }
                     albumCell.fetchData(storageMumentData[indexPath.row])
@@ -343,20 +352,8 @@ extension StorageMumentVC: UICollectionViewDataSource{
             }
             if storageMumentData.count == 0 {
                 header.resetHeader()
-                
-                emptyView.isHidden = false
-                emptyView.writeButton.removeTarget(nil, action: nil, for: .allEvents)
-                emptyView.writeButton.press {
-                    if self.isPenaltyUser() {
-                        self.checkUserPenalty(self)
-                    } else {
-                        let writeVC = WriteVC(isEdit: false)
-                        self.present(writeVC, animated: true)
-                    }
-                }
                 return header
             }
-            emptyView.isHidden = true
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] - (100 * year)
             header.setHeader(year, month)
@@ -411,7 +408,24 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
         case storageMumentCV:
             switch cellCategory{
             case .listCell:
-                return CGSize(width: 335.adjustedW, height: 216)
+                if storageMumentData.isEmpty {
+                    return .zero
+                }
+                var mData = 0
+                if indexPath.section != 0 {
+                    for i in 0...indexPath.section - 1 {
+                        if let numOfMuments = dateDictionary[dateArray[i]] {
+                            mData += numOfMuments
+                        }
+                    }
+                }
+                let content = storageMumentData[mData + indexPath.item].content ?? ""
+                if content == "" {
+                    self.contentHeight = -2
+                }else {
+                    contentHeight = viewForHeight.getContentSize(content: content).height
+                }
+                return CGSize(width: 335.adjustedW, height: 178 + self.contentHeight)
             case .albumCell:
                 let CVWidth = collectionView.frame.width
                 let cellWidth = ((CVWidth - 40) - (5 * 3)) / 4
@@ -475,7 +489,7 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
 // MARK: - UI
 extension StorageMumentVC {
     private func setUILayout() {
-        view.addSubViews([filterSectionView, selectedTagsCV, storageMumentCV, emptyView])
+        view.addSubViews([filterSectionView, selectedTagsCV, storageMumentCV, emptyView, filteredEmptyView])
         
         filterSectionView.snp.makeConstraints {
             $0.directionalHorizontalEdges.top.equalToSuperview()
@@ -498,7 +512,13 @@ extension StorageMumentVC {
             $0.top.equalTo(selectedTagsCV.snp.bottom)
         }
         
+        filteredEmptyView.snp.makeConstraints {
+            $0.directionalHorizontalEdges.bottom.equalToSuperview()
+            $0.top.equalTo(selectedTagsCV.snp.bottom)
+        }
+        
         emptyView.isHidden = true
+        filteredEmptyView.isHidden = true
     }
 }
 

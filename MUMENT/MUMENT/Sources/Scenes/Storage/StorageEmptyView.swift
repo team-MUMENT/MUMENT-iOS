@@ -30,9 +30,6 @@ class StorageEmptyView: UIView {
         $0.textColor = .mGray2
         $0.textAlignment = .center
     }
-    let writeButton = UIButton().then {
-        $0.setImage(UIImage(named: "recordBtn2"), for: .normal)
-    }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -52,22 +49,25 @@ extension StorageEmptyView {
     }
     
     func setMyMumentLayout() {
-        self.addSubviews([titleLabel, subTitleLabel, writeButton])
+        self.addSubviews([imageView, titleLabel, subTitleLabel])
+        
+        imageView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(130.adjustedH)
+            $0.width.equalTo(135.adjustedH)
+            $0.height.equalTo(109.adjustedH)
+            $0.centerX.equalToSuperview()
+        }
         
         titleLabel.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview().inset(170.adjustedH)
+            $0.top.equalTo(imageView.snp.bottom).offset(20)
+            $0.centerX.equalTo(imageView)
+            $0.height.equalTo(22)
         }
         
         subTitleLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview()
-        }
-        
-        writeButton.snp.makeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(30.adjustedH)
-            $0.left.right.equalToSuperview().inset(88)
-            $0.height.equalTo(40)
+            $0.centerX.equalTo(titleLabel)
+            $0.height.equalTo(20)
         }
     }
     
@@ -87,6 +87,25 @@ extension StorageEmptyView {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(20)
             $0.centerX.equalTo(imageView)
+            $0.height.equalTo(22)
+        }
+        
+        subTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.centerX.equalTo(titleLabel)
+            $0.height.equalTo(20)
+        }
+    }
+    
+    func setFilteredLayout() {
+        titleLabel.text = "필터 검색 결과가 없어요."
+        subTitleLabel.text = "선택한 필터를 변경해보세요."
+        
+        self.addSubviews([titleLabel, subTitleLabel])
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(212.adjustedH)
+            $0.centerX.equalToSuperview()
             $0.height.equalTo(22)
         }
         
