@@ -15,20 +15,20 @@ class MumentCardWithoutHeartView: UIView {
         $0.axis = .horizontal
         $0.spacing = 7
     }
-    let profileImage = UIImageView().then{
+    let profileImage = UIImageView().then {
         $0.makeRounded(cornerRadius: 12.5)
         $0.contentMode = .scaleAspectFill
     }
-    let writerNameLabel = UILabel().then{
+    let writerNameLabel = UILabel().then {
         $0.textColor = .mBlack2
         $0.font = .mumentC1R12
         $0.sizeToFit()
     }
     
-    let separatorView = UIView().then{
+    let separatorView = UIView().then {
         $0.backgroundColor = .mGray4
     }
-    let albumImage = UIImageView().then{
+    let albumImage = UIImageView().then {
         $0.makeRounded(cornerRadius: 4)
     }
     
@@ -36,12 +36,12 @@ class MumentCardWithoutHeartView: UIView {
         $0.axis = .vertical
         $0.spacing = 2
     }
-    let songTitleLabel = UILabel().then{
+    let songTitleLabel = UILabel().then {
         $0.textColor = .mBlack1
         $0.font = .mumentB2B14
         $0.lineBreakMode = .byTruncatingTail
     }
-    let artistLabel = UILabel().then{
+    let artistLabel = UILabel().then {
         $0.textColor = .mGray1
         $0.font = .mumentB6M13
         $0.lineBreakMode = .byTruncatingTail
@@ -50,11 +50,12 @@ class MumentCardWithoutHeartView: UIView {
     var isFirst: Bool = false
     var impressionTags: [Int] = []
     var feelingTags: [Int] = []
-    let tagStackView = UIStackView().then{
+    let tagStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
     }
-    let contentsLabel = UILabel().then{
+
+    let contentsLabel = UILabel().then {
         $0.textColor = .mBlack2
         $0.lineBreakMode = .byTruncatingTail
         $0.lineBreakStrategy = .pushOut
@@ -62,7 +63,7 @@ class MumentCardWithoutHeartView: UIView {
         $0.font = .mumentB6M13
     }
     
-    let createdAtLabel = UILabel().then{
+    let createdAtLabel = UILabel().then {
         $0.textColor = .mGray2
         $0.font = .mumentC1R12
     }
@@ -95,7 +96,7 @@ class MumentCardWithoutHeartView: UIView {
         self.contentsLabel.sizeToFit()
     }
     
-    func setWithoutHeartData(_ cellData: StorageMumentModel){
+    func setWithoutHeartData(_ cellData: StorageMumentModel) {
         profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
         albumImage.setImageUrl(cellData.music.image)
@@ -159,45 +160,45 @@ extension MumentCardWithoutHeartView {
             $0.height.equalTo(25)
         }
         
-        separatorView.snp.makeConstraints{
+        separatorView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.top.equalTo(writerInfoStackView.snp.bottom).offset(11)
             $0.height.equalTo(1)
         }
         
-        albumImage.snp.makeConstraints{
+        albumImage.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(separatorView.snp.bottom).offset(15)
             $0.width.height.equalTo(70)
         }
         
-        songInfoStackView.snp.makeConstraints{
+        songInfoStackView.snp.makeConstraints {
             $0.left.equalTo(albumImage.snp.right).offset(10)
             $0.top.equalTo(separatorView.snp.bottom).offset(15)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
         }
         
-        tagStackView.snp.makeConstraints{
+        tagStackView.snp.makeConstraints {
             $0.left.equalTo(albumImage.snp.right).offset(10)
             $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
             $0.height.equalTo(26)
         }
         
-        createdAtLabel.snp.makeConstraints{
+        createdAtLabel.snp.makeConstraints {
             $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-12)
             $0.height.equalTo(9)
         }
         
-        contentsLabel.snp.makeConstraints{
+        contentsLabel.snp.makeConstraints {
             $0.top.equalTo(albumImage.snp.bottom).offset(10)
             $0.left.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.bottom.equalTo(createdAtLabel.snp.top).offset(-12)
         }
         
-        profileImage.snp.makeConstraints{
+        profileImage.snp.makeConstraints {
             $0.height.width.equalTo(25)
         }
     }

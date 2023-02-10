@@ -51,11 +51,8 @@ final class StorageMumentVC: BaseVC {
                     $0.height.equalTo(selectedTagsCVHeight)
                 }
                 filterSectionView.filterButton.isSelected = false
-                filteredEmptyView.isHidden = !storageMumentData.isEmpty
-                
             }else {
                 filterSectionView.filterButton.isSelected = true
-                filteredEmptyView.isHidden = !storageMumentData.isEmpty
             }
         }
     }
@@ -67,7 +64,20 @@ final class StorageMumentVC: BaseVC {
             self.storageMumentCV.reloadData()
         }
     }
-    private var storageMumentData: [StorageMumentModel] = []
+    private var storageMumentData: [StorageMumentModel] = [] {
+        didSet {
+            if storageMumentData.isEmpty && selectedTagData.isEmpty {
+                filteredEmptyView.isHidden = true
+                emptyView.isHidden = false
+            }else if storageMumentData.isEmpty && !selectedTagData.isEmpty {
+                filteredEmptyView.isHidden = false
+                emptyView.isHidden = true
+            }else {
+                filteredEmptyView.isHidden = true
+                emptyView.isHidden = true
+            }
+        }
+    }
     private var tabType: TabType = .myMument
     private let viewForHeight = MumentCardWithoutHeartView()
     private var contentHeight: CGFloat = 0 
@@ -342,13 +352,11 @@ extension StorageMumentVC: UICollectionViewDataSource{
             }
             if storageMumentData.count == 0 {
                 header.resetHeader()
-                emptyView.isHidden = false
                 return header
             }
             let year = dateArray[indexPath.section] / 100
             let month = dateArray[indexPath.section] - (100 * year)
             header.setHeader(year, month)
-            emptyView.isHidden = true
             return header
         }
         return UICollectionReusableView()
