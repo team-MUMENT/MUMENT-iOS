@@ -263,6 +263,7 @@ extension MumentDetailVC: DetailMumentCardViewDelegate {
 // MARK: - Network
 extension MumentDetailVC {
     private func requestGetMumentDetail() {
+        self.startActivityIndicator()
         MumentDetailAPI.shared.getMumentDetail(mumentId: mumentId) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -272,25 +273,30 @@ extension MumentDetailVC {
                     self.mumentCardView.setData(result, self.musicData, self.mumentId)
                     self.userId = result.user.id
                 }
-                
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
     
     private func requestDeleteMument() {
+        self.startActivityIndicator()
         DeleteAPI.shared.deleteMument(mumentId: mumentId) { networkResult in
             switch networkResult {
             case .success(_):
+                self.stopActivityIndicator()
                 return
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
     
     private func postUserBlock() {
+        self.startActivityIndicator()
         MumentDetailAPI.shared.postUserBlock(mumentId: mumentId) { networkResult in
             switch networkResult {
             case .success:
@@ -298,6 +304,7 @@ extension MumentDetailVC {
                     
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
                         previousVC.showToastMessage(message: "차단이 완료되었습니다.", color: .black)
+                        self.stopActivityIndicator()
                     }
                     navigationController.popViewController(animated: true)
                     previousVC.viewWillAppear(true)
@@ -309,6 +316,7 @@ extension MumentDetailVC {
                             
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
                                 previousVC.showToastMessage(message: "이미 차단한 유저입니다.", color: .black)
+                                self.stopActivityIndicator()
                             }
                             navigationController.popViewController(animated: true)
                             previousVC.viewWillAppear(true)
@@ -316,6 +324,7 @@ extension MumentDetailVC {
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

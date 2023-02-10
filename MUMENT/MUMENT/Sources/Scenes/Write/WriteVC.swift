@@ -488,6 +488,7 @@ extension WriteVC: UICollectionViewDataSource {
 // MARK: - Network
 extension WriteVC {
     private func getIsFirst(musicId: String) {
+        self.startActivityIndicator()
         WriteAPI.shared.getIsFirst(musicId: musicId) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -496,13 +497,16 @@ extension WriteVC {
                     self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: !(result.isFirst))
                     self.isFirstListenActivated = result.firstavailable
                 }
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
     
     private func postMument(musicId: String, data: PostMumentBodyModel) {
+        self.startActivityIndicator()
         WriteAPI.shared.postMument(musicId: musicId, data: data) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -521,6 +525,7 @@ extension WriteVC {
                             )
                         )
                         mumentDetailVC.showToastMessage(message: "🎉 뮤멘트가 작성되었어요!", color: .black)
+                        self.stopActivityIndicator()
                         if let navigationVC = presentingVC.selectedViewController as? BaseNC {
                             navigationVC.pushViewController(mumentDetailVC, animated: true)
                             self.checkNotificationStatus(completion: { alertSettingEnabled in
@@ -536,17 +541,20 @@ extension WriteVC {
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
     
     private func editMument(mumentId: Int, data: PostMumentBodyModel) {
+        self.startActivityIndicator()
         WriteAPI.shared.editMument(mumentId: mumentId, data: data) { networkResult in
             switch networkResult {
             case .success(let response):
                 if response is EditMumentResponseModel {
                     guard let presentingVC = self.presentingViewController as? MumentTabBarController else { return }
+                    self.stopActivityIndicator()
                     self.dismiss(animated: true)
                     if let navigationVC = presentingVC.selectedViewController as? BaseNC, let topVC = navigationVC.topViewController as? BaseVC {
                         topVC.showToastMessage(message: "뮤멘트가 수정되었어요.", color: .black)
@@ -556,6 +564,7 @@ extension WriteVC {
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

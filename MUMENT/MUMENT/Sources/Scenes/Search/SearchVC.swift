@@ -195,13 +195,16 @@ extension SearchVC: UITableViewDataSource {
 // MARK: - Network
 extension SearchVC {
     func getSearchResult(keyword: String, completion: @escaping (SearchResultResponseModel) -> (Void)) {
+        self.startActivityIndicator()
         SearchAPI.shared.getMusicSearch(keyword: keyword) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? SearchResultResponseModel {
+                    self.stopActivityIndicator()
                     completion(result)
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
