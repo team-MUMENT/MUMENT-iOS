@@ -12,6 +12,7 @@ class HomeVC: BaseVC {
     // MARK: - Properties
     private let headerView = HomeTVHeader()
     private lazy var homeTV = UITableView()
+    private let viewForHeight = MumentForTodayCardView()
     private let headerViewMaxHeight: CGFloat = 107.0
     private let headerViewMinHeight: CGFloat = 50.0
     var carouselData: CarouselResponseModel = CarouselResponseModel(todayDate: "", userId: 0, bannerList: [])
@@ -212,7 +213,10 @@ extension HomeVC: UITableViewDelegate {
         case 0:
             cellHeight = 280
         case 1:
-            cellHeight = 300
+            guard let content = mumentForTodayData?.todayMument.content else { return 300 }
+            let height = viewForHeight.getContentSize(content: content).height
+            print("높이", height)
+            cellHeight = 275 + height
         case 2:
             cellHeight = 350
         case 3:
@@ -222,6 +226,7 @@ extension HomeVC: UITableViewDelegate {
         }
         return cellHeight
     }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y < 0{

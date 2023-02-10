@@ -136,7 +136,7 @@ class MumentCardWithoutHeartView: UIView {
         label.sizeToFit()
         self.layoutIfNeeded()
         
-        let targetSize = CGSize(width: 335.adjustedW, height: UIView.layoutFittingCompressedSize.height)
+        let targetSize = CGSize(width: 309.adjustedW, height: UIView.layoutFittingCompressedSize.height)
         
         return self.contentsLabel.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
     }
