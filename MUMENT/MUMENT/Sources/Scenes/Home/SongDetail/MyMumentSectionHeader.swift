@@ -52,7 +52,7 @@ extension MyMumentSectionHeader {
         
         titleLabel.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(20)
-            $0.top.equalToSuperview().offset(50)
+            $0.top.equalToSuperview().offset(55)
         }
         
         historyButton.snp.makeConstraints{

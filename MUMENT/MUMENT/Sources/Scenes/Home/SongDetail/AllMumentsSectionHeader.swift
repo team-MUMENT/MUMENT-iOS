@@ -68,7 +68,7 @@ extension AllMumentsSectionHeader {
         self.addSubviews([titleLabel,mostLikedOrderingButton,latestOrderingButton])
         
         titleLabel.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(40)
+            $0.top.equalToSuperview().offset(45)
             $0.leading.equalToSuperview().offset(20)
         }
         
