@@ -413,7 +413,7 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
                 }
                 let content = storageMumentData[mData + indexPath.item].content ?? ""
                 if content == "" {
-                    self.contentHeight = -10
+                    self.contentHeight = -2
                 }else {
                     contentHeight = viewForHeight.getContentSize(content: content).height
                 }
