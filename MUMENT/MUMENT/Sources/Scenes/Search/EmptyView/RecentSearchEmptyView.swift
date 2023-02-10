@@ -70,7 +70,7 @@ extension RecentSearchEmptyView {
         }
         
         self.contentStackView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().multipliedBy(0.5)
+            make.centerY.equalToSuperview().multipliedBy(0.6)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(20).priority(750)
         }
