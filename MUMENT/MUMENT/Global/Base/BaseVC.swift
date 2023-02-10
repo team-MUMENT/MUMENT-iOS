@@ -11,16 +11,10 @@ import SafariServices
 class BaseVC: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: Properties
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        activityIndicator.center = view.center
+    lazy var activityIndicator: MumentActivityIndicatorView = {
+        let activityIndicator: MumentActivityIndicatorView = MumentActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator.center = self.view.center
         
-        // 기타 옵션
-        activityIndicator.color = .gray
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = .medium
-        activityIndicator.stopAnimating()
         return activityIndicator
     }()
     
@@ -30,7 +24,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(activityIndicator)
+        
         setMumentBackGroundColor()
     }
 }
@@ -132,6 +126,16 @@ extension BaseVC {
     
     func isPenaltyUser() -> Bool {
         return UserInfo.shared.isPenaltyUser
+    }
+    
+    func startActivityIndicator() {
+        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator.startAnimating()
+    }
+    
+    func stopActivityIndicator() {
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.removeFromSuperview()
     }
 }
 
