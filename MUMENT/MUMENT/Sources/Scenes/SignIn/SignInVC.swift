@@ -215,11 +215,11 @@ extension SignInVC: ASAuthorizationControllerPresentationContextProviding {
 // MARK: - Network
 extension SignInVC {
     private func requestSignIn(data: SignInBodyModel) {
+        self.startActivityIndicator()
         AuthAPI.shared.postSignIn(body: data) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? SignInResponseModel {
-                    print("INNNNN")
                     self.setUserInfo(
                         accessToken: res.accessToken,
                         refreshToken: res.refreshToken,
@@ -232,12 +232,13 @@ extension SignInVC {
                         setProfileVC.modalTransitionStyle = .crossDissolve
                         setProfileVC.isFirst = true
                         self.present(setProfileVC, animated: true)
+                        self.stopActivityIndicator()
                     } else {
                         self.requestIsProfileSet()
                     }
-                    
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -247,7 +248,6 @@ extension SignInVC {
         AuthAPI.shared.getIsProfileSet() { networkResult in
             switch networkResult {
             case .success(let status):
-                print("SUCCESS")
                 if (status as! Int == 204) {
                     let tabBarController = MumentTabBarController()
                     tabBarController.modalPresentationStyle = .fullScreen
@@ -260,7 +260,9 @@ extension SignInVC {
                     setProfileVC.modalTransitionStyle = .crossDissolve
                     self.present(setProfileVC, animated: true)
                 }
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
