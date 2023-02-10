@@ -32,10 +32,18 @@ class SearchResultEmptyView: UIView {
         $0.textAlignment = .center
     }
     
+    private let contentStackView: UIStackView = {
+        let stackView: UIStackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        return stackView
+    }()
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setLayout()
+        self.setLayout()
+        self.setStackView()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -50,29 +58,30 @@ class SearchResultEmptyView: UIView {
 검색 결과가 없어요.
 """
         self.titleLabel.setColor(to: markedKeyword, with: .mBlack2)
+        self.titleLabel.sizeToFit()
+    }
+    
+    private func setStackView() {
+        self.contentStackView.addArrangedSubviews([imageView, titleLabel, subTitleLabel])
+        
+        self.contentStackView.setCustomSpacing(12, after: self.imageView)
+        self.contentStackView.setCustomSpacing(8, after: self.titleLabel)
     }
 }
 
 // MARK: - UI
 extension SearchResultEmptyView {
     private func setLayout() {
-        self.addSubviews([imageView, titleLabel, subTitleLabel])
+        self.addSubviews([contentStackView])
         
-        imageView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(50)
-            $0.centerX.equalToSuperview()
+        self.imageView.snp.makeConstraints {
             $0.width.height.equalTo(24)
         }
         
-        titleLabel.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(imageView.snp.bottom).offset(11)
-        }
-        
-        subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview()
+        self.contentStackView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview().multipliedBy(0.6)
+            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20).priority(750)
         }
     }
 }
-

@@ -44,7 +44,7 @@ class AuthAPI: BaseAPI {
                 guard let data = response.data else { return }
                 let networkResult = self.judgeStatus(by: statusCode, data, TokenRenewalResponseModel.self)
                 completion(networkResult)
-            case .failure(let err):
+            case .failure:
                 completion(.networkFail)
             }
         }

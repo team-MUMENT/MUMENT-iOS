@@ -51,9 +51,9 @@ class SearchForWriteView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
-        self.fetchSearchResultData()
         self.setLayout()
         self.setResultTV()
+        self.fetchSearchResultData()
         self.setRecentSearchEmptyView()
         self.setSearchTextField()
     }
@@ -67,6 +67,8 @@ class SearchForWriteView: UIView {
         if self.searchTVType == .recentSearch {
             if let localData = SearchResultResponseModelElement.getSearchResultModelFromUserDefaults(forKey: UserDefaults.Keys.recentSearch) {
                 self.recentSearchData = localData
+                self.recentSearchData.isEmpty ? self.closeRecentSearchTitleView() : self.openRecentSearchTitleView()
+                self.setRecentSearchEmptyView()
             } else {
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
                 self.fetchSearchResultData()
@@ -114,6 +116,10 @@ class SearchForWriteView: UIView {
             self.titleLabel.snp.updateConstraints { make in
                 make.height.equalTo(20)
             }
+            self.resultTV.snp.remakeConstraints { make in
+                make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
+                make.leading.trailing.bottom.equalToSuperview()
+            }
         }
     }
     
@@ -123,6 +129,10 @@ class SearchForWriteView: UIView {
         }
         self.titleLabel.snp.updateConstraints { make in
             make.height.equalTo(0)
+        }
+        self.resultTV.snp.remakeConstraints { make in
+            make.top.equalTo(self.searchTextField.snp.bottom).offset(30)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
@@ -181,8 +191,7 @@ extension SearchForWriteView: UITableViewDataSource {
             cell.removeButton.press {
                 self.recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 1)
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
-                tableView.reloadData()
-                self.setRecentSearchEmptyView()
+                self.fetchSearchResultData()
             }
             return cell
         case .searchResult:
@@ -225,19 +234,19 @@ extension SearchForWriteView {
         self.addSubviews([searchTextField, titleLabel, resultTV, recentSearchEmptyView, searchResultEmptyView])
         
         self.searchTextField.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(35.adjustedH)
+            $0.top.equalToSuperview().inset(35)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(40)
         }
         
         self.titleLabel.snp.makeConstraints {
-            $0.top.equalTo(searchTextField.snp.bottom).offset(40.adjustedH)
+            $0.top.equalTo(searchTextField.snp.bottom).offset(40)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(20)
         }
         
         self.resultTV.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
