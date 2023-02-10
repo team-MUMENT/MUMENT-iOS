@@ -256,28 +256,34 @@ extension MypageMainVC: UITableViewDelegate {
 // MARK: - Network
 extension MypageMainVC {
     private func getMypageURL() {
+        self.startActivityIndicator()
         MyPageAPI.shared.getMypageURL(isFromSignIn: false) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let result = response as? GetAppURLresponseModel {
                     self.mypageURL = result
                 }
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
     
     private func requestSignOut(completion: @escaping () -> ()) {
+        self.startActivityIndicator()
         AuthAPI.shared.requestSignOut { networkResult in
             switch networkResult {
             case .success(let statusCode):
                 if let status = statusCode as? Int {
+                    self.stopActivityIndicator()
                     if status == 204 {
                         completion()
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

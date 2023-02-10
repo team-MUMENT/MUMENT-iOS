@@ -250,20 +250,24 @@ final class SetProfileVC: BaseVC {
 // MARK: - Network
 extension SetProfileVC {
     private func checkDuplicatedNickname(nickname: String) {
+        self.startActivityIndicator()
         MyPageAPI.shared.checkDuplicatedNickname(nickname: nickname) { networkResult in
             switch networkResult {
             case .success(let status):
                 if let result = status as? Int {
                     switch result {
                     case 200:
+                        self.stopActivityIndicator()
                         self.showToastMessage(message: "중복된 닉네임이 존재합니다.", color: .red)
                     case 204:
                         self.requestSetProfile(nickname: nickname)
                     default:
+                        self.stopActivityIndicator()
                         self.makeAlert(title: MessageType.networkError.message)
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -285,6 +289,7 @@ extension SetProfileVC {
                         userId: result.id
                     )
                     self.setUserProfile(nickname: result.userName, profileImageURL: result.image)
+                    self.stopActivityIndicator()
                     if let navigationController = self.navigationController {
                         navigationController.popViewController(animated: true)
                     } else {
@@ -295,6 +300,7 @@ extension SetProfileVC {
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
