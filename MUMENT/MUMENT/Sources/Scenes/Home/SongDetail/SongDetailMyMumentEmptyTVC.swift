@@ -30,6 +30,13 @@ final class SongDetailMyMumentEmptyTVC: UITableViewCell {
         $0.textAlignment = .center
     }
     
+    private let labelStackView: UIStackView = {
+        let stackView: UIStackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        return stackView
+    }()
+    
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -50,21 +57,17 @@ extension SongDetailMyMumentEmptyTVC {
     
     private func setLayout() {
         self.addSubview(emptyContentView)
-        emptyContentView.addSubviews([titleLabel, subTitleLabel])
+        self.labelStackView.addArrangedSubviews([titleLabel, subTitleLabel])
+        emptyContentView.addSubviews([labelStackView])
         
         emptyContentView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-            $0.height.equalTo(249.adjustedH)
+            $0.height.equalTo(184)
         }
         
-        titleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(100.adjustedH)
-        }
-        
-        subTitleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(titleLabel.snp.bottom).offset(8.adjustedH)
+        self.labelStackView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(50)
         }
     }
 }
