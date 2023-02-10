@@ -69,7 +69,8 @@ final class StorageMumentVC: BaseVC {
     }
     private var storageMumentData: [StorageMumentModel] = []
     private var tabType: TabType = .myMument
-    
+    private let viewForHeight = MumentCardWithoutHeartView()
+    private var contentHeight: CGFloat = 0 
     // MARK: - Initialization
     init(type: TabType) {
         super.init(nibName: nil, bundle: nil)
@@ -399,7 +400,20 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
         case storageMumentCV:
             switch cellCategory{
             case .listCell:
-                return CGSize(width: 335.adjustedW, height: 216)
+                if storageMumentData.isEmpty {
+                    return .zero
+                }
+                var mData = 0
+                if indexPath.section != 0 {
+                    for i in 0...indexPath.section - 1 {
+                        if let numOfMuments = dateDictionary[dateArray[i]] {
+                            mData += numOfMuments
+                        }
+                    }
+                }
+            
+                contentHeight = viewForHeight.getContentSize(content: storageMumentData[mData + indexPath.item].content ?? "").height
+                return CGSize(width: 335.adjustedW, height: 178 + self.contentHeight)
             case .albumCell:
                 let CVWidth = collectionView.frame.width
                 let cellWidth = ((CVWidth - 40) - (5 * 3)) / 4

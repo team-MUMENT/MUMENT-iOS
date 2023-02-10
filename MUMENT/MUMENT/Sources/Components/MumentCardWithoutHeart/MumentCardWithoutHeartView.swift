@@ -105,7 +105,11 @@ class MumentCardWithoutHeartView: UIView {
         createdAtLabel.text = cellData.createdAt
         isFirst = cellData.isFirst
         setCardTags(cellData.cardTag)
-        
+        if contentsLabel.text == nil {
+            contentsLabel.isHidden = true
+        }else {
+            contentsLabel.isHidden = false
+        }
         self.contentsLabel.sizeToFit()
     }
     
@@ -124,6 +128,19 @@ class MumentCardWithoutHeartView: UIView {
             }
         }
     }
+    
+    func getContentSize(content: String) -> CGSize {
+        let label = UILabel().then{
+            $0.textColor = .mBlack2
+            $0.lineBreakMode = .byTruncatingTail
+            $0.lineBreakStrategy = .pushOut
+            $0.numberOfLines = 3
+            $0.font = .mumentB6M13
+        }
+        label.text = content
+        label.sizeToFit()
+        return label.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+    }
 }
 
 // MARK: - UI
@@ -136,11 +153,12 @@ extension MumentCardWithoutHeartView {
     }
     
     func setDefaultLayout() {
-        self.addSubviews([writerInfoStackView,separatorView,albumImage,songInfoStackView,tagStackView,contentsLabel,createdAtLabel])
+        self.addSubviews([writerInfoStackView,separatorView,albumImage,songInfoStackView,tagStackView,createdAtLabel, contentsLabel])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(11)
+            $0.height.equalTo(25)
         }
         
         separatorView.snp.makeConstraints{
@@ -153,7 +171,8 @@ extension MumentCardWithoutHeartView {
         albumImage.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.top.equalTo(separatorView.snp.bottom).offset(15)
-            $0.height.width.equalTo(70)
+            $0.height.equalTo(70).priority(990)
+            $0.width.equalTo(70)
         }
         
         songInfoStackView.snp.makeConstraints{
@@ -165,6 +184,7 @@ extension MumentCardWithoutHeartView {
         tagStackView.snp.makeConstraints{
             $0.left.equalTo(albumImage.snp.right).offset(10)
             $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
+            $0.height.equalTo(26)
         }
         
         contentsLabel.snp.makeConstraints{
@@ -175,11 +195,10 @@ extension MumentCardWithoutHeartView {
         
         createdAtLabel.snp.makeConstraints{
             $0.left.right.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.top.equalTo(contentsLabel.snp.bottom).offset(8)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
-            $0.height.equalTo(15)
+            $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-12)
+            $0.height.equalTo(9)
         }
-        
         
         profileImage.snp.makeConstraints{
             $0.height.width.equalTo(25)
