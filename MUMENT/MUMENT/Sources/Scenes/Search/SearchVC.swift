@@ -47,7 +47,7 @@ class SearchVC: BaseVC {
         didSet {
             switch searchTVType {
             case .recentSearch:
-                self.openRecentSearchTitleView()
+                self.recentSearchData.isEmpty ? self.closeRecentSearchTitleView() : self.openRecentSearchTitleView()
             case .searchResult:
                 self.closeRecentSearchTitleView()
             }
@@ -100,8 +100,7 @@ class SearchVC: BaseVC {
 """)
             mumentAlert.OKButton.press {
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
-                self?.recentSearchData = []
-                self?.resultTV.reloadData()
+                self?.fetchSearchResultData()
                 self?.setRecentSearchEmptyView()
             }
             self?.present(mumentAlert, animated: true)
@@ -180,7 +179,7 @@ extension SearchVC: UITableViewDataSource {
             cell.removeButton.press {
                 self.recentSearchData.remove(at: self.recentSearchData.count - indexPath.row - 1)
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
-                tableView.reloadData()
+                self.fetchSearchResultData()
                 self.setRecentSearchEmptyView()
             }
             return cell
@@ -275,7 +274,7 @@ extension SearchVC {
         naviView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(11)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(40)
+            $0.height.equalTo(48)
         }
         
         recentSearchTitleView.snp.makeConstraints {
@@ -313,7 +312,7 @@ extension SearchVC {
         searchTextField.snp.makeConstraints {
             $0.leading.equalTo(backButton.snp.trailing).offset(20)
             $0.trailing.equalToSuperview().inset(20)
-            $0.top.bottom.equalToSuperview()
+            $0.top.bottom.equalToSuperview().inset(4)
         }
     }
     
