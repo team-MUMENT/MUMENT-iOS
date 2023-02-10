@@ -222,7 +222,7 @@ extension MumentHistoryVC: MumentHistoryTVHeaderDelegate {
 // MARK: - Network
 extension MumentHistoryVC {
     private func requestGetHistoryData(recentOnTop: Bool, limit: Int, offset: Int) {
-        
+        self.startActivityIndicator()
         HistoryAPI.shared.getMumentHistoryData(userId: self.userId, musicId: self.musicId, recentOnTop: recentOnTop, limit: limit, offset: offset) { networkResult in
             switch networkResult {
                 
@@ -232,9 +232,11 @@ extension MumentHistoryVC {
                     self.newHistoryDataCount = res.mumentHistory.count
                     DispatchQueue.main.async {
                         self.mumentTV.reloadData()
+                        self.stopActivityIndicator()
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -242,6 +244,7 @@ extension MumentHistoryVC {
     
     
     private func appendMoreHistoryData(recentOnTop: Bool, limit: Int, offset: Int) {
+        self.startActivityIndicator()
         HistoryAPI.shared.getMumentHistoryData(userId: self.userId, musicId: self.musicId, recentOnTop: recentOnTop, limit: limit, offset: offset) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -255,8 +258,10 @@ extension MumentHistoryVC {
                     }else {
                         self.fetchMoreFlag = true
                     }
+                    self.stopActivityIndicator()
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

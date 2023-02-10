@@ -243,6 +243,7 @@ extension HomeVC: UITableViewDelegate {
 // MARK: - Network
 extension HomeVC {
     private func requestGetCarouselData() {
+        self.startActivityIndicator()
         HomeAPI.shared.getCarouselData() { networkResult in
             switch networkResult {
                 
@@ -253,6 +254,7 @@ extension HomeVC {
                     self.setTV()
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -267,6 +269,7 @@ extension HomeVC {
                     self.requestGetMumentsOfRevisitedData()
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -281,6 +284,7 @@ extension HomeVC {
                     self.requestGetMumentsByTagData()
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -294,9 +298,11 @@ extension HomeVC {
                     self.mumentsByTagData = res
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
                         self.homeTV.reloadData()
+                        self.stopActivityIndicator()
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
