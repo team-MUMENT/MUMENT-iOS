@@ -130,16 +130,14 @@ class MumentCardWithoutHeartView: UIView {
     }
     
     func getContentSize(content: String) -> CGSize {
-        let label = UILabel().then{
-            $0.textColor = .mBlack2
-            $0.lineBreakMode = .byTruncatingTail
-            $0.lineBreakStrategy = .pushOut
-            $0.numberOfLines = 3
-            $0.font = .mumentB6M13
-        }
+        let label = self.contentsLabel
         label.text = content
         label.sizeToFit()
-        return label.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        self.layoutIfNeeded()
+        
+        let targetSize = CGSize(width: 335.adjustedW, height: UIView.layoutFittingCompressedSize.height)
+        
+        return self.contentsLabel.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
     }
 }
 
@@ -187,14 +185,14 @@ extension MumentCardWithoutHeartView {
         }
         
         createdAtLabel.snp.makeConstraints{
-            $0.left.right.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
+            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-12)
             $0.height.equalTo(9)
         }
         
         contentsLabel.snp.makeConstraints{
-            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
+            $0.top.equalTo(albumImage.snp.bottom).offset(10)
+            $0.left.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.bottom.equalTo(createdAtLabel.snp.top).offset(-12)
         }
