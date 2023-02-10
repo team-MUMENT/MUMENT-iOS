@@ -93,6 +93,12 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
             isLiked = cellData.isLiked
             heartCount = cellData.likeCount
         }
+        
+        if contentsLabel.text == nil {
+            contentsLabel.isHidden = true
+        }else {
+            contentsLabel.isHidden = false
+        }
     }
 }
 
