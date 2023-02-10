@@ -246,6 +246,7 @@
 		E7400C1C29425235006F5963 /* StorageMumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1B29425235006F5963 /* StorageMumentVC.swift */; };
 		E7400C1E2943235F006F5963 /* StorageMumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7400C1D2943235F006F5963 /* StorageMumentModel.swift */; };
 		E74FBCAC293A73CE00CE241D /* FilterSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74FBCAB293A73CE00CE241D /* FilterSectionView.swift */; };
+		E768435B2995EE2A00061EEC /* MumentForTodayCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768435A2995EE2A00061EEC /* MumentForTodayCardView.swift */; };
 		E779067129824902009F55F2 /* SelectedTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779067029824902009F55F2 /* SelectedTagCVC.swift */; };
 		E781F2232881BC0800484C28 /* CellCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2222881BC0800484C28 /* CellCategory.swift */; };
 		E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2242881FB5A00484C28 /* AlbumCVC.swift */; };
@@ -475,6 +476,7 @@
 		E7400C1B29425235006F5963 /* StorageMumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentVC.swift; sourceTree = "<group>"; };
 		E7400C1D2943235F006F5963 /* StorageMumentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMumentModel.swift; sourceTree = "<group>"; };
 		E74FBCAB293A73CE00CE241D /* FilterSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSectionView.swift; sourceTree = "<group>"; };
+		E768435A2995EE2A00061EEC /* MumentForTodayCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayCardView.swift; sourceTree = "<group>"; };
 		E779067029824902009F55F2 /* SelectedTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTagCVC.swift; sourceTree = "<group>"; };
 		E781F2222881BC0800484C28 /* CellCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCategory.swift; sourceTree = "<group>"; };
 		E781F2242881FB5A00484C28 /* AlbumCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCVC.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				4D696CF02879784C0060CE41 /* MumentsByTagTVC.swift */,
 				4D2BADC92880334C004A7E00 /* MumentsByTagCVC.swift */,
 				4DE75A8128CCBAE400BC3EC4 /* MumentsByTagCardView.swift */,
+				E768435A2995EE2A00061EEC /* MumentForTodayCardView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1467,6 +1470,7 @@
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
 				C7BB531C28759E0200E0E889 /* WriteVC.swift in Sources */,
 				E72A066F2990FC4800A42378 /* ReportMumentHeader.swift in Sources */,
+				E768435B2995EE2A00061EEC /* MumentForTodayCardView.swift in Sources */,
 				4D13A67A2889141900197D2A /* HistorySerivce.swift in Sources */,
 				4D87847629886848001F446E /* LikeCancelResponseModel.swift in Sources */,
 				C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */,
