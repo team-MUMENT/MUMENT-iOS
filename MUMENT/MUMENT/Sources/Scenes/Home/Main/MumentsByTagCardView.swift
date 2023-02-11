@@ -42,7 +42,7 @@ class MumentsByTagCardView: UIView {
         $0.spacing = 6
     }
     private var profileImage = UIImageView().then{
-        $0.makeRounded(cornerRadius: 9.5)
+        $0.makeRounded(cornerRadius: 12)
         $0.contentMode = .scaleAspectFill
     }
     private let writerNameLabel = UILabel().then{

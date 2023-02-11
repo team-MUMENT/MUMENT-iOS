@@ -141,7 +141,6 @@ final class MembershipWithdrawalVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.addKeyboardObserver()
     }
     
