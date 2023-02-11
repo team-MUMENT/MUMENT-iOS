@@ -11,15 +11,17 @@ import Then
 
 class MumentsByTagTVC: UITableViewCell {
     
-    // MARK: - Properties
-    weak var delegate: MumentsByTagCVCDelegate?
-    var mumentsByTagData: [MumentsByTagResponseModel.MumentList] = []
+    // MARK: - Components
     lazy var titleLabel = UILabel().then{
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
     private lazy var mumentCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
     private let CVFlowLayout = UICollectionViewFlowLayout()
+    
+    // MARK: - Properties
+    weak var delegate: MumentsByTagCVCDelegate?
+    var mumentsByTagData: [MumentsByTagResponseModel.MumentList] = []
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -44,9 +46,7 @@ class MumentsByTagTVC: UITableViewCell {
         self.mumentCV.showsHorizontalScrollIndicator = false
         self.CVFlowLayout.scrollDirection = .horizontal
         self.mumentCV.backgroundColor = .mBgwhite
-        
-        self.mumentCV.contentInset.left = 15
-        self.mumentCV.contentInset.right = 20
+        self.mumentCV.contentInset = UIEdgeInsets(top: .zero, left: 15, bottom: .zero, right: 20)
     }
     
     func setData(_ cellData: MumentsByTagResponseModel){
@@ -74,7 +74,7 @@ extension MumentsByTagTVC {
         }
         
         mumentCV.snp.makeConstraints{
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
             $0.leading.equalTo(self.safeAreaLayoutGuide)
         }

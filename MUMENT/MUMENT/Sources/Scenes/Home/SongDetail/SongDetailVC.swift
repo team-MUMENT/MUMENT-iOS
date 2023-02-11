@@ -279,9 +279,9 @@ extension SongDetailVC: UITableViewDataSource {
         }
         switch section {
         case 1:
-            return 83.adjustedH
+            return 78.adjustedH
         case 2:
-            return 73.adjustedH
+            return 68.adjustedH
         default:
             return 0
         }

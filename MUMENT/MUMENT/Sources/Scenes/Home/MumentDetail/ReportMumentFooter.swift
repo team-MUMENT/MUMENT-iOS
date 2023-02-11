@@ -22,19 +22,19 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
         $0.clipsToBounds = true
         $0.backgroundColor = .mGray5
         $0.font = .mumentB6M13
-        $0.text = "계정을 삭제하는 이유를 알려주세요."
+        $0.text = "신고 내용을 작성해 주세요."
         $0.textColor = .mGray1
         $0.textContainerInset = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
         $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         $0.autocapitalizationType = .none
     }
     
-    private let placeholder = "계정을 삭제하는 이유를 알려주세요."
+    private let placeholder = "신고 내용을 작성해 주세요."
     
     private let countTextViewLabel = UILabel().then {
         $0.font = .mumentB6M13
         $0.textColor = .mGray2
-        $0.text = "0/100"
+        $0.text = "0 / 100"
     }
     
     private var textCount: String = " " {
