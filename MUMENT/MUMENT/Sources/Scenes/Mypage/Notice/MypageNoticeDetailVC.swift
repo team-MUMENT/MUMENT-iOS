@@ -82,6 +82,7 @@ final class MypageNoticeDetailVC: BaseVC {
 // MARK: - Network
 extension MypageNoticeDetailVC {
     private func getNoticeDetail(noticeId: Int) {
+        self.startActivityIndicator()
         MyPageAPI.shared.getNoticeDetail(noticeId: noticeId) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -90,7 +91,9 @@ extension MypageNoticeDetailVC {
                     self.setTitleView()
                     self.setContent()
                 }
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

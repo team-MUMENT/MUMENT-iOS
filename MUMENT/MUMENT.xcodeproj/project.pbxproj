@@ -126,6 +126,7 @@
 		C73FC9CC287C19EC0017F2DA /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */; };
 		C73FC9CE287C19F40017F2DA /* EventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CD287C19F40017F2DA /* EventLogger.swift */; };
 		C73FC9D0287C21590017F2DA /* WriteTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */; };
+		C74AFC3929969E170023CABD /* MumentActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74AFC3829969E170023CABD /* MumentActivityIndicatorView.swift */; };
 		C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC41928758D220068EB46 /* AppDelegate.swift */; };
 		C74EC41C28758D220068EB46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74EC41B28758D220068EB46 /* SceneDelegate.swift */; };
 		C74EC42328758D230068EB46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74EC42228758D230068EB46 /* Assets.xcassets */; };
@@ -383,6 +384,7 @@
 		C73FC9CB287C19EC0017F2DA /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
 		C73FC9CD287C19F40017F2DA /* EventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogger.swift; sourceTree = "<group>"; };
 		C73FC9CF287C21590017F2DA /* WriteTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTagCVC.swift; sourceTree = "<group>"; };
+		C74AFC3829969E170023CABD /* MumentActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentActivityIndicatorView.swift; sourceTree = "<group>"; };
 		C74EC41628758D220068EB46 /* MUMENT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MUMENT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C74EC41928758D220068EB46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C74EC41B28758D220068EB46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1165,6 +1167,7 @@
 				C7B2829B298FD51A001833FD /* MumentSearchTextField.swift */,
 				C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */,
 				E72A0672299268C900A42378 /* MumentSongViewNotiModel.swift */,
+				C74AFC3829969E170023CABD /* MumentActivityIndicatorView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1496,6 +1499,7 @@
 				4D300669288B0DC7007FF4DB /* LikeResponseModel.swift in Sources */,
 				4D7604612880ADB60044F2A6 /* DetailSongInfoView.swift in Sources */,
 				4D13A6612886A87400197D2A /* SongInfoTVC.swift in Sources */,
+				C74AFC3929969E170023CABD /* MumentActivityIndicatorView.swift in Sources */,
 				4D9734ED287EB022003EF546 /* MumentsOfRevisitedCVC.swift in Sources */,
 				C71B47F92882ACF1001A7CD6 /* SearchResultEmptyView.swift in Sources */,
 				C7BB531E28759E6500E0E889 /* StorageVC.swift in Sources */,

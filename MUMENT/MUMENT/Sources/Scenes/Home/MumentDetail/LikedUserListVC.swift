@@ -116,6 +116,7 @@ extension LikedUserListVC {
 // MARK: - Network
 extension LikedUserListVC {
     private func requestGetLikedUserList(mumentId: Int, limit: Int, offset: Int) {
+        self.startActivityIndicator()
         LikeAPI.shared.getLikedUsetList(mumentId: mumentId, limit: limit, offset: offset) {
             networkResult in
             switch networkResult {
@@ -124,15 +125,18 @@ extension LikedUserListVC {
                     self.likedUserListData = result
                     DispatchQueue.main.async {
                         self.likedUserTV.reloadData()
+                        self.stopActivityIndicator()
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
     
     private func requestMoreLikedUserData(mumentId: Int, limit: Int, offset: Int) {
+        self.startActivityIndicator()
         LikeAPI.shared.getLikedUsetList(mumentId: mumentId, limit: limit, offset: offset) {
             networkResult in
             switch networkResult {
@@ -145,8 +149,10 @@ extension LikedUserListVC {
                         self.pageOffset -= self.pageLimit
                     }
                     self.fetchMoreFlag = !(self.newLikedUserDataCount == 0)
+                    self.stopActivityIndicator()
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

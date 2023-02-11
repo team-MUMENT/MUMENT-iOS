@@ -55,8 +55,8 @@ final class NotificationVC: BaseVC {
         self.setNaviViewAction()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         self.getNotificationList()
     }
@@ -165,6 +165,7 @@ extension NotificationVC {
 // MARK: - Network
 extension NotificationVC {
     private func getNotificationList() {
+        self.startActivityIndicator()
         NotificationAPI.shared.getNotificationList { networkResult in
             switch networkResult {
             case .success(let t):
@@ -173,19 +174,24 @@ extension NotificationVC {
                     self.setUnreadNotificationList()
                     self.readNotification(idList: self.unreadNotifiationIdList)
                     self.notificationTV.reloadData()
+                    self.stopActivityIndicator()
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
     
     private func deleteNotification(id: Int) {
+        self.startActivityIndicator()
         NotificationAPI.shared.deleteNotifiction(id: id) { networkResult in
             switch networkResult {
             case .success:
                 self.getNotificationList()
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

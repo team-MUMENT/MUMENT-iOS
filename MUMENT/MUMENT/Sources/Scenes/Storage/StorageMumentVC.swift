@@ -539,6 +539,7 @@ extension StorageMumentVC {
     }
     
     private func getMyMumentStorage(filterTags: [Int]) {
+        self.startActivityIndicator()
         StorageAPI.shared.getMyMumentStorage(filterTags: filterTags) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -549,13 +550,16 @@ extension StorageMumentVC {
                 } else {
                     debugPrint(MessageType.modelErrorForDebug.message)
                 }
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
     
     private func getLikedMumentStorage(filterTags: [Int]) {
+        self.startActivityIndicator()
         StorageAPI.shared.getLikedMumentStorage(filterTags: filterTags) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -566,7 +570,9 @@ extension StorageMumentVC {
                 } else {
                     debugPrint(MessageType.modelErrorForDebug.message)
                 }
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

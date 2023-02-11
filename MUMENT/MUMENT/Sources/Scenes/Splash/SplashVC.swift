@@ -54,6 +54,7 @@ extension SplashVC {
 // MARK: - Network
 extension SplashVC {
     private func requestTokenRenewal() {
+        self.startActivityIndicator()
         AuthAPI.shared.getRenewedToken() { networkResult in
             switch networkResult {
             case .success(let response):
@@ -62,11 +63,13 @@ extension SplashVC {
                 }
                 self.requestIsProfileSet()
             case .requestErr, .serverErr:
+                self.stopActivityIndicator()
                 let signInVC = SignInVC()
                 signInVC.modalPresentationStyle = .fullScreen
                 signInVC.modalTransitionStyle = .crossDissolve
                 self.present(signInVC, animated: true)
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -81,14 +84,17 @@ extension SplashVC {
                     tabBarController.modalPresentationStyle = .fullScreen
                     tabBarController.modalTransitionStyle = .crossDissolve
                     self.present(tabBarController, animated: true)
+                    self.stopActivityIndicator()
                 } else if (status as! Int == 200) {
                     let setProfileVC = SetProfileVC()
                     setProfileVC.isFirst = true
                     setProfileVC.modalPresentationStyle = .fullScreen
                     setProfileVC.modalTransitionStyle = .crossDissolve
                     self.present(setProfileVC, animated: true)
+                    self.stopActivityIndicator()
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
