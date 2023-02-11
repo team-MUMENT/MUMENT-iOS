@@ -81,6 +81,7 @@ extension MypageNoticeVC: UITableViewDelegate {
 // MARK: - Network
 extension MypageNoticeVC {
     private func getNoticeList() {
+        self.startActivityIndicator()
         MyPageAPI.shared.getNoticeList { networkResult in
             switch networkResult {
             case .success(let response):
@@ -88,7 +89,9 @@ extension MypageNoticeVC {
                     self.noticeList = result
                     self.tableView.reloadData()
                 }
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

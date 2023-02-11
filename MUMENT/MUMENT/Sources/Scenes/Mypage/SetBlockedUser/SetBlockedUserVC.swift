@@ -94,6 +94,7 @@ extension SetBlockedUserVC: UITableViewDataSource {
 // MARK: - Network
 extension SetBlockedUserVC {
     private func getBlockedUserList() {
+        self.startActivityIndicator()
         MyPageAPI.shared.getBlockedUserList { networkResult in
             switch networkResult {
             case .success(let response):
@@ -101,7 +102,9 @@ extension SetBlockedUserVC {
                     self.blockedUserList = result
                     self.tableView.reloadData()
                 }
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

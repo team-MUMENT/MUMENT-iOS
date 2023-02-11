@@ -371,11 +371,13 @@ extension MembershipWithdrawalVC: UITextViewDelegate {
 // MARK: - Network
 extension MembershipWithdrawalVC {
     private func requestPostWithdrawalReason(data: WithdrawalReasonBodyModel) {
+        self.startActivityIndicator()
         MyPageAPI.shared.postWithdrawalReason(body: data) { networkResult in
             switch networkResult {
             case .success:
                 self.requestPostWithdrawalReason()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -389,8 +391,10 @@ extension MembershipWithdrawalVC {
                 let onboardingVC = OnboardingVC()
                 onboardingVC.modalPresentationStyle = .fullScreen
                 onboardingVC.modalTransitionStyle = .crossDissolve
+                self.stopActivityIndicator()
                 self.present(onboardingVC, animated: true)
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }

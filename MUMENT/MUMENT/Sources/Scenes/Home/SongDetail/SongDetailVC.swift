@@ -361,6 +361,7 @@ extension SongDetailVC :AllMumentsSectionHeaderDelegate {
 // MARK: - Network
 extension SongDetailVC {
     private func requestGetSongInfo(musicData: MusicDTO, completion: @escaping () -> ()) {
+        self.startActivityIndicator()
         SongDetailAPI.shared.getSongInfo(musicData: musicData) { [self] networkResult in
             switch networkResult {
             case .success(let response):
@@ -373,6 +374,7 @@ extension SongDetailVC {
                     completion()
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -386,15 +388,18 @@ extension SongDetailVC {
                     self.allMumentsData = res.mumentList
                     DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(10)) {
                         self.mumentTV.reloadData()
+                        self.stopActivityIndicator()
                     }
                 }
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
     }
     
     private func appendMoreAllMuments(isOrderLiked: Bool, limit: Int, offset: Int) {
+        self.startActivityIndicator()
         SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id , isOrderLiked: isOrderLiked, limit: limit, offset: offset) { networkResult in
             switch networkResult {
             case .success(let response):
@@ -409,7 +414,9 @@ extension SongDetailVC {
                         self.fetchMoreFlag = true
                     }
                 }
+                self.stopActivityIndicator()
             default:
+                self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
