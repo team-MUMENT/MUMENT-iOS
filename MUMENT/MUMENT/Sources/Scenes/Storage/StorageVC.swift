@@ -25,6 +25,9 @@ final class StorageVC: BaseVC {
         $0.backgroundColor = .clear
     }
     
+    private let underLineBackGroundView = UIView().then {
+        $0.backgroundColor = .mGray4
+    }
     private let underLineView = UIView().then {
         $0.backgroundColor = .mPurple1
     }
@@ -214,15 +217,21 @@ extension StorageVC {
             $0.height.equalTo(50.adjustedH)
         }
         
-        segmentContainerView.addSubViews([segmentControl,underLineView])
+        segmentContainerView.addSubViews([segmentControl,underLineBackGroundView, underLineView])
         
         segmentControl.snp.makeConstraints{
             $0.top.leading.centerX.centerY.equalTo(segmentContainerView)
         }
         
+        underLineBackGroundView.snp.makeConstraints {
+            $0.bottom.equalTo(segmentControl.snp.bottom)
+            $0.height.equalTo(2)
+            $0.width.equalTo(segmentControl.snp.width)
+        }
+        
         underLineView.snp.makeConstraints{
             $0.bottom.equalTo(segmentControl.snp.bottom)
-            $0.height.equalTo(2.adjustedH)
+            $0.height.equalTo(2)
             $0.width.equalTo(segmentControl.snp.width).dividedBy(segmentControl.numberOfSegments)
             
         }
