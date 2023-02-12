@@ -16,26 +16,21 @@ final class StorageVC: BaseVC {
         $0.backgroundColor = .clear
         $0.setTitleLabel(title: "보관함")
     }
-    
     private let profileButton = UIButton().then {
         $0.makeRounded(cornerRadius: 30.adjustedH / 2)
     }
-    
     private lazy var segmentContainerView = UIView().then {
         $0.backgroundColor = .clear
     }
-    
     private let underLineBackGroundView = UIView().then {
         $0.backgroundColor = .mGray4
     }
     private let underLineView = UIView().then {
         $0.backgroundColor = .mPurple1
     }
-        
     private lazy var pagerContainerView = UIView().then {
         $0.backgroundColor = .clear
     }
-    
     private lazy var segmentControl = UISegmentedControl().then {
         $0.selectedSegmentTintColor = .clear
         $0.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
@@ -61,7 +56,7 @@ final class StorageVC: BaseVC {
     
     // MARK: - Properties
     private var currentIndex: Int = 0
-        
+    private var isButtonTapped: Bool = false
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
     private let myMumentVC = StorageMumentVC(type: .myMument)
@@ -113,9 +108,16 @@ final class StorageVC: BaseVC {
         if let firstVC = contents.first {
             pagerVC.setViewControllers([firstVC], direction: .forward, animated: true)
         }
+        
+        for subView in pagerVC.view.subviews {
+            if let scrollView = subView as? UIScrollView {
+                scrollView.delegate = self
+            }
+        }
     }
 
     @objc private func changeUnderLinePosition() {
+        isButtonTapped = true
         let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
         let segmentWidth = segmentControl.frame.width / CGFloat(segmentControl.numberOfSegments)
         let leadingDistance = segmentWidth * segmentIndex
@@ -140,6 +142,8 @@ final class StorageVC: BaseVC {
             likedMumentVC.filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
+        
+        
     }
     
     private func setProfile() {
@@ -187,7 +191,21 @@ extension StorageVC: UIPageViewControllerDelegate {
               }
         currentIndex = index
         segmentControl.selectedSegmentIndex = currentIndex
-        changeUnderLinePosition()
+        isButtonTapped = false
+    }
+}
+
+extension StorageVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        /// 세그먼트로 이동시 종료
+        guard !isButtonTapped else { return }
+        
+        let contentOffsetX = scrollView.contentOffset.x
+        let contentWidth = pagerVC.view.frame.width
+        /// 0 ~ 1의 값
+        let offsetPercentage = (contentOffsetX - contentWidth) / contentWidth
+        let constant = underLineView.frame.width * (CGFloat(currentIndex) + offsetPercentage)
+        underLineView.frame.origin.x = constant
     }
 }
 
