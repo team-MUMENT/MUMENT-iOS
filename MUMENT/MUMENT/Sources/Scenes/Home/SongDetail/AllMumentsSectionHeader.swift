@@ -75,13 +75,13 @@ extension AllMumentsSectionHeader {
         latestOrderingButton.snp.makeConstraints{
             $0.trailing.equalToSuperview().inset(15)
             $0.centerY.equalTo(titleLabel)
-            $0.width.equalTo(45.adjustedW)
+            $0.width.equalTo(42)
         }
         
         mostLikedOrderingButton.snp.makeConstraints{
             $0.trailing.equalTo(latestOrderingButton.snp.leading)
             $0.centerY.equalTo(titleLabel)
-            $0.width.equalTo(55.adjustedW)
+            $0.width.equalTo(52)
         }
     }
 }
