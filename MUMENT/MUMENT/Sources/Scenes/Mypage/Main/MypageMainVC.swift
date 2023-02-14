@@ -200,9 +200,7 @@ extension MypageMainVC: UITableViewDelegate {
                         self.openSafariVC(url: url)
                     }
                 case 2:
-                    if let url = URL(string: self.mypageURL.contact ?? "") {
-                        self.openSafariVC(url: url)
-                    }
+                    self.sendContactMail()
                 default:
                     self.navigationController?.pushViewController(tableSection.rowVC[indexPath.row], animated: true)
                 }
