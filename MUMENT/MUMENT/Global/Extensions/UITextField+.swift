@@ -29,4 +29,12 @@ extension UITextField {
         attributedStr.addAttribute(NSAttributedString.Key.kern, value: spacing, range: NSMakeRange(0, attributedStr.length))
         self.attributedText = attributedStr
     }
+    
+    func clearSideEmptyText() -> String? {
+        if let text = self.text {
+            return text.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            return nil
+        }
+    }
 }
