@@ -179,7 +179,6 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let selectedCell = reportMumentTV.cellForRow(at: indexPath)! as! ReportMumentTVC
-        print("인덱스",indexPath.row)
         selectedCell.setData()
         /// 차단하기 선택시
         if indexPath.section == 1 {
