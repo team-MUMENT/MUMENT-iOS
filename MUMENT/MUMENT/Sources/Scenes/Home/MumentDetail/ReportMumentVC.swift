@@ -249,24 +249,16 @@ extension ReportMumentVC: sendTextViewDelegate {
 // MARK: - UI
 extension ReportMumentVC {
     private func setLayout() {
-        self.view.addSubviews([reportMumentTV, navigationBarView, reportDoneButton])
+        self.view.addSubviews([reportMumentTV, navigationBarView])
         
         navigationBarView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(100.adjustedH)
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(48)
         }
         
         reportMumentTV.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom).priority(999)
-            $0.width.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalToSuperview()
-        }
-        
-        reportDoneButton.snp.makeConstraints {
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.bottom.equalToSuperview().offset(-39)
-            $0.height.equalTo(47)
+            $0.top.equalTo(navigationBarView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
