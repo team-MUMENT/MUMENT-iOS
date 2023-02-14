@@ -45,6 +45,7 @@ final class ReportMumentTVC: UITableViewCell {
         self.backgroundColor = .mBgwhite
         self.isSelected = false
         self.checkButton.isEnabled = true
+        self.selectionStyle = .none
     }
     
     func setData() {
