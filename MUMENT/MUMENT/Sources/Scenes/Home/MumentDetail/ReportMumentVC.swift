@@ -89,6 +89,17 @@ final class ReportMumentVC: BaseVC {
         /// 키보드 처리 
         self.hideKeyboardWhenTappedAround()
     }
+    
+    private func setDoneButtonStatus() {
+        if let footerView = self.reportMumentTV.footerView(forSection: 1) as? ReportDoneButtonFooterView {
+            
+            if self.selectedCategoryList.contains(7) {
+                footerView.setDoneButtonStatus(isEnabled: self.blockReason != "")
+            } else {
+                footerView.setDoneButtonStatus(isEnabled: !self.selectedCategoryList.isEmpty)
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -201,6 +212,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
 extension ReportMumentVC: sendTextViewDelegate {
     func sendReportContent(content: String) {
         blockReason = content
+        self.setDoneButtonStatus()
     }
     
     func sendTextViewState(isEditing: Bool) {
