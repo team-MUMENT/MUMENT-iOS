@@ -218,7 +218,7 @@ final class SetProfileVC: BaseVC {
             if self?.nickNameTextField.text == UserInfo.shared.nickname {
                 self?.requestSetProfile(nickname: UserInfo.shared.nickname)
             } else {
-                self?.checkDuplicatedNickname(nickname: self?.nickNameTextField.text ?? "")
+                self?.checkDuplicatedNickname(nickname: self?.nickNameTextField.clearSideEmptyText() ?? "")
             }
         }
     }
