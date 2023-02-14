@@ -345,6 +345,11 @@ class WriteVC: BaseVC {
                 if self.contentTextView.textColor == .mBlack2 {
                     DispatchQueue.main.async {
                         self.countTextViewLabel.text = "\(changedText.count)/1000"
+                        self.countTextViewLabel.setFontColor(
+                            to: "\(changedText.count)",
+                            font: .mumentB6M13,
+                            color: changedText.count > 0 ? .mPurple1 : .mGray2
+                        )
                     }
                 }
             })

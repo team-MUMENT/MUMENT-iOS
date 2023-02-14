@@ -25,15 +25,11 @@ final class ReportMumentVC: BaseVC {
     }
     
     private let reportMumentTV = UITableView( frame: CGRect.zero, style: .grouped).then {
-        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 86, right: 0)
+        $0.contentInset = .zero
         $0.separatorStyle = .none
         $0.backgroundColor = .mBgwhite
         $0.showsVerticalScrollIndicator = false
         $0.allowsMultipleSelection = true
-    }
-    
-    private let reportDoneButton: MumentCompleteButton = MumentCompleteButton(isEnabled: false).then {
-        $0.setTitle("신고하기", for: .normal)
     }
     
     // MARK: - Properties
@@ -45,7 +41,7 @@ final class ReportMumentVC: BaseVC {
     
     private var selectedCategoryList: [Int] = [] {
         didSet {
-            reportDoneButton.isEnabled = !selectedCategoryList.isEmpty
+            self.setDoneButtonStatus()
         }
     }
     
@@ -62,7 +58,6 @@ final class ReportMumentVC: BaseVC {
         super.viewDidLoad()
         setLayout()
         setTV()
-        setPressAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,18 +74,13 @@ final class ReportMumentVC: BaseVC {
         self.mumentId = mumentId
     }
     
-    private func setPressAction() {
-        self.reportDoneButton.press { [weak self] in
-            self?.postReportMument()
-        }
-    }
-    
     private func setTV() {
         self.reportMumentTV.dataSource = self
         self.reportMumentTV.delegate = self
         self.reportMumentTV.register(cell: ReportMumentTVC.self)
         self.reportMumentTV.register(ReportMumentHeader.self, forHeaderFooterViewReuseIdentifier: ReportMumentHeader.className)
         self.reportMumentTV.register(ReportMumentFooter.self, forHeaderFooterViewReuseIdentifier: ReportMumentFooter.className)
+        self.reportMumentTV.register(ReportDoneButtonFooterView.self, forHeaderFooterViewReuseIdentifier: ReportDoneButtonFooterView.className)
         
         reportMumentTV.contentInsetAdjustmentBehavior = .automatic
         if #available(iOS 15, *) {
@@ -98,6 +88,17 @@ final class ReportMumentVC: BaseVC {
         }
         /// 키보드 처리 
         self.hideKeyboardWhenTappedAround()
+    }
+    
+    private func setDoneButtonStatus() {
+        if let footerView = self.reportMumentTV.footerView(forSection: 1) as? ReportDoneButtonFooterView {
+            
+            if self.selectedCategoryList.contains(7) {
+                footerView.setDoneButtonStatus(isEnabled: self.blockReason != "")
+            } else {
+                footerView.setDoneButtonStatus(isEnabled: !self.selectedCategoryList.isEmpty)
+            }
+        }
     }
 }
 
@@ -136,19 +137,26 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: ReportMumentHeader.className) as? ReportMumentHeader else { return nil }
             return headerCell
-        }else {
+        } else {
             return nil
         }
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 0 {
+        switch section {
+        case 0:
             guard let footerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: ReportMumentFooter.className) as? ReportMumentFooter else { return nil }
             footerCell.delegate = self
             self.delegate = footerCell
             return footerCell
-        }else {
-            return nil
+        case 1:
+            guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ReportDoneButtonFooterView.className) as? ReportDoneButtonFooterView else { return nil }
+            footerView.doneButton.removeTarget(nil, action: nil, for: .allTouchEvents)
+            footerView.doneButton.press { [weak self] in
+                self?.postReportMument()
+            }
+            return footerView
+        default: return nil
         }
     }
     
@@ -170,7 +178,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
         case 0:
             return 148.adjustedH
         case 1:
-            return 58
+            return 58.adjustedH + 47 + 39
         default:
             return .leastNormalMagnitude
         }
@@ -179,7 +187,6 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let selectedCell = reportMumentTV.cellForRow(at: indexPath)! as! ReportMumentTVC
-        print("인덱스",indexPath.row)
         selectedCell.setData()
         /// 차단하기 선택시
         if indexPath.section == 1 {
@@ -205,6 +212,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
 extension ReportMumentVC: sendTextViewDelegate {
     func sendReportContent(content: String) {
         blockReason = content
+        self.setDoneButtonStatus()
     }
     
     func sendTextViewState(isEditing: Bool) {
@@ -214,7 +222,7 @@ extension ReportMumentVC: sendTextViewDelegate {
                     self.view.frame.origin.y = -self.heightOfKeyBoard
                 }
             }
-        }else {
+        } else {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.3) {
                     self.view.frame.origin.y = 0
@@ -253,24 +261,16 @@ extension ReportMumentVC: sendTextViewDelegate {
 // MARK: - UI
 extension ReportMumentVC {
     private func setLayout() {
-        self.view.addSubviews([reportMumentTV, navigationBarView, reportDoneButton])
+        self.view.addSubviews([reportMumentTV, navigationBarView])
         
         navigationBarView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(100.adjustedH)
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(48)
         }
         
         reportMumentTV.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom).priority(999)
-            $0.width.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalToSuperview()
-        }
-        
-        reportDoneButton.snp.makeConstraints {
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.bottom.equalToSuperview().offset(-39)
-            $0.height.equalTo(47)
+            $0.top.equalTo(navigationBarView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 }

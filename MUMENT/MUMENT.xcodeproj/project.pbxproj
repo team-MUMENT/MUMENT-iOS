@@ -155,6 +155,7 @@
 		C766F9CA2935ED7F00E08D5C /* MypageMainProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766F9C92935ED7F00E08D5C /* MypageMainProfileTVC.swift */; };
 		C767507F29407D8300F2D985 /* SetBlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */; };
 		C767508229407F3100F2D985 /* BlockedUserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767508129407F3100F2D985 /* BlockedUserTVC.swift */; };
+		C76CA3C0299BA7A700E60888 /* ReportDoneButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76CA3BF299BA7A700E60888 /* ReportDoneButtonFooterView.swift */; };
 		C76D29B92990F90800760A99 /* MumentSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */; };
 		C76D29BB2991485A00760A99 /* GetIsNewNotificationResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29BA2991485A00760A99 /* GetIsNewNotificationResponseModel.swift */; };
 		C76D29BE2991852900760A99 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29BD2991852900760A99 /* UINavigationController+.swift */; };
@@ -408,6 +409,7 @@
 		C766F9C92935ED7F00E08D5C /* MypageMainProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMainProfileTVC.swift; sourceTree = "<group>"; };
 		C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBlockedUserVC.swift; sourceTree = "<group>"; };
 		C767508129407F3100F2D985 /* BlockedUserTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserTVC.swift; sourceTree = "<group>"; };
+		C76CA3BF299BA7A700E60888 /* ReportDoneButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDoneButtonFooterView.swift; sourceTree = "<group>"; };
 		C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentSearchBarButton.swift; sourceTree = "<group>"; };
 		C76D29BA2991485A00760A99 /* GetIsNewNotificationResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIsNewNotificationResponseModel.swift; sourceTree = "<group>"; };
 		C76D29BD2991852900760A99 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 		4D7604642880BA120044F2A6 /* MumentDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C76CA3BD299BA78F00E60888 /* ReportMument */,
 				4D7604592880AC840044F2A6 /* MumentDetailVC.swift */,
 				4DE0FAD829823522008F01E5 /* InstagramShareView.swift */,
 				4D7604602880ADB60044F2A6 /* DetailSongInfoView.swift */,
@@ -968,6 +971,22 @@
 			isa = PBXGroup;
 			children = (
 				C767508129407F3100F2D985 /* BlockedUserTVC.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		C76CA3BD299BA78F00E60888 /* ReportMument */ = {
+			isa = PBXGroup;
+			children = (
+				C76CA3BE299BA79700E60888 /* Cell */,
+			);
+			path = ReportMument;
+			sourceTree = "<group>";
+		};
+		C76CA3BE299BA79700E60888 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C76CA3BF299BA7A700E60888 /* ReportDoneButtonFooterView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1389,6 +1408,7 @@
 				4DE75A8228CCBAE400BC3EC4 /* MumentsByTagCardView.swift in Sources */,
 				C7BB531828759CF000E0E889 /* UITabBar+.swift in Sources */,
 				C7145D20298D5C08007B0F87 /* MumentUserPenaltyAlert.swift in Sources */,
+				C76CA3C0299BA7A700E60888 /* ReportDoneButtonFooterView.swift in Sources */,
 				C71B47EB288164CA001A7CD6 /* MusicForSearchModel.swift in Sources */,
 				C76D29B92990F90800760A99 /* MumentSearchBarButton.swift in Sources */,
 				C7145D22298D65F7007B0F87 /* GetUserPenaltyResponseModel.swift in Sources */,
@@ -1705,6 +1725,7 @@
 				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
