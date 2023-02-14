@@ -32,10 +32,6 @@ final class ReportMumentVC: BaseVC {
         $0.allowsMultipleSelection = true
     }
     
-    private let reportDoneButton: MumentCompleteButton = MumentCompleteButton(isEnabled: false).then {
-        $0.setTitle("신고하기", for: .normal)
-    }
-    
     // MARK: - Properties
     weak var delegate: reportMumentDelegate?
     
@@ -45,7 +41,7 @@ final class ReportMumentVC: BaseVC {
     
     private var selectedCategoryList: [Int] = [] {
         didSet {
-            reportDoneButton.isEnabled = !selectedCategoryList.isEmpty
+            self.setDoneButtonStatus()
         }
     }
     
@@ -62,7 +58,6 @@ final class ReportMumentVC: BaseVC {
         super.viewDidLoad()
         setLayout()
         setTV()
-        setPressAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,18 +74,13 @@ final class ReportMumentVC: BaseVC {
         self.mumentId = mumentId
     }
     
-    private func setPressAction() {
-        self.reportDoneButton.press { [weak self] in
-            self?.postReportMument()
-        }
-    }
-    
     private func setTV() {
         self.reportMumentTV.dataSource = self
         self.reportMumentTV.delegate = self
         self.reportMumentTV.register(cell: ReportMumentTVC.self)
         self.reportMumentTV.register(ReportMumentHeader.self, forHeaderFooterViewReuseIdentifier: ReportMumentHeader.className)
         self.reportMumentTV.register(ReportMumentFooter.self, forHeaderFooterViewReuseIdentifier: ReportMumentFooter.className)
+        self.reportMumentTV.register(ReportDoneButtonFooterView.self, forHeaderFooterViewReuseIdentifier: ReportDoneButtonFooterView.className)
         
         reportMumentTV.contentInsetAdjustmentBehavior = .automatic
         if #available(iOS 15, *) {
@@ -136,19 +126,26 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             guard let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: ReportMumentHeader.className) as? ReportMumentHeader else { return nil }
             return headerCell
-        }else {
+        } else {
             return nil
         }
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 0 {
+        switch section {
+        case 0:
             guard let footerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: ReportMumentFooter.className) as? ReportMumentFooter else { return nil }
             footerCell.delegate = self
             self.delegate = footerCell
             return footerCell
-        }else {
-            return nil
+        case 1:
+            guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ReportDoneButtonFooterView.className) as? ReportDoneButtonFooterView else { return nil }
+            footerView.doneButton.removeTarget(nil, action: nil, for: .allTouchEvents)
+            footerView.doneButton.press { [weak self] in
+                self?.postReportMument()
+            }
+            return footerView
+        default: return nil
         }
     }
     
