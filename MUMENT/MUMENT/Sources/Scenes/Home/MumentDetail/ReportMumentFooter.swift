@@ -19,15 +19,15 @@ protocol sendTextViewDelegate: AnyObject {
 final class ReportMumentFooter: UITableViewHeaderFooterView {
     
     // MARK: - Components
-    private let contentTextView = UITextView().then {
-        $0.isScrollEnabled = false
+    private let contentTextView: UITextView = UITextView().then {
+        $0.isScrollEnabled = true
         $0.clipsToBounds = true
         $0.backgroundColor = .mGray5
         $0.font = .mumentB6M13
         $0.text = "신고 내용을 작성해 주세요."
         $0.textColor = .mGray1
-        $0.textContainerInset = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
-        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        $0.textContainerInset = .zero
+        $0.contentInset = UIEdgeInsets(top: 15, left: 13, bottom: 30, right: 13)
         $0.autocapitalizationType = .none
     }
     
