@@ -206,7 +206,11 @@ final class MembershipWithdrawalVC: BaseVC {
                 if self.reasonTextView.textColor == .mBlack2 {
                     DispatchQueue.main.async {
                         self.reasonTextViewLabel.text = "\(changedText.count)/100"
-                        self.reasonTextViewLabel.setFontColor(to: "\(changedText.count)", font: .mumentB6M13, color: changedText.count > 0 ? .mPurple1 : .mGray2)
+                        self.reasonTextViewLabel.setFontColor(
+                            to: "\(changedText.count)",
+                            font: .mumentB6M13,
+                            color: changedText.count > 0 ? .mPurple1 : .mGray2
+                        )
                     }
                 }
             })
