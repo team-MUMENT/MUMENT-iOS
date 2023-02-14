@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 protocol sendTextViewDelegate: AnyObject {
     func sendTextViewState(isEditing: Bool)
@@ -38,12 +40,13 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
     // MARK: Properties
     private let placeholder = "신고 내용을 작성해 주세요."
     weak var delegate: sendTextViewDelegate?
+    private let disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - Initialization
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        setLayout()
-        setTextView()
+        self.setLayout()
+        self.setContentTextView()
     }
     
     required init?(coder: NSCoder) {
@@ -51,10 +54,27 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
     }
     
     // MARK: - Function
-    private func setTextView() {
-        contentTextView.makeRounded(cornerRadius: 7)
-        contentTextView.delegate = self
-        contentTextView.isEditable = false
+    private func setContentTextView() {
+        self.contentTextView.makeRounded(cornerRadius: 7)
+        self.contentTextView.delegate = self
+        self.contentTextView.isEditable = false
+        
+        self.contentTextView.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .subscribe(onNext: { changedText in
+                if self.contentTextView.textColor == .mBlack2 {
+                    DispatchQueue.main.async {
+                        self.countTextViewLabel.text = "\(changedText.count)/100"
+                        self.countTextViewLabel.setFontColor(
+                            to: "\(changedText.count)",
+                            font: .mumentB6M13,
+                            color: changedText.count > 0 ? .mPurple1 : .mGray2
+                        )
+                    }
+                }
+            })
+            .disposed(by: self.disposeBag)
     }
     
     private func setLayout() {
