@@ -32,24 +32,7 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
     private let countTextViewLabel = UILabel().then {
         $0.font = .mumentB6M13
         $0.textColor = .mGray2
-        $0.text = "0 / 100"
-    }
-    
-    private var textCount: String = " " {
-        didSet {
-            let highlighttedString = NSAttributedString(string: textCount, attributes: [
-                .font: UIFont.mumentB6M13,
-                .foregroundColor: UIColor.mPurple1
-            ])
-            
-            let normalString = NSAttributedString(string: " / 100", attributes: [
-                .font: UIFont.mumentB6M13,
-                .foregroundColor: UIColor.mGray2
-            ])
-            
-            let title = highlighttedString + normalString
-            countTextViewLabel.attributedText = title
-        }
+        $0.text = "0/100"
     }
     
     // MARK: Properties
@@ -95,35 +78,30 @@ extension ReportMumentFooter: UITextViewDelegate {
         self.delegate?.sendTextViewState(isEditing: true)
         
         /// 플레이스홀더
-        if contentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            contentTextView.textColor = .mGray1
-            contentTextView.text = placeholder
-        } else if textView.text == placeholder {
-            contentTextView.textColor = .mBlack1
-            contentTextView.text = nil
+        if self.contentTextView.textColor == .mGray1 {
+            self.contentTextView.text = nil
+            self.contentTextView.textColor = .mBlack2
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         self.delegate?.sendTextViewState(isEditing: false)
         
-        // 플레이스홀더
-        if contentTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || textView.text == placeholder {
-            contentTextView.textColor = .mGray1
-            contentTextView.text = placeholder
-            countTextViewLabel.text = "0/100"
+        /// 플레이스홀더
+        if self.contentTextView.text.isEmpty {
+            self.contentTextView.text =  self.placeholder
+            self.contentTextView.textColor = .mGray1
         }
         
         self.delegate?.sendReportContent(content: contentTextView.text)
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        
         /// 글자 수 제한
         if contentTextView.text.count > 100 {
             contentTextView.deleteBackward()
         }
-        
-        textCount = "\(contentTextView.text.count)"
     }
 }
 
