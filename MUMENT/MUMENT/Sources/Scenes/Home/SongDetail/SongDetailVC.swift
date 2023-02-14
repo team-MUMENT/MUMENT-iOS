@@ -24,12 +24,6 @@ final class SongDetailVC: BaseVC {
     var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     
     var allMumentsData: [AllMumentsResponseModel.MumentList] = []
-    private var newAllMumentDataCount: Int = 0
-    private var fetchMoreFlag: Bool = true
-    
-    private var pageLimit: Int = 10
-    private var pageOffset: Int = 0
-    
     private var isOrderLiked: Bool = true
     
     // MARK: - View Life Cycle
@@ -75,15 +69,9 @@ final class SongDetailVC: BaseVC {
         self.musicData = musicData
     }
     
-    private func resetProperty() {
-        fetchMoreFlag = true
-        pageOffset = 0
-    }
-    
     private func reloadAllMuments() {
-        self.resetProperty()
         self.allMumentsData = []
-        self.requestGetAllMuments(isOrderLiked: self.isOrderLiked, limit: 10, offset: 0)
+        self.requestGetAllMuments(isOrderLiked: self.isOrderLiked)
     }
 }
 
@@ -324,37 +312,12 @@ extension SongDetailVC: UITableViewDelegate {
         }
         return cellHeight
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 30{
-            navigationBarView.setTitle(musicData.title)
-        } else {
-            navigationBarView.setTitle("")
-        }
-        
-        let position = scrollView.contentOffset.y
-        if position > (mumentTV.contentSize.height - scrollView.frame.size.height) {
-            if fetchMoreFlag {
-                fetchMoreData()
-            }
-        }
-    }
-    
-    private func fetchMoreData() {
-        fetchMoreFlag = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(100), execute: {
-            self.pageOffset += self.pageLimit
-            self.appendMoreAllMuments(isOrderLiked: self.isOrderLiked, limit: self.pageLimit, offset: self.pageOffset)
-            self.mumentTV.reloadData()
-        })
-    }
 }
 
 extension SongDetailVC :AllMumentsSectionHeaderDelegate {
     func sortingFilterButtonClicked(isOrderLiked: Bool) {
         self.isOrderLiked = isOrderLiked
-        self.resetProperty()
-        self.requestGetAllMuments(isOrderLiked: self.isOrderLiked, limit: 10, offset: 0)
+        self.requestGetAllMuments(isOrderLiked: self.isOrderLiked)
     }
 }
 
@@ -370,7 +333,6 @@ extension SongDetailVC {
                     
                     let music = res.music
                     self.musicData = MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image)
-                    self.mumentTV.reloadSections(IndexSet(1...1), with: .none)
                     completion()
                 }
             default:
@@ -380,8 +342,8 @@ extension SongDetailVC {
         }
     }
     
-    private func requestGetAllMuments(isOrderLiked: Bool, limit: Int, offset: Int) {
-        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id , isOrderLiked: isOrderLiked, limit: limit, offset: offset) { networkResult in
+    private func requestGetAllMuments(isOrderLiked: Bool) {
+        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id, isOrderLiked: isOrderLiked) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? AllMumentsResponseModel {
@@ -391,30 +353,6 @@ extension SongDetailVC {
                         self.stopActivityIndicator()
                     }
                 }
-            default:
-                self.stopActivityIndicator()
-                self.makeAlert(title: MessageType.networkError.message)
-            }
-        }
-    }
-    
-    private func appendMoreAllMuments(isOrderLiked: Bool, limit: Int, offset: Int) {
-        self.startActivityIndicator()
-        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id , isOrderLiked: isOrderLiked, limit: limit, offset: offset) { networkResult in
-            switch networkResult {
-            case .success(let response):
-                if let res = response as? AllMumentsResponseModel {
-                    self.allMumentsData.append(contentsOf: res.mumentList)
-                    self.newAllMumentDataCount = res.mumentList.count
-                    /// 새로 받아온 데이터의 수가 0인 경우 다시 - offset
-                    if self.newAllMumentDataCount == 0 {
-                        self.pageOffset -= self.pageLimit
-                        self.fetchMoreFlag = false
-                    }else {
-                        self.fetchMoreFlag = true
-                    }
-                }
-                self.stopActivityIndicator()
             default:
                 self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
