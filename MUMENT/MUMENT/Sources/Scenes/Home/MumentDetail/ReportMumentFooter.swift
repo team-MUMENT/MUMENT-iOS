@@ -71,6 +71,9 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
                             font: .mumentB6M13,
                             color: changedText.count > 0 ? .mPurple1 : .mGray2
                         )
+                        self.delegate?.sendReportContent(
+                            content: self.contentTextView.textColor == .mBlack2 ? changedText : ""
+                        )
                     }
                 }
             })
@@ -112,8 +115,6 @@ extension ReportMumentFooter: UITextViewDelegate {
             self.contentTextView.text =  self.placeholder
             self.contentTextView.textColor = .mGray1
         }
-        
-        self.delegate?.sendReportContent(content: contentTextView.text)
     }
     
     func textViewDidChange(_ textView: UITextView) {
