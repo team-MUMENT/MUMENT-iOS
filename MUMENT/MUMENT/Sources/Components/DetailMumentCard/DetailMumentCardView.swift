@@ -119,7 +119,6 @@ final class DetailMumentCardView: UIView {
         self.mumentId = mumentId
         songInfoView.setData(musicData)
         
-        //TODO: isPrivate 작업되면 수정
         if cellData.isPrivate {
             heartStackView.subviews.forEach {
                 $0.removeFromSuperview()
