@@ -25,7 +25,7 @@ final class ReportMumentVC: BaseVC {
     }
     
     private let reportMumentTV = UITableView( frame: CGRect.zero, style: .grouped).then {
-        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 86, right: 0)
+        $0.contentInset = .zero
         $0.separatorStyle = .none
         $0.backgroundColor = .mBgwhite
         $0.showsVerticalScrollIndicator = false
@@ -167,7 +167,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
         case 0:
             return 148.adjustedH
         case 1:
-            return 58
+            return 58.adjustedH + 47 + 39
         default:
             return .leastNormalMagnitude
         }
@@ -210,7 +210,7 @@ extension ReportMumentVC: sendTextViewDelegate {
                     self.view.frame.origin.y = -self.heightOfKeyBoard
                 }
             }
-        }else {
+        } else {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.3) {
                     self.view.frame.origin.y = 0
