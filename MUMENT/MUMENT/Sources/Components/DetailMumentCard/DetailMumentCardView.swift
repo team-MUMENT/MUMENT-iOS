@@ -119,21 +119,18 @@ final class DetailMumentCardView: UIView {
         self.mumentId = mumentId
         songInfoView.setData(musicData)
         
+        heartStackView.subviews.forEach {
+            $0.removeFromSuperview()
+        }
         if cellData.isPrivate {
-            heartStackView.subviews.forEach {
-                $0.removeFromSuperview()
-            }
             heartStackView.addArrangedSubview(privateLabel)
             heartStackView.snp.updateConstraints {
                 $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             }
         }else {
-            heartStackView.subviews.forEach {
-                $0.removeFromSuperview()
-            }
             heartStackView.addArrangedSubviews([heartButton, likedUserButton])
             heartButton.snp.makeConstraints {
-                $0.height.width.equalTo(38)
+                $0.height.width.equalTo(38.adjustedH)
             }
         }
         
