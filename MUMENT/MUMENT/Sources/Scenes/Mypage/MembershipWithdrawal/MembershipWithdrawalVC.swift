@@ -152,7 +152,6 @@ final class MembershipWithdrawalVC: BaseVC {
                 make.right.equalToSuperview().inset(20)
                 make.height.equalTo(44 * 6 + 20)
             }
-            
         }
     }
     
