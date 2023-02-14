@@ -44,6 +44,7 @@ final class DetailMumentCardView: UIView {
     private let tagSubStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
+        $0.alignment = .leading
     }
     private let contentsLabel: UILabel = UILabel().then {
         $0.textColor = .mGray1
@@ -129,6 +130,9 @@ final class DetailMumentCardView: UIView {
             }
         }else {
             heartStackView.addArrangedSubviews([heartButton, likedUserButton])
+            heartStackView.snp.updateConstraints {
+                $0.left.equalTo(self.safeAreaLayoutGuide).offset(5)
+            }
             heartButton.snp.makeConstraints {
                 $0.height.width.equalTo(38.adjustedH)
             }
@@ -269,7 +273,7 @@ extension DetailMumentCardView {
         }
         heartStackView.snp.makeConstraints {
             $0.top.equalTo(createdAtLabel.snp.bottom)
-            $0.left.equalTo(self.safeAreaLayoutGuide).offset(5)
+            $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(5)
         }
         shareButton.snp.makeConstraints {
