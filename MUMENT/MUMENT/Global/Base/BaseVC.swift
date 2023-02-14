@@ -7,6 +7,7 @@
 
 import UIKit
 import SafariServices
+import MessageUI
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate {
     
@@ -136,6 +137,57 @@ extension BaseVC {
     func stopActivityIndicator() {
         self.activityIndicator.stopAnimating()
         self.activityIndicator.removeFromSuperview()
+    }
+}
+
+// MARK: - MFMailComposeViewControllerDelegate
+extension BaseVC: MFMailComposeViewControllerDelegate {
+    func sendContactMail() {
+        if MFMailComposeViewController.canSendMail() {
+            let compseVC = MFMailComposeViewController()
+            compseVC.mailComposeDelegate = self
+            
+            compseVC.setToRecipients(["mument.mp3@gmail.com"])
+            compseVC.setSubject("[MUMENT] 문의해요 🙋")
+            compseVC.setMessageBody(
+"""
+안녕하세요, 뮤멘트입니다.
+문의하실 내용을 하단에 작성해주세요.
+문의에 대한 답변은 전송해주신 메일로 회신드리겠습니다.
+감사합니다.
+——————————————————————————
+
+
+
+
+
+——————————————————————————
+User: \(String(describing: UserInfo.shared.userId ?? -1))
+App Version: \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")
+Device: \(String(describing: deviceModelName()))
+OS Version: \(UIDevice.current.systemVersion)
+"""
+                , isHTML: false)
+            
+            self.present(compseVC, animated: true, completion: nil)
+            
+        } else {
+            self.makeAlert(title: MessageType.unabledMailApp.message)
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true) {
+            switch result {
+            case .cancelled, .saved: return
+            case .sent:
+                self.makeAlert(title: MessageType.completedSendContactMail.message)
+            case .failed:
+                self.makeAlert(title: MessageType.failedSendContactMail.message)
+            @unknown default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
     }
 }
 
