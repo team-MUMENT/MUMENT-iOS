@@ -29,8 +29,6 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
         $0.autocapitalizationType = .none
     }
     
-    private let placeholder = "신고 내용을 작성해 주세요."
-    
     private let countTextViewLabel = UILabel().then {
         $0.font = .mumentB6M13
         $0.textColor = .mGray2
@@ -54,6 +52,8 @@ final class ReportMumentFooter: UITableViewHeaderFooterView {
         }
     }
     
+    // MARK: Properties
+    private let placeholder = "신고 내용을 작성해 주세요."
     weak var delegate: sendTextViewDelegate?
     
     // MARK: - Initialization
