@@ -121,13 +121,18 @@ final class DetailMumentCardView: UIView {
         
         //TODO: isPrivate 작업되면 수정
         if cellData.isPrivate {
+            heartStackView.subviews.forEach {
+                $0.removeFromSuperview()
+            }
             heartStackView.addArrangedSubview(privateLabel)
             heartStackView.snp.updateConstraints {
                 $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             }
         }else {
+            heartStackView.subviews.forEach {
+                $0.removeFromSuperview()
+            }
             heartStackView.addArrangedSubviews([heartButton, likedUserButton])
-            
             heartButton.snp.makeConstraints {
                 $0.height.width.equalTo(38)
             }
