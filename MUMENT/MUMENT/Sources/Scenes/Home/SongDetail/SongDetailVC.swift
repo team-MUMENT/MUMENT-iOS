@@ -343,7 +343,7 @@ extension SongDetailVC {
     }
     
     private func requestGetAllMuments(isOrderLiked: Bool) {
-        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id , isOrderLiked: isOrderLiked) { networkResult in
+        SongDetailAPI.shared.getAllMuments(musicId: self.musicData.id, isOrderLiked: isOrderLiked) { networkResult in
             switch networkResult {
             case .success(let response):
                 if let res = response as? AllMumentsResponseModel {
