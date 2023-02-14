@@ -176,6 +176,25 @@ OS Version: \(UIDevice.current.systemVersion)
         }
     }
     
+    func deviceModelName() -> String {
+        
+        /// 시뮬레이터 확인
+        var modelName = ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] ?? ""
+        if modelName.isEmpty == false && modelName.count > 0 {
+            return modelName
+        }
+        
+        /// 실제 디바이스 확인
+        let device = UIDevice.current
+        let selName = "_\("deviceInfo")ForKey:"
+        let selector = NSSelectorFromString(selName)
+        
+        if device.responds(to: selector) {
+            modelName = String(describing: device.perform(selector, with: "marketing-name").takeRetainedValue())
+        }
+        return modelName
+    }
+    
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true) {
             switch result {
