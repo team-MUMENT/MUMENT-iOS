@@ -11,6 +11,7 @@ import Then
 
 final class ReportMumentHeader: UITableViewHeaderFooterView {
     
+    // MARK: Components
     private let reportTitleLabel = UILabel().then {
         $0.font = .mumentH3B16
         $0.textColor = .mBlack1
@@ -23,7 +24,6 @@ final class ReportMumentHeader: UITableViewHeaderFooterView {
         $0.text = "관리자 검토 후 타당한 근거 없이 신고된 내용은 \n반영되지 않을 수 있습니다."
         $0.numberOfLines = 0
     }
-    
     
     // MARK: - Initialization
     override init(reuseIdentifier: String?) {
