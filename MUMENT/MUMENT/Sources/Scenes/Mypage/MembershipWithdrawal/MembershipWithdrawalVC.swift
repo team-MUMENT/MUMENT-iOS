@@ -71,7 +71,6 @@ final class MembershipWithdrawalVC: BaseVC {
         $0.font = .mumentB6M13
         $0.textColor = .mGray2
         $0.text = "0/100"
-        $0.setColor(to: "0", with: .mPurple1)
     }
     
     private let checkBoxButton: UIButton = UIButton().then {
@@ -207,7 +206,7 @@ final class MembershipWithdrawalVC: BaseVC {
                 if self.reasonTextView.textColor == .mBlack2 {
                     DispatchQueue.main.async {
                         self.reasonTextViewLabel.text = "\(changedText.count)/100"
-                        self.reasonTextViewLabel.setColor(to: "\(changedText.count)", with: .mPurple1)
+                        self.reasonTextViewLabel.setFontColor(to: "\(changedText.count)", font: .mumentB6M13, color: changedText.count > 0 ? .mPurple1 : .mGray2)
                     }
                 }
             })
