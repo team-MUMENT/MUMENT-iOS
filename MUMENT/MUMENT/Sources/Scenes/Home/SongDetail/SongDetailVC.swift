@@ -333,7 +333,6 @@ extension SongDetailVC {
                     
                     let music = res.music
                     self.musicData = MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image)
-                    self.mumentTV.reloadSections(IndexSet(1...1), with: .none)
                     completion()
                 }
             default:
