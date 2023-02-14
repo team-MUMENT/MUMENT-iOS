@@ -9,7 +9,7 @@ import Alamofire
 
 enum SongDetailService {
     case getSongInfo(musicData: MusicDTO)
-    case getAllMuments(musicId: String, isOrderLiked: Bool, limit: Int, offset: Int)
+    case getAllMuments(musicId: String, isOrderLiked: Bool)
 }
 
 extension SongDetailService: TargetType {
@@ -18,7 +18,7 @@ extension SongDetailService: TargetType {
         switch self {
         case .getSongInfo(musicData: let musicData):
             return "/music/\(musicData.id)"
-        case .getAllMuments(musicId: let musicId, _, _, _):
+        case .getAllMuments(musicId: let musicId, _):
             return "/music/\(musicId)/order"
         }
     }
@@ -45,8 +45,8 @@ extension SongDetailService: TargetType {
                 "musicImage": musicData.albumUrl,
                 "musicName": musicData.title
             ])
-        case .getAllMuments(_, isOrderLiked: let isOrderLiked, limit: let limit, offset: let offset):
-            return .query(["default": isOrderLiked ? "Y" : "N", "limit": limit, "offset": offset])
+        case .getAllMuments(_, isOrderLiked: let isOrderLiked):
+            return .query(["default": isOrderLiked ? "Y" : "N"])
         }
     }
 }
