@@ -32,9 +32,8 @@ final class ReportMumentTVC: UITableViewCell {
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configure()
+        setUI()
         setLayout()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -42,7 +41,7 @@ final class ReportMumentTVC: UITableViewCell {
     }
     
     // MARK: - Function
-    private func configure() {
+    private func setUI() {
         self.backgroundColor = .mBgwhite
         self.isSelected = false
         self.checkButton.isEnabled = true
@@ -72,7 +71,7 @@ final class ReportMumentTVC: UITableViewCell {
             $0.top.equalTo(categoryTitleLabel.snp.bottom).offset(3)
         }
     }
-
+    
     private func setLayout() {
         self.addSubviews([checkButton, categoryTitleLabel])
         
