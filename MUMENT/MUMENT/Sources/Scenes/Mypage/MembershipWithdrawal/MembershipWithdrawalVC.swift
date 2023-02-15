@@ -55,12 +55,11 @@ final class MembershipWithdrawalVC: BaseVC {
     
     private let reasonTextView: UITextView = UITextView().then {
         $0.isHidden = true
-        $0.isScrollEnabled = false
+        $0.isScrollEnabled = true
         $0.clipsToBounds = true
         $0.makeRounded(cornerRadius: 7)
         $0.backgroundColor = .mGray5
         $0.textContainerInset = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
-        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         $0.font = .mumentB3M14
         $0.autocapitalizationType = .none
         $0.textColor = .mBlack2
@@ -94,7 +93,6 @@ final class MembershipWithdrawalVC: BaseVC {
     // MARK: Properties
     private let disposeBag: DisposeBag = DisposeBag()
     
-    
     private var isReasonMenuHidden: Bool = true {
         didSet {
             reasonSelectingMenuView.isHidden = isReasonMenuHidden
@@ -124,6 +122,7 @@ final class MembershipWithdrawalVC: BaseVC {
             }
         }
     }
+    
     private var keyboardHeight: CGFloat = 0
     
     // MARK: - View Life Cycle
@@ -314,10 +313,9 @@ extension MembershipWithdrawalVC {
             $0.bottom.equalTo(confirmingStackView.snp.top).offset(-18)
         }
         
-        self.checkBoxButton.snp.makeConstraints { make in
-            make.width.height.equalTo(20)
+        checkBoxButton.snp.makeConstraints {
+            $0.width.height.equalTo(20)
         }
-        
     }
 }
 
