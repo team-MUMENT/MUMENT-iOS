@@ -60,6 +60,7 @@ final class MembershipWithdrawalVC: BaseVC {
         $0.makeRounded(cornerRadius: 7)
         $0.backgroundColor = .mGray5
         $0.textContainerInset = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
+        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         $0.font = .mumentB3M14
         $0.autocapitalizationType = .none
         $0.textColor = .mBlack2
