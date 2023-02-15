@@ -234,6 +234,7 @@
 		C7C02052299D1EC100761C8E /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204D299D0E2600761C8E /* Shared.xcconfig */; };
 		C7C02053299D1ECE00761C8E /* QA.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204E299D11CD00761C8E /* QA.xcconfig */; };
 		C7C02054299D1ED100761C8E /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204F299D11D800761C8E /* Release.xcconfig */; };
+		C7C02041299C7B3D00761C8E /* AllMumentEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */; };
 		C7D6E2C329863A9B006F9AB8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */; };
 		C7D6E2C529864174006F9AB8 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */; };
 		C7DAD6122992ABC100477689 /* NSNotification+Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DAD6112992ABC100477689 /* NSNotification+Name+.swift */; };
@@ -471,6 +472,7 @@
 		C7C0204E299D11CD00761C8E /* QA.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = QA.xcconfig; sourceTree = "<group>"; };
 		C7C0204F299D11D800761C8E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		C7C02050299D151D00761C8E /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentEmptyView.swift; sourceTree = "<group>"; };
 		C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
 		C7DAD6112992ABC100477689 /* NSNotification+Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Name+.swift"; sourceTree = "<group>"; };
@@ -658,6 +660,7 @@
 				4D2BADD628806E15004A7E00 /* SongDetailTVC.swift */,
 				C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift */,
 				E797846F2979C6D900A0AE45 /* AllMumentEmptyTVC.swift */,
+				C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */,
 			);
 			path = SongDetail;
 			sourceTree = "<group>";
@@ -1574,6 +1577,7 @@
 				4DC4D8502889BAC10060D00F /* MumentsOfRevisitedResponseModel.swift in Sources */,
 				4D5A2823292B50520001F8F9 /* OnboardingPageControlOnboardingPageControl.swift in Sources */,
 				C71B48092885A877001A7CD6 /* SearchForWriteView.swift in Sources */,
+				C7C02041299C7B3D00761C8E /* AllMumentEmptyView.swift in Sources */,
 				E781F23128892FCC00484C28 /* GetMyMumentResponseModel.swift in Sources */,
 				4D13A672288872E200197D2A /* AllMumentsResponseModel.swift in Sources */,
 				4D760454288093280044F2A6 /* DefaultNavigationBar.swift in Sources */,
