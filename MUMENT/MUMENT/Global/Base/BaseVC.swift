@@ -164,7 +164,7 @@ extension BaseVC: MFMailComposeViewControllerDelegate {
 ——————————————————————————
 User: \(String(describing: UserInfo.shared.userId ?? -1))
 App Version: \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")
-Device: \(String(describing: deviceModelName()))
+Device: \(deviceModelName())
 OS Version: \(UIDevice.current.systemVersion)
 """
                 , isHTML: false)
