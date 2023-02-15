@@ -13,11 +13,36 @@ import KakaoSDKAuth
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        switch env() {
+        case .debug:
+            print(
+"""
+====================================================
+=========== 🛠️ WELCOME TO DEBUG MODE 🛠️ ===========
+====================================================
+"""
+            )
+        case .qa:
+            print(
+"""
+=====================================================
+============= 🫵 WELCOME TO QA MODE 🫵 =============
+=====================================================
+"""
+            )
+        case .release:
+            print(
+"""
+======================================================
+=========== 📱 WELCOME TO RELEASE MODE 📱 ===========
+======================================================
+"""
+            )
+        }
         sleep(1)
         
         // 네이티브 앱 키(카카오 디벨로퍼 계정에서 제공)를 사용해 iOS SDK를 초기화합니다.
-        KakaoSDK.initSDK(appKey: "dcf1de7e11089f484ac873f0e833427d")
-//        KakaoSDK.initSDK(appKey: "a03c85e89f6892684a4533911f5ab502")
+        KakaoSDK.initSDK(appKey: Environment.KAKAO_NATIVE_APP_KEY)
         self.requestNotificationPermission()
         
         // 원격 알림 등록
