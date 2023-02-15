@@ -8,13 +8,13 @@
 import Alamofire
 
 enum HistorySerivce {
-    case getMumentHistoryData(userId: Int, musicId: String, recentOnTop:Bool, limit: Int, offset: Int)
+    case getMumentHistoryData(userId: Int, musicId: String, recentOnTop:Bool)
 }
 
 extension HistorySerivce: TargetType {
     var path: String {
         switch self {
-        case .getMumentHistoryData(userId: let userId, musicId: let musicId, _, _, _):
+        case .getMumentHistoryData(userId: let userId, musicId: let musicId, _):
             return "/mument/\(musicId)/\(userId)/history"
         
         }
@@ -33,8 +33,8 @@ extension HistorySerivce: TargetType {
     
     var parameters: RequestParams {
         switch self {
-        case .getMumentHistoryData(_, _, recentOnTop: let recentOnTop, limit: let limit, offset: let offset):
-            return .query(["default": recentOnTop ? "Y" : "N", "limit": "\(limit)", "offset": "\(offset)"])
+        case .getMumentHistoryData(_, _, recentOnTop: let recentOnTop):
+            return .query(["default": recentOnTop ? "Y" : "N"])
         }
     }
 }

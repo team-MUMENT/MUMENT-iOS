@@ -25,13 +25,7 @@ class MumentHistoryVC: BaseVC {
     
     var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     private var historyData: [HistoryResponseModel.MumentHistory] = []
-    private var newHistoryDataCount: Int = 0
     private var filterFlag: Bool = true
-    private var fetchMoreFlag: Bool = true
-    
-    private var pageLimit: Int = 10
-    private var pageOffset: Int = 0
-    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +36,7 @@ class MumentHistoryVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         self.hideTabbar()
-        /// flag 프로퍼티 초기화
-        resetProperty()
-        /// 처음 fetchData
-        requestGetHistoryData(recentOnTop: true, limit: 10, offset: 0)
+        requestGetHistoryData(recentOnTop: filterFlag)
     }
     
     
@@ -77,12 +68,6 @@ class MumentHistoryVC: BaseVC {
         let songDetailVC = SongDetailVC()
         songDetailVC.setDetailData(userId: self.userId, musicData: self.musicData)
         self.navigationController?.pushViewController(songDetailVC, animated: true)
-    }
-    
-    private func resetProperty(filterFlag: Bool = true) {
-        self.filterFlag = filterFlag
-        fetchMoreFlag = true
-        pageOffset = 0
     }
 }
 
@@ -192,73 +177,29 @@ extension MumentHistoryVC: UITableViewDelegate {
         mumentDetailVC.setData(mumentId: historyData[indexPath.row].id, musicData: self.musicData)
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        if position > (mumentTV.contentSize.height - scrollView.frame.size.height) {
-            if fetchMoreFlag {
-                fetchMoreData()
-            }
-        }
-    }
-    
-    private func fetchMoreData() {
-        fetchMoreFlag = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(100), execute: {
-            self.pageOffset += self.pageLimit
-            self.appendMoreHistoryData(recentOnTop: self.filterFlag, limit: self.pageLimit, offset: self.pageOffset)
-            self.mumentTV.reloadData()
-        })
-    }
 }
 
 extension MumentHistoryVC: MumentHistoryTVHeaderDelegate {
     func sortingFilterButtonClicked(_ recentOnTop: Bool) {
-        resetProperty(filterFlag: recentOnTop)
-        requestGetHistoryData(recentOnTop: filterFlag, limit: 10, offset: 0)
+        filterFlag = recentOnTop
+        requestGetHistoryData(recentOnTop: recentOnTop)
     }
 }
 
 // MARK: - Network
 extension MumentHistoryVC {
-    private func requestGetHistoryData(recentOnTop: Bool, limit: Int, offset: Int) {
+    private func requestGetHistoryData(recentOnTop: Bool) {
         self.startActivityIndicator()
-        HistoryAPI.shared.getMumentHistoryData(userId: self.userId, musicId: self.musicId, recentOnTop: recentOnTop, limit: limit, offset: offset) { networkResult in
+        HistoryAPI.shared.getMumentHistoryData(userId: self.userId, musicId: self.musicId, recentOnTop: recentOnTop) { networkResult in
             switch networkResult {
                 
             case .success(let response):
                 if let res = response as? HistoryResponseModel {
                     self.historyData = res.mumentHistory
-                    self.newHistoryDataCount = res.mumentHistory.count
                     DispatchQueue.main.async {
                         self.mumentTV.reloadData()
                         self.stopActivityIndicator()
                     }
-                }
-            default:
-                self.stopActivityIndicator()
-                self.makeAlert(title: MessageType.networkError.message)
-            }
-        }
-    }
-    
-    
-    private func appendMoreHistoryData(recentOnTop: Bool, limit: Int, offset: Int) {
-        self.startActivityIndicator()
-        HistoryAPI.shared.getMumentHistoryData(userId: self.userId, musicId: self.musicId, recentOnTop: recentOnTop, limit: limit, offset: offset) { networkResult in
-            switch networkResult {
-            case .success(let response):
-                if let res = response as? HistoryResponseModel {
-                    self.historyData.append(contentsOf: res.mumentHistory)
-                    self.newHistoryDataCount = res.mumentHistory.count
-                    /// 새로 받아온 데이터의 수가 0인 경우 다시 - offset
-                    if self.newHistoryDataCount == 0 {
-                        self.pageOffset -= self.pageLimit
-                        self.fetchMoreFlag = false
-                    }else {
-                        self.fetchMoreFlag = true
-                    }
-                    self.stopActivityIndicator()
                 }
             default:
                 self.stopActivityIndicator()
