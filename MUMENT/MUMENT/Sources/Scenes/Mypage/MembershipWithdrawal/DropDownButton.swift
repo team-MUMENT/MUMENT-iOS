@@ -31,6 +31,7 @@ final class DropDownButton: UIButton {
     // MARK: - Functions
     func setTitleLabel(_ labelText: String) {
         buttonTitleLabel.text = labelText
+        buttonTitleLabel.textColor = .mBlack1
     }
     
     func getTitleLabel() -> String {
