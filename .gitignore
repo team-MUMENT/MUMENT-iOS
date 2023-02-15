@@ -140,3 +140,7 @@ xcuserdata
 *.xcuserstate
 *.xcuserstate
 MUMENT/MUMENT/.DS_Store
+MUMENT/MUMENT/Supports/Debug.xcconfig
+MUMENT/MUMENT/Supports/QA.xcconfig
+MUMENT/MUMENT/Supports/Release.xcconfig
+MUMENT/MUMENT/Supports/Shared.xcconfig

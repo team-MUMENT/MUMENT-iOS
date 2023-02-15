@@ -10,7 +10,7 @@ import Alamofire
 
 struct APIConstants {
     // MARK: Base URL
-    static let baseURL = "http://13.124.112.116:8000"
+    static let baseURL = Environment.BASE_URL
     
     static let defaultProfileImageURL = "https://mument.s3.ap-northeast-2.amazonaws.com/user/emptyImage.jpg"
 }
