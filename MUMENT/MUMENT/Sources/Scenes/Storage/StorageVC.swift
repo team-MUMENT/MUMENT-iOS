@@ -42,7 +42,7 @@ final class StorageVC: BaseVC {
                 
         $0.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.mGray1,
-            NSAttributedString.Key.font: UIFont.mumentH3B16
+            NSAttributedString.Key.font: UIFont.mumentH4M16
         ], for: .normal)
         
         $0.setTitleTextAttributes([

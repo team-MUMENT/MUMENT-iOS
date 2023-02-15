@@ -13,10 +13,10 @@ protocol MumentsByTagCVCDelegate : AnyObject{
     func mumentsByTagCVCSelected(data: MumentsByTagResponseModel.MumentList)
 }
 
-class MumentsByTagCVC: UICollectionViewCell {
+final class MumentsByTagCVC: UICollectionViewCell {
     
     // MARK: - Properties
-    let mumentsByTagCardView = MumentsByTagCardView()
+    private let mumentsByTagCardView = MumentsByTagCardView()
     
     // MARK: - Initialization
     override init(frame: CGRect) {
