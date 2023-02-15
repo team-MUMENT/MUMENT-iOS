@@ -118,21 +118,20 @@ final class SignInVC: BaseVC {
         if let calaulatedTermsRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관") {
             let actualTermsRect = CGRect(x: calaulatedTermsRect.origin.x + 40, y: calaulatedTermsRect.origin.y, width: calaulatedTermsRect.width - 10, height: calaulatedTermsRect.height)
             if actualTermsRect.contains(point) {
-                present(url: self.termsAndPolicyURL.tos ?? "")
+                
+                if let url = URL(string: self.self.termsAndPolicyURL.tos ?? "") {
+                    self.openSafariVC(url: url)
+                }
             }
         }
         
         // privacyPolicyLabel 내에서 문자열 '개인정보처리방침'이 차지하는 CGRect값을 구해, 그 안에 point가 포함되는지를 판단합니다.
         if let personalInfoPolicyRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "개인정보처리방침"),
            personalInfoPolicyRect.contains(point) {
-            present(url: self.termsAndPolicyURL.privacy ?? "")
-        }
-    }
-    
-    private func present(url string: String) {
-        if let url = URL(string: string) {
-            let viewController = SFSafariViewController(url: url)
-            present(viewController, animated: true)
+            
+            if let url = URL(string: self.termsAndPolicyURL.privacy ?? "") {
+                self.openSafariVC(url: url)
+            }
         }
     }
 }
