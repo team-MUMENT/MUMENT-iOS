@@ -15,7 +15,7 @@ final class MembershipWithdrawalVC: BaseVC {
     
     // MARK: - Components
     private let naviView: DefaultNavigationBar = DefaultNavigationBar(naviType: .leftArrow).then {
-        $0.setTitleLabel(title: "회원탈퇴")
+        $0.setTitleLabel(title: "회원 탈퇴")
     }
     
     private let imageView: UIImageView = UIImageView().then {
