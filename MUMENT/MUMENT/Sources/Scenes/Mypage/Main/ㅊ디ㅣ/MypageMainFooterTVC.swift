@@ -40,7 +40,7 @@ final class MypageMainFooterTVC: UITableViewCell {
     
     // MARK: Methods
     func setVersionLabel(version: String) {
-        self.versionLabel.text = "버전 정보 v\(version)"
+        self.versionLabel.text = "현재버전 v\(version) / 최신버전 v\("서버배포후수정")"
         self.sizeToFit()
     }
     
