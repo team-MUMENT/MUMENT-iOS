@@ -73,12 +73,12 @@ extension MumentsByTagCardView {
     private func setDefaultUI(){
         self.makeRounded(cornerRadius: 11)
         self.backgroundColor = .mWhite
-        self.addShadow(offset: CGSize(width: 0, height: -2),opacity: 0.2,radius: 4.0)
+        self.addShadow(offset: CGSize(width: 0, height: 0), opacity: 0.2, radius: 4.0)
     }
     
     private func setDefaultLayout() {
         
-        self.addSubviews([writerInfoStackView,separatorView, titleSectionStackView,contentsLabel])
+        self.addSubviews([writerInfoStackView, separatorView, titleSectionStackView, contentsLabel])
         
         writerInfoStackView.snp.makeConstraints{
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)

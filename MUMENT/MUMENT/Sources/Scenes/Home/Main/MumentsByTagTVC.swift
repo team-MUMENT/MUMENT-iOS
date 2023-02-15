@@ -16,8 +16,17 @@ class MumentsByTagTVC: UITableViewCell {
         $0.textColor = .mBlack1
         $0.font = .mumentH2B18
     }
-    private lazy var mumentCV = UICollectionView(frame: .zero, collectionViewLayout: CVFlowLayout)
-    private let CVFlowLayout = UICollectionViewFlowLayout()
+    private let mumentCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
+        $0.backgroundColor = .mBgwhite
+        $0.showsHorizontalScrollIndicator = false
+        $0.contentInset = UIEdgeInsets(top: .zero, left: 15, bottom: .zero, right: 20)
+        $0.register(MumentsByTagCVC.self, forCellWithReuseIdentifier: MumentsByTagCVC.className)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 10
+        $0.setCollectionViewLayout(layout, animated: false)
+    }
     
     // MARK: - Properties
     weak var delegate: MumentsByTagCVCDelegate?
@@ -41,12 +50,6 @@ class MumentsByTagTVC: UITableViewCell {
     private func setCV() {
         self.mumentCV.delegate = self
         self.mumentCV.dataSource = self
-        self.mumentCV.register(MumentsByTagCVC.self, forCellWithReuseIdentifier: MumentsByTagCVC.className)
-        
-        self.mumentCV.showsHorizontalScrollIndicator = false
-        self.CVFlowLayout.scrollDirection = .horizontal
-        self.mumentCV.backgroundColor = .mBgwhite
-        self.mumentCV.contentInset = UIEdgeInsets(top: .zero, left: 15, bottom: .zero, right: 20)
     }
     
     func setData(_ cellData: MumentsByTagResponseModel){
@@ -75,8 +78,7 @@ extension MumentsByTagTVC {
         
         mumentCV.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide)
-            $0.leading.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
     }
