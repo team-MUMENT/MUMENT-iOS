@@ -20,6 +20,7 @@ final class MypageMainFooterTVC: UITableViewCell {
     private let buttonStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 80
+        $0.alignment = .center
     }
     
     private let signOutButton: MumentUnderLineButton = MumentUnderLineButton(type: .system)
@@ -67,13 +68,13 @@ extension MypageMainFooterTVC {
         self.buttonStackView.addArrangedSubviews([signOutButton, withDrawButton])
         
         self.buttonStackView.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(10.adjustedH)
+            $0.bottom.equalToSuperview().inset(30)
             $0.centerX.equalToSuperview()
         }
         
         self.versionLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(buttonStackView.snp.top).offset(-13)
+            $0.bottom.equalTo(buttonStackView.snp.top).offset(-5)
         }
     }
     

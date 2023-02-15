@@ -34,7 +34,7 @@ extension MypageMainSeparatorView {
     private func setLayout(type: MypageMainVC.Section) {
         self.addSubview(separator)
         
-        let separatorTopSpacing = type == .profile ? 0 : 18
+        let separatorTopSpacing = type == .profile ? 0 : 8
         
         self.separator.snp.makeConstraints {
             $0.top.equalToSuperview().inset(separatorTopSpacing)
