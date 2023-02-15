@@ -32,6 +32,7 @@ final class SongDetailVC: BaseVC {
     var allMumentsData: [AllMumentsResponseModel.MumentList] = [] {
         didSet {
             self.allMumentEmptyView.isHidden = !allMumentsData.isEmpty
+            self.mumentTV.isScrollEnabled = !allMumentsData.isEmpty
         }
     }
     
