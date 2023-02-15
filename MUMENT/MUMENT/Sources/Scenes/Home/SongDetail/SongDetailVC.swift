@@ -4,7 +4,8 @@
 //
 //  Created by 김지민 on 2022/07/15.
 //
-//////
+//
+
 import UIKit
 import SnapKit
 import Then
@@ -14,6 +15,11 @@ final class SongDetailVC: BaseVC {
     // MARK: - Components
     private let navigationBarView = DefaultNavigationBar()
     private let mumentTV = UITableView( frame: CGRect.zero, style: .grouped)
+    private let allMumentEmptyView: AllMumentEmptyView = {
+        let view: AllMumentEmptyView = AllMumentEmptyView()
+        view.isHidden = true
+        return view
+    }()
     
     // MARK: - Properties
     var myMumentDataSource: [MumentCardBySongModel] = MumentCardBySongModel.myMumentSampleData
@@ -23,7 +29,12 @@ final class SongDetailVC: BaseVC {
     private var userId: Int = 0
     var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     
-    var allMumentsData: [AllMumentsResponseModel.MumentList] = []
+    var allMumentsData: [AllMumentsResponseModel.MumentList] = [] {
+        didSet {
+            self.allMumentEmptyView.isHidden = !allMumentsData.isEmpty
+        }
+    }
+    
     private var isOrderLiked: Bool = true
     
     // MARK: - View Life Cycle
@@ -77,7 +88,6 @@ final class SongDetailVC: BaseVC {
 
 // MARK: - UI
 extension SongDetailVC {
-    
     private func setLayout() {
         if #available(iOS 15, *) {
             mumentTV.sectionHeaderTopPadding = 0
@@ -86,7 +96,7 @@ extension SongDetailVC {
         mumentTV.tableFooterView = UIView(frame: .zero)
         mumentTV.sectionFooterHeight = 0
         
-        view.addSubviews([navigationBarView, mumentTV])
+        view.addSubviews([navigationBarView, mumentTV, allMumentEmptyView])
         
         navigationBarView.snp.makeConstraints {
             $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
@@ -96,6 +106,12 @@ extension SongDetailVC {
         mumentTV.snp.makeConstraints{
             $0.top.equalTo(navigationBarView.snp.bottom)
             $0.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        self.allMumentEmptyView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide).inset(48 + 141.adjustedH)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
 }
@@ -132,7 +148,6 @@ extension SongDetailVC: UITableViewDataSource {
             cell.setData(musicData)
             return cell
         case 1:
-
             if myMumentData == nil {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SongDetailMyMumentEmptyTVC.className, for: indexPath) as? SongDetailMyMumentEmptyTVC
                 else { return UITableViewCell() }
@@ -178,14 +193,6 @@ extension SongDetailVC: UITableViewDataSource {
             }
             
         case 2:
-            
-            if allMumentsData.count == 0 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: AllMumentEmptyTVC.className, for: indexPath) as? AllMumentEmptyTVC
-                else { return UITableViewCell() }
-                return cell
-            }
-            
-            /// 셀 선언
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MumentCardBySongTVC.className, for: indexPath) as? MumentCardBySongTVC else {
                 return UITableViewCell()
             }
@@ -305,7 +312,7 @@ extension SongDetailVC: UITableViewDelegate {
         switch indexPath.section {
         case 0:
             cellHeight = 141.adjustedH
-        case 1,2:
+        case 1, 2:
             cellHeight = UITableView.automaticDimension
         default:
             cellHeight = 0
