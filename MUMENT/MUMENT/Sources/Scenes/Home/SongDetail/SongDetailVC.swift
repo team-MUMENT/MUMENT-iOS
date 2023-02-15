@@ -254,7 +254,8 @@ extension SongDetailVC: UITableViewDataSource {
             
             headerCell.historyButton.press {
                 let mumentHistoryVC = MumentHistoryVC()
-                mumentHistoryVC.setHistoryData(userId: self.userId, musicData: self.musicData)
+                guard let savedUserId = UserInfo.shared.userId else { return }
+                mumentHistoryVC.setHistoryData(userId: savedUserId, musicData: self.musicData)
                 self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
             }
             return headerCell
