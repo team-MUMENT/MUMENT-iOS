@@ -25,6 +25,7 @@ class MumentHistoryVC: BaseVC {
     
     var musicData: MusicDTO = MusicDTO(id: "", title: "", artist: "", albumUrl: "")
     private var historyData: [HistoryResponseModel.MumentHistory] = []
+    private var filterFlag: Bool = true
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class MumentHistoryVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         self.hideTabbar()
-        requestGetHistoryData(recentOnTop: true)
+        requestGetHistoryData(recentOnTop: filterFlag)
     }
     
     
@@ -180,6 +181,7 @@ extension MumentHistoryVC: UITableViewDelegate {
 
 extension MumentHistoryVC: MumentHistoryTVHeaderDelegate {
     func sortingFilterButtonClicked(_ recentOnTop: Bool) {
+        filterFlag = recentOnTop
         requestGetHistoryData(recentOnTop: recentOnTop)
     }
 }
