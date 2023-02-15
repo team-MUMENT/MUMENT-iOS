@@ -15,25 +15,25 @@ import AuthenticationServices
 final class SignInVC: BaseVC {
     
     // MARK: Components
-    private let logoImageView = UIImageView().then{
+    private let logoImageView = UIImageView().then {
         $0.image = UIImage(named: "mumentLogoLogin")
     }
     
-    private let guidingLabel = UILabel().then{
+    private let guidingLabel = UILabel().then {
         $0.font = .mumentB4M14
         $0.textColor = .mBlack2
         $0.text = "회원가입을 통해 나의 음악 감상을 쌓아보세요."
     }
     
-    private let kakaoSignInButton = UIButton().then{
+    private let kakaoSignInButton = UIButton().then {
         $0.setBackgroundImage(UIImage(named: "kakaoLogin"), for: .normal)
     }
     
-    private let appleSignInButton = UIButton().then{
+    private let appleSignInButton = UIButton().then {
         $0.setBackgroundImage(UIImage(named: "appleLogin"), for: .normal)
     }
     
-    private let privacyPolicyLabel = UILabel().then{
+    private let privacyPolicyLabel = UILabel().then {
         $0.font = .mumentB8M12
         $0.textColor = .mGray2
         $0.text = "로그인 시 이용약관과\n개인정보처리방침에 동의하게 됩니다."
@@ -57,35 +57,19 @@ final class SignInVC: BaseVC {
     }
     
     // MARK: - Functions
-    private func setButtonActions(){
-        kakaoSignInButton.press{
+    private func setButtonActions() {
+        kakaoSignInButton.press {
             
-            // 카카오톡 설치 여부 확인
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error = error {
                     print(error)
-                }
-                else {
+                } else {
                     print("loginWithKakaoTalk() success.")
                     let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
                     self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.accessToken ?? "", fcm_token: fcmToken))
                 }
             }
-            
-            // 테스트용 카카오 로그인 탈퇴 코드
-//                        if (UserApi.isKakaoTalkLoginAvailable()) {
-//
-//                            UserApi.shared.unlink {(error) in
-//                                if let error = error {
-//                                    print(error)
-//                                }
-//                                else {
-//                                    print("unlink() success.")
-//                                }
-//                            }
-//                        }
         }
-        
         
         appleSignInButton.press{
             let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -118,21 +102,20 @@ final class SignInVC: BaseVC {
         if let calaulatedTermsRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "이용약관") {
             let actualTermsRect = CGRect(x: calaulatedTermsRect.origin.x + 40, y: calaulatedTermsRect.origin.y, width: calaulatedTermsRect.width - 10, height: calaulatedTermsRect.height)
             if actualTermsRect.contains(point) {
-                present(url: self.termsAndPolicyURL.tos ?? "")
+                
+                if let url = URL(string: self.self.termsAndPolicyURL.tos ?? "") {
+                    self.openSafariVC(url: url)
+                }
             }
         }
         
         // privacyPolicyLabel 내에서 문자열 '개인정보처리방침'이 차지하는 CGRect값을 구해, 그 안에 point가 포함되는지를 판단합니다.
         if let personalInfoPolicyRect = privacyPolicyLabel.boundingRectForCharacterRange(subText: "개인정보처리방침"),
            personalInfoPolicyRect.contains(point) {
-            present(url: self.termsAndPolicyURL.privacy ?? "")
-        }
-    }
-    
-    private func present(url string: String) {
-        if let url = URL(string: string) {
-            let viewController = SFSafariViewController(url: url)
-            present(viewController, animated: true)
+            
+            if let url = URL(string: self.termsAndPolicyURL.privacy ?? "") {
+                self.openSafariVC(url: url)
+            }
         }
     }
 }
@@ -147,29 +130,29 @@ extension SignInVC {
     }
     
     private func setLayout() {
-        view.addSubviews([logoImageView,guidingLabel,kakaoSignInButton,appleSignInButton,privacyPolicyLabel])
+        view.addSubviews([logoImageView, guidingLabel, kakaoSignInButton, appleSignInButton, privacyPolicyLabel])
         
-        logoImageView.snp.makeConstraints{
+        logoImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(168)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
-        guidingLabel.snp.makeConstraints{
+        guidingLabel.snp.makeConstraints {
             $0.top.equalTo(logoImageView.snp.bottom).offset(100)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
-        kakaoSignInButton.snp.makeConstraints{
+        kakaoSignInButton.snp.makeConstraints {
             $0.top.equalTo(guidingLabel.snp.bottom).offset(17)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
-        appleSignInButton.snp.makeConstraints{
+        appleSignInButton.snp.makeConstraints {
             $0.top.equalTo(kakaoSignInButton.snp.bottom).offset(15)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
-        privacyPolicyLabel.snp.makeConstraints{
+        privacyPolicyLabel.snp.makeConstraints {
             $0.top.equalTo(appleSignInButton.snp.bottom).offset(40)
             $0.centerX.equalTo(view.safeAreaLayoutGuide)
         }
@@ -184,9 +167,7 @@ extension SignInVC: ASAuthorizationControllerDelegate {
         switch authorization.credential {
             
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            if // let authorizationCode = appleIDCredential.authorizationCode,
-               let identityToken = appleIDCredential.identityToken,
-//               let authString = String(data: authorizationCode, encoding: .utf8),
+            if let identityToken = appleIDCredential.identityToken,
                let tokenString = String(data: identityToken, encoding: .utf8) {
                 let fcmToken = UserDefaultsManager.fcmToken ?? ""
                 requestSignIn(data: SignInBodyModel(provider: "apple", authentication_code: tokenString, fcm_token: fcmToken))
