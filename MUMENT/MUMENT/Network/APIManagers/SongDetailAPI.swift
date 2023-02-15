@@ -36,9 +36,14 @@ class SongDetailAPI: BaseAPI {
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }
-                guard let data = response.data else { return }
-                let networkResult = self.judgeStatus(by: statusCode, data, AllMumentsResponseModel.self)
-                completion(networkResult)
+                if statusCode == 204 {
+                    let result: AllMumentsResponseModel = AllMumentsResponseModel(mumentList: [])
+                    completion(.success(result))
+                } else {
+                    guard let data = response.data else { return }
+                    let networkResult = self.judgeStatus(by: statusCode, data, AllMumentsResponseModel.self)
+                    completion(networkResult)
+                }
             case .failure(let err):
                 print(err.localizedDescription)
             }
