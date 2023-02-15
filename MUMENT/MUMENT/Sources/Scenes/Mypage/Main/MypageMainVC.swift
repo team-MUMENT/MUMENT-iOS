@@ -22,30 +22,30 @@ final class MypageMainVC: BaseVC {
             case .profile: return 1
             case .setting: return 2
             case .service: return 3
-            case .info: return 2
+            case .info: return 3
             case .footer: return 1
             }
         }
         
         var rowHeight: CGFloat {
             switch self {
-            case .profile: return 120
-            case .setting, .service, .info: return 44
-            case .footer: return 95
+            case .profile: return 110
+            case .setting, .service, .info: return 38
+            case .footer: return 95 + 30
             }
         }
         
         var headerHeight: CGFloat {
             switch self {
             case .profile, .footer: return 0
-            case .setting, .service, .info: return 36
+            case .setting, .service, .info: return 34
             }
         }
         
         var footerHeight: CGFloat {
             switch self {
             case .profile: return 10
-            case .setting, .service: return 28
+            case .setting, .service: return 18
             default: return 0
             }
         }
@@ -63,7 +63,7 @@ final class MypageMainVC: BaseVC {
             switch self {
             case .setting: return ["알림 설정", "차단 유저 관리"]
             case .service: return ["공지사항", "자주 묻는 질문", "문의하기"]
-            case .info: return ["앱 정보", "뮤멘트 소개"]
+            case .info: return ["앱 정보", "뮤멘트 소개", "오픈소스 라이선스"]
             default: return []
             }
         }
@@ -73,7 +73,7 @@ final class MypageMainVC: BaseVC {
             case .profile: return [SetProfileVC()]
             case .setting: return [SetNotificationVC(), SetBlockedUserVC()]
             case .service: return [MypageNoticeVC(), UIViewController(), UIViewController()]
-            case .info: return [UIViewController(), UIViewController()]
+            case .info: return [UIViewController(), UIViewController(), UIViewController()]
             default: return []
             }
         }
@@ -212,6 +212,10 @@ extension MypageMainVC: UITableViewDelegate {
                     }
                 case 1:
                     if let url = URL(string: self.mypageURL.introduction ?? "") {
+                        self.openSafariVC(url: url)
+                    }
+                case 2:
+                    if let url = URL(string: self.mypageURL.license ?? "") {
                         self.openSafariVC(url: url)
                     }
                 default: break
