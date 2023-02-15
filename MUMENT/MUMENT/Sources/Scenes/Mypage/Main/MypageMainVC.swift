@@ -63,7 +63,7 @@ final class MypageMainVC: BaseVC {
             switch self {
             case .setting: return ["알림 설정", "차단 유저 관리"]
             case .service: return ["공지사항", "자주 묻는 질문", "문의하기"]
-            case .info: return ["앱 정보", "뮤멘트 소개"]
+            case .info: return ["앱 정보", "뮤멘트 소개", "오픈소스 라이선스"]
             default: return []
             }
         }
@@ -73,7 +73,7 @@ final class MypageMainVC: BaseVC {
             case .profile: return [SetProfileVC()]
             case .setting: return [SetNotificationVC(), SetBlockedUserVC()]
             case .service: return [MypageNoticeVC(), UIViewController(), UIViewController()]
-            case .info: return [UIViewController(), UIViewController()]
+            case .info: return [UIViewController(), UIViewController(), UIViewController()]
             default: return []
             }
         }
@@ -212,6 +212,10 @@ extension MypageMainVC: UITableViewDelegate {
                     }
                 case 1:
                     if let url = URL(string: self.mypageURL.introduction ?? "") {
+                        self.openSafariVC(url: url)
+                    }
+                case 2:
+                    if let url = URL(string: self.mypageURL.license ?? "") {
                         self.openSafariVC(url: url)
                     }
                 default: break
