@@ -26,7 +26,7 @@ final class StorageMumentVC: BaseVC {
     }
    
     private let selectedTagsCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
-        $0.backgroundColor = .mGray3
+        $0.backgroundColor = .mGray5
         $0.showsHorizontalScrollIndicator = false
         $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         $0.layer.borderColor = UIColor.clear.cgColor
