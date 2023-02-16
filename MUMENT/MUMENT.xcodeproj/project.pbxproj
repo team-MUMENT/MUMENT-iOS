@@ -264,7 +264,6 @@
 		E781F23128892FCC00484C28 /* GetMyMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F23028892FCC00484C28 /* GetMyMumentResponseModel.swift */; };
 		E781F2332889ADE400484C28 /* GetLikedMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2322889ADE400484C28 /* GetLikedMumentResponseModel.swift */; };
 		E781F235288AF55400484C28 /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F234288AF55400484C28 /* Sequence+.swift */; };
-		E79784702979C6D900A0AE45 /* AllMumentEmptyTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E797846F2979C6D900A0AE45 /* AllMumentEmptyTVC.swift */; };
 		E7978472297B705C00A0AE45 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7978471297B705C00A0AE45 /* TagList.swift */; };
 		E7978474297D256C00A0AE45 /* StorageFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7978473297D256C00A0AE45 /* StorageFilterVC.swift */; };
 		E7978476297D5DD600A0AE45 /* FilterLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7978475297D5DD600A0AE45 /* FilterLayout.swift */; };
@@ -502,7 +501,6 @@
 		E781F23028892FCC00484C28 /* GetMyMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyMumentResponseModel.swift; sourceTree = "<group>"; };
 		E781F2322889ADE400484C28 /* GetLikedMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLikedMumentResponseModel.swift; sourceTree = "<group>"; };
 		E781F234288AF55400484C28 /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
-		E797846F2979C6D900A0AE45 /* AllMumentEmptyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentEmptyTVC.swift; sourceTree = "<group>"; };
 		E7978471297B705C00A0AE45 /* TagList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagList.swift; sourceTree = "<group>"; };
 		E7978473297D256C00A0AE45 /* StorageFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageFilterVC.swift; sourceTree = "<group>"; };
 		E7978475297D5DD600A0AE45 /* FilterLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLayout.swift; sourceTree = "<group>"; };
@@ -659,7 +657,6 @@
 				4D76046928814A9A0044F2A6 /* AllMumentsSectionHeader.swift */,
 				4D2BADD628806E15004A7E00 /* SongDetailTVC.swift */,
 				C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift */,
-				E797846F2979C6D900A0AE45 /* AllMumentEmptyTVC.swift */,
 				C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */,
 			);
 			path = SongDetail;
@@ -1430,7 +1427,6 @@
 				E7978476297D5DD600A0AE45 /* FilterLayout.swift in Sources */,
 				4D13A65F2882AF1B00197D2A /* OrderingButton.swift in Sources */,
 				E7978474297D256C00A0AE45 /* StorageFilterVC.swift in Sources */,
-				E79784702979C6D900A0AE45 /* AllMumentEmptyTVC.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */,
 				C7C02051299D151D00761C8E /* Environment.swift in Sources */,
