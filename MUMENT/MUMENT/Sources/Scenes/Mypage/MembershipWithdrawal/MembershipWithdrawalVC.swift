@@ -15,7 +15,7 @@ final class MembershipWithdrawalVC: BaseVC {
     
     // MARK: - Components
     private let naviView: DefaultNavigationBar = DefaultNavigationBar(naviType: .leftArrow).then {
-        $0.setTitleLabel(title: "회원탈퇴")
+        $0.setTitleLabel(title: "회원 탈퇴")
     }
     
     private let imageView: UIImageView = UIImageView().then {
@@ -55,7 +55,7 @@ final class MembershipWithdrawalVC: BaseVC {
     
     private let reasonTextView: UITextView = UITextView().then {
         $0.isHidden = true
-        $0.isScrollEnabled = false
+        $0.isScrollEnabled = true
         $0.clipsToBounds = true
         $0.makeRounded(cornerRadius: 7)
         $0.backgroundColor = .mGray5
@@ -94,7 +94,6 @@ final class MembershipWithdrawalVC: BaseVC {
     // MARK: Properties
     private let disposeBag: DisposeBag = DisposeBag()
     
-    
     private var isReasonMenuHidden: Bool = true {
         didSet {
             reasonSelectingMenuView.isHidden = isReasonMenuHidden
@@ -124,6 +123,7 @@ final class MembershipWithdrawalVC: BaseVC {
             }
         }
     }
+    
     private var keyboardHeight: CGFloat = 0
     
     // MARK: - View Life Cycle
@@ -314,10 +314,9 @@ extension MembershipWithdrawalVC {
             $0.bottom.equalTo(confirmingStackView.snp.top).offset(-18)
         }
         
-        self.checkBoxButton.snp.makeConstraints { make in
-            make.width.height.equalTo(20)
+        checkBoxButton.snp.makeConstraints {
+            $0.width.height.equalTo(20)
         }
-        
     }
 }
 
