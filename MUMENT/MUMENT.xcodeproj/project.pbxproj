@@ -229,12 +229,12 @@
 		C7BC6B6E28771152008C75CE /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6D28771152008C75CE /* UserDefaults+.swift */; };
 		C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6F28771184008C75CE /* UIStackView+.swift */; };
 		C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B712877ECA0008C75CE /* CALayer+.swift */; };
+		C7C02041299C7B3D00761C8E /* AllMumentEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */; };
 		C7C0204A299D0DFF00761C8E /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C02049299D0DFF00761C8E /* Debug.xcconfig */; };
 		C7C02051299D151D00761C8E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C02050299D151D00761C8E /* Environment.swift */; };
 		C7C02052299D1EC100761C8E /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204D299D0E2600761C8E /* Shared.xcconfig */; };
 		C7C02053299D1ECE00761C8E /* QA.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204E299D11CD00761C8E /* QA.xcconfig */; };
 		C7C02054299D1ED100761C8E /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204F299D11D800761C8E /* Release.xcconfig */; };
-		C7C02041299C7B3D00761C8E /* AllMumentEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */; };
 		C7D6E2C329863A9B006F9AB8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */; };
 		C7D6E2C529864174006F9AB8 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */; };
 		C7DAD6122992ABC100477689 /* NSNotification+Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DAD6112992ABC100477689 /* NSNotification+Name+.swift */; };
@@ -467,12 +467,12 @@
 		C7BC6B6D28771152008C75CE /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		C7BC6B6F28771184008C75CE /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		C7BC6B712877ECA0008C75CE /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentEmptyView.swift; sourceTree = "<group>"; };
 		C7C02049299D0DFF00761C8E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		C7C0204D299D0E2600761C8E /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		C7C0204E299D11CD00761C8E /* QA.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = QA.xcconfig; sourceTree = "<group>"; };
 		C7C0204F299D11D800761C8E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		C7C02050299D151D00761C8E /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentEmptyView.swift; sourceTree = "<group>"; };
 		C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
 		C7DAD6112992ABC100477689 /* NSNotification+Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Name+.swift"; sourceTree = "<group>"; };
@@ -1761,7 +1761,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1799,7 +1799,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
@@ -1901,7 +1901,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
