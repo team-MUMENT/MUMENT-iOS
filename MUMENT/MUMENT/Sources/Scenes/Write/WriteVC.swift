@@ -645,11 +645,10 @@ extension WriteVC: UITextViewDelegate {
         self.writeScrollView.setContentOffset(CGPoint(x: 0, y: writeScrollView.contentSize.height - writeScrollView.bounds.height), animated: true)
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let currentText = contentTextView.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
-        return changedText.count <= 1000
+    func textViewDidChange(_ textView: UITextView) {
+        if self.contentTextView.text.count > 1000 {
+            self.contentTextView.deleteBackward()
+        }
     }
 }
 
