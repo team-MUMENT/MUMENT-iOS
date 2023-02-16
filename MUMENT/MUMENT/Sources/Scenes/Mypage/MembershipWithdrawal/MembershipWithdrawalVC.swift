@@ -362,11 +362,10 @@ extension MembershipWithdrawalVC: UITextViewDelegate {
         }
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let currentText = reasonTextView.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
-        return changedText.count <= 100
+    func textViewDidChange(_ textView: UITextView) {
+        if self.reasonTextView.text.count > 100 {
+            self.reasonTextView.deleteBackward()
+        }
     }
 }
 
