@@ -229,12 +229,12 @@
 		C7BC6B6E28771152008C75CE /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6D28771152008C75CE /* UserDefaults+.swift */; };
 		C7BC6B7028771184008C75CE /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B6F28771184008C75CE /* UIStackView+.swift */; };
 		C7BC6B722877ECA0008C75CE /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC6B712877ECA0008C75CE /* CALayer+.swift */; };
+		C7C02041299C7B3D00761C8E /* AllMumentEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */; };
 		C7C0204A299D0DFF00761C8E /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C02049299D0DFF00761C8E /* Debug.xcconfig */; };
 		C7C02051299D151D00761C8E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C02050299D151D00761C8E /* Environment.swift */; };
 		C7C02052299D1EC100761C8E /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204D299D0E2600761C8E /* Shared.xcconfig */; };
 		C7C02053299D1ECE00761C8E /* QA.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204E299D11CD00761C8E /* QA.xcconfig */; };
 		C7C02054299D1ED100761C8E /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204F299D11D800761C8E /* Release.xcconfig */; };
-		C7C02041299C7B3D00761C8E /* AllMumentEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */; };
 		C7D6E2C329863A9B006F9AB8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */; };
 		C7D6E2C529864174006F9AB8 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */; };
 		C7DAD6122992ABC100477689 /* NSNotification+Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DAD6112992ABC100477689 /* NSNotification+Name+.swift */; };
@@ -264,7 +264,6 @@
 		E781F23128892FCC00484C28 /* GetMyMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F23028892FCC00484C28 /* GetMyMumentResponseModel.swift */; };
 		E781F2332889ADE400484C28 /* GetLikedMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2322889ADE400484C28 /* GetLikedMumentResponseModel.swift */; };
 		E781F235288AF55400484C28 /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F234288AF55400484C28 /* Sequence+.swift */; };
-		E79784702979C6D900A0AE45 /* AllMumentEmptyTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E797846F2979C6D900A0AE45 /* AllMumentEmptyTVC.swift */; };
 		E7978472297B705C00A0AE45 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7978471297B705C00A0AE45 /* TagList.swift */; };
 		E7978474297D256C00A0AE45 /* StorageFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7978473297D256C00A0AE45 /* StorageFilterVC.swift */; };
 		E7978476297D5DD600A0AE45 /* FilterLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7978475297D5DD600A0AE45 /* FilterLayout.swift */; };
@@ -467,12 +466,12 @@
 		C7BC6B6D28771152008C75CE /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		C7BC6B6F28771184008C75CE /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		C7BC6B712877ECA0008C75CE /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentEmptyView.swift; sourceTree = "<group>"; };
 		C7C02049299D0DFF00761C8E /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		C7C0204D299D0E2600761C8E /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		C7C0204E299D11CD00761C8E /* QA.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = QA.xcconfig; sourceTree = "<group>"; };
 		C7C0204F299D11D800761C8E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		C7C02050299D151D00761C8E /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentEmptyView.swift; sourceTree = "<group>"; };
 		C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
 		C7DAD6112992ABC100477689 /* NSNotification+Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Name+.swift"; sourceTree = "<group>"; };
@@ -502,7 +501,6 @@
 		E781F23028892FCC00484C28 /* GetMyMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyMumentResponseModel.swift; sourceTree = "<group>"; };
 		E781F2322889ADE400484C28 /* GetLikedMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLikedMumentResponseModel.swift; sourceTree = "<group>"; };
 		E781F234288AF55400484C28 /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
-		E797846F2979C6D900A0AE45 /* AllMumentEmptyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMumentEmptyTVC.swift; sourceTree = "<group>"; };
 		E7978471297B705C00A0AE45 /* TagList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagList.swift; sourceTree = "<group>"; };
 		E7978473297D256C00A0AE45 /* StorageFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageFilterVC.swift; sourceTree = "<group>"; };
 		E7978475297D5DD600A0AE45 /* FilterLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLayout.swift; sourceTree = "<group>"; };
@@ -659,7 +657,6 @@
 				4D76046928814A9A0044F2A6 /* AllMumentsSectionHeader.swift */,
 				4D2BADD628806E15004A7E00 /* SongDetailTVC.swift */,
 				C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift */,
-				E797846F2979C6D900A0AE45 /* AllMumentEmptyTVC.swift */,
 				C7C02040299C7B3D00761C8E /* AllMumentEmptyView.swift */,
 			);
 			path = SongDetail;
@@ -1430,7 +1427,6 @@
 				E7978476297D5DD600A0AE45 /* FilterLayout.swift in Sources */,
 				4D13A65F2882AF1B00197D2A /* OrderingButton.swift in Sources */,
 				E7978474297D256C00A0AE45 /* StorageFilterVC.swift in Sources */,
-				E79784702979C6D900A0AE45 /* AllMumentEmptyTVC.swift in Sources */,
 				4D2BADD728806E15004A7E00 /* SongDetailTVC.swift in Sources */,
 				4D13A67C2889163400197D2A /* HistoryResponseModel.swift in Sources */,
 				C7C02051299D151D00761C8E /* Environment.swift in Sources */,
@@ -1761,7 +1757,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1799,7 +1795,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MUMENT/Info.plist;
@@ -1901,7 +1897,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MUMENT/MUMENT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = N4RT4KGQK9;
 				GENERATE_INFOPLIST_FILE = YES;
