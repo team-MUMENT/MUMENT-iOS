@@ -82,7 +82,6 @@ final class SongDetailVC: BaseVC {
     }
     
     private func reloadAllMuments() {
-        self.allMumentsData = []
         self.requestGetAllMuments(isOrderLiked: self.isOrderLiked)
     }
 }
