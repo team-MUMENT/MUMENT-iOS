@@ -58,6 +58,7 @@ final class DetailMumentCardView: UIView {
     }
     private lazy var heartStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
+        $0.spacing = 5
     }
     private let heartButton: UIButton = UIButton().then {
         $0.configuration = .plain()
@@ -131,10 +132,10 @@ final class DetailMumentCardView: UIView {
         }else {
             heartStackView.addArrangedSubviews([heartButton, likedUserButton])
             heartStackView.snp.updateConstraints {
-                $0.left.equalTo(self.safeAreaLayoutGuide).offset(5)
+                $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
             }
             heartButton.snp.makeConstraints {
-                $0.height.width.equalTo(38.adjustedH)
+                $0.height.width.equalTo(21.adjustedH)
             }
         }
         
@@ -272,9 +273,9 @@ extension DetailMumentCardView {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
         }
         heartStackView.snp.makeConstraints {
-            $0.top.equalTo(createdAtLabel.snp.bottom)
+            $0.top.equalTo(createdAtLabel.snp.bottom).offset(10)
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(5)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
         shareButton.snp.makeConstraints {
             $0.top.equalTo(createdAtLabel.snp.bottom)
