@@ -66,6 +66,7 @@ class MumentCardWithoutHeartView: UIView {
     let createdAtLabel = UILabel().then {
         $0.textColor = .mGray2
         $0.font = .mumentC1R12
+        $0.sizeToFit()
     }
     
     // MARK: - Initialization
@@ -80,38 +81,33 @@ class MumentCardWithoutHeartView: UIView {
     }
     
     // MARK: - Function
-    func setContentLayout() {
+    func setContentLayout(text: String?) {
         self.subviews.forEach {
             if $0 == contentsLabel || $0 == createdAtLabel{
                 $0.removeFromSuperview()
             }
         }
-        
-        self.addSubviews([contentsLabel, createdAtLabel])
-        createdAtLabel.snp.makeConstraints {
-            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.height.equalTo(9)
-            $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
-        }
-        
-        contentsLabel.snp.makeConstraints {
-            $0.top.equalTo(albumImage.snp.bottom).offset(10)
-            $0.left.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.bottom.equalTo(createdAtLabel.snp.top).offset(-12)
-        }
-    }
-    func setNoContentLayout() {
-        self.subviews.forEach {
-            if $0 == contentsLabel || $0 == createdAtLabel{
-                $0.removeFromSuperview()
+        if text == nil {
+            self.addSubviews([createdAtLabel])
+            createdAtLabel.snp.makeConstraints {
+                $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+                $0.top.equalTo(albumImage.snp.bottom).offset(8)
+                $0.height.equalTo(12)
             }
-        }
-        self.addSubviews([createdAtLabel])
-        createdAtLabel.snp.makeConstraints {
-            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.height.equalTo(9)
-            $0.top.equalTo(albumImage.snp.bottom).offset(10)
+        }else {
+            self.addSubviews([contentsLabel, createdAtLabel])
+            createdAtLabel.snp.makeConstraints {
+                $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+                $0.top.equalTo(contentsLabel.snp.bottom).offset(10)
+                $0.height.equalTo(12)
+            }
+            
+            contentsLabel.snp.makeConstraints {
+                $0.top.equalTo(albumImage.snp.bottom).offset(10)
+                $0.left.equalTo(self.safeAreaLayoutGuide).inset(13)
+                $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+                $0.bottom.equalTo(createdAtLabel.snp.top).offset(-12)
+            }
         }
     }
     
