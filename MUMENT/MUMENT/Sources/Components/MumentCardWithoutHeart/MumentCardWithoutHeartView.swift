@@ -79,23 +79,7 @@ class MumentCardWithoutHeartView: UIView {
         super.init(coder: aDecoder)!
     }
     
-    // MARK: Methods
-    func setMumentForTodayData(_ cellData: MumentForTodayResponseModel){
-        profileImage.setImageUrl(cellData.todayMument.user.image)
-        writerNameLabel.text = cellData.todayMument.user.name
-        albumImage.setImageUrl(cellData.todayMument.music.image)
-        songTitleLabel.text = cellData.todayMument.music.name
-        artistLabel.text = cellData.todayMument.music.artist
-        contentsLabel.text = cellData.todayMument.content.replaceNewLineKeyword()
-        createdAtLabel.text = cellData.todayMument.date
-        isFirst = cellData.todayMument.isFirst
-        impressionTags = cellData.todayMument.impressionTag
-        feelingTags = cellData.todayMument.feelingTag
-        setCardTags(cellData.todayMument.cardTag)
-
-        self.contentsLabel.sizeToFit()
-    }
-    
+    // MARK: - Function
     func setWithoutHeartData(_ cellData: StorageMumentModel) {
         profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
