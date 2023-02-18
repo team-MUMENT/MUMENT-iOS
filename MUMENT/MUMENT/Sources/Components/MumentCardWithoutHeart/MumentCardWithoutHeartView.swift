@@ -152,7 +152,7 @@ extension MumentCardWithoutHeartView {
     }
     
     func setDefaultLayout() {
-        self.addSubviews([writerInfoStackView,separatorView,albumImage,songInfoStackView,tagStackView,createdAtLabel, contentsLabel])
+        self.addSubviews([writerInfoStackView, separatorView, albumImage,songInfoStackView, tagStackView, contentsLabel, createdAtLabel])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -187,8 +187,8 @@ extension MumentCardWithoutHeartView {
         
         createdAtLabel.snp.makeConstraints {
             $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-12)
             $0.height.equalTo(9)
+            $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
         }
         
         contentsLabel.snp.makeConstraints {
