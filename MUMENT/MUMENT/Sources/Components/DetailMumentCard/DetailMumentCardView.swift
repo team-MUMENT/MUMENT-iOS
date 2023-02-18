@@ -226,7 +226,7 @@ extension DetailMumentCardView {
     private func setUI() {
         self.backgroundColor = .mWhite
         self.makeRounded(cornerRadius: 11)
-        self.addShadow(offset: CGSize(width: 0, height: 0), opacity: 0.2, radius: 2.0)
+        self.addShadow(offset: CGSize(width: 0, height: 0), opacity: 0.2, radius: 5.0)
     }
     
     private func setLayout() {

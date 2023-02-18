@@ -73,7 +73,7 @@ extension MumentsByTagCardView {
     private func setDefaultUI(){
         self.makeRounded(cornerRadius: 11)
         self.backgroundColor = .mWhite
-        self.addShadow(offset: CGSize(width: 0, height: 0), opacity: 0.2, radius: 4.0)
+        self.addShadow(offset: CGSize(width: 0, height: 0), opacity: 0.2, radius: 5.0)
     }
     
     private func setDefaultLayout() {
