@@ -80,6 +80,41 @@ class MumentCardWithoutHeartView: UIView {
     }
     
     // MARK: - Function
+    func setContentLayout() {
+        self.subviews.forEach {
+            if $0 == contentsLabel || $0 == createdAtLabel{
+                $0.removeFromSuperview()
+            }
+        }
+        
+        self.addSubviews([contentsLabel, createdAtLabel])
+        createdAtLabel.snp.makeConstraints {
+            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.height.equalTo(9)
+            $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
+        }
+        
+        contentsLabel.snp.makeConstraints {
+            $0.top.equalTo(albumImage.snp.bottom).offset(10)
+            $0.left.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.bottom.equalTo(createdAtLabel.snp.top).offset(-12)
+        }
+    }
+    func setNoContentLayout() {
+        self.subviews.forEach {
+            if $0 == contentsLabel || $0 == createdAtLabel{
+                $0.removeFromSuperview()
+            }
+        }
+        self.addSubviews([createdAtLabel])
+        createdAtLabel.snp.makeConstraints {
+            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+            $0.height.equalTo(9)
+            $0.top.equalTo(albumImage.snp.bottom).offset(10)
+        }
+    }
+    
     func setWithoutHeartData(_ cellData: StorageMumentModel) {
         profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
@@ -136,7 +171,7 @@ extension MumentCardWithoutHeartView {
     }
     
     func setDefaultLayout() {
-        self.addSubviews([writerInfoStackView, separatorView, albumImage,songInfoStackView, tagStackView, contentsLabel, createdAtLabel])
+        self.addSubviews([writerInfoStackView, separatorView, albumImage,songInfoStackView, tagStackView])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -167,19 +202,6 @@ extension MumentCardWithoutHeartView {
             $0.left.equalTo(albumImage.snp.right).offset(10)
             $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
             $0.height.equalTo(26)
-        }
-        
-        createdAtLabel.snp.makeConstraints {
-            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.height.equalTo(9)
-            $0.top.equalTo(contentsLabel.snp.bottom).offset(12)
-        }
-        
-        contentsLabel.snp.makeConstraints {
-            $0.top.equalTo(albumImage.snp.bottom).offset(10)
-            $0.left.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.bottom.equalTo(createdAtLabel.snp.top).offset(-12)
         }
         
         profileImage.snp.makeConstraints {
