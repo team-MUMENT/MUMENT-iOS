@@ -12,11 +12,6 @@ import Then
 final class MypageNoticeTitleView: UIView {
     
     // MARK: Components
-    private let labelStackView: UIStackView = UIStackView().then {
-        $0.axis = .vertical
-        $0.spacing = 8
-    }
-    
     private let titleLabel: UILabel = UILabel().then {
         $0.font = .mumentH4M16
         $0.textColor = .mBlack1
@@ -58,18 +53,23 @@ final class MypageNoticeTitleView: UIView {
 // MARK: - UI
 extension MypageNoticeTitleView {
     private func setLayout() {
-        self.addSubviews([labelStackView, separator])
-        self.labelStackView.addArrangedSubviews([titleLabel, createdAtLabel])
+        self.addSubviews([titleLabel, createdAtLabel, separator])
         
-        self.labelStackView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(20)
+        self.titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        self.createdAtLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(8)
+            make.leading.trailing.equalTo(self.titleLabel)
         }
         
         self.separator.snp.makeConstraints {
-            $0.top.equalTo(self.labelStackView.snp.bottom).offset(20)
+            $0.top.equalTo(self.createdAtLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(1)
+            $0.bottom.equalToSuperview()
         }
     }
     
