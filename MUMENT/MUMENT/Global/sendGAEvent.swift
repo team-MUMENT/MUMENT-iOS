@@ -10,6 +10,5 @@ import FirebaseAnalytics
 
 func sendGAEvent(eventName: GAEventNameType, parameterValue: GAEventNameType.ParameterValue) {
     let parameters = [eventName.parameterKey: "\(parameterValue)"]
-    print(("\(eventName)", parameters: parameters))
     FirebaseAnalytics.Analytics.logEvent("\(eventName)", parameters: parameters)
 }
