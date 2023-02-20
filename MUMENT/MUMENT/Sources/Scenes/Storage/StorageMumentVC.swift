@@ -421,11 +421,11 @@ extension StorageMumentVC: UICollectionViewDelegateFlowLayout {
                 }
                 let content = storageMumentData[mData + indexPath.item].content ?? ""
                 if content == "" {
-                    self.contentHeight = -2
+                    self.contentHeight = 165
                 }else {
-                    contentHeight = viewForHeight.getContentSize(content: content).height
+                    contentHeight = viewForHeight.getContentSize(content: content).height + 184
                 }
-                return CGSize(width: 335.adjustedW, height: 178 + self.contentHeight)
+                return CGSize(width: 335.adjustedW, height: self.contentHeight)
             case .albumCell:
                 let CVWidth = collectionView.frame.width
                 let cellWidth = ((CVWidth - 40) - (5 * 3)) / 4

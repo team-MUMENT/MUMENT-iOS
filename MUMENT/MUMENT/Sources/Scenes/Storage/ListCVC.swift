@@ -33,6 +33,7 @@ final class ListCVC: UICollectionViewCell {
     }
     
     func setDefaultCardData(_ cellData: StorageMumentModel) {
+        defaultCardView.setContentLayout(text: cellData.content)
         defaultCardView.setDefaultData(cellData)
     }
     
@@ -44,6 +45,7 @@ final class ListCVC: UICollectionViewCell {
     }
     
     func setWithoutHeartCardData(_ cellData: StorageMumentModel) {
+        withoutHeartCardView.setContentLayout(text: cellData.content)
         withoutHeartCardView.setWithoutHeartData(cellData)
     }
 }
