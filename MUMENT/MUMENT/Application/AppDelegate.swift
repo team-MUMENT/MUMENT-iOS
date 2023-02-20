@@ -13,6 +13,10 @@ import KakaoSDKAuth
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // MARK: Firebase SDK 초기화
+        FirebaseApp.configure()
+        
         switch env() {
         case .debug:
             print(
@@ -51,9 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 원격 알림 등록
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
-        
-        // MARK: Firebase SDK 초기화
-        FirebaseApp.configure()
         
         /// 메시지 대리자 설정
         Messaging.messaging().delegate = self
