@@ -85,9 +85,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// 푸시 권한 물어보기
     private func requestNotificationPermission(){
+        var originalStatus: Bool = false
+        UNUserNotificationCenter.current().getNotificationSettings { setting in
+            originalStatus = setting.alertSetting == .enabled
+        }
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound, .badge], completionHandler: {didAllow, Error in
             if didAllow {
-                debugPrint("Push: 권한 허용")
+                if originalStatus == false {
+                    sendGAEvent(eventName: .noti_on, parameterValue: .noti_first_success)
+                }
             } else {
                 debugPrint("Push: 권한 거부")
             }
