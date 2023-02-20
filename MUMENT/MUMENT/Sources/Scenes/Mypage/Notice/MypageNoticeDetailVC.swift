@@ -23,7 +23,9 @@ final class MypageNoticeDetailVC: BaseVC {
         $0.backgroundColor = .mBgwhite
         $0.isEditable = false
         $0.contentInset = .zero
-        $0.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        $0.textContainerInset = .zero
+        $0.contentInset = .zero
+        $0.textContainer.lineFragmentPadding = 0
         $0.dataDetectorTypes = .link
     }
     
@@ -114,8 +116,8 @@ extension MypageNoticeDetailVC {
         }
         
         self.contentTextView.snp.makeConstraints {
-            $0.top.equalTo(self.titleView.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(self.titleView.snp.bottom).offset(20)
+            $0.leading.trailing.bottom.equalToSuperview().inset(20)
         }
     }
 }
