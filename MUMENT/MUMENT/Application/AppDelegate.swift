@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ====================================================
 """
             )
+            Analytics.setAnalyticsCollectionEnabled(false)
         case .qa:
             print(
 """
@@ -30,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 =====================================================
 """
             )
+            Analytics.setAnalyticsCollectionEnabled(false)
         case .release:
             print(
 """
@@ -38,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ======================================================
 """
             )
+            Analytics.setAnalyticsCollectionEnabled(true)
         }
         sleep(1)
         
