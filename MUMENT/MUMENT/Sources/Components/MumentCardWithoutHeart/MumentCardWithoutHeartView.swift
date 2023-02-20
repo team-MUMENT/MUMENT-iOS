@@ -66,6 +66,7 @@ class MumentCardWithoutHeartView: UIView {
     let createdAtLabel = UILabel().then {
         $0.textColor = .mGray2
         $0.font = .mumentC1R12
+        $0.sizeToFit()
     }
     
     // MARK: - Initialization
@@ -79,21 +80,35 @@ class MumentCardWithoutHeartView: UIView {
         super.init(coder: aDecoder)!
     }
     
-    // MARK: Methods
-    func setMumentForTodayData(_ cellData: MumentForTodayResponseModel){
-        profileImage.setImageUrl(cellData.todayMument.user.image)
-        writerNameLabel.text = cellData.todayMument.user.name
-        albumImage.setImageUrl(cellData.todayMument.music.image)
-        songTitleLabel.text = cellData.todayMument.music.name
-        artistLabel.text = cellData.todayMument.music.artist
-        contentsLabel.text = cellData.todayMument.content.replaceNewLineKeyword()
-        createdAtLabel.text = cellData.todayMument.date
-        isFirst = cellData.todayMument.isFirst
-        impressionTags = cellData.todayMument.impressionTag
-        feelingTags = cellData.todayMument.feelingTag
-        setCardTags(cellData.todayMument.cardTag)
-
-        self.contentsLabel.sizeToFit()
+    // MARK: - Function
+    func setContentLayout(text: String?) {
+        self.subviews.forEach {
+            if $0 == contentsLabel || $0 == createdAtLabel{
+                $0.removeFromSuperview()
+            }
+        }
+        if text == nil {
+            self.addSubviews([createdAtLabel])
+            createdAtLabel.snp.makeConstraints {
+                $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+                $0.top.equalTo(albumImage.snp.bottom).offset(8)
+                $0.height.equalTo(12)
+            }
+        }else {
+            self.addSubviews([contentsLabel, createdAtLabel])
+            createdAtLabel.snp.makeConstraints {
+                $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+                $0.top.equalTo(contentsLabel.snp.bottom).offset(10)
+                $0.height.equalTo(12)
+            }
+            
+            contentsLabel.snp.makeConstraints {
+                $0.top.equalTo(albumImage.snp.bottom).offset(10)
+                $0.left.equalTo(self.safeAreaLayoutGuide).inset(13)
+                $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
+                $0.bottom.equalTo(createdAtLabel.snp.top).offset(-12)
+            }
+        }
     }
     
     func setWithoutHeartData(_ cellData: StorageMumentModel) {
@@ -152,7 +167,7 @@ extension MumentCardWithoutHeartView {
     }
     
     func setDefaultLayout() {
-        self.addSubviews([writerInfoStackView,separatorView,albumImage,songInfoStackView,tagStackView,createdAtLabel, contentsLabel])
+        self.addSubviews([writerInfoStackView, separatorView, albumImage,songInfoStackView, tagStackView])
         
         writerInfoStackView.snp.makeConstraints {
             $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -183,19 +198,6 @@ extension MumentCardWithoutHeartView {
             $0.left.equalTo(albumImage.snp.right).offset(10)
             $0.top.equalTo(songInfoStackView.snp.bottom).offset(7)
             $0.height.equalTo(26)
-        }
-        
-        createdAtLabel.snp.makeConstraints {
-            $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-12)
-            $0.height.equalTo(9)
-        }
-        
-        contentsLabel.snp.makeConstraints {
-            $0.top.equalTo(albumImage.snp.bottom).offset(10)
-            $0.left.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
-            $0.bottom.equalTo(createdAtLabel.snp.top).offset(-12)
         }
         
         profileImage.snp.makeConstraints {
