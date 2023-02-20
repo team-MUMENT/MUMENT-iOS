@@ -50,7 +50,6 @@ final class NotificationVC: BaseVC {
         super.viewDidLoad()
         
         self.setLayout()
-        self.hideTabbar()
         self.setNotificationTV()
         self.setNaviViewAction()
     }
@@ -59,6 +58,12 @@ final class NotificationVC: BaseVC {
         super.viewDidAppear(animated)
         
         self.getNotificationList()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.hideTabbar()
     }
     
     // MARK: Methods

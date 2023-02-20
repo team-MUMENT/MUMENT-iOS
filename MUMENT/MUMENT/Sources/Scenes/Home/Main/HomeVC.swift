@@ -41,6 +41,7 @@ class HomeVC: BaseVC {
     
     /// timer를 View가 뜨기전에 시작해버리면 첫번째 배너가 이미 넘어가 버림
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         NotificationCenter.default.post(name: .sendViewState, object: true)
     }
     
