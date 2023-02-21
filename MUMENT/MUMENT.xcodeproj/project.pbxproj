@@ -174,6 +174,9 @@
 		C79CA73129A3D7F700DB40D5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = C79CA73029A3D7F700DB40D5 /* FirebaseMessaging */; };
 		C79CA73329A3D7F700DB40D5 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = C79CA73229A3D7F700DB40D5 /* FirebaseRemoteConfig */; };
 		C79CA73529A3D7F700DB40D5 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C79CA73429A3D7F700DB40D5 /* FirebaseRemoteConfigSwift */; };
+		C79CA73829A47B8100DB40D5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C79CA73729A47B8100DB40D5 /* Lottie */; };
+		C79CA73C29A47BB400DB40D5 /* heart_icn_lottie.json in Resources */ = {isa = PBXBuildFile; fileRef = C79CA73A29A47BB400DB40D5 /* heart_icn_lottie.json */; };
+		C79CA73D29A47BB400DB40D5 /* logo_lottie.json in Resources */ = {isa = PBXBuildFile; fileRef = C79CA73B29A47BB400DB40D5 /* logo_lottie.json */; };
 		C79CD44F2921BD4500DE4A47 /* SetProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */; };
 		C79CD4512921BF7200DE4A47 /* MumentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CD4502921BF7200DE4A47 /* MumentTextField.swift */; };
 		C7AE17D628872F3100A5E3FA /* StorageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17D528872F3100A5E3FA /* StorageEmptyView.swift */; };
@@ -413,6 +416,8 @@
 		C78B109F29408892002D2E54 /* GetBlockedUserListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockedUserListResponseModel.swift; sourceTree = "<group>"; };
 		C79CA71F29A3766700DB40D5 /* GAEventNameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAEventNameType.swift; sourceTree = "<group>"; };
 		C79CA72129A37EF100DB40D5 /* sendGAEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendGAEvent.swift; sourceTree = "<group>"; };
+		C79CA73A29A47BB400DB40D5 /* heart_icn_lottie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heart_icn_lottie.json; sourceTree = "<group>"; };
+		C79CA73B29A47BB400DB40D5 /* logo_lottie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logo_lottie.json; sourceTree = "<group>"; };
 		C79CD44E2921BD4400DE4A47 /* SetProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileVC.swift; sourceTree = "<group>"; };
 		C79CD4502921BF7200DE4A47 /* MumentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentTextField.swift; sourceTree = "<group>"; };
 		C7AE17D528872F3100A5E3FA /* StorageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageEmptyView.swift; sourceTree = "<group>"; };
@@ -511,6 +516,7 @@
 				C74EC447287593BF0068EB46 /* RxSwift in Frameworks */,
 				C79CA73329A3D7F700DB40D5 /* FirebaseRemoteConfig in Frameworks */,
 				4DA2E1C32918D3FB0037F5BD /* KakaoSDK in Frameworks */,
+				C79CA73829A47B8100DB40D5 /* Lottie in Frameworks */,
 				C79CA72729A3D7F700DB40D5 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				C79CA72D29A3D7F700DB40D5 /* FirebaseAuth in Frameworks */,
 				C74EC44C287594270068EB46 /* Alamofire in Frameworks */,
@@ -1006,6 +1012,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C79CA73929A47B8D00DB40D5 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				C79CA73A29A47BB400DB40D5 /* heart_icn_lottie.json */,
+				C79CA73B29A47BB400DB40D5 /* logo_lottie.json */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		C79CD44C2921AB3300DE4A47 /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1111,6 +1126,7 @@
 		C7BC6B4A2876ACC5008C75CE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C79CA73929A47B8D00DB40D5 /* Animations */,
 				C7BB53032875972700E0E889 /* Fonts */,
 				C74EC42228758D230068EB46 /* Assets.xcassets */,
 				C74EC434287592750068EB46 /* Colorsets.xcassets */,
@@ -1294,6 +1310,7 @@
 				C79CA73029A3D7F700DB40D5 /* FirebaseMessaging */,
 				C79CA73229A3D7F700DB40D5 /* FirebaseRemoteConfig */,
 				C79CA73429A3D7F700DB40D5 /* FirebaseRemoteConfigSwift */,
+				C79CA73729A47B8100DB40D5 /* Lottie */,
 			);
 			productName = MUMENT;
 			productReference = C74EC41628758D220068EB46 /* MUMENT.app */;
@@ -1331,6 +1348,7 @@
 				C74EC44A287594270068EB46 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				C79CA72329A3D7F700DB40D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C79CA73629A47B8100DB40D5 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = C74EC41728758D220068EB46 /* Products */;
 			projectDirPath = "";
@@ -1358,6 +1376,8 @@
 				C74EC42328758D230068EB46 /* Assets.xcassets in Resources */,
 				C7C0204A299D0DFF00761C8E /* Debug.xcconfig in Resources */,
 				4D585473291762B2003F5DF9 /* Splash.storyboard in Resources */,
+				C79CA73C29A47BB400DB40D5 /* heart_icn_lottie.json in Resources */,
+				C79CA73D29A47BB400DB40D5 /* logo_lottie.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1970,6 +1990,14 @@
 				kind = branch;
 			};
 		};
+		C79CA73629A47B8100DB40D5 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2062,6 +2090,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C79CA72329A3D7F700DB40D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseRemoteConfigSwift;
+		};
+		C79CA73729A47B8100DB40D5 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C79CA73629A47B8100DB40D5 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
