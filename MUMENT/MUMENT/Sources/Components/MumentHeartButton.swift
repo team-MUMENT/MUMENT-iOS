@@ -59,7 +59,7 @@ final class MumentHeartButton: UIButton {
     }
     
     func setIsSelected(_ isSelected: Bool) {
-        if isSelected {
+        if !isSelected {
             self.animationView.isHidden = true
             self.setImage(UIImage(named: "heart"), for: .normal)
         } else {
