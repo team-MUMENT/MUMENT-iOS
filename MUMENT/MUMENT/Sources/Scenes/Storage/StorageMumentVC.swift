@@ -165,7 +165,6 @@ final class StorageMumentVC: BaseVC {
         var date = 0
         
         if storageMumentData.count != 0 {
-            
             storageMumentData.forEach {
                 date = $0.year * 100 + $0.month
                 dates.append(date)
@@ -174,7 +173,7 @@ final class StorageMumentVC: BaseVC {
             /// date 배열을 중복제거하고 dateArray에 대입
             dateArray = dates.uniqued()
             dateArray.sort(by: >)
-            
+
             if dateArray.count == 0 {
                 dateArray = [1]
             }
@@ -236,7 +235,6 @@ extension StorageMumentVC: storageFilterDelegate {
             $0.height.equalTo(self.selectedTagsCVHeight)
         }
         self.selectedTagsCV.reloadData()
-
     }
 }
 
@@ -307,11 +305,8 @@ extension StorageMumentVC: UICollectionViewDataSource{
                                 self?.requestDeleteHeartLiked(mumentId: self?.storageMumentData[indexPath.row].id ?? 0, completion: { result in
                                     self?.storageMumentData[indexPath.row].isLiked = false
                                     self?.storageMumentData[indexPath.row].likeCount = result.likeCount
-                                    
                                     guard let targetCell = collectionView.cellForItem(at: indexPath) as? ListCVC else { return }
-                                    
                                     targetCell.defaultCardView.heartButton.setIsSelected(false)
-                                    
                                     listCell.defaultCardView.isLiked = false
                                     listCell.defaultCardView.heartCount = result.likeCount
                                 })
