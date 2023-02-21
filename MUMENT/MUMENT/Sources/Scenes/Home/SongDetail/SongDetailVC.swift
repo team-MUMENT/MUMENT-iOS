@@ -173,6 +173,9 @@ extension SongDetailVC: UITableViewDataSource {
                                 cell.mumentCard.isLiked = false
                                 cell.mumentCard.heartCount = result.likeCount
                                 
+                                guard let targetCell = tableView.cellForRow(at: indexPath) as? MumentCardBySongTVC else { return }
+                                targetCell.mumentCard.heartButton.setIsSelected(false)
+                                
                                 self?.reloadAllMuments()
                             })
                         } else {
@@ -182,6 +185,9 @@ extension SongDetailVC: UITableViewDataSource {
                                 
                                 cell.mumentCard.isLiked = true
                                 cell.mumentCard.heartCount = result.likeCount
+                                
+                                guard let targetCell = tableView.cellForRow(at: indexPath) as? MumentCardBySongTVC else { return }
+                                targetCell.mumentCard.heartButton.setIsSelected(true)
                                 
                                 self?.reloadAllMuments()
                             })
@@ -208,6 +214,9 @@ extension SongDetailVC: UITableViewDataSource {
                             cell.mumentCard.isLiked = false
                             cell.mumentCard.heartCount = result.likeCount
                             
+                            guard let targetCell = tableView.cellForRow(at: indexPath) as? MumentCardBySongTVC else { return }
+                            targetCell.mumentCard.heartButton.setIsSelected(false)
+                            
                             if self?.myMumentData?.id == self?.allMumentsData[indexPath.row].id {
                                 self?.myMumentData?.isLiked = false
                                 self?.myMumentData?.likeCount = result.likeCount
@@ -221,6 +230,9 @@ extension SongDetailVC: UITableViewDataSource {
                             self?.allMumentsData[indexPath.row].likeCount = result.likeCount
                             cell.mumentCard.isLiked = true
                             cell.mumentCard.heartCount = result.likeCount
+                            
+                            guard let targetCell = tableView.cellForRow(at: indexPath) as? MumentCardBySongTVC else { return }
+                            targetCell.mumentCard.heartButton.setIsSelected(true)
                             
                             if self?.myMumentData?.id == self?.allMumentsData[indexPath.row].id {
                                 self?.myMumentData?.isLiked = true
