@@ -41,7 +41,7 @@ final class SplashVC: BaseVC {
 extension SplashVC {
     private func setBackgroundImage(){
         let backgroundImageView = UIImageView()
-        backgroundImageView.image = UIImage(named: "splashImage")
+        backgroundImageView.image = UIImage(named: "splashBackgroundImage")
         backgroundImageView.contentMode = .scaleAspectFill
         self.view.addSubview(backgroundImageView)
         
