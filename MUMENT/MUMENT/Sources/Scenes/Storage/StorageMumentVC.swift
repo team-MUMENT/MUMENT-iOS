@@ -303,17 +303,22 @@ extension StorageMumentVC: UICollectionViewDataSource{
                         if let isLiked = self?.storageMumentData[indexPath.row].isLiked {
                             if isLiked {
                                 self?.requestDeleteHeartLiked(mumentId: self?.storageMumentData[indexPath.row].id ?? 0, completion: { result in
+                                    
                                     self?.storageMumentData[indexPath.row].isLiked = false
                                     self?.storageMumentData[indexPath.row].likeCount = result.likeCount
+                                    
                                     guard let targetCell = collectionView.cellForItem(at: indexPath) as? ListCVC else { return }
                                     targetCell.defaultCardView.heartButton.setIsSelected(false)
+                                    
                                     listCell.defaultCardView.isLiked = false
                                     listCell.defaultCardView.heartCount = result.likeCount
                                 })
                             } else {
                                 self?.requestPostHeartLiked(mumentId: self?.storageMumentData[indexPath.row].id ?? 0, completion: { result in
+                                    
                                     self?.storageMumentData[indexPath.row].isLiked = true
                                     self?.storageMumentData[indexPath.row].likeCount = result.likeCount
+                                    
                                     guard let targetCell = collectionView.cellForItem(at: indexPath) as? ListCVC else { return }
                                     targetCell.defaultCardView.heartButton.setIsSelected(true)
                                     
