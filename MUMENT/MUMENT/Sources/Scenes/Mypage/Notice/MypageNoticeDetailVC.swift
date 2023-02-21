@@ -23,7 +23,9 @@ final class MypageNoticeDetailVC: BaseVC {
         $0.backgroundColor = .mBgwhite
         $0.isEditable = false
         $0.contentInset = .zero
-        $0.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        $0.textContainerInset = .zero
+        $0.contentInset = .zero
+        $0.textContainer.lineFragmentPadding = 0
         $0.dataDetectorTypes = .link
     }
     
@@ -46,11 +48,8 @@ final class MypageNoticeDetailVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setLayout()
         self.setBackButton()
         self.setContentTextView()
-        self.setTitleView()
-        self.setContent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +89,7 @@ extension MypageNoticeDetailVC {
                     self.noticeData = result
                     self.setTitleView()
                     self.setContent()
+                    self.setLayout()
                 }
                 self.stopActivityIndicator()
             default:
@@ -111,14 +111,13 @@ extension MypageNoticeDetailVC {
         }
         
         self.titleView.snp.makeConstraints {
-            $0.top.equalTo(self.naviView.snp.bottom)
+            $0.top.equalTo(self.naviView.snp.bottom).offset(27)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(89)
         }
         
         self.contentTextView.snp.makeConstraints {
-            $0.top.equalTo(self.titleView.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(self.titleView.snp.bottom).offset(20)
+            $0.leading.trailing.bottom.equalToSuperview().inset(20)
         }
     }
 }
