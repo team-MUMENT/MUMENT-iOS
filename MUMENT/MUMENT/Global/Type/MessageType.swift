@@ -14,6 +14,9 @@ enum MessageType {
     case unabledMailApp
     case completedSendContactMail
     case failedSendContactMail
+    case deletedMumentTitle
+    case privateMumentTitle
+    case sorry
     case reportAlreadyBlockedUser
     case blockAlreadyBlockedUser
 }
@@ -41,9 +44,18 @@ extension MessageType {
         case .failedSendContactMail:
             return "메일 전송에 실패하였습니다. 다시 시도해 주세요."
             
+        case .deletedMumentTitle:
+            return "삭제된 뮤멘트입니다."
+            
+        case .privateMumentTitle:
+            return "비공개된 뮤멘트입니다."
+            
+        case .sorry:
+            return "이용에 불편을 드려 죄송합니다."
+            
         case .reportAlreadyBlockedUser:
             return "이미 차단된 유저입니다.\n신고가 정상적으로 접수되었습니다."
-        
+            
         case .blockAlreadyBlockedUser:
             return "이미 차단한 유저입니다."
         }
