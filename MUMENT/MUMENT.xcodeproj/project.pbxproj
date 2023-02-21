@@ -163,6 +163,7 @@
 		C77BB8A1298AC4A000C69E72 /* SetProfileResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77BB8A0298AC4A000C69E72 /* SetProfileResponseModel.swift */; };
 		C77BB8A3298AF08B00C69E72 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77BB8A2298AF08B00C69E72 /* UIImage+.swift */; };
 		C78B10A029408892002D2E54 /* GetBlockedUserListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78B109F29408892002D2E54 /* GetBlockedUserListResponseModel.swift */; };
+		C78D26C529A47FD50057A17A /* MumentHeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78D26C429A47FD50057A17A /* MumentHeartButton.swift */; };
 		C79CA72029A3766700DB40D5 /* GAEventNameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CA71F29A3766700DB40D5 /* GAEventNameType.swift */; };
 		C79CA72229A37EF100DB40D5 /* sendGAEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CA72129A37EF100DB40D5 /* sendGAEvent.swift */; };
 		C79CA72529A3D7F700DB40D5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C79CA72429A3D7F700DB40D5 /* FirebaseAnalytics */; };
@@ -414,6 +415,7 @@
 		C77BB8A0298AC4A000C69E72 /* SetProfileResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileResponseModel.swift; sourceTree = "<group>"; };
 		C77BB8A2298AF08B00C69E72 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		C78B109F29408892002D2E54 /* GetBlockedUserListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockedUserListResponseModel.swift; sourceTree = "<group>"; };
+		C78D26C429A47FD50057A17A /* MumentHeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentHeartButton.swift; sourceTree = "<group>"; };
 		C79CA71F29A3766700DB40D5 /* GAEventNameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAEventNameType.swift; sourceTree = "<group>"; };
 		C79CA72129A37EF100DB40D5 /* sendGAEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendGAEvent.swift; sourceTree = "<group>"; };
 		C79CA73A29A47BB400DB40D5 /* heart_icn_lottie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heart_icn_lottie.json; sourceTree = "<group>"; };
@@ -1195,6 +1197,7 @@
 				C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */,
 				E72A0672299268C900A42378 /* MumentSongViewNotiModel.swift */,
 				C74AFC3829969E170023CABD /* MumentActivityIndicatorView.swift */,
+				C78D26C429A47FD50057A17A /* MumentHeartButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1442,6 +1445,7 @@
 				C7612D4A2937B83D005F74B1 /* MypageNoticeTVC.swift in Sources */,
 				C7BC6B562876ADCD008C75CE /* CarouselModel.swift in Sources */,
 				4DF61685287C43CC00ECC421 /* UITableViewCell+.swift in Sources */,
+				C78D26C529A47FD50057A17A /* MumentHeartButton.swift in Sources */,
 				C767507F29407D8300F2D985 /* SetBlockedUserVC.swift in Sources */,
 				4D696CEF287978360060CE41 /* MumentsOfRevisitedTVC.swift in Sources */,
 				4DAD075E2946CF3800567625 /* DropDownMenuView.swift in Sources */,
