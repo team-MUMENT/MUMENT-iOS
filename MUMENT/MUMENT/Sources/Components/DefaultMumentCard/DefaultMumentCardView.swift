@@ -12,12 +12,7 @@ import Then
 class DefaultMumentCardView: MumentCardWithoutHeartView {
     
     // MARK: - Properties
-    private let heartButton = UIButton().then{
-        var configuration = UIButton.Configuration.plain()
-        configuration.imagePadding = 5
-        configuration.buttonSize = .small
-        $0.configuration = configuration
-    }
+    private let heartButton: MumentHeartButton = MumentHeartButton()
     
     private let privateLabel = UILabel().then {
         $0.font = .mumentC1R12
@@ -36,11 +31,7 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         }
     }
     
-    var isLiked: Bool = false{
-        didSet{
-            heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
-        }
-    }
+    var isLiked: Bool = false
     
     var mumentId: Int = 0
     var userId: String = ""
@@ -61,16 +52,18 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
     func setButtonActions(){
         heartButton.press {
             let previousState = self.isLiked
-            self.isLiked.toggle()
             if previousState {
                 self.heartCount -= 1
                 self.requestDeleteHeartLiked(mumentId: self.mumentId)
-            }else{
+            } else {
                 self.heartCount += 1
                 self.requestPostHeartLiked(mumentId: self.mumentId)
             }
+            self.heartButton.setIsSelected(!previousState)
+            self.isLiked.toggle()
         }
     }
+    
     func setDefaultData(_ cellData: StorageMumentModel){
         profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
@@ -87,16 +80,17 @@ class DefaultMumentCardView: MumentCardWithoutHeartView {
         if cellData.isPrivate {
             heartButton.isHidden = true
             privateLabel.isHidden = false
-        }else {
+        } else {
             privateLabel.isHidden = true
             heartButton.isHidden = false
             isLiked = cellData.isLiked
+            self.heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
             heartCount = cellData.likeCount
         }
         
         if contentsLabel.text == nil {
             contentsLabel.isHidden = true
-        }else {
+        } else {
             contentsLabel.isHidden = false
         }
     }
@@ -141,5 +135,3 @@ extension DefaultMumentCardView {
         }
     }
 }
-
-
