@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class DefaultMumentCardView: MumentCardWithoutHeartView {
+final class DefaultMumentCardView: MumentCardWithoutHeartView {
     
     // MARK: - Properties
     private let heartButton: MumentHeartButton = MumentHeartButton()
