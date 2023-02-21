@@ -76,10 +76,16 @@ final class SetNotificationVC: BaseVC {
     
     /// 앱 알림 설정을 시스템에서 받아오는 함수
     @objc private func checkNotificationStatus() {
+        let beforeStatus: Bool = self.isSystemNotiSettingOn
         UNUserNotificationCenter.current().getNotificationSettings { setting in
             self.isSystemNotiSettingOn = setting.alertSetting == .enabled
             DispatchQueue.main.async {
                 self.toggleButton.isSelected = self.isSystemNotiSettingOn
+                if beforeStatus == true && self.isSystemNotiSettingOn == false {
+                    sendGAEvent(eventName: .noti_off, parameterValue: .noti_turn_off_success)
+                } else if beforeStatus == false && self.isSystemNotiSettingOn == true {
+                    sendGAEvent(eventName: .noti_on, parameterValue: .noti_page_success)
+                }
             }
         }
     }

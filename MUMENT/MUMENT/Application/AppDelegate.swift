@@ -13,6 +13,10 @@ import KakaoSDKAuth
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // MARK: Firebase SDK 초기화
+        FirebaseApp.configure()
+        
         switch env() {
         case .debug:
             print(
@@ -22,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ====================================================
 """
             )
+            Analytics.setAnalyticsCollectionEnabled(false)
         case .qa:
             print(
 """
@@ -30,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 =====================================================
 """
             )
+            Analytics.setAnalyticsCollectionEnabled(false)
         case .release:
             print(
 """
@@ -38,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ======================================================
 """
             )
+            Analytics.setAnalyticsCollectionEnabled(true)
         }
         sleep(1)
         
@@ -48,9 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 원격 알림 등록
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
-        
-        // MARK: Firebase SDK 초기화
-        FirebaseApp.configure()
         
         /// 메시지 대리자 설정
         Messaging.messaging().delegate = self
@@ -81,9 +85,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// 푸시 권한 물어보기
     private func requestNotificationPermission(){
+        var originalStatus: Bool = false
+        UNUserNotificationCenter.current().getNotificationSettings { setting in
+            originalStatus = setting.alertSetting == .enabled
+        }
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound, .badge], completionHandler: {didAllow, Error in
             if didAllow {
-                debugPrint("Push: 권한 허용")
+                if originalStatus == false {
+                    sendGAEvent(eventName: .noti_on, parameterValue: .noti_first_success)
+                }
             } else {
                 debugPrint("Push: 권한 거부")
             }
