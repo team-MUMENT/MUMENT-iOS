@@ -8,19 +8,31 @@
 import UIKit
 import SnapKit
 import Then
+import Lottie
 
 final class SplashVC: BaseVC {
+    
+    // MARK: Components
+    private let animationView: LottieAnimationView = {
+        let view: LottieAnimationView = LottieAnimationView(name: "logo_lottie")
+        view.loopMode = .playOnce
+        view.animationSpeed = 0.9
+        return view
+    }()
     
     // MARK: - Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
-        setBackgroundImage()
+        
+        self.setBackgroundImage()
+        self.setAnimationViewLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-            self.decideNextVC()
+        
+        self.animationView.play() { [weak self] _ in
+            self?.decideNextVC()
         }
     }
     
@@ -47,6 +59,16 @@ extension SplashVC {
         
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(-3)
+        }
+    }
+    
+    private func setAnimationViewLayout() {
+        self.view.addSubview(animationView)
+        
+        self.animationView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(101.adjustedH)
+            make.height.equalTo(111.adjustedH)
         }
     }
 }
