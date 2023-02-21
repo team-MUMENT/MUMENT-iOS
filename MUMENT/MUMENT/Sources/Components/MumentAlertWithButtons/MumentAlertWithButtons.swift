@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MumentAlertWithButtons: BaseVC{
+final class MumentAlertWithButtons: BaseVC {
     
     enum MumentAlertButtonType {
         case one
