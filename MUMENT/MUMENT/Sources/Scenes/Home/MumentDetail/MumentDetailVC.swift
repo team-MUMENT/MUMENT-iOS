@@ -274,6 +274,30 @@ extension MumentDetailVC {
                     self.userId = result.user.id
                 }
                 self.stopActivityIndicator()
+            case .requestErr(let statusCode, _):
+                if let status = statusCode as? Int {
+                    let mumentAlert: MumentAlertWithButtons = MumentAlertWithButtons(titleType: .containedSubTitleLabel, buttonType: .one)
+                    
+                    mumentAlert.OKButton.press { [weak self] in
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                    
+                    if status == 400 {
+                        mumentAlert.setTitleSubTitle(
+                            title: MessageType.privateMumentTitle.message,
+                            subTitle: MessageType.sorry.message
+                        )
+                        self.present(mumentAlert, animated: true)
+                    } else if status == 404 {
+                        mumentAlert.setTitleSubTitle(
+                            title: MessageType.deletedMumentTitle.message,
+                            subTitle: MessageType.sorry.message
+                        )
+                        self.present(mumentAlert, animated: true)
+                    } else {
+                        self.makeAlert(title: MessageType.networkError.message)
+                    }
+                }
             default:
                 self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)

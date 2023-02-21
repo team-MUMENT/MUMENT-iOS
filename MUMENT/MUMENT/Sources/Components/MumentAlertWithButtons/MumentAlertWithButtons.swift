@@ -9,8 +9,12 @@ import UIKit
 import SnapKit
 import Then
 
-
-class MumentAlertWithButtons: BaseVC{
+final class MumentAlertWithButtons: BaseVC {
+    
+    enum MumentAlertButtonType {
+        case onlyOK
+        case cancelAndOK
+    }
     
     // MARK: - Properties
     private let alertView = UIView().then {
@@ -54,16 +58,18 @@ class MumentAlertWithButtons: BaseVC{
         $0.setTitleColor(.mPurple1, for: .normal)
     }
     
-    var titleType: MumentAlertTitleType?
-    var alertHeight: CGFloat?
+    private var titleType: MumentAlertTitleType?
+    private var buttonType: MumentAlertButtonType = .cancelAndOK
+    private var alertHeight: CGFloat?
     private var okTitle: String? = nil
     
     // MARK: - Initialization
-    init(titleType: MumentAlertTitleType) {
+    init(titleType: MumentAlertTitleType, buttonType: MumentAlertButtonType = .cancelAndOK) {
         super.init(nibName: nil, bundle: nil)
         
         setPresentation()
         self.titleType = titleType
+        self.buttonType = buttonType
     }
     
     init(titleType: MumentAlertTitleType, OKTitle: String) {
@@ -81,12 +87,12 @@ class MumentAlertWithButtons: BaseVC{
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-        setButtonAction()
-        setDefaultLayout()
         
-        setButtonStackViewLayout()
-        setAlertLayout()
+        self.setUI()
+        self.setButtonAction()
+        self.setDefaultLayout()
+        
+        self.setAlertLayout()
         
         switch self.titleType {
         case .onlyTitleLabel:
@@ -95,6 +101,13 @@ class MumentAlertWithButtons: BaseVC{
             self.setContainedSubTitleContentStackViewLayout()
         case .none:
             self.setOnlyTitleContentStackViewLayout()
+        }
+        
+        switch self.buttonType {
+        case .onlyOK:
+            self.setOnlyOKButtonLayout()
+        case .cancelAndOK:
+            self.setButtonStackViewLayout()
         }
     }
     
@@ -111,7 +124,7 @@ class MumentAlertWithButtons: BaseVC{
         subTitleLabel.sizeToFit()
     }
     
-    func setPresentation() {
+    private func setPresentation() {
         self.modalPresentationStyle = .overFullScreen
         self.modalTransitionStyle = .crossDissolve
     }
@@ -173,5 +186,9 @@ extension MumentAlertWithButtons {
     
     private func setButtonStackViewLayout() {
         buttonStackView.addArrangedSubviews([cancelButton, OKButton])
+    }
+    
+    private func setOnlyOKButtonLayout() {
+        buttonStackView.addArrangedSubviews([OKButton])
     }
 }
