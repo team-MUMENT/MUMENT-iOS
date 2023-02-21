@@ -15,6 +15,7 @@ enum MessageType {
     case completedSendContactMail
     case failedSendContactMail
     case reportAlreadyBlockedUser
+    case blockAlreadyBlockedUser
 }
 
 extension MessageType {
@@ -42,6 +43,9 @@ extension MessageType {
             
         case .reportAlreadyBlockedUser:
             return "이미 차단된 유저입니다.\n신고가 정상적으로 접수되었습니다."
+        
+        case .blockAlreadyBlockedUser:
+            return "이미 차단한 유저입니다."
         }
     }
 }
