@@ -12,8 +12,8 @@ import Then
 final class MumentAlertWithButtons: BaseVC {
     
     enum MumentAlertButtonType {
-        case one
-        case two
+        case onlyOK
+        case cancelAndOK
     }
     
     // MARK: - Properties
@@ -59,12 +59,12 @@ final class MumentAlertWithButtons: BaseVC {
     }
     
     private var titleType: MumentAlertTitleType?
-    private var buttonType: MumentAlertButtonType = .two
+    private var buttonType: MumentAlertButtonType = .cancelAndOK
     private var alertHeight: CGFloat?
     private var okTitle: String? = nil
     
     // MARK: - Initialization
-    init(titleType: MumentAlertTitleType, buttonType: MumentAlertButtonType = .two) {
+    init(titleType: MumentAlertTitleType, buttonType: MumentAlertButtonType = .cancelAndOK) {
         super.init(nibName: nil, bundle: nil)
         
         setPresentation()
@@ -104,9 +104,9 @@ final class MumentAlertWithButtons: BaseVC {
         }
         
         switch self.buttonType {
-        case .one:
+        case .onlyOK:
             self.setOnlyOKButtonLayout()
-        case .two:
+        case .cancelAndOK:
             self.setButtonStackViewLayout()
         }
     }
