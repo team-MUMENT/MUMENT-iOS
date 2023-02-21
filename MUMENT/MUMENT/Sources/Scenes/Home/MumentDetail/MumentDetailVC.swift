@@ -276,7 +276,7 @@ extension MumentDetailVC {
                 self.stopActivityIndicator()
             case .requestErr(let statusCode, _):
                 if let status = statusCode as? Int {
-                    let mumentAlert: MumentAlertWithButtons = MumentAlertWithButtons(titleType: .containedSubTitleLabel, buttonType: .one)
+                    let mumentAlert: MumentAlertWithButtons = MumentAlertWithButtons(titleType: .containedSubTitleLabel, buttonType: .onlyOK)
                     
                     mumentAlert.OKButton.press { [weak self] in
                         self?.navigationController?.popViewController(animated: true)
