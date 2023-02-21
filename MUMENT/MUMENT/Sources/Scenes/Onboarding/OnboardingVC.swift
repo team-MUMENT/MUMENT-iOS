@@ -46,6 +46,7 @@ final class OnboardingVC: BaseVC {
         backgroundImageCV.register(OnboardingCVC.self, forCellWithReuseIdentifier: OnboardingCVC.className)
         backgroundImageCV.showsHorizontalScrollIndicator = false
         backgroundImageCV.isPagingEnabled = true
+        backgroundImageCV.bounces = false
         
         CVFlowLayout.scrollDirection = .horizontal
         CVFlowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
