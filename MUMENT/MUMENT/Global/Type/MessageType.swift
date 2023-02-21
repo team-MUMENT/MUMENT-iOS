@@ -17,6 +17,8 @@ enum MessageType {
     case deletedMumentTitle
     case privateMumentTitle
     case sorry
+    case reportAlreadyBlockedUser
+    case blockAlreadyBlockedUser
 }
 
 extension MessageType {
@@ -50,6 +52,12 @@ extension MessageType {
             
         case .sorry:
             return "이용에 불편을 드려 죄송합니다."
+            
+        case .reportAlreadyBlockedUser:
+            return "이미 차단된 유저입니다.\n신고가 정상적으로 접수되었습니다."
+            
+        case .blockAlreadyBlockedUser:
+            return "이미 차단한 유저입니다."
         }
     }
 }

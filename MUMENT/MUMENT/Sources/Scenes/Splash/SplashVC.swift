@@ -8,19 +8,32 @@
 import UIKit
 import SnapKit
 import Then
+import Lottie
 
 final class SplashVC: BaseVC {
+    
+    // MARK: Components
+    private let animationView: LottieAnimationView = {
+        let view: LottieAnimationView = LottieAnimationView(name: "logo_lottie")
+        view.loopMode = .playOnce
+        view.animationSpeed = 0.9
+        return view
+    }()
     
     // MARK: - Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
-        setBackgroundImage()
+        
+        self.setBackgroundImage()
+        self.setAnimationViewLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-            self.decideNextVC()
+        
+        self.animationView.play() { [weak self] _ in
+            self?.requestNotificationPermission()
+            self?.decideNextVC()
         }
     }
     
@@ -35,18 +48,46 @@ final class SplashVC: BaseVC {
             requestTokenRenewal()
         }
     }
+    
+    /// 푸시 권한 물어보기
+    private func requestNotificationPermission(){
+        var originalStatus: Bool = false
+        UNUserNotificationCenter.current().getNotificationSettings { setting in
+            originalStatus = setting.alertSetting == .enabled
+        }
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound, .badge], completionHandler: {didAllow, Error in
+            if didAllow {
+                if originalStatus == false {
+                    sendGAEvent(eventName: .noti_on, parameterValue: .noti_first_success)
+                }
+            } else {
+                debugPrint("Push: 권한 거부")
+            }
+        })
+    }
 }
 
 // MARK: - UI
 extension SplashVC {
     private func setBackgroundImage(){
         let backgroundImageView = UIImageView()
-        backgroundImageView.image = UIImage(named: "splashImage")
+        backgroundImageView.image = UIImage(named: "splashBackgroundImage")
         backgroundImageView.contentMode = .scaleAspectFill
         self.view.addSubview(backgroundImageView)
         
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(-3)
+        }
+    }
+    
+    private func setAnimationViewLayout() {
+        self.view.addSubview(animationView)
+        
+        self.animationView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(101.adjustedH)
+            make.height.equalTo(111.adjustedH)
         }
     }
 }
