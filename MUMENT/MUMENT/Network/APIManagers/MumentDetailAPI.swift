@@ -12,7 +12,7 @@ class MumentDetailAPI: BaseAPI {
     
     private override init() { }
     
-    /// [GET] 곡 정보, 내가 기록한 뮤멘트
+    /// [GET] 뮤멘트 상세보기
     func getMumentDetail(
         mumentId: Int,
         completion: @escaping (NetworkResult<Any>
