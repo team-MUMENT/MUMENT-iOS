@@ -14,6 +14,9 @@ enum MessageType {
     case unabledMailApp
     case completedSendContactMail
     case failedSendContactMail
+    case deletedMumentTitle
+    case privateMumentTitle
+    case sorry
 }
 
 extension MessageType {
@@ -38,6 +41,15 @@ extension MessageType {
             
         case .failedSendContactMail:
             return "메일 전송에 실패하였습니다. 다시 시도해 주세요."
+            
+        case .deletedMumentTitle:
+            return "삭제된 뮤멘트입니다."
+            
+        case .privateMumentTitle:
+            return "비공개된 뮤멘트입니다."
+            
+        case .sorry:
+            return "이용에 불편을 드려 죄송합니다."
         }
     }
 }
