@@ -12,7 +12,7 @@ final class ListCVC: UICollectionViewCell {
     // MARK: - Properties
    var withoutHeartData: [MumentCardWithoutHeartModel] = MumentCardWithoutHeartModel.sampleData
     
-    private let defaultCardView = DefaultMumentCardView()
+    let defaultCardView = DefaultMumentCardView()
     private let withoutHeartCardView = MumentCardWithoutHeartView()
     
     // MARK: - Initialization
