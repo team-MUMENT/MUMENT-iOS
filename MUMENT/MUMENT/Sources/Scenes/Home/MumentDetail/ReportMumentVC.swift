@@ -52,7 +52,7 @@ final class ReportMumentVC: BaseVC {
     private var isEtcChecked = false
     
     private var heightOfKeyBoard: CGFloat = 0
-
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +86,7 @@ final class ReportMumentVC: BaseVC {
         if #available(iOS 15, *) {
             reportMumentTV.sectionHeaderTopPadding = 0
         }
-        /// 키보드 처리 
+        /// 키보드 처리
         self.hideKeyboardWhenTappedAround()
     }
     
@@ -172,7 +172,7 @@ extension ReportMumentVC: UITableViewDataSource, UITableViewDelegate {
             return .leastNormalMagnitude
         }
     }
-
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
         case 0:
@@ -300,7 +300,7 @@ extension ReportMumentVC {
                         
                     }
                 }
-                default:
+            default:
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
@@ -324,6 +324,25 @@ extension ReportMumentVC {
                         beforePreviousVC.viewWillAppear(true)
                     }
                     
+                }
+            case .requestErr(let statusCode, _):
+                if let statusCode = statusCode as? Int {
+                    if statusCode == 400 {
+                        
+                        if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                            navigationController.popViewController(animated: false)
+                            
+                            if let previousNC = previousVC.navigationController as? BaseNC, let beforePreviousVC = previousNC.previousViewController as? BaseVC {
+                                previousNC.popViewController(animated: true)
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100)) {
+                                    beforePreviousVC.makeAlert(title: MessageType.reportAlreadyBlockedUser.message)
+                                }
+                                beforePreviousVC.viewWillAppear(true)
+                            }
+                            
+                        }
+                        
+                    }
                 }
             default:
                 if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
