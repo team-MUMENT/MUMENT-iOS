@@ -26,12 +26,7 @@ class MumentCardBySongView: UIView {
         $0.sizeToFit()
     }
     
-    let heartButton = UIButton().then{
-        var configuration = UIButton.Configuration.plain()
-        configuration.imagePadding = 5
-        configuration.buttonSize = .small
-        $0.configuration = configuration
-    }
+    let heartButton: MumentHeartButton = MumentHeartButton()
     
     let attributes: [NSAttributedString.Key: Any] = [
         .font: UIFont.mumentC1R12,
@@ -75,11 +70,8 @@ class MumentCardBySongView: UIView {
         $0.textColor = .mGray1
     }
     
-    var isLiked: Bool = false{
-        didSet{
-            heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
-        }
-    }
+    var isLiked: Bool = false
+    
     private var previousLike = false
     var mumentId: Int = 0
     var userId: Int = 0
@@ -111,10 +103,11 @@ class MumentCardBySongView: UIView {
         if cellData.isPrivate {
             heartButton.isHidden = true
             privateLabel.isHidden = false
-        }else {
+        } else {
             privateLabel.isHidden = true
             heartButton.isHidden = false
             isLiked = cellData.isLiked
+            self.heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
             heartCount = cellData.likeCount
         }
         
@@ -134,10 +127,11 @@ class MumentCardBySongView: UIView {
         if cellData.isPrivate {
             heartButton.isHidden = true
             privateLabel.isHidden = false
-        }else {
+        } else {
             privateLabel.isHidden = true
             heartButton.isHidden = false
             isLiked = cellData.isLiked
+            self.heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
             heartCount = cellData.likeCount
         }
         
@@ -157,10 +151,11 @@ class MumentCardBySongView: UIView {
         if cellData.isPrivate {
             heartButton.isHidden = true
             privateLabel.isHidden = false
-        }else {
+        } else {
             privateLabel.isHidden = true
             heartButton.isHidden = false
             isLiked = cellData.isLiked
+            self.heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
             heartCount = cellData.likeCount
         }
         

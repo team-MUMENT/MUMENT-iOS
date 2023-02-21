@@ -120,6 +120,9 @@ extension MumentHistoryVC: UITableViewDataSource {
                             self?.historyData[indexPath.row].isLiked = false
                             self?.historyData[indexPath.row].likeCount = result.likeCount
                             
+                            guard let targetCell = tableView.cellForRow(at: indexPath) as? MumentCardBySongTVC else { return }
+                            targetCell.mumentCard.heartButton.setIsSelected(false)
+                            
                             cell.mumentCard.isLiked = false
                             cell.mumentCard.heartCount = result.likeCount
                             
@@ -128,6 +131,9 @@ extension MumentHistoryVC: UITableViewDataSource {
                         self?.requestPostHeartLiked(mumentId: self?.historyData[indexPath.row].id ?? 0, completion: { result in
                             self?.historyData[indexPath.row].isLiked = true
                             self?.historyData[indexPath.row].likeCount = result.likeCount
+                            
+                            guard let targetCell = tableView.cellForRow(at: indexPath) as? MumentCardBySongTVC else { return }
+                            targetCell.mumentCard.heartButton.setIsSelected(true)
                             
                             cell.mumentCard.isLiked = true
                             cell.mumentCard.heartCount = result.likeCount
