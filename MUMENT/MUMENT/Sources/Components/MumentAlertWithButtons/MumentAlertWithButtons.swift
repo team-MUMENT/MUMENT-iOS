@@ -9,8 +9,12 @@ import UIKit
 import SnapKit
 import Then
 
-
 class MumentAlertWithButtons: BaseVC{
+    
+    enum MumentAlertButtonType {
+        case one
+        case two
+    }
     
     // MARK: - Properties
     private let alertView = UIView().then {
@@ -55,15 +59,17 @@ class MumentAlertWithButtons: BaseVC{
     }
     
     var titleType: MumentAlertTitleType?
+    var buttonType: MumentAlertButtonType = .two
     var alertHeight: CGFloat?
     private var okTitle: String? = nil
     
     // MARK: - Initialization
-    init(titleType: MumentAlertTitleType) {
+    init(titleType: MumentAlertTitleType, buttonType: MumentAlertButtonType = .two) {
         super.init(nibName: nil, bundle: nil)
         
         setPresentation()
         self.titleType = titleType
+        self.buttonType = buttonType
     }
     
     init(titleType: MumentAlertTitleType, OKTitle: String) {
@@ -81,12 +87,12 @@ class MumentAlertWithButtons: BaseVC{
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-        setButtonAction()
-        setDefaultLayout()
         
-        setButtonStackViewLayout()
-        setAlertLayout()
+        self.setUI()
+        self.setButtonAction()
+        self.setDefaultLayout()
+        
+        self.setAlertLayout()
         
         switch self.titleType {
         case .onlyTitleLabel:
@@ -95,6 +101,13 @@ class MumentAlertWithButtons: BaseVC{
             self.setContainedSubTitleContentStackViewLayout()
         case .none:
             self.setOnlyTitleContentStackViewLayout()
+        }
+        
+        switch self.buttonType {
+        case .one:
+            self.setOnlyOKButtonLayout()
+        case .two:
+            self.setButtonStackViewLayout()
         }
     }
     
@@ -173,5 +186,9 @@ extension MumentAlertWithButtons {
     
     private func setButtonStackViewLayout() {
         buttonStackView.addArrangedSubviews([cancelButton, OKButton])
+    }
+    
+    private func setOnlyOKButtonLayout() {
+        buttonStackView.addArrangedSubviews([OKButton])
     }
 }
