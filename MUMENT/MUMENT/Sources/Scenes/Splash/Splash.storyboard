@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashImage" translatesAutoresizingMaskIntoConstraints="NO" id="iaS-HR-Iqd">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="iaS-HR-Iqd">
                                 <rect key="frame" x="-3" y="-3" width="396" height="850"/>
                             </imageView>
                         </subviews>
@@ -39,7 +39,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splashImage" width="375.33334350585938" height="812"/>
+        <image name="splashBackgroundImage" width="375" height="812"/>
         <namedColor name="mPurple1">
             <color red="0.52899998426437378" green="0.17299999296665192" blue="0.99599999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
