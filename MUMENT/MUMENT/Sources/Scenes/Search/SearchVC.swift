@@ -240,6 +240,9 @@ extension SearchVC: UITableViewDelegate {
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             } else {
                 self.recentSearchData.append(searchResultData[indexPath.row])
+                if self.recentSearchData.count > 20 {
+                    self.recentSearchData.remove(atOffsets: IndexSet(0...self.recentSearchData.count - 21))
+                }
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             }
         }
