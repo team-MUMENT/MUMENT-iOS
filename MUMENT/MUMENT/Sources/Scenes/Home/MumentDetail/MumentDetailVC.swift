@@ -315,7 +315,7 @@ extension MumentDetailVC {
                         if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
                             
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
-                                previousVC.showToastMessage(message: "이미 차단한 유저입니다.", color: .black)
+                                previousVC.makeAlert(title: MessageType.blockAlreadyBlockedUser.message)
                                 self.stopActivityIndicator()
                             }
                             navigationController.popViewController(animated: true)
