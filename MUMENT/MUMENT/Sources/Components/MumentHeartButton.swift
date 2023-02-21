@@ -70,8 +70,8 @@ final class MumentHeartButton: UIButton {
     private func setLayout() {
         guard let heartImageView = self.imageView else { return }
         self.animationView.frame = heartImageView.frame
-        self.animationView.frame.size.width = self.animationView.frame.size.width * 2.27
-        self.animationView.frame.size.height = self.animationView.frame.size.height * 2.27
+        self.animationView.frame.size.width *= 2.27
+        self.animationView.frame.size.height *= 2.27
         self.animationView.center = heartImageView.center
         
         self.addSubview(animationView)
