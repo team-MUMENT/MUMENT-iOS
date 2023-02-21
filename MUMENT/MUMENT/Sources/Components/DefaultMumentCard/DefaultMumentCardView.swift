@@ -12,58 +12,33 @@ import Then
 final class DefaultMumentCardView: MumentCardWithoutHeartView {
     
     // MARK: - Properties
-    private let heartButton: MumentHeartButton = MumentHeartButton()
-    
+    let heartButton: MumentHeartButton = MumentHeartButton()
     private let privateLabel = UILabel().then {
         $0.font = .mumentC1R12
         $0.text = "비밀글"
         $0.textColor = .mGray1
     }
-    
     let attributes: [NSAttributedString.Key: Any] = [
         .font: UIFont.mumentC1R12,
         .foregroundColor: UIColor.mGray1
     ]
-    
     var heartCount: Int = 0 {
         didSet{
             heartButton.setAttributedTitle(NSAttributedString(string: "\(heartCount)",attributes: attributes), for: .normal)
         }
     }
-    
     var isLiked: Bool = false
-    
     var mumentId: Int = 0
-    var userId: String = ""
-
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setButtonActions()
         self.backgroundColor = .mBgwhite
         setLayout()
     }
-    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    //MARK: - Functions
-    func setButtonActions(){
-        heartButton.press {
-            let previousState = self.isLiked
-            if previousState {
-                self.heartCount -= 1
-                self.requestDeleteHeartLiked(mumentId: self.mumentId)
-            } else {
-                self.heartCount += 1
-                self.requestPostHeartLiked(mumentId: self.mumentId)
-            }
-            self.heartButton.setIsSelected(!previousState)
-            self.isLiked.toggle()
-        }
-    }
-    
+    // MARK: - Functions
     func setDefaultData(_ cellData: StorageMumentModel){
         profileImage.setImageUrl(cellData.user.image ?? APIConstants.defaultProfileImageURL)
         writerNameLabel.text = cellData.user.name
@@ -104,34 +79,9 @@ extension DefaultMumentCardView {
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(5)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(9)
         }
-        
         privateLabel.snp.updateConstraints {
             $0.right.equalTo(self.safeAreaLayoutGuide).inset(13)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(15)
-        }
-    }
-}
-
-extension DefaultMumentCardView {
-    private func requestPostHeartLiked(mumentId: Int) {
-        LikeAPI.shared.postHeartLiked(mumentId: mumentId) { networkResult in
-            switch networkResult {
-            case .success: break
-            default:
-                print("LikeAPI.shared.postHeartLiked")
-                return
-            }
-        }
-    }
-    
-    private func requestDeleteHeartLiked(mumentId: Int) {
-        LikeAPI.shared.deleteHeartLiked(mumentId: mumentId) { networkResult in
-            switch networkResult {
-            case .success: break
-            default:
-                print("LikeAPI.shared.deleteHeartLiked")
-                return
-            }
         }
     }
 }
