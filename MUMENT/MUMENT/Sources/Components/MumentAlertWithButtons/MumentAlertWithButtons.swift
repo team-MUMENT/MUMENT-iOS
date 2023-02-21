@@ -58,9 +58,9 @@ class MumentAlertWithButtons: BaseVC{
         $0.setTitleColor(.mPurple1, for: .normal)
     }
     
-    var titleType: MumentAlertTitleType?
-    var buttonType: MumentAlertButtonType = .two
-    var alertHeight: CGFloat?
+    private var titleType: MumentAlertTitleType?
+    private var buttonType: MumentAlertButtonType = .two
+    private var alertHeight: CGFloat?
     private var okTitle: String? = nil
     
     // MARK: - Initialization
@@ -124,7 +124,7 @@ class MumentAlertWithButtons: BaseVC{
         subTitleLabel.sizeToFit()
     }
     
-    func setPresentation() {
+    private func setPresentation() {
         self.modalPresentationStyle = .overFullScreen
         self.modalTransitionStyle = .crossDissolve
     }
