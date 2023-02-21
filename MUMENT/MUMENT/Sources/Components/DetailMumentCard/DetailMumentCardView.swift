@@ -60,10 +60,7 @@ final class DetailMumentCardView: UIView {
         $0.axis = .horizontal
         $0.spacing = 5
     }
-    private let heartButton: UIButton = UIButton().then {
-        $0.configuration = .plain()
-        $0.configuration?.buttonSize = .small
-    }
+    private let heartButton: MumentHeartButton = MumentHeartButton()
     private let likedUserButton: UIButton = UIButton()
     
     // MARK: - Properties
@@ -81,11 +78,7 @@ final class DetailMumentCardView: UIView {
         $0.configuration = .plain()
         $0.configuration?.image = UIImage(named: "instagram")
     }
-    private var isLiked: Bool = false {
-        didSet{
-            heartButton.setImage(isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
-        }
-    }
+    private var isLiked: Bool = false
     
     private let privateLabel = UILabel().then {
         $0.font = .mumentC1R12
@@ -117,6 +110,7 @@ final class DetailMumentCardView: UIView {
         contentsLabel.text = cellData.content?.replaceNewLineKeyword()
         createdAtLabel.text = cellData.createdAt
         isLiked = cellData.isLiked
+        self.heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         heartCount = cellData.likeCount
         self.mumentId = mumentId
         songInfoView.setData(musicData)
@@ -182,16 +176,17 @@ final class DetailMumentCardView: UIView {
     private func setButtonActions() {
         heartButton.press {
             let previousState = self.isLiked
-            self.isLiked.toggle()
             if previousState {
                 self.heartCount -= 1
                 self.requestDeleteHeartLiked(mumentId: self.mumentId)
-            }else{
+            } else {
                 self.heartCount += 1
                 self.requestPostHeartLiked(mumentId: self.mumentId)
             }
+            self.heartButton.setIsSelected(!previousState)
+            self.isLiked.toggle()
         }
-
+        
         likedUserButton.press {
             if self.heartCount > 0 {
                 self.delegate?.pushToLikedUserListVC()

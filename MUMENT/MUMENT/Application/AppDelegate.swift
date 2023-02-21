@@ -46,11 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
             Analytics.setAnalyticsCollectionEnabled(true)
         }
-        sleep(1)
         
         // 네이티브 앱 키(카카오 디벨로퍼 계정에서 제공)를 사용해 iOS SDK를 초기화합니다.
         KakaoSDK.initSDK(appKey: Environment.KAKAO_NATIVE_APP_KEY)
-        self.requestNotificationPermission()
         
         // 원격 알림 등록
         UNUserNotificationCenter.current().delegate = self
@@ -81,24 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-    }
-    
-    /// 푸시 권한 물어보기
-    private func requestNotificationPermission(){
-        var originalStatus: Bool = false
-        UNUserNotificationCenter.current().getNotificationSettings { setting in
-            originalStatus = setting.alertSetting == .enabled
-        }
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound, .badge], completionHandler: {didAllow, Error in
-            if didAllow {
-                if originalStatus == false {
-                    sendGAEvent(eventName: .noti_on, parameterValue: .noti_first_success)
-                }
-            } else {
-                debugPrint("Push: 권한 거부")
-            }
-        })
     }
     
     /// APN 토큰과 등록 토큰 매핑
