@@ -20,7 +20,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         $0.backgroundColor = .mBgwhite
     }
     private let mumentCardView = DetailMumentCardView()
-    private let historyButton = UIButton().then{
+    private let historyButton = UIButton().then {
         $0.makeRounded(cornerRadius: 11)
         $0.setBackgroundImage(UIImage(named:"history_btn"), for: .normal)
         $0.layer.cornerRadius = 10
@@ -46,6 +46,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     private let othersMumentActionSheetVC = MumentActionSheetVC(actionName: ["뮤멘트 신고하기", "유저 차단하기"])
     private var reportCategory: [Int] = [3, 4]
     private var reportContent: String = ""
+    private var shouldSendToSongDetail: Bool = false
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -72,18 +73,18 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         }
     }
     
-    func setData(mumentId: Int, musicData: MusicDTO) {
+    func setData(mumentId: Int, musicData: MusicDTO, isOnlyOneMument: Bool = false) {
         self.mumentId = mumentId
         self.musicData = musicData
+        self.shouldSendToSongDetail = isOnlyOneMument
     }
     
-    private func setClickEventHandlers(){
-        
-        navigationBarView.backButton.press{
+    private func setClickEventHandlers() {
+        navigationBarView.backButton.press {
             self.navigationController?.popViewController(animated: true)
         }
         
-        historyButton.press{
+        historyButton.press {
             let mumentHistoryVC = MumentHistoryVC()
             mumentHistoryVC.setHistoryData(userId: self.userId, musicData: self.musicData)
             self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
@@ -142,7 +143,20 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                         
                         mumentAlert.OKButton.press {
                             self.requestDeleteMument()
-                            self.navigationController?.popViewController(animated: true)
+                            if self.shouldSendToSongDetail {
+                                if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
+                                    navigationController.popViewController(animated: false)
+                                    
+                                    if let previousNC = previousVC.navigationController as? BaseNC {
+                                        let songDetailVC = SongDetailVC()
+                                        songDetailVC.setDetailData(userId: self.userId,
+                                                                   musicData: self.musicData)
+                                        previousNC.pushViewController(songDetailVC, animated: true)
+                                    }
+                                }
+                            } else {
+                                self.navigationController?.popViewController(animated: true)
+                            }
                         }
                     default: break
                     }
