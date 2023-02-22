@@ -14,10 +14,11 @@ struct StorageMumentModel {
     let isFirst: Bool
     let allCardTag,cardTag: [Int]
     let content: String?
-    let isPrivate, isLiked: Bool
+    let isPrivate: Bool
+    var isLiked: Bool
     let createdAt: String
     let year, month: Int
-    let likeCount: Int
+    var likeCount: Int
 }
 
 // MARK: - User

@@ -165,7 +165,6 @@ final class StorageMumentVC: BaseVC {
         var date = 0
         
         if storageMumentData.count != 0 {
-            
             storageMumentData.forEach {
                 date = $0.year * 100 + $0.month
                 dates.append(date)
@@ -174,7 +173,7 @@ final class StorageMumentVC: BaseVC {
             /// date 배열을 중복제거하고 dateArray에 대입
             dateArray = dates.uniqued()
             dateArray.sort(by: >)
-            
+
             if dateArray.count == 0 {
                 dateArray = [1]
             }
@@ -236,7 +235,6 @@ extension StorageMumentVC: storageFilterDelegate {
             $0.height.equalTo(self.selectedTagsCVHeight)
         }
         self.selectedTagsCV.reloadData()
-
     }
 }
 
@@ -287,22 +285,51 @@ extension StorageMumentVC: UICollectionViewDataSource{
                 switch tabType {
                 case .myMument:
                     listCell.setDefaultCardUI()
-                    if indexPath.section == 0 {
-                        if storageMumentData.isEmpty {
-                            return listCell
-                        }
-                        listCell.setDefaultCardData(storageMumentData[indexPath.row])
+                    if indexPath.section == 0 && storageMumentData.isEmpty {
                         return listCell
                     }
                     var mData = 0
-                    for i in 0...indexPath.section - 1 {
-                        if let numOfMuments = dateDictionary[dateArray[i]] {
-                            mData += numOfMuments
+                    if indexPath.section != 0 {
+                        for i in 0...indexPath.section - 1 {
+                            if let numOfMuments = dateDictionary[dateArray[i]] {
+                                mData += numOfMuments
+                            }
                         }
                     }
                     listCell.setDefaultCardData(storageMumentData[mData + indexPath.row])
-                    return listCell
                     
+                    listCell.defaultCardView.heartButton.removeTarget(nil, action: nil, for: .allTouchEvents)
+                    listCell.defaultCardView.heartButton.press { [weak self] in
+                        if let isLiked = self?.storageMumentData[indexPath.row].isLiked {
+                            if isLiked {
+                                self?.requestDeleteHeartLiked(mumentId: self?.storageMumentData[indexPath.row].id ?? 0, completion: { result in
+                                    
+                                    self?.storageMumentData[indexPath.row].isLiked = false
+                                    self?.storageMumentData[indexPath.row].likeCount = result.likeCount
+                                    
+                                    guard let targetCell = collectionView.cellForItem(at: indexPath) as? ListCVC else { return }
+                                    targetCell.defaultCardView.heartButton.setIsSelected(false)
+                                    
+                                    listCell.defaultCardView.isLiked = false
+                                    listCell.defaultCardView.heartCount = result.likeCount
+                                })
+                            } else {
+                                self?.requestPostHeartLiked(mumentId: self?.storageMumentData[indexPath.row].id ?? 0, completion: { result in
+                                    
+                                    self?.storageMumentData[indexPath.row].isLiked = true
+                                    self?.storageMumentData[indexPath.row].likeCount = result.likeCount
+                                    
+                                    guard let targetCell = collectionView.cellForItem(at: indexPath) as? ListCVC else { return }
+                                    targetCell.defaultCardView.heartButton.setIsSelected(true)
+                                    
+                                    listCell.defaultCardView.isLiked = true
+                                    listCell.defaultCardView.heartCount = result.likeCount
+                                    
+                                })
+                            }
+                        }
+                    }
+                    return listCell
                 case .likedMument:
                     listCell.setWithoutHeartCardUI()
                     if indexPath.section == 0 {
