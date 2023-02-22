@@ -86,6 +86,7 @@ extension BaseVC {
         UserDefaultsManager.accessToken = nil
         UserDefaultsManager.refreshToken = nil
         UserDefaultsManager.userId = nil
+        SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
         UserInfo.shared = UserInfo.init()
     }
     
