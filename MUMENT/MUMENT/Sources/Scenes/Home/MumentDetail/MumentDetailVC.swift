@@ -144,15 +144,11 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                         mumentAlert.OKButton.press {
                             self.requestDeleteMument()
                             if self.shouldSendToSongDetail {
-                                if let navigationController = self.navigationController as? BaseNC, let previousVC = navigationController.previousViewController as? BaseVC {
-                                    navigationController.popViewController(animated: false)
-                                    
-                                    if let previousNC = previousVC.navigationController as? BaseNC {
-                                        let songDetailVC = SongDetailVC()
-                                        songDetailVC.setDetailData(userId: self.userId,
-                                                                   musicData: self.musicData)
-                                        previousNC.pushViewController(songDetailVC, animated: true)
-                                    }
+                                if let NC = self.navigationController as? BaseNC {
+                                    NC.popToRootViewController(animated: false)
+                                    let songDetailVC = SongDetailVC()
+                                    songDetailVC.setDetailData(userId: self.userId, musicData: self.musicData)
+                                    NC.pushViewController(songDetailVC, animated: false)
                                 }
                             } else {
                                 self.navigationController?.popViewController(animated: true)
