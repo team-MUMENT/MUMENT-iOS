@@ -87,7 +87,7 @@ class MumentCardWithoutHeartView: UIView {
                 $0.removeFromSuperview()
             }
         }
-        if text == nil {
+        if text == nil || text == "" {
             self.addSubviews([createdAtLabel])
             createdAtLabel.snp.makeConstraints {
                 $0.left.right.equalTo(self.safeAreaLayoutGuide).inset(13)
