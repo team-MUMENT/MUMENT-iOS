@@ -46,8 +46,6 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
     private let othersMumentActionSheetVC = MumentActionSheetVC(actionName: ["뮤멘트 신고하기", "유저 차단하기"])
     private var reportCategory: [Int] = [3, 4]
     private var reportContent: String = ""
-    private var shouldSendToSongDetail: Bool = false
-    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,10 +71,9 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         }
     }
     
-    func setData(mumentId: Int, musicData: MusicDTO, isOnlyOneMument: Bool = false) {
+    func setData(mumentId: Int, musicData: MusicDTO) {
         self.mumentId = mumentId
         self.musicData = musicData
-        self.shouldSendToSongDetail = isOnlyOneMument
     }
     
     private func setClickEventHandlers() {
@@ -143,7 +140,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                         
                         mumentAlert.OKButton.press {
                             self.requestDeleteMument()
-                            if self.shouldSendToSongDetail {
+                            if self.dataSource?.count == 1 {
                                 if let NC = self.navigationController as? BaseNC {
                                     NC.popToRootViewController(animated: false)
                                     let songDetailVC = SongDetailVC()

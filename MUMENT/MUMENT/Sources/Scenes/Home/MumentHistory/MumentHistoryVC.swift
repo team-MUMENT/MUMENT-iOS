@@ -180,12 +180,7 @@ extension MumentHistoryVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mumentDetailVC = MumentDetailVC()
-        if historyData.count == 1 {
-            mumentDetailVC.setData(mumentId: historyData[indexPath.row].id, musicData: self.musicData, isOnlyOneMument: true)
-
-        } else {
-            mumentDetailVC.setData(mumentId: historyData[indexPath.row].id, musicData: self.musicData)
-        }
+        mumentDetailVC.setData(mumentId: historyData[indexPath.row].id, musicData: self.musicData)
         self.navigationController?.pushViewController(mumentDetailVC, animated: true)
     }
 }
