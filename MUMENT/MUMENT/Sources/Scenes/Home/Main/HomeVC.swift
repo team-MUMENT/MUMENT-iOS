@@ -90,7 +90,6 @@ class HomeVC: BaseVC {
         
         self.navigationController?.pushViewController(mumentDetailVC, animated: true) {
             sendGAEvent(eventName: .home_activity_type, parameterValue: .home_todaymu)
-            print("home_todaymu GA")
         }
     }
 }
@@ -130,9 +129,7 @@ extension HomeVC: CarouselCVCDelegate {
                          albumUrl: data.music.image)
         )
         
-        self.navigationController?.pushViewController(songDetailVC, animated: true) {
-//            sendGAEvent(eventName: .home_activity_type, parameterValue: .)
-        }
+        self.navigationController?.pushViewController(songDetailVC, animated: true)
     }
 }
 
@@ -145,7 +142,6 @@ extension HomeVC: MumentsOfRevisitedCVCDelegate {
         
         self.navigationController?.pushViewController(mumentDetailVC, animated: true) {
             sendGAEvent(eventName: .home_activity_type, parameterValue: .home_relistenmu)
-            print("home_relistenmu GA")
         }
     }
 }
@@ -159,7 +155,6 @@ extension HomeVC: MumentsByTagCVCDelegate {
         
         self.navigationController?.pushViewController(mumentDetailVC, animated: true) {
             sendGAEvent(eventName: .home_activity_type, parameterValue: .home_tagmu)
-            print("home_tagmu GA")
         }
     }
 }
