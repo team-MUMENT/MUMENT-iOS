@@ -42,7 +42,6 @@ class HomeTVHeader: UIView {
             let searchVC = SearchVC()
             vc.navigationController?.pushViewController(searchVC, animated: true) {
                 sendGAEvent(eventName: .home_activity_type, parameterValue: .home_search)
-                print("home_search GA")
             }
         }
         
