@@ -201,6 +201,13 @@ extension SignInVC {
             switch networkResult {
             case .success(let response):
                 if let res = response as? SignInResponseModel {
+                    
+                    if data.provider == "apple" {
+                        sendGAEvent(eventName: .signup_process, parameterValue: .signup_sns_login_apple)
+                    } else {
+                        sendGAEvent(eventName: .signup_process, parameterValue: .signup_sns_login_kakao)
+                    }
+                    
                     self.setUserInfo(
                         accessToken: res.accessToken,
                         refreshToken: res.refreshToken,
