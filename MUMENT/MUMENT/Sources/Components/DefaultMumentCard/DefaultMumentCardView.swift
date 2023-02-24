@@ -29,6 +29,7 @@ final class DefaultMumentCardView: MumentCardWithoutHeartView {
     }
     var isLiked: Bool = false
     var mumentId: Int = 0
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -61,12 +62,6 @@ final class DefaultMumentCardView: MumentCardWithoutHeartView {
             isLiked = cellData.isLiked
             self.heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
             heartCount = cellData.likeCount
-        }
-        
-        if contentsLabel.text == nil {
-            contentsLabel.isHidden = true
-        } else {
-            contentsLabel.isHidden = false
         }
     }
 }
