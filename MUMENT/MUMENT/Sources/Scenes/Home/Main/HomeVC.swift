@@ -87,9 +87,12 @@ class HomeVC: BaseVC {
                 )
             )
         }
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true) {
+            sendGAEvent(eventName: .home_activity_type, parameterValue: .home_todaymu)
+            print("home_todaymu GA")
+        }
     }
-    
 }
 
 // MARK: - UI
@@ -126,7 +129,10 @@ extension HomeVC: CarouselCVCDelegate {
                          artist: data.music.artist,
                          albumUrl: data.music.image)
         )
-        self.navigationController?.pushViewController(songDetailVC, animated: true)
+        
+        self.navigationController?.pushViewController(songDetailVC, animated: true) {
+//            sendGAEvent(eventName: .home_activity_type, parameterValue: .)
+        }
     }
 }
 
@@ -136,7 +142,11 @@ extension HomeVC: MumentsOfRevisitedCVCDelegate {
         let mumentDetailVC = MumentDetailVC()
         let music = data.music
         mumentDetailVC.setData(mumentId: data.mumentId, musicData: MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image))
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true) {
+            sendGAEvent(eventName: .home_activity_type, parameterValue: .home_relistenmu)
+            print("home_relistenmu GA")
+        }
     }
 }
 
@@ -146,7 +156,11 @@ extension HomeVC: MumentsByTagCVCDelegate {
         let mumentDetailVC = MumentDetailVC()
         let music = data.music
         mumentDetailVC.setData(mumentId: data.id, musicData: MusicDTO(id: music.id, title: music.name, artist: music.artist, albumUrl: music.image))
-        self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+        
+        self.navigationController?.pushViewController(mumentDetailVC, animated: true) {
+            sendGAEvent(eventName: .home_activity_type, parameterValue: .home_tagmu)
+            print("home_tagmu GA")
+        }
     }
 }
 
