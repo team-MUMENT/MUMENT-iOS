@@ -417,7 +417,14 @@ extension StorageMumentVC: UICollectionViewDelegate {
                                  albumUrl: mumentData.music.image)
             let mumentDetailVC = MumentDetailVC()
             mumentDetailVC.setData(mumentId: mumentID, musicData: musicData)
-            self.navigationController?.pushViewController(mumentDetailVC, animated: true)
+            self.navigationController?.pushViewController(mumentDetailVC, animated: true) {
+                switch self.tabType {
+                case .myMument:
+                    sendGAEvent(eventName: .mument_detail_page, parameterValue: .from_storage_my_mument)
+                case .likedMument:
+                    sendGAEvent(eventName: .mument_detail_page, parameterValue: .from_storage_like_mument)
+                }
+            }
         default: break
         }
         
