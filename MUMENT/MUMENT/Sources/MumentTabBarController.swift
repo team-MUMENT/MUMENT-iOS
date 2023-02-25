@@ -146,8 +146,6 @@ extension MumentTabBarController: UITabBarControllerDelegate {
             sendGAEvent(eventName: .write_path, parameterValue: .from_song_detail_page)
         case is MumentDetailVC:
             sendGAEvent(eventName: .write_path, parameterValue: .from_mument_detail_page)
-        case is MumentHistoryVC:
-            sendGAEvent(eventName: .write_path, parameterValue: .from_history_list)
         default:
             break
         }
