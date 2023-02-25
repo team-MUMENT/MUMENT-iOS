@@ -195,6 +195,7 @@ final class DetailMumentCardView: UIView {
         
         shareButton.press {
             self.delegate?.shareButtonClicked()
+            sendGAEvent(eventName: .share_instagram, parameterValue: .click_instagram)
         }
     }
     
