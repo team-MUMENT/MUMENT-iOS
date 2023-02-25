@@ -195,20 +195,26 @@ extension UIViewController {
         }
         
         if let navigation = self.presentedViewController as? UINavigationController {
-            return navigation.visibleViewController!.topMostViewController()
+            if let visibleVC = navigation.visibleViewController {
+                return visibleVC.topMostViewController()
+            }
         }
         
         if let tab = self.presentedViewController as? UITabBarController {
             if let selectedTab = tab.selectedViewController {
                 if let baseNC = selectedTab as? BaseNC {
-                    return baseNC.visibleViewController!.topMostViewController()
+                    if let visibleVC = baseNC.visibleViewController {
+                        return visibleVC.topMostViewController()
+                    }
                 }
                 return selectedTab.topMostViewController()
             }
             return tab.topMostViewController()
         }
-        
-        return self.presentedViewController!.topMostViewController()
+        if let presentVC = self.presentedViewController {
+            return presentVC.topMostViewController()
+        }
+        return UIViewController()
     }
 }
 
