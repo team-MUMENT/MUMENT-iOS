@@ -249,6 +249,7 @@
 		E74FBCAC293A73CE00CE241D /* FilterSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74FBCAB293A73CE00CE241D /* FilterSectionView.swift */; };
 		E768435B2995EE2A00061EEC /* MumentForTodayCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E768435A2995EE2A00061EEC /* MumentForTodayCardView.swift */; };
 		E779067129824902009F55F2 /* SelectedTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779067029824902009F55F2 /* SelectedTagCVC.swift */; };
+		E77A45BA29AA759A00AB4B46 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77A45B929AA759A00AB4B46 /* UIApplication+.swift */; };
 		E781F2232881BC0800484C28 /* CellCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2222881BC0800484C28 /* CellCategory.swift */; };
 		E781F2252881FB5A00484C28 /* AlbumCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2242881FB5A00484C28 /* AlbumCVC.swift */; };
 		E781F2272882A77500484C28 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E781F2262882A77500484C28 /* SectionHeader.swift */; };
@@ -491,6 +492,7 @@
 		E74FBCAB293A73CE00CE241D /* FilterSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSectionView.swift; sourceTree = "<group>"; };
 		E768435A2995EE2A00061EEC /* MumentForTodayCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentForTodayCardView.swift; sourceTree = "<group>"; };
 		E779067029824902009F55F2 /* SelectedTagCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTagCVC.swift; sourceTree = "<group>"; };
+		E77A45B929AA759A00AB4B46 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		E781F2222881BC0800484C28 /* CellCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCategory.swift; sourceTree = "<group>"; };
 		E781F2242881FB5A00484C28 /* AlbumCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCVC.swift; sourceTree = "<group>"; };
 		E781F2262882A77500484C28 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 				C77BB8A2298AF08B00C69E72 /* UIImage+.swift */,
 				C76D29BD2991852900760A99 /* UINavigationController+.swift */,
 				C7DAD6112992ABC100477689 /* NSNotification+Name+.swift */,
+				E77A45B929AA759A00AB4B46 /* UIApplication+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1489,6 +1492,7 @@
 				C7AE17E428882D6B00A5E3FA /* SearchService.swift in Sources */,
 				4DE0FAD529811CEA008F01E5 /* WithdrawalResponseModel.swift in Sources */,
 				E74FBCAC293A73CE00CE241D /* FilterSectionView.swift in Sources */,
+				E77A45BA29AA759A00AB4B46 /* UIApplication+.swift in Sources */,
 				C7AE8F83297D948300B1603E /* NotificationInfo.swift in Sources */,
 				C7BB53002875960800E0E889 /* UIFont+.swift in Sources */,
 				C7AE17DC2887FEA700A5E3FA /* GetIsFirstResponseModel.swift in Sources */,
