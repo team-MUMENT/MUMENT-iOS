@@ -129,7 +129,9 @@ extension HomeVC: CarouselCVCDelegate {
                          albumUrl: data.music.image)
         )
         
-        self.navigationController?.pushViewController(songDetailVC, animated: true)
+        self.navigationController?.pushViewController(songDetailVC, animated: true) {
+            sendGAEvent(eventName: .home_activity_type, parameterValue: .home_rec_song)
+        }
     }
 }
 
