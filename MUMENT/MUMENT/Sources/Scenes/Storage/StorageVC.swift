@@ -58,24 +58,21 @@ final class StorageVC: BaseVC {
     private var currentIndex: Int = 0
     private var isButtonTapped: Bool = false
     private let pagerVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-
     private let myMumentVC = StorageMumentVC(type: .myMument)
     private let likedMumentVC = StorageMumentVC(type: .likedMument)
-    
     private lazy var contents: [UIViewController] = [
         self.myMumentVC,
         self.likedMumentVC
     ]
-    
     /// 움직일 underLineView의 leadingAnchor 따로 작성
     private lazy var leadingDistance: NSLayoutConstraint = {
         return underLineView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
     }()
-    
+    private var previousIndex = 0
+
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setPageViewController()
         setHeaderLayout()
         setSegmentLaysout()
@@ -87,6 +84,7 @@ final class StorageVC: BaseVC {
         super.viewWillAppear(animated)
         self.showTabbar()
         self.setProfile()
+        storageTabGA()
     }
     
     // MARK: - Function
@@ -133,8 +131,8 @@ final class StorageVC: BaseVC {
     }
     
     @objc private func didTapSegmentControl() {
-        let segmentIndex = CGFloat(segmentControl.selectedSegmentIndex)
-            
+        let segmentIndex = segmentControl.selectedSegmentIndex
+        storageTabGA(index: segmentIndex)
         if segmentIndex == 0 {
             myMumentVC.filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[0]], direction: .reverse, animated: true)
@@ -142,8 +140,6 @@ final class StorageVC: BaseVC {
             likedMumentVC.filterSectionView.listButton.sendActions(for: .touchUpInside)
             pagerVC.setViewControllers([contents[1]], direction: .forward, animated: true)
         }
-        
-        
     }
     
     private func setProfile() {
@@ -154,6 +150,14 @@ final class StorageVC: BaseVC {
                     self.profileButton.imageView?.contentMode = .scaleAspectFill
                 }
             }
+        }
+    }
+    
+    private func storageTabGA(index: Int = 0) {
+        if index == 0{
+            sendGAEvent(eventName: .use_storage_tap, parameterValue: .click_storage_tap)
+        } else {
+            sendGAEvent(eventName: .use_storage_tap, parameterValue: .click_like_mument)
         }
     }
 }
@@ -192,6 +196,11 @@ extension StorageVC: UIPageViewControllerDelegate {
         currentIndex = index
         segmentControl.selectedSegmentIndex = currentIndex
         isButtonTapped = false
+        
+        if previousIndex != index {
+            storageTabGA(index: index)
+            previousIndex = index
+        }
     }
 }
 
