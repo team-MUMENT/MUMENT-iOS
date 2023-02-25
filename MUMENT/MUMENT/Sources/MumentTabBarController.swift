@@ -135,6 +135,22 @@ extension MumentTabBarController: UITabBarControllerDelegate {
         
         let writeIndex = 1
         if viewController.tabBarItem.tag != writeIndex { return true }
+        
+        let topMostVC = UIApplication.shared.topMostViewController() ?? UIViewController()
+        switch topMostVC {
+        case is HomeVC:
+            sendGAEvent(eventName: .write_path, parameterValue: .from_home)
+        case is StorageVC:
+            sendGAEvent(eventName: .write_path, parameterValue: .form_storage)
+        case is SongDetailVC:
+            sendGAEvent(eventName: .write_path, parameterValue: .from_song_detail_page)
+        case is MumentDetailVC:
+            sendGAEvent(eventName: .write_path, parameterValue: .from_mument_detail_page)
+        case is MumentHistoryVC:
+            sendGAEvent(eventName: .write_path, parameterValue: .from_history_list)
+        default:
+            break
+        }
         /// 이전 탭이 홈 일때 기록하기로 넘어가기전 타이머 종료 post
         if previousTabBarItemTag == 0 {
             self.isFromHomeTab = true
