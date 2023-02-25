@@ -204,9 +204,21 @@ final class StorageMumentVC: BaseVC {
             }
         }
         filterSectionView.listButton.press { [self] in
+            switch tabType {
+            case .myMument:
+                sendGAEvent(eventName: .use_grid_my_mument, parameterValue: .my_mument_list)
+            case .likedMument:
+                sendGAEvent(eventName: .use_grid_like_mument, parameterValue: .like_mument_list)
+            }
             cellCategory = .listCell
         }
         filterSectionView.albumButton.press { [self] in
+            switch tabType {
+            case .myMument:
+                sendGAEvent(eventName: .use_grid_my_mument, parameterValue: .my_mument_grid)
+            case .likedMument:
+                sendGAEvent(eventName: .use_grid_like_mument, parameterValue: .like_mument_grid)
+            }
             cellCategory = .albumCell
         }
     }
