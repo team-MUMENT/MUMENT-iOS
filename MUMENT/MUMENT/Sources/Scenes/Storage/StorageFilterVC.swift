@@ -91,6 +91,7 @@ final class StorageFilterVC: BaseVC {
     private var bottomTagSectionHeight = 0
     private var selectedTagData: [String] = []
     private var tagIndex = [Int]()
+    private var tagType: GAEventNameType.ParameterValue = .use_both_filter
     weak var delegate: storageFilterDelegate?
     
     // MARK: - View Life Cycle
@@ -167,6 +168,20 @@ final class StorageFilterVC: BaseVC {
         tagAppliedButton.press {
             self.delegate?.sendTagData(data: self.selectedTagData, tagIndex: self.tagIndex)
             self.hideBottomSheetWithAnimation()
+            
+            if !self.tagIndex.isEmpty {
+                /// 인상 태그 값은 인덱스 값(1의자리 수), 감정 태그의 값은 100 이상
+                let tagIndexChecker = self.tagIndex.reduce(0, +) / self.tagIndex.count
+                
+                if tagIndexChecker >= 100 {
+                    self.tagType = .use_feeling_filter
+                } else if tagIndexChecker < 30 {
+                    self.tagType = .use_impressive_filter
+                } else {
+                    self.tagType = .use_both_filter
+                }
+                sendGAEvent(eventName: .use_filter, parameterValue: self.tagType)
+            }
         }
     }
 
