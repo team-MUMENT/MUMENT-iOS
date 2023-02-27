@@ -50,7 +50,7 @@ final class SplashVC: BaseVC {
     }
     
     /// 푸시 권한 물어보기
-    private func requestNotificationPermission(){
+    private func requestNotificationPermission() {
         var originalStatus: Bool = false
         UNUserNotificationCenter.current().getNotificationSettings { setting in
             originalStatus = setting.alertSetting == .enabled
