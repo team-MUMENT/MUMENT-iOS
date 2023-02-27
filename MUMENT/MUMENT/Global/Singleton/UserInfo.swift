@@ -18,4 +18,5 @@ class UserInfo {
     var nickname: String = ""
     var profileImageURL: String = APIConstants.defaultProfileImageURL
     var isPenaltyUser: Bool = false
+    var isFirstVisit: Bool = true
 }
