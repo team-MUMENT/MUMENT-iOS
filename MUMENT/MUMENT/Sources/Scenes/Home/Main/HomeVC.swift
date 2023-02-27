@@ -128,13 +128,12 @@ extension HomeVC: CarouselCVCDelegate {
                          artist: data.music.artist,
                          albumUrl: data.music.image)
         )
-        
-        if UserInfo.shared.isFirstVisit {
-            sendGAEvent(eventName: .first_visit_page, parameterValue: .direct_curation)
-            UserInfo.shared.isFirstVisit = false
-        }
-        
+
         self.navigationController?.pushViewController(songDetailVC, animated: true) {
+            if UserInfo.shared.isFirstVisit {
+                sendGAEvent(eventName: .first_visit_page, parameterValue: .direct_curation)
+                UserInfo.shared.isFirstVisit = false
+            }
             sendGAEvent(eventName: .home_activity_type, parameterValue: .home_rec_song)
         }
     }
