@@ -47,6 +47,7 @@ extension GAEventNameType {
         case signup_duplication_test
         case signup_success
         case home_search
+        case home_rec_song
         case home_todaymu
         case home_relistenmu
         case home_tagmu
