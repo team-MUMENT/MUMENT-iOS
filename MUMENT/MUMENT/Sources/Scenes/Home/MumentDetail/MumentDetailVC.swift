@@ -84,7 +84,13 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         historyButton.press {
             let mumentHistoryVC = MumentHistoryVC()
             mumentHistoryVC.setHistoryData(userId: self.userId, musicData: self.musicData)
-            self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
+            self.navigationController?.pushViewController(mumentHistoryVC, animated: true) {
+                if UserDefaultsManager.userId == self.userId {
+                    sendGAEvent(eventName: .mument_history_view, parameterValue: .from_my_mument_detail)
+                } else {
+                    sendGAEvent(eventName: .mument_history_view, parameterValue: .from_other_mument_detail)
+                }
+            }
         }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))

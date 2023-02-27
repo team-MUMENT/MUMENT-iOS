@@ -266,7 +266,9 @@ extension SongDetailVC: UITableViewDataSource {
                 let mumentHistoryVC = MumentHistoryVC()
                 guard let savedUserId = UserInfo.shared.userId else { return }
                 mumentHistoryVC.setHistoryData(userId: savedUserId, musicData: self.musicData)
-                self.navigationController?.pushViewController(mumentHistoryVC, animated: true)
+                self.navigationController?.pushViewController(mumentHistoryVC, animated: true) {
+                    sendGAEvent(eventName: .mument_history_view, parameterValue: .from_song_detail)
+                }
             }
             return headerCell
         case 2:
