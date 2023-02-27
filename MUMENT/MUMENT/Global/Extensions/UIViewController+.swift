@@ -188,6 +188,34 @@ extension UIViewController {
             })
         })
     }
+    
+    func topMostViewController() -> UIViewController {
+        if self.presentedViewController == nil {
+            return self
+        }
+        
+        if let navigation = self.presentedViewController as? UINavigationController {
+            if let visibleVC = navigation.visibleViewController {
+                return visibleVC.topMostViewController()
+            }
+        }
+        
+        if let tab = self.presentedViewController as? UITabBarController {
+            if let selectedTab = tab.selectedViewController {
+                if let baseNC = selectedTab as? BaseNC {
+                    if let visibleVC = baseNC.visibleViewController {
+                        return visibleVC.topMostViewController()
+                    }
+                }
+                return selectedTab.topMostViewController()
+            }
+            return tab.topMostViewController()
+        }
+        if let presentVC = self.presentedViewController {
+            return presentVC.topMostViewController()
+        }
+        return UIViewController()
+    }
 }
 
 #if canImport(SwiftUI) && DEBUG
