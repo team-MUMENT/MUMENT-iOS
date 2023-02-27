@@ -139,6 +139,10 @@ extension MumentTabBarController: UITabBarControllerDelegate {
         let topMostVC = UIApplication.shared.topMostViewController() ?? UIViewController()
         switch topMostVC {
         case is HomeVC:
+            if UserInfo.shared.isFirstVisit {
+                sendGAEvent(eventName: .first_visit_page, parameterValue: .direct_write)
+                UserInfo.shared.isFirstVisit = false
+            }
             sendGAEvent(eventName: .write_path, parameterValue: .from_home)
         case is StorageVC:
             sendGAEvent(eventName: .write_path, parameterValue: .form_storage)
@@ -171,6 +175,10 @@ extension MumentTabBarController: UITabBarControllerDelegate {
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if UserInfo.shared.isFirstVisit && viewController.tabBarItem.tag == 2 {
+            sendGAEvent(eventName: .first_visit_page, parameterValue: .direct_storage)
+            UserInfo.shared.isFirstVisit = false
+        }
         previousTabBarItemTag = viewController.tabBarItem.tag
     }
 }
