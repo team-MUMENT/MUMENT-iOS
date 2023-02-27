@@ -608,14 +608,6 @@
 			path = MembershipWithdrawal;
 			sourceTree = "<group>";
 		};
-		4D76045D2880ACC60044F2A6 /* DetailMumentCard */ = {
-			isa = PBXGroup;
-			children = (
-				4D76045B2880ACB40044F2A6 /* DetailMumentCardView.swift */,
-			);
-			path = DetailMumentCard;
-			sourceTree = "<group>";
-		};
 		4D7604622880B94B0044F2A6 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -653,6 +645,7 @@
 			children = (
 				C76CA3BD299BA78F00E60888 /* ReportMument */,
 				4D7604592880AC840044F2A6 /* MumentDetailVC.swift */,
+				4D76045B2880ACB40044F2A6 /* DetailMumentCardView.swift */,
 				4DE0FAD829823522008F01E5 /* InstagramShareView.swift */,
 				4D7604602880ADB60044F2A6 /* DetailSongInfoView.swift */,
 				E72A0660298FD44000A42378 /* LikedUserListVC.swift */,
@@ -1182,7 +1175,6 @@
 				4D2BADD228806C08004A7E00 /* MumentCardBySongTVC.swift */,
 				4D760453288093280044F2A6 /* DefaultNavigationBar.swift */,
 				C71B47FD28843D4D001A7CD6 /* MumentAlertWithButtons */,
-				4D76045D2880ACC60044F2A6 /* DetailMumentCard */,
 				4D9734F1287ECE29003EF546 /* MumentCardWithoutHeart */,
 				4D64A9E9287D885A00450FCA /* TagView.swift */,
 				C79CD4502921BF7200DE4A47 /* MumentTextField.swift */,
