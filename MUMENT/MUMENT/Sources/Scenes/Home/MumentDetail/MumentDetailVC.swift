@@ -60,6 +60,18 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         super.viewWillAppear(animated)
         self.showTabbar()
         requestGetMumentDetail()
+        
+        let previousViewController = self.navigationController?.previousViewController
+        if previousViewController is HomeVC {
+            sendGAEvent(eventName: .mument_detail_page, parameterValue: .from_home)
+            print("from_home GA")
+        } else if previousViewController is SongDetailVC {
+            sendGAEvent(eventName: .mument_detail_page, parameterValue: .from_song_detail_page)
+            print("from_song_detail_page GA")
+        } else if previousViewController is MumentHistoryVC {
+            sendGAEvent(eventName: .mument_detail_page, parameterValue: .from_history_list)
+            print("from_history_list GA")
+        }
     }
     
     // MARK: - Functions
