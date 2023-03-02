@@ -41,6 +41,10 @@ class HomeTVHeader: UIView {
         searchButton.press{
             let searchVC = SearchVC()
             vc.navigationController?.pushViewController(searchVC, animated: true) {
+                if UserInfo.shared.isFirstVisit {
+                    sendGAEvent(eventName: .first_visit_page, parameterValue: .direct_search)
+                    UserInfo.shared.isFirstVisit = false
+                }
                 sendGAEvent(eventName: .home_activity_type, parameterValue: .home_search)
             }
         }
