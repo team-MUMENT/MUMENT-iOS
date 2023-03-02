@@ -60,6 +60,7 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
         super.viewWillAppear(animated)
         self.showTabbar()
         requestGetMumentDetail()
+        sendMumentDetailGAEvent()
     }
     
     // MARK: - Functions
@@ -190,6 +191,17 @@ final class MumentDetailVC: BaseVC, UIActionSheetDelegate {
                 }
             })
             .disposed(by: self.othersMumentActionSheetVC.disposeBag )
+    }
+    
+    private func sendMumentDetailGAEvent() {
+        let previousViewController = self.navigationController?.previousViewController
+        if previousViewController is HomeVC {
+            sendGAEvent(eventName: .mument_detail_page, parameterValue: .from_home)
+        } else if previousViewController is SongDetailVC {
+            sendGAEvent(eventName: .mument_detail_page, parameterValue: .from_song_detail_page)
+        } else if previousViewController is MumentHistoryVC {
+            sendGAEvent(eventName: .mument_detail_page, parameterValue: .from_history_list)
+        }
     }
 }
 
@@ -366,5 +378,4 @@ extension MumentDetailVC {
             }
         }
     }
-    
 }
