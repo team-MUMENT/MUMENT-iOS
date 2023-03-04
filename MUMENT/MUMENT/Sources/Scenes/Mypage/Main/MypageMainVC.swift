@@ -92,6 +92,7 @@ final class MypageMainVC: BaseVC {
     // MARK: Properties
     private var mypageURL: GetAppURLresponseModel = GetAppURLresponseModel()
     private let currentVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    private var latestVersion: String = "     "
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -153,7 +154,7 @@ extension MypageMainVC: UITableViewDataSource {
                 return cell
             case .footer:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageMainFooterTVC.className) as? MypageMainFooterTVC else { return UITableViewCell() }
-                cell.setVersionLabel(version: self.currentVersion)
+                cell.setVersionLabel(currentVersion: self.currentVersion, latestVersion: self.latestVersion)
                 cell.selectionStyle = .none
                 cell.setSignOutAction { [weak self] in
                     let mumentAlert =  MumentAlertWithButtons(titleType: .onlyTitleLabel, OKTitle: "로그아웃")
@@ -264,6 +265,22 @@ extension MypageMainVC {
             case .success(let response):
                 if let result = response as? GetAppURLresponseModel {
                     self.mypageURL = result
+                }
+                self.getAppVersion()
+            default:
+                self.stopActivityIndicator()
+                self.makeAlert(title: MessageType.networkError.message)
+            }
+        }
+    }
+    
+    private func getAppVersion() {
+        MyPageAPI.shared.getAppVersion { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let result = response as? GetAppVersionResponseModel {
+                    self.latestVersion = result.version
+                    self.tableView.reloadData()
                 }
                 self.stopActivityIndicator()
             default:
