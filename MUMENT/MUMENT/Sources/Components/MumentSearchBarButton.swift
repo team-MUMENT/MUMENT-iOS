@@ -21,7 +21,7 @@ final class MumentSearchBarButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.setUI()
+        self.setPlaceholder(text: "어떤 노래가 궁금하신가요?")
         self.setLayout()
         self.setBackgroundColor(.mGray4, for: .highlighted)
     }
@@ -33,8 +33,8 @@ final class MumentSearchBarButton: UIButton {
 
 // MARK: - UI
 extension MumentSearchBarButton {
-    private func setUI() {
-        self.textField.placeholder = "어떤 노래가 궁금하신가요?"
+    func setPlaceholder(text: String) {
+        self.textField.placeholder = text
     }
     
     private func setLayout() {
