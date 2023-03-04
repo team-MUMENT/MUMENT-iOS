@@ -164,4 +164,19 @@ class MyPageAPI: BaseAPI {
             }
         }
     }
+    
+    /// [GET] 앱 최신 버전 조회
+    func getAppVersion(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(MyPageService.getAppVersion).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, GetAppVersionResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
