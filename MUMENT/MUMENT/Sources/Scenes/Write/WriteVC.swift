@@ -15,24 +15,34 @@ class WriteVC: BaseVC {
     
     // MARK: Components
     private let writeScrollView = UIScrollView()
+    
     private let writeContentView = UIView().then {
         $0.backgroundColor = .mBgwhite
     }
+    
     private lazy var naviView = DefaultNavigationBar(naviType: .leftCloseRightDone).then {
         $0.setTitleLabel(title: isEdit ? "수정하기" : "기록하기")
         $0.doneButton.isEnabled = false
     }
+    
     private let selectMusicLabel = UILabel().then {
         $0.text = "곡을 선택해주세요."
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
-    private let searchButton: MumentSearchBarButton = MumentSearchBarButton(type: .system)
+    
+    private let searchButton: MumentSearchBarButton = {
+        let button: MumentSearchBarButton = MumentSearchBarButton(type: .system)
+        button.setPlaceholder(text: "곡, 아티스트")
+        return button
+    }()
+    
     private let firstTimeMusicLabel = UILabel().then {
         $0.text = "처음 들은 곡인가요?"
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
+    
     private let firstListenButton = UIButton(type: .custom).then {
         $0.setTitle("처음 들어요", for: .normal)
         $0.setBackgroundColor(.mPurple2, for: .selected)
@@ -42,6 +52,7 @@ class WriteVC: BaseVC {
         $0.setTitleColor(.mGray1, for: .normal)
         $0.makeRounded(cornerRadius: 11.adjustedH)
     }
+    
     private let againListenButton = UIButton(type: .custom).then {
         $0.setTitle("다시 들었어요", for: .normal)
         $0.setBackgroundColor(.mPurple2, for: .selected)
@@ -51,34 +62,41 @@ class WriteVC: BaseVC {
         $0.setTitleColor(.mGray1, for: .normal)
         $0.makeRounded(cornerRadius: 11.adjustedH)
     }
+    
     private let impressionLabel = UILabel().then {
         $0.text = "무엇이 인상적이었나요?"
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
+    
     private let impressionTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .mBgwhite
         $0.showsHorizontalScrollIndicator = false
         $0.isScrollEnabled = false
     }
+    
     private let feelLabel = UILabel().then {
         $0.text = "감정을 선택해보세요."
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
+    
     private let feelTagScrollView = UIScrollView().then {
         $0.showsHorizontalScrollIndicator = false
     }
+    
     private let feelTagCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
         $0.backgroundColor = .mBgwhite
         $0.contentInset = .zero
         $0.isScrollEnabled = false
     }
+    
     private let contentLabel = UILabel().then {
         $0.text = "이 순간의 여운을 글로 남겨보세요."
         $0.font = .mumentB1B15
         $0.textColor = .mBlack2
     }
+    
     private let contentTextView = UITextView().then {
         $0.clipsToBounds = true
         $0.makeRounded(cornerRadius: 11.adjustedH)
@@ -89,21 +107,25 @@ class WriteVC: BaseVC {
         $0.autocapitalizationType = .none
         $0.textColor = .mBlack2
     }
+    
     private let countTextViewLabel = UILabel().then {
         $0.font = .mumentB6M13
         $0.textColor = .mGray2
         $0.text = "0/1000"
     }
+    
     private let isPrivateToggleButton = UIButton(type: .custom).then {
         $0.setImage(UIImage(named: "mumentToggleOff"), for: .normal)
         $0.setImage(UIImage(named: "mumentToggleOn"), for: .selected)
     }
+    
     private let privateLabel = UILabel().then {
         $0.text = "공개글"
         $0.font = .mumentB4M14
         $0.textColor = .mGray1
         $0.sizeToFit()
     }
+    
     private var selectedMusicView = WriteMusicView()
     
     // MARK: Properties
