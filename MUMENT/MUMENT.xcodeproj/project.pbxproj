@@ -156,6 +156,7 @@
 		C767507F29407D8300F2D985 /* SetBlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */; };
 		C767508229407F3100F2D985 /* BlockedUserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767508129407F3100F2D985 /* BlockedUserTVC.swift */; };
 		C76CA3C0299BA7A700E60888 /* ReportDoneButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76CA3BF299BA7A700E60888 /* ReportDoneButtonFooterView.swift */; };
+		C76D243829B338A800F4489F /* GetAppVersionResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D243729B338A800F4489F /* GetAppVersionResponseModel.swift */; };
 		C76D29B92990F90800760A99 /* MumentSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */; };
 		C76D29BB2991485A00760A99 /* GetIsNewNotificationResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29BA2991485A00760A99 /* GetIsNewNotificationResponseModel.swift */; };
 		C76D29BE2991852900760A99 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29BD2991852900760A99 /* UINavigationController+.swift */; };
@@ -409,6 +410,7 @@
 		C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBlockedUserVC.swift; sourceTree = "<group>"; };
 		C767508129407F3100F2D985 /* BlockedUserTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserTVC.swift; sourceTree = "<group>"; };
 		C76CA3BF299BA7A700E60888 /* ReportDoneButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDoneButtonFooterView.swift; sourceTree = "<group>"; };
+		C76D243729B338A800F4489F /* GetAppVersionResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppVersionResponseModel.swift; sourceTree = "<group>"; };
 		C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentSearchBarButton.swift; sourceTree = "<group>"; };
 		C76D29BA2991485A00760A99 /* GetIsNewNotificationResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIsNewNotificationResponseModel.swift; sourceTree = "<group>"; };
 		C76D29BD2991852900760A99 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
@@ -694,6 +696,7 @@
 				4DE0FAD429811CEA008F01E5 /* WithdrawalResponseModel.swift */,
 				C7145D19298C247D007B0F87 /* GetAppURLresponseModel.swift */,
 				C7145D1B298C2B39007B0F87 /* GetUserProfileResponseModel.swift */,
+				C76D243729B338A800F4489F /* GetAppVersionResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1582,6 +1585,7 @@
 				C71B48052885641C001A7CD6 /* NewAlignedCollectionViewLayout.swift in Sources */,
 				4D64A9E8287D810000450FCA /* MumentCardWithoutHeartView.swift in Sources */,
 				C77BB8A1298AC4A000C69E72 /* SetProfileResponseModel.swift in Sources */,
+				C76D243829B338A800F4489F /* GetAppVersionResponseModel.swift in Sources */,
 				4D9734F3287F3A41003EF546 /* Preview.swift in Sources */,
 				4D13A6742888735800197D2A /* MumentDetailResponseModel.swift in Sources */,
 				C73CBCFC291549ED009E9A40 /* ToastMessageColorType.swift in Sources */,
