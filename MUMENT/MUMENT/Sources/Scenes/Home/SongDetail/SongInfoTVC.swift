@@ -58,8 +58,8 @@ extension SongInfoTVC {
         
         albumImage.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(19)
-            $0.top.equalToSuperview().offset(27)
-            $0.height.width.equalTo(114)
+            $0.centerY.equalToSuperview()
+            $0.height.width.equalTo(114.adjustedH)
             
         }
         
