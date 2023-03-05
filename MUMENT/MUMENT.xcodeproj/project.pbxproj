@@ -156,6 +156,7 @@
 		C767507F29407D8300F2D985 /* SetBlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */; };
 		C767508229407F3100F2D985 /* BlockedUserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767508129407F3100F2D985 /* BlockedUserTVC.swift */; };
 		C76CA3C0299BA7A700E60888 /* ReportDoneButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76CA3BF299BA7A700E60888 /* ReportDoneButtonFooterView.swift */; };
+		C76D243629B330B900F4489F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C76D243529B330B900F4489F /* GoogleService-Info.plist */; };
 		C76D29B92990F90800760A99 /* MumentSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */; };
 		C76D29BB2991485A00760A99 /* GetIsNewNotificationResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29BA2991485A00760A99 /* GetIsNewNotificationResponseModel.swift */; };
 		C76D29BE2991852900760A99 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29BD2991852900760A99 /* UINavigationController+.swift */; };
@@ -192,7 +193,6 @@
 		C7AE17EA28886B4F00A5E3FA /* PostMumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */; };
 		C7AE17F3288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift */; };
 		C7AE8F52297BD3D900B1603E /* GetNotificationListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE8F51297BD3D900B1603E /* GetNotificationListResponseModel.swift */; };
-		C7AE8F54297D86BB00B1603E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7AE8F53297D86BB00B1603E /* GoogleService-Info.plist */; };
 		C7AE8F83297D948300B1603E /* NotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE8F82297D948300B1603E /* NotificationInfo.swift */; };
 		C7B2829C298FD51A001833FD /* MumentSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B2829B298FD51A001833FD /* MumentSearchTextField.swift */; };
 		C7BB53002875960800E0E889 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB52FF2875960800E0E889 /* UIFont+.swift */; };
@@ -409,6 +409,7 @@
 		C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBlockedUserVC.swift; sourceTree = "<group>"; };
 		C767508129407F3100F2D985 /* BlockedUserTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserTVC.swift; sourceTree = "<group>"; };
 		C76CA3BF299BA7A700E60888 /* ReportDoneButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDoneButtonFooterView.swift; sourceTree = "<group>"; };
+		C76D243529B330B900F4489F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentSearchBarButton.swift; sourceTree = "<group>"; };
 		C76D29BA2991485A00760A99 /* GetIsNewNotificationResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIsNewNotificationResponseModel.swift; sourceTree = "<group>"; };
 		C76D29BD2991852900760A99 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
@@ -435,7 +436,6 @@
 		C7AE17E928886B4F00A5E3FA /* PostMumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMumentResponseModel.swift; sourceTree = "<group>"; };
 		C7AE17F2288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailMyMumentEmptyTVC.swift; sourceTree = "<group>"; };
 		C7AE8F51297BD3D900B1603E /* GetNotificationListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNotificationListResponseModel.swift; sourceTree = "<group>"; };
-		C7AE8F53297D86BB00B1603E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7AE8F82297D948300B1603E /* NotificationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInfo.swift; sourceTree = "<group>"; };
 		C7B2829B298FD51A001833FD /* MumentSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentSearchTextField.swift; sourceTree = "<group>"; };
 		C7BB52FF2875960800E0E889 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
@@ -848,7 +848,7 @@
 			isa = PBXGroup;
 			children = (
 				4DE7693D2918DF0E00747F79 /* MUMENT.entitlements */,
-				C7AE8F53297D86BB00B1603E /* GoogleService-Info.plist */,
+				C76D243529B330B900F4489F /* GoogleService-Info.plist */,
 				C74EC42728758D230068EB46 /* Info.plist */,
 				C7C02048299D0DAD00761C8E /* Supports */,
 				C7BC6B4C2876ACD9008C75CE /* Global */,
@@ -1363,7 +1363,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7BB53092875973800E0E889 /* NotoSans-Bold.ttf in Resources */,
-				C7AE8F54297D86BB00B1603E /* GoogleService-Info.plist in Resources */,
 				C7C02054299D1ED100761C8E /* Release.xcconfig in Resources */,
 				C74EC435287592750068EB46 /* Colorsets.xcassets in Resources */,
 				C7BB53082875973800E0E889 /* NotoSans-SemiBold.ttf in Resources */,
@@ -1376,6 +1375,7 @@
 				4D585473291762B2003F5DF9 /* Splash.storyboard in Resources */,
 				C79CA73C29A47BB400DB40D5 /* heart_icn_lottie.json in Resources */,
 				C79CA73D29A47BB400DB40D5 /* logo_lottie.json in Resources */,
+				C76D243629B330B900F4489F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>934317325666-pr7ofntbk7beqo9rhqftfn59dr48cc85.apps.googleusercontent.com</string>
+	<string>1080497299725-ndb2hglolt4ah8el1tb8c7rnsc8l1sr3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.934317325666-pr7ofntbk7beqo9rhqftfn59dr48cc85</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>934317325666-q43ite9trem7eefld92023lg68jfiom2.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.1080497299725-ndb2hglolt4ah8el1tb8c7rnsc8l1sr3</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA-w788HtKOeaCvzC2O1W-kLyZALv9xm40</string>
+	<string>AIzaSyDQVkKkVpE6ivPKqteS9CyDecJ4LlPcFBM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>934317325666</string>
+	<string>1080497299725</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>madilyn.MUMENT</string>
 	<key>PROJECT_ID</key>
-	<string>mument-81153</string>
+	<string>mument-release</string>
 	<key>STORAGE_BUCKET</key>
-	<string>mument-81153.appspot.com</string>
+	<string>mument-release.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:934317325666:ios:befefff71f1a04e943003b</string>
+	<string>1:1080497299725:ios:e8c30d07e67ee429e11044</string>
 </dict>
 </plist>
