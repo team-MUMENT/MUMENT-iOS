@@ -289,6 +289,7 @@ extension HomeVC {
                 if let res = response as? MumentForTodayResponseModel {
                     self.mumentForTodayData = res
                     self.requestGetMumentsOfRevisitedData()
+                    self.stopActivityIndicator()
                 }
             default:
                 self.stopActivityIndicator()
@@ -304,6 +305,7 @@ extension HomeVC {
                 if let res = response as? MumentsOfRevisitedResponseModel {
                     self.mumentsOfRevisitedData = res.againMument
                     self.requestGetMumentsByTagData()
+                    self.stopActivityIndicator()
                 }
             default:
                 self.stopActivityIndicator()
