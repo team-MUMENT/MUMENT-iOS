@@ -49,7 +49,6 @@ class MumentHistoryVC: BaseVC {
         mumentTV.register(MumentHistoryTVHeader.self, forHeaderFooterViewReuseIdentifier: MumentHistoryTVHeader.className)
         
         mumentTV.separatorStyle = .none
-        mumentTV.showsVerticalScrollIndicator = false
     }
     
     func setHistoryData(userId: Int, musicData: MusicDTO) {
