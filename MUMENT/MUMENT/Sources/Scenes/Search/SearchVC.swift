@@ -280,8 +280,7 @@ extension SearchVC {
         view.addSubviews([naviView, recentSearchTitleView, resultTV, recentSearchEmptyView, searchResultEmptyView])
         
         naviView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(11)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.top.left.right.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(48)
         }
         
