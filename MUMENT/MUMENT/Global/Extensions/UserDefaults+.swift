@@ -14,17 +14,10 @@ extension UserDefaults {
 
         /// String
         static var recentSearch = "recentSearch"
-        
-        /// String
         static var FCMTokenForDevice = "fcmToken"
-        
-        /// String
         static var userId = "userId"
-        
-        /// String
         static var accessToken = "accessToken"
-        
-        /// String
         static var refreshToken = "refreshToken"
+        static var isAppleLogin = "isAppleLogin"
     }
 }
