@@ -28,4 +28,9 @@ struct UserDefaultsManager {
         get { return UserDefaults.standard.string(forKey: UserDefaults.Keys.FCMTokenForDevice) }
         set { UserDefaults.standard.set(newValue, forKey: UserDefaults.Keys.FCMTokenForDevice) }
     }
+    
+    static var isAppleLogin: Bool? {
+        get { return UserDefaults.standard.bool(forKey: UserDefaults.Keys.isAppleLogin) }
+        set { UserDefaults.standard.set(newValue, forKey: UserDefaults.Keys.isAppleLogin) }
+    }
 }
