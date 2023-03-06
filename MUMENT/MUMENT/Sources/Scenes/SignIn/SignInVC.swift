@@ -167,19 +167,6 @@ extension SignInVC: ASAuthorizationControllerDelegate {
         switch authorization.credential {
             
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-//            let appleIDCredential.authorizationCode
-//            print("AUTHORIZATION",appleIDCredential.authorizationCode)
-//            let authtokenString = String(data: appleIDCredential.authorizationCode ?? "", encoding: .utf8)
-//            print("AUTHORIZATIONTOKEN", authtokenString)
-            
-            
-//            if let code = appleIDCredential.authorizationCode,
-//               let tokenString = String(data: code, encoding: .utf8) {
-//                print("AUTHORIZATIONTOKEN", tokenString)
-//            }
-            
-            
-            
             if let identityToken = appleIDCredential.identityToken,
                let tokenString = String(data: identityToken, encoding: .utf8) {
                 let fcmToken = UserDefaultsManager.fcmToken ?? ""

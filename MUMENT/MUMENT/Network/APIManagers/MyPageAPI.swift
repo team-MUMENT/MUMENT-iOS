@@ -29,21 +29,6 @@ class MyPageAPI: BaseAPI {
         }
     }
     
-    /// [DELETE] 회원 탈퇴
-    func deleteMembership(completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(MyPageService.deleteMembership).responseData { response in
-            switch response.result {
-            case .success:
-                guard let statusCode = response.response?.statusCode else { return }
-                guard let data = response.data else { return }
-                let networkResult = self.judgeStatus(by: statusCode, data, WithdrawalResponseModel.self)
-                completion(networkResult)
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
-        }
-    }
-    
     /// [POST] 회원 탈퇴
     func postWithdrawal(socialToken: String, completion: @escaping (NetworkResult<Any>) -> (Void)) {
         AFmanager.request(MyPageService.postWithdrawal(socialToken: socialToken)).responseData { response in

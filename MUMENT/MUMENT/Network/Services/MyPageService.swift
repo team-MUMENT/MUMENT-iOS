@@ -10,7 +10,6 @@ import UIKit
 
 enum MyPageService {
     case postWithdrawalReason(body: WithdrawalReasonBodyModel)
-    case deleteMembership
     case postWithdrawal(socialToken: String)
     case checkDuplicatedNickname(nickname: String)
     case setProfile(data: SetProfileRequestModel)
@@ -27,8 +26,6 @@ extension MyPageService: TargetType {
         switch self {
         case .postWithdrawalReason:
             return "/user/leave-category"
-        case .deleteMembership:
-            return "/user/"
         case .postWithdrawal:
             return "/user/leave"
         case .checkDuplicatedNickname(let nickname):
@@ -54,7 +51,7 @@ extension MyPageService: TargetType {
         switch self {
         case .postWithdrawalReason, .postWithdrawal:
             return .post
-        case .deleteMembership, .deleteBlockedUser:
+        case .deleteBlockedUser:
             return .delete
         case.checkDuplicatedNickname, .getBlockedUserList, .getNoticeList, .getNoticeDetail, .getMypageURL, .getUserProfile:
             return .get
@@ -65,7 +62,7 @@ extension MyPageService: TargetType {
     
     var header: HeaderType {
         switch self {
-        case .postWithdrawalReason, .deleteMembership, .postWithdrawal, .checkDuplicatedNickname, .getBlockedUserList, .deleteBlockedUser, .getUserProfile:
+        case .postWithdrawalReason, .postWithdrawal, .checkDuplicatedNickname, .getBlockedUserList, .deleteBlockedUser, .getUserProfile:
             return .auth
         case .setProfile:
             return .multiPartWithAuth
@@ -85,7 +82,7 @@ extension MyPageService: TargetType {
             return .requestBody([
                 "socialToken": socialToken
             ])
-        case .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .setProfile, .deleteBlockedUser, .getNoticeList, .getNoticeDetail, .getUserProfile:
+        case .checkDuplicatedNickname, .getBlockedUserList, .setProfile, .deleteBlockedUser, .getNoticeList, .getNoticeDetail, .getUserProfile:
             return .requestPlain
         case .getMypageURL(let isFromSignIn):
             return .query(["page": isFromSignIn ? "login" : "mypage"])
