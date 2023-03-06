@@ -11,6 +11,7 @@ import UIKit
 enum MyPageService {
     case postWithdrawalReason(body: WithdrawalReasonBodyModel)
     case deleteMembership
+    case postWithdrawal(socialToken: String)
     case checkDuplicatedNickname(nickname: String)
     case setProfile(data: SetProfileRequestModel)
     case getBlockedUserList
@@ -28,6 +29,8 @@ extension MyPageService: TargetType {
             return "/user/leave-category"
         case .deleteMembership:
             return "/user/"
+        case .postWithdrawal:
+            return "/user/leave"
         case .checkDuplicatedNickname(let nickname):
             return "/user/profile/check/\(nickname)"
         case .setProfile:
@@ -49,7 +52,7 @@ extension MyPageService: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .postWithdrawalReason:
+        case .postWithdrawalReason, .postWithdrawal:
             return .post
         case .deleteMembership, .deleteBlockedUser:
             return .delete
@@ -62,7 +65,7 @@ extension MyPageService: TargetType {
     
     var header: HeaderType {
         switch self {
-        case .postWithdrawalReason, .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .deleteBlockedUser, .getUserProfile:
+        case .postWithdrawalReason, .deleteMembership, .postWithdrawal, .checkDuplicatedNickname, .getBlockedUserList, .deleteBlockedUser, .getUserProfile:
             return .auth
         case .setProfile:
             return .multiPartWithAuth
@@ -77,6 +80,10 @@ extension MyPageService: TargetType {
             return .requestBody([
                 "leaveCategoryId": body.leaveCategoryId,
                 "reasonEtc": body.reasonEtc
+            ])
+        case .postWithdrawal(let socialToken):
+            return .requestBody([
+                "socialToken": socialToken
             ])
         case .deleteMembership, .checkDuplicatedNickname, .getBlockedUserList, .setProfile, .deleteBlockedUser, .getNoticeList, .getNoticeDetail, .getUserProfile:
             return .requestPlain
