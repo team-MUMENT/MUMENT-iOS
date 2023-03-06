@@ -394,35 +394,13 @@ extension MembershipWithdrawalVC {
                             print(error)
                         } else {
                             print("loginWithKakaoTalk() success.")
-    //                        let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
-                            print("TOKEN!",oauthToken?.accessToken)
                             socialToken = oauthToken?.accessToken ?? ""
-                            
-                      
-                            print("TOKENTOKEN", socialToken)
                             self.requestWithdrawal(socialToken: socialToken)
                         }
                     }
                 }
                 
                
-            default:
-                self.stopActivityIndicator()
-                self.makeAlert(title: MessageType.networkError.message)
-            }
-        }
-    }
-    
-    private func requestPostWithdrawalReason() {
-        MyPageAPI.shared.deleteMembership() { networkResult in
-            switch networkResult {
-            case .success:
-                self.removeUserInfo()
-                let onboardingVC = OnboardingVC()
-                onboardingVC.modalPresentationStyle = .fullScreen
-                onboardingVC.modalTransitionStyle = .crossDissolve
-                self.stopActivityIndicator()
-                self.present(onboardingVC, animated: true)
             default:
                 self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
@@ -459,16 +437,9 @@ extension MembershipWithdrawalVC: ASAuthorizationControllerDelegate {
             
             if let code = appleIDCredential.authorizationCode,
                let tokenString = String(data: code, encoding: .utf8) {
-                print("AUTHORIZATIONTOKEN", tokenString)
                 self.requestWithdrawal(socialToken: tokenString)
             }
-            
-            
-            
-//            if let identityToken = appleIDCredential.identityToken,
-//               let tokenString = String(data: identityToken, encoding: .utf8) {
-//                self.requestWithdrawal(socialToken: tokenString)
-//            }
+ 
         default:
             break
         }
