@@ -203,8 +203,12 @@ extension SignInVC {
                 if let res = response as? SignInResponseModel {
                     
                     if data.provider == "apple" {
+                        UserDefaultsManager.isAppleLogin = true
+                        UserInfo.shared.isAppleLogin = true
                         sendGAEvent(eventName: .signup_process, parameterValue: .signup_sns_login_apple)
                     } else {
+                        UserDefaultsManager.isAppleLogin = false
+                        UserInfo.shared.isAppleLogin = false
                         sendGAEvent(eventName: .signup_process, parameterValue: .signup_sns_login_kakao)
                     }
                     
