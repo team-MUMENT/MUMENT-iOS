@@ -39,7 +39,10 @@ extension HomeService: TargetType {
     }
     
     var header: HeaderType {
-        return .auth
+        switch self {
+        case .getMumentForTodayData, .getMumentsOfRevisitedData, .getMumentsByTagData, .getCarouselData, .getUserPenalty:
+            return .auth
+        }
     }
     
     var parameters: RequestParams {
