@@ -16,7 +16,7 @@ final class AdminSignInVC: BaseVC {
         textField.backgroundColor = .mBgwhite
         textField.layer.borderWidth = 2
         textField.layer.borderColor = UIColor.mBlue1.cgColor
-        textField.placeholder = "user ID를 입력해 주세요."
+        textField.placeholder = "user ID를 입력해 주세요. 숫자만!!!!!!!!!!"
         return textField
     }()
     
@@ -41,6 +41,20 @@ final class AdminSignInVC: BaseVC {
         
         self.setBackgroundImage()
         self.setLayout()
+        self.setSignInButtonAction()
+    }
+    
+    // MARK: Methods
+    private func setSignInButtonAction() {
+        self.signInButton.press { [weak self] in
+            guard let userID: Int = Int(self?.userIDTextField.text ?? "")
+            else {
+                self?.makeAlert(title: "userID를 제대로 입력해 주세요.")
+                return
+            }
+            
+            self?.requestAdminSignIn(userID: userID, userName: self?.userNameTextField.text ?? "")
+        }
     }
 }
 
@@ -72,6 +86,38 @@ extension AdminSignInVC {
             make.top.equalTo(self.userNameTextField.snp.bottom).offset(40)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(44)
+        }
+    }
+}
+
+// MARK: - Network
+extension AdminSignInVC {
+    private func requestAdminSignIn(userID: Int, userName: String) {
+        AuthAPI.shared.requestAdminSignIn(userID: userID, userName: userName) { networkResult in
+            switch networkResult {
+            case .success(let response):
+                if let res = response as? SignInResponseModel {
+                    UserDefaultsManager.isAppleLogin = false
+                    UserInfo.shared.isAppleLogin = false
+                    
+                    self.setUserInfo(
+                        accessToken: res.accessToken,
+                        refreshToken: res.refreshToken,
+                        userId: res.id
+                    )
+                    
+                    let tabBarController = MumentTabBarController()
+                    tabBarController.modalPresentationStyle = .fullScreen
+                    tabBarController.modalTransitionStyle = .crossDissolve
+                    self.present(tabBarController, animated: true)
+                }
+            case .requestErr(_, let message):
+                if let messageString = message as? String {
+                    self.makeAlert(title: messageString)
+                }
+            default:
+                self.makeAlert(title: MessageType.networkError.message)
+            }
         }
     }
 }
