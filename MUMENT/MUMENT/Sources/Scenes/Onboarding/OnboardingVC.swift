@@ -57,9 +57,9 @@ final class OnboardingVC: BaseVC {
         pageControl.numberOfPages = dataSource.count
     }
     
-    private func setButtonActions(){
-        initiatingButton.press{
-            let signInVC = SignInVC()
+    private func setButtonActions() {
+        initiatingButton.press {
+            let signInVC = env() == .admin ? AdminSignInVC() : SignInVC()
             signInVC.modalPresentationStyle = .overFullScreen
             signInVC.modalTransitionStyle = .crossDissolve
             self.present(signInVC, animated: true)
