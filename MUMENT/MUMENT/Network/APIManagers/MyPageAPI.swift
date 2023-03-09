@@ -29,9 +29,9 @@ class MyPageAPI: BaseAPI {
         }
     }
     
-    /// [DELETE] 회원 탈퇴
-    func deleteMembership(completion: @escaping (NetworkResult<Any>) -> (Void)) {
-        AFmanager.request(MyPageService.deleteMembership).responseData { response in
+    /// [POST] 회원 탈퇴
+    func postWithdrawal(socialToken: String, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(MyPageService.postWithdrawal(socialToken: socialToken)).responseData { response in
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else { return }

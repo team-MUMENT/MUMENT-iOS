@@ -10,6 +10,8 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
+import KakaoSDKUser
+import AuthenticationServices
 
 final class MembershipWithdrawalVC: BaseVC {
     
@@ -375,7 +377,30 @@ extension MembershipWithdrawalVC {
         MyPageAPI.shared.postWithdrawalReason(body: data) { networkResult in
             switch networkResult {
             case .success:
-                self.requestPostWithdrawalReason()
+                var socialToken = ""
+                
+                if UserDefaultsManager.isAppleLogin == true {
+                    let appleIDProvider = ASAuthorizationAppleIDProvider()
+                    let request = appleIDProvider.createRequest()
+                    request.requestedScopes = [.fullName, .email]
+                    
+                    let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+                    authorizationController.delegate = self
+                    authorizationController.presentationContextProvider = self
+                    authorizationController.performRequests()
+                } else {
+                    UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            print("loginWithKakaoTalk() success.")
+                            socialToken = oauthToken?.accessToken ?? ""
+                            self.requestWithdrawal(socialToken: socialToken)
+                        }
+                    }
+                }
+                
+               
             default:
                 self.stopActivityIndicator()
                 self.makeAlert(title: MessageType.networkError.message)
@@ -383,8 +408,8 @@ extension MembershipWithdrawalVC {
         }
     }
     
-    private func requestPostWithdrawalReason() {
-        MyPageAPI.shared.deleteMembership() { networkResult in
+    private func requestWithdrawal(socialToken: String) {
+        MyPageAPI.shared.postWithdrawal(socialToken: socialToken) { networkResult in
             switch networkResult {
             case .success:
                 self.removeUserInfo()
@@ -398,5 +423,40 @@ extension MembershipWithdrawalVC {
                 self.makeAlert(title: MessageType.networkError.message)
             }
         }
+    }
+}
+
+// MARK: - ASAuthorizationControllerDelegate
+extension MembershipWithdrawalVC: ASAuthorizationControllerDelegate {
+    
+    /// 사용자 인증 성공 시 인증 정보를 반환 받습니다.
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+            
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            
+            if let code = appleIDCredential.authorizationCode,
+               let tokenString = String(data: code, encoding: .utf8) {
+                self.requestWithdrawal(socialToken: tokenString)
+            }
+ 
+        default:
+            break
+        }
+    }
+    
+    /// 사용자 인증 실패 시 에러 처리를 합니다.
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("apple 로그인 사용자 인증 실패")
+        print("error \(error)")
+    }
+}
+
+// MARK: - ASAuthorizationControllerPresentationContextProviding
+extension MembershipWithdrawalVC: ASAuthorizationControllerPresentationContextProviding {
+    
+    /// 애플 로그인 UI를 어디에 띄울지 가장 적합한 뷰 앵커를 반환합니다.
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }
