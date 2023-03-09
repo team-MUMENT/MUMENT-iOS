@@ -338,6 +338,7 @@ extension HomeVC {
             case .success(let response):
                 if let result: GetIsNewNotificationResponseModel = response as? GetIsNewNotificationResponseModel {
                     self.headerView.setNotificationButtonIcon(isNew: result.exist)
+                    OfficialIdInfo.shared.idList = result.officialIdList
                 }
             default:
                 self.makeAlert(title: MessageType.networkError.message)
