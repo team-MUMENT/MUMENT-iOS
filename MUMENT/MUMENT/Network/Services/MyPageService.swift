@@ -19,6 +19,7 @@ enum MyPageService {
     case getNoticeDetail(noticeId: Int)
     case getMypageURL(isFromSignIn: Bool = false)
     case getUserProfile
+    case getAppVersion
 }
 
 extension MyPageService: TargetType {
@@ -40,7 +41,7 @@ extension MyPageService: TargetType {
             return "/mument/notice"
         case .getNoticeDetail(let noticeId):
             return "/mument/notice/\(noticeId)"
-        case .getMypageURL:
+        case .getMypageURL, .getAppVersion:
             return "/user/webview-link"
         case .getUserProfile:
             return "/user/profile"
@@ -53,7 +54,7 @@ extension MyPageService: TargetType {
             return .post
         case .deleteBlockedUser:
             return .delete
-        case.checkDuplicatedNickname, .getBlockedUserList, .getNoticeList, .getNoticeDetail, .getMypageURL, .getUserProfile:
+        case.checkDuplicatedNickname, .getBlockedUserList, .getNoticeList, .getNoticeDetail, .getMypageURL, .getUserProfile, .getAppVersion:
             return .get
         case .setProfile:
             return .put
@@ -66,7 +67,7 @@ extension MyPageService: TargetType {
             return .auth
         case .setProfile:
             return .multiPartWithAuth
-        case .getNoticeList, .getNoticeDetail, .getMypageURL:
+        case .getNoticeList, .getNoticeDetail, .getMypageURL, .getAppVersion:
             return .basic
         }
     }
@@ -86,6 +87,8 @@ extension MyPageService: TargetType {
             return .requestPlain
         case .getMypageURL(let isFromSignIn):
             return .query(["page": isFromSignIn ? "login" : "mypage"])
+        case .getAppVersion:
+            return .query(["page": "version"])
         }
     }
     
