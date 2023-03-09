@@ -10,4 +10,5 @@ import Foundation
 // MARK: - GetIsNewNotificationResponseModel
 struct GetIsNewNotificationResponseModel: Codable {
     var exist: Bool
+    var officialIdList: [Int]
 }
