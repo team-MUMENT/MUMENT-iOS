@@ -105,7 +105,7 @@ extension SplashVC {
                 self.requestIsProfileSet()
             case .requestErr, .serverErr:
                 self.stopActivityIndicator()
-                let signInVC = SignInVC()
+                let signInVC = env() == .admin ? AdminSignInVC() : SignInVC()
                 signInVC.modalPresentationStyle = .fullScreen
                 signInVC.modalTransitionStyle = .crossDissolve
                 self.present(signInVC, animated: true)
