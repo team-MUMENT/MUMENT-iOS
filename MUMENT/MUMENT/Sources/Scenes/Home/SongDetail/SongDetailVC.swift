@@ -66,7 +66,6 @@ final class SongDetailVC: BaseVC {
         mumentTV.register(AllMumentsSectionHeader.self, forHeaderFooterViewReuseIdentifier: AllMumentsSectionHeader.className)
         mumentTV.register(cell: SongDetailMyMumentEmptyTVC.self, forCellReuseIdentifier: SongDetailMyMumentEmptyTVC.className)
         mumentTV.separatorStyle = .none
-        mumentTV.showsVerticalScrollIndicator = false
     }
     
     private func setButtonActions(){
