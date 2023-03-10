@@ -156,8 +156,8 @@
 		C767507F29407D8300F2D985 /* SetBlockedUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */; };
 		C767508229407F3100F2D985 /* BlockedUserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C767508129407F3100F2D985 /* BlockedUserTVC.swift */; };
 		C76CA3C0299BA7A700E60888 /* ReportDoneButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76CA3BF299BA7A700E60888 /* ReportDoneButtonFooterView.swift */; };
-		C76D243829B338A800F4489F /* GetAppVersionResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D243729B338A800F4489F /* GetAppVersionResponseModel.swift */; };
 		C76D243629B330B900F4489F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C76D243529B330B900F4489F /* GoogleService-Info.plist */; };
+		C76D243829B338A800F4489F /* GetAppVersionResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D243729B338A800F4489F /* GetAppVersionResponseModel.swift */; };
 		C76D29B92990F90800760A99 /* MumentSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */; };
 		C76D29BB2991485A00760A99 /* GetIsNewNotificationResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29BA2991485A00760A99 /* GetIsNewNotificationResponseModel.swift */; };
 		C76D29BE2991852900760A99 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76D29BD2991852900760A99 /* UINavigationController+.swift */; };
@@ -229,6 +229,7 @@
 		C7C02052299D1EC100761C8E /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204D299D0E2600761C8E /* Shared.xcconfig */; };
 		C7C02053299D1ECE00761C8E /* QA.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204E299D11CD00761C8E /* QA.xcconfig */; };
 		C7C02054299D1ED100761C8E /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7C0204F299D11D800761C8E /* Release.xcconfig */; };
+		C7C9292D29BA2EFA00E2EFF1 /* OfficialIdInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9292C29BA2EFA00E2EFF1 /* OfficialIdInfo.swift */; };
 		C7D6E2C329863A9B006F9AB8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */; };
 		C7D6E2C529864174006F9AB8 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */; };
 		C7DAD6122992ABC100477689 /* NSNotification+Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DAD6112992ABC100477689 /* NSNotification+Name+.swift */; };
@@ -410,8 +411,8 @@
 		C767507E29407D8300F2D985 /* SetBlockedUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBlockedUserVC.swift; sourceTree = "<group>"; };
 		C767508129407F3100F2D985 /* BlockedUserTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserTVC.swift; sourceTree = "<group>"; };
 		C76CA3BF299BA7A700E60888 /* ReportDoneButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDoneButtonFooterView.swift; sourceTree = "<group>"; };
-		C76D243729B338A800F4489F /* GetAppVersionResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppVersionResponseModel.swift; sourceTree = "<group>"; };
 		C76D243529B330B900F4489F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C76D243729B338A800F4489F /* GetAppVersionResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAppVersionResponseModel.swift; sourceTree = "<group>"; };
 		C76D29B82990F90800760A99 /* MumentSearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentSearchBarButton.swift; sourceTree = "<group>"; };
 		C76D29BA2991485A00760A99 /* GetIsNewNotificationResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIsNewNotificationResponseModel.swift; sourceTree = "<group>"; };
 		C76D29BD2991852900760A99 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
@@ -473,6 +474,7 @@
 		C7C0204E299D11CD00761C8E /* QA.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = QA.xcconfig; sourceTree = "<group>"; };
 		C7C0204F299D11D800761C8E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		C7C02050299D151D00761C8E /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		C7C9292C29BA2EFA00E2EFF1 /* OfficialIdInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficialIdInfo.swift; sourceTree = "<group>"; };
 		C7D6E2C229863A9B006F9AB8 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		C7D6E2C429864174006F9AB8 /* NotificationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
 		C7DAD6112992ABC100477689 /* NSNotification+Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Name+.swift"; sourceTree = "<group>"; };
@@ -1050,6 +1052,7 @@
 			children = (
 				C7AE17DF28880DEB00A5E3FA /* UserInfo.swift */,
 				C7AE8F82297D948300B1603E /* NotificationInfo.swift */,
+				C7C9292C29BA2EFA00E2EFF1 /* OfficialIdInfo.swift */,
 			);
 			path = Singleton;
 			sourceTree = "<group>";
@@ -1453,6 +1456,7 @@
 				C7BC6B6A287710D6008C75CE /* UIButton+.swift in Sources */,
 				C766F9C32935C25D00E08D5C /* MypageMainVC.swift in Sources */,
 				4D76045A2880AC840044F2A6 /* MumentDetailVC.swift in Sources */,
+				C7C9292D29BA2EFA00E2EFF1 /* OfficialIdInfo.swift in Sources */,
 				C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */,
 				C766F9C62935E0F800E08D5C /* MypageMainHeaderView.swift in Sources */,
 				C7612D4E2937C816005F74B1 /* MypageNoticeTitleView.swift in Sources */,
