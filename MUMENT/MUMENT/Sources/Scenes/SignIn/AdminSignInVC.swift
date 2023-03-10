@@ -16,7 +16,8 @@ final class AdminSignInVC: BaseVC {
         textField.backgroundColor = .mBgwhite
         textField.layer.borderWidth = 2
         textField.layer.borderColor = UIColor.mBlue1.cgColor
-        textField.placeholder = "user ID를 입력해 주세요. 숫자만!!!!!!!!!!"
+        textField.placeholder = "user ID를 입력해 주세요."
+        textField.keyboardType = .numberPad
         return textField
     }()
     
