@@ -79,13 +79,11 @@ final class DetailMumentCardView: UIView {
         $0.configuration?.image = UIImage(named: "instagram")
     }
     private var isLiked: Bool = false
-    
     private let privateLabel = UILabel().then {
         $0.font = .mumentC1R12
         $0.text = "비밀글"
         $0.textColor = .mGray1
     }
-    
     private var mumentId: Int = 0
     
     // MARK: - Initialization
@@ -113,12 +111,24 @@ final class DetailMumentCardView: UIView {
         self.heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         heartCount = cellData.likeCount
         self.mumentId = mumentId
+        hideMenuButton(userId: cellData.user.id)
         songInfoView.setData(musicData)
-        
+        setHeartStackViewLayout(isPrivate: cellData.isPrivate)
+        setTags()
+        updateContentLayout(content: cellData.content)
+    }
+    
+    private func hideMenuButton(userId: Int) {
+        if OfficialIdInfo.shared.idList.contains(userId) {
+            self.menuIconButton.isHidden = true
+        }
+    }
+    
+    private func setHeartStackViewLayout(isPrivate: Bool) {
         heartStackView.subviews.forEach {
             $0.removeFromSuperview()
         }
-        if cellData.isPrivate {
+        if isPrivate {
             heartStackView.addArrangedSubview(privateLabel)
             heartStackView.snp.updateConstraints {
                 $0.left.equalTo(self.safeAreaLayoutGuide).offset(13)
@@ -132,9 +142,6 @@ final class DetailMumentCardView: UIView {
                 $0.height.width.equalTo(21.adjustedH)
             }
         }
-        
-        setTags()
-        self.updateContentLayout(content: cellData.content)
     }
     
     private func setTags() {
