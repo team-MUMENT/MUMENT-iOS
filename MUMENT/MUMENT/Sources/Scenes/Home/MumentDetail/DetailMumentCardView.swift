@@ -113,8 +113,15 @@ final class DetailMumentCardView: UIView {
         self.heartButton.setImage(cellData.isLiked ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         heartCount = cellData.likeCount
         self.mumentId = mumentId
+        hideMenuButton(userId: cellData.user.id)
         songInfoView.setData(musicData)
         
+    private func hideMenuButton(userId: Int) {
+        if OfficialIdInfo.shared.idList.contains(userId) {
+            self.menuIconButton.isHidden = true
+        }
+    }
+    
         heartStackView.subviews.forEach {
             $0.removeFromSuperview()
         }
