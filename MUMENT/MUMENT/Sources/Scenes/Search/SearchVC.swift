@@ -235,8 +235,11 @@ extension SearchVC: UITableViewDelegate {
                 albumUrl: self.searchResultData[indexPath.row].image ?? ""
             )
             if self.recentSearchData.contains(self.searchResultData[indexPath.row]) {
-                self.recentSearchData.append(self.recentSearchData[indexPath.row])
-                self.recentSearchData.remove(at: indexPath.row)
+                if let index = self.recentSearchData.firstIndex(of: self.searchResultData[indexPath.row]) {
+                    self.recentSearchData.remove(at: index)
+                }
+                self.recentSearchData.append(self.searchResultData[indexPath.row])
+                
                 SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: self.recentSearchData, forKey: UserDefaults.Keys.recentSearch)
             } else {
                 self.recentSearchData.append(searchResultData[indexPath.row])
