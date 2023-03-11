@@ -265,15 +265,7 @@ class WriteVC: BaseVC {
     
     private func setCompleteButton() {
         self.naviView.doneButton.press { [weak self] in
-            self?.feelTagCV.indexPathsForSelectedItems?.forEach {
-                let cell =  self?.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
-                self?.clickedFeelTag.append(cell.contentLabel.text?.tagInt() ?? 0)
-            }
-            
-            self?.impressionTagCV.indexPathsForSelectedItems?.forEach {
-                let cell =  self?.impressionTagCV.cellForItem(at: $0) as! WriteTagCVC
-                self?.clickedImpressionTag.append(cell.contentLabel.text?.tagInt() ?? 0)
-            }
+            self?.setTagData()
             
             let contentText = self?.contentTextView.textColor == .mBlack2 ? self?.contentTextView.text : ""
             
@@ -443,6 +435,26 @@ class WriteVC: BaseVC {
             self?.present(mumentAlert, animated: true)
             
             mumentAlert.OKButton.press { [weak self] in
+                if self?.isEdit == false {
+                    self?.setTagData()
+                    let contentText = self?.contentTextView.textColor == .mBlack2 ? self?.contentTextView.text : ""
+                    
+                    if ((self?.view.subviews.contains(self?.selectedMusicView ?? UIView())) != nil) {
+                        sendGAEvent(eventName: .write_process, parameterValue: .select_music)
+                    }
+                    
+                    if (self?.clickedImpressionTag ?? []).isEmpty == false {
+                        sendGAEvent(eventName: .write_process, parameterValue: .select_impressive)
+                    }
+                    
+                    if (self?.clickedFeelTag ?? []).isEmpty == false {
+                        sendGAEvent(eventName: .write_process, parameterValue: .select_feeling)
+                    }
+                    
+                    if (contentText?.count ?? 0) >= 10 {
+                        sendGAEvent(eventName: .write_process, parameterValue: .write_text)
+                    }
+                }
                 if let writeVC = self {
                     if writeVC.isFromHomeTab {
                         NotificationCenter.default.post(name: .sendViewState, object: true)
@@ -483,6 +495,18 @@ class WriteVC: BaseVC {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             self.keyboardHeight = keyboardRectangle.height
+        }
+    }
+    
+    private func setTagData() {
+        self.feelTagCV.indexPathsForSelectedItems?.forEach {
+            let cell =  self.feelTagCV.cellForItem(at: $0) as! WriteTagCVC
+            self.clickedFeelTag.append(cell.contentLabel.text?.tagInt() ?? 0)
+        }
+        
+        self.impressionTagCV.indexPathsForSelectedItems?.forEach {
+            let cell =  self.impressionTagCV.cellForItem(at: $0) as! WriteTagCVC
+            self.clickedImpressionTag.append(cell.contentLabel.text?.tagInt() ?? 0)
         }
     }
 }
