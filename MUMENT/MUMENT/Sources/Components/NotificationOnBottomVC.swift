@@ -96,16 +96,19 @@ final class NotificationOnBottomVC: BaseVC {
     // MARK: Methods
     private func setCloseButtonAction() {
         self.closeButton.press { [weak self] in
+            sendGAEvent(eventName: .noti_popup, parameterValue: .noti_popup_delete)
             self?.dismiss(animated: true)
         }
         
         self.notBeNotifiedButton.press { [weak self] in
+            sendGAEvent(eventName: .noti_popup, parameterValue: .noti_popup_refuse)
             self?.dismiss(animated: true)
         }
     }
     
     private func setNotifiedButtonAction() {
         self.notifiedButton.press { [weak self] in
+            sendGAEvent(eventName: .noti_popup, parameterValue: .noti_page_success)
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 self?.dismiss(animated: true)
