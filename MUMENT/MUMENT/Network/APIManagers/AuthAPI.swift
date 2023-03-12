@@ -77,4 +77,19 @@ class AuthAPI: BaseAPI {
             }
         }
     }
+    
+    /// [POST] Admin 로그인
+    func requestAdminSignIn(userID: Int, userName: String, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        AFmanager.request(AuthService.requestAdminSignIn(userID: userID, userName: userName)).responseData { response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let data = response.data else { return }
+                let networkResult = self.judgeStatus(by: statusCode, data, SignInResponseModel.self)
+                completion(networkResult)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
