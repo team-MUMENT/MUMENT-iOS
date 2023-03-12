@@ -255,6 +255,9 @@ extension SetProfileVC {
             switch networkResult {
             case .success(let status):
                 if let result = status as? Int {
+                    if self.isFirst {
+                        sendGAEvent(eventName: .signup_process, parameterValue: .signup_duplication_test)
+                    }
                     switch result {
                     case 200:
                         self.stopActivityIndicator()
@@ -289,6 +292,14 @@ extension SetProfileVC {
                         userId: result.id
                     )
                     self.setUserProfile(nickname: result.userName, profileImageURL: result.image)
+                    if self.isFirst {
+                        if let image = self.loadImageView.image {
+                            if image == self.defaultProfileImage {
+                                sendGAEvent(eventName: .signup_process, parameterValue: .signup_profile_img)
+                            }
+                            sendGAEvent(eventName: .signup_process, parameterValue: .signup_success)
+                        }
+                    }
                     self.stopActivityIndicator()
                     if let navigationController = self.navigationController {
                         navigationController.popViewController(animated: true)
