@@ -237,7 +237,13 @@ class WriteVC: BaseVC {
         
         let musicData = SearchResultResponseModelElement(id: songData.id, name: songData.title, artist: songData.artist, image: songData.albumUrl)
         self.selectedMusicView.setData(data: musicData)
-        self.getIsFirst(musicId: songData.id)
+        self.isFirstListen = mumentData.isFirst
+        if mumentData.isFirst == false {
+            self.getIsFirst(musicId: songData.id)
+        } else {
+            self.isFirstListenActivated = mumentData.isFirst
+        }
+        
         self.setRadioButtonSelectStatus(button: self.firstListenButton, isSelected: mumentData.isFirst)
         self.setRadioButtonSelectStatus(button: self.againListenButton, isSelected: !(mumentData.isFirst))
         self.musicId = songData.id
