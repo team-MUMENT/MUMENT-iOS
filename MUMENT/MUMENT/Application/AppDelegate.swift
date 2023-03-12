@@ -45,6 +45,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 """
             )
             Analytics.setAnalyticsCollectionEnabled(true)
+        case .admin:
+            print(
+"""
+======================================================
+=========== 📱 WELCOME TO ADMIN MODE 📱 ===========
+======================================================
+"""
+            )
+            Analytics.setAnalyticsCollectionEnabled(false)
         }
         
         // 네이티브 앱 키(카카오 디벨로퍼 계정에서 제공)를 사용해 iOS SDK를 초기화합니다.

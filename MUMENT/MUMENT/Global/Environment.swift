@@ -11,6 +11,7 @@ enum Environment: String {
     case debug = "debug"
     case qa = "qa"
     case release = "release"
+    case admin = "admin"
     
     enum Keys {
         enum Plist {
@@ -46,5 +47,7 @@ func env() -> Environment {
     return .qa
     #elseif RELEASE
     return .release
+    #elseif ADMIN
+    return .admin
     #endif
 }

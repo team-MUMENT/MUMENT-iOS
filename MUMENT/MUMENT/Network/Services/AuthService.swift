@@ -17,6 +17,7 @@ enum AuthService {
     case getRenewedToken
     case getIsProfileSet
     case requestSignOut
+    case requestAdminSignIn(userID: Int, userName: String)
 }
 
 extension AuthService: TargetType {
@@ -30,12 +31,14 @@ extension AuthService: TargetType {
             return "/user/profile/check"
         case .requestSignOut:
             return "/auth/logout"
+        case .requestAdminSignIn:
+            return "/auth/admin/login"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .postSignIn, .requestSignOut:
+        case .postSignIn, .requestSignOut, .requestAdminSignIn:
             return .post
         case .getRenewedToken:
             return .get
@@ -46,7 +49,7 @@ extension AuthService: TargetType {
     
     var header: HeaderType {
         switch self {
-        case .postSignIn:
+        case .postSignIn, .requestAdminSignIn:
             return .basic
         case .getRenewedToken:
             return .authRenewal
@@ -59,6 +62,14 @@ extension AuthService: TargetType {
         switch self {
         case .postSignIn(let body):
             return .requestBody(["provider": body.provider, "authentication_code": body.authentication_code, "fcm_token": body.fcm_token])
+            
+        case .requestAdminSignIn(let userID, let userName):
+            return .requestBody([
+                "id": userID,
+                "userName": userName,
+                "provider": "admin"
+            ])
+            
         case .getRenewedToken, .getIsProfileSet, .requestSignOut:
             return .requestPlain
         }
