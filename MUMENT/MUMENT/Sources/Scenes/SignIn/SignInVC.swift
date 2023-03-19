@@ -59,19 +59,28 @@ final class SignInVC: BaseVC {
     // MARK: - Functions
     private func setButtonActions() {
         kakaoSignInButton.press {
-            
-            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                if let error = error {
-                    print(error)
-                } else {
-                    print("loginWithKakaoTalk() success.")
-                    let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
-                    self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.accessToken ?? "", fcm_token: fcmToken))
+            if UserApi.isKakaoTalkLoginAvailable() {
+                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                    if error != nil {
+                    } else {
+                        print("loginWithKakaoTalk() success.")
+                        let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
+                        self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.accessToken ?? "", fcm_token: fcmToken))
+                    }
+                }
+            } else {
+                UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+                    if error != nil {
+                    } else {
+                        print("isKakaoTalkLoginAvailable() success.")
+                        let fcmToken: String = UserDefaultsManager.fcmToken ?? ""
+                        self.requestSignIn(data: SignInBodyModel(provider: "kakao", authentication_code: oauthToken?.accessToken ?? "", fcm_token: fcmToken))
+                    }
                 }
             }
         }
         
-        appleSignInButton.press{
+        appleSignInButton.press {
             let appleIDProvider = ASAuthorizationAppleIDProvider()
             let request = appleIDProvider.createRequest()
             request.requestedScopes = [.fullName, .email]
@@ -92,7 +101,6 @@ final class SignInVC: BaseVC {
         privacyPolicyLabel.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    // TODO: - 연결될 웹페이지 링크 차후 노션 링크로 변경하기
     @objc private func privacyPolicyLabelTapped(_ sender: UITapGestureRecognizer) {
         
         // privacyPolicyLabel에서 UITapGestureRecognizer로 선택된 부분의 CGPoint를 구합니다.
