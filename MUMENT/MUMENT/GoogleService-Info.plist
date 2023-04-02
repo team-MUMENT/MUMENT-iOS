@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1080497299725-ndb2hglolt4ah8el1tb8c7rnsc8l1sr3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1080497299725-ndb2hglolt4ah8el1tb8c7rnsc8l1sr3</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDQVkKkVpE6ivPKqteS9CyDecJ4LlPcFBM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1080497299725</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>madilyn.MUMENT</string>
+	<key>PROJECT_ID</key>
+	<string>mument-release</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mument-release.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1080497299725:ios:e8c30d07e67ee429e11044</string>
+</dict>
+</plist>
