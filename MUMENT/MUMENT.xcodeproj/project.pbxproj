@@ -119,7 +119,6 @@
 		C73FC9B4287AEA510017F2DA /* MumentCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */; };
 		C73FC9C0287C19A40017F2DA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9BF287C19A40017F2DA /* TargetType.swift */; };
 		C73FC9C2287C19B00017F2DA /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C1287C19B00017F2DA /* NetworkResult.swift */; };
-		C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C3287C19CD0017F2DA /* APIConstants.swift */; };
 		C73FC9C6287C19D30017F2DA /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C5287C19D30017F2DA /* GenericResponse.swift */; };
 		C73FC9C8287C19DA0017F2DA /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C7287C19DA0017F2DA /* NetworkConstants.swift */; };
 		C73FC9CA287C19E60017F2DA /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73FC9C9287C19E60017F2DA /* AuthService.swift */; };
@@ -166,6 +165,7 @@
 		C77BB8A3298AF08B00C69E72 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77BB8A2298AF08B00C69E72 /* UIImage+.swift */; };
 		C78B10A029408892002D2E54 /* GetBlockedUserListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78B109F29408892002D2E54 /* GetBlockedUserListResponseModel.swift */; };
 		C78D26C529A47FD50057A17A /* MumentHeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78D26C429A47FD50057A17A /* MumentHeartButton.swift */; };
+		C797201F2A10DE31006A3BE8 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C797201E2A10DE31006A3BE8 /* APIConstants.swift */; };
 		C79CA72029A3766700DB40D5 /* GAEventNameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CA71F29A3766700DB40D5 /* GAEventNameType.swift */; };
 		C79CA72229A37EF100DB40D5 /* sendGAEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79CA72129A37EF100DB40D5 /* sendGAEvent.swift */; };
 		C79CA72529A3D7F700DB40D5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C79CA72429A3D7F700DB40D5 /* FirebaseAnalytics */; };
@@ -380,7 +380,6 @@
 		C73FC9B3287AEA510017F2DA /* MumentCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentCompleteButton.swift; sourceTree = "<group>"; };
 		C73FC9BF287C19A40017F2DA /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		C73FC9C1287C19B00017F2DA /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
-		C73FC9C3287C19CD0017F2DA /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		C73FC9C5287C19D30017F2DA /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
 		C73FC9C7287C19DA0017F2DA /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		C73FC9C9287C19E60017F2DA /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -422,6 +421,7 @@
 		C77BB8A2298AF08B00C69E72 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		C78B109F29408892002D2E54 /* GetBlockedUserListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockedUserListResponseModel.swift; sourceTree = "<group>"; };
 		C78D26C429A47FD50057A17A /* MumentHeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MumentHeartButton.swift; sourceTree = "<group>"; };
+		C797201E2A10DE31006A3BE8 /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		C79CA71F29A3766700DB40D5 /* GAEventNameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAEventNameType.swift; sourceTree = "<group>"; };
 		C79CA72129A37EF100DB40D5 /* sendGAEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendGAEvent.swift; sourceTree = "<group>"; };
 		C79CA73A29A47BB400DB40D5 /* heart_icn_lottie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heart_icn_lottie.json; sourceTree = "<group>"; };
@@ -830,7 +830,7 @@
 		C73FC9BE287C195C0017F2DA /* APIEssentials */ = {
 			isa = PBXGroup;
 			children = (
-				C73FC9C3287C19CD0017F2DA /* APIConstants.swift */,
+				C797201E2A10DE31006A3BE8 /* APIConstants.swift */,
 				C73FC9C5287C19D30017F2DA /* GenericResponse.swift */,
 				C73FC9C7287C19DA0017F2DA /* NetworkConstants.swift */,
 			);
@@ -1439,6 +1439,7 @@
 				4D696CF12879784C0060CE41 /* MumentsByTagTVC.swift in Sources */,
 				E72A0673299268CA00A42378 /* MumentSongViewNotiModel.swift in Sources */,
 				E781F2272882A77500484C28 /* SectionHeader.swift in Sources */,
+				C797201F2A10DE31006A3BE8 /* APIConstants.swift in Sources */,
 				C7612D4C2937BBE5005F74B1 /* MypageNoticeDetailVC.swift in Sources */,
 				4D76046A28814A9A0044F2A6 /* AllMumentsSectionHeader.swift in Sources */,
 				4D13A67628887A8000197D2A /* SongInfoResponseModel.swift in Sources */,
@@ -1514,7 +1515,6 @@
 				C7DF4A4A297BB6FC00E999DE /* NotificationVC.swift in Sources */,
 				C7AE17F3288A59B300A5E3FA /* SongDetailMyMumentEmptyTVC.swift in Sources */,
 				4DAD075C2946CBDD00567625 /* DropDownMenuTVC.swift in Sources */,
-				C73FC9C4287C19CD0017F2DA /* APIConstants.swift in Sources */,
 				4D2A6E642938E94F00B53C7A /* DropDownButton.swift in Sources */,
 				C7BC6B512876AD8C008C75CE /* DefaultNavigationView.swift in Sources */,
 				C74EC41A28758D220068EB46 /* AppDelegate.swift in Sources */,
