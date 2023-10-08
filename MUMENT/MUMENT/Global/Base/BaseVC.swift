@@ -87,7 +87,7 @@ extension BaseVC {
         UserDefaultsManager.refreshToken = nil
         UserDefaultsManager.userId = nil
         SearchResultResponseModelElement.setSearchResultModelToUserDefaults(data: [], forKey: UserDefaults.Keys.recentSearch)
-        UserInfo.shared = UserInfo.init()
+        UserInfo.shared.resetUserInfo()
     }
     
     func getUserProfile(completion: @escaping () -> (Void)) {
