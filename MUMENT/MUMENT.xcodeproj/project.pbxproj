@@ -266,6 +266,10 @@
 		E7978476297D5DD600A0AE45 /* FilterLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7978475297D5DD600A0AE45 /* FilterLayout.swift */; };
 		E7978478297D887300A0AE45 /* StorageFilterTagCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7978477297D887300A0AE45 /* StorageFilterTagCVC.swift */; };
 		E7D60FFF287EC821000720D4 /* ListCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D60FFE287EC821000720D4 /* ListCVC.swift */; };
+		FF896BF22AF5339E000800ED /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = FF896BF12AF5339E000800ED /* FacebookAEM */; };
+		FF896BF42AF5339E000800ED /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = FF896BF32AF5339E000800ED /* FacebookBasics */; };
+		FF896BF62AF5339E000800ED /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF896BF52AF5339E000800ED /* FacebookCore */; };
+		FF896BF82AF5339E000800ED /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = FF896BF72AF5339E000800ED /* FacebookShare */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -520,6 +524,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF896BF42AF5339E000800ED /* FacebookBasics in Frameworks */,
 				C79CA73129A3D7F700DB40D5 /* FirebaseMessaging in Frameworks */,
 				C79CA72B29A3D7F700DB40D5 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				C79CA72929A3D7F700DB40D5 /* FirebaseAnalyticsSwift in Frameworks */,
@@ -534,8 +539,11 @@
 				C74EC445287593BF0068EB46 /* RxRelay in Frameworks */,
 				C74EC43B287593910068EB46 /* SnapKit in Frameworks */,
 				C74EC441287593BF0068EB46 /* RxBlocking in Frameworks */,
+				FF896BF62AF5339E000800ED /* FacebookCore in Frameworks */,
 				C74EC443287593BF0068EB46 /* RxCocoa in Frameworks */,
 				C74EC43E2875939F0068EB46 /* Then in Frameworks */,
+				FF896BF22AF5339E000800ED /* FacebookAEM in Frameworks */,
+				FF896BF82AF5339E000800ED /* FacebookShare in Frameworks */,
 				C79CA72F29A3D7F700DB40D5 /* FirebaseCrashlytics in Frameworks */,
 				C79CA72529A3D7F700DB40D5 /* FirebaseAnalytics in Frameworks */,
 				4DA2E1C52918D3FB0037F5BD /* KakaoSDKAuth in Frameworks */,
@@ -1320,6 +1328,10 @@
 				C79CA73229A3D7F700DB40D5 /* FirebaseRemoteConfig */,
 				C79CA73429A3D7F700DB40D5 /* FirebaseRemoteConfigSwift */,
 				C79CA73729A47B8100DB40D5 /* Lottie */,
+				FF896BF12AF5339E000800ED /* FacebookAEM */,
+				FF896BF32AF5339E000800ED /* FacebookBasics */,
+				FF896BF52AF5339E000800ED /* FacebookCore */,
+				FF896BF72AF5339E000800ED /* FacebookShare */,
 			);
 			productName = MUMENT;
 			productReference = C74EC41628758D220068EB46 /* MUMENT.app */;
@@ -1358,6 +1370,7 @@
 				4DA2E1C12918D3FB0037F5BD /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				C79CA72329A3D7F700DB40D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C79CA73629A47B8100DB40D5 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				FF896BF02AF5339E000800ED /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = C74EC41728758D220068EB46 /* Products */;
 			projectDirPath = "";
@@ -2116,6 +2129,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		FF896BF02AF5339E000800ED /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2213,6 +2234,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C79CA73629A47B8100DB40D5 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		FF896BF12AF5339E000800ED /* FacebookAEM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF896BF02AF5339E000800ED /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookAEM;
+		};
+		FF896BF32AF5339E000800ED /* FacebookBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF896BF02AF5339E000800ED /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		FF896BF52AF5339E000800ED /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF896BF02AF5339E000800ED /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		FF896BF72AF5339E000800ED /* FacebookShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF896BF02AF5339E000800ED /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookShare;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
