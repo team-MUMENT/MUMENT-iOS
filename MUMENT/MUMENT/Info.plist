@@ -2,14 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>DEFAULT_PROFILE_IMAGE_URL</key>
-	<string>$(DEFAULT_PROFILE_IMAGE_URL)</string>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
-	<key>KAKAO_NATIVE_APP_KEY</key>
-	<string>$(KAKAO_NATIVE_APP_KEY)</string>
-	<key>BASE_URL</key>
-	<string>$(BASE_URL)</string>
+	<key>FACEBOOK_APP_ID</key>
+	<string>${FACEBOOK_APP_ID}</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -21,6 +15,20 @@
 			</array>
 		</dict>
 	</array>
+	<key>FacebookAppID</key>
+	<string>${FACEBOOK_APP_ID}</string>
+	<key>FacebookClientToken</key>
+	<string>${FACEBOOK_CLIENT_TOKEN}</string>
+	<key>FacebookDisplayName</key>
+	<string>MUMENT</string>
+	<key>DEFAULT_PROFILE_IMAGE_URL</key>
+	<string>$(DEFAULT_PROFILE_IMAGE_URL)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>KAKAO_NATIVE_APP_KEY</key>
+	<string>$(KAKAO_NATIVE_APP_KEY)</string>
+	<key>BASE_URL</key>
+	<string>$(BASE_URL)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
