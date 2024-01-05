@@ -13,4 +13,6 @@ struct APIConstants {
     static let baseURL = Environment.BASE_URL
     
     static let defaultProfileImageURL = Environment.defaultProfileImageURL
+    
+    static let facebookAppID = Environment.FACEBOOK_APP_ID
 }

@@ -262,7 +262,7 @@ extension MumentDetailVC: DetailMumentCardViewDelegate {
             instagramShareView.drawHierarchy(in: instagramShareView.bounds, afterScreenUpdates: true)
         }
         
-        if let storiesUrl = URL(string: "instagram-stories://share") {
+        if let storiesUrl = URL(string: "instagram-stories://share?source_application=\(APIConstants.facebookAppID)") {
             if UIApplication.shared.canOpenURL(storiesUrl) {
                 guard let imageData = image.pngData() else { return }
                 let pasteboardItems: [String: Any] = [

@@ -18,6 +18,7 @@ enum Environment: String {
             static let baseURL = "BASE_URL"
             static let kakaoNativeAppKey = "KAKAO_NATIVE_APP_KEY"
             static let defaultProfileImageURL = "DEFAULT_PROFILE_IMAGE_URL"
+            static let facebookAppID = "FACEBOOK_APP_ID"
         }
     }
     
@@ -43,6 +44,13 @@ enum Environment: String {
     static let defaultProfileImageURL: String = {
         guard let string = Environment.infoDictionary[Keys.Plist.defaultProfileImageURL] as? String else {
             fatalError("DEFAULT_PROFILE_IMAGE_URL not set in plist for this environment")
+        }
+        return string
+    }()
+    
+    static let FACEBOOK_APP_ID: String = {
+        guard let string = Environment.infoDictionary[Keys.Plist.facebookAppID] as? String else {
+            fatalError("FACEBOOK_APP_ID not set in plist for this environment")
         }
         return string
     }()
